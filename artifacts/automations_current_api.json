@@ -1,0 +1,324 @@
+{
+  "automations": [
+    {
+      "success": true,
+      "httpCode": 200,
+      "list": [
+        {
+          "uid": "c740980d-759a-4e5e-b310-35045750c45b",
+          "payload": {
+            "request_id": "64233ef0-02ce-431a-b457-8b643169bff9",
+            "lcm": false,
+            "message": "Hey there… \n\nI noticed you decided to follow me. That means something caught your attention, right? \n\nTell me what was it? 😏",
+            "media": []
+          },
+          "delay": 30,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FAN",
+            "name": "Non Follower",
+            "info": "Registered user who doesn't follow you"
+          },
+          "action": {
+            "id": "FOLLOWS",
+            "name": "Follows"
+          },
+          "version": 2,
+          "message": {
+            "uid": "c740980d-759a-4e5e-b310-35045750c45b",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "Hey there… \n\nI noticed you decided to follow me. That means something caught your attention, right? \n\nTell me what was it? 😏",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        },
+        {
+          "uid": "3f4b494b-a157-4d49-8308-9ee29ca2fc5d",
+          "payload": {
+            "request_id": "3b0c380f-caa6-4daa-becc-17688cbe6d3c",
+            "lcm": false,
+            "message": "Looks like you just joined the inner circle… I like that. Get comfortable  things get a lot more personal in here. What made you finally say yes? 😉\n\nBenefits :\n70% discount on my video and messaging store, exclusive access to my exclusive content of my Timeline and  one Show Live Free for week",
+            "media": []
+          },
+          "delay": 30,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FAN",
+            "name": "Non Follower",
+            "info": "Registered user who doesn't follow you"
+          },
+          "action": {
+            "id": "SUBSCRIBES",
+            "name": "Subscribes"
+          },
+          "version": 2,
+          "message": {
+            "uid": "3f4b494b-a157-4d49-8308-9ee29ca2fc5d",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "Looks like you just joined the inner circle… I like that. Get comfortable  things get a lot more personal in here. What made you finally say yes? 😉\n\nBenefits :\n70% discount on my video and messaging store, exclusive access to my exclusive content of my Timeline and  one Show Live Free for week",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        },
+        {
+          "uid": "1bdda9eb-6db7-4081-b8b7-8befa9a4f57f",
+          "payload": {
+            "request_id": "15e0a195-2e7a-4b78-b824-af187471cc59",
+            "lcm": false,
+            "message": "So… you couldn’t resist, huh? I get it. That one’s a favorite for a reason. Tell me did it leave you wanting more? 😏",
+            "media": []
+          },
+          "delay": 30,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FAN",
+            "name": "Non Follower",
+            "info": "Registered user who doesn't follow you"
+          },
+          "action": {
+            "id": "VIDEO_STORE_PURCHASE",
+            "name": "Buys a video from video store"
+          },
+          "version": 2,
+          "message": {
+            "uid": "1bdda9eb-6db7-4081-b8b7-8befa9a4f57f",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "So… you couldn’t resist, huh? I get it. That one’s a favorite for a reason. Tell me did it leave you wanting more? 😏",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        },
+        {
+          "uid": "1d0aa4b9-7d83-4841-abac-0b86069f32d9",
+          "payload": {
+            "request_id": "545e1450-8117-407e-b12e-68ea22050d54",
+            "lcm": false,
+            "message": "Close your eyes and let my voice take you exactly where you want to be… or where I want you to be. 😉",
+            "media": []
+          },
+          "delay": 15,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FAN",
+            "name": "Non Follower",
+            "info": "Registered user who doesn't follow you"
+          },
+          "action": {
+            "id": "AUDIO_STORE_PURCHASE",
+            "name": "Buys a audio from audio store"
+          },
+          "version": 2,
+          "message": {
+            "uid": "1d0aa4b9-7d83-4841-abac-0b86069f32d9",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "Close your eyes and let my voice take you exactly where you want to be… or where I want you to be. 😉",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        },
+        {
+          "uid": "b2e69acc-7225-449f-9efb-fe421e06be82",
+          "payload": {
+            "request_id": "03d7bede-7b43-49be-b980-551bd0f858c9",
+            "lcm": false,
+            "message": "Looks like you just joined the inner circle… I like that. Get comfortable things get a lot more personal in here. What made you finally say yes? 😉\n\nBenefits :\n70% discount on my video and messaging store, exclusive access to my exclusive content of my Timeline and one Show Live Free for week",
+            "media": []
+          },
+          "delay": 30,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FOLLOWER",
+            "name": "Follower",
+            "info": "Not subscribed"
+          },
+          "action": {
+            "id": "SUBSCRIBES",
+            "name": "Subscribes"
+          },
+          "version": 2,
+          "message": {
+            "uid": "b2e69acc-7225-449f-9efb-fe421e06be82",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "Looks like you just joined the inner circle… I like that. Get comfortable things get a lot more personal in here. What made you finally say yes? 😉\n\nBenefits :\n70% discount on my video and messaging store, exclusive access to my exclusive content of my Timeline and one Show Live Free for week",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        },
+        {
+          "uid": "423a9729-a9c3-4b2d-abc2-7ab9d3f69f79",
+          "payload": {
+            "request_id": "9cc48d8e-4705-43ae-9844-352a76309788",
+            "lcm": false,
+            "message": "So… you couldn’t resist, huh? I get it. That one’s a favorite for a reason. Tell me did it leave you wanting more? 😏",
+            "media": []
+          },
+          "delay": 30,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FOLLOWER",
+            "name": "Follower",
+            "info": "Not subscribed"
+          },
+          "action": {
+            "id": "VIDEO_STORE_PURCHASE",
+            "name": "Buys a video from video store"
+          },
+          "version": 2,
+          "message": {
+            "uid": "423a9729-a9c3-4b2d-abc2-7ab9d3f69f79",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "So… you couldn’t resist, huh? I get it. That one’s a favorite for a reason. Tell me did it leave you wanting more? 😏",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        },
+        {
+          "uid": "86a2a9df-b182-4df0-b640-bf7bf453d556",
+          "payload": {
+            "request_id": "cd451abe-b240-4fc4-8e5e-13e6144f425d",
+            "lcm": false,
+            "message": "My voice in your ears, my words in your mind… Let’s see how much you can handle. 😈",
+            "media": []
+          },
+          "delay": 15,
+          "status": 2,
+          "active": true,
+          "rule": {
+            "id": "FOLLOWER",
+            "name": "Follower",
+            "info": "Not subscribed"
+          },
+          "action": {
+            "id": "AUDIO_STORE_PURCHASE",
+            "name": "Buys a audio from audio store"
+          },
+          "version": 2,
+          "message": {
+            "uid": "86a2a9df-b182-4df0-b640-bf7bf453d556",
+            "created_at": {
+              "date": "2026-10-13 01:41:57",
+              "timezone_type": 3,
+              "timezone": "UTC"
+            },
+            "message": "My voice in your ears, my words in your mind… Let’s see how much you can handle. 😈",
+            "is_lcm": false,
+            "is_locked": false,
+            "price": null,
+            "own": true,
+            "version": 2,
+            "expiration_date": ""
+          }
+        }
+      ],
+      "pagination": {
+        "page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 7
+      }
+    }
+  ],
+  "rules": [
+    {
+      "success": true,
+      "httpCode": 200,
+      "recipients": {
+        "SUBSCRIBER": {
+          "id": "SUBSCRIBER",
+          "name": "Subscriber",
+          "info": "Active paying subscriber",
+          "actions": {
+            "VIDEO_STORE_PURCHASE": {
+              "id": "VIDEO_STORE_PURCHASE",
+              "name": "Buys a video from video store"
+            },
+            "AUDIO_STORE_PURCHASE": {
+              "id": "AUDIO_STORE_PURCHASE",
+              "name": "Buys a audio from audio store"
+            },
+            "TIP": {
+              "id": "TIP",
+              "name": "Sends a tip"
+            }
+          }
+        },
+        "FOLLOWER": {
+          "id": "FOLLOWER",
+          "name": "Follower",
+          "info": "Not subscribed",
+          "actions": {
+            "TIP": {
+              "id": "TIP",
+              "name": "Sends a tip"
+            }
+          }
+        },
+        "FAN": {
+          "id": "FAN",
+          "name": "Non Follower",
+          "info": "Registered user who doesn't follow you",
+          "actions": {
+            "TIP": {
+              "id": "TIP",
+              "name": "Sends a tip"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

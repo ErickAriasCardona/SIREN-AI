@@ -1,0 +1,5 @@
+[
+  "/api/v1/auth/refresh-token",
+  "/api/v2/guest/tracking-links/touch",
+  "/api/v2/tracking-links"
+]

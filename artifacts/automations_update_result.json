@@ -1,0 +1,58 @@
+[
+  {
+    "name": "1. Non Follower Starts Following (Nuevo Seguidor)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  },
+  {
+    "name": "2. Non Follower Subscribes (Nuevo Suscriptor Directo)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  },
+  {
+    "name": "3. Non Follower Buys Video (Compra Video en Tienda)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  },
+  {
+    "name": "4. Non Follower Buys Audio (Compra Audio en Tienda)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  },
+  {
+    "name": "5. Follower Subscribes (Seguidor se Convierte en Suscriptor)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  },
+  {
+    "name": "6. Follower Buys Video (Seguidor Compra Video)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  },
+  {
+    "name": "7. Follower Buys Audio (Seguidor Compra Audio)",
+    "res": {
+      "status": 200,
+      "success": true,
+      "httpCode": 200
+    }
+  }
+]

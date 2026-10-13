@@ -1,0 +1,242 @@
+{
+  "https://www.loyalfans.com/api/v2/system-status": {
+    "url": "https://www.loyalfans.com/api/v2/system-status",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{}"
+      },
+      {
+        "method": "POST",
+        "post_data": "{}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v1/auth/user/me": {
+    "url": "https://www.loyalfans.com/api/v1/auth/user/me",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      },
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/PM/list": {
+    "url": "https://www.loyalfans.com/api/v2/PM/list",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"limit\":20}"
+      },
+      {
+        "method": "POST",
+        "post_data": "{\"limit\":20}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/pornstar-badge": {
+    "url": "https://www.loyalfans.com/api/v2/pornstar-badge",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      },
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/delegate/get-delegated-to": {
+    "url": "https://www.loyalfans.com/api/v2/delegate/get-delegated-to",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{}"
+      },
+      {
+        "method": "POST",
+        "post_data": "{}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/settings/prices": {
+    "url": "https://www.loyalfans.com/api/v2/settings/prices",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/profile": {
+    "url": "https://www.loyalfans.com/api/v2/profile",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      },
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/messages": {
+    "url": "https://www.loyalfans.com/api/v2/messages",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"limit\":20,\"all\":true}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/profile/star/earnings": {
+    "url": "https://www.loyalfans.com/api/v2/profile/star/earnings",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v1/notifications": {
+    "url": "https://www.loyalfans.com/api/v1/notifications",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"limit\":20,\"group\":\"\"}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/stories/highlights": {
+    "url": "https://www.loyalfans.com/api/v2/stories/highlights",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"page\":1,\"limit\":9,\"slug\":\"sambarton23\"}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/stories": {
+    "url": "https://www.loyalfans.com/api/v2/stories",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"slug\":\"sambarton23\"}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v1/timeline": {
+    "url": "https://www.loyalfans.com/api/v1/timeline",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"limit\":4}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/scheduled-events/future": {
+    "url": "https://www.loyalfans.com/api/v2/scheduled-events/future",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"limit\":6}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/subscriptions-campaigns": {
+    "url": "https://www.loyalfans.com/api/v2/subscriptions-campaigns",
+    "methods": [
+      "POST"
+    ],
+    "samples": [
+      {
+        "method": "POST",
+        "post_data": "{\"page\":1,\"sort\":\"date\",\"dir\":\"desc\"}"
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/profile/star/videostore": {
+    "url": "https://www.loyalfans.com/api/v2/profile/star/videostore",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/profile/star/audiostore": {
+    "url": "https://www.loyalfans.com/api/v2/profile/star/audiostore",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/profile/star/subscribers": {
+    "url": "https://www.loyalfans.com/api/v2/profile/star/subscribers",
+    "methods": [
+      "GET"
+    ],
+    "samples": [
+      {
+        "method": "GET",
+        "post_data": null
+      }
+    ]
+  }
+}

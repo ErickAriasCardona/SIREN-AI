@@ -1,0 +1,116 @@
+[
+  {
+    "timestamp": "2026-10-13T00:36:51.947915+00:00",
+    "metodo_2_atributos": {
+      "root_keys": [
+        "creator",
+        "is_online",
+        "stream_info",
+        "slug",
+        "sort_code",
+        "videocall",
+        "new",
+        "live_counters",
+        "social_counters",
+        "follow",
+        "toy",
+        "categories",
+        "approved_friend"
+      ],
+      "creator_keys": [
+        "name",
+        "display_name",
+        "uid",
+        "user_type",
+        "slug",
+        "online_activity_at",
+        "sensitive_content",
+        "profile_photo",
+        "created_at",
+        "from_studio",
+        "category",
+        "dashboard_widgets",
+        "is_porn_star",
+        "is_online",
+        "cover_photo"
+      ],
+      "online_activity_at": "2026-10-12 16:03:03",
+      "is_online": false,
+      "sort_code": null,
+      "categories": []
+    },
+    "metodo_1_cohortes": [
+      {
+        "rank_position": 1,
+        "slug": "mistressnatalienyc",
+        "name": "MistressNatalieNYC",
+        "online_activity_at": "2026-10-12 16:03:03",
+        "captured_posts_count": 4,
+        "visible_dates": [
+          "hace 17 segundos\nSuscriptores",
+          "hace 3 horas\nPúblico",
+          "09 octubre, 2026 11:27 a. m.\nSuscriptores",
+          "08 octubre, 2026 12:21 p. m.\nSuscriptores"
+        ],
+        "raw_posts_timestamps": []
+      },
+      {
+        "rank_position": 2,
+        "slug": "goddesslekki",
+        "name": "Goddess Lekki",
+        "online_activity_at": "2026-10-13 00:04:50",
+        "captured_posts_count": 4,
+        "visible_dates": [
+          "hace 1 minuto\nSuscriptores",
+          "hace 10 horas\nPúblico",
+          "hace 1 día\nSuscriptores",
+          "10 octubre, 2026 02:06 p. m.\nSuscriptores"
+        ],
+        "raw_posts_timestamps": []
+      },
+      {
+        "rank_position": 3,
+        "slug": "shimmeryelegance",
+        "name": "Shimmery Elegance",
+        "online_activity_at": "2026-10-12 18:47:14",
+        "captured_posts_count": 4,
+        "visible_dates": [
+          "hace 1 minuto\nSuscriptores",
+          "hace 1 día\nSuscriptores",
+          "10 octubre, 2026 07:14 p. m.\nSuscriptores",
+          "07 octubre, 2026 11:47 a. m.\nSuscriptores"
+        ],
+        "raw_posts_timestamps": []
+      },
+      {
+        "rank_position": 4,
+        "slug": "facesittinglady",
+        "name": "Facesitting Lady aka Nikki Whiplash",
+        "online_activity_at": "2026-10-12 23:24:53",
+        "captured_posts_count": 4,
+        "visible_dates": [
+          "hace 2 minutos\nPúblico",
+          "hace 10 horas\nPúblico",
+          "hace 1 día\nPúblico",
+          "hace 1 día\nPúblico"
+        ],
+        "raw_posts_timestamps": []
+      },
+      {
+        "rank_position": 5,
+        "slug": "thenubiangoddess",
+        "name": "The Nubian Goddess",
+        "online_activity_at": "2026-09-28 01:59:24",
+        "captured_posts_count": 4,
+        "visible_dates": [
+          "hace 2 minutos\nPúblico",
+          "25 septiembre, 2026 05:51 p. m.\nPúblico",
+          "23 septiembre, 2026 03:09 p. m.\nPúblico",
+          "22 septiembre, 2026 07:28 p. m.\nPúblico"
+        ],
+        "raw_posts_timestamps": []
+      }
+    ],
+    "deducciones_algoritmicas": []
+  }
+]

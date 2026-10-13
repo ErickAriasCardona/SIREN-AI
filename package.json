@@ -1,0 +1,12 @@
+{
+  "name": "velvet-ai",
+  "version": "1.0.0",
+  "description": "VELVET AI - Super-Agente Autónomo de Inteligencia y Operaciones para la Industria Webcam",
+  "main": "posicion.js",
+  "scripts": {
+    "start": "python src/agents/super_agent.py"
+  },
+  "dependencies": {
+    "puppeteer": "^22.7.0"
+  }
+}

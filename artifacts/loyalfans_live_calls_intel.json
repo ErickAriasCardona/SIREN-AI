@@ -1,0 +1,146 @@
+{
+  "pages": {
+    "/settings/videocall": {
+      "final_url": "https://www.loyalfans.com/settings/videocall",
+      "title": "LoyalFans.com",
+      "info": {
+        "headings": [],
+        "inputs_sample": []
+      }
+    },
+    "/settings/calls": {
+      "final_url": "https://www.loyalfans.com/settings/calls",
+      "title": "LoyalFans.com",
+      "info": {
+        "headings": [],
+        "inputs_sample": []
+      }
+    },
+    "/settings/messages": {
+      "final_url": "https://www.loyalfans.com/settings/messages",
+      "title": "LoyalFans.com",
+      "info": {
+        "headings": [],
+        "inputs_sample": []
+      }
+    },
+    "/broadcast": {
+      "final_url": "https://www.loyalfans.com/broadcast",
+      "title": "LoyalFans.com",
+      "info": {
+        "headings": [],
+        "inputs_sample": []
+      }
+    },
+    "/settings/live": {
+      "final_url": "https://www.loyalfans.com/settings/live",
+      "title": "LoyalFans.com",
+      "info": {
+        "headings": [
+          "44",
+          "Lo sentimos"
+        ],
+        "inputs_sample": [
+          {
+            "type": "text",
+            "name": "search-input",
+            "checked": false,
+            "value": ""
+          },
+          {
+            "type": "MAT-SLIDE-TOGGLE",
+            "name": "mat-mdc-slide-toggle-0",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "DIV",
+            "name": "",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "SPAN",
+            "name": "",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "MAT-SLIDE-TOGGLE",
+            "name": "mat-mdc-slide-toggle-1",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "DIV",
+            "name": "",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "SPAN",
+            "name": "",
+            "checked": null,
+            "value": null
+          }
+        ]
+      }
+    },
+    "/live": {
+      "final_url": "https://www.loyalfans.com/live",
+      "title": "LoyalFans.com",
+      "info": {
+        "headings": [],
+        "inputs_sample": [
+          {
+            "type": "text",
+            "name": "search-input",
+            "checked": false,
+            "value": ""
+          },
+          {
+            "type": "MAT-SLIDE-TOGGLE",
+            "name": "mat-mdc-slide-toggle-0",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "DIV",
+            "name": "",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "SPAN",
+            "name": "",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "MAT-SLIDE-TOGGLE",
+            "name": "mat-mdc-slide-toggle-1",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "DIV",
+            "name": "",
+            "checked": null,
+            "value": null
+          },
+          {
+            "type": "SPAN",
+            "name": "",
+            "checked": null,
+            "value": null
+          }
+        ]
+      }
+    }
+  },
+  "relevant_apis": {
+    "https://www.loyalfans.com/api/v2/profile/star/live": [
+      "GET"
+    ]
+  }
+}

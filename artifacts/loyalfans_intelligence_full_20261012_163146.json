@@ -1,0 +1,355 @@
+{
+  "metadata": {
+    "platform": "LoyalFans",
+    "base_url": "https://www.loyalfans.com",
+    "support_url": "https://loyalfans.zendesk.com",
+    "scan_timestamp": "2026-10-12T16:31:46.171242",
+    "total_official_articles_extracted": 29
+  },
+  "herramientas_y_funcionalidades": {
+    "tienda_de_video": {
+      "nombre": "Video Store & Clips",
+      "descripcion": "Venta directa de clips de vídeo a la carta sin requerir suscripción mensual al muro.",
+      "caracteristicas": [
+        "Soporte para trailers o vistas previas gratuitas (teasers) con marca de agua.",
+        "Fijación de precio libre en USD.",
+        "Venta perpetua (Pay-Per-View Video Store) accesible para cualquier visitante del perfil.",
+        "Categorización por fetiches, fetiches BDSM, tabú y nichos específicos."
+      ]
+    },
+    "tienda_de_audio": {
+      "nombre": "Audio Store & Podcasting",
+      "descripcion": "Herramienta nativa exclusiva de LoyalFans para monetizar notas de voz, audios eróticos, ASMR, gemidos y fantasías guiadas.",
+      "caracteristicas": [
+        "Ideal para modelos 'faceless' (sin rostro) o creadoras de audio-erótica.",
+        "Venta unitaria de pistas de audio en USD.",
+        "Permite muestras previas de 5 a 15 segundos para enganchar al comprador."
+      ]
+    },
+    "muro_timeline_stories": {
+      "nombre": "Timeline, Stories & Highlights",
+      "descripcion": "Feed social dinámico con historias temporales y momentos destacados permanentes.",
+      "caracteristicas": [
+        "Stories de 24 horas para generar sensación de urgencia (FOMO).",
+        "Highlights anclados en el perfil por temáticas (ej: 'Lencería', 'Detrás de cámaras', 'Reviews de fans').",
+        "Publicaciones públicas (para indexar en Explore) y publicaciones bloqueadas solo para suscriptores."
+      ]
+    },
+    "one_on_one_y_llamadas": {
+      "nombre": "One-on-One & Private Interactions",
+      "descripcion": "Módulo de sesiones privadas en vivo directamente en la plataforma web.",
+      "caracteristicas": [
+        "Cam 2 Cam (transmisión bidireccional privada).",
+        "Llamadas de voz y videollamadas con tarifa por minuto configurada por la modelo.",
+        "Programación previa de citas o disponibilidad instantánea en línea."
+      ]
+    },
+    "transmisiones_en_vivo_go_live": {
+      "nombre": "Go Live & Interactive Toy Integration",
+      "descripcion": "Streaming en vivo público o exclusivo para fans con objetivos de propinas y sinergia con juguetes inteligentes.",
+      "caracteristicas": [
+        "Integración nativa con juguetes Lovense (Lush, Domi, Max, etc.) y Kiiroo mediante Bluetooth/Bridge.",
+        "Reacción automática del juguete ante propinas recibidas en tiempo real.",
+        "Tip Goals (metas de propinas) configurables en pantalla para motivar gasto colectivo."
+      ]
+    },
+    "mensajes_masivos_y_shoutouts": {
+      "nombre": "Mass DMs & Shoutouts",
+      "descripcion": "Monetización conversacional y solicitudes de contenido personalizado.",
+      "caracteristicas": [
+        "Mass DM con contenido bloqueado de pago (PPV) enviado a todos los seguidores o suscriptores.",
+        "Regla de respuesta de pago: el fan paga por enviar un mensaje privado prioritario.",
+        "Shoutouts: solicitudes personalizadas donde la modelo define tiempo de entrega y precio base."
+      ]
+    },
+    "privacidad_y_geobloqueo": {
+      "nombre": "Settings Privacy and Safety",
+      "descripcion": "Controles de seguridad avanzados para la protección de la creadora.",
+      "caracteristicas": [
+        "Geobloqueo granular por países completos o estados/ciudades específicas.",
+        "Bloqueo de rangos IP y usuarios específicos.",
+        "Cuentas delegadas (Delegated Accounts) para asistentes o estudios que gestionan el chat sin comprometer datos bancarios."
+      ]
+    }
+  },
+  "facturacion_y_finanzas": {
+    "reparto_de_ingresos": "80% para la Creadora / Modelo, 20% para LoyalFans.",
+    "comision_plataforma": "20% plano sin comisiones ocultas en suscripciones, clips, propinas y llamadas.",
+    "frecuencia_de_pago": "2 veces al mes (Bi-monthly / Quincenal). Periodos de cierre con proceso en aprox 7 días hábiles.",
+    "monto_minimo_retiro": "$50 USD acumulados en el balance disponible.",
+    "metodos_de_pago_disponibles": [
+      "Paxum (E-Wallet recomendada para la industria de adultos, acreditación rápida).",
+      "Bank Wire / Transferencia Bancaria Internacional (SWIFT / SEPA).",
+      "Direct Deposit / ACH (disponible para cuentas en EE.UU.)."
+    ],
+    "rangos_de_precios_permitidos": {
+      "suscripcion_mensual": "Desde $1.00 USD hasta $50.00 USD por mes.",
+      "subscription_bundles": "Descuentos por paquetes de 3, 6 o 12 meses.",
+      "promotional_campaigns": "Campañas de descuento con tiempo límite y cupos máximos de suscriptores."
+    }
+  },
+  "algoritmo_y_estrategia_de_visibilizacion": {
+    "mecanismo_del_algoritmo": {
+      "diferencia_clave": "A diferencia de OnlyFans (que es ciego y exige 100% de tráfico externo de Twitter/TikTok), LoyalFans cuenta con un motor de búsqueda interno y feeds de recomendación pública.",
+      "explore_feed": "El feed de 'Explore' y 'For You' recomienda creadoras basadas en interacciones recientes y etiquetas de búsqueda.",
+      "velocidad_de_engagement": "Los posts que reciben propinas, likes o desbloqueos durante sus primeros 60 minutos son impulsados al tope del muro de tendencias."
+    },
+    "seo_interno_y_etiquetas": {
+      "indexacion_de_perfil": "La biografía, el nombre de pantalla y las descripciones de los clips son indexados por el buscador interno.",
+      "estrategia_de_tags": "El uso de tags de nichos específicos (fetish, cosplay, milf, findom, femdom, petite, ebony, latinas) atrae compradores directos que buscan específicamente con dinero en mano.",
+      "evitar_saturacion": "Se recomienda combinar 2 tags generales populares con 3 tags altamente específicos del fetiche o vestuario del set."
+    },
+    "multiplicadores_de_visibilidad": [
+      {
+        "accion": "Transmitir en Vivo (Go Live)",
+        "impacto": "MÁXIMO. Las modelos en vivo aparecen con badge destacado y prioridad visual en el directorio principal de la plataforma."
+      },
+      {
+        "accion": "Publicar Teasers Públicos con Tags",
+        "impacto": "ALTO. Un perfil 100% bloqueado es invisible para el algoritmo. Publicar 1-2 fotos o vídeos cortos públicos al día alimenta el Explore Feed."
+      },
+      {
+        "accion": "Stories de 24 Horas",
+        "impacto": "MEDIO-ALTO. Mantiene a la modelo en la barra superior de historias de los usuarios activos."
+      },
+      {
+        "accion": "Integración con Juguetes Lovense",
+        "impacto": "ALTO. Muchos usuarios filtran activamente por 'Interactive Toy Active' para interactuar por propinas."
+      }
+    ]
+  },
+  "articulos_oficiales_extraidos": [
+    {
+      "id": 13918193771676,
+      "title": "LoyalFans x Kiiroo: Installation & Setup",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/13918193771676-LoyalFans-x-Kiiroo-Installation-Setup",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-07T15:48:42Z",
+      "summary": "Get Ready! Prepare your Kiiroo toy, make sure you have a stable Internet connection. You will need to download the FeelConnect app. If you are using an IOS device (iPhone/iPad): Prerequisite: Go into the AppStore and search for 'FeelConnect 3.' Then, download the app. Follow the steps below. 1. Open the FeelConnect 3 app once it’s downloaded. 2. Tap the connect device button on your app (make sure Bluetooth is on), and pair the toy. 3. Once you c..."
+    },
+    {
+      "id": 11499313938460,
+      "title": "LoyalFans x Lovense: Installation & Setup",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/11499313938460-LoyalFans-x-Lovense-Installation-Setup",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-11T14:43:16Z",
+      "summary": "Get Ready! Prepare your Lovense Toy, make sure you have a stable Internet connection, and make sure you have a Lovense USB Dongle ready. You can acquire both the Lovense Toy and USB Dongle from the Lovense store right here . Step 1: Download Lovense Connect (PC Version) Begin by visiting the official Lovense download page to get the Lovense Connect PC version. Once the download is complete, double click the file to initiate the installation proce..."
+    },
+    {
+      "id": 10231403058588,
+      "title": "Shoutouts",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10231403058588-Shoutouts",
+      "section_id": 10062179429532,
+      "updated_at": "2026-09-29T17:46:04Z",
+      "summary": "Shout Outs Shout Out is the LoyalFans feature to create short non-professional mini-custom videos for your fans by request. It is a great way to be seen and receive requests for more expensive custom video orders. The Shout out is only accessible from one location: on the top navigation bar. It is the fourth icon. Click on the icon to open the Shout Out feature. Enable Shout Outs: The offer Shout Outs toggle ON/ GREEN the first option on the page..."
+    },
+    {
+      "id": 10231319721372,
+      "title": "One on One",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10231319721372-One-on-One",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-07T23:25:20Z",
+      "summary": "One on One / Desktop Overview One on One is the LoyalFans feature to use to make AUDIO or VIDEO Call for one on one shows/calls with fans. Your fans will see you and hear you and you will also hear or see your fans' cameras and their voice. To Start your One on One Calls: The One on One feature is located at the top of the main dashboard. Locate VIDEO CALL AVAILABILITY under your avatar and toggle it ON to activate it and to get you listed on the..."
+    },
+    {
+      "id": 10231272897052,
+      "title": "Go Live",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10231272897052-Go-Live",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-01T19:53:15Z",
+      "summary": "Go Live Go Live is the LoyalFans feature to use to do LIVE Cam Shows for your fans. Your fans will see you and hear you but you will not hear or see your fans. The Go Live feature is accessible from two locations. The first location is on top of your timeline, click on the fourth tab to access it. Go Live is also located at the top of the main dashboard. Locate Go Live under your avatar and click on it. Your Go Live feature will open. Select your..."
+    },
+    {
+      "id": 10228988026396,
+      "title": "Timeline Stories and Highlights",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10228988026396-Timeline-Stories-and-Highlights",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-03T21:24:07Z",
+      "summary": "Stories - Overview The Create Your Story allows you to share photos and videos that disappear from your profile and feed after 24 hours, unless you add them to your profile as story highlights . They appear in a vertical format and are fast, memorable, and entertaining for your fans. In Stories you can advertise your latest projects, latest updates, upcoming Go LIVE or ONE on ONES or any new updates on your profile. Stories are also a great way t..."
+    },
+    {
+      "id": 10223613227676,
+      "title": "Audio Store Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10223613227676-Audio-Store-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-07-22T01:41:43Z",
+      "summary": "Audio Store The Audio Store is a stand alone feature on your Loyalfans profile. All audio clips listed in your audio store can be purchased individually and are not available to your subscribers as part of their profile subscription. This section allows you to upload and sell individual audio clips to all your fans (public, followers and subscribers). It is a library of your audio clips that is always visible and available to your fans. The audio..."
+    },
+    {
+      "id": 10223634538396,
+      "title": "Video Store- How to Add A New Clip",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10223634538396-Video-Store-How-to-Add-A-New-Clip",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-11T16:15:57Z",
+      "summary": "To Add a new video Clip: To add a new video clip to your clip store, click on the Gray Button Bar all the way at the top of your screen: ADD VIDEO TO MY VIDEO STORE A new window will open The first field is VIDEO TITLE. In this first field enter the title of the video clip you want to add to your video store. You can enter up to 150 characters. The second field is VIDEO DESCRIPTION . In this second field enter the description for the video clip y..."
+    },
+    {
+      "id": 10215575036828,
+      "title": "Timeline How to Add Promotional Campaigns",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10215575036828-Timeline-How-to-Add-Promotional-Campaigns",
+      "section_id": 10062179429532,
+      "updated_at": "2026-06-07T03:15:17Z",
+      "summary": "Timeline/Add Promotional Campaigns The Timeline / Add Promotional Campaign section allows you to add discounted subscriptions offers on your timeline to your fans. You can add one Public promotional campaign to your profile Timeline and as many private promotional campaigns as you wish to create, but all private promotional campaigns will only be visible to you. The public promotional campaign will be posted at the top of your Timeline allowing y..."
+    },
+    {
+      "id": 10215590712988,
+      "title": "Timeline How to add Subscription Bundles",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10215590712988-Timeline-How-to-add-Subscription-Bundles",
+      "section_id": 10062179429532,
+      "updated_at": "2024-03-03T12:26:42Z",
+      "summary": "Timeline/ Add Subscription Bundle The Timeline / Add Subscription Bundle section allows you to add discounted subscription offers on your timeline to your fans. You can add three Subscription Bundles to your profile Timeline. The Subscription Bundles you create will be posted at the top of your Timeline allowing you fans to view them and to subscribe to your timeline at discounted rates for a longer amount of time. To Add A Subscription Bundle Yo..."
+    },
+    {
+      "id": 10215569831580,
+      "title": "Timeline How To Create a  New Post",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10215569831580-Timeline-How-To-Create-a-New-Post",
+      "section_id": 10062179429532,
+      "updated_at": "2026-08-14T01:52:08Z",
+      "summary": "Timeline/Create New Post - Desktop Overview The Timeline / Create a new post.. section allows you to post new timeline posts for your fans that will be visible in your fans feed. To create a new post Click on the gray bar button Create new post… at the top of the Timeline section next to your avatar: A window will open: Create timeline post The first drop down field: SUBSCRIBERS allows you to select your audience for your timeline post. Who do yo..."
+    },
+    {
+      "id": 10122518794268,
+      "title": "Walkthrough Information",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10122518794268-Walkthrough-Information",
+      "section_id": 10062179429532,
+      "updated_at": "2026-07-25T21:25:12Z",
+      "summary": "Do you need a little bit of help navigating the site and the different functions? On top of hosting live weekly walkthroughs on Calendly we also have Prerecorded Walkthrough Videos made by Anastasia Pierce that cover the same information! If you'd prefer a walkthrough in French, Italian, or Spanish please reach out to Support@loyalfans.com and, you can request that one of our amazing staff members help you in your preferred language."
+    },
+    {
+      "id": 10063766828060,
+      "title": "Settings Audio Store Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063766828060-Settings-Audio-Store-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-06-03T21:19:58Z",
+      "summary": "Settings Audio Store Overview Audio Store Overview The SETTINGS / Audio Store section allows you to set default download options for your audio store. You will find 4 tabs in the SETTINGS / Audio Store section: The DEFAULT DOWNLOAD OPTION gives you the ability to toggle ON or OFF the download option for posting new audio in your audio store. The DEFAULT AUDIO PRICE allows you to set a default price for all audios in your audio store. The MASS ACT..."
+    },
+    {
+      "id": 10063719595036,
+      "title": "Settings Video Store Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063719595036-Settings-Video-Store-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-07-12T18:05:01Z",
+      "summary": "Settings Video Store Overview Video Store Overview The SETTINGS / Video Store section allows you to set general and discounts default settings for all clips uploaded to your video store. These settings can be modified later when uploading each new clip in your video store. You will find 2 tabs in the SETTINGS / Video Store section: The General tab: Allows you to manage Video Store General Settings. The Discounts tab: Allows you to manage video St..."
+    },
+    {
+      "id": 10063733061404,
+      "title": "Settings Stream Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063733061404-Settings-Stream-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2023-08-20T23:33:37Z",
+      "summary": "Settings/ Stream Overview Stream The SETTINGS / STREAM section allows you to set the default private price for all streams in the GO LIVE Feature. For Go Private Shows."
+    },
+    {
+      "id": 10063706834460,
+      "title": "Settings Privacy And Safety Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063706834460-Settings-Privacy-And-Safety-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-03T05:48:30Z",
+      "summary": "Settings Privacy And Safety Overview Account Privacy/ Blocked Regions/ Watermark The SETTINGS / Privacy And Safety section allows you to set and manage your account privacy, your visibility and enable watermarks options for your LoyalFans account. You will find 3 tabs in the SETTINGS / Privacy And Safety section: The Account Privacy tab: Allows you to set and manage account Privacy by toggling on or off options. The Blocked Regions tab: Allow you..."
+    },
+    {
+      "id": 10063694589596,
+      "title": "Settings Promo Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063694589596-Settings-Promo-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-08-21T20:20:54Z",
+      "summary": "Settings Promo Overview Referrals/ Widgets The SETTINGS Promo Tools section allows you to set and manage your promotional tools for your LoyalFans Profile. You will find 3 tabs in the SETTINGS / Promo Tools section: The Referrals tab: Allows you to view your referral activity. The Widgets tab: Allows you to create embeddable widgets and tools The Social tab: Allows you to connect your Twitter and manage autotweet settings and options. Referrals L..."
+    },
+    {
+      "id": 10063704998044,
+      "title": "Settings Profile Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063704998044-Settings-Profile-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-06-29T09:51:15Z",
+      "summary": "Settings Profile Overview Edit Profile Setting The SETTINGS Profile section allows you to edit your profile, the photos of your profile and all profile options for your LoyalFans account. The two top gray buttons on the left EDIT PROFILE PHOTO / EDIT COVER PHOTO allow you to add or edit your LoyalFans profile photo and LoyalFans banner profile. The EDIT PROFILE PHOTO allows you to add or edit your profile photo, the photo for your avatar. The rou..."
+    },
+    {
+      "id": 10063692946588,
+      "title": "Settings Notification Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063692946588-Settings-Notification-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2023-08-20T20:47:50Z",
+      "summary": "Settings/ Notifications Overview E-mail Notifications/ Internal Notifications The SETTINGS /Notifications section allows you to manage your email and internal notifications settings for your LoyalFans account. You will find 2 tabs in the SETTINGS / Notifications section: The Email Notifications tab: Allows you to manage your e-mail notifications settings. The Internal notification tab: Allows you to manage your internal notifications settings. Em..."
+    },
+    {
+      "id": 10063696766236,
+      "title": "Settings Messages Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063696766236-Settings-Messages-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-09-04T00:59:52Z",
+      "summary": "Setting/ Messages Overview Messages Prices/Messages Automation/ Messages Settings The SETTINGS / Messages section allows you to set and manage messages pricing, message automation and additional message settings for your LoyalFans account. You will find 3 tabs in the SETTINGS / Messages section: The Messages Prices tab: Allows you to set and manage message pricing for followers, Subscribers and Individual Fans. The Messages Automation tab: Allows..."
+    },
+    {
+      "id": 10063695754268,
+      "title": "Settings Display Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063695754268-Settings-Display-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2023-08-20T19:05:21Z",
+      "summary": "Settings/Display - Desktop Overview Show Top Percent Badge in Menu/Dark Mode The SETTINGS / Display section allows you the display option of the top percent badge in your menu and to select the dark mode view for LoyalFans account. You will find 2 tabs in the SETTINGS / Display section: The Show Top Percent Badge in Menu tab: This badge is only available for top 30% creators based on earnings over the past 7 days. If toggle to red it will display..."
+    },
+    {
+      "id": 10063684095004,
+      "title": "Settings Account Overview",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/10063684095004-Settings-Account-Overview",
+      "section_id": 10062179429532,
+      "updated_at": "2026-10-05T02:14:40Z",
+      "summary": "Settings/ Account Account Settings/Security/ Linked Accounts /Delegated Accounts The SETTINGS / Account section allows you to set and manage your account settings, security, linked accounts and delegated account for your LoyalFans account. You will find 4 tabs in the SETTINGS / Account section: The Account Settings tab: Allows you to manage your email address(es) and email address recovery. The Security tab: Allows you to manage your LoyalFans pa..."
+    },
+    {
+      "id": 9454876274204,
+      "title": "How to sign-up for LoyalFans.com",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/9454876274204-How-to-sign-up-for-LoyalFans-com",
+      "section_id": 9454755352092,
+      "updated_at": "2026-10-12T10:40:02Z",
+      "summary": "Registering for a fan account at LoyalFans.com is extremely easy. Once you get to this page: Please do the following steps: Click Register Fan Account Fill in a Nickname Fill in an Email Fill in a Password Tick the box that says, \"By clicking on Create Free Account, I acknowledge that I am 18+ years old and I accept the Terms & Conditions\" Or You can also sign up with your Twitter or Google account by clicking those links."
+    },
+    {
+      "id": 9455788025244,
+      "title": "What do you get with a subscription?",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/9455788025244-What-do-you-get-with-a-subscription",
+      "section_id": 9454755352092,
+      "updated_at": "2026-09-26T14:20:59Z",
+      "summary": "With a subscription, you receive comprehensive access to the creator's timeline. This access encompasses not only the free posts but also exclusive posts reserved for subscribers, thereby providing a much richer and more immersive experience. For a whole 30 days, you'll have the freedom to explore and indulge in as much content as the creator puts out. Additionally, some creators may offer special pricing arrangements for subscriber messages and ..."
+    },
+    {
+      "id": 9455895732380,
+      "title": "Free Trials, Discounted Subscriptions, and Bundles",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/9455895732380-Free-Trials-Discounted-Subscriptions-and-Bundles",
+      "section_id": 9454755352092,
+      "updated_at": "2026-10-03T19:48:16Z",
+      "summary": "Free Trials Occasionally, creators may provide free trial periods. You'll need to register a credit card with us to be able to use these. We perform a nominal 10-cent test charge to confirm the card's validity. Rest assured, this amount will be refunded to your card promptly. You'll be charged for the first month's subscription upon completion of the trial period. This billing process will continue on a recurring basis until you decide to cancel ..."
+    },
+    {
+      "id": 9455997880348,
+      "title": "Video Store - Streaming, Downloads, and Discounts",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/9455997880348-Video-Store-Streaming-Downloads-and-Discounts",
+      "section_id": 9454755352092,
+      "updated_at": "2026-10-11T23:05:10Z",
+      "summary": "The video store is an independent feature that enables you to acquire both streaming and downloadable videos. Creators have the liberty to provide discounts to their subscribers, followers, specific groups, or individual users. Please note, not all creators permit downloads. If you're interested in downloadable clips, look for the tag indicating 'downloads'. Otherwise, you will receive a streaming version of the clip that you'll permanently own. ..."
+    },
+    {
+      "id": 9455677313820,
+      "title": "How to cancel a subscription",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/9455677313820-How-to-cancel-a-subscription",
+      "section_id": 9454755352092,
+      "updated_at": "2026-07-21T18:15:29Z",
+      "summary": "Canceling a subscription can be done multiple ways: Visit this page to see all of your active subscriptions: https://www.loyalfans.com/my-friends/subscribed -- all you have to do is press the CANCEL button and you will not be rebilled again: You can also cancel the subscription on the top of the timeline of the person you're following: Just clicked the subscribed link and then this will popup: This will allow you to unsubscribe to a model. If you..."
+    },
+    {
+      "id": 9455879727132,
+      "title": "Reporting a Creator - TOS Violations",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/9455879727132-Reporting-a-Creator-TOS-Violations",
+      "section_id": 9454755352092,
+      "updated_at": "2026-09-22T00:25:43Z",
+      "summary": "If you find a creator infringing the site's terms of service or engaging in any illegal activity, kindly use the three-dot ellipsis, also known as the Overflow Menu, to access the report feature. You might be reached out to by our support team to provide further clarification on the creator's actions that breach our site's terms of service."
+    },
+    {
+      "id": 6225006558482,
+      "title": "Contacting Loyalfans.com",
+      "url": "https://loyalfans.zendesk.com/hc/en-us/articles/6225006558482-Contacting-Loyalfans-com",
+      "section_id": 9454755352092,
+      "updated_at": "2026-08-16T13:49:19Z",
+      "summary": "Please reach out to support directly via support@loyalfans.com . This is the best way to reach us for all your questions related to site functions, suggestions, payout questions, and more!"
+    }
+  ]
+}

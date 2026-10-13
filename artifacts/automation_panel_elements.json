@@ -1,0 +1,134 @@
+[
+  {
+    "tag": "SPAN",
+    "class": "mat-content mat-content-hide-toggle",
+    "text": "Cuando un no seguidor empieza a seguir",
+    "html": "<span class=\"mat-content mat-content-hide-toggle\"><mat-panel-title _ngcontent-ng-c2493066598=\"\" class=\"mat-expansion-panel-header-title\"><div _ngconte"
+  },
+  {
+    "tag": "SPAN",
+    "class": "lf-delete-outline",
+    "text": "",
+    "html": "<span _ngcontent-ng-c2493066598=\"\" class=\"lf-delete-outline\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "lf-pencil-edit",
+    "text": "",
+    "html": "<span _ngcontent-ng-c2493066598=\"\" class=\"lf-pencil-edit\"></span>"
+  },
+  {
+    "tag": "BUTTON",
+    "class": "mdc-switch mdc-switch--selected mdc-switch--checked",
+    "text": "",
+    "html": "<button role=\"switch\" type=\"button\" class=\"mdc-switch mdc-switch--selected mdc-switch--checked\" tabindex=\"0\" id=\"mat-mdc-slide-toggle-2-button\" aria-l"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-switch__track",
+    "text": "",
+    "html": "<span class=\"mdc-switch__track\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-switch__handle-track",
+    "text": "",
+    "html": "<span class=\"mdc-switch__handle-track\"><span class=\"mdc-switch__handle\"><span class=\"mdc-switch__shadow\"><span class=\"mdc-elevation-overlay\"></span></"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-switch__handle",
+    "text": "",
+    "html": "<span class=\"mdc-switch__handle\"><span class=\"mdc-switch__shadow\"><span class=\"mdc-elevation-overlay\"></span></span><span class=\"mdc-switch__ripple\"><"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-switch__shadow",
+    "text": "",
+    "html": "<span class=\"mdc-switch__shadow\"><span class=\"mdc-elevation-overlay\"></span></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-elevation-overlay",
+    "text": "",
+    "html": "<span class=\"mdc-elevation-overlay\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-switch__ripple",
+    "text": "",
+    "html": "<span class=\"mdc-switch__ripple\"><span mat-ripple=\"\" class=\"mat-ripple mat-mdc-slide-toggle-ripple mat-focus-indicator\"></span></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mat-ripple mat-mdc-slide-toggle-ripple mat-focus-indicator",
+    "text": "",
+    "html": "<span mat-ripple=\"\" class=\"mat-ripple mat-mdc-slide-toggle-ripple mat-focus-indicator\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "mdc-switch__icons ng-star-inserted",
+    "text": "",
+    "html": "<span class=\"mdc-switch__icons ng-star-inserted\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\" class=\"mdc-switch__icon mdc-switch__icon--on\"><path d=\"M1"
+  },
+  {
+    "tag": "SPAN",
+    "class": "lf-arrow-down-solid",
+    "text": "",
+    "html": "<span _ngcontent-ng-c2493066598=\"\" class=\"lf-arrow-down-solid\"></span>"
+  },
+  {
+    "tag": "BUTTON",
+    "class": "more-btn",
+    "text": "",
+    "html": "<button _ngcontent-ng-c2493066598=\"\" class=\"more-btn\"><span _ngcontent-ng-c2493066598=\"\" class=\"lf-more\"></span></button>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "lf-more",
+    "text": "",
+    "html": "<span _ngcontent-ng-c2493066598=\"\" class=\"lf-more\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "lf-pencil-edit",
+    "text": "",
+    "html": "<span _ngcontent-ng-c2493066598=\"\" class=\"lf-pencil-edit\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "lf-more",
+    "text": "",
+    "html": "<span _ngcontent-ng-c2493066598=\"\" class=\"lf-more\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "battery",
+    "text": "",
+    "html": "<span _ngcontent-ng-c1871242633=\"\" class=\"battery\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "wifi",
+    "text": "",
+    "html": "<span _ngcontent-ng-c1871242633=\"\" class=\"wifi\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "signal",
+    "text": "",
+    "html": "<span _ngcontent-ng-c1871242633=\"\" class=\"signal\"></span>"
+  },
+  {
+    "tag": "SPAN",
+    "class": "_message",
+    "text": "Hey there…\n\nI noticed you decided to follow me. That means something caught your attention, right?\n\nTell me what was it? 😏",
+    "html": "<span _ngcontent-ng-c2184450929=\"\" class=\"_message\">Hey there… <br><br>I noticed you decided to follow me. That means something caught your attention,"
+  },
+  {
+    "tag": "I",
+    "class": "lf-message-duble-check ng-star-inserted",
+    "text": "",
+    "html": "<i _ngcontent-ng-c2184450929=\"\" class=\"lf-message-duble-check ng-star-inserted\"></i>"
+  }
+]

@@ -1,0 +1,2905 @@
+{
+  "https://www.loyalfans.com/api/v2/PM/list?ngsw-bypass=true": {
+    "success": true,
+    "httpCode": 200,
+    "list": [
+      {
+        "name": "Jesse 000",
+        "display_name": "Jesse 000",
+        "uid": "RxucrvoKXpftDdnQK7y-2FtzN5zppGbxSsCfW-2BVd9rYRk",
+        "user_type": "member",
+        "slug": "jesse-000",
+        "online_activity_at": "2026-10-13 03:17:57",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2020-06-07 06:53:03",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583722954,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Kyle ky",
+        "display_name": "Kyle ky",
+        "uid": "SIBlzSqVfJtySv4CTMwj-2F-2FAHkCXOS-2B9Mbib3uszxxNU",
+        "user_type": "member",
+        "slug": "kylereed",
+        "online_activity_at": "2026-10-13 03:12:02",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2024-01-21 08:20:51",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583722244,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Clinton7",
+        "display_name": "Clinton7",
+        "uid": "h7-2B9aX3o8sN3NWlumgLloV824xeRosE01OSDowCRMks",
+        "user_type": "member",
+        "slug": "clinton7",
+        "online_activity_at": "2026-10-13 03:11:43",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2025-01-15 06:19:32",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Bronze Membership",
+          "id": 2,
+          "bonus": 2,
+          "code": "BRONZE"
+        },
+        "is_online": true,
+        "_sortIndex": 3583722206,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Papi Chulo Rodri",
+        "display_name": "Papi Chulo Rodri",
+        "uid": "xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA",
+        "user_type": "member",
+        "slug": "papichulorodri",
+        "online_activity_at": "2026-10-13 03:08:02",
+        "sensitive_content": false,
+        "profile_photo": {
+          "uid": "O5rK5B8hFuU75c-2FeJPS7EHx7VN4KOmj69MhfV0wU05I",
+          "created_at": {
+            "date": "2023-12-27 10:27:26",
+            "timezone_type": 3,
+            "timezone": "UTC"
+          },
+          "privacy": {
+            "privacy_rule": "public",
+            "privacy_coverage": "all"
+          },
+          "images": {
+            "xsmall": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726_50_50_xs.jpg",
+            "small": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726_150_150_sm.jpg",
+            "portrait-medium": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726_468_710_pmd.jpg",
+            "square": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726_475_475_sq.jpg",
+            "medium": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726_636_430_md.jpg",
+            "hd": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726_1920_1080_hd.jpg",
+            "original": "https://public-cdn2.loyalfans.com/images/xThN5nJenzAwvy0OHzzSbvJKiHr2wl-2BivbKYM8WVOCA/profile/0_65903800_1703672846_20231227102726.jpg"
+          },
+          "locked": false,
+          "blur_percentage": 0,
+          "blured_cover": null,
+          "locked_type": null,
+          "reacted": null,
+          "total_tips": 0,
+          "blocked": false
+        },
+        "created_at": {
+          "date": "2023-12-23 11:57:51",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583721764,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "blst",
+        "display_name": "blst",
+        "uid": "lPARjtSJyHBs2fFwZEvQNk4sP18jvmZcLR0YdP1XbKI",
+        "user_type": "member",
+        "slug": "Blst",
+        "online_activity_at": "2026-10-13 03:06:37",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2024-12-30 03:44:13",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583721594,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Firesparks",
+        "display_name": "Firesparks",
+        "uid": "ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0",
+        "user_type": "member",
+        "slug": "firesparks",
+        "online_activity_at": "2026-10-13 02:55:03",
+        "sensitive_content": false,
+        "profile_photo": {
+          "uid": "GKkw5eDsRWlX9j2KlB542Bds8M5dPqaDgty-2Fw4J-2FowQ",
+          "created_at": {
+            "date": "2024-09-27 05:31:51",
+            "timezone_type": 3,
+            "timezone": "UTC"
+          },
+          "privacy": {
+            "privacy_rule": "public",
+            "privacy_coverage": "all"
+          },
+          "images": {
+            "xsmall": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151_50_50_xs.jpg",
+            "small": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151_150_150_sm.jpg",
+            "portrait-medium": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151_468_710_pmd.jpg",
+            "square": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151_475_475_sq.jpg",
+            "medium": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151_636_430_md.jpg",
+            "hd": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151_1920_1080_hd.jpg",
+            "original": "https://public-cdn2.loyalfans.com/images/ESOp-2Bg0IKEOSwg8d0jvJ-2FGv-2B0XjfiYo4IqdxsEbb6m0/profile/0_94731400_1727415111_20240927053151.jpg"
+          },
+          "locked": false,
+          "blur_percentage": 0,
+          "blured_cover": null,
+          "locked_type": null,
+          "reacted": null,
+          "total_tips": 0,
+          "blocked": false
+        },
+        "created_at": {
+          "date": "2022-11-09 06:13:51",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583720206,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "robby1465",
+        "display_name": "robby1465",
+        "uid": "59lhIqzqUGiXEWgQ1I7HsBKUkMHqzgagP5qMKtOd0KM",
+        "user_type": "member",
+        "slug": "robby1465",
+        "online_activity_at": "2026-10-13 02:36:30",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2024-07-25 00:53:47",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583717980,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": true,
+        "block": true,
+        "mute": false
+      },
+      {
+        "name": "Footbitch34321",
+        "display_name": "Alphasub231",
+        "uid": "k1TwJMo5Xu9dlPuE-2BVy4iGkRuvcxWfRtjq5kQkwA-2Bis",
+        "user_type": "member",
+        "slug": "Footbitch45321",
+        "online_activity_at": "2026-10-13 00:22:52",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2023-04-02 06:33:09",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583701944,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Diggiiii00",
+        "display_name": "Diggiiii00",
+        "uid": "OJQK-2Fz7Y53fwE0kkmtRDe9hcX35JqFdBoZhlNVUTqR0",
+        "user_type": "member",
+        "slug": "Digging",
+        "online_activity_at": "2026-10-12 19:09:25",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2024-01-30 08:08:05",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Basic Membership",
+          "id": 0,
+          "bonus": 0,
+          "code": "BASIC"
+        },
+        "is_online": true,
+        "_sortIndex": 3583664330,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Ffr93",
+        "display_name": "Ffr93",
+        "uid": "VQWdeg6VOn9lnZRUi530IzRk-2F3W3SfDr8PoxHGSF3-2Bo",
+        "user_type": "member",
+        "slug": "ffr93",
+        "online_activity_at": "2026-10-12 17:13:06",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2022-05-11 23:43:20",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3583650372,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "siergiej345",
+        "display_name": "siergiej345",
+        "uid": "8E8WIsMxjQUAQxBf04aKrDwfWg0oQT3X-2F9R0EN3YzC4",
+        "user_type": "member",
+        "slug": "siergiej345",
+        "online_activity_at": "2026-10-12 15:13:58",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2022-06-10 22:49:43",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Bronze Membership",
+          "id": 2,
+          "bonus": 2,
+          "code": "BRONZE"
+        },
+        "is_online": true,
+        "_sortIndex": 3583636076,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "knightofweser",
+        "display_name": "knightofweser",
+        "uid": "X8hjrKjFuQQLCkFZBWdogFBN8IeJqFULlO-2FqcuySL7s",
+        "user_type": "member",
+        "slug": "knightofweser",
+        "online_activity_at": "2026-10-12 13:05:30",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2025-08-02 15:59:47",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Basic Membership",
+          "id": 0,
+          "bonus": 0,
+          "code": "BASIC"
+        },
+        "is_online": true,
+        "_sortIndex": 3583620660,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Terminator435",
+        "display_name": "Terminator435",
+        "uid": "i32hS2OapmrhBc8NGZUKfbgQ11BIwvlxpg2tHys0-2BS4",
+        "user_type": "member",
+        "slug": "terminator435",
+        "online_activity_at": "2026-10-12 10:13:04",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2021-09-27 19:53:17",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Blue Membership",
+          "id": 1,
+          "bonus": 1,
+          "code": "BLUE"
+        },
+        "is_online": true,
+        "_sortIndex": 3583599968,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Booot Slave",
+        "display_name": "Booot Slave",
+        "uid": "bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg",
+        "user_type": "member",
+        "slug": "__bootslut__",
+        "online_activity_at": "2026-10-12 06:01:38",
+        "sensitive_content": false,
+        "profile_photo": {
+          "uid": "Ha22ZNWtqVtjXCaPsX6ygIKEZNLwXRRWnlovHGsLSWo",
+          "created_at": {
+            "date": "2024-07-20 19:35:43",
+            "timezone_type": 3,
+            "timezone": "UTC"
+          },
+          "privacy": {
+            "privacy_rule": "public",
+            "privacy_coverage": "all"
+          },
+          "images": {
+            "xsmall": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543_50_50_xs.jpg",
+            "small": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543_150_150_sm.jpg",
+            "portrait-medium": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543_468_710_pmd.jpg",
+            "square": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543_475_475_sq.jpg",
+            "medium": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543_636_430_md.jpg",
+            "hd": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543_1920_1080_hd.jpg",
+            "original": "https://public-cdn2.loyalfans.com/images/bxnBynO8GTmZvRT6-2BJ2q6REY1UeM3IKf8SoDBEMxDvg/profile/0_19954500_1721504143_20240720193543.jpg"
+          },
+          "locked": false,
+          "blur_percentage": 0,
+          "blured_cover": null,
+          "locked_type": null,
+          "reacted": null,
+          "total_tips": 0,
+          "blocked": false
+        },
+        "created_at": {
+          "date": "2024-06-29 16:12:30",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Basic Membership",
+          "id": 0,
+          "bonus": 0,
+          "code": "BASIC"
+        },
+        "is_online": true,
+        "_sortIndex": 3583569796,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Leopaul4299",
+        "display_name": "Leopaul4299",
+        "uid": "sBMFnX9ok93TPoEE6WdbD3hEwqLr2FOIXJ-2BZnVFggWk",
+        "user_type": "member",
+        "slug": "leopaul4299",
+        "online_activity_at": "2026-10-11 01:13:12",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2025-10-16 15:46:38",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Bronze Membership",
+          "id": 2,
+          "bonus": 2,
+          "code": "BRONZE"
+        },
+        "is_online": true,
+        "_sortIndex": 3583362384,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "JanJans08941589",
+        "display_name": "JanJans08941589",
+        "uid": "vosaXU9lIy3fkqf66yNrJzIKlmnvKItt2jZ96GpHHsQ",
+        "user_type": "member",
+        "slug": "janjans08941589",
+        "online_activity_at": "2026-10-07 18:53:30",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2022-01-11 12:39:33",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Silver Membership",
+          "id": 3,
+          "bonus": 3,
+          "code": "SILVER"
+        },
+        "is_online": true,
+        "_sortIndex": 3582798420,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "dave980",
+        "display_name": "dave980",
+        "uid": "0iaUG5C6pm3kPePe-2BTjTYaL-2B2SC5jaxjTmUP5-2BslG88",
+        "user_type": "member",
+        "slug": "dave980",
+        "online_activity_at": "2026-10-07 08:01:49",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2023-02-01 10:04:15",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Basic Membership",
+          "id": 0,
+          "bonus": 0,
+          "code": "BASIC"
+        },
+        "is_online": true,
+        "_sortIndex": 3582720218,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "NCKR",
+        "display_name": "NCKR",
+        "uid": "tI1cm24CDvIQ3yc0LQQ9NJeMTxDZ4zjuQK6L0sKuRxg",
+        "user_type": "member",
+        "slug": "nckr",
+        "online_activity_at": "2026-10-03 11:53:00",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2022-03-19 01:20:24",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Blue Membership",
+          "id": 1,
+          "bonus": 1,
+          "code": "BLUE"
+        },
+        "is_online": true,
+        "_sortIndex": 3582056760,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "OwnedByGoddessKharma",
+        "display_name": "SmallDickNick",
+        "uid": "z0HhhpowbKqCo6SvV-2F4QjLSHB7qy-2BWzL2F8E75Lqye8",
+        "user_type": "member",
+        "slug": "ownedbygoddesskharma",
+        "online_activity_at": "2026-10-01 21:23:58",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2024-03-31 23:39:35",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Blue Membership",
+          "id": 1,
+          "bonus": 1,
+          "code": "BLUE"
+        },
+        "is_online": true,
+        "_sortIndex": 3581779676,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      },
+      {
+        "name": "Cbguru",
+        "display_name": "Cbguru",
+        "uid": "hhUTvwJhUEsJytUDe9s5OFJeE5ZtCbYsylS9P4RViu8",
+        "user_type": "member",
+        "slug": "cbguru",
+        "online_activity_at": "2026-09-03 17:51:09",
+        "sensitive_content": false,
+        "profile_photo": {
+          "images": {
+            "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+            "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+          },
+          "default": true
+        },
+        "created_at": {
+          "date": "2024-06-28 17:25:43",
+          "timezone_type": 3,
+          "timezone": "UTC"
+        },
+        "_membership": {
+          "label": "Basic Membership",
+          "id": 0,
+          "bonus": 0,
+          "code": "BASIC"
+        },
+        "is_online": true,
+        "_sortIndex": 3576915738,
+        "subscription_status": {
+          "canceled": null,
+          "canceled_at": null,
+          "expired_at": null,
+          "is_subscribed_to": null,
+          "subscribed_at": null,
+          "allow_subscribers": null,
+          "can_see_posts": null,
+          "subscription_availability": null
+        },
+        "friend_type": "FOLLOWER",
+        "blocked": false,
+        "block": false,
+        "mute": false
+      }
+    ],
+    "partner_count": 597,
+    "page_token": 3576915738,
+    "last_page": false
+  },
+  "https://www.loyalfans.com/api/v2/funds/earnings/months?ngsw-bypass=true": {
+    "success": true,
+    "data": [
+      {
+        "type": "LAST_30_DAYS",
+        "fromDate": "2026-09-13",
+        "toDate": "2026-10-13",
+        "total": 7.19
+      },
+      {
+        "type": "LAST_7_DAYS",
+        "fromDate": "2026-10-06",
+        "toDate": "2026-10-13",
+        "total": 0
+      },
+      {
+        "type": "TODAY",
+        "fromDate": "2026-10-13",
+        "toDate": "2026-10-13",
+        "total": 0
+      },
+      {
+        "type": "CURRENT_WEEK",
+        "fromDate": "2026-10-12",
+        "toDate": "2026-10-13",
+        "total": 0
+      },
+      {
+        "type": "YESTERDAY",
+        "fromDate": "2026-10-12",
+        "toDate": "2026-10-12",
+        "total": 0
+      },
+      {
+        "type": "LAST_WEEK",
+        "fromDate": "2026-10-05",
+        "toDate": "2026-10-11",
+        "total": 0
+      },
+      {
+        "type": "CURRENT_MONTH",
+        "fromDate": "2026-10-01",
+        "toDate": "2026-10-13",
+        "total": 0
+      },
+      {
+        "type": "LAST_MONTH",
+        "fromDate": "2026-09-01",
+        "toDate": "2026-09-30",
+        "total": 7.19
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "10",
+        "fromDate": "2026-10-01",
+        "toDate": "2026-10-31",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "09",
+        "fromDate": "2026-09-01",
+        "toDate": "2026-09-30",
+        "total": 7.19
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "08",
+        "fromDate": "2026-08-01",
+        "toDate": "2026-08-31",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "07",
+        "fromDate": "2026-07-01",
+        "toDate": "2026-07-31",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "06",
+        "fromDate": "2026-06-01",
+        "toDate": "2026-06-30",
+        "total": 32.32
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "05",
+        "fromDate": "2026-05-01",
+        "toDate": "2026-05-31",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "04",
+        "fromDate": "2026-04-01",
+        "toDate": "2026-04-30",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "03",
+        "fromDate": "2026-03-01",
+        "toDate": "2026-03-31",
+        "total": 7.65
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "02",
+        "fromDate": "2026-02-01",
+        "toDate": "2026-02-28",
+        "total": 3.27
+      },
+      {
+        "type": "month",
+        "year": "2026",
+        "month": "01",
+        "fromDate": "2026-01-01",
+        "toDate": "2026-01-31",
+        "total": 6.39
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "12",
+        "fromDate": "2025-12-01",
+        "toDate": "2025-12-31",
+        "total": 7.98
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "11",
+        "fromDate": "2025-11-01",
+        "toDate": "2025-11-30",
+        "total": 116.72
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "10",
+        "fromDate": "2025-10-01",
+        "toDate": "2025-10-31",
+        "total": 41.92
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "09",
+        "fromDate": "2025-09-01",
+        "toDate": "2025-09-30",
+        "total": 89.57
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "08",
+        "fromDate": "2025-08-01",
+        "toDate": "2025-08-31",
+        "total": 207.76
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "07",
+        "fromDate": "2025-07-01",
+        "toDate": "2025-07-31",
+        "total": 599.92
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "06",
+        "fromDate": "2025-06-01",
+        "toDate": "2025-06-30",
+        "total": 48.91
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "05",
+        "fromDate": "2025-05-01",
+        "toDate": "2025-05-31",
+        "total": 4.79
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "04",
+        "fromDate": "2025-04-01",
+        "toDate": "2025-04-30",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "03",
+        "fromDate": "2025-03-01",
+        "toDate": "2025-03-31",
+        "total": 5.2
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "02",
+        "fromDate": "2025-02-01",
+        "toDate": "2025-02-28",
+        "total": 0
+      },
+      {
+        "type": "month",
+        "year": "2025",
+        "month": "01",
+        "fromDate": "2025-01-01",
+        "toDate": "2025-01-31",
+        "total": 0
+      }
+    ]
+  },
+  "https://www.loyalfans.com/api/v2/funds/earnings/summary?ngsw-bypass=true": {
+    "GROSS": {
+      "type": "GROSS",
+      "history": {
+        "2026-10-01": 0,
+        "2026-10-02": 0,
+        "2026-10-03": 0,
+        "2026-10-04": 0,
+        "2026-10-05": 0,
+        "2026-10-06": 0,
+        "2026-10-07": 0,
+        "2026-10-08": 0,
+        "2026-10-09": 0,
+        "2026-10-10": 0,
+        "2026-10-11": 0,
+        "2026-10-12": 0,
+        "2026-10-13": 0
+      },
+      "history_by_type": {
+        "private": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "videocall": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "surprise_tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "offline_tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "vibration_tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "subscription": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "premium_content": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "clip_store": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "audio_store": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "series": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "bundle": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_audio": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_gif": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_video": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_image": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_text": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "message": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "shoutout": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "referral": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "bonus": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "chargeback": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "reimbursement": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "penalty": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        }
+      },
+      "transactions": [],
+      "count": 0,
+      "total": 0,
+      "grand_total": 0,
+      "settings": {
+        "sum_on": "credit"
+      },
+      "previous_time_interval": {
+        "count": 0,
+        "total": 0,
+        "grand_total": 0,
+        "growth": {
+          "total": 0,
+          "count": 0,
+          "grand_total": 0
+        }
+      },
+      "summary": [
+        {
+          "type": "private",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "videocall",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "surprise_tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "offline_tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "vibration_tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "subscription",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "premium_content",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "clip_store",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "audio_store",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "series",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "bundle",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_audio",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_gif",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_video",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_image",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_text",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "message",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "shoutout",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "referral",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "bonus",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "chargeback",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "reimbursement",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "penalty",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        }
+      ]
+    },
+    "NET": {
+      "type": "NET",
+      "history": {
+        "2026-10-01": 0,
+        "2026-10-02": 0,
+        "2026-10-03": 0,
+        "2026-10-04": 0,
+        "2026-10-05": 0,
+        "2026-10-06": 0,
+        "2026-10-07": 0,
+        "2026-10-08": 0,
+        "2026-10-09": 0,
+        "2026-10-10": 0,
+        "2026-10-11": 0,
+        "2026-10-12": 0,
+        "2026-10-13": 0
+      },
+      "history_by_type": {
+        "private": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "videocall": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "surprise_tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "offline_tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "vibration_tip": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "subscription": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "premium_content": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "clip_store": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "audio_store": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "series": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "bundle": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_audio": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_gif": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_video": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_image": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "lcm_text": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "message": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "shoutout": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "referral": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "bonus": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "chargeback": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "reimbursement": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        },
+        "penalty": {
+          "2026-10-01": 0,
+          "2026-10-02": 0,
+          "2026-10-03": 0,
+          "2026-10-04": 0,
+          "2026-10-05": 0,
+          "2026-10-06": 0,
+          "2026-10-07": 0,
+          "2026-10-08": 0,
+          "2026-10-09": 0,
+          "2026-10-10": 0,
+          "2026-10-11": 0,
+          "2026-10-12": 0,
+          "2026-10-13": 0
+        }
+      },
+      "transactions": [],
+      "count": 0,
+      "total": 0,
+      "grand_total": 0,
+      "settings": {
+        "sum_on": "debit"
+      },
+      "previous_time_interval": {
+        "count": 0,
+        "total": 0,
+        "grand_total": 0,
+        "growth": {
+          "total": 0,
+          "count": 0,
+          "grand_total": 0
+        }
+      },
+      "summary": [
+        {
+          "type": "private",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "videocall",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "surprise_tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "offline_tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "vibration_tip",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "subscription",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "premium_content",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "clip_store",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "audio_store",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "series",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "bundle",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_audio",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_gif",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_video",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_image",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "lcm_text",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "message",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "shoutout",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "referral",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "bonus",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "chargeback",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "reimbursement",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        },
+        {
+          "type": "penalty",
+          "count": 0,
+          "total": 0,
+          "grand_total": 0,
+          "previous_time_interval": {
+            "count": 0,
+            "total": 0,
+            "grand_total": 0,
+            "growth": {
+              "total": 0,
+              "count": 0,
+              "grand_total": 0
+            }
+          }
+        }
+      ]
+    },
+    "total_on": {
+      "GROSS": {
+        "sum_on": "credit"
+      },
+      "NET": {
+        "sum_on": "debit"
+      }
+    },
+    "interval_type": "days",
+    "success": true
+  }
+}

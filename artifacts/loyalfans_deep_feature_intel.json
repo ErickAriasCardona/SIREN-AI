@@ -1,0 +1,289 @@
+{
+  "/settings/stream": {
+    "headings": [
+      "Escribe tu búsqueda aquí...",
+      "Sam Barton",
+      "Transmisión",
+      "Precio privado"
+    ],
+    "inputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "search-input",
+        "placeholder": " ",
+        "value": "",
+        "checked": false
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-0",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-1",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "private-price",
+        "placeholder": "1.00",
+        "value": "2.99",
+        "checked": false
+      }
+    ],
+    "sample_text": "Escribe tu búsqueda aquí...\n7.19\n1\n1\nSam Barton\nCREADOR\nPerfil\nCuenta\nAjustes De La Cuenta\nSeguridad De La Cuenta\nCuentas Vinculadas\nCuenta Delegada\nPrivacidad Y Seguridad\nPrivacidad De La Cuenta\nRegiones Bloqueadas\nMarca De Agua\nPantalla\nNotificaciones\nNotificaciones Por Correo Electrónico\nNotificaciones Internas\nNotificaciones Push\nMensajes\nPrecios De Mensajes\nReglas De Precio De Mensajes\nPrecios Individuales\nAutomatización De Mensajes\nAjustes De Mensajes\nGanancias\nResumen\nEstados De Cuentas\nEstado Del Cobro\nMétodo De Cobro\nReferencias\nTransmisión\nVideoteca\nGeneral\nDescuentos\nAudioteca\nTransmisión\nAjustes - Transmisión\n/min\nPrecio privado\nEspañol\nTérminos del programa de referencia\nTérminos de Servicio\nPolítica de privacidad\nPolítica de privacidad para residentes de California\nPolítica d"
+  },
+  "/settings/messages/messages-prices": {
+    "headings": [
+      "Escribe tu búsqueda aquí...",
+      "Sam Barton",
+      "Precios de mensajes",
+      "Precio del mensaje de texto",
+      "Gratis",
+      "Precio del mensaje de imágenes",
+      "Precio del mensaje de vídeo",
+      "Precio del mensaje de audio",
+      "Precio del mensaje de GIF"
+    ],
+    "inputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "search-input",
+        "placeholder": " ",
+        "value": "",
+        "checked": false
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-0",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-1",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "name": "mat-input-0",
+        "placeholder": "",
+        "value": "0.50",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "mat-mdc-checkbox-0-input",
+        "placeholder": "",
+        "value": "on",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "name": "mat-input-1",
+        "placeholder": "",
+        "value": "0.50",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "mat-mdc-checkbox-1-input",
+        "placeholder": "",
+        "value": "on",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "name": "mat-input-2",
+        "placeholder": "",
+        "value": "0.50",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "mat-mdc-checkbox-2-input",
+        "placeholder": "",
+        "value": "on",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "name": "mat-input-3",
+        "placeholder": "",
+        "value": "0.50",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "mat-mdc-checkbox-3-input",
+        "placeholder": "",
+        "value": "on",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "number",
+        "name": "mat-input-4",
+        "placeholder": "",
+        "value": "0.50",
+        "checked": false
+      },
+      {
+        "tag": "INPUT",
+        "type": "checkbox",
+        "name": "mat-mdc-checkbox-4-input",
+        "placeholder": "",
+        "value": "on",
+        "checked": false
+      }
+    ],
+    "sample_text": "Escribe tu búsqueda aquí...\n7.19\n1\n1\nSam Barton\nCREADOR\nPerfil\nCuenta\nAjustes De La Cuenta\nSeguridad De La Cuenta\nCuentas Vinculadas\nCuenta Delegada\nPrivacidad Y Seguridad\nPrivacidad De La Cuenta\nRegiones Bloqueadas\nMarca De Agua\nPantalla\nNotificaciones\nNotificaciones Por Correo Electrónico\nNotificaciones Internas\nNotificaciones Push\nMensajes\nPrecios De Mensajes\nReglas De Precio De Mensajes\nPrecios Individuales\nAutomatización De Mensajes\nAjustes De Mensajes\nGanancias\nResumen\nEstados De Cuentas\nEstado Del Cobro\nMétodo De Cobro\nReferencias\nTransmisión\nVideoteca\nGeneral\nDescuentos\nAudioteca\nPrecios de mensajes\nAjustes - Mensajes - Precios\n\n* El precio del mensaje indica cuánto pagará un miembro para enviarte un mensaje. Recibirás el dinero en tu cuenta cuando respondas.\n\nPrecio del mensaje de"
+  },
+  "/settings/messages/messages-automation": {
+    "headings": [
+      "Escribe tu búsqueda aquí...",
+      "Sam Barton",
+      "Automatización de mensajes"
+    ],
+    "inputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "search-input",
+        "placeholder": " ",
+        "value": "",
+        "checked": false
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-0",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-1",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-2",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-3",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-4",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-5",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-6",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-7",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-8",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      }
+    ],
+    "sample_text": "Escribe tu búsqueda aquí...\n7.19\n1\n1\nSam Barton\nCREADOR\nPerfil\nCuenta\nAjustes De La Cuenta\nSeguridad De La Cuenta\nCuentas Vinculadas\nCuenta Delegada\nPrivacidad Y Seguridad\nPrivacidad De La Cuenta\nRegiones Bloqueadas\nMarca De Agua\nPantalla\nNotificaciones\nNotificaciones Por Correo Electrónico\nNotificaciones Internas\nNotificaciones Push\nMensajes\nPrecios De Mensajes\nReglas De Precio De Mensajes\nPrecios Individuales\nAutomatización De Mensajes\nAjustes De Mensajes\nGanancias\nResumen\nEstados De Cuentas\nEstado Del Cobro\nMétodo De Cobro\nReferencias\nTransmisión\nVideoteca\nGeneral\nDescuentos\nAudioteca\nAutomatización de mensajes\nAjustes - Mensajes - Automatización de mensajes\n\nPuedes configurar los mensajes automáticos para que se envíen cuando se produzca cualquiera de las situaciones que se indican a c"
+  },
+  "/settings/messages/message-price-rules": {
+    "headings": [
+      "Escribe tu búsqueda aquí...",
+      "Sam Barton",
+      "Reglas de precio de mensajes"
+    ],
+    "inputs": [
+      {
+        "tag": "INPUT",
+        "type": "text",
+        "name": "search-input",
+        "placeholder": " ",
+        "value": "",
+        "checked": false
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-0",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      },
+      {
+        "tag": "MAT-SLIDE-TOGGLE",
+        "type": null,
+        "name": "mat-mdc-slide-toggle-1",
+        "placeholder": null,
+        "value": null,
+        "checked": null
+      }
+    ],
+    "sample_text": "Escribe tu búsqueda aquí...\n7.19\n1\n1\nSam Barton\nCREADOR\nPerfil\nCuenta\nAjustes De La Cuenta\nSeguridad De La Cuenta\nCuentas Vinculadas\nCuenta Delegada\nPrivacidad Y Seguridad\nPrivacidad De La Cuenta\nRegiones Bloqueadas\nMarca De Agua\nPantalla\nNotificaciones\nNotificaciones Por Correo Electrónico\nNotificaciones Internas\nNotificaciones Push\nMensajes\nPrecios De Mensajes\nReglas De Precio De Mensajes\nPrecios Individuales\nAutomatización De Mensajes\nAjustes De Mensajes\nGanancias\nResumen\nEstados De Cuentas\nEstado Del Cobro\nMétodo De Cobro\nReferencias\nTransmisión\nVideoteca\nGeneral\nDescuentos\nAudioteca\nReglas de precio de mensajes\nAjustes - Mensajes - Reglas de precio de mensajes\nAÑADIR\n\nEstablece precios globales para suscriptores y seguidores. Añadir grupos sustituirá a los valores predeterminados y se"
+  }
+}
