@@ -208,7 +208,19 @@ class VelvetControlCenter(ctk.CTk):
             corner_radius=8,
             command=self._start_automation_thread
         )
-        self.login_button.pack(side="right", padx=(15, 0))
+        self.login_button.pack(side="right", padx=(10, 0))
+
+        self.assisted_button = ctk.CTkButton(
+            opts_frame,
+            text="🛡️ MODO ASISTIDO (CLOUDFLARE / 2FA)",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#312244",
+            hover_color="#4d194d",
+            height=40,
+            corner_radius=8,
+            command=self._start_assisted_login_thread
+        )
+        self.assisted_button.pack(side="right", padx=(10, 0))
 
         # 3. 📊 PANEL DE RESUMEN DE LA CREADORA (MÉTRICAS EN VIVO)
         self.metrics_card = ctk.CTkFrame(self, fg_color="#181324", corner_radius=15, border_width=1, border_color="#533c77")
@@ -467,6 +479,25 @@ class VelvetControlCenter(ctk.CTk):
                 self._log(f"Error inesperado: {str(e)}")
             finally:
                 self.after(0, lambda: self.login_button.configure(state="normal", text="🚀 INICIAR SESIÓN Y ABRIR PLATAFORMA"))
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _start_assisted_login_thread(self):
+        platform = self.platform_var.get().lower()
+        self._log(f"🛡️ [MODO ASISTIDO] Abriendo navegador para [{platform.upper()}].")
+        self._log("👉 Resuelve el reto de Cloudflare ('Verifica que eres humano') o 2FA en la ventana de Chrome.")
+        self.assisted_button.configure(state="disabled", text="⏳ ASISTIDO ACTIVO...")
+
+        def worker():
+            try:
+                from src.automation.manual_login_booster import run_assisted_login
+                import asyncio
+                asyncio.run(run_assisted_login(platform))
+                self._log(f"✨ Modo asistido finalizado para [{platform.upper()}]. Las cookies y sesión quedaron guardadas.")
+            except Exception as e:
+                self._log(f"Nota en modo asistido: {e}")
+            finally:
+                self.after(0, lambda: self.assisted_button.configure(state="normal", text="🛡️ MODO ASISTIDO (CLOUDFLARE / 2FA)"))
 
         threading.Thread(target=worker, daemon=True).start()
 

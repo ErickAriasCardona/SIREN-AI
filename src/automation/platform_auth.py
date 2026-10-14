@@ -1,5 +1,6 @@
 import sys
 import asyncio
+import json
 import re
 from pathlib import Path
 from typing import Dict, Any, Optional
@@ -71,24 +72,34 @@ PLATFORM_CONFIG = {
         "home_url": "https://es.stripchat.com",
         "user_selectors": [
             "#login_login_or_email",
+            "input[name='login']",
             "input[placeholder*='correo']",
             "input[placeholder*='Usuario']",
-            "input[name='login']"
+            "input[placeholder*='Email']",
+            "input[type='email']",
+            "input[autocomplete='username']"
         ],
         "pass_selectors": [
             "#login_password",
+            "input[name='password']",
             "input[placeholder*='Contraseña']",
-            "input[name='password']"
+            "input[type='password']"
         ],
         "submit_selectors": [
             "button:has-text('Iniciar sesión')",
+            "button:has-text('Log In')",
+            "button:has-text('Log in')",
             "button[type='submit']"
         ],
         "logged_in_selectors": [
             "a[href*='/logout']",
             "a[href*='/my/profile']",
+            "a[href*='/model/']",
             ".header-user",
-            "[data-testid='user-menu']"
+            "[data-testid='user-menu']",
+            "a[href*='/broadcast']",
+            "button:has-text('Transmitir')",
+            ".user-avatar"
         ]
     },
     "flirt4free": {
@@ -136,6 +147,65 @@ PLATFORM_CONFIG = {
         ]
     }
 }
+
+async def wait_for_cloudflare_resolution(page, log_func, timeout_seconds: int = 90) -> bool:
+    """
+    Detecta si la página está bajo un reto o comprobación de Cloudflare / Turnstile.
+    Si se detecta el desafío, alerta al usuario (Human-in-the-Loop) y espera pacientemente
+    a que se complete o a que se marque la casilla sin abortar ni interrumpir la navegación.
+    """
+    notified = False
+    start_time = asyncio.get_event_loop().time()
+
+    while (asyncio.get_event_loop().time() - start_time) < timeout_seconds:
+        try:
+            title = (await page.title() or "").lower()
+            
+            # 1. Comprobar títulos característicos de Cloudflare
+            has_cf_title = any(t in title for t in [
+                "just a moment",
+                "un momento",
+                "attention required",
+                "verificando que",
+                "checking your browser",
+                "cloudflare"
+            ])
+
+            # 2. Comprobar presencia de widgets o iframes de Cloudflare Turnstile / Challenge
+            has_cf_element = False
+            for sel in [
+                "iframe[src*='challenges.cloudflare.com']",
+                "#challenge-stage",
+                "#cf-challenge-running",
+                "#turnstile-wrapper",
+                ".cf-turnstile",
+                "div[id*='cf-']"
+            ]:
+                try:
+                    if await page.locator(sel).first.is_visible(timeout=150):
+                        has_cf_element = True
+                        break
+                except Exception:
+                    pass
+
+            if has_cf_title or has_cf_element:
+                if not notified:
+                    log_func("🛡️ [CLOUDFLARE TURNSTILE DETECTADO] La plataforma está validando la conexión de tu navegador.")
+                    log_func("👉 Por favor: Si ves una casilla ('Verifica que eres humano' / 'Verify you are human'), márcala directamente en la ventana de Chrome.")
+                    log_func("⏳ VELVET esperará pacientemente a que se complete la verificación...")
+                    notified = True
+                await asyncio.sleep(1.5)
+            else:
+                if notified:
+                    log_func("✅ [CLOUDFLARE SUPERADO] Verificación de seguridad aprobada con éxito. Continuando...")
+                    await asyncio.sleep(1)
+                return True
+        except Exception:
+            await asyncio.sleep(1)
+
+    if notified:
+        log_func("⚠️ Tiempo de espera de Cloudflare agotado. Intentando continuar...")
+    return False
 
 async def handle_cookies_and_age_dialogs(page, log_func):
     """Detecta y pulsa automáticamente banners de cookies o edad."""
@@ -348,16 +418,43 @@ async def launch_and_login_platform(
         user_data_dir=str(user_data_dir),
         headless=False,
         no_viewport=True,
+        ignore_default_args=["--enable-automation"],
         args=[
             "--start-maximized",
             "--disable-blink-features=AutomationControlled",
             "--disable-session-crashed-bubble",
             "--hide-crash-restore-bubble",
             "--no-first-run",
-            "--no-default-browser-check"
-        ],
-        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"
+            "--no-default-browser-check",
+            "--disable-infobars",
+            "--lang=es-ES,es,en-US,en"
+        ]
     )
+
+    # Inyección de scripts stealth para eliminar rastros de automatización (Cloudflare Turnstile bypass)
+    await context.add_init_script("""
+        // 1. Eliminar huella de automatización webdriver
+        Object.defineProperty(navigator, 'webdriver', {
+            get: () => undefined
+        });
+
+        // 2. Simular window.chrome estándar de Google Chrome
+        window.chrome = window.chrome || {};
+        window.chrome.runtime = window.chrome.runtime || {};
+        window.chrome.app = window.chrome.app || {};
+        window.chrome.csi = window.chrome.csi || function() {};
+        window.chrome.loadTimes = window.chrome.loadTimes || function() {};
+
+        // 3. Simular plugins nativos de escritorio
+        Object.defineProperty(navigator, 'plugins', {
+            get: () => [1, 2, 3, 4, 5]
+        });
+
+        // 4. Idiomas del navegador
+        Object.defineProperty(navigator, 'languages', {
+            get: () => ['es-ES', 'es', 'en-US', 'en']
+        });
+    """)
 
     page = context.pages[0] if context.pages else await context.new_page()
 
@@ -365,41 +462,48 @@ async def launch_and_login_platform(
         log(f"Navegando a {cfg['name']}...")
         await page.goto(cfg["login_url"], wait_until="domcontentloaded", timeout=45000)
 
-        # 1. Gestionar cookies y confirmaciones de edad
+        # 1. Esperar resolución si Cloudflare se presenta en la carga inicial
+        await wait_for_cloudflare_resolution(page, log, timeout_seconds=60)
+
+        # 2. Gestionar cookies y confirmaciones de edad
         await handle_cookies_and_age_dialogs(page, log)
 
-        # 2. Verificar si de verdad está logueado comprobando elementos de cuenta
+        # 3. Verificar si de verdad está logueado comprobando elementos de cuenta
         logged_in = await is_user_logged_in(page, cfg)
         if logged_in:
             log(f"✨ ¡Sesión activa verificada! Ya estás dentro de tu cuenta en {cfg['name']}.")
         else:
             log("No hay sesión activa. Preparando ingreso de credenciales...")
             
-            # Verificar si los campos de usuario ya están visibles en la página
+            # Esperar a que aparezcan los campos de usuario (sin forzar re-navegación que rompa Cloudflare)
             has_user_input = False
-            for sel in cfg["user_selectors"]:
-                try:
-                    if await page.locator(sel).first.is_visible(timeout=1000):
-                        has_user_input = True
-                        break
-                except Exception:
-                    continue
+            for _ in range(8):
+                for sel in cfg["user_selectors"]:
+                    try:
+                        if await page.locator(sel).first.is_visible(timeout=500):
+                            has_user_input = True
+                            break
+                    except Exception:
+                        continue
+                if has_user_input:
+                    break
+                await wait_for_cloudflare_resolution(page, log, timeout_seconds=6)
+                await asyncio.sleep(1)
 
             if not has_user_input:
-                log(f"Navegando a página de login: {cfg['login_url']}...")
-                await page.goto(cfg["login_url"], wait_until="domcontentloaded", timeout=30000)
-                await handle_cookies_and_age_dialogs(page, log)
+                log("⚠️ Los campos de usuario no son visibles aún. Si hay un captcha o reto en pantalla, resuélvelo en el navegador.")
 
-            # Rellenar campo de usuario/correo
+            # Rellenar campo de usuario/correo con escritura humana
             log("Rellenando usuario o correo...")
             user_filled = False
             for sel in cfg["user_selectors"]:
                 try:
                     el = page.locator(sel).first
-                    if await el.is_visible(timeout=3000):
+                    if await el.is_visible(timeout=2500):
                         await el.click()
+                        await page.wait_for_timeout(200)
                         await el.fill("")
-                        await el.fill(username_or_email)
+                        await el.type(username_or_email, delay=35)
                         user_filled = True
                         log(f"✓ Usuario/correo ingresado ({username_or_email}).")
                         break
@@ -415,10 +519,11 @@ async def launch_and_login_platform(
             for sel in cfg["pass_selectors"]:
                 try:
                     el = page.locator(sel).first
-                    if await el.is_visible(timeout=3000):
+                    if await el.is_visible(timeout=2500):
                         await el.click()
+                        await page.wait_for_timeout(200)
                         await el.fill("")
-                        await el.fill(password)
+                        await el.type(password, delay=30)
                         pass_filled = True
                         log("✓ Contraseña ingresada.")
                         break
@@ -447,8 +552,23 @@ async def launch_and_login_platform(
                     await page.keyboard.press("Enter")
                     log("✓ Enviado con tecla Enter.")
 
-            log("Esperando inicio de sesión y autenticación...")
-            await page.wait_for_timeout(4000)
+            log("Esperando validación de seguridad y confirmación de sesión...")
+            await page.wait_for_timeout(2000)
+
+            # Verificar si Cloudflare salta tras pulsar enviar
+            await wait_for_cloudflare_resolution(page, log, timeout_seconds=60)
+
+            # Esperar a confirmar inicio de sesión
+            confirmed = False
+            for _ in range(25):
+                if await is_user_logged_in(page, cfg):
+                    confirmed = True
+                    log(f"✨ ¡Inicio de sesión confirmado exitosamente en {cfg['name']}!")
+                    break
+                await asyncio.sleep(1)
+
+            if not confirmed:
+                log("ℹ️ Si la plataforma requiere código 2FA o confirmación adicional, complétala en la ventana de Chrome.")
 
         # Registrar sesión activa para actualizaciones en vivo
         ACTIVE_SESSION["page"] = page
