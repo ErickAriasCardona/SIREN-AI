@@ -251,6 +251,20 @@ class VelvetControlCenter(ctk.CTk):
         )
         self.btn_diana.pack(side="right", padx=(8, 0))
 
+        # Botón para Lovense Stream Master
+        self.btn_lovense = ctk.CTkButton(
+            m_top_row,
+            text="💖 Lovense Master",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#ad1457",
+            hover_color="#d81b60",
+            height=28,
+            width=140,
+            corner_radius=6,
+            command=self._launch_lovense_thread
+        )
+        self.btn_lovense.pack(side="right", padx=(8, 0))
+
         # Tooltip para DIANA y bind de clic derecho
         initial_strategy = synthesize_diana_findings({"platform": "loyalfans"})
         self.current_diana_dossier = initial_strategy.get("dossier_text", "")
@@ -498,6 +512,32 @@ class VelvetControlCenter(ctk.CTk):
                 self._log(f"Nota en modo asistido: {e}")
             finally:
                 self.after(0, lambda: self.assisted_button.configure(state="normal", text="🛡️ MODO ASISTIDO (CLOUDFLARE / 2FA)"))
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _launch_lovense_thread(self):
+        self._log("💖 [LOVENSE] Iniciando Lovense Stream Master...")
+        self.btn_lovense.configure(state="disabled", text="⏳ Iniciando...")
+
+        def worker():
+            try:
+                from src.integrations.lovense_manager import launch_stream_master, check_local_lovense_api
+                res = launch_stream_master()
+                if res.get("success"):
+                    self._log("✨ Lovense Stream Master se ha iniciado correctamente en segundo plano.")
+                    self._log("💡 Tip: Vincula tus juguetes en Stream Master vía dongle USB o Lovense Connect.")
+                    # Comprobar si la API local responde
+                    api = check_local_lovense_api()
+                    if api.get("online"):
+                        self._log(f"🟢 Juguetes Lovense detectados en red local (Puerto {api.get('port')}).")
+                    else:
+                        self._log("ℹ️ Abre la aplicación Lovense Connect o enciende tu dongle Bluetooth si vas a transmitir.")
+                else:
+                    self._log(f"⚠️ Nota al abrir Stream Master: {res.get('error')}")
+            except Exception as e:
+                self._log(f"Error al iniciar Lovense: {e}")
+            finally:
+                self.after(0, lambda: self.btn_lovense.configure(state="normal", text="💖 Lovense Master"))
 
         threading.Thread(target=worker, daemon=True).start()
 
