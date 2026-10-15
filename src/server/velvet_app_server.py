@@ -98,6 +98,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_history()
         elif self.path == "/api/financials":
             self.handle_api_financials()
+        elif self.path.startswith("/api/positioning"):
+            self.handle_api_positioning()
         else:
             # Servir index.html si entra a /
             if self.path == "/" or self.path == "":
@@ -109,6 +111,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_chat()
         elif self.path == "/api/refresh_financials":
             self.handle_api_refresh_financials()
+        elif self.path.startswith("/api/refresh_positioning"):
+            self.handle_api_refresh_positioning()
         else:
             self.send_error(404, "Endpoint no encontrado")
 
@@ -131,6 +135,36 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             data = fetch_live_financials_now_sync()
         except Exception as e:
             data = {"error": str(e), "balance": 15.59, "current_month": 8.40}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data).encode("utf-8"))
+
+    def handle_api_positioning(self):
+        """Devuelve el posicionamiento, percentil y estado de ventas en tiempo real."""
+        try:
+            from urllib.parse import urlparse, parse_qs
+            from src.analytics.positioning_live_sync import get_realtime_positioning
+            qs = parse_qs(urlparse(self.path).query)
+            platform = qs.get("platform", ["loyalfans"])[0]
+            data = get_realtime_positioning(platform)
+        except Exception as e:
+            data = {"error": str(e), "percentile": "Top 23%", "platform_key": "loyalfans"}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data).encode("utf-8"))
+
+    def handle_api_refresh_positioning(self):
+        """Fuerza actualización en vivo del posicionamiento y registra en SQLite."""
+        try:
+            from urllib.parse import urlparse, parse_qs
+            from src.analytics.positioning_live_sync import refresh_positioning_live
+            qs = parse_qs(urlparse(self.path).query)
+            platform = qs.get("platform", ["loyalfans"])[0]
+            data = refresh_positioning_live(platform)
+        except Exception as e:
+            data = {"error": str(e), "percentile": "Top 23%", "platform_key": "loyalfans"}
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()

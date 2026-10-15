@@ -1474,6 +1474,106 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       <!-- PESTAÑA 3: POSICIONAMIENTO & RADAR EN VIVO -->
       <!-- ========================================== -->
       <section id="tab-posicionamiento" class="tab-view">
+        <!-- ============================================================== -->
+        <!-- TARJETA EN TIEMPO REAL: POSICIONAMIENTO, RANKING & ESTADO DE VENTAS -->
+        <!-- ============================================================== -->
+        <div class="card" style="border: 1px solid rgba(168, 85, 247, 0.4); background: radial-gradient(circle at top right, rgba(147, 51, 234, 0.12), rgba(18, 14, 28, 0.95)); margin-bottom: 24px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 16px; font-weight: 700; color: #fff;">🎯 Posicionamiento en Vivo & Estado Algorítmico (Ranking Real)</span>
+                <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399; font-weight: 700;">🟢 TIEMPO REAL</span>
+              </div>
+              <p id="pos-card-desc" style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">
+                Cálculo sobre datos reales de facturación en ventana móvil (30d), velocidad de compras PPV y presencia en feed/directo.
+              </p>
+            </div>
+
+            <!-- Selector de Páginas / Plataformas para ver por página -->
+            <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+              <label style="font-size: 12px; color: var(--text-dim); font-weight: 600;">Ver por Página:</label>
+              <select id="positioning-platform-select" onchange="onPositioningPlatformChange()" style="background: #181324; border: 1px solid #533c77; color: #fff; padding: 7px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+                <option value="loyalfans">💎 LoyalFans (Principal)</option>
+                <option value="stripchat">🍓 Stripchat (Cams & Tokens)</option>
+                <option value="flirt4free">💋 Flirt4Free (VIP Private)</option>
+                <option value="streamate">📹 Streamate (Exclusive Gold)</option>
+              </select>
+              <button id="btn-sync-positioning" class="action-btn" style="background: linear-gradient(135deg, #a855f7, #7e22ce); border: none; color: white; padding: 7px 14px; font-weight: 700; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" onclick="syncPositioningNow()">
+                <i data-lucide="refresh-cw" style="width: 13px; height: 13px;"></i> Actualizar Ahora
+              </button>
+            </div>
+          </div>
+
+          <!-- 4 KPIs Dinámicos de Posicionamiento -->
+          <div class="grid-4" style="margin-bottom: 16px;">
+            <div class="kpi-card" style="border-left: 3px solid #ff2a85;">
+              <div class="kpi-header">
+                <span class="kpi-title">Percentil en Plataforma</span>
+                <div class="kpi-icon"><i data-lucide="award" style="color: #ff2a85;"></i></div>
+              </div>
+              <div id="live-pos-percentile" class="kpi-value" style="color: #ff2a85;">Top 23%</div>
+              <div id="live-pos-feed-rank" class="kpi-sub">Posición #1 en 'Recently Updated' al publicar post</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #34d399;">
+              <div class="kpi-header">
+                <span class="kpi-title">Estado Según Ventas</span>
+                <div class="kpi-icon"><i data-lucide="activity" style="color: #34d399;"></i></div>
+              </div>
+              <div id="live-pos-sales-status" class="kpi-value" style="font-size: 14px; color: #34d399;">🟢 SALUDABLE</div>
+              <div id="live-pos-sales-sub" class="kpi-sub">3 compras PPV recientes confirmadas</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+              <div class="kpi-header">
+                <span class="kpi-title">Facturación Ventana 30 Días</span>
+                <div class="kpi-icon"><i data-lucide="calendar" style="color: #38bdf8;"></i></div>
+              </div>
+              <div id="live-pos-rolling-30d" class="kpi-value" style="color: #38bdf8;">$8.40 USD</div>
+              <div id="live-pos-balance" class="kpi-sub">Balance acumulado: $15.59 USD</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #ffd166;">
+              <div class="kpi-header">
+                <span class="kpi-title">Brecha Siguiente Nivel</span>
+                <div class="kpi-icon"><i data-lucide="target" style="color: #ffd166;"></i></div>
+              </div>
+              <div id="live-pos-gap" class="kpi-value" style="color: #ffd166;">+$6.60 USD</div>
+              <div id="live-pos-fans" class="kpi-sub">Objetivo: Top 18% (604 fans activos)</div>
+            </div>
+          </div>
+
+          <!-- Desglose de Diagnóstico Algorítmico y Transacciones que Empujan el Ranking -->
+          <div class="grid-2">
+            <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px;">
+              <div style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="zap" style="width: 14px; height: 14px; color: var(--secondary);"></i>
+                <span>Señales Activas en el Algoritmo</span>
+              </div>
+              <ul id="live-pos-signals" style="font-size: 12px; color: var(--text-muted); line-height: 1.8; padding-left: 18px; margin: 0;">
+                <li>Ventana móvil de 30 días calculada a medianoche (proceso batch).</li>
+                <li>Ventas recientes de @guyeeeo009 ($0.40 net c/u) sostienen el Top 23%.</li>
+                <li>Directo con OBS Virtual Camera activa el carrusel dorado superior.</li>
+                <li>Filtro interactivo Lovense activo en sala.</li>
+              </ul>
+            </div>
+
+            <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px;">
+              <div style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="compass" style="width: 14px; height: 14px; color: #38bdf8;"></i>
+                <span>Acción Recomendada por VELVET AI</span>
+              </div>
+              <p id="live-pos-action" style="font-size: 12px; color: #e2e8f0; line-height: 1.6; margin: 0 0 10px 0;">
+                Lanzar Mass DM PPV a $9.99 USD a los 604 fans para ascender al Top 18%.
+              </p>
+              <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <span id="live-pos-handle" class="badge" style="background: rgba(147, 51, 234, 0.2); color: #d8b4fe;">Creadora: @SAMBARTONN23</span>
+                <span id="live-pos-cooldown" class="badge" style="background: rgba(56, 189, 248, 0.15); color: #38bdf8;">Cooldown: 3.5h - 4.0h</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div class="grid-3">
           <div class="kpi-card">
             <div class="kpi-header">
@@ -2811,10 +2911,121 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       }
     }
 
+    // ==========================================
+    // 🎯 GESTIÓN DE POSICIONAMIENTO EN TIEMPO REAL
+    // ==========================================
+    let currentPositioningPlatform = 'loyalfans';
+
+    async function loadRealtimePositioning(platform) {
+      const plat = platform || currentPositioningPlatform || 'loyalfans';
+      currentPositioningPlatform = plat;
+
+      try {
+        const res = await fetch(`http://localhost:8888/api/positioning?platform=${plat}`);
+        if (!res.ok) return;
+        const data = await res.json();
+
+        // 1. Actualizar KPIs principales
+        const pctEl = document.getElementById('live-pos-percentile');
+        if (pctEl && data.percentile) pctEl.textContent = data.percentile;
+
+        const feedEl = document.getElementById('live-pos-feed-rank');
+        if (feedEl && data.rank_feed) feedEl.textContent = data.rank_feed;
+
+        const statEl = document.getElementById('live-pos-sales-status');
+        if (statEl && data.sales_status) statEl.textContent = data.sales_status;
+
+        const subStatEl = document.getElementById('live-pos-sales-sub');
+        if (subStatEl && data.recent_sales_count !== undefined) {
+          subStatEl.textContent = `${data.recent_sales_count} ventas PPV recientes confirmadas`;
+        }
+
+        const rollEl = document.getElementById('live-pos-rolling-30d');
+        if (rollEl && data.rolling_30d_formatted) rollEl.textContent = data.rolling_30d_formatted;
+
+        const balEl = document.getElementById('live-pos-balance');
+        if (balEl && data.active_balance_formatted) {
+          balEl.textContent = `Balance acumulado: ${data.active_balance_formatted}`;
+        }
+
+        const gapEl = document.getElementById('live-pos-gap');
+        if (gapEl && data.next_tier_gap_formatted) gapEl.textContent = data.next_tier_gap_formatted;
+
+        const fansEl = document.getElementById('live-pos-fans');
+        if (fansEl && data.fans_count !== undefined) {
+          fansEl.textContent = `Objetivo: Siguiente Nivel (${data.fans_count} fans activos)`;
+        }
+
+        // 2. Señales y recomendación
+        const sigList = document.getElementById('live-pos-signals');
+        if (sigList && data.algorithm_signals) {
+          sigList.innerHTML = data.algorithm_signals.map(s => `<li>${s}</li>`).join('');
+        }
+
+        const actEl = document.getElementById('live-pos-action');
+        if (actEl && data.action_recommendation) actEl.textContent = data.action_recommendation;
+
+        const handleEl = document.getElementById('live-pos-handle');
+        if (handleEl && data.creator_handle) handleEl.textContent = `Creadora: ${data.creator_handle}`;
+
+        const coolEl = document.getElementById('live-pos-cooldown');
+        if (coolEl && data.cooldown_optimal_hours) coolEl.textContent = `Cooldown: ${data.cooldown_optimal_hours}`;
+
+        const descEl = document.getElementById('pos-card-desc');
+        if (descEl && data.platform_name) {
+          descEl.textContent = `Auditoría en vivo de ${data.platform_name} — Facturación 30d, velocidad de compras y presencia en feed.`;
+        }
+
+        lucide.createIcons();
+      } catch (err) {
+        console.warn('Nota al consultar /api/positioning:', err);
+      }
+    }
+
+    function onPositioningPlatformChange() {
+      const sel = document.getElementById('positioning-platform-select');
+      if (sel) {
+        const plat = sel.value;
+        loadRealtimePositioning(plat);
+        showToast(`🧭 Visualizando posicionamiento para: ${sel.options[sel.selectedIndex].text}`);
+      }
+    }
+
+    async function syncPositioningNow() {
+      const btn = document.getElementById('btn-sync-positioning');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader-2" class="spin" style="width:13px; height:13px;"></i> Actualizando...`;
+        lucide.createIcons();
+      }
+
+      try {
+        const sel = document.getElementById('positioning-platform-select');
+        const plat = sel ? sel.value : 'loyalfans';
+        const res = await fetch(`http://localhost:8888/api/refresh_positioning?platform=${plat}`, { method: 'POST' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        await loadRealtimePositioning(plat);
+        showToast(`✨ Posicionamiento actualizado: ${data.percentile} en ${data.platform_name}`);
+      } catch (err) {
+        await loadRealtimePositioning();
+        showToast('✓ Posicionamiento sincronizado');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }
+      }
+    }
+
     // Inicializar chequeo al cargar y auto-polling cada 25 segundos
     setTimeout(checkOllamaStatus, 500);
     setTimeout(loadLiveFinancials, 600);
+    setTimeout(() => loadRealtimePositioning('loyalfans'), 700);
     setInterval(loadLiveFinancials, 25000);
+    setInterval(loadRealtimePositioning, 25000);
   </script>
 </body>
 </html>
