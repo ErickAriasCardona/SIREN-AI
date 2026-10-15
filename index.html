@@ -2598,9 +2598,47 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       setTimeout(() => toast.classList.remove('show'), 4000);
     }
 
-    function executeControlledUpdate() {
-      closeUpdateModal();
-      showToast(`Tarea registrada: Ejecución de ${selectedPlatform.toUpperCase()} puesta en marcha.`);
+    async function executeControlledUpdate() {
+      const confirmBtn = document.getElementById('modalConfirmBtn');
+      const oldHtml = confirmBtn ? confirmBtn.innerHTML : '';
+      if (confirmBtn) {
+        confirmBtn.disabled = true;
+        confirmBtn.innerHTML = `<i data-lucide="loader-2" class="spin" style="width:14px; height:14px;"></i> Iniciando navegador...`;
+        lucide.createIcons();
+      }
+
+      const plat = selectedPlatform || 'stripchat';
+      showToast(`🚀 Iniciando navegador Chrome para ${plat.toUpperCase()}...`);
+
+      try {
+        const res = await fetch(`http://localhost:8888/api/deploy_profile?platform=${plat}`, { method: 'POST' });
+        const data = await res.json();
+        
+        closeUpdateModal();
+        showToast(data.message || `✨ Despliegue de ${plat.toUpperCase()} iniciado en ventana de navegador.`);
+
+        // Actualizar visualmente la fila de la tabla en 'Control de Actualizaciones'
+        const rows = document.querySelectorAll('#tab-actualizaciones tbody tr');
+        rows.forEach(tr => {
+          if (tr.innerText.toLowerCase().includes(plat)) {
+            const badge = tr.querySelector('.table-badge');
+            if (badge) {
+              badge.className = 'table-badge badge-success';
+              badge.innerHTML = '🟢 Desplegando en Vivo';
+            }
+          }
+        });
+      } catch (err) {
+        console.warn('Nota lanzando despliegue:', err);
+        closeUpdateModal();
+        showToast(`⚠️ Servidor Velvet no respondió. Asegúrate de que el servidor esté activo.`);
+      } finally {
+        if (confirmBtn) {
+          confirmBtn.disabled = false;
+          confirmBtn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }
+      }
     }
 
     // ==========================================
