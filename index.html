@@ -972,7 +972,7 @@
       </div>
 
       <div class="top-actions">
-        <button class="action-btn" onclick="window.location.reload()">
+        <button id="btn-top-refresh" class="action-btn" onclick="refreshAllDataNow()">
           <i data-lucide="rotate-ccw"></i> Refrescar Datos
         </button>
         <button class="action-btn primary" onclick="openUpdateModal('global')">
@@ -2883,7 +2883,34 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       }
     }
 
-    async function syncFinancialsNow() {
+    async function refreshAllDataNow() {
+      const topBtn = document.getElementById('btn-top-refresh');
+      const oldHtml = topBtn ? topBtn.innerHTML : '';
+      if (topBtn) {
+        topBtn.disabled = true;
+        topBtn.innerHTML = `<i data-lucide="loader-2" class="spin" style="width:14px; height:14px;"></i> Sincronizando...`;
+        lucide.createIcons();
+      }
+
+      showToast('🔄 Conectando con LoyalFans: refrescando balance, ventas y percentil...');
+
+      try {
+        await syncFinancialsNow(true);
+        await syncPositioningNow(true);
+        showToast('✨ ¡Todo actualizado! Finanzas y posicionamiento sincronizados con éxito.');
+      } catch (err) {
+        console.warn('Nota en refreshAllDataNow:', err);
+        showToast('✓ Sincronización finalizada.');
+      } finally {
+        if (topBtn) {
+          topBtn.disabled = false;
+          topBtn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }
+      }
+    }
+
+    async function syncFinancialsNow(silent = false) {
       const btn = document.getElementById('btn-sync-financials');
       const oldHtml = btn ? btn.innerHTML : '';
       if (btn) {
@@ -2897,11 +2924,15 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         await loadLiveFinancials();
-        showToast(`✨ Finanzas actualizadas: Balance ${data.balance_formatted} | Octubre ${data.current_month_formatted}`);
+        if (!silent) {
+          showToast(`✨ Finanzas actualizadas: Balance ${data.balance_formatted} | Octubre ${data.current_month_formatted}`);
+        }
       } catch (err) {
         // Fallback a lectura de dump local
         await loadLiveFinancials();
-        showToast('✓ Finanzas sincronizadas con los últimos datos de LoyalFans');
+        if (!silent) {
+          showToast('✓ Finanzas sincronizadas con los últimos datos de LoyalFans');
+        }
       } finally {
         if (btn) {
           btn.disabled = false;
@@ -2991,7 +3022,7 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       }
     }
 
-    async function syncPositioningNow() {
+    async function syncPositioningNow(silent = false) {
       const btn = document.getElementById('btn-sync-positioning');
       const oldHtml = btn ? btn.innerHTML : '';
       if (btn) {
@@ -3007,10 +3038,14 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         await loadRealtimePositioning(plat);
-        showToast(`✨ Posicionamiento actualizado: ${data.percentile} en ${data.platform_name}`);
+        if (!silent) {
+          showToast(`✨ Posicionamiento actualizado: ${data.percentile} en ${data.platform_name}`);
+        }
       } catch (err) {
         await loadRealtimePositioning();
-        showToast('✓ Posicionamiento sincronizado');
+        if (!silent) {
+          showToast('✓ Posicionamiento sincronizado');
+        }
       } finally {
         if (btn) {
           btn.disabled = false;

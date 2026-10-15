@@ -1,182 +1,215 @@
 {
   "extracted": {
-    "url": "https://www.loyalfans.com/settings/earnings/statements",
-    "bodySnippet": "Escribe tu búsqueda aquí...\n15.59\n2\nSam Barton\nCREADOR\nPerfil\nCuenta\nAjustes De La Cuenta\nSeguridad De La Cuenta\nCuentas Vinculadas\nCuenta Delegada\nPrivacidad Y Seguridad\nPrivacidad De La Cuenta\nRegiones Bloqueadas\nMarca De Agua\nPantalla\nNotificaciones\nNotificaciones Por Correo Electrónico\nNotificaciones Internas\nNotificaciones Push\nMensajes\nPrecios De Mensajes\nReglas De Precio De Mensajes\nPrecios Individuales\nAutomatización De Mensajes\nAjustes De Mensajes\nGanancias\nResumen\nEstados De Cuentas\nEstado Del Cobro\nMétodo De Cobro\nReferencias\nTransmisión\nVideoteca\nGeneral\nDescuentos\nAudioteca\nEstados de cuentas\nAjustes - Ganancias - Estados de cuentas\nTodos los tipos de transacción\nFecha\tTipo\tBruto\tComisión\tNeto\n14 oct, 2026 02:15 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40\n14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40\n14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40\n1 - 3 de 3\nElementos por página:\n10\nEspañol\nTérminos del programa de referencia\nTérminos de Servicio\nPolítica de privacidad\nPolítica de privacidad para residentes de California\nPolítica de cookies\nPolítica de derechos de autor\nPolítica de Uso Aceptable\nPolítica de Cumplimiento de la Ley Take It Down de EE.UU.\nAVISO DE EXENCIÓN 2257\nPolítica Anti-Trata de Personas\nPolítica de Quejas\nEliminación de contenido\n©Loyalfans.com, Todos los derechos reservados.\nDescargo de responsabilidad: Este sitio web puede contener contenido para adultos. Todos los miembros y personas que aparecen en este sitio nos han declarado contractualmente que tienen 18 años o más.\n603\nSam Barton\nEn línea\nTRANSMITIR EN VIVO\nMENSAJERÍA INSTANTÁNEA\nPs\nPs\nPaul sla\n@paulsla\nDV\nDV\nDiaperedVirgin\n@DiaperedVirgin\nL4\nL4\nLeopaul4299\n@leopaul4299\nPO\nPO\nPropertyOfMissAriaWinter\n@Pyongyang1\nBi\nBi\nBigmurr\n@LittleTex\nR0\nR0\nRicardo019\n@Ricardo019\nM2\nM2\nMickb25\n@mickb25\nF_\nF_\nFoot_cuck\n@foot_cuck\nS1\nS1\nSchilphil1\n@schilphil1\nR1\nR1\nrobby1465\n@robby1465\nBe\nBe\nBeaubrun\n@beaubrun\nNi\nNi\nNiob\n@niob\nS3\nS3\nsiergiej345\n@siergiej345\nF9\nF9\nFfr93\n@ffr93\nJJ\nJJ\nJanJans08941589\n@janjans08941589\nD0\nD0\nDiggiiii00\n@Digging\nT4\nT4\nTerminator435\n@terminator435\nBl\nBl\nblst\n@Blst\nD9\nD9\ndave980\n@dave980\nKn\nKn\nknightofweser\n@knightofweser\nGuardando publicación...\nGuardando audio...",
-    "rows": [
-      "14 oct, 2026 02:15 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40",
-      "14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40",
-      "14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40"
-    ]
+    "url": "https://www.loyalfans.com/settings/earnings/statements"
   },
   "api": {
-    "https://www.loyalfans.com/api/v2/funds/transactions-history/list?ngsw-bypass=true": {
+    "https://www.loyalfans.com/api/v1/auth/user/me?ngsw-bypass=true": {
       "success": true,
       "httpCode": 200,
-      "page_meta": {
-        "total": 3,
-        "per_page": 10,
-        "current_page": 1,
-        "last_page": 1,
-        "from": 1,
-        "to": 3
-      },
-      "transactions": [
-        {
-          "dateKey": "2026-10-14",
-          "transactions": [
-            {
-              "id": "6acfd484353230027f71f559",
-              "member": {
-                "name": "Guyeeeo009",
-                "display_name": "Guyeeeo009",
-                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
-                "user_type": "member",
-                "slug": "guyeeeo009",
-                "online_activity_at": "2026-10-14 19:57:39",
-                "sensitive_content": false,
-                "profile_photo": {
-                  "images": {
-                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
-                  },
-                  "default": true
-                },
-                "created_at": {
-                  "date": "2025-01-25 17:24:39",
-                  "timezone_type": 3,
-                  "timezone": "UTC"
-                },
-                "_membership": {
-                  "label": "Silver Membership",
-                  "id": 3,
-                  "bonus": 3,
-                  "code": "SILVER"
-                },
-                "is_online": false
-              },
-              "type": "message",
-              "anonymous": false,
-              "payout": 0.4,
-              "payout_base": 0.4,
-              "charge": 0.5,
-              "created_at": "2026-10-14T19:15:10.000000Z",
-              "fee": 0.1,
-              "rate": 80,
-              "is_affiliate": false,
-              "is_referral": false,
-              "is_referred": false,
-              "version": 1,
-              "nice_time": 1
+      "response": {
+        "user": {
+          "name": "Sam Barton",
+          "display_name": "Sam Barton",
+          "uid": "k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k",
+          "user_type": "model",
+          "slug": "sambarton23",
+          "online_activity_at": "2026-10-15 01:50:33",
+          "sensitive_content": true,
+          "profile_photo": {
+            "uid": "GDsfnH5UjGOJxsBbcQONSHsB-2Fs5a3egwUpE-2FY2N66JY",
+            "created_at": {
+              "date": "2025-11-19 19:31:31",
+              "timezone_type": 3,
+              "timezone": "UTC"
             },
-            {
-              "id": "6acfc186313233988e71ee0b",
-              "member": {
-                "name": "Guyeeeo009",
-                "display_name": "Guyeeeo009",
-                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
-                "user_type": "member",
-                "slug": "guyeeeo009",
-                "online_activity_at": "2026-10-14 19:57:39",
-                "sensitive_content": false,
-                "profile_photo": {
-                  "images": {
-                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
-                  },
-                  "default": true
-                },
-                "created_at": {
-                  "date": "2025-01-25 17:24:39",
-                  "timezone_type": 3,
-                  "timezone": "UTC"
-                },
-                "_membership": {
-                  "label": "Silver Membership",
-                  "id": 3,
-                  "bonus": 3,
-                  "code": "SILVER"
-                },
-                "is_online": false
-              },
-              "type": "message",
-              "anonymous": false,
-              "payout": 0.4,
-              "payout_base": 0.4,
-              "charge": 0.5,
-              "created_at": "2026-10-14T19:12:21.000000Z",
-              "fee": 0.1,
-              "rate": 80,
-              "is_affiliate": false,
-              "is_referral": false,
-              "is_referred": false,
-              "version": 1,
-              "nice_time": 1
+            "privacy": {
+              "privacy_rule": "public",
+              "privacy_coverage": "all"
             },
-            {
-              "id": "6acfc60f313233a16971efcf",
-              "member": {
-                "name": "Guyeeeo009",
-                "display_name": "Guyeeeo009",
-                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
-                "user_type": "member",
-                "slug": "guyeeeo009",
-                "online_activity_at": "2026-10-14 19:57:39",
-                "sensitive_content": false,
-                "profile_photo": {
-                  "images": {
-                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
-                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
-                  },
-                  "default": true
-                },
-                "created_at": {
-                  "date": "2025-01-25 17:24:39",
-                  "timezone_type": 3,
-                  "timezone": "UTC"
-                },
-                "_membership": {
-                  "label": "Silver Membership",
-                  "id": 3,
-                  "bonus": 3,
-                  "code": "SILVER"
-                },
-                "is_online": false
-              },
-              "type": "message",
-              "anonymous": false,
-              "payout": 0.4,
-              "payout_base": 0.4,
-              "charge": 0.5,
-              "created_at": "2026-10-14T19:12:21.000000Z",
-              "fee": 0.1,
-              "rate": 80,
-              "is_affiliate": false,
-              "is_referral": false,
-              "is_referred": false,
-              "version": 1,
-              "nice_time": 1
-            }
-          ]
+            "images": {
+              "xsmall": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131_50_50_xs.jpg",
+              "small": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131_150_150_sm.jpg",
+              "portrait-medium": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131_468_710_pmd.jpg",
+              "square": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131_475_475_sq.jpg",
+              "medium": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131_636_430_md.jpg",
+              "hd": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131_1920_1080_hd.jpg",
+              "original": "https://public-cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/profile/0_51513700_1763580691_20251119193131.jpg"
+            },
+            "locked": false,
+            "blur_percentage": 0,
+            "blured_cover": null,
+            "locked_type": null,
+            "reacted": null,
+            "total_tips": 0,
+            "blocked": false
+          },
+          "created_at": {
+            "date": "2025-01-26 05:36:54",
+            "timezone_type": 3,
+            "timezone": "UTC"
+          },
+          "from_studio": false,
+          "category": "female",
+          "dashboard_widgets": [
+            "earnings",
+            "spendingFansByCountry",
+            "topFans",
+            "subscriptions"
+          ],
+          "is_porn_star": false,
+          "is_online": true,
+          "allow_sensitive_content": true
+        },
+        "cover_photo": {
+          "url_original": "https://cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/cover/0_97667500_1758827986_20250925191946.jpg?Expires=1792041037&Signature=jljVuJwAIs8fl5UpC55CqpEObnAIU-PucmhlIiDwo0PttikUGdTvhn1mxtXE1mUbMZscW7skTkFPepSjsywT8SfYC-GrfZIPIIQKdn8qFEoZ1ZjXQY~UPMzJ6g3Ccqfe-FUzvERCx3e2gJ8oX6bAHLcpAizLIsw~Zip7JuFLaOnn9-yfqrq1MCkevLAOeXsTt1wgVB7AuzbsjguEShUhka9qAdrAogz7hAcNQR4oWZGDGgxQcRog9lDZ3NbJC1ZmFEwcCUtcQWdwDAPN4ebOGTSD6H9nHCIxH5oWLh7nb65Q2Y2V0mufoTDKd8XsWGsqgDbSWNGvPOyenhSYEY~3Yw__&Key-Pair-Id=K2JGZ5P2K94MB8",
+          "url": "https://cdn2.loyalfans.com/images/k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k/cover/0_97667500_1758827986_20250925191946_365.jpg?Expires=1792041037&Signature=FQkUudIIVpzoJAnlbD1J9nfPhXqCrUbB3Cjw9F-q-n-V2Us3JyYWCWUUENhAjYOF-ICHMU--zujYLRqjGv7-93sZvmgvRFEGuLOveCadzfGZ7JfRi7OwPZlGNbO2ZaDIgSNtQS-8Sl7uJzcgR-rTPAk8nBLu5Htpm3c2U43rqQg5Y3TZugbGestJugmjry8uTCaB~ra0UqLXnfqZgf3MIYO0hi8pUhwnHwfUqmKyhMD8JKe9L5cYxXQPWbSGIb9OoQnxldDd48FUdlJ41LeQ9kmgFBUQ~uf-af9wcxAfZrWY-MW2-ka85qP3G8W3Xo5Npi313D49tsfobyiEJnW1iA__&Key-Pair-Id=K2JGZ5P2K94MB8",
+          "uid": "A8TgLiMOuTVST5gbNYvY1yxEHUWgh5gN35Nvi9IKlOs",
+          "top": 0
+        },
+        "confirmed": 1,
+        "notification_count": 1,
+        "friendship_notification_count": 0,
+        "messages_count": 0,
+        "balance": {
+          "private_price": 2.99,
+          "videocall_price": 3.99,
+          "post_price": 1,
+          "post_video_price": 1,
+          "post_photo_price": 1,
+          "post_audio_price": 1,
+          "post_gif_price": 1,
+          "message_price": 0.5,
+          "payment_split": null,
+          "payment_split_user_id": null,
+          "payment_split_rate": null,
+          "payment_split_apply_to": null,
+          "balance": 27.19,
+          "subscription_price": 4.99
+        },
+        "stream_price": {
+          "private_price": 2.99,
+          "videocall_price": 3.99,
+          "group_min": 3
+        },
+        "post_price": 1,
+        "post_video_price": 1,
+        "post_photo_price": 1,
+        "post_gif_price": 1,
+        "post_audio_price": 1,
+        "show_messages_popup_notification": true,
+        "pornstar_badge": {
+          "is_porn_star": false,
+          "badge_visible": false,
+          "can_toggle_badge": false,
+          "can_apply": true,
+          "can_resubmit": false,
+          "status": null,
+          "status_label": null,
+          "application": null
+        },
+        "show_messages_tips_gross": true,
+        "twitter_authorized": false,
+        "scheduled_posts_count": 0,
+        "accept_video_call": true,
+        "allow_video_call": true,
+        "mobile_partner_id": "NEXO",
+        "snapshot": true,
+        "allow_subscribers": true,
+        "accept_subscriptions": true,
+        "privacy_rules": [
+          {
+            "label": "Public",
+            "rule": "public"
+          },
+          {
+            "label": "Followers",
+            "rule": "friends"
+          },
+          {
+            "label": "Subscribers",
+            "rule": "subscribers"
+          },
+          {
+            "label": "Video Store",
+            "rule": "STORE"
+          }
+        ],
+        "shoutouts": {
+          "enabled": true
+        },
+        "referral_url": "https://www.loyalfans.com/sambarton23?ref=k72CtQew-2FuTG-2FT0jCXeQBOqPH4XEnTGFPpfn2k-2BlZ4k",
+        "notifier_settings": {
+          "show_twitter_notification": 1,
+          "show_widget_notification": false,
+          "show_payment_notification": true
+        },
+        "default_post_privacy_rule": "friends",
+        "capabilities": {
+          "download_android_app": true,
+          "download_ios_app": true,
+          "mediacloud": true,
+          "camjam": true,
+          "ngs": true,
+          "broadcastV2": null,
+          "link_tracking": false,
+          "releaseForms": false,
+          "mobile_lovense": false,
+          "highlights": true,
+          "pay_to_unlock": false,
+          "pm_button": false
+        },
+        "download_android_apk_url": "https://endsun.s3.amazonaws.com/android/releases/app-loyalfans-release-401-1485.apk",
+        "live_interaction": {
+          "topic": "",
+          "hashtags": [],
+          "accept_battlecams_invite": false
+        },
+        "counters": {
+          "followers": 604,
+          "total_friends": 604,
+          "total_sent_friend_request": 0,
+          "total_received_friend_request": 0,
+          "total_subscribers": 0
+        },
+        "videos_store": {
+          "allow_video_store_original_download": false,
+          "default_price": 4
+        },
+        "audios_store": {
+          "allow_audio_store_original_download": false,
+          "default_price": 4
+        },
+        "features_tips": [
+          {
+            "show_message_automation_tip": false
+          },
+          {
+            "messagesv3_dismissed": true
+          },
+          {
+            "show_messagesv3_tips": false
+          },
+          {
+            "show_profile_keywords": false
+          }
+        ],
+        "top_percent": null,
+        "show_top_percent": true,
+        "appliance_status": 1,
+        "application_status": 1,
+        "offline_notifications": null,
+        "tos": {
+          "date": null,
+          "unaccepted": []
+        },
+        "adt": {
+          "pk": "AKIA6OHPFH6ENB2M3M6X",
+          "sk": "3zubHi5BkaKOQw2McVKwAHx0AnY9b2oRLRTDovdV",
+          "region": "us-east-1",
+          "useAccelerateEndpoint": true,
+          "bucket": "endsun-s3adt-vu"
         }
-      ]
+      }
     },
     "https://www.loyalfans.com/api/v2/funds/earnings/months?ngsw-bypass=true": {
       "success": true,
@@ -185,25 +218,25 @@
           "type": "LAST_30_DAYS",
           "fromDate": "2026-09-15",
           "toDate": "2026-10-15",
-          "total": 8.4
+          "total": 20
         },
         {
           "type": "LAST_7_DAYS",
           "fromDate": "2026-10-08",
           "toDate": "2026-10-15",
-          "total": 8.4
+          "total": 20
         },
         {
           "type": "TODAY",
           "fromDate": "2026-10-15",
           "toDate": "2026-10-15",
-          "total": 7.200000000000002
+          "total": 18.8
         },
         {
           "type": "CURRENT_WEEK",
           "fromDate": "2026-10-12",
           "toDate": "2026-10-15",
-          "total": 8.4
+          "total": 20
         },
         {
           "type": "YESTERDAY",
@@ -221,7 +254,7 @@
           "type": "CURRENT_MONTH",
           "fromDate": "2026-10-01",
           "toDate": "2026-10-15",
-          "total": 8.4
+          "total": 20
         },
         {
           "type": "LAST_MONTH",
@@ -235,7 +268,7 @@
           "month": "10",
           "fromDate": "2026-10-01",
           "toDate": "2026-10-31",
-          "total": 8.4
+          "total": 20
         },
         {
           "type": "month",
@@ -404,6 +437,175 @@
           "fromDate": "2025-01-01",
           "toDate": "2025-01-31",
           "total": 0
+        }
+      ]
+    },
+    "https://www.loyalfans.com/api/v2/funds/transactions-history/list?ngsw-bypass=true": {
+      "success": true,
+      "httpCode": 200,
+      "page_meta": {
+        "total": 3,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 1,
+        "from": 1,
+        "to": 3
+      },
+      "transactions": [
+        {
+          "dateKey": "2026-10-14",
+          "transactions": [
+            {
+              "id": "6acfd484353230027f71f559",
+              "member": {
+                "name": "Guyeeeo009",
+                "display_name": "Guyeeeo009",
+                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
+                "user_type": "member",
+                "slug": "guyeeeo009",
+                "online_activity_at": "2026-10-14 19:57:39",
+                "sensitive_content": false,
+                "profile_photo": {
+                  "images": {
+                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+                  },
+                  "default": true
+                },
+                "created_at": {
+                  "date": "2025-01-25 17:24:39",
+                  "timezone_type": 3,
+                  "timezone": "UTC"
+                },
+                "_membership": {
+                  "label": "Silver Membership",
+                  "id": 3,
+                  "bonus": 3,
+                  "code": "SILVER"
+                },
+                "is_online": false
+              },
+              "type": "message",
+              "anonymous": false,
+              "payout": 0.4,
+              "payout_base": 0.4,
+              "charge": 0.5,
+              "created_at": "2026-10-14T19:15:10.000000Z",
+              "fee": 0.1,
+              "rate": 80,
+              "is_affiliate": false,
+              "is_referral": false,
+              "is_referred": false,
+              "version": 1,
+              "nice_time": 1
+            },
+            {
+              "id": "6acfc186313233988e71ee0b",
+              "member": {
+                "name": "Guyeeeo009",
+                "display_name": "Guyeeeo009",
+                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
+                "user_type": "member",
+                "slug": "guyeeeo009",
+                "online_activity_at": "2026-10-14 19:57:39",
+                "sensitive_content": false,
+                "profile_photo": {
+                  "images": {
+                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+                  },
+                  "default": true
+                },
+                "created_at": {
+                  "date": "2025-01-25 17:24:39",
+                  "timezone_type": 3,
+                  "timezone": "UTC"
+                },
+                "_membership": {
+                  "label": "Silver Membership",
+                  "id": 3,
+                  "bonus": 3,
+                  "code": "SILVER"
+                },
+                "is_online": false
+              },
+              "type": "message",
+              "anonymous": false,
+              "payout": 0.4,
+              "payout_base": 0.4,
+              "charge": 0.5,
+              "created_at": "2026-10-14T19:12:21.000000Z",
+              "fee": 0.1,
+              "rate": 80,
+              "is_affiliate": false,
+              "is_referral": false,
+              "is_referred": false,
+              "version": 1,
+              "nice_time": 1
+            },
+            {
+              "id": "6acfc60f313233a16971efcf",
+              "member": {
+                "name": "Guyeeeo009",
+                "display_name": "Guyeeeo009",
+                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
+                "user_type": "member",
+                "slug": "guyeeeo009",
+                "online_activity_at": "2026-10-14 19:57:39",
+                "sensitive_content": false,
+                "profile_photo": {
+                  "images": {
+                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+                  },
+                  "default": true
+                },
+                "created_at": {
+                  "date": "2025-01-25 17:24:39",
+                  "timezone_type": 3,
+                  "timezone": "UTC"
+                },
+                "_membership": {
+                  "label": "Silver Membership",
+                  "id": 3,
+                  "bonus": 3,
+                  "code": "SILVER"
+                },
+                "is_online": false
+              },
+              "type": "message",
+              "anonymous": false,
+              "payout": 0.4,
+              "payout_base": 0.4,
+              "charge": 0.5,
+              "created_at": "2026-10-14T19:12:21.000000Z",
+              "fee": 0.1,
+              "rate": 80,
+              "is_affiliate": false,
+              "is_referral": false,
+              "is_referred": false,
+              "version": 1,
+              "nice_time": 1
+            }
+          ]
         }
       ]
     }

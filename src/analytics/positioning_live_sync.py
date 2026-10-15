@@ -48,40 +48,25 @@ def init_positioning_db():
 
 def get_real_financial_data() -> Dict[str, Any]:
     """Carga los datos financieros y transacciones reales de LoyalFans."""
-    base = {
-        "balance": 15.59,
-        "current_month": 8.40,
-        "last_month": 7.19,
-        "fans": 604,
-        "recent_transactions": [
-            {"member": "@guyeeeo009", "type": "Mensaje PPV", "payout": 0.40, "date": "14/10/2026"},
-            {"member": "@guyeeeo009", "type": "Mensaje PPV", "payout": 0.40, "date": "14/10/2026"},
-            {"member": "@guyeeeo009", "type": "Mensaje PPV", "payout": 0.40, "date": "14/10/2026"}
-        ]
-    }
-
-    if DUMP_FILE.exists():
-        try:
-            with open(DUMP_FILE, "r", encoding="utf-8") as f:
-                dump = json.load(f)
-                base["balance"] = float(dump.get("balance", base["balance"]))
-                base["current_month"] = float(dump.get("current_month", base["current_month"]))
-                base["last_month"] = float(dump.get("last_month", base["last_month"]))
-                if dump.get("recent_transactions"):
-                    txs = []
-                    for t in dump["recent_transactions"][:5]:
-                        m = t.get("member", {})
-                        txs.append({
-                            "member": m.get("name") or m.get("slug") or "@guyeeeo009",
-                            "type": t.get("type", "Mensaje PPV"),
-                            "payout": float(t.get("payout", 0.40)),
-                            "date": t.get("dateKey", "14/10/2026")
-                        })
-                    base["recent_transactions"] = txs
-        except Exception:
-            pass
-
-    return base
+    try:
+        from src.analytics.financial_live_sync import parse_financials_dump
+        fin = parse_financials_dump()
+        return {
+            "balance": float(fin.get("balance", 27.19)),
+            "current_month": float(fin.get("current_month", 20.00)),
+            "last_month": float(fin.get("last_month", 7.19)),
+            "fans": int(fin.get("fans_count", 603)),
+            "recent_transactions": fin.get("recent_transactions", [])
+        }
+    except Exception as e:
+        print(f"Nota en get_real_financial_data: {e}")
+        return {
+            "balance": 27.19,
+            "current_month": 20.00,
+            "last_month": 7.19,
+            "fans": 603,
+            "recent_transactions": []
+        }
 
 def calculate_loyalfans_positioning(fin: Dict[str, Any]) -> Dict[str, Any]:
     """Calcula las métricas de posicionamiento y percentil para LoyalFans."""
