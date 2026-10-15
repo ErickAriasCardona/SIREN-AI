@@ -16,6 +16,7 @@ ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(ROOT_DIR))
 
 from src.config import DATA_DIR
+from src.automation.broadcast_manager import get_webrtc_media_hook_script, setup_live_broadcast_room
 from src.automation.platform_auth import (
     PLATFORM_CONFIG,
     PLATFORM_DESTINATIONS,
@@ -54,6 +55,7 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
         user_data_dir=str(user_data_dir),
         headless=False,
         no_viewport=True,
+        permissions=["camera", "microphone"],
         ignore_default_args=["--enable-automation"],
         args=[
             "--start-maximized",
@@ -63,6 +65,7 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
             "--no-first-run",
             "--no-default-browser-check",
             "--disable-infobars",
+            "--use-fake-ui-for-media-stream",
             "--lang=es-ES,es,en-US,en"
         ]
     )
@@ -74,6 +77,9 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
         Object.defineProperty(navigator, 'plugins', { get: () => [1, 2, 3, 4, 5] });
         Object.defineProperty(navigator, 'languages', { get: () => ['es-ES', 'es', 'en-US', 'en'] });
     """)
+
+    # Inyección de hook WebRTC para priorizar OBS Virtual Camera y Micrófono Logitech
+    await context.add_init_script(get_webrtc_media_hook_script())
 
     page = context.pages[0] if context.pages else await context.new_page()
 
@@ -128,8 +134,13 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
             try:
                 await page.goto(dest_url, wait_until="domcontentloaded", timeout=30000)
                 print(f"✨ ¡Redirección completada! Ahora estás en tu {target_label}.")
+
+                # Si el destino es la Transmisión en Vivo, configurar OBS, micrófono Logitech, meta del día y tema @SAMBARTONN23
+                if target_key == "live":
+                    await asyncio.sleep(2)
+                    await setup_live_broadcast_room(page, platform_key, print)
             except Exception as e:
-                print(f"Nota en redirección: {e}")
+                print(f"Nota en redirección / setup de transmisión: {e}")
 
     # Guardar estado de almacenamiento explícito
     storage_file = DATA_DIR / "sessions" / f"{platform_key}_storage_state.json"

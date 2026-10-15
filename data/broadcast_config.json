@@ -1,0 +1,33 @@
+{
+  "preferred_camera": "OBS Virtual Camera",
+  "preferred_microphone": "Micrófono (Logitech BRIO)",
+  "creator_tag": "@SAMBARTONN23",
+  "room_topic": "🖤 @SAMBARTONN23 | Dominante & Analítica 😈 Goal 3 Niveles Activo | Haz vibrar mi Lovense 🔥",
+  "topic_presets": [
+    "🖤 @SAMBARTONN23 | Dominante & Analítica 😈 Goal 3 Niveles Activo | Haz vibrar mi Lovense 🔥",
+    "⚽ Athletic & Sensual @SAMBARTONN23 | Desafíame si puedes... Nivel 3 sin censura 💥",
+    "💻 Dev de día, tu tentación de noche 🖤 @SAMBARTONN23 | Cumpliendo metas paso a paso 😈",
+    "🔥 Sala VIP @SAMBARTONN23 | 3 Niveles de Intensidad + Lovense Conectado 🫦 ¿Listo para obedecer?",
+    "✨ Atardecer íntimo con @SAMBARTONN23 | Ukelele, lencería y control total 🖤"
+  ],
+  "goals": {
+    "level_1": {
+      "name": "Nivel 1: Calentamiento & Conexión",
+      "tokens": 250,
+      "usd": 25.0,
+      "desc": "Poses fitness/lencería deportiva, charla VIP interactiva y test suave Lovense"
+    },
+    "level_2": {
+      "name": "Nivel 2: Intensidad & Sensualidad",
+      "tokens": 750,
+      "usd": 75.0,
+      "desc": "Cambio a lencería exclusiva, baile sugerente y vibración media interactiva"
+    },
+    "level_3": {
+      "name": "Nivel 3: Clímax & Dominación Total",
+      "tokens": 1500,
+      "usd": 150.0,
+      "desc": "Show dominante completo, Lovense al 100%, flash show y clip VIP por DM"
+    }
+  }
+}

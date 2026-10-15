@@ -11,6 +11,7 @@ sys.path.append(str(ROOT_DIR))
 from src.automation.platform_auth import run_login_sync, run_refresh_sync, run_diana_audit_sync, PLATFORM_CONFIG
 from src.automation.credential_store import save_platform_credentials, get_platform_credentials
 from src.automation.profile_deep_audit import synthesize_diana_findings
+from src.automation.broadcast_manager import load_broadcast_config, save_broadcast_config
 
 # Configuración visual de CustomTkinter
 ctk.set_appearance_mode("Dark")
@@ -197,6 +198,18 @@ class VelvetControlCenter(ctk.CTk):
             text_color="#ffd166"
         )
         redir_lbl.pack(side="left")
+
+        self.btn_live_setup = ctk.CTkButton(
+            redir_top,
+            text="🎛️ Ajustes En Vivo (OBS / Logitech / Metas)",
+            font=ctk.CTkFont(size=11, weight="bold"),
+            fg_color="#4a154b",
+            hover_color="#702072",
+            height=26,
+            corner_radius=6,
+            command=self._open_live_setup_window
+        )
+        self.btn_live_setup.pack(side="right")
 
         self.redirect_target_var = ctk.StringVar(value="feed")
 
@@ -480,6 +493,208 @@ class VelvetControlCenter(ctk.CTk):
         )
         btn_close.pack(pady=(5, 18), padx=25, fill="x")
 
+    def _open_live_setup_window(self):
+        """Abre la ventana de configuración y verificación para transmisiones en vivo."""
+        cfg = load_broadcast_config()
+
+        live_win = ctk.CTkToplevel(self)
+        live_win.title("Transmisión en Vivo — OBS, Logitech & @SAMBARTONN23")
+        live_win.geometry("680x720")
+        live_win.minsize(620, 640)
+        live_win.configure(fg_color="#0f0c15")
+        live_win.attributes("-topmost", True)
+
+        header = ctk.CTkFrame(live_win, fg_color="transparent")
+        header.pack(fill="x", padx=25, pady=(18, 6))
+
+        t = ctk.CTkLabel(header, text="🎛️ CONFIGURACIÓN DE SALA EN VIVO", font=ctk.CTkFont(family="Segoe UI", size=18, weight="bold"), text_color="#ff2a85")
+        t.pack(anchor="w")
+
+        sub = ctk.CTkLabel(header, text="Cámara OBS, Micrófono Logitech, Tema con @SAMBARTONN23 y Metas de 3 Niveles", font=ctk.CTkFont(size=12), text_color="#a09cb0")
+        sub.pack(anchor="w")
+
+        # Tarjetas de estado de Hardware
+        hw_frame = ctk.CTkFrame(live_win, fg_color="#181326", corner_radius=10, border_width=1, border_color="#3e3056")
+        hw_frame.pack(fill="x", padx=25, pady=8)
+
+        hw_grid = ctk.CTkFrame(hw_frame, fg_color="transparent")
+        hw_grid.pack(fill="x", padx=15, pady=10)
+
+        # Badge Cámara
+        cam_box = ctk.CTkFrame(hw_grid, fg_color="#221b33", corner_radius=8, border_width=1, border_color="#533c77")
+        cam_box.pack(side="left", fill="both", expand=True, padx=(0, 6))
+        ctk.CTkLabel(cam_box, text="🎥 Cámara Seleccionada", font=ctk.CTkFont(size=11), text_color="#b5b0c4").pack(pady=(6, 2))
+        ctk.CTkLabel(cam_box, text="🟢 OBS Virtual Camera", font=ctk.CTkFont(size=13, weight="bold"), text_color="#48e5c2").pack(pady=(0, 6))
+
+        # Badge Micrófono
+        mic_box = ctk.CTkFrame(hw_grid, fg_color="#221b33", corner_radius=8, border_width=1, border_color="#533c77")
+        mic_box.pack(side="left", fill="both", expand=True, padx=(6, 0))
+        ctk.CTkLabel(mic_box, text="🎙️ Micrófono de Entrada", font=ctk.CTkFont(size=11), text_color="#b5b0c4").pack(pady=(6, 2))
+        ctk.CTkLabel(mic_box, text="🟢 Micrófono (Logitech BRIO)", font=ctk.CTkFont(size=13, weight="bold"), text_color="#ffd166").pack(pady=(0, 6))
+
+        # Sección de Tema de la Sala
+        topic_card = ctk.CTkFrame(live_win, fg_color="#181326", corner_radius=10, border_width=1, border_color="#3e3056")
+        topic_card.pack(fill="x", padx=25, pady=8)
+
+        topic_top = ctk.CTkFrame(topic_card, fg_color="transparent")
+        topic_top.pack(fill="x", padx=15, pady=(10, 4))
+        ctk.CTkLabel(topic_top, text="🏷️ Tema / Título de la Sala (Siempre contiene @SAMBARTONN23):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffffff").pack(side="left")
+
+        # Selector de presets
+        presets = cfg.get("topic_presets", [])
+        def on_preset_selected(choice):
+            topic_entry.delete(0, "end")
+            topic_entry.insert(0, choice)
+
+        if presets:
+            preset_menu = ctk.CTkOptionMenu(
+                topic_top,
+                values=presets,
+                command=on_preset_selected,
+                width=170,
+                height=26,
+                fg_color="#3c2a55",
+                button_color="#5c3f82",
+                font=ctk.CTkFont(size=11)
+            )
+            preset_menu.set("Elegir Preset...")
+            preset_menu.pack(side="right")
+
+        topic_entry = ctk.CTkEntry(
+            topic_card,
+            height=38,
+            corner_radius=8,
+            fg_color="#120e1c",
+            border_color="#533c77",
+            font=ctk.CTkFont(size=12)
+        )
+        topic_entry.pack(fill="x", padx=15, pady=(0, 12))
+        topic_entry.insert(0, cfg.get("room_topic", ""))
+
+        # Sección Objetivo del Día con 3 Niveles
+        goals_card = ctk.CTkFrame(live_win, fg_color="#181326", corner_radius=10, border_width=1, border_color="#3e3056")
+        goals_card.pack(fill="both", expand=True, padx=25, pady=8)
+
+        g_title = ctk.CTkLabel(goals_card, text="🎯 Objetivo del Día — Configuración de 3 Niveles (Tokens / USD):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffd166")
+        g_title.pack(anchor="w", padx=15, pady=(10, 6))
+
+        goals_data = cfg.get("goals", {})
+        g1 = goals_data.get("level_1", {})
+        g2 = goals_data.get("level_2", {})
+        g3 = goals_data.get("level_3", {})
+
+        def create_goal_row(parent, level_title, default_tk, default_usd, default_desc, accent_color):
+            row = ctk.CTkFrame(parent, fg_color="#201830", corner_radius=8, border_width=1, border_color="#3e3056")
+            row.pack(fill="x", padx=15, pady=4)
+
+            top = ctk.CTkFrame(row, fg_color="transparent")
+            top.pack(fill="x", padx=10, pady=(6, 2))
+
+            lbl = ctk.CTkLabel(top, text=level_title, font=ctk.CTkFont(size=12, weight="bold"), text_color=accent_color)
+            lbl.pack(side="left")
+
+            tk_entry = ctk.CTkEntry(top, width=70, height=26, corner_radius=6, font=ctk.CTkFont(size=11))
+            tk_entry.pack(side="right", padx=(4, 0))
+            tk_entry.insert(0, str(default_tk))
+
+            tk_lbl = ctk.CTkLabel(top, text="TK:", font=ctk.CTkFont(size=11), text_color="#a09cb0")
+            tk_lbl.pack(side="right")
+
+            usd_entry = ctk.CTkEntry(top, width=65, height=26, corner_radius=6, font=ctk.CTkFont(size=11))
+            usd_entry.pack(side="right", padx=(4, 10))
+            usd_entry.insert(0, str(default_usd))
+
+            usd_lbl = ctk.CTkLabel(top, text="USD $:", font=ctk.CTkFont(size=11), text_color="#a09cb0")
+            usd_lbl.pack(side="right")
+
+            desc_entry = ctk.CTkEntry(row, height=28, corner_radius=6, fg_color="#120e1c", font=ctk.CTkFont(size=11))
+            desc_entry.pack(fill="x", padx=10, pady=(0, 8))
+            desc_entry.insert(0, default_desc)
+
+            return tk_entry, usd_entry, desc_entry
+
+        e_g1_tk, e_g1_usd, e_g1_desc = create_goal_row(goals_card, "🔥 Nivel 1: Calentamiento & Conexión", g1.get("tokens", 250), g1.get("usd", 25.0), g1.get("desc", ""), "#48e5c2")
+        e_g2_tk, e_g2_usd, e_g2_desc = create_goal_row(goals_card, "⚡ Nivel 2: Intensidad & Sensualidad", g2.get("tokens", 750), g2.get("usd", 75.0), g2.get("desc", ""), "#ffd166")
+        e_g3_tk, e_g3_usd, e_g3_desc = create_goal_row(goals_card, "😈 Nivel 3: Clímax & Dominación Total", g3.get("tokens", 1500), g3.get("usd", 150.0), g3.get("desc", ""), "#ff2a85")
+
+        # Botones inferiores
+        b_frame = ctk.CTkFrame(live_win, fg_color="transparent")
+        b_frame.pack(fill="x", padx=25, pady=(10, 18))
+
+        def save_and_close():
+            raw_topic = topic_entry.get().strip()
+            if "@SAMBARTONN23" not in raw_topic.upper():
+                raw_topic = f"{raw_topic} @SAMBARTONN23".strip()
+
+            cfg["room_topic"] = raw_topic
+            try:
+                g1_tk = int(e_g1_tk.get().strip())
+                g1_usd = float(e_g1_usd.get().strip())
+                g2_tk = int(e_g2_tk.get().strip())
+                g2_usd = float(e_g2_usd.get().strip())
+                g3_tk = int(e_g3_tk.get().strip())
+                g3_usd = float(e_g3_usd.get().strip())
+            except Exception:
+                g1_tk, g1_usd = 250, 25.0
+                g2_tk, g2_usd = 750, 75.0
+                g3_tk, g3_usd = 1500, 150.0
+
+            cfg["goals"]["level_1"]["tokens"] = g1_tk
+            cfg["goals"]["level_1"]["usd"] = g1_usd
+            cfg["goals"]["level_1"]["desc"] = e_g1_desc.get().strip()
+
+            cfg["goals"]["level_2"]["tokens"] = g2_tk
+            cfg["goals"]["level_2"]["usd"] = g2_usd
+            cfg["goals"]["level_2"]["desc"] = e_g2_desc.get().strip()
+
+            cfg["goals"]["level_3"]["tokens"] = g3_tk
+            cfg["goals"]["level_3"]["usd"] = g3_usd
+            cfg["goals"]["level_3"]["desc"] = e_g3_desc.get().strip()
+
+            save_broadcast_config(cfg)
+            self._log(f"💾 Ajustes de transmisión guardados: Tema \"{raw_topic}\" | Metas de 3 niveles actualizadas.")
+            live_win.destroy()
+
+        def copy_goals_summary():
+            raw_topic = topic_entry.get().strip()
+            if "@SAMBARTONN23" not in raw_topic.upper():
+                raw_topic = f"{raw_topic} @SAMBARTONN23".strip()
+            summary = (
+                f"🖤 {raw_topic}\n"
+                f"🎯 METAS DEL DÍA — SAM BARTON:\n"
+                f"1️⃣ {e_g1_tk.get()} TK (${e_g1_usd.get()}) ➔ {e_g1_desc.get()}\n"
+                f"2️⃣ {e_g2_tk.get()} TK (${e_g2_usd.get()}) ➔ {e_g2_desc.get()}\n"
+                f"3️⃣ {e_g3_tk.get()} TK (${e_g3_usd.get()}) ➔ {e_g3_desc.get()}\n"
+                f"✨ ¡Lovense activo en sala! Tips activan vibración inmediata 🔥"
+            )
+            self.clipboard_clear()
+            self.clipboard_append(summary)
+            self._log("📋 ¡Metas y tema copiados al portapapeles! Listo para pegar en el chat de tu sala.")
+
+        btn_copy = ctk.CTkButton(
+            b_frame,
+            text="📋 COPIAR METAS PARA CHAT",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#3c2a55",
+            hover_color="#5c3f82",
+            height=38,
+            corner_radius=8,
+            command=copy_goals_summary
+        )
+        btn_copy.pack(side="left", fill="x", expand=True, padx=(0, 6))
+
+        btn_save = ctk.CTkButton(
+            b_frame,
+            text="💾 GUARDAR AJUSTES DE SALA",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#6a1b9a",
+            hover_color="#8e24aa",
+            height=38,
+            corner_radius=8,
+            command=save_and_close
+        )
+        btn_save.pack(side="left", fill="x", expand=True, padx=(6, 0))
+
     def _run_diana_audit_thread(self):
         self.btn_diana.configure(state="disabled", text="⏳ Analizando...")
 
@@ -543,6 +758,14 @@ class VelvetControlCenter(ctk.CTk):
         self.login_button.configure(state="disabled", text="⏳ CONECTANDO...")
         self._log(f"Iniciando tarea para [{platform.upper()}] (Destino: {target_name})...")
 
+        if redirect_target == "live":
+            b_cfg = load_broadcast_config()
+            self._log("🎥 [EN VIVO] Cámara priorizada: OBS Virtual Camera")
+            self._log("🎙️ [EN VIVO] Micrófono confirmado: Micrófono (Logitech BRIO)")
+            self._log(f"🏷️ [EN VIVO] Tema configurado: \"{b_cfg.get('room_topic')}\"")
+            g = b_cfg.get("goals", {})
+            self._log(f"🎯 [EN VIVO] Metas 3 niveles: N1 ({g.get('level_1', {}).get('tokens', 250)} TK / ${g.get('level_1', {}).get('usd', 25)}) | N2 ({g.get('level_2', {}).get('tokens', 750)} TK / ${g.get('level_2', {}).get('usd', 75)}) | N3 ({g.get('level_3', {}).get('tokens', 1500)} TK / ${g.get('level_3', {}).get('usd', 150)})")
+
         def worker():
             try:
                 self.after(2500, lambda: self.login_button.configure(text="🟢 SESIÓN EN CURSO (ABIERTA)"))
@@ -568,6 +791,11 @@ class VelvetControlCenter(ctk.CTk):
         redirect_target = self.redirect_target_var.get()
         target_name = "Feed / Muro" if redirect_target == "feed" else ("Transmisión en Vivo" if redirect_target == "live" else "Panel General")
         self._log(f"🛡️ [MODO ASISTIDO] Abriendo navegador para [{platform.upper()}] (Destino: {target_name}).")
+        if redirect_target == "live":
+            b_cfg = load_broadcast_config()
+            self._log("🎥 [EN VIVO] Cámara priorizada: OBS Virtual Camera")
+            self._log("🎙️ [EN VIVO] Micrófono confirmado: Micrófono (Logitech BRIO)")
+            self._log(f"🏷️ [EN VIVO] Tema: \"{b_cfg.get('room_topic')}\"")
         self._log("👉 Resuelve el reto de Cloudflare ('Verifica que eres humano') o 2FA en la ventana de Chrome.")
         self.assisted_button.configure(state="disabled", text="⏳ ASISTIDO ACTIVO...")
 
