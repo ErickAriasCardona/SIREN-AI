@@ -161,6 +161,14 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
         "5. 👥 COMPRADORES IDENTIFICADOS EN MENSAJERÍA:\n"
         f"• Fans calientes en espera: {chat_str}...\n"
         "• Acción inmediata: Enviar Mass DM PPV temático de su meta de diciembre a $9.99 USD.\n"
+        "──────────────────────────────────────────────────────────────────────\n"
+        "6. 📊 ALGORITMO DE LOYALFANS & EXPLICACIÓN DEL RANKING (TOP X%):\n"
+        "• ¿Por qué sale 'Top 23%'?: Tu facturación reciente superó al 77% de todas las creadoras activas.\n"
+        "• ¿Por qué NO sale siempre?: LoyalFans utiliza una VENTANA MÓVIL DE 30 DÍAS (Rolling 30-Day Window).\n"
+        "  Si pasan días sin nuevas ventas, los ingresos antiguos salen del cálculo y el badge se oculta\n"
+        "  automáticamente al cruzar el umbral del 30%.\n"
+        "• Ventaja del Top 25%: Indexación prioritaria en 'Featured', carrusel dorado de Live Stream y correos promocionales.\n"
+        "• Antídoto VELVET AI: Mantener el flujo con transmisiones en vivo (OBS + Lovense) y Mass DMs quincenales.\n"
         "======================================================================\n"
     )
 
@@ -178,10 +186,17 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
         "chat_users": chat_users,
         "key_opportunity": "Enviar Mass DM PPV enlazado a la meta del carro de diciembre ($9.99 USD)",
         "platform_rule": "LoyalFans premia las ventas en el buzón (Mass DM PPV) y la recurrencia de suscripción.",
+        "algorithm_intel": {
+            "rolling_window_days": 30,
+            "visibility_threshold": "Top 30%",
+            "ranking_factors": ["Facturación 30d (40%)", "Velocidad 48h (25%)", "Mensajería PPV (15%)", "Directos Lovense (10%)", "Reciprocidad (10%)"],
+            "doc_reference": "docs/ALGORITMO_LOYALFANS_RANKING_PERCENTILES.md"
+        },
         "tooltip_text": (
             "💻 Sam Barton: Software & AI Architect / Biker Tomboy 🏍️\n"
             "🍙 Pasiones: InuYasha (fav), perras & 2 gatas, ukelele, motos, neón/calaveras\n"
             "🚗 Meta: Su carro usado en diciembre y viaje a Cancún\n"
+            "📊 Algoritmo: Ranking en ventana móvil de 30 días (Top 23% activo con ventas)\n"
             "👑 Regla: 'Sé anormal, diferente y respetuoso si quieres el control'\n"
             "👉 (Clic derecho en este botón para ver el Dossier Completo)"
         ),
