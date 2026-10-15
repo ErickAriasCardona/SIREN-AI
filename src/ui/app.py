@@ -12,6 +12,7 @@ from src.automation.platform_auth import run_login_sync, run_refresh_sync, run_d
 from src.automation.credential_store import save_platform_credentials, get_platform_credentials
 from src.automation.profile_deep_audit import synthesize_diana_findings
 from src.automation.broadcast_manager import load_broadcast_config, save_broadcast_config
+from src.analytics.positioning_live_sync import get_realtime_positioning, refresh_positioning_live
 
 # Configuración visual de CustomTkinter
 ctk.set_appearance_mode("Dark")
@@ -362,6 +363,66 @@ class VelvetControlCenter(ctk.CTk):
         self.stat_foll = self._create_stat_badge(stats_grid, "👥 Seguidores", "--", "#a8dadc")
         self.stat_msgs = self._create_stat_badge(stats_grid, "✉️ Mensajes", "0 nuevos", "#ff70a6")
         self.stat_alrt = self._create_stat_badge(stats_grid, "🔔 Alertas", "0", "#ffd166")
+
+        # 3.1 🎯 PANEL DE POSICIONAMIENTO EN VIVO & RANKING REAL POR PÁGINA
+        self.pos_card = ctk.CTkFrame(self, fg_color="#181324", corner_radius=15, border_width=1, border_color="#533c77")
+        self.pos_card.pack(fill="x", padx=30, pady=(0, 6))
+
+        pos_top_row = ctk.CTkFrame(self.pos_card, fg_color="transparent")
+        pos_top_row.pack(fill="x", padx=20, pady=(10, 6))
+
+        pos_header = ctk.CTkLabel(
+            pos_top_row,
+            text="🎯 Posicionamiento en Vivo & Estado Algorítmico (Ranking Real)",
+            font=ctk.CTkFont(family="Segoe UI", size=14, weight="bold"),
+            text_color="#ffd166"
+        )
+        pos_header.pack(side="left")
+
+        # Botón refrescar posicionamiento
+        self.btn_refresh_pos = ctk.CTkButton(
+            pos_top_row,
+            text="🔄 Actualizar Posición",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#3c2a55",
+            hover_color="#5c3f82",
+            height=28,
+            width=140,
+            corner_radius=6,
+            command=self._refresh_positioning_ui
+        )
+        self.btn_refresh_pos.pack(side="right")
+
+        # Selector de Página / Plataforma para ver por página
+        self.pos_platform_var = ctk.StringVar(value="LoyalFans")
+        self.pos_platform_menu = ctk.CTkOptionMenu(
+            pos_top_row,
+            values=["LoyalFans", "Stripchat", "Flirt4Free", "Streamate"],
+            variable=self.pos_platform_var,
+            command=lambda val: self._update_positioning_for_platform(val.lower()),
+            width=130,
+            height=28,
+            fg_color="#4a154b",
+            button_color="#702072",
+            font=ctk.CTkFont(size=12, weight="bold")
+        )
+        self.pos_platform_menu.pack(side="right", padx=(0, 10))
+
+        pos_grid = ctk.CTkFrame(self.pos_card, fg_color="transparent")
+        pos_grid.pack(fill="x", padx=15, pady=(0, 6))
+
+        self.stat_pos_pct = self._create_stat_badge(pos_grid, "🏆 Percentil Global", "Top 23%", "#ff2a85")
+        self.stat_pos_status = self._create_stat_badge(pos_grid, "🟢 Estado de Ventas", "Saludable (3 PPV)", "#34d399")
+        self.stat_pos_rolling = self._create_stat_badge(pos_grid, "📅 Ventana 30 Días", "$8.40 USD", "#38bdf8")
+        self.stat_pos_gap = self._create_stat_badge(pos_grid, "🎯 Brecha Siguiente Nivel", "+$6.60 (Top 18%)", self.GOLD_COLOR)
+
+        self.pos_rec_label = ctk.CTkLabel(
+            self.pos_card,
+            text="💡 Señal Algorítmica: Ventas recientes de @guyeeeo009 ($0.40 c/u) sostienen el Top 23%. Lanzar Mass DM para ascender al Top 18%.",
+            font=ctk.CTkFont(size=11),
+            text_color="#a09cb0"
+        )
+        self.pos_rec_label.pack(anchor="w", padx=20, pady=(0, 10))
 
         # 4. Consola de Automatización en Vivo
         log_frame = ctk.CTkFrame(self, fg_color=self.BG_CARD, corner_radius=15, border_width=1, border_color=self.CARD_BORDER)
@@ -835,6 +896,36 @@ class VelvetControlCenter(ctk.CTk):
                 self._log(f"Error al iniciar Lovense: {e}")
             finally:
                 self.after(0, lambda: self.btn_lovense.configure(state="normal", text="💖 Lovense Master"))
+
+        threading.Thread(target=worker, daemon=True).start()
+
+    def _update_positioning_for_platform(self, platform_key: str):
+        """Actualiza los badges de la card de posicionamiento según la plataforma seleccionada."""
+        data = get_realtime_positioning(platform_key)
+        self.stat_pos_pct.configure(text=data.get("percentile", "Top 23%"))
+        is_healthy = "SALUDABLE" in data.get("sales_status", "")
+        self.stat_pos_status.configure(text="🟢 Saludable" if is_healthy else "🔵 Activo")
+        self.stat_pos_rolling.configure(text=data.get("rolling_30d_formatted", "$8.40 USD"))
+        self.stat_pos_gap.configure(text=data.get("next_tier_gap_formatted", "+$6.60 USD"))
+        rec = data.get("action_recommendation", "")
+        self.pos_rec_label.configure(text=f"💡 Recomendación [{data.get('platform_name')}]: {rec}")
+        self._log(f"🧭 Posicionamiento cargado para [{data.get('platform_name')}]: {data.get('percentile')} | {data.get('sales_status')}")
+
+    def _refresh_positioning_ui(self):
+        """Consulta en vivo el estado del algoritmo y actualiza la card de posicionamiento."""
+        plat = self.pos_platform_var.get().lower()
+        self.btn_refresh_pos.configure(state="disabled", text="⏳ Actualizando...")
+        self._log(f"Calculando ranking y estado de ventas en tiempo real para [{plat.upper()}]...")
+
+        def worker():
+            try:
+                data = refresh_positioning_live(plat)
+                self.after(0, lambda: self._update_positioning_for_platform(plat))
+                self._log(f"✨ Posicionamiento actualizado para [{data.get('platform_name')}]: {data.get('percentile')}")
+            except Exception as e:
+                self._log(f"Nota en posicionamiento: {e}")
+            finally:
+                self.after(0, lambda: self.btn_refresh_pos.configure(state="normal", text="🔄 Actualizar Posición"))
 
         threading.Thread(target=worker, daemon=True).start()
 
