@@ -10,6 +10,7 @@ from playwright.async_api import async_playwright
 ROOT_DIR = Path(__file__).resolve().parent.parent.parent
 sys.path.append(str(ROOT_DIR))
 from src.config import DATA_DIR
+from src.automation.broadcast_manager import get_webrtc_media_hook_script, setup_live_broadcast_room
 
 PROFILES_DIR = DATA_DIR / "browser_profiles"
 PROFILES_DIR.mkdir(parents=True, exist_ok=True)
@@ -443,6 +444,7 @@ async def launch_and_login_platform(
         user_data_dir=str(user_data_dir),
         headless=False,
         no_viewport=True,
+        permissions=["camera", "microphone"],
         ignore_default_args=["--enable-automation"],
         args=[
             "--start-maximized",
@@ -452,6 +454,7 @@ async def launch_and_login_platform(
             "--no-first-run",
             "--no-default-browser-check",
             "--disable-infobars",
+            "--use-fake-ui-for-media-stream",
             "--lang=es-ES,es,en-US,en"
         ]
     )
@@ -480,6 +483,9 @@ async def launch_and_login_platform(
             get: () => ['es-ES', 'es', 'en-US', 'en']
         });
     """)
+
+    # Inyección de hook WebRTC para priorizar OBS Virtual Camera y Micrófono Logitech
+    await context.add_init_script(get_webrtc_media_hook_script())
 
     page = context.pages[0] if context.pages else await context.new_page()
 
@@ -625,8 +631,13 @@ async def launch_and_login_platform(
                 try:
                     await page.goto(dest_url, wait_until="domcontentloaded", timeout=30000)
                     log(f"✨ ¡Redirección completada! Ahora estás en tu {target_label}.")
+
+                    # Si el destino es la Transmisión en Vivo, configurar OBS, micrófono Logitech, meta del día y tema @SAMBARTONN23
+                    if target_key == "live":
+                        await asyncio.sleep(2)
+                        await setup_live_broadcast_room(page, key, log)
                 except Exception as e:
-                    log(f"Nota en redirección: {e}")
+                    log(f"Nota en redirección / setup de transmisión: {e}")
 
         log(f"📊 Resumen obtenido: Creadora @{metrics['username']} | Ganancias: {metrics['earnings']} | Msg: {metrics['unread_messages']} | Alertas: {metrics['alerts']}")
         log("🎉 ¡Listo! El navegador permanecerá abierto para que transmitas o gestiones tu contenido.")
