@@ -113,8 +113,53 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_refresh_financials()
         elif self.path.startswith("/api/refresh_positioning"):
             self.handle_api_refresh_positioning()
+        elif self.path.startswith("/api/deploy_profile"):
+            self.handle_api_deploy_profile()
         else:
             self.send_error(404, "Endpoint no encontrado")
+
+    def handle_api_deploy_profile(self):
+        """Ejecuta el script de despliegue y actualización de perfil en segundo plano."""
+        try:
+            from urllib.parse import urlparse, parse_qs
+            import threading
+            import subprocess
+
+            qs = parse_qs(urlparse(self.path).query)
+            platform = qs.get("platform", ["stripchat"])[0].lower()
+
+            script_map = {
+                "loyalfans": "src/platforms/loyalfans/profile_updater.py",
+                "stripchat": "src/platforms/stripchat/profile_updater.py",
+                "streamate": "src/platforms/streamate/profile_updater.py",
+                "flirt4free": "src/platforms/flirt4free/profile_updater.py"
+            }
+
+            target_script = script_map.get(platform, "src/platforms/stripchat/profile_updater.py")
+            full_script_path = ROOT / target_script
+
+            def run_worker():
+                try:
+                    subprocess.Popen([sys.executable, str(full_script_path)], cwd=str(ROOT))
+                except Exception as e:
+                    print(f"Error lanzando actualizador de {platform}: {e}")
+
+            threading.Thread(target=run_worker, daemon=True).start()
+
+            resp = {
+                "success": True,
+                "status": "launched",
+                "platform": platform,
+                "script": target_script,
+                "message": f"🚀 Despliegue de {platform.upper()} puesto en marcha en ventana visible."
+            }
+        except Exception as e:
+            resp = {"success": False, "error": str(e)}
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(resp).encode("utf-8"))
 
     def handle_api_financials(self):
         """Devuelve el balance en vivo, desglose de octubre y transacciones recientes."""
