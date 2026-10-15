@@ -15,6 +15,7 @@
 3. **ELECTRA Radar & Cooldown Monitor:** Auditoría de APIs internas de LoyalFans (`/api/v2/creators`) para detectar ventanas óptimas de actualización y asegurar la posición #1 en el feed.
 4. **Data Science & Funnel Engine:** Base de datos relacional SQLite (`velvet_analytics.db`) que modela la tasa de lectura real (18%-25%) y la conversión de compra efectiva (3%-6%).
 5. **SCARLETT & DIANA:** Agentes autónomos para despliegue controlado de biografías, menús y respuestas automáticas (7 triggers nativos verificados).
+6. **Ingeniería del Algoritmo de LoyalFans:** Explicación técnica y matemática de la ventana móvil de 30 días (*rolling window*), ranking de percentiles (*Top X%*) y factores de posicionamiento. [Ver documentación completa en `docs/ALGORITMO_LOYALFANS_RANKING_PERCENTILES.md`](docs/ALGORITMO_LOYALFANS_RANKING_PERCENTILES.md).
 
 ---
 
