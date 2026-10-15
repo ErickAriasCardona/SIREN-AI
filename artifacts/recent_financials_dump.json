@@ -1,0 +1,411 @@
+{
+  "extracted": {
+    "url": "https://www.loyalfans.com/settings/earnings/statements",
+    "bodySnippet": "Escribe tu búsqueda aquí...\n15.59\n2\nSam Barton\nCREADOR\nPerfil\nCuenta\nAjustes De La Cuenta\nSeguridad De La Cuenta\nCuentas Vinculadas\nCuenta Delegada\nPrivacidad Y Seguridad\nPrivacidad De La Cuenta\nRegiones Bloqueadas\nMarca De Agua\nPantalla\nNotificaciones\nNotificaciones Por Correo Electrónico\nNotificaciones Internas\nNotificaciones Push\nMensajes\nPrecios De Mensajes\nReglas De Precio De Mensajes\nPrecios Individuales\nAutomatización De Mensajes\nAjustes De Mensajes\nGanancias\nResumen\nEstados De Cuentas\nEstado Del Cobro\nMétodo De Cobro\nReferencias\nTransmisión\nVideoteca\nGeneral\nDescuentos\nAudioteca\nEstados de cuentas\nAjustes - Ganancias - Estados de cuentas\nTodos los tipos de transacción\nFecha\tTipo\tBruto\tComisión\tNeto\n14 oct, 2026 02:15 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40\n14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40\n14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40\n1 - 3 de 3\nElementos por página:\n10\nEspañol\nTérminos del programa de referencia\nTérminos de Servicio\nPolítica de privacidad\nPolítica de privacidad para residentes de California\nPolítica de cookies\nPolítica de derechos de autor\nPolítica de Uso Aceptable\nPolítica de Cumplimiento de la Ley Take It Down de EE.UU.\nAVISO DE EXENCIÓN 2257\nPolítica Anti-Trata de Personas\nPolítica de Quejas\nEliminación de contenido\n©Loyalfans.com, Todos los derechos reservados.\nDescargo de responsabilidad: Este sitio web puede contener contenido para adultos. Todos los miembros y personas que aparecen en este sitio nos han declarado contractualmente que tienen 18 años o más.\n603\nSam Barton\nEn línea\nTRANSMITIR EN VIVO\nMENSAJERÍA INSTANTÁNEA\nPs\nPs\nPaul sla\n@paulsla\nDV\nDV\nDiaperedVirgin\n@DiaperedVirgin\nL4\nL4\nLeopaul4299\n@leopaul4299\nPO\nPO\nPropertyOfMissAriaWinter\n@Pyongyang1\nBi\nBi\nBigmurr\n@LittleTex\nR0\nR0\nRicardo019\n@Ricardo019\nM2\nM2\nMickb25\n@mickb25\nF_\nF_\nFoot_cuck\n@foot_cuck\nS1\nS1\nSchilphil1\n@schilphil1\nR1\nR1\nrobby1465\n@robby1465\nBe\nBe\nBeaubrun\n@beaubrun\nNi\nNi\nNiob\n@niob\nS3\nS3\nsiergiej345\n@siergiej345\nF9\nF9\nFfr93\n@ffr93\nJJ\nJJ\nJanJans08941589\n@janjans08941589\nD0\nD0\nDiggiiii00\n@Digging\nT4\nT4\nTerminator435\n@terminator435\nBl\nBl\nblst\n@Blst\nD9\nD9\ndave980\n@dave980\nKn\nKn\nknightofweser\n@knightofweser\nGuardando publicación...\nGuardando audio...",
+    "rows": [
+      "14 oct, 2026 02:15 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40",
+      "14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40",
+      "14 oct, 2026 02:12 p. m.\tMensaje de Guyeeeo009\t$0.50\t80%\t$0.40"
+    ]
+  },
+  "api": {
+    "https://www.loyalfans.com/api/v2/funds/transactions-history/list?ngsw-bypass=true": {
+      "success": true,
+      "httpCode": 200,
+      "page_meta": {
+        "total": 3,
+        "per_page": 10,
+        "current_page": 1,
+        "last_page": 1,
+        "from": 1,
+        "to": 3
+      },
+      "transactions": [
+        {
+          "dateKey": "2026-10-14",
+          "transactions": [
+            {
+              "id": "6acfd484353230027f71f559",
+              "member": {
+                "name": "Guyeeeo009",
+                "display_name": "Guyeeeo009",
+                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
+                "user_type": "member",
+                "slug": "guyeeeo009",
+                "online_activity_at": "2026-10-14 19:57:39",
+                "sensitive_content": false,
+                "profile_photo": {
+                  "images": {
+                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+                  },
+                  "default": true
+                },
+                "created_at": {
+                  "date": "2025-01-25 17:24:39",
+                  "timezone_type": 3,
+                  "timezone": "UTC"
+                },
+                "_membership": {
+                  "label": "Silver Membership",
+                  "id": 3,
+                  "bonus": 3,
+                  "code": "SILVER"
+                },
+                "is_online": false
+              },
+              "type": "message",
+              "anonymous": false,
+              "payout": 0.4,
+              "payout_base": 0.4,
+              "charge": 0.5,
+              "created_at": "2026-10-14T19:15:10.000000Z",
+              "fee": 0.1,
+              "rate": 80,
+              "is_affiliate": false,
+              "is_referral": false,
+              "is_referred": false,
+              "version": 1,
+              "nice_time": 1
+            },
+            {
+              "id": "6acfc186313233988e71ee0b",
+              "member": {
+                "name": "Guyeeeo009",
+                "display_name": "Guyeeeo009",
+                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
+                "user_type": "member",
+                "slug": "guyeeeo009",
+                "online_activity_at": "2026-10-14 19:57:39",
+                "sensitive_content": false,
+                "profile_photo": {
+                  "images": {
+                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+                  },
+                  "default": true
+                },
+                "created_at": {
+                  "date": "2025-01-25 17:24:39",
+                  "timezone_type": 3,
+                  "timezone": "UTC"
+                },
+                "_membership": {
+                  "label": "Silver Membership",
+                  "id": 3,
+                  "bonus": 3,
+                  "code": "SILVER"
+                },
+                "is_online": false
+              },
+              "type": "message",
+              "anonymous": false,
+              "payout": 0.4,
+              "payout_base": 0.4,
+              "charge": 0.5,
+              "created_at": "2026-10-14T19:12:21.000000Z",
+              "fee": 0.1,
+              "rate": 80,
+              "is_affiliate": false,
+              "is_referral": false,
+              "is_referred": false,
+              "version": 1,
+              "nice_time": 1
+            },
+            {
+              "id": "6acfc60f313233a16971efcf",
+              "member": {
+                "name": "Guyeeeo009",
+                "display_name": "Guyeeeo009",
+                "uid": "10tzsHXk9j5JGH-2F4leW-2FDHoDhsGfdyGy4QEJHmbCAQA",
+                "user_type": "member",
+                "slug": "guyeeeo009",
+                "online_activity_at": "2026-10-14 19:57:39",
+                "sensitive_content": false,
+                "profile_photo": {
+                  "images": {
+                    "hd": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "large-landscape": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "medium": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "original": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "small": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "xsmall": "https://public-cdn2.loyalfans.com/images/default/user_default.png",
+                    "square": "https://public-cdn2.loyalfans.com/images/default/user_default.png"
+                  },
+                  "default": true
+                },
+                "created_at": {
+                  "date": "2025-01-25 17:24:39",
+                  "timezone_type": 3,
+                  "timezone": "UTC"
+                },
+                "_membership": {
+                  "label": "Silver Membership",
+                  "id": 3,
+                  "bonus": 3,
+                  "code": "SILVER"
+                },
+                "is_online": false
+              },
+              "type": "message",
+              "anonymous": false,
+              "payout": 0.4,
+              "payout_base": 0.4,
+              "charge": 0.5,
+              "created_at": "2026-10-14T19:12:21.000000Z",
+              "fee": 0.1,
+              "rate": 80,
+              "is_affiliate": false,
+              "is_referral": false,
+              "is_referred": false,
+              "version": 1,
+              "nice_time": 1
+            }
+          ]
+        }
+      ]
+    },
+    "https://www.loyalfans.com/api/v2/funds/earnings/months?ngsw-bypass=true": {
+      "success": true,
+      "data": [
+        {
+          "type": "LAST_30_DAYS",
+          "fromDate": "2026-09-15",
+          "toDate": "2026-10-15",
+          "total": 8.4
+        },
+        {
+          "type": "LAST_7_DAYS",
+          "fromDate": "2026-10-08",
+          "toDate": "2026-10-15",
+          "total": 8.4
+        },
+        {
+          "type": "TODAY",
+          "fromDate": "2026-10-15",
+          "toDate": "2026-10-15",
+          "total": 7.200000000000002
+        },
+        {
+          "type": "CURRENT_WEEK",
+          "fromDate": "2026-10-12",
+          "toDate": "2026-10-15",
+          "total": 8.4
+        },
+        {
+          "type": "YESTERDAY",
+          "fromDate": "2026-10-14",
+          "toDate": "2026-10-14",
+          "total": 1.2000000000000002
+        },
+        {
+          "type": "LAST_WEEK",
+          "fromDate": "2026-10-05",
+          "toDate": "2026-10-11",
+          "total": 0
+        },
+        {
+          "type": "CURRENT_MONTH",
+          "fromDate": "2026-10-01",
+          "toDate": "2026-10-15",
+          "total": 8.4
+        },
+        {
+          "type": "LAST_MONTH",
+          "fromDate": "2026-09-01",
+          "toDate": "2026-09-30",
+          "total": 7.19
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "10",
+          "fromDate": "2026-10-01",
+          "toDate": "2026-10-31",
+          "total": 8.4
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "09",
+          "fromDate": "2026-09-01",
+          "toDate": "2026-09-30",
+          "total": 7.19
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "08",
+          "fromDate": "2026-08-01",
+          "toDate": "2026-08-31",
+          "total": 0
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "07",
+          "fromDate": "2026-07-01",
+          "toDate": "2026-07-31",
+          "total": 0
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "06",
+          "fromDate": "2026-06-01",
+          "toDate": "2026-06-30",
+          "total": 32.32
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "05",
+          "fromDate": "2026-05-01",
+          "toDate": "2026-05-31",
+          "total": 0
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "04",
+          "fromDate": "2026-04-01",
+          "toDate": "2026-04-30",
+          "total": 0
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "03",
+          "fromDate": "2026-03-01",
+          "toDate": "2026-03-31",
+          "total": 7.65
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "02",
+          "fromDate": "2026-02-01",
+          "toDate": "2026-02-28",
+          "total": 3.27
+        },
+        {
+          "type": "month",
+          "year": "2026",
+          "month": "01",
+          "fromDate": "2026-01-01",
+          "toDate": "2026-01-31",
+          "total": 6.39
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "12",
+          "fromDate": "2025-12-01",
+          "toDate": "2025-12-31",
+          "total": 7.98
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "11",
+          "fromDate": "2025-11-01",
+          "toDate": "2025-11-30",
+          "total": 116.72
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "10",
+          "fromDate": "2025-10-01",
+          "toDate": "2025-10-31",
+          "total": 41.92
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "09",
+          "fromDate": "2025-09-01",
+          "toDate": "2025-09-30",
+          "total": 89.57
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "08",
+          "fromDate": "2025-08-01",
+          "toDate": "2025-08-31",
+          "total": 207.76
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "07",
+          "fromDate": "2025-07-01",
+          "toDate": "2025-07-31",
+          "total": 599.92
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "06",
+          "fromDate": "2025-06-01",
+          "toDate": "2025-06-30",
+          "total": 48.91
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "05",
+          "fromDate": "2025-05-01",
+          "toDate": "2025-05-31",
+          "total": 4.79
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "04",
+          "fromDate": "2025-04-01",
+          "toDate": "2025-04-30",
+          "total": 0
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "03",
+          "fromDate": "2025-03-01",
+          "toDate": "2025-03-31",
+          "total": 5.2
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "02",
+          "fromDate": "2025-02-01",
+          "toDate": "2025-02-28",
+          "total": 0
+        },
+        {
+          "type": "month",
+          "year": "2025",
+          "month": "01",
+          "fromDate": "2025-01-01",
+          "toDate": "2025-01-31",
+          "total": 0
+        }
+      ]
+    }
+  }
+}

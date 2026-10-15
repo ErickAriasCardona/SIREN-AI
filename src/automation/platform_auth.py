@@ -262,13 +262,14 @@ async def extract_profile_metrics(page, platform_key: str, log_func) -> Dict[str
                 let shortestMatch = '';
                 document.querySelectorAll('*').forEach(el => {
                     const r = el.getBoundingClientRect();
-                    if (r.top >= 0 && r.top < 90 && r.height > 0) {
+                    if (r.top >= 0 && r.top < 90 && r.height > 0 && r.height < 55) {
                         const t = (el.innerText || '').trim();
-                        const m = t.match(/\\$[\\d,.]+/);
+                        const m = t.match(/\\$[\\d,.]+|\\b\\d+\\.\\d{2}\\b/);
                         if (m) {
+                            const val = m[0].startsWith('$') ? m[0] : ('$' + m[0]);
                             if (!shortestMatch || t.length < shortestMatch.length) {
                                 shortestMatch = t;
-                                res.balance = m[0];
+                                res.balance = val;
                             }
                         }
                     }

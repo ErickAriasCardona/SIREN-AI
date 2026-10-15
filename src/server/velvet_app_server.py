@@ -96,6 +96,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_status()
         elif self.path == "/api/history":
             self.handle_api_history()
+        elif self.path == "/api/financials":
+            self.handle_api_financials()
         else:
             # Servir index.html si entra a /
             if self.path == "/" or self.path == "":
@@ -105,8 +107,34 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/chat":
             self.handle_api_chat()
+        elif self.path == "/api/refresh_financials":
+            self.handle_api_refresh_financials()
         else:
             self.send_error(404, "Endpoint no encontrado")
+
+    def handle_api_financials(self):
+        """Devuelve el balance en vivo, desglose de octubre y transacciones recientes."""
+        try:
+            from src.analytics.financial_live_sync import parse_financials_dump
+            data = parse_financials_dump()
+        except Exception as e:
+            data = {"error": str(e), "balance": 15.59, "current_month": 8.40}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data).encode("utf-8"))
+
+    def handle_api_refresh_financials(self):
+        """Consulta en vivo la sesión de LoyalFans y actualiza las métricas financieras."""
+        try:
+            from src.analytics.financial_live_sync import fetch_live_financials_now_sync
+            data = fetch_live_financials_now_sync()
+        except Exception as e:
+            data = {"error": str(e), "balance": 15.59, "current_month": 8.40}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data).encode("utf-8"))
 
     def handle_api_status(self):
         """Verifica la conectividad con Ollama y la base de datos."""
