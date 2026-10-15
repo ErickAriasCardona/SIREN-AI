@@ -18,6 +18,7 @@ sys.path.append(str(ROOT_DIR))
 from src.config import DATA_DIR
 from src.automation.platform_auth import (
     PLATFORM_CONFIG,
+    PLATFORM_DESTINATIONS,
     PROFILES_DIR,
     clean_profile_crash_state,
     is_user_logged_in,
@@ -25,7 +26,7 @@ from src.automation.platform_auth import (
     wait_for_cloudflare_resolution
 )
 
-async def run_assisted_login(platform_key: str):
+async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
     platform_key = platform_key.lower().strip()
     if platform_key not in PLATFORM_CONFIG:
         print(f"❌ Plataforma desconocida: '{platform_key}'. Opciones: {list(PLATFORM_CONFIG.keys())}")
@@ -117,6 +118,19 @@ async def run_assisted_login(platform_key: str):
         else:
             print("\n⚠️ No se confirmó el login en el tiempo límite, pero los datos introducidos se preservan en el perfil.")
 
+    # Redirección automática al destino seleccionado si está logueado
+    if (await is_user_logged_in(page, cfg)) and redirect_target and redirect_target.lower() != "home":
+        target_key = redirect_target.lower().strip()
+        dest_url = PLATFORM_DESTINATIONS.get(platform_key, {}).get(target_key)
+        if dest_url:
+            target_label = "Muro / Feed" if target_key == "feed" else ("Transmisión en Vivo" if target_key == "live" else target_key)
+            print(f"🎯 Redireccionando automáticamente a [{target_label.upper()}]: {dest_url}...")
+            try:
+                await page.goto(dest_url, wait_until="domcontentloaded", timeout=30000)
+                print(f"✨ ¡Redirección completada! Ahora estás en tu {target_label}.")
+            except Exception as e:
+                print(f"Nota en redirección: {e}")
+
     # Guardar estado de almacenamiento explícito
     storage_file = DATA_DIR / "sessions" / f"{platform_key}_storage_state.json"
     storage_file.parent.mkdir(parents=True, exist_ok=True)
@@ -135,9 +149,10 @@ async def run_assisted_login(platform_key: str):
 def main():
     parser = argparse.ArgumentParser(description="Asistente de login y superación de Cloudflare para VELVET AI")
     parser.add_argument("--platform", default="stripchat", choices=["stripchat", "loyalfans", "flirt4free", "streamate"], help="Plataforma a iniciar")
+    parser.add_argument("--redirect", default="feed", choices=["feed", "live", "home"], help="Destino post-login (feed, live, home)")
     args = parser.parse_args()
 
-    asyncio.run(run_assisted_login(args.platform))
+    asyncio.run(run_assisted_login(args.platform, redirect_target=args.redirect))
 
 if __name__ == "__main__":
     main()

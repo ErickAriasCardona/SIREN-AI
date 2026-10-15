@@ -148,6 +148,29 @@ PLATFORM_CONFIG = {
     }
 }
 
+PLATFORM_DESTINATIONS = {
+    "loyalfans": {
+        "home": "https://www.loyalfans.com",
+        "feed": "https://www.loyalfans.com/timeline",
+        "live": "https://www.loyalfans.com/broadcast"
+    },
+    "stripchat": {
+        "home": "https://es.stripchat.com",
+        "feed": "https://es.stripchat.com",
+        "live": "https://es.stripchat.com/broadcast"
+    },
+    "flirt4free": {
+        "home": "https://www.flirt4free.com/myaccount/",
+        "feed": "https://www.flirt4free.com/myaccount/",
+        "live": "https://www.flirt4free.com/broadcast.php"
+    },
+    "streamate": {
+        "home": "https://streamate.com",
+        "feed": "https://streamate.com",
+        "live": "https://streamate.com/broadcast"
+    }
+}
+
 async def wait_for_cloudflare_resolution(page, log_func, timeout_seconds: int = 90) -> bool:
     """
     Detecta si la página está bajo un reto o comprobación de Cloudflare / Turnstile.
@@ -392,6 +415,7 @@ async def launch_and_login_platform(
     username_or_email: str,
     password: str,
     save_session: bool = True,
+    redirect_target: str = "feed",
     status_callback = None,
     metrics_callback = None,
     diana_callback = None
@@ -591,6 +615,19 @@ async def launch_and_login_platform(
         except Exception as e:
             log(f"Nota en auditoría de DIANA: {e}")
 
+        # 5. Redirección automática al destino seleccionado (Feed o Transmisión en Vivo)
+        if redirect_target and redirect_target.lower() != "home":
+            target_key = redirect_target.lower().strip()
+            dest_url = PLATFORM_DESTINATIONS.get(key, {}).get(target_key)
+            if dest_url:
+                target_label = "Muro / Feed" if target_key == "feed" else ("Transmisión en Vivo" if target_key == "live" else target_key)
+                log(f"🎯 Redireccionando automáticamente a [{target_label.upper()}]: {dest_url}...")
+                try:
+                    await page.goto(dest_url, wait_until="domcontentloaded", timeout=30000)
+                    log(f"✨ ¡Redirección completada! Ahora estás en tu {target_label}.")
+                except Exception as e:
+                    log(f"Nota en redirección: {e}")
+
         log(f"📊 Resumen obtenido: Creadora @{metrics['username']} | Ganancias: {metrics['earnings']} | Msg: {metrics['unread_messages']} | Alertas: {metrics['alerts']}")
         log("🎉 ¡Listo! El navegador permanecerá abierto para que transmitas o gestiones tu contenido.")
 
@@ -613,6 +650,7 @@ def run_login_sync(
     username_or_email: str,
     password: str,
     save_session: bool = True,
+    redirect_target: str = "feed",
     status_callback = None,
     metrics_callback = None,
     diana_callback = None
@@ -622,6 +660,7 @@ def run_login_sync(
         username_or_email=username_or_email,
         password=password,
         save_session=save_session,
+        redirect_target=redirect_target,
         status_callback=status_callback,
         metrics_callback=metrics_callback,
         diana_callback=diana_callback

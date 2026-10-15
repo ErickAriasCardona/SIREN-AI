@@ -183,6 +183,59 @@ class VelvetControlCenter(ctk.CTk):
         )
         self.pass_entry.pack(fill="x", pady=(2, 0))
 
+        # Panel de Opciones de Redirección Post-Login (Feed vs Transmisión en Vivo)
+        redir_frame = ctk.CTkFrame(card, fg_color="#181326", corner_radius=10, border_width=1, border_color="#3e3056")
+        redir_frame.pack(fill="x", padx=25, pady=(2, 10))
+
+        redir_top = ctk.CTkFrame(redir_frame, fg_color="transparent")
+        redir_top.pack(fill="x", padx=15, pady=(8, 4))
+
+        redir_lbl = ctk.CTkLabel(
+            redir_top,
+            text="🎯 Redirección Automática tras Iniciar Sesión:",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            text_color="#ffd166"
+        )
+        redir_lbl.pack(side="left")
+
+        self.redirect_target_var = ctk.StringVar(value="feed")
+
+        redir_opts = ctk.CTkFrame(redir_frame, fg_color="transparent")
+        redir_opts.pack(fill="x", padx=15, pady=(0, 8))
+
+        self.rb_feed = ctk.CTkRadioButton(
+            redir_opts,
+            text="📰 Feed / Muro Principal",
+            variable=self.redirect_target_var,
+            value="feed",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color=self.ACCENT_COLOR,
+            hover_color=self.HOVER_COLOR
+        )
+        self.rb_feed.pack(side="left", padx=(0, 20))
+
+        self.rb_live = ctk.CTkRadioButton(
+            redir_opts,
+            text="📹 Transmisión en Vivo (Broadcast)",
+            variable=self.redirect_target_var,
+            value="live",
+            font=ctk.CTkFont(size=12, weight="bold"),
+            fg_color="#ff2a85",
+            hover_color="#d61b6b"
+        )
+        self.rb_live.pack(side="left", padx=(0, 20))
+
+        self.rb_home = ctk.CTkRadioButton(
+            redir_opts,
+            text="🏠 Panel General (Home)",
+            variable=self.redirect_target_var,
+            value="home",
+            font=ctk.CTkFont(size=12),
+            fg_color="#6c757d",
+            hover_color="#adb5bd"
+        )
+        self.rb_home.pack(side="left")
+
         # Opciones y Botón
         opts_frame = ctk.CTkFrame(card, fg_color="transparent")
         opts_frame.pack(fill="x", padx=25, pady=(4, 15))
@@ -476,6 +529,7 @@ class VelvetControlCenter(ctk.CTk):
         user = self.user_entry.get().strip()
         pwd = self.pass_entry.get().strip()
         save_creds = self.save_creds_var.get()
+        redirect_target = self.redirect_target_var.get()
 
         if not user or not pwd:
             self._log("⚠️ Advertencia: Por favor ingresa el correo/usuario y la contraseña.")
@@ -485,8 +539,9 @@ class VelvetControlCenter(ctk.CTk):
             save_platform_credentials(platform, user, pwd)
             self._log(f"💾 Credenciales guardadas localmente para [{platform.upper()}].")
 
+        target_name = "Feed / Muro" if redirect_target == "feed" else ("Transmisión en Vivo" if redirect_target == "live" else "Panel General")
         self.login_button.configure(state="disabled", text="⏳ CONECTANDO...")
-        self._log(f"Iniciando tarea para [{platform.upper()}]...")
+        self._log(f"Iniciando tarea para [{platform.upper()}] (Destino: {target_name})...")
 
         def worker():
             try:
@@ -496,6 +551,7 @@ class VelvetControlCenter(ctk.CTk):
                     username_or_email=user,
                     password=pwd,
                     save_session=True,
+                    redirect_target=redirect_target,
                     status_callback=self._log,
                     metrics_callback=self._update_metrics_ui,
                     diana_callback=self._update_diana_ui
@@ -509,7 +565,9 @@ class VelvetControlCenter(ctk.CTk):
 
     def _start_assisted_login_thread(self):
         platform = self.platform_var.get().lower()
-        self._log(f"🛡️ [MODO ASISTIDO] Abriendo navegador para [{platform.upper()}].")
+        redirect_target = self.redirect_target_var.get()
+        target_name = "Feed / Muro" if redirect_target == "feed" else ("Transmisión en Vivo" if redirect_target == "live" else "Panel General")
+        self._log(f"🛡️ [MODO ASISTIDO] Abriendo navegador para [{platform.upper()}] (Destino: {target_name}).")
         self._log("👉 Resuelve el reto de Cloudflare ('Verifica que eres humano') o 2FA en la ventana de Chrome.")
         self.assisted_button.configure(state="disabled", text="⏳ ASISTIDO ACTIVO...")
 
@@ -517,7 +575,7 @@ class VelvetControlCenter(ctk.CTk):
             try:
                 from src.automation.manual_login_booster import run_assisted_login
                 import asyncio
-                asyncio.run(run_assisted_login(platform))
+                asyncio.run(run_assisted_login(platform, redirect_target=redirect_target))
                 self._log(f"✨ Modo asistido finalizado para [{platform.upper()}]. Las cookies y sesión quedaron guardadas.")
             except Exception as e:
                 self._log(f"Nota en modo asistido: {e}")
