@@ -119,10 +119,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def handle_api_financials(self):
         """Devuelve el balance en vivo, desglose de octubre y transacciones recientes."""
         try:
-            from src.analytics.financial_live_sync import parse_financials_dump
-            data = parse_financials_dump()
+            import importlib
+            import src.analytics.financial_live_sync as fls
+            importlib.reload(fls)
+            data = fls.parse_financials_dump()
         except Exception as e:
-            data = {"error": str(e), "balance": 15.59, "current_month": 8.40}
+            data = {"error": str(e), "balance": 27.19, "current_month": 20.00}
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()
@@ -131,10 +133,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def handle_api_refresh_financials(self):
         """Consulta en vivo la sesión de LoyalFans y actualiza las métricas financieras."""
         try:
-            from src.analytics.financial_live_sync import fetch_live_financials_now_sync
-            data = fetch_live_financials_now_sync()
+            import importlib
+            import src.analytics.financial_live_sync as fls
+            importlib.reload(fls)
+            data = fls.fetch_live_financials_now_sync()
         except Exception as e:
-            data = {"error": str(e), "balance": 15.59, "current_month": 8.40}
+            data = {"error": str(e), "balance": 27.19, "current_month": 20.00}
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()
@@ -144,12 +148,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         """Devuelve el posicionamiento, percentil y estado de ventas en tiempo real."""
         try:
             from urllib.parse import urlparse, parse_qs
-            from src.analytics.positioning_live_sync import get_realtime_positioning
+            import importlib
+            import src.analytics.positioning_live_sync as pls
+            importlib.reload(pls)
             qs = parse_qs(urlparse(self.path).query)
             platform = qs.get("platform", ["loyalfans"])[0]
-            data = get_realtime_positioning(platform)
+            data = pls.get_realtime_positioning(platform)
         except Exception as e:
-            data = {"error": str(e), "percentile": "Top 23%", "platform_key": "loyalfans"}
+            data = {"error": str(e), "percentile": "Top 18%", "platform_key": "loyalfans"}
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()
@@ -159,12 +165,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         """Fuerza actualización en vivo del posicionamiento y registra en SQLite."""
         try:
             from urllib.parse import urlparse, parse_qs
-            from src.analytics.positioning_live_sync import refresh_positioning_live
+            import importlib
+            import src.analytics.positioning_live_sync as pls
+            importlib.reload(pls)
             qs = parse_qs(urlparse(self.path).query)
             platform = qs.get("platform", ["loyalfans"])[0]
-            data = refresh_positioning_live(platform)
+            data = pls.refresh_positioning_live(platform)
         except Exception as e:
-            data = {"error": str(e), "percentile": "Top 23%", "platform_key": "loyalfans"}
+            data = {"error": str(e), "percentile": "Top 18%", "platform_key": "loyalfans"}
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()

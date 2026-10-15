@@ -778,12 +778,12 @@ class VelvetControlCenter(ctk.CTk):
 
         def worker():
             try:
-                # 1. Cargar las métricas financieras más recientes (balance $15.59, 603 fans, etc.)
+                # 1. Cargar las métricas financieras más recientes (balance dinámico, fans, etc.)
                 from src.analytics.financial_live_sync import parse_financials_dump
                 fin = parse_financials_dump()
                 self._update_metrics_ui({
                     "username": "sambarton23",
-                    "earnings": fin.get("balance_formatted", "$15.59 USD"),
+                    "earnings": fin.get("balance_formatted", "$27.19 USD"),
                     "followers": f"{fin.get('fans_count', 603)} Fans",
                     "unread_messages": "1 nuevo",
                     "alerts": str(fin.get("alerts_count", 2))
@@ -793,6 +793,9 @@ class VelvetControlCenter(ctk.CTk):
                     status_callback=self._log,
                     metrics_callback=self._update_metrics_ui
                 )
+                # 3. Sincronizar card de posicionamiento
+                plat = self.pos_platform_var.get().lower()
+                self.after(0, lambda: self._update_positioning_for_platform(plat))
             except Exception as e:
                 self._log(f"Nota al refrescar: {e}")
             finally:
