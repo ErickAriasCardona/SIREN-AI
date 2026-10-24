@@ -5,7 +5,7 @@
 ---
 
 ### Acto 1. Titular / Bio Corta
-Chica tomboy tierna y versatil con energia propia. Inteligente, curiosa y directa. Me gusta la buena charla, la picardia natural y conectar de verdad.
+Chica tomboy versatil con energia propia e inteligente. Curiosa y directa. Me gusta la buena charla, la picardia natural y conectar de verdad.
 
 ---
 
