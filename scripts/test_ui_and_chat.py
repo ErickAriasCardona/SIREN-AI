@@ -19,9 +19,9 @@ async def test_ui():
     page.on("pageerror", lambda err: errors.append(f"PAGE ERROR: {err}"))
     page.on("console", lambda msg: errors.append(f"CONSOLE: {msg.text}") if msg.type == "error" else None)
 
-    file_url = f"file:///{Path('index.html').resolve()}".replace("\\", "/")
-    print(f"Loading UI from {file_url}...")
-    await page.goto(file_url)
+    url = "http://localhost:8888/"
+    print(f"Loading UI from {url}...")
+    await page.goto(url)
     await page.wait_for_timeout(2000)
 
     # 1. Check Perfiles tab
@@ -50,16 +50,25 @@ async def test_ui():
     # 3. Check Roxanne Copilot Tab
     print("\n--- Testing Roxanne Assistant Tab ---")
     await page.evaluate("() => switchMainTab('tab-roxanne-copilot')")
-    await page.wait_for_timeout(1000)
+    await page.wait_for_timeout(1500)
     copilot_title = await page.inner_text("#current-tab-title")
     print(f"Switched to: {copilot_title}")
 
     # Check messages box
     chat_box_text = await page.inner_text("#chat-messages-box")
-    print("Roxanne Chatbox greeting preview:\n", chat_box_text[:300])
+    print("Roxanne Chatbox greeting preview:\n", chat_box_text[:200])
 
-    await page.screenshot(path="artifacts/test_ui_roxanne_tab.png")
-    print("Saved roxanne tab screenshot to artifacts/test_ui_roxanne_tab.png")
+    # Take screenshot of Reorganized Roxanne Tab (Dark Mode)
+    await page.screenshot(path="artifacts/test_ui_roxanne_reorganized_dark.png")
+    print("Saved roxanne tab dark screenshot to artifacts/test_ui_roxanne_reorganized_dark.png")
+
+    # Test Light Mode for Roxanne Tab
+    await theme_btn.click()
+    await page.wait_for_timeout(500)
+    await page.screenshot(path="artifacts/test_ui_roxanne_reorganized_light.png")
+    print("Saved roxanne tab light screenshot to artifacts/test_ui_roxanne_reorganized_light.png")
+    await theme_btn.click()
+    await page.wait_for_timeout(500)
 
     if errors:
         print("\nErrors captured during UI test:")
