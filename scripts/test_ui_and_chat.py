@@ -29,7 +29,7 @@ async def test_ui():
     print(f"Current Tab Title: {tab_title}")
 
     # Take screenshot of Editorial Dossier in Dark Mode
-    await page.set_viewport_size({"width": 1400, "height": 1100})
+    await page.set_viewport_size({"width": 1400, "height": 1700})
     await page.screenshot(path="artifacts/test_ui_editorial_dossier_dark.png")
     print("Saved editorial dossier dark mode screenshot to artifacts/test_ui_editorial_dossier_dark.png")
 
