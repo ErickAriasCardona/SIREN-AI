@@ -28,15 +28,10 @@ async def test_ui():
     tab_title = await page.inner_text("#current-tab-title")
     print(f"Current Tab Title: {tab_title}")
 
-    # Check cards
-    cards_text = await page.evaluate('''() => {
-        const cards = Array.from(document.querySelectorAll('.platform-profile-card'));
-        return cards.map(c => c.innerText);
-    }''')
-    print(f"Rendered {len(cards_text)} platform profile cards.")
-    for i, t in enumerate(cards_text[:4]):
-        first_line = t.split('\n')[0] if t else ''
-        print(f"  Card {i+1}: {first_line[:60]}")
+    # Take screenshot of Editorial Dossier in Dark Mode
+    await page.set_viewport_size({"width": 1400, "height": 1100})
+    await page.screenshot(path="artifacts/test_ui_editorial_dossier_dark.png")
+    print("Saved editorial dossier dark mode screenshot to artifacts/test_ui_editorial_dossier_dark.png")
 
     # 2. Check Theme Toggle
     print("\n--- Testing Light Theme Toggle ---")
@@ -45,14 +40,12 @@ async def test_ui():
     await page.wait_for_timeout(500)
     has_light_class = await page.evaluate("() => document.body.classList.contains('light-theme')")
     print(f"Has 'light-theme' class after click: {has_light_class}")
-    await page.screenshot(path="artifacts/test_ui_light_mode.png")
-    print("Saved light mode screenshot to artifacts/test_ui_light_mode.png")
+    await page.screenshot(path="artifacts/test_ui_editorial_dossier_light.png")
+    print("Saved editorial dossier light mode screenshot to artifacts/test_ui_editorial_dossier_light.png")
 
-    # Toggle back
+    # Toggle back to dark
     await theme_btn.click()
     await page.wait_for_timeout(500)
-    has_light_class_after = await page.evaluate("() => document.body.classList.contains('light-theme')")
-    print(f"Has 'light-theme' class after second click: {has_light_class_after}")
 
     # 3. Check Roxanne Copilot Tab
     print("\n--- Testing Roxanne Assistant Tab ---")
