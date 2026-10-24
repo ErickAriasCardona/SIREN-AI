@@ -1,6 +1,6 @@
 # 🐺 PERFIL OFICIAL STREAMATE - SAM BARTON
 **Formato:** Texto plano sin tildes, sin emojis, sin caracteres especiales.  
-**Compatibilidad:** 100% compatible con la codificación de Streamate y clientes web.
+**Compatibilidad:** 100% compatible con la codificacion de Streamate y clientes web.
 
 ---
 
@@ -10,7 +10,7 @@ Chica tomboy tierna y versatil con energia propia. Inteligente, curiosa y direct
 ---
 
 ### Acto 2. Sobre Mi / About Me
-Mi mundo se mueve entre la musica, la tecnologia y el deporte. Toco el ukelele, pero tambien disfruto explorar sensaciones intensas en privado. Tengo una piel sensible que reacciona rapido al calor del momento, una sonrisa picara que tienta y una curiosidad insaciable cuando alguien sabe despertar mi deseo sin frenos.
+Mi mundo se mueve entre la musica, la tecnologia, el deporte y esa pasion constante por explorar el deseo. Toco el ukelele, pero tambien disfruto explorar sensaciones intensas a solas. Tengo una piel sensible que reacciona rapido al calor del momento, una sonrisa picara que tienta y una entrega total cuando alguien sabe encenderme sin frenos.
 
 ---
 
@@ -20,7 +20,7 @@ Me enciende poder ver tus reacciones y poder sostener tu mirada fija donde no ha
 ---
 
 ### Acto 4. Mis Especialidades / Expertise
-Llevar el show a otro nivel con juegos de rol donde podemos alternar el control, experimentar fantasias y dejar que la quimica fluya sin ataduras. Me muevo entre provocar con calma y acelerar el ritmo cuando el deseo lo pide, usando dirty talk al oido y complaciendo caprichos mutuos donde ambos terminamos completamente satisfechos.
+Llevar nuestro momento a otro nivel de intimidad, dejando que la curiosidad abra paso a juegos de rol donde podemos alternar el control, vivir fantasias y dejarnos llevar sin ataduras. Me gusta empezar suave, provocar con calma y luego acelerar el ritmo cuando el calor sube, usando dirty talk al oido y complaciendo caprichos mutuos donde ambos terminamos completamente satisfechos.
 
 ---
 
