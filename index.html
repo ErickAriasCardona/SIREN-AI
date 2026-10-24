@@ -54,6 +54,86 @@
       -webkit-font-smoothing: antialiased;
     }
 
+
+    /* ========================================== */
+    /* ☀️ MODO CLARO (LIGHT THEME) — VELVET AI   */
+    /* ========================================== */
+    body.light-theme {
+      --bg-dark: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --border-color: rgba(0, 0, 0, 0.08);
+      --border-accent: rgba(147, 51, 234, 0.25);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-dim: #64748b;
+      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+    }
+    body.light-theme #sidebar {
+      background: #ffffff;
+      border-right: 1px solid #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+    body.light-theme .brand-title {
+      color: #0f172a;
+    }
+    body.light-theme .sidebar-model-pill {
+      background: #f8fafc;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .top-bar {
+      background: rgba(255, 255, 255, 0.85);
+      border-bottom: 1px solid #e2e8f0;
+    }
+    body.light-theme .top-left h2 {
+      color: #0f172a;
+    }
+    body.light-theme .card,
+    body.light-theme .kpi-card,
+    body.light-theme .platform-profile-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+    }
+    body.light-theme .kpi-value {
+      color: #0f172a;
+    }
+    body.light-theme .card-title {
+      color: #0f172a;
+    }
+    body.light-theme .bio-preview-box {
+      background: #f8fafc;
+      color: #1e293b;
+      border-color: #cbd5e1;
+    }
+    body.light-theme .chat-bubble {
+      background: #f1f5f9;
+      color: #0f172a;
+      border-color: #e2e8f0;
+    }
+    body.light-theme .chat-input-row textarea {
+      background: #ffffff;
+      color: #0f172a;
+      border-color: #cbd5e1;
+    }
+    body.light-theme .credential-box {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+    body.light-theme .custom-table th {
+      background: #f8fafc;
+      color: #475569;
+    }
+    body.light-theme .custom-table td {
+      border-bottom: 1px solid #f1f5f9;
+      color: #1e293b;
+    }
+    body.light-theme .sidebar-footer {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+    }
+
     /* Scrollbars */
     ::-webkit-scrollbar {
       width: 6px;
@@ -972,6 +1052,10 @@
       </div>
 
       <div class="top-actions">
+        <button id="theme-toggle-btn" class="action-btn" onclick="toggleVelvetTheme()" title="Alternar Modo Claro / Oscuro" style="display:inline-flex; align-items:center; gap:6px;">
+          <i data-lucide="sun" id="theme-icon"></i>
+          <span id="theme-label">Modo Claro</span>
+        </button>
         <button id="btn-top-refresh" class="action-btn" onclick="refreshAllDataNow()">
           <i data-lucide="rotate-ccw"></i> Refrescar Datos
         </button>
@@ -987,25 +1071,337 @@
       <!-- ========================================== -->
       <!-- PESTAÑA 1: PERFILES DEL MODELO POR PLATAFORMA -->
       <!-- ========================================== -->
-      <section id="tab-perfiles" class="tab-view active">
+            <section id="tab-perfiles" class="tab-view active">
         <!-- Sub-Pestañas Plataformas -->
         <div class="subtabs-bar">
-          <button class="subtab-btn active" onclick="switchSubTab('sub-perfil', 'loyalfans', this)">
-            <i data-lucide="gem"></i> LoyalFans (Activo)
+          <button class="subtab-btn active" onclick="switchSubTab('sub-perfil', 'todas', this)">
+            <i data-lucide="layers"></i> Resumen de Todas las Cuentas
           </button>
           <button class="subtab-btn" onclick="switchSubTab('sub-perfil', 'streamate', this)">
-            <i data-lucide="zap"></i> Streamate (Adaptación)
+            <i data-lucide="zap"></i> Streamate (Auditoría & Cuenta Estudio)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-perfil', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Directo)
           </button>
           <button class="subtab-btn" onclick="switchSubTab('sub-perfil', 'stripchat', this)">
             <i data-lucide="flame"></i> Stripchat (Tokens)
           </button>
-          <button class="subtab-btn" onclick="switchSubTab('sub-perfil', 'flirt4free', this)">
-            <i data-lucide="sparkle"></i> Flirt4Free (Glamour VIP)
-          </button>
         </div>
 
-        <!-- Perfil LoyalFans -->
-        <div id="sub-perfil-loyalfans" class="sub-tab-content">
+        <!-- VISTA RESUMEN DE TODAS LAS CUENTAS -->
+        <div id="sub-perfil-todas" class="sub-tab-content">
+          <div class="card" style="margin-bottom: 20px; border-left: 4px solid var(--primary-light);">
+            <div class="card-title">
+              <span>🔐 Acceso Centralizado a Cuentas y Credenciales de Sam Barton</span>
+              <span class="badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">4 Plataformas Registradas</span>
+            </div>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.5;">
+              Visualización unificada de las cuentas oficiales de transmisión. Incluye los accesos auditados, contraseñas seguras desencriptadas localmente con visualizador de privacidad, enlaces directos de creador y perfil público con fotos reales.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px;">
+
+            <!-- CARD STREAMATE -->
+            <div class="platform-profile-card" style="border-top: 3px solid #f59e0b;">
+              <div class="platform-header-row">
+                <div class="platform-badge-tag tag-streamate" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3);">
+                  <i data-lucide="zap"></i> STREAMATE MODELS
+                </div>
+                <span class="table-badge badge-warning">✓ Cuenta Estudio (Verified)</span>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <img src="artifacts/streamate_audit/profile.png" alt="SamBartone Avatar" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #fbbf24; box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);">
+                <div>
+                  <h3 style="font-size: 16px; color: var(--text-main); font-weight: 700;">SamBartone</h3>
+                  <div style="font-size: 11px; color: var(--text-dim);">PID: <strong>144675665</strong> • Rating: <strong style="color: #fbbf24;">4.0 ★</strong></div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Estudio Administrador: <strong>Centenario Studio</strong></div>
+                </div>
+              </div>
+
+              <div class="credential-box" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Usuario / Email:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <code style="color: var(--secondary); font-family: var(--font-mono); font-size: 11px;">efac05@yopmail.com</code>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('efac05@yopmail.com', this)" title="Copiar usuario">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Contraseña:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <input type="password" id="pwd-sm" value="Centenario123@" readonly style="background: transparent; border: none; color: var(--primary-light); font-family: var(--font-mono); font-size: 11px; width: 110px; outline: none;">
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="togglePasswordVisibility('pwd-sm', this)" title="Ver / Ocultar">
+                      <i data-lucide="eye" style="width:11px; height:11px;"></i>
+                    </button>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('Centenario123@', this)" title="Copiar contraseña">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 11px; color: var(--text-muted); display:flex; flex-direction:column; gap:4px;">
+                <div>Tarifas en Vivo: <strong>Privado $2.99 / Exclusivo $3.99 min</strong></div>
+                <div>Geobloqueo: <strong style="color: #34d399;">Colombia Visible (Sin Bloqueo)</strong></div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: auto;">
+                <a href="https://streamatemodels.com/login" target="_blank" class="action-btn" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="log-in" style="width:12px; height:12px;"></i> Portal Modelo
+                </a>
+                <a href="https://sambartone.cammodels.com" target="_blank" class="action-btn primary" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="external-link" style="width:12px; height:12px;"></i> Ver en Vivo
+                </a>
+              </div>
+            </div>
+
+            <!-- CARD LOYALFANS -->
+            <div class="platform-profile-card" style="border-top: 3px solid #9333ea;">
+              <div class="platform-header-row">
+                <div class="platform-badge-tag tag-loyalfans">
+                  <i data-lucide="gem"></i> LOYALFANS
+                </div>
+                <span class="table-badge badge-success">✓ 100% Creadora Directa</span>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <img src="artifacts/test_public_profile_verified.png" alt="LoyalFans Avatar" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #c084fc; box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);">
+                <div>
+                  <h3 style="font-size: 16px; color: var(--text-main); font-weight: 700;">Sam Barton</h3>
+                  <div style="font-size: 11px; color: var(--primary-light);">@samm_bartonn • <strong style="color: #34d399;">Top 23%</strong></div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Comisión Neta: <strong>80% para Sam (Directo)</strong></div>
+                </div>
+              </div>
+
+              <div class="credential-box" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Usuario / Email:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <code style="color: var(--secondary); font-family: var(--font-mono); font-size: 11px;">sambartonn23@gmail.com</code>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('sambartonn23@gmail.com', this)">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Contraseña:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <input type="password" id="pwd-lf" value="Kjc20009*" readonly style="background: transparent; border: none; color: var(--primary-light); font-family: var(--font-mono); font-size: 11px; width: 110px; outline: none;">
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="togglePasswordVisibility('pwd-lf', this)">
+                      <i data-lucide="eye" style="width:11px; height:11px;"></i>
+                    </button>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('Kjc20009*', this)">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 11px; color: var(--text-muted); display:flex; flex-direction:column; gap:4px;">
+                <div>Mensajería: <strong>$0.50 texto / $0.50 foto</strong></div>
+                <div>Suscripción Fan Club: <strong>$10.00 / mes</strong></div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: auto;">
+                <a href="https://loyalfans.com/login" target="_blank" class="action-btn" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="log-in" style="width:12px; height:12px;"></i> Iniciar Sesión
+                </a>
+                <a href="https://loyalfans.com/samm_bartonn" target="_blank" class="action-btn primary" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="external-link" style="width:12px; height:12px;"></i> Perfil Fans
+                </a>
+              </div>
+            </div>
+
+            <!-- CARD STRIPCHAT -->
+            <div class="platform-profile-card" style="border-top: 3px solid #f43f5e;">
+              <div class="platform-header-row">
+                <div class="platform-badge-tag" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e; border: 1px solid rgba(244, 63, 94, 0.3);">
+                  <i data-lucide="flame"></i> STRIPCHAT
+                </div>
+                <span class="table-badge badge-info">✓ Tokens & Lovense</span>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <img src="artifacts/stripchat_profile_updated_20261014_211003.png" alt="Stripchat Avatar" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #f43f5e; box-shadow: 0 4px 12px rgba(244, 63, 94, 0.3);">
+                <div>
+                  <h3 style="font-size: 16px; color: var(--text-main); font-weight: 700;">Sam Barton</h3>
+                  <div style="font-size: 11px; color: #f43f5e;">@sam_barton • <strong>Listo en Cola</strong></div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Integración: <strong>Lovense Interactive ON</strong></div>
+                </div>
+              </div>
+
+              <div class="credential-box" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Usuario / Email:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <code style="color: var(--secondary); font-family: var(--font-mono); font-size: 11px;">sambartonn23@gmail.com</code>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('sambartonn23@gmail.com', this)">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Contraseña:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <input type="password" id="pwd-sc" value="6L!3K3RUnEdPKPt" readonly style="background: transparent; border: none; color: var(--primary-light); font-family: var(--font-mono); font-size: 11px; width: 110px; outline: none;">
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="togglePasswordVisibility('pwd-sc', this)">
+                      <i data-lucide="eye" style="width:11px; height:11px;"></i>
+                    </button>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('6L!3K3RUnEdPKPt', this)">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 11px; color: var(--text-muted); display:flex; flex-direction:column; gap:4px;">
+                <div>Valor Token: <strong>$0.05 USD / token</strong></div>
+                <div>Arquetipo: <strong>Cute Tomboy Gamer • Lovense Interactive</strong></div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: auto;">
+                <a href="https://stripchat.com/login" target="_blank" class="action-btn" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="log-in" style="width:12px; height:12px;"></i> Acceder Portal
+                </a>
+                <a href="https://stripchat.com/sam_barton" target="_blank" class="action-btn primary" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="external-link" style="width:12px; height:12px;"></i> Sala Pública
+                </a>
+              </div>
+            </div>
+
+            <!-- CARD LOVENSE -->
+            <div class="platform-profile-card" style="border-top: 3px solid #06b6d4;">
+              <div class="platform-header-row">
+                <div class="platform-badge-tag" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8; border: 1px solid rgba(6, 182, 212, 0.3);">
+                  <i data-lucide="radio"></i> LOVENSE INTERACTIVE
+                </div>
+                <span class="table-badge badge-info">✓ Bluetooth Sync</span>
+              </div>
+
+              <div style="display: flex; gap: 14px; align-items: center;">
+                <img src="artifacts/streamate_audit/12_smconnect_ajustes.png" alt="Lovense Connect" style="width: 58px; height: 58px; border-radius: 50%; object-fit: cover; border: 2px solid #06b6d4; box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);">
+                <div>
+                  <h3 style="font-size: 16px; color: var(--text-main); font-weight: 700;">Lovense Connect</h3>
+                  <div style="font-size: 11px; color: #38bdf8;">Juguetes Hápticos • <strong>5 Niveles</strong></div>
+                  <div style="font-size: 11px; color: var(--text-muted);">Sincronización: <strong>Stripchat + Streamate</strong></div>
+                </div>
+              </div>
+
+              <div class="credential-box" style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Cuenta Lovense:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <code style="color: var(--secondary); font-family: var(--font-mono); font-size: 11px;">sambartonn23@gmail.com</code>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('sambartonn23@gmail.com', this)">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                  <span style="color: var(--text-dim);">Contraseña:</span>
+                  <div style="display:flex; align-items:center; gap:6px;">
+                    <input type="password" id="pwd-lv" value="6L!3K3RUnEdPKPt" readonly style="background: transparent; border: none; color: var(--primary-light); font-family: var(--font-mono); font-size: 11px; width: 110px; outline: none;">
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="togglePasswordVisibility('pwd-lv', this)">
+                      <i data-lucide="eye" style="width:11px; height:11px;"></i>
+                    </button>
+                    <button class="action-btn" style="padding: 2px 6px; font-size: 10px;" onclick="copyToClipboard('6L!3K3RUnEdPKPt', this)">
+                      <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div style="font-size: 11px; color: var(--text-muted); display:flex; flex-direction:column; gap:4px;">
+                <div>Protocolo: <strong>Lovense Connect App (PC / Móvil)</strong></div>
+                <div>Niveles: <strong>Bajo, Medio, Altura media, Alto, Muy alto</strong></div>
+              </div>
+
+              <div style="display: flex; gap: 8px; margin-top: auto;">
+                <a href="https://streamate.lovense.com" target="_blank" class="action-btn" style="flex:1; text-align:center; text-decoration:none; font-size:11px; justify-content:center;">
+                  <i data-lucide="radio" style="width:12px; height:12px;"></i> Lovense Streamate
+                </a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PERFIL DETALLADO STREAMATE -->
+        <div id="sub-perfil-streamate" class="sub-tab-content" style="display:none;">
+          <div class="grid-2">
+            <div class="platform-profile-card">
+              <div class="platform-header-row">
+                <div class="platform-badge-tag tag-streamate">
+                  <i data-lucide="zap"></i> STREAMATE — Perfil Oficial Narrativo en 4 Actos
+                </div>
+                <span class="table-badge badge-warning">✓ Cuenta Estudio Activa</span>
+              </div>
+              <div style="display:flex; gap:12px; align-items:center;">
+                <img src="artifacts/streamate_audit/profile.png" alt="Sam" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid #fbbf24;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--text-main);">SamBartone</strong>
+                  <div style="font-size: 12px; color: #fbbf24; margin-top: 2px;">
+                    Chica tomboy versatil con energia propia e inteligente
+                  </div>
+                </div>
+              </div>
+
+              <div class="bio-preview-box" style="white-space: pre-wrap; font-size: 12px; line-height: 1.6;"><strong>Acto 1. Titular / Bio Corta:</strong>
+Chica tomboy versatil con energia propia e inteligente. Curiosa y directa. Me gusta la buena charla, la picardia natural y conectar de verdad.
+
+<strong>Acto 2. Sobre Mi / About Me:</strong>
+Mi mundo se mueve entre la musica, la tecnologia, el deporte y esa pasion constante por explorar el deseo. Toco el ukelele, pero tambien disfruto explorar sensaciones intensas a solas. Tengo una piel sensible que reacciona rapido al calor del momento, una sonrisa picara que tienta y una entrega total cuando alguien sabe encenderme sin frenos.
+
+<strong>Acto 3. Que Me Excita / Turn Ons:</strong>
+Me enciende poder ver tus reacciones y poder sostener tu mirada fija donde no hacen falta palabras. Tambien me encienden las vibraciones inesperadas recorriendo mi piel, sentir como sube el calor despacio y esa complicidad donde ambos sabemos lo que queremos.
+
+<strong>Acto 4. Mis Especialidades / Expertise:</strong>
+Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimentar y alternar el control, vivir fantasias y dejarnos llevar sin ataduras. Me gusta empezar suave, provocar con calma y luego acelerar el ritmo cuando el calor sube, hablando al oido y complaciendo caprichos mutuos donde ambos terminamos completamente satisfechos.</div>
+
+              <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px; color:var(--text-dim);">
+                <span>Vello Púbico: <strong>Trimmed (Recortado)</strong></span>
+                <span>Idiomas: <strong>EN, FR, ES, PT (Estudio)</strong></span>
+                <span>Geobloqueo: <strong>Colombia Abierto</strong></span>
+              </div>
+            </div>
+
+            <div class="card" style="margin-bottom: 0;">
+              <div class="card-title">
+                <span>📋 Resumen de Auditoría Estudio</span>
+                <span class="badge" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24;">Auditoría 24 Octubre</span>
+              </div>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 12px; color: var(--text-muted);">
+                <li style="display: flex; gap: 10px; align-items: flex-start;">
+                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
+                  <span><strong>Usuario:</strong> <code>efac05@yopmail.com</code> | Clave: <code>Centenario123@</code></span>
+                </li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;">
+                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
+                  <span><strong>Estructura Tarifaria:</strong> Privado $2.99 / Exclusivo $3.99 por minuto. (Administrada por el estudio).</span>
+                </li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;">
+                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
+                  <span><strong>Reglas de Texto:</strong> 100% sin tildes, sin emojis y sin palabras de venta o shows mecánicos.</span>
+                </li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;">
+                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
+                  <span><strong>Consola Streamate:</strong> Administrada por software propio del estudio (VELVET AI se mantiene como auditor personal).</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- PERFIL DETALLADO LOYALFANS -->
+        <div id="sub-perfil-loyalfans" class="sub-tab-content" style="display:none;">
           <div class="grid-2">
             <div class="platform-profile-card">
               <div class="platform-header-row">
@@ -1014,10 +1410,13 @@
                 </div>
                 <span class="table-badge badge-success">✓ EN VIVO (Verificado)</span>
               </div>
-              <div>
-                <strong style="font-size: 15px; color: #fff;">Sam Barton</strong>
-                <div style="font-size: 12px; color: var(--primary-light); margin-top: 2px;">
-                  Software & AI Architect ⚡ Versatile Tomboy 🏍️
+              <div style="display:flex; gap:12px; align-items:center;">
+                <img src="artifacts/test_public_profile_verified.png" alt="Sam" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid #c084fc;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--text-main);">Sam Barton</strong>
+                  <div style="font-size: 12px; color: var(--primary-light); margin-top: 2px;">
+                    Software & AI Architect ⚡ Versatile Tomboy 🏍️
+                  </div>
                 </div>
               </div>
               <div class="bio-preview-box">🐺 Sam Barton | Software & AI Architect ⚡ Versatile Tomboy 🏍️
@@ -1037,13 +1436,8 @@ Want my attention? Be respectful, intelligent, different, and abnormal. Generic,
                   <span class="pill-tag" style="color: var(--primary-light); border-color: var(--primary);">#Tech</span>
                 </div>
               </div>
-              <div class="sync-status-bar">
-                <span style="color: var(--text-dim);"><i data-lucide="globe"></i> Idioma Principal: <strong>100% English (Outbound)</strong></span>
-                <button class="action-btn" style="padding: 4px 10px; font-size: 11px;" onclick="openUpdateModal('loyalfans')">Re-sincronizar</button>
-              </div>
             </div>
 
-            <!-- Panel de Estrategia LoyalFans -->
             <div class="card" style="margin-bottom: 0;">
               <div class="card-title">
                 <span>🎯 Matriz Táctica: LoyalFans</span>
@@ -1052,15 +1446,11 @@ Want my attention? Be respectful, intelligent, different, and abnormal. Generic,
               <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 12px; color: var(--text-muted);">
                 <li style="display: flex; gap: 10px; align-items: flex-start;">
                   <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
-                  <span><strong>Monetización Pasiva:</strong> Venta directa de Clips en Video Store ($10 - $35) y audios exclusivos de ukelele/gemidos en Audio Store ($5 - $15).</span>
+                  <span><strong>Monetización Pasiva:</strong> Venta directa de Clips en Video Store ($10 - $35) y audios exclusivos.</span>
                 </li>
                 <li style="display: flex; gap: 10px; align-items: flex-start;">
                   <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
-                  <span><strong>Pay-to-Message Activo:</strong> Seguidores pagan $0.50/mensaje y $0.50/multimedia. Suscriptores $0.10/texto. Cada respuesta monetiza.</span>
-                </li>
-                <li style="display: flex; gap: 10px; align-items: flex-start;">
-                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
-                  <span><strong>Dinámica de Control:</strong> Fans pagan por el honor de ser aceptados o pedir tareas a la modelo Tomboy (Filtro Anti-Aburridos).</span>
+                  <span><strong>Pay-to-Message Activo:</strong> Seguidores pagan $0.50/mensaje y $0.50/multimedia. Cada respuesta genera ingresos netos.</span>
                 </li>
                 <li style="display: flex; gap: 10px; align-items: flex-start;">
                   <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
@@ -1071,154 +1461,63 @@ Want my attention? Be respectful, intelligent, different, and abnormal. Generic,
           </div>
         </div>
 
-        <!-- Perfil Streamate -->
-        <div id="sub-perfil-streamate" class="sub-tab-content" style="display:none;">
-          <div class="grid-2">
-            <div class="platform-profile-card">
-              <div class="platform-header-row">
-                <div class="platform-badge-tag tag-streamate">
-                  <i data-lucide="zap"></i> STREAMATE — Propuesta de Perfil Pay-Per-Minute
-                </div>
-                <span class="table-badge badge-warning">⏳ PENDIENTE DE APLICAR</span>
-              </div>
-              <div>
-                <strong style="font-size: 15px; color: #fff;">Sam Barton</strong>
-                <div style="font-size: 12px; color: #fbbf24; margin-top: 2px;">
-                  Fit Tomboy • Tech Brain • Adrenaline & Fast Privates ⚡
-                </div>
-              </div>
-              <div class="bio-preview-box">Hey guys! I’m Sam. In real life, I design AI architectures and ride my bike fast. Here? I’m your cute, witty, and dangerously teasing Tomboy companion.
-
-Free chat is for friendly hellos, music talk, and seeing if you have what it takes to catch my attention. But if you want to see the real fire under the hoodie... take me to PVT or EXCLUSIVE right now. 
-
-No time wasters. Let’s make our minutes count. 🏍️💨</div>
-              <div>
-                <label style="font-size: 11px; color: var(--text-dim); display: block; margin-bottom: 6px;">Tags Sugeridos:</label>
-                <div class="tags-container">
-                  <span class="pill-tag">#Tomboy</span>
-                  <span class="pill-tag">#Athletic</span>
-                  <span class="pill-tag">#Cam2Cam</span>
-                  <span class="pill-tag">#Brunette</span>
-                </div>
-              </div>
-              <div class="sync-status-bar">
-                <span style="color: var(--text-dim);"><i data-lucide="clock"></i> Enfoque: <strong>Conversión rápida a PVT</strong></span>
-                <button class="action-btn" style="padding: 4px 10px; font-size: 11px; border-color: #fbbf24; color: #fbbf24;" onclick="openUpdateModal('streamate')">Configurar en Cola</button>
-              </div>
-            </div>
-
-            <div class="card" style="margin-bottom: 0;">
-              <div class="card-title">
-                <span>⚡ Dinámica de Grilla en Streamate</span>
-                <span class="badge" style="color: #fbbf24; border-color: #fbbf24;">Pay-Per-Minute</span>
-              </div>
-              <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
-                Streamate castiga severamente el Free Chat estancado. Si pasas más de 10 minutos sin entrar a Privado, caes a la página 10. El perfil debe ser agresivo en invitar a Privado y Cam2Cam.
-              </p>
-              <div style="background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.2); padding: 12px; border-radius: 8px; font-size: 11px; color: #fde68a;">
-                <strong>Regla de Oro Streamate:</strong> Maximizar el $ / Hora conectada (EPH). Usar el script de ROXANNE para rechazar mirones y forzar Privado a $4.99/min.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Perfil Stripchat -->
+        <!-- PERFIL DETALLADO STRIPCHAT -->
         <div id="sub-perfil-stripchat" class="sub-tab-content" style="display:none;">
           <div class="grid-2">
             <div class="platform-profile-card">
               <div class="platform-header-row">
                 <div class="platform-badge-tag tag-stripchat">
-                  <i data-lucide="flame"></i> STRIPCHAT — Propuesta Freemium / Token Goals
+                  <i data-lucide="flame"></i> STRIPCHAT — Perfil Interactivo Lovense
                 </div>
-                <span class="table-badge badge-warning">⏳ PENDIENTE DE APLICAR</span>
+                <span class="table-badge badge-info">✓ Lovense Conectado</span>
               </div>
-              <div>
-                <strong style="font-size: 15px; color: #fff;">Sam Barton</strong>
-                <div style="font-size: 12px; color: #fb7185; margin-top: 2px;">
-                  Cute Tomboy Gamer • Lovense Interactive • Goal Breaker 🎮
+              <div style="display:flex; gap:12px; align-items:center;">
+                <img src="artifacts/stripchat_profile_updated_20261014_211003.png" alt="Sam" style="width:50px; height:50px; border-radius:50%; object-fit:cover; border:2px solid #f43f5e;">
+                <div>
+                  <strong style="font-size: 15px; color: var(--text-main);">Sam Barton</strong>
+                  <div style="font-size: 12px; color: #f43f5e; margin-top: 2px;">
+                    Cute Tomboy Gamer ⚡ Lovense Interactive 🎮
+                  </div>
                 </div>
               </div>
-              <div class="bio-preview-box">Welcome to Sam’s neon cave! 💀
-I’m a software architect who loves anime, heavy beats, and my pets.
-My Lovense is ON and waiting for your tokens! Tip 25 tk to make me moan, 100 tk to take off my cap, 500 tk for an intimate tease.
+              <div class="bio-preview-box">🐺 Sam Barton | Cute Tomboy Gamer ⚡ Lovense Interactive 🏍️
 
-Join my VIP Fan Club for exclusive albums and spicy chats! Let’s smash today's car fund goal! 🚗✨</div>
+Software & AI Architect by day, gaming tomboy & teasing companion by night.
+Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats 🐾.
+InuYasha devotee 🍙, indie music lover & ukulele player 🎶.
+
+Obsessed with neon in the dark, skulls, and Halloween vibes 💀✨.
+Working hard every single day to buy my used car in December 🚗 and escape to Cancun 🌴!
+
+💖 LOVENSE SYNCED:
+My toys are active and connect directly to every tip! Send tokens to make me buzz, trigger reactions, or take me into Private / Exclusive for full control 😈🖤.
+
+Be respectful, abnormal, and have fun. Tip to play 💋</div>
               <div>
-                <label style="font-size: 11px; color: var(--text-dim); display: block; margin-bottom: 6px;">Tags Sugeridos:</label>
+                <label style="font-size: 11px; color: var(--text-dim); display: block; margin-bottom: 6px;">Tags Principales:</label>
                 <div class="tags-container">
-                  <span class="pill-tag">#Tomboy</span>
-                  <span class="pill-tag">#Lovense</span>
-                  <span class="pill-tag">#Gamer</span>
-                  <span class="pill-tag">#PetLover</span>
+                  <span class="pill-tag" style="color: #f43f5e; border-color: #f43f5e;">#Tomboy</span>
+                  <span class="pill-tag" style="color: #f43f5e; border-color: #f43f5e;">#Lovense</span>
+                  <span class="pill-tag" style="color: #f43f5e; border-color: #f43f5e;">#Interactive</span>
                 </div>
-              </div>
-              <div class="sync-status-bar">
-                <span style="color: var(--text-dim);"><i data-lucide="coins"></i> Enfoque: <strong>Lovense + Tip Goals</strong></span>
-                <button class="action-btn" style="padding: 4px 10px; font-size: 11px; border-color: #fb7185; color: #fb7185;" onclick="openUpdateModal('stripchat')">Configurar en Cola</button>
               </div>
             </div>
 
             <div class="card" style="margin-bottom: 0;">
               <div class="card-title">
-                <span>🔥 Dinámica de Tokens en Stripchat</span>
-                <span class="badge" style="color: #fb7185; border-color: #fb7185;">Freemium Masivo</span>
+                <span>🎯 Matriz Táctica: Stripchat</span>
+                <span class="badge" style="background: rgba(244, 63, 94, 0.2); color: #f43f5e;">Tokens & Shows</span>
               </div>
-              <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
-                Stripchat vive de la velocidad de propinas grupales (Tip Goals). Los primeros 15 minutos determinan si entras al carrusel de portada.
-              </p>
-              <div style="background: rgba(244, 63, 94, 0.1); border: 1px solid rgba(244, 63, 94, 0.2); padding: 12px; border-radius: 8px; font-size: 11px; color: #fecdd3;">
-                <strong>Herramienta Clave:</strong> Fan Club con álbumes de fotos pregrabados y ticket shows. La integración Lovense dispara el flujo de micro-propinas.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Perfil Flirt4Free -->
-        <div id="sub-perfil-flirt4free" class="sub-tab-content" style="display:none;">
-          <div class="grid-2">
-            <div class="platform-profile-card">
-              <div class="platform-header-row">
-                <div class="platform-badge-tag tag-flirt4free">
-                  <i data-lucide="sparkle"></i> FLIRT4FREE — Propuesta Glamour & Créditos VIP
-                </div>
-                <span class="table-badge badge-warning">⏳ PENDIENTE DE APLICAR</span>
-              </div>
-              <div>
-                <strong style="font-size: 15px; color: #fff;">Sam Barton</strong>
-                <div style="font-size: 12px; color: #38bdf8; margin-top: 2px;">
-                  High-End Tomboy • Intelligent • Premium True Private 💎
-                </div>
-              </div>
-              <div class="bio-preview-box">Sophisticated yet untamed. I’m Sam, an AI architect who trades high-tech algorithms for real human connection. 
-I cater to gentlemen who appreciate genuine intelligence, sharp wit, and fit feminine aesthetics without masks.
-
-Available for True Private shows and bespoke clip requests. Let’s connect on a higher level.</div>
-              <div>
-                <label style="font-size: 11px; color: var(--text-dim); display: block; margin-bottom: 6px;">Tags Sugeridos:</label>
-                <div class="tags-container">
-                  <span class="pill-tag">#TomboyVIP</span>
-                  <span class="pill-tag">#Intelligent</span>
-                  <span class="pill-tag">#TruePrivate</span>
-                  <span class="pill-tag">#Sensual</span>
-                </div>
-              </div>
-              <div class="sync-status-bar">
-                <span style="color: var(--text-dim);"><i data-lucide="crown"></i> Enfoque: <strong>True Private & Clientes VIP</strong></span>
-                <button class="action-btn" style="padding: 4px 10px; font-size: 11px; border-color: #38bdf8; color: #38bdf8;" onclick="openUpdateModal('flirt4free')">Configurar en Cola</button>
-              </div>
-            </div>
-
-            <div class="card" style="margin-bottom: 0;">
-              <div class="card-title">
-                <span>✨ Dinámica de Créditos en Flirt4Free</span>
-                <span class="badge" style="color: #38bdf8; border-color: #38bdf8;">High-End Credits</span>
-              </div>
-              <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 12px;">
-                Tráfico con usuarios de alto poder adquisitivo (USA/UK/Alemania). Menos espectadores que Stripchat, pero cada cliente gasta cientos de créditos en shows True Private.
-              </p>
-              <div style="background: rgba(6, 182, 212, 0.1); border: 1px solid rgba(6, 182, 212, 0.2); padding: 12px; border-radius: 8px; font-size: 11px; color: #cffafe;">
-                <strong>Herramienta Clave:</strong> Party Chat y venta de clips exclusivos en créditos. Monetización por sesión muy elevada.
-              </div>
+              <ul style="list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 12px; color: var(--text-muted);">
+                <li style="display: flex; gap: 10px; align-items: flex-start;">
+                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
+                  <span><strong>Lovense Synced:</strong> Los juguetes reaccionan con vibración automática a cada tip desde 1 token.</span>
+                </li>
+                <li style="display: flex; gap: 10px; align-items: flex-start;">
+                  <i data-lucide="check-circle-2" style="color: var(--success); width: 16px; min-width: 16px; margin-top: 2px;"></i>
+                  <span><strong>Metas de Sala:</strong> Definir 3 niveles de propinas para mantener el flujo constante en transmisión.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -2328,12 +2627,15 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
           </div>
         </div>
 
-        <!-- CONSOLA INTERACTIVA: CHAT EN VIVO CON ROXANNE COPILOT -->
+        <!-- CONSOLA INTERACTIVA: ROXANNE ASISTENTE PERSONAL DE MODELO WEBCAM -->
         <div class="card chat-console">
           <div class="card-title" style="flex-wrap: wrap; gap: 10px;">
             <div style="display:flex; align-items:center; gap: 10px;">
               <i data-lucide="bot" style="color: var(--primary-light);"></i>
-              <span>Consola en Vivo: Chat Interactivo con ROXANNE Copilot</span>
+              <div>
+                <span style="font-size:15px; font-weight:700;">ROXANNE — Tu Asistente Personal de Modelo Webcam</span>
+                <div style="font-size:11px; color:var(--text-dim); font-weight:400;">Entrenada exclusivamente para tus transmisiones en LoyalFans, Stripchat y Streamate</div>
+              </div>
             </div>
             <div style="display:flex; align-items:center; gap: 10px;">
               <span id="chat-engine-status" class="table-badge badge-success">
@@ -2353,18 +2655,17 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
 
           <!-- Ventana de mensajes del chat -->
           <div id="chat-messages-box" class="chat-messages-container">
-            <!-- Mensaje Inicial de Bienvenida -->
+                        <!-- Mensaje Inicial de Bienvenida -->
             <div class="chat-msg sam">
-              <div class="chat-msg-avatar">SB</div>
+              <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
               <div class="chat-msg-body">
                 <div class="chat-msg-meta">
-                  <strong style="color: var(--primary-light);">Sam Barton (ROXANNE Copilot)</strong>
-                  <span>• Ahora</span>
-                  <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Qwen 2.5 Activo</span>
+                  <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo Webcam)</strong>
+                  <span>• Lista</span>
+                  <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Co-Piloto Activa</span>
                 </div>
                 <div class="chat-bubble">
-                  ¡Hey! Soy el copiloto activo de Sam Barton (ROXANNE). Estoy conectado en vivo con Ollama en tu PC (<code>qwen2.5:7b-instruct</code>). 
-                  Escribe cualquier mensaje de prueba o pega un DM de tus fans en LoyalFans o Streamate. Si me escribes en inglés, respondo en inglés; si me escribes en español, respondo en español con la personalidad Tomboy auténtica de Sam. 🏍️💀✨
+                  ¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, responder y entrenar cómo contestar a fans en LoyalFans, Stripchat o Streamate, planear metas de sala con Lovense o armar tus dinámicas. ¿En qué trabajamos hoy? 🐺✨
                 </div>
               </div>
             </div>
@@ -2700,42 +3001,179 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       }
     }
 
-    function appendChatMessage(sender, text, lang = 'en', rule = '') {
+    
+    // ==========================================
+    // ☀️ CONTROL DE TEMA CLARO / OSCURO
+    // ==========================================
+    function toggleVelvetTheme() {
+      const isLight = document.body.classList.toggle('light-theme');
+      localStorage.setItem('velvet_theme', isLight ? 'light' : 'dark');
+      updateThemeButtonUI(isLight);
+      showToast(isLight ? 'Modo Claro activado' : 'Modo Oscuro activado');
+    }
+
+    function updateThemeButtonUI(isLight) {
+      const icon = document.getElementById('theme-icon');
+      const label = document.getElementById('theme-label');
+      if (icon && label) {
+        if (isLight) {
+          icon.setAttribute('data-lucide', 'moon');
+          label.textContent = 'Modo Oscuro';
+        } else {
+          icon.setAttribute('data-lucide', 'sun');
+          label.textContent = 'Modo Claro';
+        }
+        lucide.createIcons();
+      }
+    }
+
+    function initThemeFromStorage() {
+      const saved = localStorage.getItem('velvet_theme');
+      if (saved === 'light') {
+        document.body.classList.add('light-theme');
+        updateThemeButtonUI(true);
+      }
+    }
+
+    // ==========================================
+    // 👁️ VISUALIZADOR Y COPIADO DE CREDENCIALES
+    // ==========================================
+    function togglePasswordVisibility(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (!input) return;
+      const isPassword = input.type === 'password';
+      input.type = isPassword ? 'text' : 'password';
+      const icon = btn.querySelector('i');
+      if (icon) {
+        icon.setAttribute('data-lucide', isPassword ? 'eye-off' : 'eye');
+        lucide.createIcons();
+      }
+    }
+
+    function copyToClipboard(text, btn) {
+      navigator.clipboard.writeText(text).then(() => {
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<span style="color:#10b981; font-weight:700;">✓</span>';
+        showToast('Copiado al portapapeles: ' + text);
+        setTimeout(() => {
+          btn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }, 1800);
+      }).catch(err => {
+        showToast('Error copiando: ' + err);
+      });
+    }
+
+    // ==========================================
+    // 💬 HISTORIAL Y CHAT PERSISTENTE CON ROXANNE
+    // ==========================================
+    copilotChatHistory = [];
+
+
+    async function loadCopilotChatHistory() {
+      const box = document.getElementById('chat-messages-box');
+      if (!box) return;
+
+      // Intentar cargar desde el backend SQLite
+      try {
+        const res = await fetch('http://localhost:8888/api/chat_history');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.history && data.history.length > 0) {
+            box.innerHTML = '';
+            copilotChatHistory = [];
+            data.history.forEach(item => {
+              appendChatMessage(item.sender, item.message, 'es', item.model, item.timestamp, false);
+              copilotChatHistory.push({
+                role: item.sender === 'sam' ? 'user' : 'assistant',
+                content: item.message
+              });
+            });
+            box.scrollTop = box.scrollHeight;
+            return;
+          }
+        }
+      } catch (e) {
+        console.log('Error conectando con endpoint de historial backend, usando localStorage:', e);
+      }
+
+      // Fallback a localStorage
+      const localSaved = localStorage.getItem('velvet_roxanne_chat_history');
+      if (localSaved) {
+        try {
+          const parsed = JSON.parse(localSaved);
+          if (parsed && parsed.length > 0) {
+            box.innerHTML = '';
+            copilotChatHistory = [];
+            parsed.forEach(item => {
+              appendChatMessage(item.sender, item.message, 'es', item.model, item.timestamp, false);
+              copilotChatHistory.push({
+                role: item.sender === 'sam' ? 'user' : 'assistant',
+                content: item.message
+              });
+            });
+            box.scrollTop = box.scrollHeight;
+            return;
+          }
+        } catch (e) {
+          console.error('Error parseando localStorage:', e);
+        }
+      }
+
+      // Mensaje de bienvenida inicial si no hay historial
+      box.innerHTML = `
+        <div class="chat-msg sam">
+          <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
+          <div class="chat-msg-body">
+            <div class="chat-msg-meta">
+              <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo Webcam)</strong>
+              <span>• Lista</span>
+              <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Co-Piloto Activa</span>
+            </div>
+            <div class="chat-bubble">
+              ¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, estrategias de sala, respuestas a fans en LoyalFans, Stripchat y Streamate, o configuración de juguetes Lovense. ¿En qué trabajamos hoy? 🐺✨
+            </div>
+          </div>
+        </div>
+      `;
+      lucide.createIcons();
+    }
+
+    function appendChatMessage(sender, text, lang = 'es', model = '', timeStr = null, saveLocal = true) {
       const box = document.getElementById('chat-messages-box');
       if (!box) return;
       const msgDiv = document.createElement('div');
-      msgDiv.className = `chat-msg ${sender === 'fan' ? 'fan' : 'sam'}`;
+      msgDiv.className = `chat-msg ${sender === 'sam' ? 'fan' : 'sam'}`;
       
-      const timeStr = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      const currentTime = timeStr || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const escapedText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
-      if (sender === 'fan') {
+      if (sender === 'sam') {
         msgDiv.innerHTML = `
-          <div class="chat-msg-avatar"><i data-lucide="user" style="width:16px;"></i></div>
+          <div class="chat-msg-avatar" style="background: #3b82f6; font-weight:bold;">SB</div>
           <div class="chat-msg-body">
             <div class="chat-msg-meta">
-              <span class="table-badge badge-info" style="font-size:9px; padding:1px 6px;">Fan Inbound</span>
-              <span>• ${timeStr}</span>
-              <strong style="color: var(--secondary);">Fan</strong>
+              <span class="table-badge badge-info" style="font-size:9px; padding:1px 6px;">Sam Barton</span>
+              <span>• ${currentTime}</span>
+              <strong style="color: var(--secondary);">Tú</strong>
             </div>
-            <div class="chat-bubble">${escapedText}</div>
+            <div class="chat-bubble" style="background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3);">${escapedText}</div>
           </div>
         `;
       } else {
-        const ruleBadge = lang === 'es' ? '<span class="table-badge badge-warning" style="font-size:9px; padding:1px 6px;">🇪🇸 Español</span>' : '<span class="table-badge badge-purple" style="font-size:9px; padding:1px 6px;">🇺🇸 English Default</span>';
         msgDiv.innerHTML = `
-          <div class="chat-msg-avatar">SB</div>
+          <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
           <div class="chat-msg-body">
             <div class="chat-msg-meta">
-              <strong style="color: var(--primary-light);">Sam Barton (ROXANNE Copilot)</strong>
-              <span>• ${timeStr}</span>
-              ${ruleBadge}
+              <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo)</strong>
+              <span>• ${currentTime}</span>
+              <span class="table-badge badge-purple" style="font-size:9px; padding:1px 6px;">IA Local</span>
             </div>
             <div class="chat-bubble">
               ${escapedText}
-              <div>
+              <div style="margin-top: 8px;">
                 <button class="copy-msg-btn" onclick="copyMsgText(this)">
-                  <i data-lucide="copy" style="width:10px; height:10px;"></i> Copiar respuesta para DM
+                  <i data-lucide="copy" style="width:10px; height:10px;"></i> Copiar respuesta lista
                 </button>
               </div>
             </div>
@@ -2746,57 +3184,46 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       box.appendChild(msgDiv);
       box.scrollTop = box.scrollHeight;
       lucide.createIcons();
-    }
 
-    function copyMsgText(btn) {
-      const bubble = btn.closest('.chat-bubble');
-      const clone = bubble.cloneNode(true);
-      const btnInClone = clone.querySelector('.copy-msg-btn');
-      if (btnInClone) btnInClone.remove();
-      const textToCopy = clone.textContent.trim();
-      
-      navigator.clipboard.writeText(textToCopy).then(() => {
-        const oldHtml = btn.innerHTML;
-        btn.innerHTML = '✓ ¡Copiado!';
-        btn.style.color = '#34d399';
-        setTimeout(() => {
-          btn.innerHTML = oldHtml;
-          btn.style.color = '';
-          lucide.createIcons();
-        }, 2000);
-      });
-    }
-
-    function handleChatInputKeyDown(e) {
-      if (e.key === 'Enter' && !e.shiftKey) {
-        e.preventDefault();
-        sendCopilotMessage();
+      if (saveLocal) {
+        saveChatToLocalStorage(sender, text, currentTime, model);
       }
     }
 
-    function useQuickPrompt(text) {
-      const inputEl = document.getElementById('copilot-input');
-      if (inputEl) {
-        inputEl.value = text;
-        sendCopilotMessage();
+    function saveChatToLocalStorage(sender, text, timestamp, model) {
+      try {
+        let history = JSON.parse(localStorage.getItem('velvet_roxanne_chat_history') || '[]');
+        history.push({ sender, message: text, timestamp, model });
+        if (history.length > 100) history = history.slice(-100);
+        localStorage.setItem('velvet_roxanne_chat_history', JSON.stringify(history));
+      } catch (e) {
+        console.error('Error guardando en localStorage:', e);
       }
     }
 
-    function clearCopilotChat() {
+    async function clearCopilotChat() {
       copilotChatHistory = [];
+      localStorage.removeItem('velvet_roxanne_chat_history');
+
+      try {
+        await fetch('http://localhost:8888/api/clear_chat_history', { method: 'POST' });
+      } catch (e) {
+        console.log('Error llamando clear en backend:', e);
+      }
+
       const box = document.getElementById('chat-messages-box');
       if (!box) return;
       box.innerHTML = `
         <div class="chat-msg sam">
-          <div class="chat-msg-avatar">SB</div>
+          <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
           <div class="chat-msg-body">
             <div class="chat-msg-meta">
-              <strong style="color: var(--primary-light);">Sam Barton (ROXANNE Copilot)</strong>
+              <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo Webcam)</strong>
               <span>• Ahora</span>
-              <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Historial Limpiado</span>
+              <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Historial Reiniciado</span>
             </div>
             <div class="chat-bubble">
-              Historial de conversación reiniciado. Estoy lista para responder nuevos DMs o pruebas. 🏍️✨
+              Historial de conversación reiniciado. Estoy lista para asistirte con tus transmisiones, estrategias y respuestas a fans. 🐺✨
             </div>
           </div>
         </div>
@@ -2814,7 +3241,7 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
       const modelSelect = document.getElementById('chat-model-select');
       const model = modelSelect ? modelSelect.value : 'qwen2.5:7b-instruct';
 
-      appendChatMessage('fan', text);
+      appendChatMessage('sam', text, 'es', model);
       inputEl.value = '';
       
       const indicator = document.getElementById('chat-typing-indicator');
@@ -2838,7 +3265,7 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
         if (indicator) indicator.style.display = 'none';
         if (sendBtn) sendBtn.disabled = false;
 
-        appendChatMessage('sam', data.reply, data.detected_lang, data.rule_applied);
+        appendChatMessage('roxanne', data.reply, data.detected_lang, data.model);
         copilotChatHistory.push({ role: 'user', content: text });
         copilotChatHistory.push({ role: 'assistant', content: data.reply });
       } catch (err) {
@@ -2850,7 +3277,7 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
             body: JSON.stringify({
               model: model,
               messages: [
-                { role: 'system', content: `You are ROXANNE, AI Copilot for Sam Barton (@sambarton23). Tomboy tech archetype, motorcycle rider, InuYasha fan, dogs & cats lover. Rule: If inbound is in Spanish, reply 100% Spanish; otherwise reply 100% English.` },
+                { role: 'system', content: `Eres ROXANNE, la Asistente Personal y Estratega exclusiva de la modelo webcam Sam Barton (@sambartonn23). Le hablas directamente a Sam con respeto, calidez, complicidad y profesionalismo en español, ayudándola a responder a fans, planear transmisiones y optimizar sus ingresos.` },
                 ...copilotChatHistory,
                 { role: 'user', content: text }
               ],
@@ -2861,20 +3288,17 @@ Available for True Private shows and bespoke clip requests. Let’s connect on a
           if (indicator) indicator.style.display = 'none';
           if (sendBtn) sendBtn.disabled = false;
           const reply = odata.message?.content || 'Sin respuesta';
-          appendChatMessage('sam', reply, 'auto', 'Direct Ollama');
+          appendChatMessage('roxanne', reply, 'es', 'Direct Ollama');
           copilotChatHistory.push({ role: 'user', content: text });
           copilotChatHistory.push({ role: 'assistant', content: reply });
         } catch (ollamaErr) {
           if (indicator) indicator.style.display = 'none';
           if (sendBtn) sendBtn.disabled = false;
-          appendChatMessage('sam', `[Error]: No se pudo conectar con Ollama ni con el servidor local Velvet (${err.message}). Ejecuta: python src/server/velvet_app_server.py`, 'es');
+          appendChatMessage('roxanne', `[Aviso ROXANNE]: Error conectando con el motor (${err.message}). Recuerda que el servidor debe estar activo: python src/server/velvet_app_server.py`, 'es');
         }
       }
     }
 
-    // ==========================================
-    // 💰 GESTIÓN FINANCIERA EN TIEMPO REAL
-    // ==========================================
     function getApiBase() {
       return window.location.protocol.startsWith('http') ? '' : 'http://localhost:8888';
     }

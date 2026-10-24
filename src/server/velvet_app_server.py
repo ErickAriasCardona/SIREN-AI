@@ -96,6 +96,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_status()
         elif self.path == "/api/history":
             self.handle_api_history()
+        elif self.path == "/api/chat_history":
+            self.handle_api_chat_history()
+        elif self.path == "/api/platforms_profiles":
+            self.handle_api_platforms_profiles()
         elif self.path == "/api/financials":
             self.handle_api_financials()
         elif self.path.startswith("/api/positioning"):
@@ -109,6 +113,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/chat":
             self.handle_api_chat()
+        elif self.path == "/api/clear_chat_history":
+            self.handle_api_clear_chat_history()
         elif self.path == "/api/refresh_financials":
             self.handle_api_refresh_financials()
         elif self.path.startswith("/api/refresh_positioning"):
@@ -117,6 +123,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_deploy_profile()
         else:
             self.send_error(404, "Endpoint no encontrado")
+
 
     def handle_api_deploy_profile(self):
         """Ejecuta el script de despliegue y actualización de perfil en segundo plano."""
@@ -277,6 +284,176 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(json.dumps({"history": history}).encode("utf-8"))
 
+    def handle_api_chat_history(self):
+        """Devuelve el historial persistente de la conversacion entre Sam y Roxanne."""
+        history = []
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS copilot_assistant_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp TEXT,
+                    sender TEXT,
+                    message TEXT,
+                    model TEXT
+                )
+            """)
+            cursor.execute("""
+                SELECT timestamp, sender, message, model
+                FROM copilot_assistant_history
+                ORDER BY id ASC
+            """)
+            for row in cursor.fetchall():
+                history.append({
+                    "timestamp": row[0],
+                    "sender": row[1],
+                    "message": row[2],
+                    "model": row[3]
+                })
+            conn.close()
+        except Exception as e:
+            print("[History Error]:", e)
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps({"success": True, "history": history}).encode("utf-8"))
+
+    def handle_api_clear_chat_history(self):
+        """Limpia todo el historial de conversacion de Roxanne en la base de datos."""
+        try:
+            conn = sqlite3.connect(DB_PATH)
+            cursor = conn.cursor()
+            cursor.execute("DROP TABLE IF EXISTS copilot_assistant_history")
+            cursor.execute("""
+                CREATE TABLE copilot_assistant_history (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    timestamp TEXT,
+                    sender TEXT,
+                    message TEXT,
+                    model TEXT
+                )
+            """)
+            conn.commit()
+            conn.close()
+            resp = {"success": True, "message": "Historial limpiado exitosamente"}
+        except Exception as e:
+            resp = {"success": False, "error": str(e)}
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(resp).encode("utf-8"))
+
+    def handle_api_platforms_profiles(self):
+        """Devuelve los perfiles oficiales y credenciales de acceso para cada plataforma."""
+        try:
+            from src.automation.credential_store import load_all_credentials
+            creds = load_all_credentials()
+
+            profiles = [
+                {
+                    "key": "streamate",
+                    "name": "Streamate",
+                    "model_handle": "SamBartone",
+                    "performer_id": "144675665",
+                    "rating": "4.0 ★ (Verificado)",
+                    "status": "Verified (Activa)",
+                    "account_type": "Cuenta Estudio Satelite (Centenario Studio)",
+                    "login_url": "https://streamatemodels.com/login",
+                    "public_url": "https://sambartone.cammodels.com",
+                    "avatar_url": "/artifacts/streamate_audit/profile.png",
+                    "username": creds.get("streamate", {}).get("username", "efac05@yopmail.com"),
+                    "password": creds.get("streamate", {}).get("password", "Centenario123@"),
+                    "rates": {
+                        "private": "$2.99 / min",
+                        "exclusive": "$3.99 / min",
+                        "dynamic_enabled": "Activado ($2.99 - $6.99)"
+                    },
+                    "headline": "Chica tomboy versatil con energia propia e inteligente.",
+                    "bio": "Mi mundo se mueve entre la musica, la tecnologia, el deporte y esa pasion constante por explorar el deseo. Toco el ukelele, pero tambien disfruto explorar sensaciones intensas a solas...",
+                    "tags": ["Tomboy", "Ukelele", "Versatile", "Cam2Cam", "Roleplay"],
+                    "geoblock": "Colombia visible (Sin bloqueo territorial)"
+                },
+                {
+                    "key": "loyalfans",
+                    "name": "LoyalFans",
+                    "model_handle": "@samm_bartonn",
+                    "performer_id": "samm_bartonn",
+                    "rating": "Top 23% (Percentil Global)",
+                    "status": "Verified (100% Directo)",
+                    "account_type": "Independiente / Creadora Directa",
+                    "login_url": "https://loyalfans.com/login",
+                    "public_url": "https://loyalfans.com/samm_bartonn",
+                    "avatar_url": "/artifacts/test_public_profile_verified.png",
+                    "username": creds.get("loyalfans", {}).get("username", "sambartonn23@gmail.com"),
+                    "password": creds.get("loyalfans", {}).get("password", "Kjc20009*"),
+                    "rates": {
+                        "message_text": "$0.50 / msg",
+                        "message_media": "$0.50 / foto",
+                        "fan_club": "$10.00 / mes"
+                    },
+                    "headline": "Software & AI Architect ⚡ Versatile Tomboy 🏍️",
+                    "bio": "Smart by day, driven about my goals, and teasingly wicked by night. Software & AI Architect by trade, but my real sanctuary is motorcycles, speed, and my beloved pack...",
+                    "tags": ["Tomboy", "Biker", "Tech"],
+                    "geoblock": "Sin bloqueo territorial"
+                },
+                {
+                    "key": "stripchat",
+                    "name": "Stripchat",
+                    "model_handle": "@sam_barton",
+                    "performer_id": "sam_barton",
+                    "rating": "En Espera (Listo en Cola)",
+                    "status": "Verified (Verificado)",
+                    "account_type": "Independiente / Directo",
+                    "login_url": "https://stripchat.com/login",
+                    "public_url": "https://stripchat.com/sam_barton",
+                    "avatar_url": "/artifacts/stripchat_profile_updated_20261014_211003.png",
+                    "username": creds.get("stripchat", {}).get("username", "sambartonn23@gmail.com"),
+                    "password": creds.get("stripchat", {}).get("password", "6L!3K3RUnEdPKPt"),
+                    "rates": {
+                        "token_price": "$0.05 / token",
+                        "private_show": "60 tokens / min",
+                        "interactive_lovense": "Activo"
+                    },
+                    "headline": "Cute Tomboy Gamer • Lovense Interactive 🎮",
+                    "bio": "Software & AI Architect by day, gaming tomboy & teasing companion by night. Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats...",
+                    "tags": ["tomboy", "gamer", "lovense", "athletic", "sensual", "biker"],
+                    "geoblock": "Sin bloqueo territorial"
+                },
+                {
+                    "key": "lovense",
+                    "name": "Lovense Interactive",
+                    "model_handle": "Lovense Connect",
+                    "performer_id": "Bluetooth Link",
+                    "rating": "Sincronizado",
+                    "status": "Activo",
+                    "account_type": "Herramienta Interactiva",
+                    "login_url": "https://streamate.lovense.com",
+                    "public_url": "",
+                    "avatar_url": "/artifacts/smconnect_tab_juguetes_interactivos.png",
+                    "username": creds.get("lovense", {}).get("username", "sambartonn23@gmail.com"),
+                    "password": creds.get("lovense", {}).get("password", "6L!3K3RUnEdPKPt"),
+                    "rates": {
+                        "niveles": "5 niveles de vibracion configurados"
+                    },
+                    "headline": "Juguetes interactivos sincronizados con propinas en vivo.",
+                    "bio": "Sincronizacion Bluetooth activa para reaccionar a propinas en Stripchat y Streamate.",
+                    "tags": ["Lovense", "Bluetooth", "Tipping"],
+                    "geoblock": "N/A"
+                }
+            ]
+            resp = {"success": True, "profiles": profiles}
+        except Exception as e:
+            resp = {"success": False, "error": str(e)}
+
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(resp).encode("utf-8"))
+
+
     def handle_api_chat(self):
         """Procesa una consulta de chat con ROXANNE y devuelve la respuesta del LLM."""
         try:
@@ -328,8 +505,30 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             except Exception as e:
                 reply = f"[Aviso ROXANNE]: Error conectando con el motor de inferencia ({model_name}): {e}. Asegúrate de que Ollama esté ejecutándose en localhost:11434."
 
-            # Guardar en SQLite
+            # Guardar en SQLite (Auditoría general y asistente persistente)
             log_interaction_to_db(message, reply, model_name, lang)
+            try:
+                conn = sqlite3.connect(DB_PATH)
+                cursor = conn.cursor()
+                cursor.execute("""
+                    CREATE TABLE IF NOT EXISTS copilot_assistant_history (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT,
+                        timestamp TEXT,
+                        sender TEXT,
+                        message TEXT,
+                        model TEXT
+                    )
+                """)
+                now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model) VALUES (?, ?, ?, ?)",
+                               (now_str, "sam", message, model_name))
+                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model) VALUES (?, ?, ?, ?)",
+                               (now_str, "roxanne", reply, model_name))
+                conn.commit()
+                conn.close()
+            except Exception as dbe:
+                print("[Chat Persist Error]:", dbe)
+
 
             response_data = {
                 "reply": reply,
