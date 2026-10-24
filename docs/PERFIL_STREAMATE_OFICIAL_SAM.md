@@ -15,7 +15,7 @@ Mi mundo se mueve entre la musica, la tecnologia, el deporte y esa pasion consta
 ---
 
 ### Acto 3. Que Me Excita / Turn Ons
-Me enciende poder ver tus reacciones y poder sostener tu mirada fija donde no hacen falta palabras. Me despiertan los detalles inesperados, sentir como sube la tension despacio y esa complicidad donde ambos sabemos lo que queremos.
+Me enciende poder ver tus reacciones y poder sostener tu mirada fija donde no hacen falta palabras. Tambien me encienden las vibraciones inesperadas recorriendo mi piel, sentir como sube el calor despacio y esa complicidad donde ambos sabemos lo que queremos.
 
 ---
 
