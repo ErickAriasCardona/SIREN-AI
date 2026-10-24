@@ -20,7 +20,7 @@ Me enciende poder ver tus reacciones y poder sostener tu mirada fija donde no ha
 ---
 
 ### Acto 4. Mis Especialidades / Expertise
-Llevar nuestro momento a otro nivel de intimidad, dejando que la curiosidad abra paso a juegos de rol donde podemos alternar el control, vivir fantasias y dejarnos llevar sin ataduras. Me gusta empezar suave, provocar con calma y luego acelerar el ritmo cuando el calor sube, usando dirty talk al oido y complaciendo caprichos mutuos donde ambos terminamos completamente satisfechos.
+Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimentar y alternar el control, vivir fantasias y dejarnos llevar sin ataduras. Me gusta empezar suave, provocar con calma y luego acelerar el ritmo cuando el calor sube, hablando al oido y complaciendo caprichos mutuos donde ambos terminamos completamente satisfechos.
 
 ---
 
