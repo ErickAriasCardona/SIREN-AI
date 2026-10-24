@@ -1,0 +1,62 @@
+{
+  "my_profile": {
+    "url": "https://streamatemodels.com/profile",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_my_profile.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "cammodel_profile": {
+    "url": "https://streamatemodels.com/cammodel/profile",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_cammodel_profile.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "account_settings": {
+    "url": "https://streamatemodels.com/account/settings",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_account_settings.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "account_details": {
+    "url": "https://streamatemodels.com/account",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_account_details.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "pricing_rates": {
+    "url": "https://streamatemodels.com/pricing",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_pricing_rates.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "rates_settings": {
+    "url": "https://streamatemodels.com/settings/rates",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_rates_settings.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "geoblock_settings": {
+    "url": "https://streamatemodels.com/customer/geoblock",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_geoblock_settings.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "geoblock_regions": {
+    "url": "https://streamatemodels.com/settings/security",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_geoblock_regions.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "payout_settings": {
+    "url": "https://streamatemodels.com/reports/payment-options",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_payout_settings.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  },
+  "payout_methods": {
+    "url": "https://streamatemodels.com/account/payout",
+    "title": "Streamate Models",
+    "screenshot": "artifacts\\streamate_audit\\endpoint_payout_methods.png",
+    "text_preview": "LOG IN\nJOIN\nPage Not Found\nGo to dashboard\nSupport\nSite Language\n\n© 2003-2026 StreamateModels.com. All rights reserved.\n\nLegal"
+  }
+}
