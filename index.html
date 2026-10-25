@@ -6535,8 +6535,8 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
 
         if (indicator) indicator.style.display = 'none';
         if (sendBtn) sendBtn.disabled = false;
-        const currentEndpoint = getApiBase() || 'Servidor Local (http://localhost:8888)';
-        appendChatMessage(activeAssistant, `[Aviso ${ASSISTANTS_DATA[activeAssistant].name}]: Error de conexión con tu PC de casa (${err.message}).\n\n🔗 Endpoint actual: \`${currentEndpoint}\`\n\n👉 Para solucionarlo:\n1. Asegúrate de tener \`INICIAR_SIREN.bat\` activo en el computador de tu casa.\n2. Si el enlace cambió, toca arriba en el estado del servidor para ingresar el nuevo enlace en 1 segundo.`, 'es');
+        const currentEndpoint = getApiBase() || window.location.origin;
+        appendChatMessage(activeAssistant, `[Aviso ${ASSISTANTS_DATA[activeAssistant].name}]: Error de conexión con tu PC de casa (${err.message}).\n\n🔗 Enlace que tienes abierto: \`${currentEndpoint}\`\n\n👉 Motivo:\nEl servidor de tu PC generó un nuevo enlace seguro de Cloudflare al reiniciarse. Abre tu navegador y entra al enlace nuevo generado en tu PC (también guardado en el archivo \`ENLACE_SIREN_ESTUDIO.txt\`).`, 'es');
       }
     }
 
