@@ -7169,6 +7169,19 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           swRegistration = reg;
           console.log('[PWA] Service Worker registrado:', reg.scope);
 
+          // Forzar chequeo de actualización del Service Worker
+          reg.update();
+          reg.addEventListener('updatefound', () => {
+            const newWorker = reg.installing;
+            if (newWorker) {
+              newWorker.addEventListener('statechange', () => {
+                if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                  showToast('✨ PWA actualizada con los últimos cambios y logos.');
+                }
+              });
+            }
+          });
+
           // Escuchar mensajes entrantes desde el Service Worker
           navigator.serviceWorker.addEventListener('message', event => {
             if (event.data && event.data.type === 'NAVIGATE_ASSISTANT') {
