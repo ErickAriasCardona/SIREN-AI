@@ -124,6 +124,34 @@ def run_tests():
         page_mobile.screenshot(path=shot_mobile_chloe)
         print(f"  ✓ Saved screenshot: {shot_mobile_chloe}")
 
+        # 1.8 Select Roxanne Webcam Assistant & Verify Vertical Stacking & Zero Overflow
+        page_mobile.evaluate("selectAssistant('roxanne')")
+        page_mobile.wait_for_timeout(500)
+
+        roxanne_panel = page_mobile.locator("#panel-tools-roxanne")
+        assert roxanne_panel.is_visible(), "Roxanne tools panel should be visible"
+        
+        # Verify panel tools flexDirection is column
+        flex_dir = page_mobile.evaluate("window.getComputedStyle(document.getElementById('panel-tools-roxanne')).flexDirection")
+        assert flex_dir == 'column', f"Expected flexDirection column, got {flex_dir}"
+        print(f"  ✓ Roxanne tools panel layout is strictly vertical (flex-direction: {flex_dir})")
+
+        # Verify zero horizontal overflow in content area and doc
+        rx_scroll_width = page_mobile.evaluate("document.documentElement.scrollWidth")
+        rx_client_width = page_mobile.evaluate("document.documentElement.clientWidth")
+        rx_ca_scroll = page_mobile.evaluate("document.querySelector('.content-area').scrollWidth")
+        rx_ca_client = page_mobile.evaluate("document.querySelector('.content-area').clientWidth")
+        assert rx_scroll_width <= rx_client_width + 1, f"Doc overflow! {rx_scroll_width} > {rx_client_width}"
+        assert rx_ca_scroll <= rx_ca_client + 1, f"Content area overflow! {rx_ca_scroll} > {rx_ca_client}"
+        print(f"  ✓ Zero horizontal overflow with Roxanne active (doc: {rx_scroll_width}px, ca: {rx_ca_scroll}px)")
+
+        # Scroll to Roxanne tools to capture the stacked cards
+        page_mobile.evaluate("document.querySelector('.content-area').scrollTop = 450")
+        page_mobile.wait_for_timeout(400)
+        shot_mobile_roxanne = os.path.join(ARTIFACTS_DIR, "mobile_roxanne_no_overflow.png")
+        page_mobile.screenshot(path=shot_mobile_roxanne)
+        print(f"  ✓ Saved screenshot of vertically stacked Roxanne tools: {shot_mobile_roxanne}")
+
         context_mobile.close()
 
         # ----------------------------------------------------
