@@ -39,6 +39,7 @@ from src.agents.chloe_instagram_agent import (
     generate_daily_instagram_strategy,
     generate_stories_pack
 )
+from src.automation.push_notification_service import push_service
 
 # ==============================================================================
 # PROMPTS DEL SISTEMA: DIANA (FINANZAS) Y ELECTRA (ALGORITMOS)
@@ -145,6 +146,23 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_instagram_stories_pack()
         elif self.path.startswith("/api/instagram/sync_live"):
             self.handle_api_instagram_sync_live()
+        elif self.path == "/api/push/vapid_public_key":
+            self.handle_api_push_vapid_public_key()
+        elif self.path == "/manifest.json":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/manifest+json; charset=utf-8")
+            self.end_headers()
+            with open(ROOT / "manifest.json", "rb") as f:
+                self.wfile.write(f.read())
+            return
+        elif self.path == "/sw.js":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/javascript; charset=utf-8")
+            self.send_header("Service-Worker-Allowed", "/")
+            self.end_headers()
+            with open(ROOT / "sw.js", "rb") as f:
+                self.wfile.write(f.read())
+            return
         else:
             # Servir index.html si entra a /
             if self.path == "/" or self.path == "":
@@ -156,6 +174,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_chat()
         elif self.path == "/api/clear_chat_history":
             self.handle_api_clear_chat_history()
+        elif self.path == "/api/push/subscribe":
+            self.handle_api_push_subscribe()
+        elif self.path == "/api/push/unsubscribe":
+            self.handle_api_push_unsubscribe()
+        elif self.path == "/api/push/test":
+            self.handle_api_push_test()
+        elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
+            self.handle_api_streamate_analyze_tomboy_radar()
         elif self.path == "/api/refresh_financials":
             self.handle_api_refresh_financials()
         elif self.path.startswith("/api/refresh_positioning"):
@@ -214,6 +240,92 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()
         self.wfile.write(json.dumps(resp).encode("utf-8"))
+
+    def handle_api_push_vapid_public_key(self):
+        """Retorna la clave pública VAPID en base64url para la suscripción Web Push en el navegador."""
+        try:
+            pub_key = push_service.get_public_key()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"publicKey": pub_key}).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+
+    def handle_api_push_subscribe(self):
+        """Registra una suscripción Web Push (endpoint, p256dh, auth) en SQLite."""
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            data = json.loads(body)
+            sub = data.get("subscription", {})
+            ua = self.headers.get("User-Agent", "")
+            success = push_service.save_subscription(sub, ua)
+            self.send_response(200 if success else 400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok" if success else "error",
+                "message": "Dispositivo registrado en notificaciones push de SIREN AI" if success else "Datos de suscripción incompletos"
+            }).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+
+    def handle_api_push_unsubscribe(self):
+        """Desactiva una suscripción Web Push en la base de datos."""
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            data = json.loads(body)
+            endpoint = data.get("endpoint", "")
+            push_service.remove_subscription(endpoint)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"status": "ok", "message": "Suscripción desactivada"}).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+
+    def handle_api_push_test(self):
+        """Dispara una notificación de prueba para cualquiera de los 4 asistentes."""
+        try:
+            length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
+            data = json.loads(body) if body else {}
+            assistant_id = data.get("assistant", "roxanne").lower()
+            
+            sample_messages = {
+                "roxanne": "¡Hola Sam! Notificación en tiempo real de Roxanne verificada con éxito en tu pantalla de bloqueo. Sistema operativo y listo.",
+                "chloe": "¡Hey Sam! Chloe aquí: tu estrategia de Instagram para hoy está preparada. Toca para ver el desglose en el chat.",
+                "diana": "¡Alerta Financiera de Diana! Nuevo corte de facturación registrado. Toca para auditar tus ganancias.",
+                "electra": "¡Alerta Algorítmica de Electra! Pico de tráfico detectado en Streamate. Momento ideal para abrir sala."
+            }
+            msg = sample_messages.get(assistant_id, sample_messages["roxanne"])
+            push_service.notify_assistant_response(assistant_id, msg)
+            
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "status": "ok",
+                "assistant": assistant_id,
+                "message": msg,
+                "note": "Push disparado a todos los dispositivos registrados"
+            }).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
 
     def handle_api_financials(self):
         """Devuelve el balance en vivo, desglose de octubre y transacciones recientes."""
@@ -799,12 +911,17 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model) VALUES (?, ?, ?, ?)",
                                (now_str, "sam", message, model_name))
                 cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model) VALUES (?, ?, ?, ?)",
-                               (now_str, "roxanne", reply, model_name))
+                               (now_str, assistant_id, reply, model_name))
                 conn.commit()
                 conn.close()
             except Exception as dbe:
                 print("[Chat Persist Error]:", dbe)
 
+            # Disparar notificación Web Push en tiempo real para el asistente que respondió
+            try:
+                push_service.notify_assistant_response(assistant_id, reply)
+            except Exception as pe:
+                print("[Push Trigger Warning]:", pe)
 
             response_data = {
                 "reply": reply,
