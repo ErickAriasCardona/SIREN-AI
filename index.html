@@ -2,8 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>SIREN AI — Command & Intelligence Center | Sam Barton</title>
+  <!-- PWA & Mobile Capabilities -->
+  <meta name="theme-color" content="#8B53FF">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SIREN AI">
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -2315,6 +2325,14 @@
       </div>
 
       <div class="top-actions">
+        <button id="btn-toggle-push" class="action-btn" onclick="togglePushNotifications()" title="Activar Notificaciones Web Push (Pantalla de Bloqueo Android)" style="display:inline-flex; align-items:center; gap:6px;">
+          <i data-lucide="bell" id="push-bell-icon"></i>
+          <span id="push-label" class="hide-on-mobile">Notificaciones</span>
+        </button>
+        <button id="btn-pwa-install" class="action-btn" onclick="triggerPwaInstall()" title="Instalar SIREN AI en tu Teléfono" style="display:none; align-items:center; gap:6px; border-color: var(--secondary); color: var(--secondary);">
+          <i data-lucide="download"></i>
+          <span class="hide-on-mobile">Instalar App</span>
+        </button>
         <button id="theme-toggle-btn" class="action-btn" onclick="toggleSirenTheme()" title="Alternar Modo Claro / Oscuro" style="display:inline-flex; align-items:center; gap:6px;">
           <i data-lucide="moon" id="theme-icon"></i>
           <span id="theme-label" class="hide-on-mobile">Modo Oscuro</span>
@@ -4487,6 +4505,47 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- PESTAÑA: ASISTENTES IA DE SAM BARTON (MULTI-AGENTE) -->
       <!-- ========================================== -->
       <section id="tab-asistentes" class="tab-view">
+
+        <!-- BARRA DE ESTADO PWA & NOTIFICACIONES EN PANTALLA DE BLOQUEO -->
+        <div id="pwa-push-status-bar" style="background: rgba(139, 83, 255, 0.08); border: 1px solid rgba(139, 83, 255, 0.25); border-radius: 12px; padding: 14px 18px; margin-bottom: 18px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 12px;">
+            <div id="pwa-push-badge-indicator" style="width: 12px; height: 12px; border-radius: 50%; background: #9BA4B5; box-shadow: 0 0 10px rgba(155, 164, 181, 0.5);"></div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 8px;">
+                <span>Notificaciones en Pantalla de Bloqueo (Web Push PWA)</span>
+                <span id="pwa-push-status-pill" class="table-badge badge-warning" style="font-size: 9px; padding: 2px 7px;">Pendiente Activar</span>
+              </div>
+              <div style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-top: 2px;">
+                Recibe alertas en tu Android con sonido y vibración cuando cualquiera de tus 4 asistentes termine de responder, incluso con la app cerrada.
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; position: relative;">
+            <button id="btn-subscribe-push-banner" class="action-btn primary" onclick="togglePushNotifications()" style="font-size: 11px; padding: 6px 14px; display: inline-flex; align-items: center; gap: 6px;">
+              <i data-lucide="bell"></i> <span id="banner-push-btn-text">Activar Notificaciones</span>
+            </button>
+            <div class="dropdown-wrapper" style="position: relative; display: inline-block;">
+              <button class="action-btn" onclick="openTestPushDropdown()" style="font-size: 11px; padding: 6px 12px; display: inline-flex; align-items: center; gap: 5px;" title="Probar notificación en tu teléfono">
+                <i data-lucide="smartphone"></i> Probar Push <i data-lucide="chevron-down" style="width: 11px; height: 11px;"></i>
+              </button>
+              <div id="test-push-menu" style="display: none; position: absolute; right: 0; top: 100%; margin-top: 6px; background: var(--bg-card); border: 1px solid var(--border-accent); border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.6); z-index: 999; min-width: 220px; padding: 6px;">
+                <div style="padding: 6px 10px; font-size: 10px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Simular Notificación Push:</div>
+                <button class="subtab-btn" onclick="triggerTestPush('roxanne')" style="width: 100%; text-align: left; padding: 8px 10px; font-size: 11px; justify-content: flex-start; margin-bottom: 2px;">
+                  🟣 Roxanne (Directora)
+                </button>
+                <button class="subtab-btn" onclick="triggerTestPush('chloe')" style="width: 100%; text-align: left; padding: 8px 10px; font-size: 11px; justify-content: flex-start; margin-bottom: 2px;">
+                  🌸 Chloe (Instagram)
+                </button>
+                <button class="subtab-btn" onclick="triggerTestPush('diana')" style="width: 100%; text-align: left; padding: 8px 10px; font-size: 11px; justify-content: flex-start; margin-bottom: 2px;">
+                  🟢 Diana (Finanzas)
+                </button>
+                <button class="subtab-btn" onclick="triggerTestPush('electra')" style="width: 100%; text-align: left; padding: 8px 10px; font-size: 11px; justify-content: flex-start;">
+                  ⚡ Electra (Algoritmos)
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- GRID DE SELECCIÓN DE ASISTENTES IA -->
         <div class="assistants-deck-grid">
@@ -6872,6 +6931,305 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     // Check server health on load and every 15s
     setInterval(checkServerHealth, 15000);
     setTimeout(checkServerHealth, 1000);
+
+    // ==============================================================================
+    // PWA & WEB PUSH NOTIFICATION ENGINE (Sam Barton Android & Lock Screen)
+    // ==============================================================================
+    let deferredPwaPrompt = null;
+    let swRegistration = null;
+    let isPushSubscribed = false;
+
+    function urlBase64ToUint8Array(base64String) {
+      const padding = '='.repeat((4 - base64String.length % 4) % 4);
+      const base64 = (base64String + padding).replace(/\-/g, '+').replace(/_/g, '/');
+      const rawData = window.atob(base64);
+      const outputArray = new Uint8Array(rawData.length);
+      for (let i = 0; i < rawData.length; ++i) {
+        outputArray[i] = rawData.charCodeAt(i);
+      }
+      return outputArray;
+    }
+
+    async function registerServiceWorker() {
+      if ('serviceWorker' in navigator) {
+        try {
+          const reg = await navigator.serviceWorker.register('./sw.js', { scope: './' });
+          swRegistration = reg;
+          console.log('[PWA] Service Worker registrado:', reg.scope);
+
+          // Escuchar mensajes entrantes desde el Service Worker
+          navigator.serviceWorker.addEventListener('message', event => {
+            if (event.data && event.data.type === 'NAVIGATE_ASSISTANT') {
+              if (event.data.tab) switchMainTab(event.data.tab);
+              if (event.data.assistant) selectAssistant(event.data.assistant);
+            }
+          });
+
+          // Verificar estado de suscripción inicial
+          checkPushSubscriptionState();
+        } catch (err) {
+          console.warn('[PWA] Error registrando Service Worker:', err);
+          updatePushUI('unsupported');
+        }
+      } else {
+        updatePushUI('unsupported');
+      }
+    }
+
+    // Instalación PWA en Chrome / Android
+    window.addEventListener('beforeinstallprompt', e => {
+      e.preventDefault();
+      deferredPwaPrompt = e;
+      const installBtn = document.getElementById('btn-pwa-install');
+      if (installBtn) installBtn.style.display = 'inline-flex';
+    });
+
+    async function triggerPwaInstall() {
+      if (!deferredPwaPrompt) {
+        showToast('Para instalar: Presiona los 3 puntos (⋮) de Chrome y selecciona "Instalar aplicación"');
+        return;
+      }
+      deferredPwaPrompt.prompt();
+      const choice = await deferredPwaPrompt.userChoice;
+      if (choice.outcome === 'accepted') {
+        showToast('✓ SIREN AI instalado como aplicación en tu teléfono');
+      }
+      deferredPwaPrompt = null;
+      const installBtn = document.getElementById('btn-pwa-install');
+      if (installBtn) installBtn.style.display = 'none';
+    }
+
+    // Manejo de parámetros de inicio (?tab=tab-asistentes&assistant=chloe)
+    function checkPwaStartupParams() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const tab = params.get('tab');
+        const asst = params.get('assistant');
+        if (tab) switchMainTab(tab);
+        if (asst) selectAssistant(asst);
+      } catch (e) {}
+    }
+
+    async function checkPushSubscriptionState() {
+      if (!swRegistration || !('pushManager' in swRegistration)) {
+        updatePushUI('unsupported');
+        return;
+      }
+
+      try {
+        const sub = await swRegistration.pushManager.getSubscription();
+        isPushSubscribed = !(sub === null);
+        if (isPushSubscribed) {
+          updatePushUI('subscribed');
+          syncSubscriptionWithServer(sub);
+        } else {
+          if (Notification.permission === 'denied') {
+            updatePushUI('denied');
+          } else {
+            updatePushUI('unsubscribed');
+          }
+        }
+      } catch (err) {
+        console.warn('[Push] Error chequeando suscripción:', err);
+        updatePushUI('unsubscribed');
+      }
+    }
+
+    function updatePushUI(state) {
+      const topBtn = document.getElementById('btn-toggle-push');
+      const topLabel = document.getElementById('push-label');
+      const topIcon = document.getElementById('push-bell-icon');
+      const bannerPill = document.getElementById('pwa-push-status-pill');
+      const bannerBtnText = document.getElementById('banner-push-btn-text');
+      const badgeDot = document.getElementById('pwa-push-badge-indicator');
+
+      if (state === 'subscribed') {
+        if (topLabel) topLabel.textContent = 'Notificaciones Activas';
+        if (topBtn) {
+          topBtn.classList.add('primary');
+          topBtn.title = 'Notificaciones push activas. Clic para desactivar';
+        }
+        if (bannerPill) {
+          bannerPill.className = 'table-badge badge-success';
+          bannerPill.textContent = '✓ Activas en Bloqueo';
+        }
+        if (bannerBtnText) bannerBtnText.textContent = 'Desactivar Notificaciones';
+        if (badgeDot) {
+          badgeDot.style.background = 'var(--secondary)';
+          badgeDot.style.boxShadow = '0 0 10px rgba(26, 229, 137, 0.6)';
+        }
+      } else if (state === 'denied') {
+        if (topLabel) topLabel.textContent = 'Permiso Bloqueado';
+        if (topBtn) {
+          topBtn.classList.remove('primary');
+          topBtn.title = 'Permiso denegado en Chrome. Toca el candado en la barra de URL para permitir';
+        }
+        if (bannerPill) {
+          bannerPill.className = 'table-badge badge-danger';
+          bannerPill.textContent = 'Bloqueado en Navegador';
+        }
+        if (bannerBtnText) bannerBtnText.textContent = 'Revisar Permisos';
+        if (badgeDot) {
+          badgeDot.style.background = '#fb7185';
+          badgeDot.style.boxShadow = '0 0 10px rgba(251, 113, 133, 0.6)';
+        }
+      } else if (state === 'unsupported') {
+        if (topLabel) topLabel.textContent = 'Push Requiere HTTPS';
+        if (bannerPill) {
+          bannerPill.className = 'table-badge badge-warning';
+          bannerPill.textContent = 'Requiere HTTPS o Chrome Android';
+        }
+        if (badgeDot) badgeDot.style.background = '#9BA4B5';
+      } else {
+        if (topLabel) topLabel.textContent = 'Notificaciones';
+        if (topBtn) topBtn.classList.remove('primary');
+        if (bannerPill) {
+          bannerPill.className = 'table-badge badge-warning';
+          bannerPill.textContent = 'Pendiente Activar';
+        }
+        if (bannerBtnText) bannerBtnText.textContent = 'Activar Notificaciones';
+        if (badgeDot) {
+          badgeDot.style.background = '#9BA4B5';
+          badgeDot.style.boxShadow = '0 0 10px rgba(155, 164, 181, 0.4)';
+        }
+      }
+      lucide.createIcons();
+    }
+
+    async function togglePushNotifications() {
+      if (isPushSubscribed) {
+        await unsubscribeUserFromPush();
+      } else {
+        await subscribeUserToPush();
+      }
+    }
+
+    async function subscribeUserToPush() {
+      if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
+        showToast('Web Push no está soportado en este navegador. Utiliza Google Chrome.');
+        return;
+      }
+
+      // 1. Solicitar permisos de notificación nativa
+      const permission = await Notification.requestPermission();
+      if (permission !== 'granted') {
+        showToast('Permiso no concedido. Habilita notificaciones en los ajustes de Chrome.');
+        updatePushUI('denied');
+        return;
+      }
+
+      try {
+        if (!swRegistration) {
+          swRegistration = await navigator.serviceWorker.ready;
+        }
+
+        // 2. Obtener clave pública VAPID del servidor
+        const apiBase = getApiBase();
+        const keyRes = await fetch(`${apiBase}/api/push/vapid_public_key`);
+        if (!keyRes.ok) throw new Error('No se pudo obtener la clave VAPID pública');
+        const { publicKey } = await keyRes.json();
+
+        // 3. Suscribir en el PushManager del navegador
+        const convertedKey = urlBase64ToUint8Array(publicKey);
+        const subscription = await swRegistration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: convertedKey
+        });
+
+        // 4. Guardar suscripción en SQLite del backend
+        await syncSubscriptionWithServer(subscription);
+
+        isPushSubscribed = true;
+        updatePushUI('subscribed');
+        showToast('🔔 ¡Notificaciones de los 4 asistentes activadas con sonido y vibración!');
+      } catch (err) {
+        console.error('[Push Subscription Error]:', err);
+        showToast('Error suscribiendo a Web Push: ' + err.message);
+      }
+    }
+
+    async function syncSubscriptionWithServer(subscription) {
+      try {
+        const apiBase = getApiBase();
+        await fetch(`${apiBase}/api/push/subscribe`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            subscription: subscription,
+            user_agent: navigator.userAgent
+          })
+        });
+      } catch (e) {
+        console.warn('[Push] Error guardando suscripción:', e);
+      }
+    }
+
+    async function unsubscribeUserFromPush() {
+      try {
+        const sub = await swRegistration.pushManager.getSubscription();
+        if (sub) {
+          const endpoint = sub.endpoint;
+          await sub.unsubscribe();
+          const apiBase = getApiBase();
+          await fetch(`${apiBase}/api/push/unsubscribe`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ endpoint: endpoint })
+          });
+        }
+        isPushSubscribed = false;
+        updatePushUI('unsubscribed');
+        showToast('Notificaciones push desactivadas');
+      } catch (err) {
+        console.error('Error al dar de baja notificaciones:', err);
+      }
+    }
+
+    function openTestPushDropdown() {
+      const menu = document.getElementById('test-push-menu');
+      if (menu) {
+        menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+      }
+    }
+
+    document.addEventListener('click', e => {
+      const menu = document.getElementById('test-push-menu');
+      if (menu && !e.target.closest('.dropdown-wrapper')) {
+        menu.style.display = 'none';
+      }
+    });
+
+    async function triggerTestPush(assistantId) {
+      const menu = document.getElementById('test-push-menu');
+      if (menu) menu.style.display = 'none';
+
+      if (!isPushSubscribed) {
+        showToast('Primero presiona "Activar Notificaciones" para que tu teléfono pueda recibirlas');
+        return;
+      }
+
+      try {
+        showToast(`Enviando push de prueba para ${assistantId.toUpperCase()}...`);
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/push/test`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assistant: assistantId })
+        });
+        const data = await res.json();
+        if (res.ok) {
+          showToast(`✓ ¡Notificación de ${assistantId.toUpperCase()} enviada! Revisa tu pantalla de bloqueo.`);
+        } else {
+          showToast('Error enviando push: ' + (data.error || 'Fallo'));
+        }
+      } catch (e) {
+        showToast('Error de conexión enviando push de prueba');
+      }
+    }
+
+    // Inicializar PWA y Service Worker al cargar
+    setTimeout(registerServiceWorker, 300);
+    setTimeout(checkPwaStartupParams, 400);
 
   </script>
 </body>
