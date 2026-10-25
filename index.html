@@ -413,16 +413,37 @@
     }
 
     .sidebar-header {
-      padding: 18px 20px 18px;
+      padding: 16px 18px;
       border-bottom: 1px solid var(--border-color);
-      background: linear-gradient(180deg, rgba(147, 51, 234, 0.08) 0%, transparent 100%);
+      background: linear-gradient(180deg, rgba(139, 83, 255, 0.08) 0%, transparent 100%);
     }
-
-    .sidebar-header-top {
+    .sidebar-logo-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 8px;
+      gap: 10px;
+      width: 100%;
+    }
+    .siren-header-logo-wrap {
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      color: var(--text-main);
+    }
+    .siren-header-logo-wrap:hover {
+      transform: translateY(-1px);
+      filter: drop-shadow(0 0 10px rgba(139, 83, 255, 0.4));
+    }
+    .siren-logo-svg {
+      display: block;
+      height: 34px;
+      width: auto;
+      max-width: 180px;
+    }
+    body.light-theme .siren-text-title {
+      fill: #1E2432 !important;
     }
 
     .sidebar-header-btn {
@@ -437,6 +458,7 @@
       justify-content: center;
       cursor: pointer;
       transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
     }
     .sidebar-header-btn:hover {
       background: rgba(139, 83, 255, 0.15);
@@ -457,70 +479,6 @@
     .sidebar-header-btn svg {
       width: 16px;
       height: 16px;
-    }
-
-    .brand-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: var(--primary-light);
-      background: rgba(147, 51, 234, 0.15);
-      border: 1px solid rgba(147, 51, 234, 0.3);
-      padding: 4px 10px;
-      border-radius: 20px;
-    }
-
-    .brand-title {
-      font-size: 20px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      color: #fff;
-    }
-    .brand-title span {
-      background: linear-gradient(135deg, #8B53FF 0%, #1AE589 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .sidebar-model-pill {
-      margin-top: 14px;
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-md);
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .model-avatar {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #8B53FF, #1AE589);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 14px;
-      color: white;
-      border: 2px solid rgba(255,255,255,0.2);
-    }
-
-    .model-info h4 {
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--text-main);
-    }
-    .model-info p {
-      font-size: 11px;
-      color: var(--text-muted);
     }
 
     /* NAV MENU */
@@ -600,26 +558,48 @@
 
     /* FOOTER SIDEBAR */
     .sidebar-footer {
-      padding: 16px;
+      padding: 12px 18px;
       border-top: 1px solid var(--border-color);
-      background: rgba(0,0,0,0.2);
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .system-status {
+      background: rgba(0, 0, 0, 0.15);
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      color: var(--text-muted);
+      justify-content: center;
     }
-    .status-dot {
-      width: 8px;
-      height: 8px;
+    body.light-theme .sidebar-footer {
+      background: #f8fafc;
+      border-top-color: #e2e8f0;
+    }
+    .sidebar-version-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 11px;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      color: var(--text-dim);
+      letter-spacing: 0.8px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .sidebar-version-pill:hover {
+      border-color: rgba(139, 83, 255, 0.35);
+      color: var(--text-main);
+    }
+    body.light-theme .sidebar-version-pill {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      color: #64748b;
+    }
+    .version-dot {
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
-      background: var(--success);
-      box-shadow: 0 0 8px var(--success);
+      background: #1AE589;
+      box-shadow: 0 0 8px #1AE589;
     }
 
     /* MAIN CONTAINER */
@@ -2139,20 +2119,31 @@
   <!-- SIDEBAR NAVEGACIÓN -->
   <aside id="sidebar">
     <div class="sidebar-header">
-      <div class="sidebar-header-top">
-        <div class="brand-badge"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> SIREN AI v2.5</div>
+      <div class="sidebar-logo-bar">
+        <div id="siren-header-logo-wrap" class="siren-header-logo-wrap" onclick="openLogoSelectorModal()" title="Personalizar logotipo de SIREN (Haz clic para ver las 3 opciones)">
+          <!-- Logo SIREN SVG (Opción 1 por defecto, editable con 3 variantes) -->
+          <svg width="150" height="38" viewBox="0 0 150 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="siren-logo-svg">
+            <defs>
+              <linearGradient id="sGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#8B53FF"/>
+                <stop offset="100%" stop-color="#1AE589"/>
+              </linearGradient>
+              <filter id="sGlow1" x="-20%" y="-20%" width="140%" height="140%">
+                <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#1AE589" flood-opacity="0.6"/>
+              </filter>
+            </defs>
+            <g transform="translate(1, 2)">
+              <path d="M22 4C14 1.5 4 7 5 15.5C6 22 17 19.5 21 24C25 28.5 20.5 32 14 31C8 30 5 26 4 23.5" stroke="url(#sGrad1)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+              <path d="M12 11C15 9 19.5 11 18.5 15C17.5 18 12 18 13 22C14 24.5 17 24.5 20 22.5" stroke="#1AE589" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.95"/>
+              <circle cx="15.5" cy="16.5" r="2.2" fill="#1AE589" filter="url(#sGlow1)"/>
+            </g>
+            <text x="38" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="20" letter-spacing="3.5" fill="currentColor" class="siren-text-title">SIREN</text>
+            <circle cx="134" cy="14" r="2.8" fill="#1AE589"/>
+          </svg>
+        </div>
         <button id="btn-collapse-sidebar" class="sidebar-header-btn" onclick="toggleSidebar()" title="Ocultar barra lateral">
           <i data-lucide="panel-left-close"></i>
         </button>
-      </div>
-      <div class="brand-title">SIREN <span>COMMAND</span></div>
-      
-      <div class="sidebar-model-pill">
-        <div class="model-avatar">SB</div>
-        <div class="model-info">
-          <h4>Sam Barton</h4>
-          <p>@sambarton23 • Tomboy Tech</p>
-        </div>
       </div>
     </div>
 
@@ -2210,13 +2201,9 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div class="system-status">
-        <div class="status-dot"></div>
-        <span>SIREN Daemon Activo (Playwright)</span>
-      </div>
-      <div style="font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between;">
-        <span>Obsidian VaultBrain</span>
-        <span style="color: var(--secondary);">Sincronizado</span>
+      <div class="sidebar-version-pill" title="Versión Oficial SIREN AI">
+        <span class="version-dot"></span>
+        <span class="version-text">v1.0</span>
       </div>
     </div>
   </aside>
@@ -5050,6 +5037,31 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     </div>
   </div>
 
+  <!-- MODAL DE SELECCIÓN DE LOGOTIPO SIREN -->
+  <div id="logoSelectorModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 580px;">
+      <div class="modal-header">
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="sparkles" style="color: var(--primary);"></i>
+          Identidad Visual de SIREN — Selecciona tu Logotipo
+        </h3>
+        <button class="close-modal" onclick="closeLogoSelectorModal()">✕</button>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">
+        Selecciona cuál de las 3 opciones únicas de diseño prefieres para el encabezado de <strong>SIREN AI</strong>. Todos respetan la paleta oficial y el estilo Tomboy Tech de Sam Barton:
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;" id="logo-options-container">
+        <!-- Generado dinámicamente por renderLogoOptionsModal() -->
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="action-btn" onclick="closeLogoSelectorModal()">Cerrar</button>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICACIÓN -->
   <div id="toast">
     <i data-lucide="check-circle" style="color: var(--success);"></i>
@@ -5083,6 +5095,146 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
   <!-- JAVASCRIPT LOGIC -->
   <script>
+    // ==============================================================
+    // 🎨 SISTEMA DE IDENTIDAD DE LOGO SIREN (3 OPCIONES ÚNICAS)
+    // ==============================================================
+    const SIREN_LOGOS = {
+      option1: {
+        id: 'option1',
+        name: 'Opción 1: Siren Resonance (Acoustic Wave & Fin)',
+        badge: 'Recomendado • Acústico & Monograma S',
+        desc: 'Monograma futurista en "S" que fusiona la onda armónica de una cuerda acústica con el perfil aerodinámico de una aleta biomecánica y nodo bioluminiscente. Refleja la música, el ukelele y el magnetismo de SIREN.',
+        svg: `<svg width="150" height="38" viewBox="0 0 150 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="siren-logo-svg">
+          <defs>
+            <linearGradient id="sGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8B53FF"/>
+              <stop offset="100%" stop-color="#1AE589"/>
+            </linearGradient>
+            <filter id="sGlow1" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#1AE589" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+          <g transform="translate(1, 2)">
+            <path d="M22 4C14 1.5 4 7 5 15.5C6 22 17 19.5 21 24C25 28.5 20.5 32 14 31C8 30 5 26 4 23.5" stroke="url(#sGrad1)" stroke-width="3.2" stroke-linecap="round" fill="none"/>
+            <path d="M12 11C15 9 19.5 11 18.5 15C17.5 18 12 18 13 22C14 24.5 17 24.5 20 22.5" stroke="#1AE589" stroke-width="1.8" stroke-linecap="round" fill="none" opacity="0.95"/>
+            <circle cx="15.5" cy="16.5" r="2.2" fill="#1AE589" filter="url(#sGlow1)"/>
+          </g>
+          <text x="38" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="20" letter-spacing="3.5" fill="currentColor" class="siren-text-title">SIREN</text>
+          <circle cx="134" cy="14" r="2.8" fill="#1AE589"/>
+        </svg>`
+      },
+      option2: {
+        id: 'option2',
+        name: 'Opción 2: Cyber Pulse Aegis (Hexagonal Prism)',
+        badge: 'Tomboy Tech • Prisma & Ecualizador',
+        desc: 'Blasón hexagonal biselado que enmarca un resonador sónico de triple frecuencia vertical. Transmite solidez, ingeniería de datos y la estética deportiva y afilada de Sam Barton.',
+        svg: `<svg width="150" height="38" viewBox="0 0 150 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="siren-logo-svg">
+          <defs>
+            <linearGradient id="sGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8B53FF"/>
+              <stop offset="100%" stop-color="#1AE589"/>
+            </linearGradient>
+            <filter id="sGlow2" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#8B53FF" flood-opacity="0.5"/>
+            </filter>
+          </defs>
+          <g transform="translate(1, 2)">
+            <polygon points="16,2 29,9.5 29,24.5 16,32 3,24.5 3,9.5" stroke="url(#sGrad2)" stroke-width="2.6" fill="rgba(139, 83, 255, 0.12)" stroke-linejoin="round" filter="url(#sGlow2)"/>
+            <line x1="16" y1="8" x2="16" y2="26" stroke="#1AE589" stroke-width="3" stroke-linecap="round"/>
+            <line x1="10" y1="12" x2="10" y2="22" stroke="#8B53FF" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+            <line x1="22" y1="12" x2="22" y2="22" stroke="#8B53FF" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
+          </g>
+          <text x="38" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="20" letter-spacing="3.5" fill="currentColor" class="siren-text-title">SIREN</text>
+          <rect x="132" y="12" width="4.5" height="4.5" rx="2" fill="#8B53FF"/>
+        </svg>`
+      },
+      option3: {
+        id: 'option3',
+        name: 'Opción 3: Bioluminescent Vortex (Double Wave Crest)',
+        badge: 'Minimalista • Vórtice Helicoidal',
+        desc: 'Dos arcos continuos de energía en torsión helicoidal con dos micro-esferas orbitales. Minimalismo de alto impacto, hipnótico y magnético.',
+        svg: `<svg width="150" height="38" viewBox="0 0 150 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="siren-logo-svg">
+          <defs>
+            <linearGradient id="sGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#8B53FF"/>
+              <stop offset="100%" stop-color="#1AE589"/>
+            </linearGradient>
+            <filter id="sGlow3" x="-20%" y="-20%" width="140%" height="140%">
+              <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#1AE589" flood-opacity="0.6"/>
+            </filter>
+          </defs>
+          <g transform="translate(1, 2)">
+            <path d="M5 10C5 3 24 3 24 15.5C24 23.5 12 21 15 28C16.5 31.5 22.5 32.5 26.5 29" stroke="url(#sGrad3)" stroke-width="3" stroke-linecap="round" fill="none"/>
+            <circle cx="20" cy="8" r="2.6" fill="#1AE589" filter="url(#sGlow3)"/>
+            <circle cx="10" cy="26" r="2.6" fill="#8B53FF"/>
+          </g>
+          <text x="38" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="20" letter-spacing="3.5" fill="currentColor" class="siren-text-title">SIREN</text>
+          <circle cx="134" cy="14" r="2.8" fill="#1AE589"/>
+        </svg>`
+      }
+    };
+
+    let activeSirenLogo = localStorage.getItem('siren_active_logo') || 'option1';
+
+    function setSirenLogo(logoId) {
+      if (!SIREN_LOGOS[logoId]) logoId = 'option1';
+      activeSirenLogo = logoId;
+      localStorage.setItem('siren_active_logo', logoId);
+      const wrap = document.getElementById('siren-header-logo-wrap');
+      if (wrap) {
+        wrap.innerHTML = SIREN_LOGOS[logoId].svg;
+      }
+      renderLogoOptionsModal();
+      showToast(`Logotipo actualizado a: ${SIREN_LOGOS[logoId].name.split(':')[1].trim()}`);
+    }
+
+    function openLogoSelectorModal() {
+      renderLogoOptionsModal();
+      const modal = document.getElementById('logoSelectorModal');
+      if (modal) modal.classList.add('open');
+      lucide.createIcons();
+    }
+
+    function closeLogoSelectorModal() {
+      const modal = document.getElementById('logoSelectorModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    function renderLogoOptionsModal() {
+      const container = document.getElementById('logo-options-container');
+      if (!container) return;
+      container.innerHTML = Object.values(SIREN_LOGOS).map(opt => {
+        const isCurrent = (opt.id === activeSirenLogo);
+        return `
+          <div style="background: ${isCurrent ? 'rgba(139, 83, 255, 0.12)' : 'var(--bg-surface)'}; border: 1.5px solid ${isCurrent ? 'var(--primary)' : 'var(--border-color)'}; border-radius: 12px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <strong style="font-size: 13px; color: ${isCurrent ? 'var(--primary-light)' : 'var(--text-main)'};">${opt.name}</strong>
+                <span class="table-badge ${isCurrent ? 'badge-success' : 'badge-purple'}" style="font-size: 9px; padding: 2px 7px;">${opt.badge}</span>
+              </div>
+              <button class="action-btn ${isCurrent ? 'primary' : ''}" onclick="setSirenLogo('${opt.id}')" style="font-size: 11px; padding: 5px 12px;">
+                ${isCurrent ? '✓ Activo' : 'Activar Este'}
+              </button>
+            </div>
+            
+            <div style="background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 8px; padding: 12px 18px; display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="setSirenLogo('${opt.id}')" title="Clic para activar este diseño">
+              ${opt.svg}
+            </div>
+
+            <div style="font-size: 11.5px; color: var(--text-muted); line-height: 1.45;">
+              ${opt.desc}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    // Inicializar el logotipo guardado
+    if (activeSirenLogo && SIREN_LOGOS[activeSirenLogo]) {
+      const wrap = document.getElementById('siren-header-logo-wrap');
+      if (wrap) wrap.innerHTML = SIREN_LOGOS[activeSirenLogo].svg;
+    }
+
     // Lucide Icons
     lucide.createIcons();
 
