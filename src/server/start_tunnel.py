@@ -111,6 +111,17 @@ def run_tunnel():
             "tunnel_url": tunnel_url.strip(),
             "updated_at": datetime.datetime.now().isoformat()
         }, indent=2), encoding="utf-8")
+
+        # Sincronización automática con GitHub Pages en segundo plano (para que la PWA móvil no requiera reinstalación)
+        def _sync_to_github(new_url):
+            try:
+                cmd = f'git add tunnel_config.json && git commit -m "chore: auto-sync live tunnel {new_url}" && git push origin gh-pages'
+                subprocess.run(cmd, shell=True, cwd=str(ROOT), capture_output=True, timeout=20)
+                print("✓ Enlace seguro sincronizado automáticamente con la PWA permanente de GitHub Pages", flush=True)
+            except Exception as ge:
+                print(f"[PWA Auto-Sync Info]: {ge}", flush=True)
+
+        threading.Thread(target=_sync_to_github, args=(tunnel_url.strip(),), daemon=True).start()
     except Exception as e:
         print(f"Nota guardando TXT/JSON: {e}", flush=True)
 
