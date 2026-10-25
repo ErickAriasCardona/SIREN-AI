@@ -4684,8 +4684,14 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     }
 
     function getApiBase() {
-      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-        return window.location.port === '8888' ? '' : 'http://localhost:8888';
+      // Si estamos en un túnel remoto (trycloudflare.com) o en localhost:8888
+      if (window.location.port === '8888' || window.location.hostname.includes('trycloudflare') || window.location.hostname.includes('loca.lt')) {
+        return '';
+      }
+      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
+        if (!window.location.hostname.includes('github.io')) {
+          return '';
+        }
       }
       return 'http://localhost:8888';
     }
@@ -4978,15 +4984,15 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       const statusBadge = document.getElementById('chat-engine-status');
       const kpiStatus = document.getElementById('server-kpi-status');
       try {
-        const res = await fetch('http://localhost:8888/api/status', { cache: 'no-store' });
+        const res = await fetch(`${getApiBase()}/api/status`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           if (statusBadge) {
             statusBadge.className = 'table-badge badge-success';
-            statusBadge.innerHTML = '🟢 Servidor SIREN Activo (localhost:8888)';
+            statusBadge.innerHTML = '🟢 Servidor SIREN Conectado en Vivo';
           }
           if (kpiStatus) {
-            kpiStatus.textContent = 'Activo (8888)';
+            kpiStatus.textContent = 'En Línea';
             kpiStatus.style.color = 'var(--success)';
           }
         } else {

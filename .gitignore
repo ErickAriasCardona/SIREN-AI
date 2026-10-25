@@ -112,3 +112,10 @@ temp/
 .claude/
 .codex/
 Claude outputs/
+
+# ------------------------------------------------------------------------------
+# 9. Binarios de Túnel y Enlaces Temporales
+# ------------------------------------------------------------------------------
+bin/
+ENLACE_SIREN_ESTUDIO.txt
+tunnel_url.txt
