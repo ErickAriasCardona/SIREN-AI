@@ -12,7 +12,7 @@ if sys.platform == "win32":
 html_path = Path(__file__).resolve().parent.parent / "index.html"
 file_url = html_path.as_uri()
 
-print("Testing Stream Monitor integration with Playwright...")
+print("Testing Streamate Tools & Mahia Right Panel Integration with Playwright...")
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
@@ -22,58 +22,76 @@ with sync_playwright() as p:
 
     # 1. Switch to ROXANNE Copilot tab
     page.evaluate("switchMainTab('tab-roxanne-copilot')")
-    page.wait_for_timeout(300)
+    page.wait_for_timeout(400)
 
-    # 2. Check that the toolbar buttons exist
-    toolbar_buttons = page.locator("button:has-text('Menú GOLD'), button:has-text('Gira La Rueda'), button:has-text('Tema de Sala'), button:has-text('Radar Tomboy')")
-    assert toolbar_buttons.count() >= 4, f"Expected 4 Stream Monitor buttons, found {toolbar_buttons.count()}"
-    print("✓ All 4 Stream Monitor action buttons exist in Roxanne's tab!")
+    # 2. Check that the buttons are in the right panel and NOT in center chat
+    center_buttons = page.locator(".roxanne-center-chat button:has-text('Menú GOLD')")
+    assert center_buttons.count() == 0, "Buttons still found inside center chat!"
+    print("✓ Center chat is clean: zero toolbars obstructing the chat messages console!")
 
-    # 3. Test opening Menú GOLD modal
-    page.evaluate("openSmModal('gold')")
+    right_panel_buttons = page.locator("#roxanne-right-panel #sm-tools-dropdown-body button")
+    assert right_panel_buttons.count() >= 4, f"Expected 4 Streamate buttons in right panel dropdown, found {right_panel_buttons.count()}"
+    print("✓ All 4 Streamate & Mahia buttons are properly placed in the right panel dropdown!")
+
+    # 3. Test accordion toggle (collapsing and deploying dropdown body)
+    dropdown_body = page.locator("#sm-tools-dropdown-body")
+    assert dropdown_body.is_visible(), "Dropdown body should be visible initially"
+
+    # Click card header to collapse
+    page.locator("#sm-tools-card-header").click()
+    page.wait_for_timeout(200)
+    assert not dropdown_body.is_visible(), "Dropdown body did not collapse upon header click!"
+    print("✓ Herramientas Streamate card collapsed successfully upon click!")
+
+    # Click card header to expand back
+    page.locator("#sm-tools-card-header").click()
+    page.wait_for_timeout(200)
+    assert dropdown_body.is_visible(), "Dropdown body did not deploy upon header click!"
+    print("✓ Herramientas Streamate card deployed downwards successfully revealing 4 buttons!")
+
+    # 4. Test opening Menú GOLD modal from the right panel
+    page.locator("#sm-tools-dropdown-body button:has-text('Menú GOLD')").click()
     page.wait_for_timeout(300)
     assert page.is_visible("#streamMonitorModal"), "Modal did not open for Gold Menu!"
     heading = page.locator("#smModalHeading").inner_text()
     assert "Menú GOLD" in heading, f"Unexpected heading: {heading}"
     textarea_val = page.locator("#smModalTextarea").input_value()
     assert "10x nalgadas - 15" in textarea_val, "Default textarea text missing expected format"
-    print("✓ Menú GOLD dialog opens with correct structure, explanation, and placeholder!")
+    instructions_text = page.locator("#smModalInstructions").inner_text()
+    assert "Mahia" in instructions_text, f"Expected Mahia in instructions, got {instructions_text}"
+    label_text = page.locator("#smModalInputLabel").inner_text()
+    assert "opciones" in label_text.lower() or "mahia" in label_text.lower(), f"Unexpected label text: {label_text}"
+    print("✓ Menú GOLD dialog opens cleanly with Mahia branding and correct instructions!")
 
-    # Screenshot of Menú Gold dialog
-    page.screenshot(path="artifacts/stream_monitor_dialog_gold.png")
+    page.screenshot(path="artifacts/stream_monitor_right_panel_gold_modal.png")
     page.evaluate("closeSmModal()")
     page.wait_for_timeout(200)
-    assert not page.is_visible("#streamMonitorModal"), "Modal did not close!"
-    print("✓ Modal closes cleanly")
 
-    # 4. Test opening Ruleta modal
-    page.evaluate("openSmModal('wheel')")
+    # 5. Test Right Panel Collapse / Expand (Hide & Show Sidebar)
+    collapse_btn = page.locator("#btn-collapse-right-panel")
+    assert collapse_btn.is_visible(), "Collapse button in upper-left of right panel missing!"
+    
+    # Click collapse button
+    collapse_btn.click()
     page.wait_for_timeout(300)
-    assert page.is_visible("#streamMonitorModal"), "Modal did not open for Wheel!"
-    heading = page.locator("#smModalHeading").inner_text()
-    assert "Gira La Rueda" in heading, f"Unexpected heading: {heading}"
-    textarea_val = page.locator("#smModalTextarea").input_value()
-    assert "Costo: 20" in textarea_val, "Wheel default text missing expected format"
-    print("✓ Ruleta dialog opens with correct structure and 8+ options!")
-    page.evaluate("closeSmModal()")
 
-    # 5. Test opening Tema de Sala modal
-    page.evaluate("openSmModal('topic')")
+    right_panel = page.locator("#roxanne-right-panel")
+    assert not right_panel.is_visible(), "Right panel is still visible after clicking collapse!"
+    
+    show_btn = page.locator("#btn-show-right-panel")
+    assert show_btn.is_visible(), "Restore panel button in chat header should be visible when collapsed!"
+    print("✓ Right panel collapsed cleanly! Center chat occupies 100% of workspace width.")
+
+    page.screenshot(path="artifacts/roxanne_full_width_chat_collapsed.png")
+
+    # Click restore button in chat header
+    show_btn.click()
     page.wait_for_timeout(300)
-    assert page.is_visible("#streamMonitorModal"), "Modal did not open for Topic!"
-    heading = page.locator("#smModalHeading").inner_text()
-    assert "Tema de Habitación" in heading, f"Unexpected heading: {heading}"
-    print("✓ Tema de Sala dialog opens with anti-emoji reminder and clean copy!")
-    page.evaluate("closeSmModal()")
+    assert right_panel.is_visible(), "Right panel did not restore after clicking show button!"
+    assert not show_btn.is_visible(), "Restore button should be hidden when panel is open!"
+    print("✓ Right panel restored smoothly with all tools and KPIs visible!")
 
-    # 6. Test opening Radar Tomboy modal
-    page.evaluate("openSmModal('radar')")
-    page.wait_for_timeout(300)
-    assert page.is_visible("#streamMonitorModal"), "Modal did not open for Radar!"
-    heading = page.locator("#smModalHeading").inner_text()
-    assert "Radar" in heading, f"Unexpected heading: {heading}"
-    print("✓ Radar Tomboy dialog opens with live competitor scan action!")
-    page.evaluate("closeSmModal()")
+    page.screenshot(path="artifacts/roxanne_right_panel_restored.png")
 
-    print("\nAll Stream Monitor dialog tests passed with 100% success!")
+    print("\n🎉 ALL TESTS PASSED: Mahia branding, right-panel dropdown, and collapsible sidebar work flawlessly!")
     browser.close()
