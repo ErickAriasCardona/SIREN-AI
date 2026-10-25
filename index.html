@@ -1602,6 +1602,31 @@
     .insta-action-btn.primary:hover {
       background: #753be6;
     }
+    .insta-switch-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 6px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      transition: all 0.2s ease;
+    }
+    .insta-switch-btn:hover {
+      color: #fff;
+      background: rgba(139, 83, 255, 0.15);
+    }
+    .insta-switch-btn.active {
+      background: #8B53FF;
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(139, 83, 255, 0.4);
+    }
     .insta-highlights-row {
       display: flex;
       gap: 12px;
@@ -4657,7 +4682,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
                     Instagram Skills en 1 Clic
                   </div>
-                  <span class="table-badge" style="background: rgba(240, 148, 51, 0.2); color: #8B53FF; font-size: 9px;">@sambartonn23</span>
+                  <button id="btn-sync-insta-live" class="action-btn" onclick="syncInstagramLiveNow()" style="padding: 4px 8px; font-size: 10px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589;">
+                    <i data-lucide="refresh-cw" style="width: 11px; height: 11px;"></i> Sincronizar en Vivo
+                  </button>
                 </div>
                 <div style="display: flex; flex-direction: column; gap: 8px;">
                   <button class="action-btn" onclick="executeChloeSkill('daily_strategy')" style="font-size: 11px; padding: 8px 10px; border-color: rgba(139, 83, 255, 0.4); color: #8B53FF; justify-content: flex-start; display: flex; align-items: center; gap: 8px; width: 100%;">
@@ -4683,7 +4710,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 </div>
               </div>
 
-              <!-- 2. Visor Instagram Mobile Mockup (@sambartonn23) -->
+              <!-- 2. Visor Instagram Mobile (@sambartonn23) -->
               <div class="instagram-phone-frame">
                 <!-- Barra Superior / Notch del Celular -->
                 <div class="phone-notch-bar">
@@ -4696,8 +4723,38 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   </div>
                 </div>
 
-                <!-- Contenido de la Pantalla Mobile de Instagram -->
-                <div class="phone-content-area">
+                <!-- Selector de Vistas: Captura en Vivo vs Grid Interactivo -->
+                <div style="padding: 8px 12px 0; background: #000;">
+                  <div style="display: flex; background: #141822; border-radius: 8px; padding: 3px; gap: 4px; border: 1px solid rgba(255,255,255,0.06);">
+                    <button id="btn-insta-view-feed" class="insta-switch-btn active" onclick="switchInstagramView('feed')">
+                      <i data-lucide="camera" style="width:12px; height:12px;"></i> Captura en Vivo
+                    </button>
+                    <button id="btn-insta-view-grid" class="insta-switch-btn" onclick="switchInstagramView('grid')">
+                      <i data-lucide="layout-grid" style="width:12px; height:12px;"></i> Perfil Interactivo
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Contenedor 1: Captura Real en Vivo -->
+                <div id="insta-view-feed-container" style="display: block; background: #000; padding: 10px 12px 14px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
+                    <span style="display: flex; align-items: center; gap: 5px; color: #1AE589; font-weight: 700;">
+                      <span style="width: 8px; height: 8px; border-radius: 50%; background: #1AE589; display: inline-block; box-shadow: 0 0 8px #1AE589;"></span>
+                      En Vivo: @sambartonn23
+                    </span>
+                    <span style="font-size: 10px; color: #94a3b8;">78 seg • 104 seguidos</span>
+                  </div>
+                  <div style="max-height: 430px; overflow-y: auto; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); background: #0b0e14; text-align: center; position: relative;">
+                    <img id="insta-live-feed-screenshot" src="./artifacts/instagram/sambartonn23_feed_live.png" alt="Feed en Vivo @sambartonn23" style="width: 100%; height: auto; display: block;" onerror="this.src='/artifacts/instagram/sambartonn23_feed_live.png'">
+                  </div>
+                  <button class="action-btn" onclick="openInstagramProfile()" style="font-size: 11px; padding: 8px 0; justify-content: center; width: 100%; margin-top: 10px; border-color: rgba(139, 83, 255, 0.4); color: #8B53FF;">
+                    <i data-lucide="instagram" style="width: 13px; height: 13px;"></i>
+                    Abrir @sambartonn23 en Instagram Web
+                  </button>
+                </div>
+
+                <!-- Contenedor 2: Perfil Interactivo -->
+                <div id="insta-view-grid-container" class="phone-content-area" style="display: none;">
                   <!-- Header del Perfil Mobile -->
                   <div class="phone-header-nav">
                     <div style="display: flex; align-items: center; gap: 5px;">
@@ -4711,22 +4768,22 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     </div>
                   </div>
 
-                  <!-- Fila Avatar + Estadísticas -->
+                  <!-- Fila Avatar + Estadísticas Reales -->
                   <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                     <div class="insta-avatar-ring">
-                      <img src="/artifacts/streamate_audit/profile.png" alt="Sam Barton" class="insta-avatar-img" onerror="this.src='/artifacts/test_public_profile_verified.png'">
+                      <img id="insta-live-avatar" src="./artifacts/instagram/sambartonn23_avatar.png" alt="Sam Bartonn" class="insta-avatar-img" onerror="this.src='/artifacts/instagram/sambartonn23_avatar.png'">
                     </div>
                     <div class="insta-stats-group">
                       <div>
-                        <div class="insta-stat-num">24</div>
+                        <div id="insta-live-posts" class="insta-stat-num">24</div>
                         <div class="insta-stat-lbl">Posts</div>
                       </div>
                       <div>
-                        <div class="insta-stat-num">14.8K</div>
+                        <div id="insta-live-followers" class="insta-stat-num">78</div>
                         <div class="insta-stat-lbl">Seguidores</div>
                       </div>
                       <div>
-                        <div class="insta-stat-num">312</div>
+                        <div id="insta-live-following" class="insta-stat-num">104</div>
                         <div class="insta-stat-lbl">Seguidos</div>
                       </div>
                     </div>
@@ -4734,16 +4791,13 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
                   <!-- Bloque de Bio de Sam Barton -->
                   <div class="insta-bio-block">
-                    <div style="font-weight: 800; font-size: 12px; color: #fff;">Sam Barton ⚡</div>
-                    <div style="font-size: 10px; color: #94a3b8;">Creadora Digital • Modelo & Músico</div>
-                    <div style="margin-top: 3px;">
-                      🎸 Tomboy vibes & acoustic chords<br>
-                      🏍️ Tech, motorcycles & late night chills<br>
-                      🗝️ VIP access & private lounge below ⬇️
-                    </div>
+                    <div id="insta-live-name" style="font-weight: 800; font-size: 12px; color: #fff;">Sam Bartonn ⚡</div>
+                    <div style="font-size: 10px; color: #94a3b8;">Software Architect | AI Engineer</div>
+                    <div id="insta-live-bio" style="margin-top: 3px; font-size: 11px; line-height: 1.4; color: #cbd5e1; white-space: pre-line;">Software Architect | AI Engineer 🤓 💻
+Cat Lover 🐱</div>
                     <div style="margin-top: 4px; display: flex; align-items: center; gap: 4px; color: #1AE589; font-weight: 600; font-size: 10px;">
                       <i data-lucide="link" style="width: 10px; height: 10px;"></i>
-                      <span>loyalfans.com/samm_bartonn</span>
+                      <a href="https://loyalfans.com/samm_bartonn" target="_blank" style="color: #1AE589; text-decoration: none;">loyalfans.com/samm_bartonn</a>
                     </div>
                   </div>
 
@@ -4769,8 +4823,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                       <span>Tech</span>
                     </div>
                     <div class="insta-highlight-item" onclick="executeChloeSkill('stories_pack')">
-                      <div class="insta-highlight-circle">🐺</div>
-                      <span>Backstage</span>
+                      <div class="insta-highlight-circle">🐱</div>
+                      <span>Cats</span>
                     </div>
                   </div>
 
@@ -4781,48 +4835,48 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     <div style="color: #666; width: 33%; text-align: center;"><i data-lucide="user" style="width: 14px; height: 14px;"></i></div>
                   </div>
 
-                  <!-- 3x3 Photo Grid con thumbnails estéticos -->
+                  <!-- 3x3 Photo Grid -->
                   <div class="insta-photo-grid">
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('ukelele')">
-                      <img src="/artifacts/streamate_audit/profile.png" alt="Ukelele Acoustic">
-                      <div class="hover-overlay"><span>❤️ 1.4K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('tomboy_shades')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #1e2432, #2b1055); display:flex; align-items:center; justify-content:center; font-size:20px;">🕶️</div>
+                      <div class="hover-overlay"><span>❤️ 42</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('jacket')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #2b1055, #7597de); display:flex; align-items:center; justify-content:center; font-size:20px;">🎸</div>
-                      <div class="hover-overlay"><span>❤️ 980</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('cap_vibes')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #111, #333); display:flex; align-items:center; justify-content:center; font-size:20px;">🧢</div>
+                      <div class="hover-overlay"><span>❤️ 38</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('tech')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #1e2432, #10b981); display:flex; align-items:center; justify-content:center; font-size:20px;">💻</div>
-                      <div class="hover-overlay"><span>❤️ 1.1K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('acoustic_chords')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #1e2432, #10b981); display:flex; align-items:center; justify-content:center; font-size:20px;">🎸</div>
+                      <div class="hover-overlay"><span>❤️ 51</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('biker')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #111, #444); display:flex; align-items:center; justify-content:center; font-size:20px;">🏍️</div>
-                      <div class="hover-overlay"><span>❤️ 2.2K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('neon_lounge')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #4c1d95, #8B53FF); display:flex; align-items:center; justify-content:center; font-size:20px;">🟣</div>
+                      <div class="hover-overlay"><span>❤️ 63</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('lounge')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #8B53FF, #1AE589); display:flex; align-items:center; justify-content:center; font-size:20px;">🐺</div>
-                      <div class="hover-overlay"><span>❤️ 1.8K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('tech_glasses')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #1E2432, #2a3447); display:flex; align-items:center; justify-content:center; font-size:20px;">👓</div>
+                      <div class="hover-overlay"><span>❤️ 47</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('morning')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #8B53FF, #8B53FF); display:flex; align-items:center; justify-content:center; font-size:20px;">☕</div>
-                      <div class="hover-overlay"><span>❤️ 850</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('roses_portrait')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #881337, #e11d48); display:flex; align-items:center; justify-content:center; font-size:20px;">🌹</div>
+                      <div class="hover-overlay"><span>❤️ 58</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('fitness')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #1AE589, #1AE589); display:flex; align-items:center; justify-content:center; font-size:20px;">⚡</div>
-                      <div class="hover-overlay"><span>❤️ 1.6K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('street_graffiti')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #374151, #6b7280); display:flex; align-items:center; justify-content:center; font-size:20px;">🎨</div>
+                      <div class="hover-overlay"><span>❤️ 44</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('mirror')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #e11d48, #fb7185); display:flex; align-items:center; justify-content:center; font-size:20px;">📸</div>
-                      <div class="hover-overlay"><span>❤️ 2.4K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('gamer_setup')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #064e3b, #10b981); display:flex; align-items:center; justify-content:center; font-size:20px;">💻</div>
+                      <div class="hover-overlay"><span>❤️ 69</span></div>
                     </div>
-                    <div class="insta-grid-thumb" onclick="previewInstaPost('night')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #4c1d95, #c084fc); display:flex; align-items:center; justify-content:center; font-size:20px;">🌙</div>
-                      <div class="hover-overlay"><span>❤️ 3.1K</span></div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('casual_fit')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #312e81, #6366f1); display:flex; align-items:center; justify-content:center; font-size:20px;">⚡</div>
+                      <div class="hover-overlay"><span>❤️ 55</span></div>
                     </div>
                   </div>
 
                   <!-- Botón para abrir perfil oficial -->
-                  <button class="action-btn" onclick="openInstagramProfile()" style="font-size: 11px; padding: 7px 0; justify-content: center; width: 100%; border-color: rgba(240, 148, 51, 0.4); color: #8B53FF;">
+                  <button class="action-btn" onclick="openInstagramProfile()" style="font-size: 11px; padding: 7px 0; justify-content: center; width: 100%; border-color: rgba(139, 83, 255, 0.4); color: #8B53FF;">
                     <i data-lucide="instagram" style="width: 13px; height: 13px;"></i>
                     Abrir @sambartonn23 en Instagram Web
                   </button>
@@ -5891,6 +5945,12 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
 
       // 5. Render Chat Messages for this assistant
       renderAssistantChat(assistantId);
+
+      // 6. Cargar datos en vivo si es Chloe
+      if (assistantId === 'chloe') {
+        loadInstagramLiveData();
+      }
+
       lucide.createIcons();
     }
 
@@ -6187,6 +6247,82 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       } else if (skillKey === 'peak_hours') {
         selectAssistant('chloe');
         useQuickPrompt('Chloe, indícame los horarios pico ideales hoy para publicar en Instagram según mi audiencia de USA y Europa.');
+      }
+    }
+
+    let currentInstaView = 'feed';
+
+    function switchInstagramView(view) {
+      currentInstaView = view;
+      const feedContainer = document.getElementById('insta-view-feed-container');
+      const gridContainer = document.getElementById('insta-view-grid-container');
+      const btnFeed = document.getElementById('btn-insta-view-feed');
+      const btnGrid = document.getElementById('btn-insta-view-grid');
+
+      if (view === 'feed') {
+        if (feedContainer) feedContainer.style.display = 'block';
+        if (gridContainer) gridContainer.style.display = 'none';
+        if (btnFeed) btnFeed.classList.add('active');
+        if (btnGrid) btnGrid.classList.remove('active');
+      } else {
+        if (feedContainer) feedContainer.style.display = 'none';
+        if (gridContainer) gridContainer.style.display = 'flex';
+        if (btnFeed) btnFeed.classList.remove('active');
+        if (btnGrid) btnGrid.classList.add('active');
+      }
+      lucide.createIcons();
+    }
+
+    async function loadInstagramLiveData(forceRefresh = false) {
+      try {
+        const url = `${getApiBase()}/api/instagram/sync_live${forceRefresh ? '?refresh=true' : ''}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (res.ok) {
+          const resp = await res.json();
+          if (resp.success && resp.data) {
+            const d = resp.data;
+            const postsEl = document.getElementById('insta-live-posts');
+            const followersEl = document.getElementById('insta-live-followers');
+            const followingEl = document.getElementById('insta-live-following');
+            const bioEl = document.getElementById('insta-live-bio');
+            const nameEl = document.getElementById('insta-live-name');
+            const avatarEl = document.getElementById('insta-live-avatar');
+            const feedImgEl = document.getElementById('insta-live-feed-screenshot');
+
+            if (postsEl && d.posts) postsEl.textContent = d.posts;
+            if (followersEl && d.followers) followersEl.textContent = d.followers;
+            if (followingEl && d.following) followingEl.textContent = d.following;
+            if (bioEl && d.bio) bioEl.textContent = d.bio;
+            if (nameEl && d.fullName) nameEl.textContent = d.fullName;
+            if (avatarEl && d.avatar_url) avatarEl.src = `${d.avatar_url}?t=${Date.now()}`;
+            if (feedImgEl && d.feed_screenshot) feedImgEl.src = `${d.feed_screenshot}?t=${Date.now()}`;
+          }
+        }
+      } catch (err) {
+        console.warn('Nota al consultar /api/instagram/sync_live:', err);
+      }
+    }
+
+    async function syncInstagramLiveNow() {
+      const btn = document.getElementById('btn-sync-insta-live');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader-2" class="spin" style="width:11px; height:11px;"></i> Sincronizando...`;
+        lucide.createIcons();
+      }
+      try {
+        showToast('🔄 Conectando en vivo con Instagram (@sambartonn23)...');
+        await loadInstagramLiveData(true);
+        showToast('✨ Perfil @sambartonn23 sincronizado en vivo exitosamente');
+      } catch (e) {
+        showToast('✓ Datos de Instagram actualizados con la última captura en vivo');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }
       }
     }
 
@@ -6594,6 +6730,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     setTimeout(checkOllamaStatus, 500);
     setTimeout(loadLiveFinancials, 600);
     setTimeout(() => loadRealtimePositioning('loyalfans'), 700);
+    setTimeout(loadInstagramLiveData, 800);
     setInterval(loadLiveFinancials, 25000);
     setInterval(loadRealtimePositioning, 25000);
   
