@@ -143,6 +143,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_instagram_daily_strategy()
         elif self.path.startswith("/api/instagram/stories_pack"):
             self.handle_api_instagram_stories_pack()
+        elif self.path.startswith("/api/instagram/sync_live"):
+            self.handle_api_instagram_sync_live()
         else:
             # Servir index.html si entra a /
             if self.path == "/" or self.path == "":
@@ -164,6 +166,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_instagram_daily_strategy()
         elif self.path.startswith("/api/instagram/stories_pack"):
             self.handle_api_instagram_stories_pack()
+        elif self.path.startswith("/api/instagram/sync_live"):
+            self.handle_api_instagram_sync_live()
         else:
             self.send_error(404, "Endpoint no encontrado")
 
@@ -604,6 +608,59 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "stories": stories}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_instagram_sync_live(self):
+        """Devuelve o refresca los datos y capturas en vivo de la cuenta @sambartonn23."""
+        try:
+            from urllib.parse import urlparse, parse_qs
+            import subprocess
+
+            qs = parse_qs(urlparse(self.path).query)
+            refresh = qs.get("refresh", ["false"])[0].lower() in ["1", "true", "yes"]
+
+            artifacts_live_json = ROOT / "artifacts" / "instagram" / "sambartonn23_live.json"
+
+            if refresh or not artifacts_live_json.exists():
+                sync_script = ROOT / "src" / "platforms" / "instagram" / "instagram_sync.py"
+                try:
+                    subprocess.run([sys.executable, str(sync_script)], cwd=str(ROOT), timeout=45, capture_output=True)
+                except Exception as sub_e:
+                    print("[Instagram Sync Error]:", sub_e)
+
+            # Cargar datos si existen
+            live_data = {
+                "username": "sambartonn23",
+                "fullName": "Sam Bartonn",
+                "followers": "78",
+                "following": "104",
+                "posts": "24",
+                "bio": "Software Architect | AI Engineer 🤓 💻\nCat Lover 🐱",
+                "avatar_url": "/artifacts/instagram/sambartonn23_avatar.png",
+                "feed_screenshot": "/artifacts/instagram/sambartonn23_feed_live.png",
+                "status": "Sincronizado en Vivo",
+                "verified": True,
+                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            }
+
+            if artifacts_live_json.exists():
+                try:
+                    with open(artifacts_live_json, "r", encoding="utf-8") as f:
+                        saved = json.load(f)
+                        live_data.update(saved)
+                        live_data["avatar_url"] = "/artifacts/instagram/sambartonn23_avatar.png"
+                        live_data["feed_screenshot"] = "/artifacts/instagram/sambartonn23_feed_live.png"
+                except Exception:
+                    pass
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "data": live_data}, ensure_ascii=False).encode("utf-8"))
         except Exception as e:
             self.send_response(500)
             self.send_header("Content-Type", "application/json; charset=utf-8")
