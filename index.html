@@ -4302,8 +4302,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   </div>
                 </div>
                 <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
-                  <span id="chat-engine-status" class="table-badge badge-success" style="font-size: 11px; padding: 4px 9px;">
-                    🟢 Servidor SIREN Activo (localhost:8888)
+                  <span id="chat-engine-status" class="table-badge badge-success" onclick="openServerConfigModal()" style="font-size: 11px; padding: 4px 9px; cursor: pointer;" title="Clic para ver o configurar el enlace al servidor SIREN">
+                    🟢 Servidor SIREN Conectado en Vivo
                   </span>
                   <select id="chat-model-select" onchange="syncModelSelectWithRadio(this.value)" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 11px; outline: none; cursor: pointer;">
                     <option value="qwen2.5:7b-instruct" selected>qwen2.5:7b-instruct (Local Offline)</option>
@@ -4843,6 +4843,52 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     </div>
   </div>
 
+  <!-- MODAL DE CONFIGURACIÓN Y ESTADO DEL TÚNEL SIREN -->
+  <div id="serverConfigModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 520px;">
+      <div class="modal-header">
+        <h3 style="display: flex; align-items: center; gap: 8px;">
+          <i data-lucide="network" style="color: var(--primary);"></i>
+          Conexión con el Servidor SIREN (PC de Casa)
+        </h3>
+        <button class="close-modal" onclick="closeServerConfigModal()">✕</button>
+      </div>
+
+      <div style="font-size: 12.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+        Para hablar con Roxanne, Chloe y consultar tus métricas en vivo desde tu celular o desde el estudio, el sistema se conecta de forma cifrada (HTTPS) a tu PC de casa a través del Túnel Cloudflare.
+      </div>
+
+      <div style="background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: 10px; padding: 14px; margin-bottom: 14px;">
+        <label style="font-size: 11px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: block;">
+          URL del Túnel Cloudflare (HTTPS):
+        </label>
+        <div style="display: flex; gap: 8px;">
+          <input type="text" id="cfg-tunnel-url-input" class="chat-textarea" style="height: 38px; font-size: 11.5px; font-family: var(--font-mono); width: 100%; resize: none; padding: 8px 10px;" placeholder="https://...trycloudflare.com">
+          <button class="action-btn" onclick="testServerConnectionNow()" style="flex-shrink: 0; padding: 6px 12px; font-size: 11px;">
+            <i data-lucide="activity"></i> Probar
+          </button>
+        </div>
+        <div id="server-test-result" style="font-size: 11px; margin-top: 8px; display: none;"></div>
+      </div>
+
+      <div style="font-size: 11px; color: var(--text-dim); line-height: 1.5; margin-bottom: 16px;">
+        💡 <strong>¿Dónde encuentro el enlace?</strong> En tu PC de casa, al ejecutar <code>INICIAR_SIREN.bat</code>, el enlace se copia automáticamente y queda guardado en el archivo <code>ENLACE_SIREN_ESTUDIO.txt</code>.
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px;">
+        <button class="action-btn" onclick="resetDefaultTunnelUrl()" style="font-size: 11px; color: var(--text-dim);">
+          Restaurar Oficial
+        </button>
+        <div style="display: flex; gap: 8px;">
+          <button class="action-btn" onclick="closeServerConfigModal()">Cerrar</button>
+          <button class="action-btn primary" onclick="saveTunnelUrlFromModal()">
+            <i data-lucide="check"></i> Guardar & Conectar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- TOAST NOTIFICACIÓN -->
   <div id="toast">
     <i data-lucide="check-circle" style="color: var(--success);"></i>
@@ -5298,32 +5344,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     // ==========================================
 
     async function checkOllamaStatus() {
-      const statusBadge = document.getElementById('chat-engine-status');
-      if (!statusBadge) return;
-      try {
-        const res = await fetch('http://localhost:8888/api/status');
-        if (res.ok) {
-          const data = await res.json();
-          if (data.ollama_online) {
-            statusBadge.className = 'table-badge badge-success';
-            statusBadge.innerHTML = '🟢 Servidor SIREN & Ollama Conectados';
-          } else {
-            statusBadge.className = 'table-badge badge-warning';
-            statusBadge.innerHTML = '🟡 Servidor SIREN Activo (Ollama Offline)';
-          }
-        }
-      } catch (e) {
-        try {
-          const oRes = await fetch('http://localhost:11434/api/tags');
-          if (oRes.ok) {
-            statusBadge.className = 'table-badge badge-success';
-            statusBadge.innerHTML = '🟢 Ollama Directo (localhost:11434)';
-          }
-        } catch (e2) {
-          statusBadge.className = 'table-badge badge-warning';
-          statusBadge.innerHTML = '🔴 Conectando a Ollama / Server...';
-        }
-      }
+      await checkServerHealth();
     }
 
     
@@ -5756,31 +5777,36 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
 
         appendChatMessage(activeAssistant, data.reply, data.detected_lang, data.model);
       } catch (err) {
-        // Fallback a Ollama directo si el server falla
-        try {
-          const directOllama = await fetch('http://localhost:11434/api/chat', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              model: model,
-              messages: [
-                { role: 'system', content: `Eres ${ASSISTANTS_DATA[activeAssistant].name}, ${ASSISTANTS_DATA[activeAssistant].desc}. Le hablas directamente a Sam Barton (@sambartonn23) en español con respeto, calidez y precisión profesional.` },
-                ...historyPayload,
-                { role: 'user', content: text }
-              ],
-              stream: false
-            })
-          });
-          const odata = await directOllama.json();
-          if (indicator) indicator.style.display = 'none';
-          if (sendBtn) sendBtn.disabled = false;
-          const reply = odata.message?.content || 'Sin respuesta';
-          appendChatMessage(activeAssistant, reply, 'es', 'Direct Ollama');
-        } catch (ollamaErr) {
-          if (indicator) indicator.style.display = 'none';
-          if (sendBtn) sendBtn.disabled = false;
-          appendChatMessage(activeAssistant, `[Aviso ${ASSISTANTS_DATA[activeAssistant].name}]: Error conectando con el motor (${err.message}). Recuerda que el servidor debe estar activo: python src/server/start_tunnel.py`, 'es');
+        // Fallback a Ollama directo SOLO si estamos en localhost
+        const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+        if (isLocalHost) {
+          try {
+            const directOllama = await fetch('http://localhost:11434/api/chat', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                model: model,
+                messages: [
+                  { role: 'system', content: `Eres ${ASSISTANTS_DATA[activeAssistant].name}, ${ASSISTANTS_DATA[activeAssistant].desc}. Le hablas directamente a Sam Barton (@sambartonn23) en español con respeto, calidez y precisión profesional.` },
+                  ...historyPayload,
+                  { role: 'user', content: text }
+                ],
+                stream: false
+              })
+            });
+            const odata = await directOllama.json();
+            if (indicator) indicator.style.display = 'none';
+            if (sendBtn) sendBtn.disabled = false;
+            const reply = odata.message?.content || 'Sin respuesta';
+            appendChatMessage(activeAssistant, reply, 'es', 'Direct Ollama');
+            return;
+          } catch (ollamaErr) {}
         }
+
+        if (indicator) indicator.style.display = 'none';
+        if (sendBtn) sendBtn.disabled = false;
+        const currentEndpoint = getApiBase() || 'Servidor Local (http://localhost:8888)';
+        appendChatMessage(activeAssistant, `[Aviso ${ASSISTANTS_DATA[activeAssistant].name}]: Error de conexión con tu PC de casa (${err.message}).\n\n🔗 Endpoint actual: \`${currentEndpoint}\`\n\n👉 Para solucionarlo:\n1. Asegúrate de tener \`INICIAR_SIREN.bat\` activo en el computador de tu casa.\n2. Si el enlace cambió, toca arriba en el estado del servidor para ingresar el nuevo enlace en 1 segundo.`, 'es');
       }
     }
 
@@ -5870,17 +5896,116 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       }
     }
 
+    // ==============================================================
+    // 🌐 SISTEMA DE ENLACE RESILIENTE AL SERVIDOR (CASA <-> ESTUDIO)
+    // ==============================================================
+    const DEFAULT_TUNNEL_URL = 'https://satin-nail-taught-sole.trycloudflare.com';
+    let activeTunnelUrl = localStorage.getItem('siren_tunnel_url') || DEFAULT_TUNNEL_URL;
+
+    // Sincronizar automáticamente la URL del túnel desde tunnel_config.json
+    fetch('./tunnel_config.json?t=' + Date.now(), { cache: 'no-store' })
+      .then(r => r.json())
+      .then(cfg => {
+        if (cfg && cfg.tunnel_url && typeof cfg.tunnel_url === 'string' && cfg.tunnel_url.startsWith('https://')) {
+          activeTunnelUrl = cfg.tunnel_url.replace(/\/+$/, '');
+          localStorage.setItem('siren_tunnel_url', activeTunnelUrl);
+          const inputEl = document.getElementById('cfg-tunnel-url-input');
+          if (inputEl) inputEl.value = activeTunnelUrl;
+        }
+      })
+      .catch(() => {});
+
     function getApiBase() {
-      // Si estamos en un túnel remoto (trycloudflare.com) o en localhost:8888
-      if (window.location.port === '8888' || window.location.hostname.includes('trycloudflare') || window.location.hostname.includes('loca.lt')) {
+      const host = window.location.hostname;
+      const port = window.location.port;
+
+      // 1. Si estamos sirviendo directamente desde el servidor local (localhost:8888)
+      //    o directamente desde el dominio del túnel (trycloudflare.com / loca.lt)
+      if (port === '8888' || host.includes('trycloudflare') || host.includes('loca.lt')) {
         return '';
       }
-      if (window.location.protocol === 'http:' || window.location.protocol === 'https:') {
-        if (!window.location.hostname.includes('github.io')) {
-          return '';
+      if (host === 'localhost' || host === '127.0.0.1') {
+        return 'http://localhost:8888';
+      }
+
+      // 2. Si estamos en GitHub Pages (erickariascardona.github.io) o acceso HTTPS externo
+      //    NUNCA devolver http://localhost:8888 porque el navegador lo bloquea por Mixed Content
+      const custom = localStorage.getItem('siren_tunnel_url');
+      if (custom && custom.startsWith('https://')) {
+        return custom.replace(/\/+$/, '');
+      }
+      return (activeTunnelUrl || DEFAULT_TUNNEL_URL).replace(/\/+$/, '');
+    }
+
+    // Modal de Conexión del Servidor
+    function openServerConfigModal() {
+      const modal = document.getElementById('serverConfigModal');
+      const input = document.getElementById('cfg-tunnel-url-input');
+      const resEl = document.getElementById('server-test-result');
+      if (input) input.value = getApiBase() || activeTunnelUrl || DEFAULT_TUNNEL_URL;
+      if (resEl) resEl.style.display = 'none';
+      if (modal) modal.classList.add('open');
+      lucide.createIcons();
+    }
+
+    function closeServerConfigModal() {
+      const modal = document.getElementById('serverConfigModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    async function testServerConnectionNow() {
+      const input = document.getElementById('cfg-tunnel-url-input');
+      const resEl = document.getElementById('server-test-result');
+      const testUrl = (input ? input.value.trim() : '').replace(/\/+$/, '');
+      if (!testUrl) return;
+
+      if (resEl) {
+        resEl.style.display = 'block';
+        resEl.style.color = 'var(--primary)';
+        resEl.innerHTML = '<i data-lucide="loader"></i> Probando conexión con tu PC de casa...';
+        lucide.createIcons();
+      }
+
+      try {
+        const res = await fetch(`${testUrl}/api/status`, { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (resEl) {
+            resEl.style.color = 'var(--success)';
+            resEl.innerHTML = `✓ ¡Conexión Exitosa con tu PC de Casa! (Estado: ${data.status || 'OK'}, Modelos: ${data.models_available?.join(', ') || 'Qwen 2.5'}).`;
+          }
+        } else {
+          throw new Error('HTTP ' + res.status);
+        }
+      } catch (err) {
+        if (resEl) {
+          resEl.style.color = 'var(--primary)';
+          resEl.innerHTML = `⚠️ No se pudo conectar (${err.message}). Verifica que INICIAR_SIREN.bat esté corriendo en el PC de tu casa.`;
         }
       }
-      return 'http://localhost:8888';
+    }
+
+    function saveTunnelUrlFromModal() {
+      const input = document.getElementById('cfg-tunnel-url-input');
+      const newUrl = (input ? input.value.trim() : '').replace(/\/+$/, '');
+      if (newUrl && newUrl.startsWith('https://')) {
+        activeTunnelUrl = newUrl;
+        localStorage.setItem('siren_tunnel_url', newUrl);
+        showToast('Enlace de servidor guardado. Conectando...');
+        checkServerHealth();
+        closeServerConfigModal();
+      } else {
+        showToast('Por favor introduce una URL válida que empiece por https://');
+      }
+    }
+
+    function resetDefaultTunnelUrl() {
+      activeTunnelUrl = DEFAULT_TUNNEL_URL;
+      localStorage.removeItem('siren_tunnel_url');
+      const input = document.getElementById('cfg-tunnel-url-input');
+      if (input) input.value = DEFAULT_TUNNEL_URL;
+      showToast('URL restaurada al túnel oficial por defecto.');
+      testServerConnectionNow();
     }
 
     async function loadLiveFinancials() {
@@ -6171,12 +6296,18 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     async function checkServerHealth() {
       const statusBadge = document.getElementById('chat-engine-status');
       const kpiStatus = document.getElementById('server-kpi-status');
+      const apiBase = getApiBase();
       try {
-        const res = await fetch(`${getApiBase()}/api/status`, { cache: 'no-store' });
+        const res = await fetch(`${apiBase}/api/status`, { cache: 'no-store' });
         if (res.ok) {
           const data = await res.json();
           if (statusBadge) {
             statusBadge.className = 'table-badge badge-success';
+            statusBadge.style.cursor = 'pointer';
+            statusBadge.style.background = '';
+            statusBadge.style.color = '';
+            statusBadge.style.border = '';
+            statusBadge.title = `Conectado a ${apiBase || 'servidor local'}. Clic para ver configuración`;
             statusBadge.innerHTML = '🟢 Servidor SIREN Conectado en Vivo';
           }
           if (kpiStatus) {
@@ -6188,15 +6319,17 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         }
       } catch (err) {
         if (statusBadge) {
-          statusBadge.className = 'table-badge badge-danger';
-          statusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
-          statusBadge.style.color = '#f87171';
-          statusBadge.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-          statusBadge.innerHTML = '⚠️ Servidor Offline (python src/server/siren_app_server.py)';
+          statusBadge.className = 'table-badge badge-purple';
+          statusBadge.style.cursor = 'pointer';
+          statusBadge.style.background = 'rgba(139, 83, 255, 0.15)';
+          statusBadge.style.color = '#8B53FF';
+          statusBadge.style.border = '1px solid rgba(139, 83, 255, 0.35)';
+          statusBadge.title = `Error conectando a ${apiBase || 'servidor local'}. Clic para configurar enlace`;
+          statusBadge.innerHTML = '⚡ Servidor Offline • Toca para Conectar';
         }
         if (kpiStatus) {
           kpiStatus.textContent = 'Desconectado';
-          kpiStatus.style.color = '#f87171';
+          kpiStatus.style.color = 'var(--primary)';
         }
       }
     }

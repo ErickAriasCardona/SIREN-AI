@@ -102,11 +102,17 @@ def run_tunnel():
         proc.terminate()
         sys.exit(1)
 
-    # Guardar en archivo de texto para fácil acceso
+    # Guardar en archivo de texto y en tunnel_config.json para GitHub Pages
     try:
         TXT_OUT.write_text(tunnel_url.strip(), encoding="utf-8")
+        json_out = ROOT / "tunnel_config.json"
+        import json, datetime
+        json_out.write_text(json.dumps({
+            "tunnel_url": tunnel_url.strip(),
+            "updated_at": datetime.datetime.now().isoformat()
+        }, indent=2), encoding="utf-8")
     except Exception as e:
-        print(f"Nota guardando TXT: {e}", flush=True)
+        print(f"Nota guardando TXT/JSON: {e}", flush=True)
 
     copy_to_clipboard(tunnel_url.strip())
 
