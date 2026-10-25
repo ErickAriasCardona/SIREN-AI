@@ -44,22 +44,101 @@ from src.agents.chloe_instagram_agent import (
 from src.automation.push_notification_service import push_service
 
 # ==============================================================================
-# PROMPTS DEL SISTEMA: DIANA (FINANZAS) Y ELECTRA (ALGORITMOS)
+# PROMPTS DEL SISTEMA OPTIMIZADOS PARA CPU (AGILIDAD 7-15s EN OLLAMA)
 # ==============================================================================
-DIANA_FINANCE_SYSTEM_PROMPT = """Eres DIANA, la Auditora Financiera & Especialista de Pagos exclusiva de Sam Barton (@sambartonn23).
-Tu especialidad es la economía integral de creadoras de contenido y modelos webcam:
-1. Streamate: Modelo de comisión de estudio satélite (Sam recibe el 50% del 35% neto de la facturación en sala). Calculas el Earnings Per Hour (EPH), proyección de privados a $2.99 y exclusivos a $3.99, y netos semanales.
-2. LoyalFans: Umbral mínimo de retiro ($50 USD), comisiones de procesadores de pago (Cosmo Payment, Paxum, eCheck/SEPA), venta de DMs/Media y propinas.
-3. Stripchat: Conversión de tokens Lovense a USD ($0.05 neto por token) y balance de Fan Club.
-Le hablas directamente a Sam con respeto, calidez, precisión financiera milimétrica y mentalidad estratégica en español, ayudándola a maximizar sus ganancias, planear metas de cobro y proteger su dinero."""
+ROXANNE_CPU_SYSTEM_PROMPT = """Eres ROXANNE, Co-Piloto Estratégica y mentora personal de la modelo y creadora Sam Barton (@sambartonn23).
+Sam es modelo tomboy versátil en LoyalFans, Stripchat y Streamate (cuenta estudio, 50% split, rating 4.0).
+Asistes a Sam directamente en español con respuestas a fans, metas de sala, dinámicas Lovense y tácticas de monetización.
+Sé concisa, práctica, directa y estratégica. Responde con calidez y profesionalismo."""
 
-ELECTRA_ALGORITHM_SYSTEM_PROMPT = """Eres ELECTRA, la Ingeniera de Tráfico Algorítmico y Posicionamiento de Sam Barton (@sambartonn23).
-Tu misión es mantener a Sam en el Top de visibilidad en todas las plataformas sin penalizaciones ni shadowbans:
-1. LoyalFans: Supervisas el ciclo estricto de Cooldown de Bump cada 3.5 horas para volver a la página principal del feed y maximizar visitas orgánicas.
-2. Streamate: Calificación del algoritmo interno basada en los primeros 30 segundos de free chat, ratio de conversión rápida a Privado y retención de miembros con créditos.
-3. Stripchat: Tráfico por tags prioritarios (#Tomboy, #Gamer, #ShortHair, #Versatile), velocidad de propinas y ranking en el carrusel en vivo.
-4. Escudo de Algoritmos: Detección temprana de caídas de tráfico, prevención de bloqueos y sugerencias tácticas para disparar el alcance orgánico.
-Le hablas a Sam en español como una experta en analítica y hackeo de algoritmos de streaming, dándole datos directos y acciones tácticas inmediatas."""
+CHLOE_CPU_SYSTEM_PROMPT = """Eres CHLOE, estratega de Instagram de Sam Barton (@sambartonn23).
+Creas ideas de historias, ganchos visuales y textos con estilo tomboy para reactivar el algoritmo y dirigir tráfico a LoyalFans y Streamate.
+Sé creativa, concisa, moderna y enfocada en interacción."""
+
+DIANA_CPU_SYSTEM_PROMPT = """Eres DIANA, auditora financiera y especialista de pagos de Sam Barton (@sambartonn23).
+Especialista en splits de Streamate (50% neto del 35% del estudio), pagos de LoyalFans (80% creador, retiro mínimo $50) y Stripchat.
+Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad."""
+
+ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartonn23).
+Especialista en SEO de streaming, ciclo de bump cada 3.5h en LoyalFans, retención de los primeros 30 segundos en Streamate y tags clave (#Tomboy, #Versatile).
+Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos."""
+
+def generate_contextual_fallback(assistant_id: str, message: str) -> str:
+    """Genera una respuesta contextual inteligente si Ollama no está disponible o está reiniciando."""
+    msg_low = message.lower()
+    if assistant_id == "chloe":
+        if any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
+            return (
+                "✨ **[CHLOE - Estrategia Rápida de Instagram]**\n\n"
+                "Para tus historias de hoy con vibra tomboy:\n"
+                "1. **Mañana**: Boomerang casual afinando el ukelele o preparando café con texto: *'Modo enfoque activado... ¿quién anda por acá?'* + sticker de encuesta.\n"
+                "2. **Tarde**: Foto en cabina/set con luz tenue: *'Segunda mitad del día, lista para lo bueno 🖤'*.\n"
+                "3. **Cierre**: Gancho a LoyalFans/Streamate: *'Los detalles exclusivos están en el link de mi bio 🔥'*."
+            )
+        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
+            return (
+                "✨ **[CHLOE - Asistente de Instagram]**\n\n"
+                "¡Hola Sam! Lista para mover el algoritmo de @sambartonn23 hoy. ¿Quieres que preparemos el pack de historias del día o un copy para un nuevo post?"
+            )
+        else:
+            return (
+                f"✨ **[CHLOE - Estrategia Instagram]**\n\n"
+                f"Sam, respecto a tu consulta: para mantener alta la retención en @sambartonn23, publica historias con stickers interactivos cada 3 horas y usa siempre un gancho claro al inicio."
+            )
+    elif assistant_id == "diana":
+        if any(w in msg_low for w in ["ganancia", "split", "cuanto", "precio", "privado", "exclusivo", "gold", "dolar"]):
+            return (
+                "📊 **[DIANA - Auditoría Financiera]**\n\n"
+                "Sam, recordatorio de tus tasas activas:\n"
+                "• **Streamate**: Privado $2.99/min, Exclusivo $3.99/min. De cada 100 Gold ($100 USD), el estudio recibe $35 USD y tu neto es $17.50 USD (50% de la comisión del estudio).\n"
+                "• **LoyalFans**: DMs $0.50, te quedas con el 80% neto directo. Retiro mínimo de $50 USD.\n"
+                "• **Meta recomendada**: Prioriza sesiones privadas de más de 6 minutos para superar el ticket promedio."
+            )
+        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
+            return (
+                "📊 **[DIANA - Auditora Financiera]**\n\n"
+                "¡Hola Sam! Aquí revisando tus balances y proyecciones. ¿Qué cifra o split quieres que auditemos para tu turno de hoy?"
+            )
+        else:
+            return (
+                f"📊 **[DIANA - Auditoría Financiera]**\n\n"
+                f"Sam, analizando tu consulta: recuerda siempre separar los ingresos directos (LoyalFans 80%) de los de cuenta estudio (Streamate 50% split) para calcular con exactitud tu flujo de caja neto."
+            )
+    elif assistant_id == "electra":
+        if any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
+            return (
+                "⚡ **[ELECTRA - Tráfico & Algoritmos]**\n\n"
+                "Sam, checklist del algoritmo:\n"
+                "1. **LoyalFans**: Ejecuta el bump cada 3.5 horas exactas. Esto te devuelve a la parte superior del feed orgánico.\n"
+                "2. **Streamate**: Los primeros 30 segundos de free chat definen tu multiplicador de visibilidad. Mantén la interacción verbal activa de inmediato.\n"
+                "3. **Tags clave**: Asegúrate de tener activos `#Tomboy`, `#Versatile`, `#Ukelele` y `#Cam2Cam`."
+            )
+        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
+            return (
+                "⚡ **[ELECTRA - Algoritmos & Tráfico]**\n\n"
+                "¡Hola Sam! Monitores de tráfico al 100%. ¿Quieres revisar el cooldown de tu bump o la estrategia de retención para Streamate?"
+            )
+        else:
+            return (
+                f"⚡ **[ELECTRA - Algoritmos de Tráfico]**\n\n"
+                f"Sam, sobre tu consulta: para elevar el score en los rankings de streaming, cambia el tema de sala cada 90 minutos y estimula las propinas rápidas en los primeros minutos de transmisión."
+            )
+    else: # Roxanne
+        if any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
+            return (
+                "🐺 **[ROXANNE - Co-Piloto]**\n\n"
+                "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, ajustemos el menú de sala o preparemos las dinámicas de cámara."
+            )
+        elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
+            return (
+                "🐺 **[ROXANNE - Co-Piloto]**\n\n"
+                "Pégame el mensaje que te envió el fan y te preparo 2 opciones de respuesta de inmediato: una coqueta y directa con tu vibra tomboy, y otra para monetizar con fotos o propinas."
+            )
+        else:
+            return (
+                f"🐺 **[ROXANNE - Co-Piloto]**\n\n"
+                f"Sam, respecto a tu mensaje: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
+            )
 
 DB_PATH = ROOT / "data" / "velvet_analytics.db"
 PORT = 8888
@@ -1031,33 +1110,33 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 except Exception as te:
                     print("[Topic Update Error]:", te)
 
-            # Seleccionar Prompt de Sistema según Asistente
+            # Seleccionar Prompt de Sistema según Asistente (optimizado para CPU)
             if assistant_id == "chloe":
-                active_system_prompt = CHLOE_INSTAGRAM_SYSTEM_PROMPT
+                active_system_prompt = CHLOE_CPU_SYSTEM_PROMPT
             elif assistant_id == "diana":
-                active_system_prompt = DIANA_FINANCE_SYSTEM_PROMPT
+                active_system_prompt = DIANA_CPU_SYSTEM_PROMPT
             elif assistant_id == "electra":
-                active_system_prompt = ELECTRA_ALGORITHM_SYSTEM_PROMPT
+                active_system_prompt = ELECTRA_CPU_SYSTEM_PROMPT
             else:
-                active_system_prompt = ROXANNE_SAM_SYSTEM_PROMPT
+                active_system_prompt = ROXANNE_CPU_SYSTEM_PROMPT
 
-            # Preparar mensajes para Ollama / LLM
+            # Preparar mensajes para Ollama (limitar historial a últimos 6 mensajes = 3 turnos para máxima agilidad en CPU)
+            recent_history = [h for h in chat_history if "role" in h and "content" in h][-6:]
             messages = [{"role": "system", "content": active_system_prompt}]
-            for h in chat_history:
-                if "role" in h and "content" in h:
-                    messages.append({"role": h["role"], "content": h["content"]})
+            messages.extend(recent_history)
             messages.append({"role": "user", "content": message})
 
-            # Inferencia vía Ollama con optimización de CPU (num_ctx 2048 y num_predict 350)
+            # Inferencia vía Ollama con paralelismo multihilo de CPU
             ollama_payload = {
                 "model": model_name,
                 "messages": messages,
                 "stream": False,
                 "options": {
+                    "num_thread": 10,
+                    "num_ctx": 1024,
+                    "num_predict": 180,
                     "temperature": 0.7,
-                    "top_p": 0.9,
-                    "num_ctx": 2048,
-                    "num_predict": 350
+                    "top_p": 0.9
                 }
             }
 
@@ -1068,45 +1147,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             )
 
             try:
-                with urllib.request.urlopen(req, timeout=15) as response:
+                with urllib.request.urlopen(req, timeout=50) as response:
                     res_json = json.loads(response.read().decode("utf-8"))
                     reply = res_json.get("message", {}).get("content", "").strip()
+                    if not reply:
+                        reply = generate_contextual_fallback(assistant_id, message)
             except Exception as e:
-                # Motor de Respuesta Resiliente por Asistente (Garantiza respuesta estratégica real si Ollama tarda o está frío)
-                asst_upper = assistant_id.upper()
-                msg_low = message.lower()
-                if assistant_id == "chloe":
-                    reply = (
-                        f"✨ **[CHLOE - Estrategia de Instagram para @sambartonn23]**\n\n"
-                        f"Sam, ¡qué bien que reactivaste la cuenta! Para tu turno de **11:00 AM a 6:00 PM**, te preparé este pack de 3 historias para reactivar el algoritmo sin quemarte:\n\n"
-                        f"1️⃣ **Historia 1 (11:15 AM - El Regreso SFW)**:\n"
-                        f"• *Visual*: Foto casual en espejo o boomerang preparando café/cabina con outfit tomboy relajado.\n"
-                        f"• *Texto*: *\"De vuelta por acá... 🎧✨ Turno largo hoy de 11 a 6. Extrañaba esto, ¿quién anda despierto?\"*\n"
-                        f"• *Sticker interactivo*: Encuesta: *\"¿Quién me extrañaba? (Mucho / Demasiado)\"*.\n\n"
-                        f"2️⃣ **Historia 2 (2:30 PM - Conexión & Tomboy Vibe)**:\n"
-                        f"• *Visual*: Mini clip afinando el ukelele o música de fondo entre sesiones.\n"
-                        f"• *Texto*: *\"Un break de ukelele antes de continuar la segunda mitad de la tarde... vibra alta hoy 🖤\"*.\n\n"
-                        f"3️⃣ **Historia 3 (5:15 PM - Embudo a LoyalFans / Streamate)**:\n"
-                        f"• *Visual*: Foto con luz tenue o mirada a cámara, sonrisa cómplice.\n"
-                        f"• *Texto*: *\"Última hora del turno... pero los que están en mi VIP saben que lo mejor recién empieza 🔥 Link en bio\"*.\n\n"
-                        f"*(Recomendación: Publica la primera ya mismo para que el algoritmo empiece a mostrar tu perfil en el feed de los fans).* "
-                    )
-                elif assistant_id == "diana":
-                    reply = (
-                        f"📊 **[DIANA - Auditoría Financiera]**\n\n"
-                        f"Sam, revisando tus métricas activas: En Streamate recuerda que el split del estudio es 50% y en plataformas directas como LoyalFans conservas el 80% (con $0.50 en DMs). "
-                        f"Para maximizar el turno de hoy, enfoca tus shows privados en un mínimo de 6 minutos para superar el ticket promedio de $24 USD."
-                    )
-                elif assistant_id == "electra":
-                    reply = (
-                        f"⚡ **[ELECTRA - Ingeniería de Tráfico & Algoritmos]**\n\n"
-                        f"Sam, para rankear en la primera página de Streamate durante tu turno de 11 a 6: activa el primer 'bump' de sala a los 20 minutos y rota el tema de sala cada 90 minutos para reiniciar el score de frescura algorítmica."
-                    )
-                else:
-                    reply = (
-                        f"🐺 **[ROXANNE - Co-Piloto]**\n\n"
-                        f"Sam, lista para acompañarte en tu turno de 11 a 6. Recuerda mantener la vibra Tomboy Versátil en alto, gestionar tus descansos y alternar el control en Cam2Cam para asegurar clientes exclusivos recurrentes."
-                    )
+                print(f"[Ollama Inference Fallback]: {e}")
+                reply = generate_contextual_fallback(assistant_id, message)
 
 
             # Guardar en SQLite (Auditoría general y asistente persistente)
