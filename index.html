@@ -1212,6 +1212,13 @@
       grid-template-columns: minmax(0, 1.45fr) minmax(340px, 380px);
       gap: 20px;
       align-items: stretch;
+      transition: all 0.25s ease;
+    }
+    .roxanne-layout-container.right-collapsed {
+      grid-template-columns: 1fr !important;
+    }
+    .roxanne-layout-container.right-collapsed .roxanne-right-panel {
+      display: none !important;
     }
     @media (max-width: 1150px) {
       .roxanne-layout-container {
@@ -3599,6 +3606,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   <button class="action-btn" onclick="clearCopilotChat()" style="padding: 5px 12px; font-size: 11px;">
                     <i data-lucide="trash-2" style="width:12px; height:12px;"></i> Limpiar
                   </button>
+                  <button id="btn-show-right-panel" class="action-btn" onclick="toggleRoxanneRightPanel()" style="display: none; padding: 5px 12px; font-size: 11px; border-color: rgba(147, 51, 234, 0.5); color: #d8b4fe;" title="Mostrar panel de herramientas y métricas">
+                    <i data-lucide="panel-right-open" style="width:12px; height:12px;"></i> Panel Lateral
+                  </button>
                 </div>
               </div>
 
@@ -3624,30 +3634,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <div id="chat-typing-indicator" style="display: none; font-size: 11px; color: var(--secondary); align-items: center; gap: 8px; padding-left: 10px;">
                 <i data-lucide="loader-2" class="spin" style="width: 14px; height: 14px;"></i>
                 <span>ROXANNE está pensando la mejor estrategia con Qwen 2.5...</span>
-              </div>
-
-              <!-- Barra de Acciones Stream Monitor & Maya -->
-              <div style="background: rgba(245, 158, 11, 0.06); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 8px; padding: 10px 14px; margin-bottom: 12px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                  <span style="font-size: 11px; font-weight: 700; color: #fbbf24; display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="shield-check" style="width:13px; height:13px; color:#fbbf24;"></i> Puente Ético Stream Monitor & Maya (Sin Interferencia)
-                  </span>
-                  <span style="font-size: 10px; color: var(--text-dim);">Automatiza tareas manuales y análisis sin duplicar ni entorpecer el software del estudio</span>
-                </div>
-                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                  <button class="action-btn" onclick="openSmModal('gold')" style="font-size: 11px; padding: 6px 12px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24;">
-                    ⚡ Menú GOLD
-                  </button>
-                  <button class="action-btn" onclick="openSmModal('wheel')" style="font-size: 11px; padding: 6px 12px; border-color: rgba(168, 85, 247, 0.4); color: #c084fc;">
-                    🎡 Gira La Rueda
-                  </button>
-                  <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 11px; padding: 6px 12px; border-color: rgba(6, 182, 212, 0.4); color: #38bdf8;">
-                    🏷️ Tema de Sala
-                  </button>
-                  <button class="action-btn" onclick="openSmModal('radar')" style="font-size: 11px; padding: 6px 12px; border-color: rgba(16, 185, 129, 0.4); color: #34d399;">
-                    🔭 Radar Tomboy (Págs 1-3)
-                  </button>
-                </div>
               </div>
 
               <!-- Pastillas de Prompts Rápidos para Probar al Vuelo (Sin palabras prohibidas) -->
@@ -3692,7 +3678,61 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           <!-- ========================================== -->
           <!-- COLUMNA DERECHA: SECCIÓN INICIAL (KPIS + SELECTOR DE MOTORES + ASISTENTE SPECS) -->
           <!-- ========================================== -->
-          <div class="roxanne-right-panel">
+          <div class="roxanne-right-panel" id="roxanne-right-panel">
+
+            <!-- Barra superior del panel derecho con botón de ocultar en la esquina superior izquierda -->
+            <div style="display: flex; align-items: center; justify-content: space-between; padding-bottom: 2px;">
+              <button id="btn-collapse-right-panel" class="action-btn" onclick="toggleRoxanneRightPanel()" title="Ocultar panel lateral (maximizar chat)" style="font-size: 11px; padding: 4px 10px; display: inline-flex; align-items: center; gap: 6px; border-color: rgba(255, 255, 255, 0.15);">
+                <i data-lucide="panel-right-close" style="width: 13px; height: 13px; color: var(--primary-light);"></i>
+                <span>Ocultar Panel</span>
+              </button>
+              <span style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px;">Herramientas & Estado</span>
+            </div>
+
+            <!-- Card Desplegable: Herramientas Streamate & Mahia -->
+            <div class="card" style="padding: 0; overflow: hidden; border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.03);">
+              <!-- Encabezado Clickable de la Card para desplegar hacia abajo -->
+              <div id="sm-tools-card-header" onclick="toggleStreamateToolsDropdown()" style="padding: 12px 14px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: rgba(245, 158, 11, 0.08); transition: background 0.2s ease;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(245, 158, 11, 0.2); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
+                    <i data-lucide="wrench" style="width: 14px; height: 14px;"></i>
+                  </div>
+                  <div>
+                    <div style="font-size: 12px; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 6px;">
+                      Herramientas Streamate
+                      <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Puente Mahia</span>
+                    </div>
+                    <div style="font-size: 10px; color: var(--text-dim);">Automatizaciones sin interferir con Stream Monitor</div>
+                  </div>
+                </div>
+                <div style="display: flex; align-items: center;">
+                  <i data-lucide="chevron-down" id="chevron-sm-tools" style="width: 16px; height: 16px; color: #fbbf24; transition: transform 0.3s ease;"></i>
+                </div>
+              </div>
+
+              <!-- Contenido Desplegable hacia abajo con los 4 botones -->
+              <div id="sm-tools-dropdown-body" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(245, 158, 11, 0.15);">
+                <div style="font-size: 10px; color: var(--text-dim); line-height: 1.4; display: flex; align-items: flex-start; gap: 6px;">
+                  <i data-lucide="shield-check" style="width: 13px; height: 13px; color: #fbbf24; flex-shrink: 0; margin-top: 2px;"></i>
+                  <span>Inyecta de forma rápida y segura las configuraciones preparadas por Mahia o por ti:</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                  <button class="action-btn" onclick="openSmModal('gold')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                    ⚡ Menú GOLD
+                  </button>
+                  <button class="action-btn" onclick="openSmModal('wheel')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(168, 85, 247, 0.4); color: #c084fc; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                    🎡 Gira La Rueda
+                  </button>
+                  <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(6, 182, 212, 0.4); color: #38bdf8; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                    🏷️ Tema de Sala
+                  </button>
+                  <button class="action-btn" onclick="openSmModal('radar')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                    🔭 Radar Tomboy
+                  </button>
+                </div>
+              </div>
+            </div>
 
             <!-- 1. KPIs Compactos de Estado -->
             <div class="roxanne-kpi-stack">
@@ -3793,7 +3833,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
   <!-- MODAL DE ACTUALIZACIÓN CONTROLADA -->
   <!-- ============================================================== -->
-  <!-- MODAL DIÁLOGO: STREAM MONITOR CONTROLLER (MAYA & SAM) -->
+  <!-- MODAL DIÁLOGO: STREAM MONITOR CONTROLLER (MAHIA & SAM) -->
   <!-- ============================================================== -->
   <div id="streamMonitorModal" class="modal-overlay">
     <div class="modal-card" style="max-width: 650px;">
@@ -3813,7 +3853,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- Textarea de entrada -->
       <div style="margin-bottom: 16px;">
         <label id="smModalInputLabel" style="display:block; font-size: 11px; font-weight: 700; color: #fff; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.5px;">
-          Pega el texto generado por Maya o escribe aquí:
+          Pega el texto generado por Mahia o escribe aquí:
         </label>
         <textarea id="smModalTextarea" style="width: 100%; height: 160px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 8px; padding: 12px; color: #fff; font-family: monospace; font-size: 12px; outline: none; resize: vertical; line-height: 1.5;"></textarea>
       </div>
@@ -3999,8 +4039,33 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
     // ==========================================
-    // 🛠️ STREAM MONITOR & MAYA DIALOGS LOGIC
+    // 🛠️ STREAM MONITOR & MAHIA DIALOGS & RIGHT PANEL LOGIC
     // ==========================================
+    function toggleRoxanneRightPanel() {
+      const container = document.querySelector('.roxanne-layout-container');
+      const showBtn = document.getElementById('btn-show-right-panel');
+      if (!container) return;
+      const isCollapsed = container.classList.toggle('right-collapsed');
+      if (showBtn) {
+        showBtn.style.display = isCollapsed ? 'inline-flex' : 'none';
+      }
+      lucide.createIcons();
+    }
+
+    function toggleStreamateToolsDropdown() {
+      const body = document.getElementById('sm-tools-dropdown-body');
+      const chevron = document.getElementById('chevron-sm-tools');
+      if (!body) return;
+      const isHidden = body.style.display === 'none' || window.getComputedStyle(body).display === 'none';
+      if (isHidden) {
+        body.style.display = 'flex';
+        if (chevron) chevron.style.transform = 'rotate(0deg)';
+      } else {
+        body.style.display = 'none';
+        if (chevron) chevron.style.transform = 'rotate(-90deg)';
+      }
+    }
+
     let currentSmModalType = 'gold';
 
     function openSmModal(type) {
@@ -4019,7 +4084,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         icon.style.color = '#fbbf24';
         instructions.innerHTML = `
           <strong>📋 Estructura Requerida para el Menú GOLD:</strong><br>
-          Escribe o pega el texto generado por Maya o por ti. Cada línea debe contener la <strong>descripción de la opción</strong>, un guion <code>-</code> y el <strong>precio en GOLD</strong>.<br>
+          Escribe o pega el texto generado por Mahia o por ti. Cada línea debe contener la <strong>descripción de la opción</strong>, un guion <code>-</code> y el <strong>precio en GOLD</strong>.<br>
           <em>* Streamate requiere entre 3 y 7 opciones activas.</em><br>
           <div style="background: rgba(0,0,0,0.3); border-radius: 6px; padding: 8px; margin-top: 6px; font-family: monospace;">
             10x nalgadas - 15<br>
@@ -4059,7 +4124,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         icon.style.color = '#38bdf8';
         instructions.innerHTML = `
           <strong>📋 Estructura del Tema de Habitación:</strong><br>
-          Pega el tema que te sugirió Maya o escribe el gancho de la sesión. Es el texto que ven todos los miembros en el carrusel de Streamate.<br>
+          Pega el tema que te sugirió Mahia o escribe el gancho de la sesión. Es el texto que ven todos los miembros en el carrusel de Streamate.<br>
           <em>* Regla de oro: No uses emojis ni caracteres especiales para evitar errores en Streamate.</em>
         `;
         label.textContent = 'Tema de Habitación:';

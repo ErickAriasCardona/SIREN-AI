@@ -9,7 +9,7 @@
 ## 1. Principio Fundamental de Ética y Transparencia
 En la industria del streaming y modelaje webcam para adultos, el respeto al trabajo de otros profesionales, estudios satélites y desarrolladores de software es un pilar innegociable.
 
-**Stream Monitor** es el software oficial y especializado con el cual el estudio administra, monitorea y analiza las transmisiones de Streamate. Cuenta con herramientas avanzadas y su propio ecosistema de asistencia (incluyendo a su asistente interna **Maya**).
+**Stream Monitor** es el software oficial y especializado con el cual el estudio administra, monitorea y analiza las transmisiones de Streamate. Cuenta con herramientas avanzadas y su propio ecosistema de asistencia (incluyendo a su asistente interna **Mahia**).
 
 Por tanto, queda fijado como **REGLA PRINCIPAL Y VINCULANTE** de SIREN AI:
 
@@ -19,8 +19,8 @@ Por tanto, queda fijado como **REGLA PRINCIPAL Y VINCULANTE** de SIREN AI:
 2. **PROHIBICIÓN TOTAL DE COPIA O PLAGIO DE FUNCIONALIDADES:**  
    SIREN AI **NO** replicará, copiará ni competirá contra las herramientas existentes dentro de Stream Monitor. Cada software tiene su espacio y propósito legítimo.
 
-3. **RESPETO AL ROL DE MAYA:**  
-   Maya es la asistente entrenada dentro de Stream Monitor para la creación de opciones y mensajes. SIREN AI respeta su autoría y se limita únicamente a servir de puente técnico cuando Sam decida aplicar manualmente sus sugerencias.
+3. **RESPETO AL ROL DE MAHIA:**  
+   Mahia es la asistente entrenada dentro de Stream Monitor para la creación de opciones y mensajes. SIREN AI respeta su autoría y se limita únicamente a servir de puente técnico cuando Sam decida aplicar manualmente sus sugerencias.
 
 ---
 
@@ -29,7 +29,7 @@ Por tanto, queda fijado como **REGLA PRINCIPAL Y VINCULANTE** de SIREN AI:
 | Dimensión | Stream Monitor (Estudio) | SIREN AI (Sam Barton) |
 | :--- | :--- | :--- |
 | **Enfoque Principal** | Gestión integral de transmisión en Streamate, monitoreo de sala y análisis interno del estudio. | Ecosistema personal de Sam para automatización de tareas manuales repetitivas y análisis cruzado. |
-| **Asistencia IA** | **Maya:** Genera dinámicas, sugerencias en sala y mensajes del turno. | **ROXANNE:** Mentora de estrategia personal, copiloto bilingüe y ejecutora de órdenes de Sam. |
+| **Asistencia IA** | **Mahia:** Genera dinámicas, sugerencias en sala y mensajes del turno. | **ROXANNE:** Mentora de estrategia personal, copiloto bilingüe y ejecutora de órdenes de Sam. |
 | **Administración Streamate** | Administración maestra del estudio (geobloqueo, pagos, contratos de estudio). | Modo Solo Consulta / Auditoría externa ética y puente para evitar trabajo manual repetitivo. |
 | **Automatización Permitida** | Control nativo del cliente de transmisión. | Solo inyección segura de textos que Sam tendría que escribir o pegar a mano uno a uno. |
 
