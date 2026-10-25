@@ -34,6 +34,29 @@ from src.agents.roxanne_multimodel_copilot import (
     OllamaProvider,
     GeminiProvider
 )
+from src.agents.chloe_instagram_agent import (
+    CHLOE_INSTAGRAM_SYSTEM_PROMPT,
+    generate_daily_instagram_strategy,
+    generate_stories_pack
+)
+
+# ==============================================================================
+# PROMPTS DEL SISTEMA: DIANA (FINANZAS) Y ELECTRA (ALGORITMOS)
+# ==============================================================================
+DIANA_FINANCE_SYSTEM_PROMPT = """Eres DIANA, la Auditora Financiera & Especialista de Pagos exclusiva de Sam Barton (@sambartonn23).
+Tu especialidad es la economía integral de creadoras de contenido y modelos webcam:
+1. Streamate: Modelo de comisión de estudio satélite (Sam recibe el 50% del 35% neto de la facturación en sala). Calculas el Earnings Per Hour (EPH), proyección de privados a $2.99 y exclusivos a $3.99, y netos semanales.
+2. LoyalFans: Umbral mínimo de retiro ($50 USD), comisiones de procesadores de pago (Cosmo Payment, Paxum, eCheck/SEPA), venta de DMs/Media y propinas.
+3. Stripchat: Conversión de tokens Lovense a USD ($0.05 neto por token) y balance de Fan Club.
+Le hablas directamente a Sam con respeto, calidez, precisión financiera milimétrica y mentalidad estratégica en español, ayudándola a maximizar sus ganancias, planear metas de cobro y proteger su dinero."""
+
+ELECTRA_ALGORITHM_SYSTEM_PROMPT = """Eres ELECTRA, la Ingeniera de Tráfico Algorítmico y Posicionamiento de Sam Barton (@sambartonn23).
+Tu misión es mantener a Sam en el Top de visibilidad en todas las plataformas sin penalizaciones ni shadowbans:
+1. LoyalFans: Supervisas el ciclo estricto de Cooldown de Bump cada 3.5 horas para volver a la página principal del feed y maximizar visitas orgánicas.
+2. Streamate: Calificación del algoritmo interno basada en los primeros 30 segundos de free chat, ratio de conversión rápida a Privado y retención de miembros con créditos.
+3. Stripchat: Tráfico por tags prioritarios (#Tomboy, #Gamer, #ShortHair, #Versatile), velocidad de propinas y ranking en el carrusel en vivo.
+4. Escudo de Algoritmos: Detección temprana de caídas de tráfico, prevención de bloqueos y sugerencias tácticas para disparar el alcance orgánico.
+Le hablas a Sam en español como una experta en analítica y hackeo de algoritmos de streaming, dándole datos directos y acciones tácticas inmediatas."""
 
 DB_PATH = ROOT / "data" / "velvet_analytics.db"
 PORT = 8888
@@ -116,6 +139,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_positioning()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
+        elif self.path.startswith("/api/instagram/daily_strategy"):
+            self.handle_api_instagram_daily_strategy()
+        elif self.path.startswith("/api/instagram/stories_pack"):
+            self.handle_api_instagram_stories_pack()
         else:
             # Servir index.html si entra a /
             if self.path == "/" or self.path == "":
@@ -133,6 +160,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_refresh_positioning()
         elif self.path.startswith("/api/deploy_profile"):
             self.handle_api_deploy_profile()
+        elif self.path.startswith("/api/instagram/daily_strategy"):
+            self.handle_api_instagram_daily_strategy()
+        elif self.path.startswith("/api/instagram/stories_pack"):
+            self.handle_api_instagram_stories_pack()
         else:
             self.send_error(404, "Endpoint no encontrado")
 
@@ -551,8 +582,36 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
+    def handle_api_instagram_daily_strategy(self):
+        """Genera la estrategia diaria estructurada para @sambartonn23."""
+        try:
+            strategy = generate_daily_instagram_strategy()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "strategy": strategy}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_instagram_stories_pack(self):
+        """Genera pack de historias del día listas para publicar."""
+        try:
+            stories = generate_stories_pack()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "stories": stories}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
     def handle_api_chat(self):
-        """Procesa una consulta de chat con ROXANNE y devuelve la respuesta del LLM."""
+        """Procesa una consulta de chat con ROXANNE o CHLOE y devuelve la respuesta del LLM."""
         try:
             content_length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(content_length).decode("utf-8")
@@ -561,6 +620,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             message = data.get("message", "").strip()
             model_name = data.get("model", "qwen2.5:7b-instruct")
             chat_history = data.get("history", [])
+            assistant_id = data.get("assistant", "roxanne").lower()
 
             if not message:
                 self.send_response(400)
@@ -623,8 +683,18 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 except Exception as te:
                     print("[Topic Update Error]:", te)
 
+            # Seleccionar Prompt de Sistema según Asistente
+            if assistant_id == "chloe":
+                active_system_prompt = CHLOE_INSTAGRAM_SYSTEM_PROMPT
+            elif assistant_id == "diana":
+                active_system_prompt = DIANA_FINANCE_SYSTEM_PROMPT
+            elif assistant_id == "electra":
+                active_system_prompt = ELECTRA_ALGORITHM_SYSTEM_PROMPT
+            else:
+                active_system_prompt = ROXANNE_SAM_SYSTEM_PROMPT
+
             # Preparar mensajes para Ollama / LLM
-            messages = [{"role": "system", "content": ROXANNE_SAM_SYSTEM_PROMPT}]
+            messages = [{"role": "system", "content": active_system_prompt}]
             for h in chat_history:
                 if "role" in h and "content" in h:
                     messages.append({"role": h["role"], "content": h["content"]})

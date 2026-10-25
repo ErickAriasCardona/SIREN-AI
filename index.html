@@ -1287,7 +1287,279 @@
       color: #0f172a;
     }
 
-  
+    /* ============================================================== */
+    /* 🤖 GRID / DECK DE ASISTENTES IA & SELECTOR MULTI-AGENTE */
+    /* ============================================================== */
+    .assistants-deck-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+    .assistant-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      position: relative;
+      user-select: none;
+    }
+    .assistant-card:hover {
+      border-color: rgba(139, 83, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+    .assistant-card.active {
+      border-color: var(--primary);
+      background: rgba(139, 83, 255, 0.09);
+      box-shadow: 0 0 16px rgba(139, 83, 255, 0.22);
+    }
+    body.light-theme .assistant-card {
+      background: #ffffff;
+      border-color: #e2e8f0;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    }
+    body.light-theme .assistant-card.active {
+      background: rgba(139, 83, 255, 0.12);
+      border-color: var(--primary);
+      box-shadow: 0 4px 12px rgba(139, 83, 255, 0.18);
+    }
+    .assistant-card .card-avatar {
+      width: 42px;
+      height: 42px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+      color: #fff;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .assistant-card .card-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .assistant-card .card-name {
+      font-size: 13px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #fff;
+    }
+    body.light-theme .assistant-card .card-name {
+      color: #0f172a;
+    }
+    .assistant-card .card-role {
+      font-size: 11px;
+      color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 2px;
+    }
+    .assistant-card .card-pill {
+      font-size: 9px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      margin-top: 5px;
+      display: inline-block;
+      letter-spacing: 0.3px;
+    }
+
+    /* ============================================================== */
+    /* 📱 VISOR INSTAGRAM MOBILE MOCKUP (@sambartonn23) */
+    /* ============================================================== */
+    .instagram-phone-frame {
+      background: #000000;
+      border: 6px solid #22262e;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+    .phone-notch-bar {
+      height: 26px;
+      background: #000000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      font-size: 10px;
+      font-weight: 600;
+      color: #ffffff;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .phone-camera-island {
+      width: 70px;
+      height: 12px;
+      background: #11141a;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .phone-content-area {
+      background: #000000;
+      color: #ffffff;
+      padding: 12px 14px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 480px;
+      overflow-y: auto;
+    }
+    .phone-header-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 700;
+      border-bottom: 1px solid #1a1a1a;
+      padding-bottom: 8px;
+    }
+    .insta-avatar-ring {
+      background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+      padding: 2px;
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .insta-avatar-img {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 2px solid #000;
+      object-fit: cover;
+      display: block;
+    }
+    .insta-stats-group {
+      display: flex;
+      justify-content: space-around;
+      flex: 1;
+      text-align: center;
+      padding-left: 8px;
+    }
+    .insta-stat-num {
+      font-size: 13px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .insta-stat-lbl {
+      font-size: 9px;
+      color: #94a3b8;
+    }
+    .insta-bio-block {
+      font-size: 11px;
+      line-height: 1.45;
+      color: #e2e8f0;
+    }
+    .insta-actions-row {
+      display: flex;
+      gap: 6px;
+    }
+    .insta-action-btn {
+      flex: 1;
+      background: #262626;
+      border: none;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 6px 0;
+      border-radius: 6px;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s ease;
+    }
+    .insta-action-btn:hover {
+      background: #363636;
+    }
+    .insta-action-btn.primary {
+      background: #8B53FF;
+    }
+    .insta-action-btn.primary:hover {
+      background: #753be6;
+    }
+    .insta-highlights-row {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .insta-highlight-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 9px;
+      color: #cbd5e1;
+      cursor: pointer;
+    }
+    .insta-highlight-circle {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: 1px solid #334155;
+      background: #11141a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: transform 0.15s;
+    }
+    .insta-highlight-item:hover .insta-highlight-circle {
+      transform: scale(1.08);
+      border-color: #8B53FF;
+    }
+    .insta-photo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4px;
+    }
+    .insta-grid-thumb {
+      aspect-ratio: 1 / 1;
+      background: #1e2432;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+    .insta-grid-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.2s ease;
+      display: block;
+    }
+    .insta-grid-thumb:hover img {
+      transform: scale(1.08);
+    }
+    .insta-grid-thumb .hover-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .insta-grid-thumb:hover .hover-overlay {
+      opacity: 1;
+    }
+
     /* SPECS GRID TABLE FOR EDITORIAL DOSSIER */
     .specs-grid-table {
       display: grid;
@@ -1397,9 +1669,9 @@
         <span class="nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Read % Real</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-roxanne-copilot')">
-        <i data-lucide="bot"></i> ROXANNE Copilot Agent
-        <span class="nav-badge" style="background: rgba(147, 51, 234, 0.25); color: #c084fc;">Qwen 2.5 Local</span>
+      <button class="nav-btn" onclick="switchMainTab('tab-asistentes')">
+        <i data-lucide="bot"></i> Asistentes
+        <span class="nav-badge" style="background: rgba(139, 83, 255, 0.25); color: #8B53FF;">Multi-Agente</span>
       </button>
 
       <button class="nav-btn" onclick="switchMainTab('tab-api-catalog')">
@@ -3574,25 +3846,80 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- PESTAÑA 10: ROXANNE COPILOT & SELECTOR MULTI-MODELO -->
       <!-- ========================================== -->
       <!-- ========================================== -->
-      <!-- PESTAÑA 10: ROXANNE COPILOT & SELECTOR MULTI-MODELO -->
       <!-- ========================================== -->
-      <section id="tab-roxanne-copilot" class="tab-view">
+      <!-- PESTAÑA: ASISTENTES IA DE SAM BARTON (MULTI-AGENTE) -->
+      <!-- ========================================== -->
+      <section id="tab-asistentes" class="tab-view">
+
+        <!-- GRID DE SELECCIÓN DE ASISTENTES IA -->
+        <div class="assistants-deck-grid">
+          <!-- 1. ROXANNE -->
+          <div id="card-assistant-roxanne" class="assistant-card active" onclick="selectAssistant('roxanne')">
+            <div class="card-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4);">RX</div>
+            <div class="card-info">
+              <div class="card-name">
+                <span>ROXANNE</span>
+                <span class="table-badge badge-purple" style="font-size: 8px; padding: 1px 5px;">Co-Piloto</span>
+              </div>
+              <div class="card-role">Webcam & Shows en Vivo</div>
+              <span class="card-pill" style="background: rgba(147, 51, 234, 0.15); color: #c084fc;">Streamate • Stripchat</span>
+            </div>
+          </div>
+
+          <!-- 2. CHLOE -->
+          <div id="card-assistant-chloe" class="assistant-card" onclick="selectAssistant('chloe')">
+            <div class="card-avatar" style="background: linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);">CH</div>
+            <div class="card-info">
+              <div class="card-name">
+                <span>CHLOE</span>
+                <span class="table-badge badge-warning" style="font-size: 8px; padding: 1px 5px; background: rgba(240, 148, 51, 0.2); color: #f97316;">Instagram</span>
+              </div>
+              <div class="card-role">Estratega Social Media & Stories</div>
+              <span class="card-pill" style="background: rgba(220, 39, 67, 0.15); color: #fb7185;">@sambartonn23 • Funnels</span>
+            </div>
+          </div>
+
+          <!-- 3. DIANA -->
+          <div id="card-assistant-diana" class="assistant-card" onclick="selectAssistant('diana')">
+            <div class="card-avatar" style="background: linear-gradient(135deg, #10b981, #059669);">DN</div>
+            <div class="card-info">
+              <div class="card-name">
+                <span>DIANA</span>
+                <span class="table-badge badge-success" style="font-size: 8px; padding: 1px 5px;">Finanzas</span>
+              </div>
+              <div class="card-role">Auditora & Métricas de Cobro</div>
+              <span class="card-pill" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Splits 50/35% • Payouts</span>
+            </div>
+          </div>
+
+          <!-- 4. ELECTRA -->
+          <div id="card-assistant-electra" class="assistant-card" onclick="selectAssistant('electra')">
+            <div class="card-avatar" style="background: linear-gradient(135deg, #f59e0b, #06b6d4);">EL</div>
+            <div class="card-info">
+              <div class="card-name">
+                <span>ELECTRA</span>
+                <span class="table-badge badge-info" style="font-size: 8px; padding: 1px 5px;">Algoritmos</span>
+              </div>
+              <div class="card-role">Ingeniería de Tráfico & Ranking</div>
+              <span class="card-pill" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8;">Bump 3.5h • Top #1 Feed</span>
+            </div>
+          </div>
+        </div>
+
         <div class="roxanne-layout-container">
 
-          <!-- ========================================== -->
-          <!-- COLUMNA PRINCIPAL / CENTRO: CONSOLA DE CHAT ROXANNE -->
-          <!-- ========================================== -->
+          <!-- COLUMNA PRINCIPAL / CENTRO: CONSOLA DE CHAT DEL ASISTENTE ACTIVO -->
           <div class="roxanne-center-chat">
             <div class="card chat-console">
               <div class="card-title" style="flex-wrap: wrap; gap: 10px; padding-bottom: 12px; border-bottom: 1px solid var(--border-color);">
                 <div style="display:flex; align-items:center; gap: 10px;">
-                  <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold; width:36px; height:36px; min-width:36px;">RX</div>
+                  <div id="active-assistant-avatar" class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold; width:36px; height:36px; min-width:36px;">RX</div>
                   <div>
                     <div style="font-size:15px; font-weight:800; color:#fff; display:flex; align-items:center; gap:8px;">
-                      ROXANNE
-                      <span class="table-badge badge-purple" style="font-size: 10px; padding: 2px 8px;">Asistente de Modelo Webcam</span>
+                      <span id="active-assistant-name">ROXANNE</span>
+                      <span id="active-assistant-badge" class="table-badge badge-purple" style="font-size: 10px; padding: 2px 8px;">Asistente de Modelo Webcam</span>
                     </div>
-                    <div style="font-size:11px; color:var(--text-dim); font-weight:400;">Entrenada exclusivamente para Sam Barton (@sambartonn23) • LoyalFans, Stripchat, Streamate</div>
+                    <div id="active-assistant-desc" style="font-size:11px; color:var(--text-dim); font-weight:400;">Entrenada exclusivamente para Sam Barton (@sambartonn23) • LoyalFans, Stripchat, Streamate</div>
                   </div>
                 </div>
                 <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
@@ -3608,63 +3935,36 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   <button class="action-btn" onclick="clearCopilotChat()" style="padding: 5px 12px; font-size: 11px;">
                     <i data-lucide="trash-2" style="width:12px; height:12px;"></i> Limpiar
                   </button>
-                  <button id="btn-show-right-panel" class="action-btn" onclick="toggleRoxanneRightPanel()" style="display: none; padding: 5px 12px; font-size: 11px; border-color: rgba(147, 51, 234, 0.5); color: #d8b4fe;" title="Mostrar panel de herramientas y métricas">
-                    <i data-lucide="panel-right-open" style="width:12px; height:12px;"></i> Panel Lateral
+                  <button id="btn-show-right-panel" class="action-btn" onclick="toggleRoxanneRightPanel()" style="display: none; padding: 5px 12px; font-size: 11px; border-color: rgba(147, 51, 234, 0.5); color: #d8b4fe;" title="Mostrar panel de herramientas y complementos">
+                    <i data-lucide="panel-right-open" style="width:12px; height:12px;"></i> Complementos
                   </button>
                 </div>
               </div>
 
               <!-- Ventana de mensajes del chat con altura amplia en el centro -->
               <div id="chat-messages-box" class="chat-messages-container">
-                <!-- Mensaje Inicial de Bienvenida -->
-                <div class="chat-msg sam">
-                  <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
-                  <div class="chat-msg-body">
-                    <div class="chat-msg-meta">
-                      <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo Webcam)</strong>
-                      <span>• Lista</span>
-                      <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Co-Piloto Activa</span>
-                    </div>
-                    <div class="chat-bubble">
-                      ¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, responder y entrenar cómo contestar a fans en LoyalFans, Stripchat o Streamate, planear metas de sala con Lovense o armar tus dinámicas. ¿En qué trabajamos hoy? 🐺✨
-                    </div>
-                  </div>
-                </div>
+                <!-- Se llena dinámicamente según el asistente activo -->
               </div>
 
               <!-- Indicador de tipeo / pensando -->
               <div id="chat-typing-indicator" style="display: none; font-size: 11px; color: var(--secondary); align-items: center; gap: 8px; padding-left: 10px;">
                 <i data-lucide="loader-2" class="spin" style="width: 14px; height: 14px;"></i>
-                <span>ROXANNE está pensando la mejor estrategia con Qwen 2.5...</span>
+                <span id="chat-typing-text">ROXANNE está pensando la mejor estrategia con Qwen 2.5...</span>
               </div>
 
-              <!-- Pastillas de Prompts Rápidos para Probar al Vuelo (Sin palabras prohibidas) -->
+              <!-- Pastillas de Prompts Rápidos Dinámicas -->
               <div style="display:flex; flex-direction:column; gap:6px;">
                 <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.8px;">
                   Estrategias Rápidas (Haz clic para enviar al instante):
                 </span>
-                <div class="prompt-pills-wrap">
-                  <button class="prompt-pill" onclick="useQuickPrompt('¿Cómo respondo a un fan que me pide rebaja para ir a privado en Streamate?')">
-                    💬 <em>"Fan pide rebaja para privado en Streamate"</em>
-                  </button>
-                  <button class="prompt-pill" onclick="useQuickPrompt('Ayúdame a planear las metas de propinas con Lovense para el show de hoy en Stripchat')">
-                    🎯 <em>"Metas Lovense para show de hoy en Stripchat"</em>
-                  </button>
-                  <button class="prompt-pill" onclick="useQuickPrompt('Hey Sam! What motorcycle do you ride?')">
-                    🏍️ <em>"What motorcycle do you ride?" (EN)</em>
-                  </button>
-                  <button class="prompt-pill" onclick="useQuickPrompt('Hola hermosa, qué linda estás. ¿Haces videollamadas privadas?')">
-                    📹 <em>"Hola hermosa, ¿haces videollamadas?" (ES)</em>
-                  </button>
-                  <button class="prompt-pill" onclick="useQuickPrompt('¿Cómo sugerirle a un fan que toco ukelele en privado para motivarlo a entrar?')">
-                    🎸 <em>"Sugerir toque de ukelele para motivar privado"</em>
-                  </button>
+                <div id="assistant-prompt-pills" class="prompt-pills-wrap">
+                  <!-- Rendered dynamically by updatePromptPills() -->
                 </div>
               </div>
 
               <!-- Barra de entrada de texto -->
               <div class="chat-input-bar">
-                <textarea id="copilot-input" class="chat-textarea" placeholder="Escribe a Roxanne o pega un mensaje de un fan aquí... (Enter para enviar, Shift+Enter para salto de línea)" rows="2" onkeydown="handleChatInputKeyDown(event)"></textarea>
+                <textarea id="copilot-input" class="chat-textarea" placeholder="Escribe a tu asistente aquí... (Enter para enviar, Shift+Enter para salto de línea)" rows="2" onkeydown="handleChatInputKeyDown(event)"></textarea>
                 <button id="copilot-send-btn" class="chat-send-btn" onclick="sendCopilotMessage()">
                   <i data-lucide="send" style="width:14px; height:14px;"></i> Enviar
                 </button>
@@ -3677,9 +3977,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </div>
           </div>
 
-          <!-- ========================================== -->
-          <!-- COLUMNA DERECHA: SECCIÓN INICIAL (KPIS + SELECTOR DE MOTORES + ASISTENTE SPECS) -->
-          <!-- ========================================== -->
+          <!-- COLUMNA DERECHA: COMPLEMENTOS ESPECÍFICOS DE CADA ASISTENTE -->
           <div class="roxanne-right-panel" id="roxanne-right-panel">
 
             <!-- Barra superior del panel derecho con botón de ocultar en la esquina superior izquierda -->
@@ -3688,140 +3986,404 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <i data-lucide="panel-right-close" style="width: 13px; height: 13px; color: var(--primary-light);"></i>
                 <span>Ocultar Panel</span>
               </button>
-              <span style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px;">Herramientas & Estado</span>
+              <span id="right-panel-header-title" style="font-size: 10px; font-weight: 700; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.8px;">Herramientas & Estado</span>
             </div>
 
-            <!-- Card Desplegable: Herramientas Streamate & Mahia -->
-            <div class="card" style="padding: 0; overflow: hidden; border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.03);">
-              <!-- Encabezado Clickable de la Card para desplegar hacia abajo -->
-              <div id="sm-tools-card-header" onclick="toggleStreamateToolsDropdown()" style="padding: 12px 14px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: rgba(245, 158, 11, 0.08); transition: background 0.2s ease;">
-                <div style="display: flex; align-items: center; gap: 8px;">
-                  <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(245, 158, 11, 0.2); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
-                    <i data-lucide="wrench" style="width: 14px; height: 14px;"></i>
-                  </div>
-                  <div>
-                    <div style="font-size: 12px; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 6px;">
-                      Herramientas Streamate
-                      <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Puente Mahia</span>
+            <!-- ============================================== -->
+            <!-- COMPLEMENTO 1: ROXANNE (STREAMATE & WEBCAM) -->
+            <!-- ============================================== -->
+            <div id="panel-tools-roxanne" class="assistant-tools-panel">
+              <!-- Card Desplegable: Herramientas Streamate & Mahia -->
+              <div class="card" style="padding: 0; overflow: hidden; border-color: rgba(245, 158, 11, 0.35); background: rgba(245, 158, 11, 0.03); margin-bottom: 14px;">
+                <div id="sm-tools-card-header" onclick="toggleStreamateToolsDropdown()" style="padding: 12px 14px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: rgba(245, 158, 11, 0.08); transition: background 0.2s ease;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <div style="width: 26px; height: 26px; border-radius: 6px; background: rgba(245, 158, 11, 0.2); display: flex; align-items: center; justify-content: center; color: #fbbf24;">
+                      <i data-lucide="wrench" style="width: 14px; height: 14px;"></i>
                     </div>
-                    <div style="font-size: 10px; color: var(--text-dim);">Automatizaciones sin interferir con Stream Monitor</div>
+                    <div>
+                      <div style="font-size: 12px; font-weight: 800; color: #fbbf24; display: flex; align-items: center; gap: 6px;">
+                        Herramientas Streamate
+                        <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Puente Mahia</span>
+                      </div>
+                      <div style="font-size: 10px; color: var(--text-dim);">Automatizaciones sin interferir con Stream Monitor</div>
+                    </div>
+                  </div>
+                  <div style="display: flex; align-items: center;">
+                    <i data-lucide="chevron-down" id="chevron-sm-tools" style="width: 16px; height: 16px; color: #fbbf24; transition: transform 0.3s ease;"></i>
                   </div>
                 </div>
-                <div style="display: flex; align-items: center;">
-                  <i data-lucide="chevron-down" id="chevron-sm-tools" style="width: 16px; height: 16px; color: #fbbf24; transition: transform 0.3s ease;"></i>
+
+                <div id="sm-tools-dropdown-body" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(245, 158, 11, 0.15);">
+                  <div style="font-size: 10px; color: var(--text-dim); line-height: 1.4; display: flex; align-items: flex-start; gap: 6px;">
+                    <i data-lucide="shield-check" style="width: 13px; height: 13px; color: #fbbf24; flex-shrink: 0; margin-top: 2px;"></i>
+                    <span>Inyecta de forma rápida y segura las configuraciones preparadas por Mahia o por ti:</span>
+                  </div>
+
+                  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
+                    <button class="action-btn" onclick="openSmModal('gold')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                      ⚡ Menú GOLD
+                    </button>
+                    <button class="action-btn" onclick="openSmModal('wheel')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(168, 85, 247, 0.4); color: #c084fc; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                      🎡 Gira La Rueda
+                    </button>
+                    <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(6, 182, 212, 0.4); color: #38bdf8; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                      🏷️ Tema de Sala
+                    </button>
+                    <button class="action-btn" onclick="openSmModal('radar')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                      🔭 Radar Tomboy
+                    </button>
+                  </div>
                 </div>
               </div>
 
-              <!-- Contenido Desplegable hacia abajo con los 4 botones -->
-              <div id="sm-tools-dropdown-body" style="padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; border-top: 1px solid rgba(245, 158, 11, 0.15);">
-                <div style="font-size: 10px; color: var(--text-dim); line-height: 1.4; display: flex; align-items: flex-start; gap: 6px;">
-                  <i data-lucide="shield-check" style="width: 13px; height: 13px; color: #fbbf24; flex-shrink: 0; margin-top: 2px;"></i>
-                  <span>Inyecta de forma rápida y segura las configuraciones preparadas por Mahia o por ti:</span>
+              <!-- KPIs Compactos de Estado -->
+              <div class="roxanne-kpi-stack" style="margin-bottom: 14px;">
+                <div class="roxanne-kpi-mini">
+                  <div class="title">Motor Activo</div>
+                  <div class="val" style="color: var(--primary-light);">Qwen 2.5 (7B)</div>
+                  <div class="sub">100% Local & Gratis</div>
+                </div>
+                <div class="roxanne-kpi-mini">
+                  <div class="title">Servidor Ollama</div>
+                  <div class="val" style="color: var(--success);">localhost:11434</div>
+                  <div class="sub">100% GPU Activo</div>
+                </div>
+                <div class="roxanne-kpi-mini">
+                  <div class="title">Servidor SIREN</div>
+                  <div class="val" id="server-kpi-status" style="color: #38bdf8;">Puerto 8888</div>
+                  <div class="sub">API Server Activo</div>
+                </div>
+                <div class="roxanne-kpi-mini">
+                  <div class="title">Regla Idioma</div>
+                  <div class="val" style="color: var(--secondary);">EN Def / ES In</div>
+                  <div class="sub">Bilingüe Automático</div>
+                </div>
+              </div>
+
+              <!-- Selector de Motor LLM -->
+              <div class="card" style="padding: 16px; margin-bottom: 14px;">
+                <div style="font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
+                  <i data-lucide="cpu" style="width:16px; height:16px; color:var(--primary-light);"></i>
+                  Selector de Motor de IA
+                </div>
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                  <div style="font-size: 11px; font-weight: 700; color: var(--primary-light); margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
+                    <i data-lucide="hard-drive" style="width:12px; height:12px;"></i> Local (Ollama • Gratis & Privado)
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <label style="display:flex; align-items:center; gap:8px; font-size:11px; cursor:pointer;">
+                      <input type="radio" name="ai-engine" value="qwen2.5:7b-instruct" checked onchange="syncRadioWithModelSelect(this.value)">
+                      <strong>qwen2.5:7b-instruct</strong>
+                      <span class="table-badge badge-success" style="font-size:9px; padding:1px 5px; margin-left:auto;">Activo</span>
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:11px; color:var(--text-dim); cursor:pointer;">
+                      <input type="radio" name="ai-engine" value="qwen2.5:14b-instruct" onchange="syncRadioWithModelSelect(this.value)">
+                      <span>qwen2.5:14b-instruct</span>
+                      <span class="table-badge badge-warning" style="font-size:9px; padding:1px 5px; margin-left:auto;">Descargable</span>
+                    </label>
+                  </div>
+                </div>
+                <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px;">
+                  <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
+                    <i data-lucide="cloud" style="width:12px; height:12px;"></i> Cloud (Google AGY SDK)
+                  </div>
+                  <div style="display:flex; flex-direction:column; gap:8px;">
+                    <label style="display:flex; align-items:center; gap:8px; font-size:11px; cursor:pointer;">
+                      <input type="radio" name="ai-engine" value="gemini-2.5-pro" onchange="syncRadioWithModelSelect(this.value)">
+                      <span>Gemini 2.5 Pro</span>
+                      <span class="table-badge badge-info" style="font-size:9px; padding:1px 5px; margin-left:auto;">Cloud</span>
+                    </label>
+                    <label style="display:flex; align-items:center; gap:8px; font-size:11px; color:var(--text-dim); cursor:pointer;">
+                      <input type="radio" name="ai-engine" value="gemini-2.5-flash" onchange="syncRadioWithModelSelect(this.value)">
+                      <span>Gemini 2.5 Flash</span>
+                      <span class="table-badge badge-purple" style="font-size:9px; padding:1px 5px; margin-left:auto;">Rápido</span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tarjeta Informativa Roxanne -->
+              <div class="card" style="padding: 16px; background: rgba(147, 51, 234, 0.05); border-color: rgba(147, 51, 234, 0.3);">
+                <div style="font-size: 12px; font-weight: 800; color: #d8b4fe; margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="shield-check" style="width:14px; height:14px; color:#c084fc;"></i>
+                  Tu Asistente & Estratega Personal
+                </div>
+                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">
+                  Roxanne está configurada para orientarte en cómo cerrar privados rápidos en Streamate, dinamizar propinas de Lovense en Stripchat y vender contenido en LoyalFans, manteniendo siempre tu identidad de tomboy inteligente y versátil.
+                </p>
+                <div style="display:flex; flex-direction:column; gap:5px; font-size:11px; color:var(--text-dim);">
+                  <div>• <strong>Streamate:</strong> Impulsar EPH ($2.99 / $3.99 min).</div>
+                  <div>• <strong>Stripchat:</strong> Velocidad de tokens y vibraciones.</div>
+                  <div>• <strong>LoyalFans:</strong> Bumps cada 3.5h y DMs exclusivos.</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ============================================== -->
+            <!-- COMPLEMENTO 2: CHLOE (INSTAGRAM SKILLS & MOBILE MOCKUP) -->
+            <!-- ============================================== -->
+            <div id="panel-tools-chloe" class="assistant-tools-panel" style="display:none; flex-direction:column; gap:14px;">
+              <!-- 1. Skills de Instagram en 1 Clic -->
+              <div class="card" style="padding: 14px; border-color: rgba(240, 148, 51, 0.35); background: rgba(240, 148, 51, 0.04);">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+                  <div style="font-size: 12px; font-weight: 800; color: #f97316; display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="sparkles" style="width: 14px; height: 14px;"></i>
+                    Instagram Skills en 1 Clic
+                  </div>
+                  <span class="table-badge" style="background: rgba(240, 148, 51, 0.2); color: #f97316; font-size: 9px;">@sambartonn23</span>
+                </div>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                  <button class="action-btn" onclick="executeChloeSkill('daily_strategy')" style="font-size: 11px; padding: 8px 10px; border-color: rgba(240, 148, 51, 0.5); color: #fb923c; justify-content: flex-start; display: flex; align-items: center; gap: 8px; width: 100%;">
+                    <span>⚡</span> <strong>Estrategia del Día</strong>
+                    <span style="font-size: 10px; color: var(--text-dim); margin-left: auto;">Historias + Feed + CTA</span>
+                  </button>
+                  <button class="action-btn" onclick="executeChloeSkill('stories_pack')" style="font-size: 11px; padding: 8px 10px; border-color: rgba(220, 39, 67, 0.5); color: #f43f5e; justify-content: flex-start; display: flex; align-items: center; gap: 8px; width: 100%;">
+                    <span>📸</span> <strong>Pack de Historias de Hoy</strong>
+                    <span style="font-size: 10px; color: var(--text-dim); margin-left: auto;">4 stories interactivas</span>
+                  </button>
+                  <button class="action-btn" onclick="executeChloeSkill('caption_tomboy')" style="font-size: 11px; padding: 8px 10px; border-color: rgba(139, 83, 255, 0.5); color: #c084fc; justify-content: flex-start; display: flex; align-items: center; gap: 8px; width: 100%;">
+                    <span>✍️</span> <strong>Caption Tomboy en Inglés</strong>
+                    <span style="font-size: 10px; color: var(--text-dim); margin-left: auto;">Con llamada a bio</span>
+                  </button>
+                  <button class="action-btn" onclick="executeChloeSkill('anti_shadowban')" style="font-size: 11px; padding: 8px 10px; border-color: rgba(16, 185, 129, 0.5); color: #34d399; justify-content: flex-start; display: flex; align-items: center; gap: 8px; width: 100%;">
+                    <span>🛡️</span> <strong>Escudo Anti-Shadowban</strong>
+                    <span style="font-size: 10px; color: var(--text-dim); margin-left: auto;">Tags seguros de Meta</span>
+                  </button>
+                  <button class="action-btn" onclick="executeChloeSkill('peak_hours')" style="font-size: 11px; padding: 8px 10px; border-color: rgba(56, 189, 248, 0.5); color: #38bdf8; justify-content: flex-start; display: flex; align-items: center; gap: 8px; width: 100%;">
+                    <span>⏰</span> <strong>Horarios Pico de Publicación</strong>
+                    <span style="font-size: 10px; color: var(--text-dim); margin-left: auto;">USA, UK & Europa</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 2. Visor Instagram Mobile Mockup (@sambartonn23) -->
+              <div class="instagram-phone-frame">
+                <!-- Barra Superior / Notch del Celular -->
+                <div class="phone-notch-bar">
+                  <span>21:42</span>
+                  <div class="phone-camera-island"></div>
+                  <div style="display: flex; align-items: center; gap: 4px; font-size: 9px;">
+                    <span>5G</span>
+                    <i data-lucide="wifi" style="width: 10px; height: 10px;"></i>
+                    <i data-lucide="battery-charging" style="width: 11px; height: 11px;"></i>
+                  </div>
                 </div>
 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                  <button class="action-btn" onclick="openSmModal('gold')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(245, 158, 11, 0.4); color: #fbbf24; justify-content: center; display: flex; align-items: center; gap: 5px;">
-                    ⚡ Menú GOLD
-                  </button>
-                  <button class="action-btn" onclick="openSmModal('wheel')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(168, 85, 247, 0.4); color: #c084fc; justify-content: center; display: flex; align-items: center; gap: 5px;">
-                    🎡 Gira La Rueda
-                  </button>
-                  <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(6, 182, 212, 0.4); color: #38bdf8; justify-content: center; display: flex; align-items: center; gap: 5px;">
-                    🏷️ Tema de Sala
-                  </button>
-                  <button class="action-btn" onclick="openSmModal('radar')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
-                    🔭 Radar Tomboy
+                <!-- Contenido de la Pantalla Mobile de Instagram -->
+                <div class="phone-content-area">
+                  <!-- Header del Perfil Mobile -->
+                  <div class="phone-header-nav">
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                      <i data-lucide="lock" style="width: 11px; height: 11px; color: #888;"></i>
+                      <span>sambartonn23</span>
+                      <i data-lucide="chevron-down" style="width: 12px; height: 12px; color: #888;"></i>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                      <i data-lucide="plus-square" style="width: 16px; height: 16px;"></i>
+                      <i data-lucide="menu" style="width: 16px; height: 16px;"></i>
+                    </div>
+                  </div>
+
+                  <!-- Fila Avatar + Estadísticas -->
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                    <div class="insta-avatar-ring">
+                      <img src="/artifacts/streamate_audit/profile.png" alt="Sam Barton" class="insta-avatar-img" onerror="this.src='/artifacts/test_public_profile_verified.png'">
+                    </div>
+                    <div class="insta-stats-group">
+                      <div>
+                        <div class="insta-stat-num">24</div>
+                        <div class="insta-stat-lbl">Posts</div>
+                      </div>
+                      <div>
+                        <div class="insta-stat-num">14.8K</div>
+                        <div class="insta-stat-lbl">Seguidores</div>
+                      </div>
+                      <div>
+                        <div class="insta-stat-num">312</div>
+                        <div class="insta-stat-lbl">Seguidos</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bloque de Bio de Sam Barton -->
+                  <div class="insta-bio-block">
+                    <div style="font-weight: 800; font-size: 12px; color: #fff;">Sam Barton ⚡</div>
+                    <div style="font-size: 10px; color: #94a3b8;">Creadora Digital • Modelo & Músico</div>
+                    <div style="margin-top: 3px;">
+                      🎸 Tomboy vibes & acoustic chords<br>
+                      🏍️ Tech, motorcycles & late night chills<br>
+                      🗝️ VIP access & private lounge below ⬇️
+                    </div>
+                    <div style="margin-top: 4px; display: flex; align-items: center; gap: 4px; color: #38bdf8; font-weight: 600; font-size: 10px;">
+                      <i data-lucide="link" style="width: 10px; height: 10px;"></i>
+                      <span>loyalfans.com/samm_bartonn</span>
+                    </div>
+                  </div>
+
+                  <!-- Botones de Acción Mobile -->
+                  <div class="insta-actions-row">
+                    <button class="insta-action-btn primary" onclick="executeChloeSkill('daily_strategy')">Estrategia</button>
+                    <button class="insta-action-btn" onclick="executeChloeSkill('stories_pack')">Stories</button>
+                    <button class="insta-action-btn" onclick="openInstagramProfile()"><i data-lucide="external-link" style="width:11px; height:11px; vertical-align:middle;"></i> Perfil</button>
+                  </div>
+
+                  <!-- Fila de Historias Destacadas (Highlights) -->
+                  <div class="insta-highlights-row">
+                    <div class="insta-highlight-item" onclick="executeChloeSkill('caption_tomboy')">
+                      <div class="insta-highlight-circle">🎸</div>
+                      <span>Ukelele</span>
+                    </div>
+                    <div class="insta-highlight-item" onclick="executeChloeSkill('caption_tomboy')">
+                      <div class="insta-highlight-circle">🏍️</div>
+                      <span>Moto</span>
+                    </div>
+                    <div class="insta-highlight-item" onclick="executeChloeSkill('caption_tomboy')">
+                      <div class="insta-highlight-circle">💻</div>
+                      <span>Tech</span>
+                    </div>
+                    <div class="insta-highlight-item" onclick="executeChloeSkill('stories_pack')">
+                      <div class="insta-highlight-circle">🐺</div>
+                      <span>Backstage</span>
+                    </div>
+                  </div>
+
+                  <!-- Pestaña de Grid / Fotos -->
+                  <div style="display: flex; justify-content: space-around; border-top: 1px solid #1f1f1f; padding-top: 6px; font-size: 12px;">
+                    <div style="color: #fff; border-bottom: 2px solid #8B53FF; padding-bottom: 4px; width: 33%; text-align: center;"><i data-lucide="grid" style="width: 14px; height: 14px;"></i></div>
+                    <div style="color: #666; width: 33%; text-align: center;"><i data-lucide="video" style="width: 14px; height: 14px;"></i></div>
+                    <div style="color: #666; width: 33%; text-align: center;"><i data-lucide="user" style="width: 14px; height: 14px;"></i></div>
+                  </div>
+
+                  <!-- 3x3 Photo Grid con thumbnails estéticos -->
+                  <div class="insta-photo-grid">
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('ukelele')">
+                      <img src="/artifacts/streamate_audit/profile.png" alt="Ukelele Acoustic">
+                      <div class="hover-overlay"><span>❤️ 1.4K</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('jacket')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #2b1055, #7597de); display:flex; align-items:center; justify-content:center; font-size:20px;">🎸</div>
+                      <div class="hover-overlay"><span>❤️ 980</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('tech')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #1e2432, #10b981); display:flex; align-items:center; justify-content:center; font-size:20px;">💻</div>
+                      <div class="hover-overlay"><span>❤️ 1.1K</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('biker')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #111, #444); display:flex; align-items:center; justify-content:center; font-size:20px;">🏍️</div>
+                      <div class="hover-overlay"><span>❤️ 2.2K</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('lounge')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #8B53FF, #1AE589); display:flex; align-items:center; justify-content:center; font-size:20px;">🐺</div>
+                      <div class="hover-overlay"><span>❤️ 1.8K</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('morning')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #d97706, #f59e0b); display:flex; align-items:center; justify-content:center; font-size:20px;">☕</div>
+                      <div class="hover-overlay"><span>❤️ 850</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('fitness')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #0284c7, #38bdf8); display:flex; align-items:center; justify-content:center; font-size:20px;">⚡</div>
+                      <div class="hover-overlay"><span>❤️ 1.6K</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('mirror')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #e11d48, #fb7185); display:flex; align-items:center; justify-content:center; font-size:20px;">📸</div>
+                      <div class="hover-overlay"><span>❤️ 2.4K</span></div>
+                    </div>
+                    <div class="insta-grid-thumb" onclick="previewInstaPost('night')">
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #4c1d95, #c084fc); display:flex; align-items:center; justify-content:center; font-size:20px;">🌙</div>
+                      <div class="hover-overlay"><span>❤️ 3.1K</span></div>
+                    </div>
+                  </div>
+
+                  <!-- Botón para abrir perfil oficial -->
+                  <button class="action-btn" onclick="openInstagramProfile()" style="font-size: 11px; padding: 7px 0; justify-content: center; width: 100%; border-color: rgba(240, 148, 51, 0.4); color: #f97316;">
+                    <i data-lucide="instagram" style="width: 13px; height: 13px;"></i>
+                    Abrir @sambartonn23 en Instagram Web
                   </button>
                 </div>
               </div>
             </div>
 
-            <!-- 1. KPIs Compactos de Estado -->
-            <div class="roxanne-kpi-stack">
-              <div class="roxanne-kpi-mini">
-                <div class="title">Motor Activo</div>
-                <div class="val" style="color: var(--primary-light);">Qwen 2.5 (7B)</div>
-                <div class="sub">100% Local & Gratis</div>
-              </div>
-
-              <div class="roxanne-kpi-mini">
-                <div class="title">Servidor Ollama</div>
-                <div class="val" style="color: var(--success);">localhost:11434</div>
-                <div class="sub">100% GPU Activo</div>
-              </div>
-
-              <div class="roxanne-kpi-mini">
-                <div class="title">Servidor SIREN</div>
-                <div class="val" id="server-kpi-status" style="color: #38bdf8;">Puerto 8888</div>
-                <div class="sub">API Server Activo</div>
-              </div>
-
-              <div class="roxanne-kpi-mini">
-                <div class="title">Regla Idioma</div>
-                <div class="val" style="color: var(--secondary);">EN Def / ES In</div>
-                <div class="sub">Bilingüe Automático</div>
-              </div>
-            </div>
-
-            <!-- 2. Panel Selector de Motor LLM -->
-            <div class="card" style="padding: 16px;">
-              <div style="font-size: 13px; font-weight: 800; color: #fff; margin-bottom: 12px; display:flex; align-items:center; gap:8px;">
-                <i data-lucide="cpu" style="width:16px; height:16px; color:var(--primary-light);"></i>
-                Selector de Motor de IA
-              </div>
-
-              <!-- Motores Locales -->
-              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
-                <div style="font-size: 11px; font-weight: 700; color: var(--primary-light); margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
-                  <i data-lucide="hard-drive" style="width:12px; height:12px;"></i> Local (Ollama • Gratis & Privado)
+            <!-- ============================================== -->
+            <!-- COMPLEMENTO 3: DIANA (AUDITORÍA FINANCIERA) -->
+            <!-- ============================================== -->
+            <div id="panel-tools-diana" class="assistant-tools-panel" style="display:none; flex-direction:column; gap:14px;">
+              <div class="card" style="padding: 16px; border-color: rgba(16, 185, 129, 0.35); background: rgba(16, 185, 129, 0.04);">
+                <div style="font-size: 13px; font-weight: 800; color: #34d399; margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="wallet" style="width: 15px; height: 15px;"></i>
+                  Auditoría Financiera en Vivo
                 </div>
-                <div style="display:flex; flex-direction:column; gap:8px;">
-                  <label style="display:flex; align-items:center; gap:8px; font-size:11px; cursor:pointer;">
-                    <input type="radio" name="ai-engine" value="qwen2.5:7b-instruct" checked onchange="syncRadioWithModelSelect(this.value)">
-                    <strong>qwen2.5:7b-instruct</strong>
-                    <span class="table-badge badge-success" style="font-size:9px; padding:1px 5px; margin-left:auto;">Activo</span>
-                  </label>
-                  <label style="display:flex; align-items:center; gap:8px; font-size:11px; color:var(--text-dim); cursor:pointer;">
-                    <input type="radio" name="ai-engine" value="qwen2.5:14b-instruct" onchange="syncRadioWithModelSelect(this.value)">
-                    <span>qwen2.5:14b-instruct</span>
-                    <span class="table-badge badge-warning" style="font-size:9px; padding:1px 5px; margin-left:auto;">Descargable</span>
-                  </label>
+                <div style="display:flex; flex-direction:column; gap:10px;">
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                    <span style="color:var(--text-dim);">Balance LoyalFans:</span>
+                    <strong style="color:#10b981; font-size:14px;">$27.19 USD</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                    <span style="color:var(--text-dim);">Facturado Octubre:</span>
+                    <strong style="color:#fff;">$20.00 USD</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; font-size:12px;">
+                    <span style="color:var(--text-dim);">Faltante Cobro ($50):</span>
+                    <strong style="color:#f59e0b;">$22.81 USD</strong>
+                  </div>
+                  <div style="background: rgba(0,0,0,0.3); border-radius: 6px; height: 6px; overflow: hidden; margin-top: 4px;">
+                    <div style="width: 54.38%; height: 100%; background: #10b981;"></div>
+                  </div>
                 </div>
               </div>
 
-              <!-- Motores en la Nube -->
-              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 12px; border-radius: 8px;">
-                <div style="font-size: 11px; font-weight: 700; color: var(--secondary); margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
-                  <i data-lucide="cloud" style="width:12px; height:12px;"></i> Cloud (Google AGY SDK)
+              <!-- Simulador de Split Streamate -->
+              <div class="card" style="padding: 16px;">
+                <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 10px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="calculator" style="width: 14px; height: 14px; color:#10b981;"></i>
+                  Calculadora Split Streamate (50% de 35%)
                 </div>
-                <div style="display:flex; flex-direction:column; gap:8px;">
-                  <label style="display:flex; align-items:center; gap:8px; font-size:11px; cursor:pointer;">
-                    <input type="radio" name="ai-engine" value="gemini-2.5-pro" onchange="syncRadioWithModelSelect(this.value)">
-                    <span>Gemini 2.5 Pro</span>
-                    <span class="table-badge badge-info" style="font-size:9px; padding:1px 5px; margin-left:auto;">Cloud</span>
-                  </label>
-                  <label style="display:flex; align-items:center; gap:8px; font-size:11px; color:var(--text-dim); cursor:pointer;">
-                    <input type="radio" name="ai-engine" value="gemini-2.5-flash" onchange="syncRadioWithModelSelect(this.value)">
-                    <span>Gemini 2.5 Flash</span>
-                    <span class="table-badge badge-purple" style="font-size:9px; padding:1px 5px; margin-left:auto;">Rápido</span>
-                  </label>
+                <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 10px; line-height: 1.4;">
+                  Por cada <strong>100 Gold</strong> facturados en la sala ($100 USD), el 35% del estudio son <strong>$35 USD</strong>. Tu neto correspondiente al 50% es <strong>$17.50 USD</strong>.
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <input type="number" id="sim-sm-gold-input" value="100" placeholder="Gold" style="background:rgba(0,0,0,0.3); border:1px solid var(--border-color); color:#fff; border-radius:6px; padding:6px 8px; width:80px; font-size:12px;">
+                  <button class="action-btn" onclick="calculateDianaSplit()" style="font-size:11px; padding:6px 12px; border-color:rgba(16, 185, 129, 0.4); color:#34d399;">
+                    Calcular Neto
+                  </button>
+                </div>
+                <div id="sim-sm-result" style="margin-top: 10px; font-size: 11px; color: #34d399; font-weight: 700;">
+                  Neto estimado para Sam: $17.50 USD
                 </div>
               </div>
             </div>
 
-            <!-- 3. Tarjeta Informativa de Asistente de Modelo Webcam -->
-            <div class="card" style="padding: 16px; background: rgba(147, 51, 234, 0.05); border-color: rgba(147, 51, 234, 0.3);">
-              <div style="font-size: 12px; font-weight: 800; color: #d8b4fe; margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
-                <i data-lucide="shield-check" style="width:14px; height:14px; color:#c084fc;"></i>
-                Tu Asistente & Estratega Personal
+            <!-- ============================================== -->
+            <!-- COMPLEMENTO 4: ELECTRA (TRÁFICO & ALGORITMOS) -->
+            <!-- ============================================== -->
+            <div id="panel-tools-electra" class="assistant-tools-panel" style="display:none; flex-direction:column; gap:14px;">
+              <div class="card" style="padding: 16px; border-color: rgba(6, 182, 212, 0.35); background: rgba(6, 182, 212, 0.04);">
+                <div style="font-size: 13px; font-weight: 800; color: #38bdf8; margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="cpu" style="width: 15px; height: 15px;"></i>
+                  Radar de Algoritmos & Tráfico
+                </div>
+                <div style="display:flex; flex-direction:column; gap:10px; font-size:11px;">
+                  <div style="display:flex; justify-content:space-between;">
+                    <span style="color:var(--text-dim);">LoyalFans Cooldown:</span>
+                    <strong style="color:#10b981;">Listo para Bump (3.5h superadas)</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between;">
+                    <span style="color:var(--text-dim);">Streamate Conversion Score:</span>
+                    <strong style="color:#38bdf8;">8.4 / 10 (Alta retención)</strong>
+                  </div>
+                  <div style="display:flex; justify-content:space-between;">
+                    <span style="color:var(--text-dim);">Stripchat Keyword Power:</span>
+                    <strong style="color:#c084fc;">#Tomboy #Gamer #Fit</strong>
+                  </div>
+                </div>
               </div>
-              <p style="font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px;">
-                Roxanne está configurada para orientarte en cómo cerrar privados rápidos en Streamate, dinamizar propinas de Lovense en Stripchat y vender contenido en LoyalFans, manteniendo siempre tu identidad de tomboy inteligente y versátil.
-              </p>
-              <div style="display:flex; flex-direction:column; gap:5px; font-size:11px; color:var(--text-dim);">
-                <div>• <strong>Streamate:</strong> Impulsar EPH ($2.99 / $3.99 min).</div>
-                <div>• <strong>Stripchat:</strong> Velocidad de tokens y vibraciones.</div>
-                <div>• <strong>LoyalFans:</strong> Bumps cada 3.5h y DMs exclusivos.</div>
+
+              <div class="card" style="padding: 16px;">
+                <div style="font-size: 12px; font-weight: 800; color: #fff; margin-bottom: 8px;">
+                  ⚡ Acción Rápida de Algoritmo
+                </div>
+                <button class="action-btn" onclick="useQuickPrompt('Electra, haz una auditoría rápida de mis tags y ranking actual en LoyalFans y Streamate')" style="font-size:11px; padding:8px 10px; width:100%; border-color:rgba(6, 182, 212, 0.4); color:#38bdf8; justify-content:center;">
+                  🚀 Auditar Posición en el Feed Ahora
+                </button>
               </div>
             </div>
 
@@ -4022,7 +4584,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
       document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
 
-      const target = document.getElementById(tabId);
+      const target = document.getElementById(tabId) || 
+        (tabId === 'tab-asistentes' ? document.getElementById('tab-roxanne-copilot') : null) || 
+        (tabId === 'tab-roxanne-copilot' ? document.getElementById('tab-asistentes') : null);
       if (target) target.classList.add('active');
 
       const clickedBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
@@ -4038,7 +4602,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         'tab-flujos': { t: 'Plan de Trabajo & Flujos Recomendados', d: 'Estrategia 24/7 y embudo de conversión para Sam Barton', icon: 'git-merge' },
         'tab-datascience': { t: 'Ciencia de Datos & Analítica de Embudo', d: 'Métricas empíricas reales: Open Rate 22.5%, Conversión 5.2% y Modelos Predictivos', icon: 'bar-chart-3' },
         'tab-language-rules': { t: 'Reglas de Idioma & Automatización', d: 'Protocolo estricto: 100% English saliente y Español solo inbound si el fan escribe en español', icon: 'languages' },
-        'tab-roxanne-copilot': { t: 'ROXANNE Copilot & Selector Multi-Modelo', d: 'Inferencia local con Qwen 2.5 (Ollama) o Cloud (Gemini) con preservación de arquetipo', icon: 'bot' },
+        'tab-asistentes': { t: 'Asistentes IA de Sam Barton', d: 'Ecosistema multi-agente especializado: Transmisión Webcam, Instagram & Redes, Finanzas y Tráfico', icon: 'bot' },
+        'tab-roxanne-copilot': { t: 'Asistentes IA de Sam Barton', d: 'Ecosistema multi-agente especializado: Transmisión Webcam, Instagram & Redes, Finanzas y Tráfico', icon: 'bot' },
         'tab-api-catalog': { t: 'Catálogo de APIs & Endpoints', d: 'Herramientas de alta velocidad y automatizaciones con sesión activa', icon: 'terminal' }
       };
 
@@ -4324,7 +4889,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     // ==========================================
     // ROXANNE COPILOT LIVE CHAT ENGINE
     // ==========================================
-    let copilotChatHistory = [];
 
     async function checkOllamaStatus() {
       const statusBadge = document.getElementById('chat-engine-status');
@@ -4451,76 +5015,218 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     // ==========================================
     // 💬 HISTORIAL Y CHAT PERSISTENTE CON ROXANNE
     // ==========================================
-    copilotChatHistory = [];
+    // ==============================================================
+    // 💬 ECOSISTEMA MULTI-AGENTE: ROXANNE, CHLOE, DIANA & ELECTRA
+    // ==============================================================
+    let activeAssistant = 'roxanne';
+    let copilotChatHistory = [];
+    const assistantChatHistories = {
+      roxanne: [],
+      chloe: [],
+      diana: [],
+      electra: []
+    };
 
+    const ASSISTANTS_DATA = {
+      roxanne: {
+        id: 'roxanne',
+        name: 'ROXANNE',
+        avatarText: 'RX',
+        gradient: 'linear-gradient(135deg, #9333ea, #06b6d4)',
+        badge: 'Asistente de Modelo Webcam',
+        badgeClass: 'badge-purple',
+        desc: 'Entrenada exclusivamente para Sam Barton (@sambartonn23) • LoyalFans, Stripchat, Streamate',
+        placeholder: 'Escribe a Roxanne o pega un mensaje de un fan aquí...',
+        rightHeader: 'Herramientas Streamate & Estado',
+        welcome: '¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, responder y entrenar cómo contestar a fans en LoyalFans, Stripchat o Streamate, planear metas de sala con Lovense o armar tus dinámicas. ¿En qué trabajamos hoy? 🐺✨',
+        pills: [
+          { label: '💬 "Fan pide rebaja para privado en Streamate"', prompt: '¿Cómo respondo a un fan que me pide rebaja para ir a privado en Streamate?' },
+          { label: '🎯 "Metas Lovense para show de hoy en Stripchat"', prompt: 'Ayúdame a planear las metas de propinas con Lovense para el show de hoy en Stripchat' },
+          { label: '🏍️ "What motorcycle do you ride?" (EN)', prompt: 'Hey Sam! What motorcycle do you ride?' },
+          { label: '📹 "Hola hermosa, ¿haces videollamadas?" (ES)', prompt: 'Hola hermosa, qué linda estás. ¿Haces videollamadas privadas?' },
+          { label: '🎸 "Sugerir toque de ukelele para motivar privado"', prompt: '¿Cómo sugerirle a un fan que toco ukelele en privado para motivarlo a entrar?' }
+        ]
+      },
+      chloe: {
+        id: 'chloe',
+        name: 'CHLOE',
+        avatarText: 'CH',
+        gradient: 'linear-gradient(135deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)',
+        badge: 'Estratega de Instagram & Social Media',
+        badgeClass: 'badge-warning',
+        desc: 'Especialista en Instagram de Modelo (@sambartonn23) • Stories, Funnel SFW a LoyalFans/Streamate, Captions en Inglés',
+        placeholder: 'Pide a Chloe ideas de historias, captions en inglés, feedback del feed o respuestas a DMs...',
+        rightHeader: 'Herramientas Instagram & Visor Mobile',
+        welcome: '¡Hola Sam! Soy Chloe, tu estratega especializada para tu cuenta de Instagram de modelo (@sambartonn23). Te ayudaré a diseñar el feed perfecto, crear packs de historias interactivas con stickers, redactar captions magnéticos en inglés y convertir seguidores en fans de LoyalFans y Streamate sin riesgo de shadowban. ¿Qué publicamos o analizamos hoy? 📸✨',
+        pills: [
+          { label: '⚡ "Estrategia de Instagram de hoy para @sambartonn23"', prompt: 'Chloe, por favor genera la estrategia de Instagram de hoy para @sambartonn23 con horarios, historias y llamada a la acción.' },
+          { label: '📸 "Pack de 4 historias interactivas de hoy"', prompt: 'Chloe, dame un pack de 4 historias interactivas para publicar hoy con fotos, stickers y copy en inglés.' },
+          { label: '✍️ "Caption en inglés tomboy & ukelele"', prompt: 'Escribe un caption magnético en inglés para una foto mía tocando ukelele con look tomboy relajado.' },
+          { label: '🛡️ "Hashtags seguros y regla anti-shadowban"', prompt: '¿Cuáles son los hashtags seguros y palabras permitidas para no caer en shadowban en Meta hoy?' },
+          { label: '⏰ "Mejores horarios de publicación hoy"', prompt: '¿Cuáles son los mejores horarios hoy para publicar en Instagram y captar tráfico de USA y Europa?' }
+        ]
+      },
+      diana: {
+        id: 'diana',
+        name: 'DIANA',
+        avatarText: 'DN',
+        gradient: 'linear-gradient(135deg, #10b981, #059669)',
+        badge: 'Auditora Financiera & Splits',
+        badgeClass: 'badge-success',
+        desc: 'Supervisión contable y financiera • Split 50% de 35% Streamate, Payouts LoyalFans ($50 USD), Cosmo & Paxum',
+        placeholder: 'Consulta a Diana sobre balances, proyecciones de cobro o simulaciones de comisiones...',
+        rightHeader: 'Métricas Financieras & Simulador',
+        welcome: '¡Hola Sam! Soy Diana, tu auditora financiera y especialista de pagos. Estoy lista para monitorear tus balances en tiempo real, calcular tus splits exactos de Streamate (50% de tu 35%), verificar tu umbral de cobro de $50 USD en LoyalFans y proteger tu flujo de caja. ¿Qué revisamos hoy? 💰📊',
+        pills: [
+          { label: '💰 "Calcular mi ganancia neta en Streamate hoy"', prompt: 'Diana, si genero 150 Gold hoy en Streamate, ¿cuánto es mi neto real teniendo en cuenta el 50% de mi 35% de estudio?' },
+          { label: '📈 "Estado del payout mínimo de $50 en LoyalFans"', prompt: '¿Cuánto me falta exactamente para el corte de cobro de $50 USD en LoyalFans con mi balance actual?' },
+          { label: '💳 "Cosmo Payment vs Paxum: comisiones"', prompt: 'Compara las comisiones y tiempos de retiro entre Cosmo Payment y Paxum para modelos en Colombia.' },
+          { label: '🎯 "Proyección de EPH a $2.99 y $3.99/min"', prompt: 'Calcula cuánto facturo por cada hora de privado continuo a $2.99 y exclusivo a $3.99 en Streamate.' }
+        ]
+      },
+      electra: {
+        id: 'electra',
+        name: 'ELECTRA',
+        avatarText: 'EL',
+        gradient: 'linear-gradient(135deg, #f59e0b, #06b6d4)',
+        badge: 'Ingeniería de Algoritmos & Tráfico',
+        badgeClass: 'badge-info',
+        desc: 'Optimización de visibilidad • Ciclo de Bump 3.5h LoyalFans, Ranking #1 en Feed, Free Chat Retention SM',
+        placeholder: 'Pide a Electra análisis de algoritmos, cooldowns o hacks de posicionamiento...',
+        rightHeader: 'Radar Algorítmico & Tráfico',
+        welcome: '¡Hola Sam! Soy Electra, tu especialista en ingeniería algorítmica y tráfico. Mi trabajo es mantenerte en la cima de los feeds: controlo tus ciclos de Bump cada 3.5h en LoyalFans, audito tu retención en Streamate y posiciono tu perfil en Stripchat. Vamos a conquistar los rankings hoy. ⚡🚀',
+        pills: [
+          { label: '⚡ "Estado del Bump Cooldown de LoyalFans (3.5h)"', prompt: 'Electra, ¿cómo está mi tiempo de cooldown de bump en LoyalFans y cuál es el momento óptimo para re-bumpear?' },
+          { label: '🚀 "Cómo aumentar retención en primeros 30s de Streamate"', prompt: '¿Qué técnicas auditadas aumentan la retención de miembros en free chat de Streamate para que el algoritmo me suba a página 1?' },
+          { label: '🏷️ "Tags de Stripchat con mayor tráfico tomboy"', prompt: '¿Cuáles son los tags con menor competencia y mayor tráfico calificado en Stripchat hoy?' },
+          { label: '🛡️ "Auditoría de Shadowban preventivo"', prompt: 'Revisa si mis últimos textos o tags tienen algún riesgo de limitación algorítmica.' }
+        ]
+      }
+    };
 
-    async function loadCopilotChatHistory() {
+    function selectAssistant(assistantId) {
+      if (!ASSISTANTS_DATA[assistantId]) return;
+      activeAssistant = assistantId;
+      const data = ASSISTANTS_DATA[assistantId];
+
+      // 1. Highlight active card in grid
+      document.querySelectorAll('.assistant-card').forEach(c => c.classList.remove('active'));
+      const activeCard = document.getElementById(`card-assistant-${assistantId}`);
+      if (activeCard) activeCard.classList.add('active');
+
+      // 2. Update Chat Header
+      const avatarEl = document.getElementById('active-assistant-avatar');
+      const nameEl = document.getElementById('active-assistant-name');
+      const badgeEl = document.getElementById('active-assistant-badge');
+      const descEl = document.getElementById('active-assistant-desc');
+      const inputEl = document.getElementById('copilot-input');
+      const typingText = document.getElementById('chat-typing-text');
+      const rightHeader = document.getElementById('right-panel-header-title');
+
+      if (avatarEl) {
+        avatarEl.textContent = data.avatarText;
+        avatarEl.style.background = data.gradient;
+      }
+      if (nameEl) nameEl.textContent = data.name;
+      if (badgeEl) {
+        badgeEl.textContent = data.badge;
+        badgeEl.className = `table-badge ${data.badgeClass}`;
+      }
+      if (descEl) descEl.textContent = data.desc;
+      if (inputEl) inputEl.placeholder = data.placeholder;
+      if (typingText) typingText.textContent = `${data.name} está pensando la mejor respuesta...`;
+      if (rightHeader) rightHeader.textContent = data.rightHeader;
+
+      // 3. Switch Right Panel Tools
+      document.querySelectorAll('.assistant-tools-panel').forEach(p => p.style.display = 'none');
+      const targetPanel = document.getElementById(`panel-tools-${assistantId}`);
+      if (targetPanel) {
+        targetPanel.style.display = 'flex';
+      }
+
+      // 4. Update Prompt Pills
+      updatePromptPills(assistantId);
+
+      // 5. Render Chat Messages for this assistant
+      renderAssistantChat(assistantId);
+      lucide.createIcons();
+    }
+
+    function updatePromptPills(assistantId) {
+      const pillsContainer = document.getElementById('assistant-prompt-pills');
+      if (!pillsContainer) return;
+      pillsContainer.innerHTML = '';
+      const data = ASSISTANTS_DATA[assistantId] || ASSISTANTS_DATA.roxanne;
+
+      data.pills.forEach(p => {
+        const btn = document.createElement('button');
+        btn.className = 'prompt-pill';
+        btn.innerHTML = p.label;
+        btn.onclick = () => useQuickPrompt(p.prompt);
+        pillsContainer.appendChild(btn);
+      });
+    }
+
+    function renderAssistantChat(assistantId) {
       const box = document.getElementById('chat-messages-box');
       if (!box) return;
+      box.innerHTML = '';
 
-      // Intentar cargar desde el backend SQLite
+      const history = assistantChatHistories[assistantId] || [];
+      const data = ASSISTANTS_DATA[assistantId] || ASSISTANTS_DATA.roxanne;
+
+      if (history.length === 0) {
+        // Mensaje de bienvenida inicial
+        const welcomeDiv = document.createElement('div');
+        welcomeDiv.className = 'chat-msg sam';
+        welcomeDiv.innerHTML = `
+          <div class="chat-msg-avatar" style="background: ${data.gradient}; font-weight:bold;">${data.avatarText}</div>
+          <div class="chat-msg-body">
+            <div class="chat-msg-meta">
+              <strong style="color: var(--primary-light);">${data.name} (${data.badge})</strong>
+              <span>• Lista</span>
+              <span class="table-badge ${data.badgeClass}" style="font-size: 9px; padding: 1px 6px;">Asistente Activa</span>
+            </div>
+            <div class="chat-bubble">
+              ${data.welcome}
+            </div>
+          </div>
+        `;
+        box.appendChild(welcomeDiv);
+      } else {
+        history.forEach(item => {
+          appendChatMessage(item.sender, item.message, item.lang || 'es', item.model || '', item.timestamp, false);
+        });
+      }
+      box.scrollTop = box.scrollHeight;
+    }
+
+    async function loadCopilotChatHistory() {
+      // Intentar cargar historial previo de Roxanne desde SQLite
       try {
-        const res = await fetch('http://localhost:8888/api/chat_history');
+        const res = await fetch(`${getApiBase()}/api/chat_history`);
         if (res.ok) {
           const data = await res.json();
           if (data.history && data.history.length > 0) {
-            box.innerHTML = '';
-            copilotChatHistory = [];
+            assistantChatHistories.roxanne = [];
             data.history.forEach(item => {
-              appendChatMessage(item.sender, item.message, 'es', item.model, item.timestamp, false);
-              copilotChatHistory.push({
-                role: item.sender === 'sam' ? 'user' : 'assistant',
-                content: item.message
+              assistantChatHistories.roxanne.push({
+                sender: item.sender,
+                message: item.message,
+                lang: 'es',
+                model: item.model,
+                timestamp: item.timestamp
               });
             });
-            box.scrollTop = box.scrollHeight;
-            return;
           }
         }
       } catch (e) {
-        console.log('Error conectando con endpoint de historial backend, usando localStorage:', e);
+        console.log('Error conectando con endpoint de historial backend:', e);
       }
 
-      // Fallback a localStorage
-      const localSaved = (localStorage.getItem('siren_roxanne_chat_history') || localStorage.getItem('velvet_roxanne_chat_history'));
-      if (localSaved) {
-        try {
-          const parsed = JSON.parse(localSaved);
-          if (parsed && parsed.length > 0) {
-            box.innerHTML = '';
-            copilotChatHistory = [];
-            parsed.forEach(item => {
-              appendChatMessage(item.sender, item.message, 'es', item.model, item.timestamp, false);
-              copilotChatHistory.push({
-                role: item.sender === 'sam' ? 'user' : 'assistant',
-                content: item.message
-              });
-            });
-            box.scrollTop = box.scrollHeight;
-            return;
-          }
-        } catch (e) {
-          console.error('Error parseando localStorage:', e);
-        }
-      }
-
-      // Mensaje de bienvenida inicial si no hay historial
-      box.innerHTML = `
-        <div class="chat-msg sam">
-          <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
-          <div class="chat-msg-body">
-            <div class="chat-msg-meta">
-              <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo Webcam)</strong>
-              <span>• Lista</span>
-              <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Co-Piloto Activa</span>
-            </div>
-            <div class="chat-bubble">
-              ¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, estrategias de sala, respuestas a fans en LoyalFans, Stripchat y Streamate, o configuración de juguetes Lovense. ¿En qué trabajamos hoy? 🐺✨
-            </div>
-          </div>
-        </div>
-      `;
-      lucide.createIcons();
+      // Inicializar pastillas y asistente por defecto
+      updatePromptPills('roxanne');
+      selectAssistant('roxanne');
     }
 
     function appendChatMessage(sender, text, lang = 'es', model = '', timeStr = null, saveLocal = true) {
@@ -4531,6 +5237,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       
       const currentTime = timeStr || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const escapedText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      const currentAssistantData = ASSISTANTS_DATA[activeAssistant] || ASSISTANTS_DATA.roxanne;
 
       if (sender === 'sam') {
         msgDiv.innerHTML = `
@@ -4545,13 +5252,19 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           </div>
         `;
       } else {
+        const asstName = currentAssistantData.name;
+        const asstGrad = currentAssistantData.gradient;
+        const asstAv = currentAssistantData.avatarText;
+        const asstBadge = currentAssistantData.badge;
+        const asstBadgeClass = currentAssistantData.badgeClass;
+
         msgDiv.innerHTML = `
-          <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
+          <div class="chat-msg-avatar" style="background: ${asstGrad}; font-weight:bold;">${asstAv}</div>
           <div class="chat-msg-body">
             <div class="chat-msg-meta">
-              <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo)</strong>
+              <strong style="color: var(--primary-light);">${asstName} (${asstBadge})</strong>
               <span>• ${currentTime}</span>
-              <span class="table-badge badge-purple" style="font-size:9px; padding:1px 6px;">IA Local</span>
+              <span class="table-badge ${asstBadgeClass}" style="font-size:9px; padding:1px 6px;">IA Activa</span>
             </div>
             <div class="chat-bubble">
               ${escapedText}
@@ -4570,50 +5283,28 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       lucide.createIcons();
 
       if (saveLocal) {
-        saveChatToLocalStorage(sender, text, currentTime, model);
-      }
-    }
-
-    function saveChatToLocalStorage(sender, text, timestamp, model) {
-      try {
-        let history = JSON.parse((localStorage.getItem('siren_roxanne_chat_history') || localStorage.getItem('velvet_roxanne_chat_history')) || '[]');
-        history.push({ sender, message: text, timestamp, model });
-        if (history.length > 100) history = history.slice(-100);
-        localStorage.setItem('siren_roxanne_chat_history', JSON.stringify(history));
-      } catch (e) {
-        console.error('Error guardando en localStorage:', e);
+        if (!assistantChatHistories[activeAssistant]) assistantChatHistories[activeAssistant] = [];
+        assistantChatHistories[activeAssistant].push({
+          sender: sender,
+          message: text,
+          lang: lang,
+          model: model,
+          timestamp: currentTime
+        });
       }
     }
 
     async function clearCopilotChat() {
-      copilotChatHistory = [];
-      localStorage.removeItem('velvet_roxanne_chat_history');
-
-      try {
-        await fetch('http://localhost:8888/api/clear_chat_history', { method: 'POST' });
-      } catch (e) {
-        console.log('Error llamando clear en backend:', e);
+      assistantChatHistories[activeAssistant] = [];
+      if (activeAssistant === 'roxanne') {
+        try {
+          await fetch(`${getApiBase()}/api/clear_chat_history`, { method: 'POST' });
+        } catch (e) {
+          console.log('Error llamando clear en backend:', e);
+        }
       }
-
-      const box = document.getElementById('chat-messages-box');
-      if (!box) return;
-      box.innerHTML = `
-        <div class="chat-msg sam">
-          <div class="chat-msg-avatar" style="background: linear-gradient(135deg, #9333ea, #06b6d4); font-weight:bold;">RX</div>
-          <div class="chat-msg-body">
-            <div class="chat-msg-meta">
-              <strong style="color: var(--primary-light);">ROXANNE (Tu Asistente de Modelo Webcam)</strong>
-              <span>• Ahora</span>
-              <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Historial Reiniciado</span>
-            </div>
-            <div class="chat-bubble">
-              Historial de conversación reiniciado. Estoy lista para asistirte con tus transmisiones, estrategias y respuestas a fans. 🐺✨
-            </div>
-          </div>
-        </div>
-      `;
-      lucide.createIcons();
-      showToast('Historial de chat reiniciado');
+      renderAssistantChat(activeAssistant);
+      showToast(`Historial de conversación con ${ASSISTANTS_DATA[activeAssistant].name} reiniciado`);
     }
 
     async function sendCopilotMessage() {
@@ -4633,14 +5324,21 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       if (indicator) indicator.style.display = 'flex';
       if (sendBtn) sendBtn.disabled = true;
 
+      // Armar historial para backend
+      const historyPayload = (assistantChatHistories[activeAssistant] || []).map(item => ({
+        role: item.sender === 'sam' ? 'user' : 'assistant',
+        content: item.message
+      }));
+
       try {
-        const res = await fetch('http://localhost:8888/api/chat', {
+        const res = await fetch(`${getApiBase()}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             message: text,
             model: model,
-            history: copilotChatHistory
+            history: historyPayload,
+            assistant: activeAssistant
           })
         });
 
@@ -4649,11 +5347,9 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         if (indicator) indicator.style.display = 'none';
         if (sendBtn) sendBtn.disabled = false;
 
-        appendChatMessage('roxanne', data.reply, data.detected_lang, data.model);
-        copilotChatHistory.push({ role: 'user', content: text });
-        copilotChatHistory.push({ role: 'assistant', content: data.reply });
+        appendChatMessage(activeAssistant, data.reply, data.detected_lang, data.model);
       } catch (err) {
-        // Direct Ollama fallback
+        // Fallback a Ollama directo si el server falla
         try {
           const directOllama = await fetch('http://localhost:11434/api/chat', {
             method: 'POST',
@@ -4661,8 +5357,8 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
             body: JSON.stringify({
               model: model,
               messages: [
-                { role: 'system', content: `Eres ROXANNE, la Asistente Personal y Estratega exclusiva de la modelo webcam Sam Barton (@sambartonn23). Le hablas directamente a Sam con respeto, calidez, complicidad y profesionalismo en español, ayudándola a responder a fans, planear transmisiones y optimizar sus ingresos.` },
-                ...copilotChatHistory,
+                { role: 'system', content: `Eres ${ASSISTANTS_DATA[activeAssistant].name}, ${ASSISTANTS_DATA[activeAssistant].desc}. Le hablas directamente a Sam Barton (@sambartonn23) en español con respeto, calidez y precisión profesional.` },
+                ...historyPayload,
                 { role: 'user', content: text }
               ],
               stream: false
@@ -4672,14 +5368,98 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           if (indicator) indicator.style.display = 'none';
           if (sendBtn) sendBtn.disabled = false;
           const reply = odata.message?.content || 'Sin respuesta';
-          appendChatMessage('roxanne', reply, 'es', 'Direct Ollama');
-          copilotChatHistory.push({ role: 'user', content: text });
-          copilotChatHistory.push({ role: 'assistant', content: reply });
+          appendChatMessage(activeAssistant, reply, 'es', 'Direct Ollama');
         } catch (ollamaErr) {
           if (indicator) indicator.style.display = 'none';
           if (sendBtn) sendBtn.disabled = false;
-          appendChatMessage('roxanne', `[Aviso ROXANNE]: Error conectando con el motor (${err.message}). Recuerda que el servidor debe estar activo: python src/server/siren_app_server.py`, 'es');
+          appendChatMessage(activeAssistant, `[Aviso ${ASSISTANTS_DATA[activeAssistant].name}]: Error conectando con el motor (${err.message}). Recuerda que el servidor debe estar activo: python src/server/start_tunnel.py`, 'es');
         }
+      }
+    }
+
+    // ==============================================================
+    // 📸 INSTAGRAM SKILLS & HELPER FUNCTIONS (CHLOE & DIANA)
+    // ==============================================================
+    async function executeChloeSkill(skillKey) {
+      if (skillKey === 'daily_strategy') {
+        selectAssistant('chloe');
+        appendChatMessage('sam', 'Chloe, genera la estrategia del día para mi Instagram @sambartonn23', 'es', 'Manual');
+        const indicator = document.getElementById('chat-typing-indicator');
+        if (indicator) indicator.style.display = 'flex';
+
+        try {
+          const res = await fetch(`${getApiBase()}/api/instagram/daily_strategy`);
+          const data = await res.json();
+          if (indicator) indicator.style.display = 'none';
+
+          if (data.success && data.strategy) {
+            const s = data.strategy;
+            let stratMsg = `📸 **Estrategia de Instagram para Hoy (@sambartonn23)**\n\n🎯 **Objetivo:** ${s.objetivo_principal}\n\n`;
+            stratMsg += `📱 **Bloques de Historias Recomendados:**\n`;
+            s.bloques_de_historias.forEach((b, idx) => {
+              stratMsg += `\n**${idx + 1}. ${b.momento}** (${b.formato})\n• Concepto: ${b.concepto}\n• Interacción: ${b.interaccion}\n• Copy sugerido: *"${b.texto_sugerido}"*\n`;
+            });
+            stratMsg += `\n🖼️ **Publicación en Feed:**\n• Tipo: ${s.publicacion_feed.tipo}\n• Copy (EN):\n*"${s.publicacion_feed.caption_en}"*\n• Tags: \`${s.publicacion_feed.hashtags}\`\n\n🛡️ **Regla de Oro:** ${s.regla_de_oro}`;
+            appendChatMessage('chloe', stratMsg, 'es', 'Chloe SMM Engine');
+          } else {
+            appendChatMessage('chloe', '⚠️ No se pudo generar la estrategia automática. ¿Deseas que preparemos un concepto específico para hoy?', 'es');
+          }
+        } catch (e) {
+          if (indicator) indicator.style.display = 'none';
+          appendChatMessage('chloe', `[Aviso CHLOE]: ${e.message}`, 'es');
+        }
+      } else if (skillKey === 'stories_pack') {
+        selectAssistant('chloe');
+        appendChatMessage('sam', 'Chloe, dame el pack de historias de hoy listas para subir', 'es', 'Manual');
+        const indicator = document.getElementById('chat-typing-indicator');
+        if (indicator) indicator.style.display = 'flex';
+
+        try {
+          const res = await fetch(`${getApiBase()}/api/instagram/stories_pack`);
+          const data = await res.json();
+          if (indicator) indicator.style.display = 'none';
+
+          if (data.success && data.stories) {
+            let msg = `✨ **Pack de Historias de Hoy para @sambartonn23 (Listas para Subir):**\n\n`;
+            data.stories.forEach(st => {
+              msg += `📸 **${st.titulo}**\n• Visual: ${st.visual}\n• Sticker / Interacción: ${st.sticker}\n• Copy (EN): *"${st.copy}"*\n• Propósito Algorítmico: ${st.proposito}\n\n`;
+            });
+            msg += `💡 *Tip de Chloe:* Publica cada historia con 2 a 3 horas de separación para mantener el círculo morado activo en el feed de tus seguidores.`;
+            appendChatMessage('chloe', msg, 'es', 'Chloe SMM Engine');
+          }
+        } catch (e) {
+          if (indicator) indicator.style.display = 'none';
+          appendChatMessage('chloe', `[Aviso CHLOE]: ${e.message}`, 'es');
+        }
+      } else if (skillKey === 'caption_tomboy') {
+        selectAssistant('chloe');
+        useQuickPrompt('Chloe, redacta un caption magnético en inglés para una foto mía con guitarra/ukelele y chaqueta tomboy, con llamada a la acción elegante para ir a mi bio.');
+      } else if (skillKey === 'anti_shadowban') {
+        selectAssistant('chloe');
+        useQuickPrompt('¿Cuáles son los términos y hashtags con riesgo de shadowban en Meta hoy y qué sustitutos seguros debemos usar en @sambartonn23?');
+      } else if (skillKey === 'peak_hours') {
+        selectAssistant('chloe');
+        useQuickPrompt('Chloe, indícame los horarios pico ideales hoy para publicar en Instagram según mi audiencia de USA y Europa.');
+      }
+    }
+
+    function openInstagramProfile() {
+      window.open('https://instagram.com/sambartonn23', '_blank');
+    }
+
+    function previewInstaPost(slug) {
+      selectAssistant('chloe');
+      useQuickPrompt(`Chloe, dame una idea de copy en inglés y análisis de engagement para este post de "${slug}" en mi Instagram @sambartonn23.`);
+    }
+
+    function calculateDianaSplit() {
+      const input = document.getElementById('sim-sm-gold-input');
+      const resEl = document.getElementById('sim-sm-result');
+      const val = parseFloat(input ? input.value : 100) || 0;
+      const studio35 = val * 0.35;
+      const samNet = studio35 * 0.50;
+      if (resEl) {
+        resEl.textContent = `Por ${val} Gold ($${val} USD): Estudio recibe $${studio35.toFixed(2)} USD (35%). Neto para Sam: $${samNet.toFixed(2)} USD (50%).`;
       }
     }
 
@@ -4964,6 +5744,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     }
 
     // Inicializar chequeo al cargar y auto-polling cada 25 segundos
+    setTimeout(loadCopilotChatHistory, 400);
     setTimeout(checkOllamaStatus, 500);
     setTimeout(loadLiveFinancials, 600);
     setTimeout(() => loadRealtimePositioning('loyalfans'), 700);
