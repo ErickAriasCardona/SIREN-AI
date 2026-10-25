@@ -552,12 +552,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 def run_server():
     server_address = ("", PORT)
     httpd = ThreadingHTTPServer(server_address, VelvetRequestHandler)
-    print(f"🚀 VELVET AI Command & Server activo en http://localhost:{PORT}")
+    print(f"🚀 SIREN AI Command & Server activo en http://localhost:{PORT}")
     print(f"📡 API de Chat ROXANNE conectada a Ollama en http://localhost:11434")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
-        print("\nDeteniendo servidor...")
+        print("\nDeteniendo servidor SIREN...")
         httpd.server_close()
 
 if __name__ == "__main__":

@@ -1,0 +1,47 @@
+Stream
+Create
+Show Information
+
+You must provide a description in each language you select (1 - 4 languages).
+
+Your changes will be reviewed by our team before they are published. A language with descriptions currently in review are marked bold with an asterisk (*).
+
+English (en)
+
+Español (es) *
+
+Française (fr)
+Italiano (it)
+Nederlandse (nl)
+Portugues (pt)
+Deutsch (de)
+EN
+ES
+FR
+PT
+Headline
+A headline to describe you and get the attention of users (50 - 64 characters)
+
+53
+
+My Show
+A short description of what you intend to do in your show (50 - 255 characters)
+
+209
+
+Turn Ons
+A few of the things that turn you on sexually (50 - 255 characters)
+
+171
+
+Expertise
+Any expertise or talent you have (50 - 255 characters)
+
+202
+
+Cancel
+Save
+
+NEW! Charge customers to send you messages and photos.
+
+Configure Pricing

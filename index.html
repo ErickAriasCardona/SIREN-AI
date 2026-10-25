@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VELVET AI — Command & Intelligence Center | Sam Barton</title>
+  <title>SIREN AI — Command & Intelligence Center | Sam Barton</title>
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -56,7 +56,7 @@
 
 
     /* ========================================== */
-    /* ☀️ MODO CLARO (LIGHT THEME) — VELVET AI   */
+    /* ☀️ MODO CLARO (LIGHT THEME) — SIREN AI   */
     /* ========================================== */
     body.light-theme {
       --bg-dark: #f8fafc;
@@ -1334,8 +1334,8 @@
   <!-- SIDEBAR NAVEGACIÓN -->
   <aside id="sidebar">
     <div class="sidebar-header">
-      <div class="brand-badge"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> VELVET AI v2.5</div>
-      <div class="brand-title">VELVET <span>COMMAND</span></div>
+      <div class="brand-badge"><i data-lucide="sparkles" style="width: 12px; height: 12px;"></i> SIREN AI v2.5</div>
+      <div class="brand-title">SIREN <span>COMMAND</span></div>
       
       <div class="sidebar-model-pill">
         <div class="model-avatar">SB</div>
@@ -1402,7 +1402,7 @@
     <div class="sidebar-footer">
       <div class="system-status">
         <div class="status-dot"></div>
-        <span>VELVET Daemon Activo (Playwright)</span>
+        <span>SIREN Daemon Activo (Playwright)</span>
       </div>
       <div style="font-size: 10px; color: var(--text-dim); display: flex; justify-content: space-between;">
         <span>Obsidian VaultBrain</span>
@@ -1421,7 +1421,7 @@
       </div>
 
       <div class="top-actions">
-        <button id="theme-toggle-btn" class="action-btn" onclick="toggleVelvetTheme()" title="Alternar Modo Claro / Oscuro" style="display:inline-flex; align-items:center; gap:6px;">
+        <button id="theme-toggle-btn" class="action-btn" onclick="toggleSirenTheme()" title="Alternar Modo Claro / Oscuro" style="display:inline-flex; align-items:center; gap:6px;">
           <i data-lucide="sun" id="theme-icon"></i>
           <span id="theme-label">Modo Claro</span>
         </button>
@@ -1905,7 +1905,25 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- PESTAÑA 2: FINANZAS, PAGOS & TIP DETAIL -->
       <!-- ========================================== -->
       <section id="tab-finanzas" class="tab-view">
-        <!-- Barra de Control de Sincronización en Tiempo Real -->
+        <!-- Sub-Pestañas Plataformas en Finanzas -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-finanzas', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Directo • 100% Split)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-finanzas', 'streamate', this)">
+            <i data-lucide="zap"></i> Streamate (Auditoría Estudio Centenario • Solo Consulta)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-finanzas', 'stripchat', this)">
+            <i data-lucide="flame"></i> Stripchat & Lovense (Tokens & Menú de Sala)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-finanzas', 'matriz', this)">
+            <i data-lucide="table"></i> Matriz Consolidada de Pagos
+          </button>
+        </div>
+
+        <!-- 1. SUBTAB LOYALFANS FINANZAS -->
+        <div id="sub-finanzas-loyalfans" class="sub-tab-content">
+          <!-- Barra de Control de Sincronización en Tiempo Real -->
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(147, 51, 234, 0.08); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: 14px 20px;">
           <div style="display: flex; align-items: center; gap: 12px;">
             <span class="status-dot" style="background: #10b981; box-shadow: 0 0 10px #10b981;"></span>
@@ -1970,7 +1988,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <div class="card">
           <div class="card-title">
             <span>💳 Matriz de Métodos de Pago, Fechas y Estados por Plataforma</span>
-            <span class="badge">Datos de Auditoría Velvet</span>
+            <span class="badge">Datos de Auditoría SIREN</span>
           </div>
 
           <table class="custom-table">
@@ -2145,12 +2163,210 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </table>
           </div>
         </div>
+        </div> <!-- Fin de sub-finanzas-loyalfans -->
+
+        <!-- 2. SUBTAB STREAMATE FINANZAS (SOLO CONSULTA / AUDITORIA EXTERNA) -->
+        <div id="sub-finanzas-streamate" class="sub-tab-content" style="display:none;">
+          <div style="background: rgba(245, 158, 11, 0.08); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#fbbf24; box-shadow:0 0 10px #fbbf24;"></span>
+              <div>
+                <strong style="color:#fbbf24; font-size:14px;">Streamate Models: Modo Solo Consulta (Centenario Studio)</strong>
+                <div style="font-size:11px; color:var(--text-muted);">
+                  Streamate es administrado por el estudio satélite externo. SIREN AI monitorea ingresos en tiempo real.
+                </div>
+              </div>
+            </div>
+            <a href="https://streamatemodels.com/reports/earnings" target="_blank" class="action-btn" style="text-decoration:none; font-size:11px;">
+              <i data-lucide="external-link"></i> Ver Reportes en Portal
+            </a>
+          </div>
+
+          <!-- KPIs de Tarifas y Ganancia Neta Sam en Streamate -->
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
+              <div class="kpi-header">
+                <span class="kpi-title">Tarifa Privado (Bruto)</span>
+                <div class="kpi-icon"><i data-lucide="video" style="color:#fbbf24;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#fbbf24;">$2.99 / min</div>
+              <div class="kpi-sub">Pago neto a Sam (50% del 35%): <strong>~$0.52 / min</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #f59e0b;">
+              <div class="kpi-header">
+                <span class="kpi-title">Tarifa Exclusivo (Bruto)</span>
+                <div class="kpi-icon"><i data-lucide="crown" style="color:#f59e0b;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#f59e0b;">$3.99 / min</div>
+              <div class="kpi-sub">Pago neto a Sam (50% del 35%): <strong>~$0.70 / min</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #10b981;">
+              <div class="kpi-header">
+                <span class="kpi-title">Ganancias Semana Actual</span>
+                <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#10b981;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#10b981;">$0.00 USD</div>
+              <div class="kpi-sub">Auditoría en vivo: 0 horas de transmisión esta semana</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #ec4899;">
+              <div class="kpi-header">
+                <span class="kpi-title">Llamadas Directas</span>
+                <div class="kpi-icon"><i data-lucide="phone-call" style="color:#ec4899;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#ec4899;">$3.99 / min</div>
+              <div class="kpi-sub">Video: $3.99/min • Voz: $2.99/min</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SUBTAB STRIPCHAT & LOVENSE FINANZAS -->
+        <div id="sub-finanzas-stripchat" class="sub-tab-content" style="display:none;">
+          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.3); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#f43f5e; box-shadow:0 0 10px #f43f5e;"></span>
+              <div>
+                <strong style="color:#f43f5e; font-size:14px;">Stripchat & Lovense: Monetización por Tokens Freemium</strong>
+                <div style="font-size:11px; color:var(--text-muted);">
+                  Tokens acumulados en sala pública, shows privados interactivos y metas Lovense.
+                </div>
+              </div>
+            </div>
+            <a href="https://stripchat.com/sam_barton" target="_blank" class="action-btn" style="text-decoration:none; font-size:11px;">
+              <i data-lucide="external-link"></i> Abrir Sala Stripchat
+            </a>
+          </div>
+
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+              <div class="kpi-header">
+                <span class="kpi-title">Valor del Token (Creador)</span>
+                <div class="kpi-icon"><i data-lucide="coins" style="color:#f43f5e;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#f43f5e;">$0.05 USD / tk</div>
+              <div class="kpi-sub">100 tokens = <strong>$5.00 USD netos</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+              <div class="kpi-header">
+                <span class="kpi-title">Show Privado</span>
+                <div class="kpi-icon"><i data-lucide="lock" style="color:#a855f7;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#a855f7;">60 tokens / min</div>
+              <div class="kpi-sub">Equivalente a: <strong>$3.00 USD netos / min</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #06b6d4;">
+              <div class="kpi-header">
+                <span class="kpi-title">Juguete Lovense</span>
+                <div class="kpi-icon"><i data-lucide="bluetooth" style="color:#06b6d4;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#06b6d4;">5 Niveles</div>
+              <div class="kpi-sub">Sincronizado con propinas de 1 a 100+ tokens</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #10b981;">
+              <div class="kpi-header">
+                <span class="kpi-title">Fan Club Mensual</span>
+                <div class="kpi-icon"><i data-lucide="heart" style="color:#10b981;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#10b981;">199 tokens</div>
+              <div class="kpi-sub">Suscripción recurrente a muro VIP</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SUBTAB MATRIZ CONSOLIDADA -->
+        <div id="sub-finanzas-matriz" class="sub-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-title">
+              <span>💳 Matriz Consolidada de Métodos de Pago, Fechas y Estados por Plataforma</span>
+              <span class="badge">Datos de Auditoría SIREN</span>
+            </div>
+
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Plataforma</th>
+                  <th>Moneda Base</th>
+                  <th>Comisión Modelo</th>
+                  <th>Frecuencia de Pago</th>
+                  <th>Días de Corte / Pago</th>
+                  <th>Mínimo Retiro</th>
+                  <th>Métodos Soportados</th>
+                  <th>Estado Cuenta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong><i data-lucide="gem" style="width:12px; vertical-align:middle; color:var(--primary-light);"></i> LoyalFans</strong></td>
+                  <td>USD ($) Directo</td>
+                  <td><span class="table-badge badge-success">80% Neto</span></td>
+                  <td>Quincenal (Bi-monthly)</td>
+                  <td>1ro y 16 de cada mes</td>
+                  <td>$50.00 USD</td>
+                  <td>Paxum, Wire, ACH Direct</td>
+                  <td><span class="table-badge badge-warning" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">⚠️ Sin Configurar (Requiere Setup)</span></td>
+                </tr>
+                <tr>
+                  <td><strong><i data-lucide="zap" style="width:12px; vertical-align:middle; color:#fbbf24;"></i> Streamate</strong></td>
+                  <td>Gold / USD</td>
+                  <td><span class="table-badge badge-warning">~30% - 35%</span></td>
+                  <td>Semanal / Quincenal</td>
+                  <td>Cada Miércoles / Quincena</td>
+                  <td>$100.00 USD</td>
+                  <td>Paxum, Wire, Cheque Electrónico</td>
+                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                </tr>
+                <tr>
+                  <td><strong><i data-lucide="flame" style="width:12px; vertical-align:middle; color:#fb7185;"></i> Stripchat</strong></td>
+                  <td>Tokens ($0.05 / tk)</td>
+                  <td><span class="table-badge badge-info">~50% Nominal</span></td>
+                  <td>Semanal</td>
+                  <td>Todos los Martes</td>
+                  <td>$20.00 - $50.00 USD</td>
+                  <td>Paxum, Cripto (USDT/BTC), Wire</td>
+                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                </tr>
+                <tr>
+                  <td><strong><i data-lucide="sparkle" style="width:12px; vertical-align:middle; color:#38bdf8;"></i> Flirt4Free</strong></td>
+                  <td>Créditos VIP</td>
+                  <td><span class="table-badge badge-warning">~30% - 40%</span></td>
+                  <td>Quincenal / Mensual</td>
+                  <td>15 y 30 de cada mes</td>
+                  <td>$100.00 USD</td>
+                  <td>Paxum, ACH, Wire Internacional</td>
+                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </section>
 
       <!-- ========================================== -->
       <!-- PESTAÑA 3: POSICIONAMIENTO & RADAR EN VIVO -->
       <!-- ========================================== -->
-      <section id="tab-posicionamiento" class="tab-view">
+            <section id="tab-posicionamiento" class="tab-view">
+        <!-- Sub-Pestañas Plataformas en Posicionamiento -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-pos', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Radar Recently Updated • Top 23%)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-pos', 'streamate', this)">
+            <i data-lucide="zap"></i> Streamate (Algoritmo EPH • Ganancia por Hora)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-pos', 'stripchat', this)">
+            <i data-lucide="flame"></i> Stripchat (Velocidad de Tokens & Carrusel)
+          </button>
+        </div>
+
+        <!-- 1. SUBTAB LOYALFANS POSICIONAMIENTO -->
+        <div id="sub-pos-loyalfans" class="sub-tab-content">
+
         <!-- ============================================================== -->
         <!-- TARJETA EN TIEMPO REAL: POSICIONAMIENTO, RANKING & ESTADO DE VENTAS -->
         <!-- ============================================================== -->
@@ -2238,7 +2454,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px;">
               <div style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i data-lucide="compass" style="width: 14px; height: 14px; color: #38bdf8;"></i>
-                <span>Acción Recomendada por VELVET AI</span>
+                <span>Acción Recomendada por SIREN AI</span>
               </div>
               <p id="live-pos-action" style="font-size: 12px; color: #e2e8f0; line-height: 1.6; margin: 0 0 10px 0;">
                 Lanzar Mass DM PPV a $9.99 USD a los 604 fans para ascender al Top 18%.
@@ -2287,7 +2503,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <span class="badge">Datos Extraídos de la API en Tiempo Real</span>
           </div>
           <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
-            El scraper de VELVET AI analizó las principales modelos rankeadas en <code>loyalfans.com/creators?target=recently-updated</code> y sus deltas temporales de publicación exacta:
+            El scraper de SIREN AI analizó las principales modelos rankeadas en <code>loyalfans.com/creators?target=recently-updated</code> y sus deltas temporales de publicación exacta:
           </p>
 
           <div class="radar-step">
@@ -2315,6 +2531,71 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <div class="time">HALLAZGO CLAVE</div>
             <div class="desc" style="color: #38bdf8;">
               <strong>Los posts para 'Solo Suscriptores' TAMBIÉN empujan al puesto #1 en el feed público.</strong> No es necesario regalar contenido explícito gratis para posicionar a Sam Barton; basta con un post exclusivo cada 4 horas.
+            </div>
+          </div>
+        </div>
+
+                </div>
+
+        <!-- 2. SUBTAB STREAMATE POSICIONAMIENTO (EPH REVENUE RADAR) -->
+        <div id="sub-pos-streamate" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(245, 158, 11, 0.3); background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.1), rgba(18, 14, 28, 0.95)); margin-bottom: 20px;">
+            <div class="card-title">
+              <span style="color:#fbbf24;">⚡ Streamate: Algoritmo Revenue-Driven (EPH - Earnings Per Hour)</span>
+              <span class="table-badge badge-warning">Auditoría Estudio Centenario • Solo Consulta</span>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
+              El algoritmo de Streamate no posiciona por antigüedad ni por fans registrados; su ranking global se basa exclusivamente en <strong>EPH (Earnings Per Hour)</strong>:
+            </p>
+            <div class="grid-3" style="margin-bottom:16px;">
+              <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
+                <div class="kpi-title">Regla de Oro en Free Chat</div>
+                <div class="kpi-value" style="font-size:16px; color:#fbbf24;">Máx 10 Minutos</div>
+                <div class="kpi-sub">Pasar tiempo en Free Chat sin cobrar hunde tu perfil a las páginas 10-20.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <div class="kpi-title">Salto a Página 1 & 2</div>
+                <div class="kpi-value" style="font-size:16px; color:#10b981;">2 Privados Rápidos</div>
+                <div class="kpi-sub">Cerrar privados rápidos en los primeros 10 min te posiciona en el top.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+                <div class="kpi-title">Estado de Cuenta Actual</div>
+                <div class="kpi-value" style="font-size:16px; color:#38bdf8;">Rating 4.0 ★</div>
+                <div class="kpi-sub">4 idiomas oficiales actualizados y en revisión por cumplimiento.</div>
+              </div>
+            </div>
+            <div style="background:rgba(0,0,0,0.25); border:1px solid rgba(255,255,255,0.06); border-radius:8px; padding:14px; font-size:12px; color:var(--text-muted); line-height:1.7;">
+              💡 <strong>Estrategia Recomendada por SIREN AI:</strong> Utiliza el gancho de ukelele y conversación tomboy directa para filtrar mirones y forzar la entrada a show Privado ($2.99/min) o Exclusivo ($3.99/min) antes del minuto 8.
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SUBTAB STRIPCHAT POSICIONAMIENTO (VELOCITY & CONCURSOS) -->
+        <div id="sub-pos-stripchat" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(244, 63, 94, 0.3); background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.1), rgba(18, 14, 28, 0.95)); margin-bottom: 20px;">
+            <div class="card-title">
+              <span style="color:#f43f5e;">🔥 Stripchat: Algoritmo Velocity-Driven (Velocidad de Tokens & Carrusel)</span>
+              <span class="table-badge badge-info">Directo • Tokens & Lovense</span>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.6; margin-bottom:16px;">
+              En Stripchat el motor de recomendación premia la frecuencia de interacción por segundo en sala pública:
+            </p>
+            <div class="grid-3" style="margin-bottom:16px;">
+              <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+                <div class="kpi-title">Disparador de Tráfico</div>
+                <div class="kpi-value" style="font-size:16px; color:#f43f5e;">Lovense Vibe Spikes</div>
+                <div class="kpi-sub">Cada propina que activa el juguete dispara tu sala al carrusel superior.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <div class="kpi-title">Muro Social Stripchat</div>
+                <div class="kpi-value" style="font-size:16px; color:#a855f7;">Notificaciones Push</div>
+                <div class="kpi-sub">Publicar fotos 15 minutos antes del directo avisa a todos tus seguidores en línea.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <div class="kpi-title">Metas de Sala (Ticket Show)</div>
+                <div class="kpi-value" style="font-size:16px; color:#10b981;">250 - 500 Tokens</div>
+                <div class="kpi-sub">Dividir el show en metas grupales acelera la acumulación de tokens.</div>
+              </div>
             </div>
           </div>
         </div>
@@ -2378,6 +2659,24 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- PESTAÑA 4: ALGORITMOS & HERRAMIENTAS -->
       <!-- ========================================== -->
       <section id="tab-algoritmos" class="tab-view">
+        <!-- Sub-Pestañas Plataformas en Algoritmos -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-algo', 'comparativa', this)">
+            <i data-lucide="layers"></i> Matriz Comparativa Algorítmica
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-algo', 'streamate', this)">
+            <i data-lucide="zap"></i> Streamate (EPH • Solo Consulta Estudio)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-algo', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Cooldown 4h • Tips Multiplier)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-algo', 'stripchat', this)">
+            <i data-lucide="flame"></i> Stripchat (Token Velocity & Lovense Spikes)
+          </button>
+        </div>
+
+        <!-- 1. SUBTAB COMPARATIVA ALGORITMOS -->
+        <div id="sub-algo-comparativa" class="sub-tab-content">
         <div class="card">
           <div class="card-title">
             <span>🔬 Comparativa Exhaustiva de Algoritmos & Herramientas Nativas</span>
@@ -2481,12 +2780,144 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </div>
           </div>
         </div>
+        </div> <!-- Fin sub-algo-comparativa -->
+
+        <!-- 2. SUBTAB ALGORITMO STREAMATE (EPH & REVENUE-DRIVEN) -->
+        <div id="sub-algo-streamate" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(245, 158, 11, 0.3); background: radial-gradient(circle at top right, rgba(245, 158, 11, 0.1), rgba(18, 14, 28, 0.95));">
+            <div class="card-title">
+              <span style="color: #fbbf24;">⚡ Algoritmo Streamate: EPH (Earnings Per Hour) & Auditoría Centenario</span>
+              <span class="table-badge badge-warning">Modo Solo Consulta • Estudio Satélite</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px;">
+              Streamate está administrado externamente por Centenario Studio. En SIREN AI auditamos su comportamiento algorítmico para sincronizar los directos de Sam:
+            </p>
+
+            <div class="grid-3" style="margin-bottom: 20px;">
+              <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
+                <div class="kpi-title">Métrica Cardinal</div>
+                <div class="kpi-value" style="font-size: 16px; color: #fbbf24;">EPH ($ / Hora)</div>
+                <div class="kpi-sub">Total de dinero generado dividido por las horas acumuladas de transmisión.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <div class="kpi-title">Ventana de Oro</div>
+                <div class="kpi-value" style="font-size: 16px; color: #10b981;">Primeros 8 Min</div>
+                <div class="kpi-sub">Convertir mirones a Privado ($2.99/min) o Exclusivo ($3.99/min) de inmediato.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+                <div class="kpi-title">Penalización Algorítmica</div>
+                <div class="kpi-value" style="font-size: 16px; color: #f43f5e;">Free Chat Idle</div>
+                <div class="kpi-sub">Estar más de 12 minutos en Free Chat sin cobrar hunde a páginas 15+.</div>
+              </div>
+            </div>
+
+            <div class="grid-2">
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <h4 style="color:#fbbf24; font-size:13px; margin-bottom:8px;"><i data-lucide="shield-alert"></i> Reglas del Estudio Centenario</h4>
+                <p style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+                  • Geobloqueo en Colombia activo desde la matriz del estudio.<br>
+                  • Tarifas fijadas en $2.99 (Privado) y $3.99 (Exclusivo).<br>
+                  • Perfil oficial en 4 idiomas verificado y listo en cumplimiento.<br>
+                  • SIREN AI audita sin interferir en los accesos maestros del estudio.
+                </p>
+              </div>
+              <div style="background: rgba(255,255,255,0.02); padding: 16px; border-radius: 8px; border: 1px solid var(--border-color);">
+                <h4 style="color:#10b981; font-size:13px; margin-bottom:8px;"><i data-lucide="sparkles"></i> Tácticas para Sam Barton</h4>
+                <p style="font-size:12px; color:var(--text-muted); line-height:1.6;">
+                  • Tocar acordes en el ukelele para enganchar usuarios gringos.<br>
+                  • No tolerar usuarios vulgares; aplicar actitud tomboy firme y directa.<br>
+                  • Invitar a los usuarios VIP de calidad a su club personal de LoyalFans.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SUBTAB ALGORITMO LOYALFANS (EVENT-DRIVEN & TIPS WEIGHT) -->
+        <div id="sub-algo-loyalfans" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(147, 51, 234, 0.3); background: radial-gradient(circle at top right, rgba(147, 51, 234, 0.1), rgba(18, 14, 28, 0.95));">
+            <div class="card-title">
+              <span style="color: var(--primary-light);">💎 Algoritmo LoyalFans: Cooldown 4 Horas & Multiplicador de Propinas</span>
+              <span class="table-badge badge-purple">Directo • 80% Split Neto</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px;">
+              LoyalFans no clasifica por horas estáticas, sino por <strong>eventos de publicación</strong> en Timeline y Video Store:
+            </p>
+
+            <div class="grid-3" style="margin-bottom: 20px;">
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <div class="kpi-title">Ciclo de Bump</div>
+                <div class="kpi-value" style="font-size: 16px; color: #a855f7;">Cada 4 Horas</div>
+                <div class="kpi-sub">Publicar con menos de 4h de diferencia no resetea la posición #1 en Recently Updated.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <div class="kpi-title">Double Bump Hack</div>
+                <div class="kpi-value" style="font-size: 16px; color: #10b981;">Store + Timeline</div>
+                <div class="kpi-sub">Publicar clip en Video Store marcando "Post to Timeline" da doble exposición instantánea.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #06b6d4;">
+                <div class="kpi-title">Peso del Tip</div>
+                <div class="kpi-value" style="font-size: 16px; color: #06b6d4;">10x Factor</div>
+                <div class="kpi-sub">Cada propina recibida en un post lo catapulta a la pestaña global Explore.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SUBTAB ALGORITMO STRIPCHAT (TOKEN VELOCITY & CAROUSEL) -->
+        <div id="sub-algo-stripchat" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(244, 63, 94, 0.3); background: radial-gradient(circle at top right, rgba(244, 63, 94, 0.1), rgba(18, 14, 28, 0.95));">
+            <div class="card-title">
+              <span style="color: #f43f5e;">🔥 Algoritmo Stripchat: Token Velocity & Integración Lovense</span>
+              <span class="table-badge badge-info">Directo • Tokens $0.05 USD</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 18px;">
+              Stripchat opera como un motor freemium de alta velocidad donde cada vibración de Lovense alimenta el ranking:
+            </p>
+
+            <div class="grid-3" style="margin-bottom: 20px;">
+              <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+                <div class="kpi-title">Velocidad de Tokens</div>
+                <div class="kpi-value" style="font-size: 16px; color: #f43f5e;">Tokens / Seg</div>
+                <div class="kpi-sub">Ráfagas continuas de propinas activan el algoritmo de "Trending Model".</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #ec4899;">
+                <div class="kpi-title">Lovense Interactive</div>
+                <div class="kpi-value" style="font-size: 16px; color: #ec4899;">Vibe Spikes</div>
+                <div class="kpi-sub">Niveles 1 a 5 conectados al menú de propinas en tiempo real.</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <div class="kpi-title">Ticket Show & Metas</div>
+                <div class="kpi-value" style="font-size: 16px; color: #a855f7;">250 - 500 TK</div>
+                <div class="kpi-sub">Metas grupales de sala para desatar privados colectivos rentables.</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ========================================== -->
       <!-- PESTAÑA 5: CONTROL DE ACTUALIZACIONES (TAREAS) -->
       <!-- ========================================== -->
       <section id="tab-actualizaciones" class="tab-view">
+        <!-- Sub-Pestañas Plataformas en Actualizaciones -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-act', 'matriz', this)">
+            <i data-lucide="check-square"></i> Matriz de Control General
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-act', 'streamate', this)">
+            <i data-lucide="zap"></i> Streamate (En Revisión • 4 Idiomas)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-act', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Verificado & Activo)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-act', 'stripchat', this)">
+            <i data-lucide="flame"></i> Stripchat (Listo en Cola)
+          </button>
+        </div>
+
+        <!-- 1. SUBTAB MATRIZ GENERAL ACTUALIZACIONES -->
+        <div id="sub-act-matriz" class="sub-tab-content">
         <div class="card">
           <div class="card-title">
             <span>🛡️ Panel de Despliegue Controlado de Perfiles (Tomboy Core)</span>
@@ -2567,16 +2998,133 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </div>
           </div>
         </div>
+        </div> <!-- Fin sub-act-matriz -->
+
+        <!-- 2. SUBTAB STREAMATE ACTUALIZACIONES (EN REVISION CUMPLIMIENTO) -->
+        <div id="sub-act-streamate" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(245, 158, 11, 0.3);">
+            <div class="card-title">
+              <span style="color: #fbbf24;">⚡ Streamate: Perfil Oficial Actualizado en 4 Idiomas</span>
+              <span class="table-badge badge-warning">En Revisión de Cumplimiento (*) • Centenario Studio</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              El script automatizado <code>scripts/execute_streamate_profile_update.py</code> inyectó con éxito los 4 actos narrativos en los 4 idiomas oficiales de Streamate Models. Sin emojis, sin tildes, respetando estrictamente los límites de caracteres:
+            </p>
+
+            <div class="grid-4" style="margin-bottom: 16px;">
+              <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+                <div class="kpi-title">Español (ES)</div>
+                <div class="kpi-value" style="font-size: 15px; color: #38bdf8;">✓ Actualizado</div>
+                <div class="kpi-sub">Headline: 64 c • Show: 245 c • Turn Ons: 214 c • Exp: 213 c</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <div class="kpi-title">Inglés (EN)</div>
+                <div class="kpi-value" style="font-size: 15px; color: #10b981;">✓ Actualizado</div>
+                <div class="kpi-sub">Headline: 61 c • Show: 245 c • Turn Ons: 210 c • Exp: 213 c</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <div class="kpi-title">Francés (FR)</div>
+                <div class="kpi-value" style="font-size: 15px; color: #a855f7;">✓ Actualizado</div>
+                <div class="kpi-sub">Headline: 64 c • Show: 222 c • Turn Ons: 201 c • Exp: 204 c</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+                <div class="kpi-title">Portugués (PT)</div>
+                <div class="kpi-value" style="font-size: 15px; color: #f43f5e;">✓ Actualizado</div>
+                <div class="kpi-sub">Headline: 62 c • Show: 212 c • Turn Ons: 198 c • Exp: 199 c</div>
+              </div>
+            </div>
+
+            <div style="background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.25); border-radius: 8px; padding: 14px; font-size: 12px; color: #34d399; margin-bottom: 14px;">
+              ✓ <strong>Evidencia Almacenada:</strong> Capturas de pantalla de verificación guardadas en <code>artifacts/streamate_update_evidence/</code> (ES, EN, FR, PT) y resumen JSON listo.
+            </div>
+
+            <div style="font-size: 12px; color: var(--text-muted); background: rgba(0,0,0,0.25); padding: 14px; border-radius: 8px; border: 1px solid var(--border-color);">
+              ⚠️ <strong>Nota de Seguridad:</strong> El estudio Centenario mantiene el control administrativo de la cuenta. Los cambios entraron a cola de revisión (*) de Streamate Compliance sin generar alertas de seguridad ni bloqueos.
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SUBTAB LOYALFANS ACTUALIZACIONES -->
+        <div id="sub-act-loyalfans" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(147, 51, 234, 0.3);">
+            <div class="card-title">
+              <span style="color: var(--primary-light);">💎 LoyalFans: Perfil Tomboy Verificado & En Producción</span>
+              <span class="table-badge badge-success">✓ 100% Verificado</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              Biografía oficial inyectada con éxito mediante Playwright en sesión autenticada:
+            </p>
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; font-size: 12px; line-height: 1.7; color: var(--text-main); margin-bottom: 16px;">
+              <strong>Software & AI Architect ⚡ Tomboy</strong><br>
+              A direct mind who loves tech, good humor, and deep conversations. I create without masks and connect with those who know what they want.
+            </div>
+            <div class="grid-3">
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <div class="kpi-title">Tarifa Mensual</div>
+                <div class="kpi-value" style="font-size: 15px; color: #10b981;">$15.00 USD</div>
+                <div class="kpi-sub">80% neto directo para Sam ($12.00)</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #06b6d4;">
+                <div class="kpi-title">Pay-To-Message</div>
+                <div class="kpi-value" style="font-size: 15px; color: #06b6d4;">$0.50 USD</div>
+                <div class="kpi-sub">Filtro de DMs activos</div>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <div class="kpi-title">Estado Playwright</div>
+                <div class="kpi-value" style="font-size: 15px; color: #a855f7;">Sesión Activa</div>
+                <div class="kpi-sub">Actualización en 1 clic disponible</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SUBTAB STRIPCHAT ACTUALIZACIONES -->
+        <div id="sub-act-stripchat" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(244, 63, 94, 0.3);">
+            <div class="card-title">
+              <span style="color: #f43f5e;">🔥 Stripchat: Perfil Preparado para Inyección</span>
+              <span class="table-badge badge-warning">⏳ En Espera de Lanzamiento</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              Script <code>src/platforms/stripchat/profile_updater.py</code> configurado y en espera de confirmación:
+            </p>
+            <div style="background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 8px; padding: 16px; font-size: 12px; line-height: 1.7; color: var(--text-main); margin-bottom: 16px;">
+              <strong>Cute Tomboy • Lovense Interactive 🎮</strong><br>
+              Direct, witty and always curious. My toys react to your tips and my music sets the mood.
+            </div>
+            <button class="action-btn primary" onclick="openUpdateModal('stripchat')">
+              <i data-lucide="play"></i> Desplegar en Stripchat Ahora
+            </button>
+          </div>
+        </div>
       </section>
 
       <!-- ========================================== -->
       <!-- PESTAÑA 6: PLAN DE TRABAJO & FLUJOS RECOMENDADOS -->
       <!-- ========================================== -->
       <section id="tab-flujos" class="tab-view">
+        <!-- Sub-Pestañas Plataformas en Flujos -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-flujo', 'hibrido', this)">
+            <i data-lucide="git-merge"></i> Flujo Híbrido Consolidado (Sam 24/7)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-flujo', 'streamate', this)">
+            <i data-lucide="zap"></i> Flujo Streamate (Shows Privados & EPH)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-flujo', 'loyalfans', this)">
+            <i data-lucide="gem"></i> Flujo LoyalFans (Embudo 80% & DMs Masivos)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-flujo', 'stripchat', this)">
+            <i data-lucide="flame"></i> Flujo Stripchat (Sala Lovense & Metas de Sala)
+          </button>
+        </div>
+
+        <!-- 1. SUBTAB FLUJO HIBRIDO CONSOLIDADO -->
+        <div id="sub-flujo-hibrido" class="sub-tab-content">
         <div class="card">
           <div class="card-title">
             <span>🚀 Plan de Trabajo & Flujos Estratégicos para Sam Barton</span>
-            <span class="badge">Ecosistema Híbrido VELVET AI</span>
+            <span class="badge">Ecosistema Híbrido SIREN AI</span>
           </div>
           <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 18px;">
             Este plan combina el tráfico en vivo de alta velocidad con el embudo de ingresos pasivos recurrentes en LoyalFans al 80% neto:
@@ -2637,6 +3185,106 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </div>
           </div>
         </div>
+        </div> <!-- Fin sub-flujo-hibrido -->
+
+        <!-- 2. SUBTAB FLUJO STREAMATE -->
+        <div id="sub-flujo-streamate" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(245, 158, 11, 0.3);">
+            <div class="card-title">
+              <span style="color:#fbbf24;">⚡ Flujo Operativo en Streamate: Maximizar EPH en 2 Horas</span>
+              <span class="table-badge badge-warning">Auditoría Estudio Centenario • Solo Consulta</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              En Streamate las horas prolongadas en Free Chat destruyen el ranking. El flujo operativo debe ser quirúrgico:
+            </p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
+                <strong style="color:#fbbf24; display:block; font-size:13px; margin-bottom:6px;">1. Entrada en Free Chat (0-8 min)</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Tocar acordes en el ukelele, saludar con voz baja al oído en inglés. Filtrar inmediatamente a los que piden cosas gratis.
+                </p>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <strong style="color:#10b981; display:block; font-size:13px; margin-bottom:6px;">2. Cierre Privado ($2.99/min)</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Proponer privado con complicidad: "Vamos donde podamos hablar sin ruido". Buscar shows de mínimo 10 minutos.
+                </p>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+                <strong style="color:#38bdf8; display:block; font-size:13px; margin-bottom:6px;">3. Salida Inmediata o Upsell</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Al terminar el privado, si en 5 minutos no hay otro cliente, pausar la transmisión para proteger el EPH.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SUBTAB FLUJO LOYALFANS -->
+        <div id="sub-flujo-loyalfans" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(147, 51, 234, 0.3);">
+            <div class="card-title">
+              <span style="color:var(--primary-light);">💎 Flujo Operativo en LoyalFans: Máquina de Ingresos Pasivos</span>
+              <span class="table-badge badge-purple">80% Neto Directo</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              LoyalFans no requiere estar sentada frente a la cámara todo el día. Funciona con cadencia programada:
+            </p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <strong style="color:var(--primary-light); display:block; font-size:13px; margin-bottom:6px;">Cadencia de Cooldown 4h</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  10:00 AM Video Store • 02:00 PM Foto Sub • 06:00 PM Teaser noche. Garantiza primer lugar continuo en el feed.
+                </p>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #06b6d4;">
+                <strong style="color:#38bdf8; display:block; font-size:13px; margin-bottom:6px;">DMs Masivos Estratégicos</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Enviar 1 PPV masivo al día ($12-$15) a los 599 fans. Tasa de lectura del 22.5% produce $50-$70 USD por envío.
+                </p>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <strong style="color:#10b981; display:block; font-size:13px; margin-bottom:6px;">Pay-To-Message ($0.50)</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Cada fan paga 50 centavos por iniciar conversación. Filtro automático de acosadores y monetización de atención.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SUBTAB FLUJO STRIPCHAT -->
+        <div id="sub-flujo-stripchat" class="sub-tab-content" style="display:none;">
+          <div class="card" style="border: 1px solid rgba(244, 63, 94, 0.3);">
+            <div class="card-title">
+              <span style="color:#f43f5e;">🔥 Flujo Operativo en Stripchat: Dinámica de Sala & Lovense</span>
+              <span class="table-badge badge-info">Tokens Freemium</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              En Stripchat el espectáculo se construye comunitariamente mediante metas acumulativas:
+            </p>
+            <div class="grid-3" style="margin-bottom: 16px;">
+              <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+                <strong style="color:#f43f5e; display:block; font-size:13px; margin-bottom:6px;">Metas Escalonadas</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Fijar metas de 100, 250 y 500 tokens. La psicología de sala hace que varios usuarios aporten para ver el objetivo.
+                </p>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #a855f7;">
+                <strong style="color:#a855f7; display:block; font-size:13px; margin-bottom:6px;">Lovense Vibe Levels</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Configurar vibraciones progresivas. Propinas de 10-25 tokens para toques sutiles, 100+ para intensidad alta.
+                </p>
+              </div>
+              <div class="kpi-card" style="border-left: 3px solid #10b981;">
+                <strong style="color:#10b981; display:block; font-size:13px; margin-bottom:6px;">Fan Club VIP</strong>
+                <p style="font-size:11px; color:var(--text-muted); line-height:1.5;">
+                  Convertir a los mayores donadores en miembros del Fan Club mensual con álbumes privados exclusivos.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       <!-- ========================================== -->
@@ -2646,7 +3294,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <div class="card">
           <div class="card-title">
             <span>💻 Catálogo de Endpoints de Alta Velocidad Descubiertos</span>
-            <span class="badge">VELVET AI Internal API</span>
+            <span class="badge">SIREN AI Internal API</span>
           </div>
 
           <div style="display: flex; flex-direction: column; gap: 14px;">
@@ -2823,7 +3471,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <div class="card">
           <div class="card-title">
             <span>🌐 Protocolo Estricto de Comunicación & Reglas de Idioma</span>
-            <span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8;">Inquebrantable en VELVET AI</span>
+            <span class="badge" style="background: rgba(6, 182, 212, 0.15); color: #38bdf8;">Inquebrantable en SIREN AI</span>
           </div>
 
           <div class="grid-2">
@@ -2940,7 +3588,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 </div>
                 <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
                   <span id="chat-engine-status" class="table-badge badge-success" style="font-size: 11px; padding: 4px 9px;">
-                    🟢 Servidor VELVET Activo (localhost:8888)
+                    🟢 Servidor SIREN Activo (localhost:8888)
                   </span>
                   <select id="chat-model-select" onchange="syncModelSelectWithRadio(this.value)" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 11px; outline: none; cursor: pointer;">
                     <option value="qwen2.5:7b-instruct" selected>qwen2.5:7b-instruct (Local Offline)</option>
@@ -3037,7 +3685,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </div>
 
               <div class="roxanne-kpi-mini">
-                <div class="title">Servidor VELVET</div>
+                <div class="title">Servidor SIREN</div>
                 <div class="val" id="server-kpi-status" style="color: #38bdf8;">Puerto 8888</div>
                 <div class="sub">API Server Activo</div>
               </div>
@@ -3276,11 +3924,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
     // Sub Tab Switching (Perfiles por plataforma)
     function switchSubTab(prefix, platform, btnEl) {
-      document.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
+      const container = btnEl.closest('.tab-view') || document;
+      container.querySelectorAll('.subtab-btn').forEach(b => b.classList.remove('active'));
       btnEl.classList.add('active');
 
-      document.querySelectorAll('.sub-tab-content').forEach(c => c.style.display = 'none');
-      const target = document.getElementById(`${prefix}-${platform}`);
+      container.querySelectorAll('.sub-tab-content').forEach(c => c.style.display = 'none');
+      const target = container.querySelector(`#${prefix}-${platform}`) || document.getElementById(`${prefix}-${platform}`);
       if (target) target.style.display = 'block';
     }
 
@@ -3357,7 +4006,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       } catch (err) {
         console.warn('Nota lanzando despliegue:', err);
         closeUpdateModal();
-        showToast(`⚠️ Servidor Velvet no respondió. Asegúrate de que el servidor esté activo.`);
+        showToast(`⚠️ Servidor SIREN no respondió. Asegúrate de que el servidor esté activo.`);
       } finally {
         if (confirmBtn) {
           confirmBtn.disabled = false;
@@ -3381,10 +4030,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           const data = await res.json();
           if (data.ollama_online) {
             statusBadge.className = 'table-badge badge-success';
-            statusBadge.innerHTML = '🟢 Servidor Velvet & Ollama Conectados';
+            statusBadge.innerHTML = '🟢 Servidor SIREN & Ollama Conectados';
           } else {
             statusBadge.className = 'table-badge badge-warning';
-            statusBadge.innerHTML = '🟡 Servidor Velvet Activo (Ollama Offline)';
+            statusBadge.innerHTML = '🟡 Servidor SIREN Activo (Ollama Offline)';
           }
         }
       } catch (e) {
@@ -3405,9 +4054,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     // ==========================================
     // ☀️ CONTROL DE TEMA CLARO / OSCURO
     // ==========================================
-    function toggleVelvetTheme() {
+    function toggleSirenTheme() {
       const isLight = document.body.classList.toggle('light-theme');
-      localStorage.setItem('velvet_theme', isLight ? 'light' : 'dark');
+      localStorage.setItem('siren_theme', isLight ? 'light' : 'dark');
       updateThemeButtonUI(isLight);
       showToast(isLight ? 'Modo Claro activado' : 'Modo Oscuro activado');
     }
@@ -3428,7 +4077,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
     function initThemeFromStorage() {
-      const saved = localStorage.getItem('velvet_theme');
+      const saved = (localStorage.getItem('siren_theme') || localStorage.getItem('velvet_theme'));
       if (saved === 'light') {
         document.body.classList.add('light-theme');
         updateThemeButtonUI(true);
@@ -3523,7 +4172,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       }
 
       // Fallback a localStorage
-      const localSaved = localStorage.getItem('velvet_roxanne_chat_history');
+      const localSaved = (localStorage.getItem('siren_roxanne_chat_history') || localStorage.getItem('velvet_roxanne_chat_history'));
       if (localSaved) {
         try {
           const parsed = JSON.parse(localSaved);
@@ -3617,10 +4266,10 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
 
     function saveChatToLocalStorage(sender, text, timestamp, model) {
       try {
-        let history = JSON.parse(localStorage.getItem('velvet_roxanne_chat_history') || '[]');
+        let history = JSON.parse((localStorage.getItem('siren_roxanne_chat_history') || localStorage.getItem('velvet_roxanne_chat_history')) || '[]');
         history.push({ sender, message: text, timestamp, model });
         if (history.length > 100) history = history.slice(-100);
-        localStorage.setItem('velvet_roxanne_chat_history', JSON.stringify(history));
+        localStorage.setItem('siren_roxanne_chat_history', JSON.stringify(history));
       } catch (e) {
         console.error('Error guardando en localStorage:', e);
       }
@@ -3719,13 +4368,16 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         } catch (ollamaErr) {
           if (indicator) indicator.style.display = 'none';
           if (sendBtn) sendBtn.disabled = false;
-          appendChatMessage('roxanne', `[Aviso ROXANNE]: Error conectando con el motor (${err.message}). Recuerda que el servidor debe estar activo: python src/server/velvet_app_server.py`, 'es');
+          appendChatMessage('roxanne', `[Aviso ROXANNE]: Error conectando con el motor (${err.message}). Recuerda que el servidor debe estar activo: python src/server/siren_app_server.py`, 'es');
         }
       }
     }
 
     function getApiBase() {
-      return window.location.protocol.startsWith('http') ? '' : 'http://localhost:8888';
+      if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+        return window.location.port === '8888' ? '' : 'http://localhost:8888';
+      }
+      return 'http://localhost:8888';
     }
 
     async function loadLiveFinancials() {
@@ -4021,7 +4673,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           const data = await res.json();
           if (statusBadge) {
             statusBadge.className = 'table-badge badge-success';
-            statusBadge.innerHTML = '🟢 Servidor VELVET Activo (localhost:8888)';
+            statusBadge.innerHTML = '🟢 Servidor SIREN Activo (localhost:8888)';
           }
           if (kpiStatus) {
             kpiStatus.textContent = 'Activo (8888)';
@@ -4036,7 +4688,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           statusBadge.style.background = 'rgba(239, 68, 68, 0.2)';
           statusBadge.style.color = '#f87171';
           statusBadge.style.border = '1px solid rgba(239, 68, 68, 0.4)';
-          statusBadge.innerHTML = '⚠️ Servidor Offline (python src/server/velvet_app_server.py)';
+          statusBadge.innerHTML = '⚠️ Servidor Offline (python src/server/siren_app_server.py)';
         }
         if (kpiStatus) {
           kpiStatus.textContent = 'Desconectado';
