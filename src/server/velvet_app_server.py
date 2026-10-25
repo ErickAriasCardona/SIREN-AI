@@ -130,7 +130,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_status()
         elif self.path == "/api/history":
             self.handle_api_history()
-        elif self.path == "/api/chat_history":
+        elif self.path.startswith("/api/chat_history"):
             self.handle_api_chat_history()
         elif self.path == "/api/platforms_profiles":
             self.handle_api_platforms_profiles()
@@ -172,7 +172,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/chat":
             self.handle_api_chat()
-        elif self.path == "/api/clear_chat_history":
+        elif self.path.startswith("/api/clear_chat_history"):
             self.handle_api_clear_chat_history()
         elif self.path == "/api/push/subscribe":
             self.handle_api_push_subscribe()
@@ -444,8 +444,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps({"history": history}).encode("utf-8"))
 
     def handle_api_chat_history(self):
-        """Devuelve el historial persistente de la conversacion entre Sam y Roxanne."""
+        """Devuelve el historial persistente de conversacion filtrado por asistente (o completo con campo assistant)."""
+        from urllib.parse import urlparse, parse_qs
         history = []
+        qs = parse_qs(urlparse(self.path).query)
+        target_asst = qs.get("assistant", [None])[0]
+        if target_asst:
+            target_asst = target_asst.lower()
+
         try:
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
@@ -455,20 +461,39 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     timestamp TEXT,
                     sender TEXT,
                     message TEXT,
-                    model TEXT
+                    model TEXT,
+                    assistant TEXT DEFAULT 'roxanne'
                 )
             """)
-            cursor.execute("""
-                SELECT timestamp, sender, message, model
-                FROM copilot_assistant_history
-                ORDER BY id ASC
-            """)
+            cols = [col[1] for col in cursor.execute("PRAGMA table_info(copilot_assistant_history)").fetchall()]
+            if "assistant" not in cols:
+                cursor.execute("ALTER TABLE copilot_assistant_history ADD COLUMN assistant TEXT DEFAULT 'roxanne'")
+                conn.commit()
+
+            if target_asst:
+                cursor.execute("""
+                    SELECT timestamp, sender, message, model, assistant
+                    FROM copilot_assistant_history
+                    WHERE LOWER(COALESCE(assistant, sender)) = ?
+                    ORDER BY id ASC
+                """, (target_asst,))
+            else:
+                cursor.execute("""
+                    SELECT timestamp, sender, message, model, assistant
+                    FROM copilot_assistant_history
+                    ORDER BY id ASC
+                """)
+
             for row in cursor.fetchall():
+                asst_val = row[4]
+                if not asst_val or asst_val == "sam":
+                    asst_val = row[1] if row[1] in ["roxanne", "chloe", "diana", "electra"] else "roxanne"
                 history.append({
                     "timestamp": row[0],
                     "sender": row[1],
                     "message": row[2],
-                    "model": row[3]
+                    "model": row[3],
+                    "assistant": asst_val
                 })
             conn.close()
         except Exception as e:
@@ -477,26 +502,40 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()
-        self.wfile.write(json.dumps({"success": True, "history": history}).encode("utf-8"))
+        self.wfile.write(json.dumps({"success": True, "history": history, "assistant": target_asst}).encode("utf-8"))
 
     def handle_api_clear_chat_history(self):
-        """Limpia todo el historial de conversacion de Roxanne en la base de datos."""
+        """Limpia el historial de conversacion para el asistente indicado (o todos si no se indica)."""
+        from urllib.parse import urlparse, parse_qs
+        qs = parse_qs(urlparse(self.path).query)
+        target_asst = qs.get("assistant", [None])[0]
+
+        # Verificar si vino por cuerpo JSON
+        length = int(self.headers.get("Content-Length", 0))
+        if length > 0:
+            try:
+                body_data = json.loads(self.rfile.read(length).decode("utf-8"))
+                if not target_asst and "assistant" in body_data:
+                    target_asst = body_data["assistant"]
+            except Exception:
+                pass
+
         try:
             conn = sqlite3.connect(DB_PATH)
             cursor = conn.cursor()
-            cursor.execute("DROP TABLE IF EXISTS copilot_assistant_history")
-            cursor.execute("""
-                CREATE TABLE copilot_assistant_history (
-                    id INTEGER PRIMARY KEY AUTOINCREMENT,
-                    timestamp TEXT,
-                    sender TEXT,
-                    message TEXT,
-                    model TEXT
-                )
-            """)
+            if target_asst:
+                t_lower = target_asst.lower()
+                cursor.execute("""
+                    DELETE FROM copilot_assistant_history
+                    WHERE LOWER(COALESCE(assistant, '')) = ? OR LOWER(sender) = ?
+                """, (t_lower, t_lower))
+                msg = f"Historial de {target_asst.upper()} limpiado exitosamente"
+            else:
+                cursor.execute("DELETE FROM copilot_assistant_history")
+                msg = "Historial completo de todos los asistentes limpiado exitosamente"
             conn.commit()
             conn.close()
-            resp = {"success": True, "message": "Historial limpiado exitosamente"}
+            resp = {"success": True, "message": msg, "assistant": target_asst}
         except Exception as e:
             resp = {"success": False, "error": str(e)}
 
@@ -904,14 +943,20 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                         timestamp TEXT,
                         sender TEXT,
                         message TEXT,
-                        model TEXT
+                        model TEXT,
+                        assistant TEXT DEFAULT 'roxanne'
                     )
                 """)
+                cols = [col[1] for col in cursor.execute("PRAGMA table_info(copilot_assistant_history)").fetchall()]
+                if "assistant" not in cols:
+                    cursor.execute("ALTER TABLE copilot_assistant_history ADD COLUMN assistant TEXT DEFAULT 'roxanne'")
+                    conn.commit()
+
                 now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model) VALUES (?, ?, ?, ?)",
-                               (now_str, "sam", message, model_name))
-                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model) VALUES (?, ?, ?, ?)",
-                               (now_str, assistant_id, reply, model_name))
+                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model, assistant) VALUES (?, ?, ?, ?, ?)",
+                               (now_str, "sam", message, model_name, assistant_id))
+                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model, assistant) VALUES (?, ?, ?, ?, ?)",
+                               (now_str, assistant_id, reply, model_name, assistant_id))
                 conn.commit()
                 conn.close()
             except Exception as dbe:
