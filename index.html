@@ -1336,7 +1336,7 @@
 
   </style>
 </head>
-<body>
+<body class="light-theme">
 
   <!-- SIDEBAR NAVEGACIÓN -->
   <aside id="sidebar">
@@ -1429,8 +1429,8 @@
 
       <div class="top-actions">
         <button id="theme-toggle-btn" class="action-btn" onclick="toggleSirenTheme()" title="Alternar Modo Claro / Oscuro" style="display:inline-flex; align-items:center; gap:6px;">
-          <i data-lucide="sun" id="theme-icon"></i>
-          <span id="theme-label">Modo Claro</span>
+          <i data-lucide="moon" id="theme-icon"></i>
+          <span id="theme-label">Modo Oscuro</span>
         </button>
         <button id="btn-top-refresh" class="action-btn" onclick="refreshAllDataNow()">
           <i data-lucide="rotate-ccw"></i> Refrescar Datos
@@ -4361,11 +4361,16 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
     function initThemeFromStorage() {
       const saved = (localStorage.getItem('siren_theme') || localStorage.getItem('velvet_theme'));
-      if (saved === 'light') {
+      if (saved === 'dark') {
+        document.body.classList.remove('light-theme');
+        updateThemeButtonUI(false);
+      } else {
+        // Modo Claro por defecto
         document.body.classList.add('light-theme');
         updateThemeButtonUI(true);
       }
     }
+    initThemeFromStorage();
 
     // ==========================================
     // 👁️ VISUALIZADOR Y COPIADO DE CREDENCIALES
