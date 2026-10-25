@@ -6046,6 +6046,9 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     function selectAssistant(assistantId) {
       if (!ASSISTANTS_DATA[assistantId]) return;
       activeAssistant = assistantId;
+      try {
+        localStorage.setItem('siren_active_assistant', assistantId);
+      } catch (e) {}
       const data = ASSISTANTS_DATA[assistantId];
 
       // 1. Highlight active card in grid
@@ -6148,15 +6151,53 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     }
 
     async function loadCopilotChatHistory() {
-      // Intentar cargar historial previo de Roxanne desde SQLite
+      // 1. Restaurar inmediatamente desde localStorage para que cada asistente tenga su historial sin parpadeo
+      try {
+        const localHist = localStorage.getItem('siren_assistant_histories');
+        if (localHist) {
+          const parsed = JSON.parse(localHist);
+          ['roxanne', 'chloe', 'diana', 'electra'].forEach(asst => {
+            if (Array.isArray(parsed[asst])) {
+              assistantChatHistories[asst] = parsed[asst];
+            }
+          });
+        }
+      } catch (e) {
+        console.log('Error restaurando chat de localStorage:', e);
+      }
+
+      // 2. Determinar asistente activo recordado (si Sam estaba en Chloe, se queda en Chloe)
+      let savedAssistant = 'roxanne';
+      try {
+        const storedAsst = localStorage.getItem('siren_active_assistant');
+        if (storedAsst && ASSISTANTS_DATA[storedAsst]) {
+          savedAssistant = storedAsst;
+        }
+      } catch (e) {}
+
+      // Si en la URL vino un parámetro ?assistant=..., ese tiene prioridad
+      const urlAsst = new URLSearchParams(window.location.search).get('assistant');
+      if (urlAsst && ASSISTANTS_DATA[urlAsst]) {
+        savedAssistant = urlAsst;
+      }
+
+      // 3. Sincronizar con el historial SQLite del backend (separando estrictamente por asistente)
       try {
         const res = await fetch(`${getApiBase()}/api/chat_history`);
         if (res.ok) {
           const data = await res.json();
-          if (data.history && data.history.length > 0) {
-            assistantChatHistories.roxanne = [];
+          if (data.history && Array.isArray(data.history) && data.history.length > 0) {
+            const backendByAsst = { roxanne: [], chloe: [], diana: [], electra: [] };
             data.history.forEach(item => {
-              assistantChatHistories.roxanne.push({
+              let asst = (item.assistant || '').toLowerCase();
+              if (!backendByAsst[asst]) {
+                if (['chloe', 'diana', 'electra'].includes(item.sender)) {
+                  asst = item.sender;
+                } else {
+                  asst = 'roxanne';
+                }
+              }
+              backendByAsst[asst].push({
                 sender: item.sender,
                 message: item.message,
                 lang: 'es',
@@ -6164,15 +6205,26 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
                 timestamp: item.timestamp
               });
             });
+
+            // Asignar el historial backend por asistente
+            ['roxanne', 'chloe', 'diana', 'electra'].forEach(asst => {
+              if (backendByAsst[asst].length > 0) {
+                assistantChatHistories[asst] = backendByAsst[asst];
+              }
+            });
+
+            try {
+              localStorage.setItem('siren_assistant_histories', JSON.stringify(assistantChatHistories));
+            } catch (e) {}
           }
         }
       } catch (e) {
-        console.log('Error conectando con endpoint de historial backend:', e);
+        console.log('Error sincronizando historial con backend:', e);
       }
 
-      // Inicializar pastillas y asistente por defecto
-      updatePromptPills('roxanne');
-      selectAssistant('roxanne');
+      // 4. Seleccionar el asistente que Sam tenía abierto antes de recargar
+      updatePromptPills(savedAssistant);
+      selectAssistant(savedAssistant);
     }
 
     function appendChatMessage(sender, text, lang = 'es', model = '', timeStr = null, saveLocal = true) {
@@ -6237,20 +6289,30 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           model: model,
           timestamp: currentTime
         });
+        try {
+          localStorage.setItem('siren_assistant_histories', JSON.stringify(assistantChatHistories));
+        } catch (e) {}
       }
     }
 
     async function clearCopilotChat() {
-      assistantChatHistories[activeAssistant] = [];
-      if (activeAssistant === 'roxanne') {
-        try {
-          await fetch(`${getApiBase()}/api/clear_chat_history`, { method: 'POST' });
-        } catch (e) {
-          console.log('Error llamando clear en backend:', e);
-        }
+      const currentAsst = activeAssistant;
+      assistantChatHistories[currentAsst] = [];
+      try {
+        localStorage.setItem('siren_assistant_histories', JSON.stringify(assistantChatHistories));
+      } catch (e) {}
+
+      try {
+        await fetch(`${getApiBase()}/api/clear_chat_history?assistant=${currentAsst}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assistant: currentAsst })
+        });
+      } catch (e) {
+        console.log('Error llamando clear en backend:', e);
       }
-      renderAssistantChat(activeAssistant);
-      showToast(`Historial de conversación con ${ASSISTANTS_DATA[activeAssistant].name} reiniciado`);
+      renderAssistantChat(currentAsst);
+      showToast(`Historial de conversación con ${ASSISTANTS_DATA[currentAsst].name} reiniciado`);
     }
 
     async function sendCopilotMessage() {
