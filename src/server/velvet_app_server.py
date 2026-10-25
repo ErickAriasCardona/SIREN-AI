@@ -19,6 +19,16 @@ if sys.platform == "win32":
     except Exception:
         pass
 
+import asyncio
+from src.platforms.streamate.stream_monitor_controller import (
+    parse_gold_menu_text,
+    parse_wheel_game_text,
+    update_gold_menu_live,
+    update_wheel_game_live,
+    update_room_topic_live
+)
+from src.analytics.streamate_competitor_radar import scan_streamate_tomboy_competitors
+
 from src.agents.roxanne_multimodel_copilot import (
     ROXANNE_SAM_SYSTEM_PROMPT,
     OllamaProvider,
@@ -104,6 +114,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_financials()
         elif self.path.startswith("/api/positioning"):
             self.handle_api_positioning()
+        elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
+            self.handle_api_streamate_analyze_tomboy_radar()
         else:
             # Servir index.html si entra a /
             if self.path == "/" or self.path == "":
@@ -454,6 +466,91 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         self.wfile.write(json.dumps(resp).encode("utf-8"))
 
 
+
+    def handle_api_streamate_update_gold_menu(self):
+        """Actualiza el menú GOLD en SM Connect / Stream Monitor."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body) if body else {}
+
+            raw_text = data.get("raw_text", "")
+            items = data.get("items", [])
+
+            if raw_text and not items:
+                items = parse_gold_menu_text(raw_text)
+
+            res = asyncio.run(update_gold_menu_live(items))
+            self.send_response(200 if res.get("success") else 400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_update_wheel(self):
+        """Actualiza la Ruleta (Gira La Rueda) en SM Connect / Stream Monitor."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body) if body else {}
+
+            raw_text = data.get("raw_text", "")
+            cost = data.get("cost", 20)
+            items = data.get("items", [])
+
+            if raw_text and not items:
+                parsed = parse_wheel_game_text(raw_text)
+                cost = parsed["cost"]
+                items = parsed["items"]
+
+            res = asyncio.run(update_wheel_game_live(cost, items))
+            self.send_response(200 if res.get("success") else 400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_update_topic(self):
+        """Actualiza el Tema de Habitación (Room Topic) en SM Connect."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body) if body else {}
+
+            topic = data.get("topic", "").strip()
+            res = asyncio.run(update_room_topic_live(topic))
+            self.send_response(200 if res.get("success") else 400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_analyze_tomboy_radar(self):
+        """Ejecuta escaneo de competidoras tomboy en Streamate y devuelve métricas."""
+        try:
+            res = asyncio.run(scan_streamate_tomboy_competitors(3))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "radar": res}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
     def handle_api_chat(self):
         """Procesa una consulta de chat con ROXANNE y devuelve la respuesta del LLM."""
         try:
@@ -473,6 +570,58 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 return
 
             lang = detect_language(message)
+            msg_lower = message.lower()
+
+            # DETECCIÓN DE INTENCIÓN: RADAR COMPETENCIA TOMBOY
+            if ("analiza" in msg_lower or "radar" in msg_lower or "competencia" in msg_lower or "tendencia" in msg_lower) and \
+               ("tomboy" in msg_lower or "streamate" in msg_lower or "streetmate" in msg_lower or "streaming" in msg_lower):
+                try:
+                    radar_data = asyncio.run(scan_streamate_tomboy_competitors(3))
+                    radar_summary = json.dumps(radar_data, ensure_ascii=False)
+                    chat_history.append({
+                        "role": "system",
+                        "content": f"[RADAR TOMBOY STREAMATE EN VIVO]: {radar_summary}. Presenta a Sam un desglose claro de modelos activas, temas de sala que están usando, tarifas promedio ($2.99 / $3.99) y recomendaciones clave para destacar hoy."
+                    })
+                except Exception as re:
+                    print("[Radar Error]:", re)
+
+            # DETECCIÓN DE INTENCIÓN: ACTUALIZAR MENÚ GOLD
+            elif ("menú gold" in msg_lower or "menu gold" in msg_lower) and ("actualiza" in msg_lower or "cambia" in msg_lower or "-" in message):
+                try:
+                    parsed_items = parse_gold_menu_text(message)
+                    if len(parsed_items) >= 3:
+                        res_up = asyncio.run(update_gold_menu_live(parsed_items))
+                        chat_history.append({
+                            "role": "system",
+                            "content": f"[ACCIÓN EN VIVO]: Menú GOLD inyectado en Stream Monitor: {json.dumps(res_up, ensure_ascii=False)}. Confírmale a Sam las opciones y precios que quedaron guardados."
+                        })
+                except Exception as ge:
+                    print("[Gold Menu Update Error]:", ge)
+
+            # DETECCIÓN DE INTENCIÓN: ACTUALIZAR RULETA
+            elif ("ruleta" in msg_lower or "gira la rueda" in msg_lower or "rueda" in msg_lower) and ("actualiza" in msg_lower or "cambia" in msg_lower or "pon" in msg_lower):
+                try:
+                    parsed_wheel = parse_wheel_game_text(message)
+                    if len(parsed_wheel["items"]) >= 8:
+                        res_wh = asyncio.run(update_wheel_game_live(parsed_wheel["cost"], parsed_wheel["items"]))
+                        chat_history.append({
+                            "role": "system",
+                            "content": f"[ACCIÓN EN VIVO]: Ruleta inyectada en Stream Monitor: {json.dumps(res_wh, ensure_ascii=False)}. Confírmale a Sam el costo en Gold y las opciones seleccionadas."
+                        })
+                except Exception as we:
+                    print("[Wheel Update Error]:", we)
+
+            # DETECCIÓN DE INTENCIÓN: ACTUALIZAR TEMA DE HABITACIÓN
+            elif ("tema de sala" in msg_lower or "tema de habitación" in msg_lower or "room topic" in msg_lower) and ("actualiza" in msg_lower or "cambia" in msg_lower or "pon" in msg_lower):
+                try:
+                    clean_topic = message.split(":", 1)[-1].strip() if ":" in message else message
+                    res_tp = asyncio.run(update_room_topic_live(clean_topic))
+                    chat_history.append({
+                        "role": "system",
+                        "content": f"[ACCIÓN EN VIVO]: Tema de habitación actualizado en Stream Monitor: {json.dumps(res_tp, ensure_ascii=False)}. Confírmale a Sam el nuevo tema activo."
+                    })
+                except Exception as te:
+                    print("[Topic Update Error]:", te)
 
             # Preparar mensajes para Ollama / LLM
             messages = [{"role": "system", "content": ROXANNE_SAM_SYSTEM_PROMPT}]
