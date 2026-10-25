@@ -42,11 +42,11 @@ export const SIREN_AI = {
   lightTextMuted: '#525B6F',
   lightTextDim: '#737E94',
 
-  /** Semánticos y Alertas */
+  /** Semánticos y Estados — Derivados estrictamente de la paleta oficial (HEX 8B53FF, 1E2432, 1AE589, F2F2F2) */
   success: '#1AE589',
-  warning: '#FBBF24',
-  danger: '#F43F5E',
-  info: '#38BDF8',
+  warning: '#8B53FF',
+  danger: '#8B53FF',
+  info: '#1AE589',
 
   /** Sombras y Resplandores Glow */
   glowPurple: '0 0 25px rgba(139, 83, 255, 0.25)',
