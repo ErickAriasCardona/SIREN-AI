@@ -829,14 +829,14 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 22px;
+      padding: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
-      margin-bottom: 22px;
+      margin-bottom: 20px;
       max-width: 100%;
       min-width: 0;
       box-sizing: border-box;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow: hidden;
+      position: relative;
     }
     .card-title {
       font-size: 15px;
@@ -868,9 +868,40 @@
       -webkit-overflow-scrolling: touch;
       margin-bottom: 14px;
       box-sizing: border-box;
+      display: block;
+      border-radius: var(--radius-sm);
+    }
+    .table-responsive::-webkit-scrollbar {
+      height: 6px;
+    }
+    .table-responsive::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb {
+      background: rgba(139, 83, 255, 0.35);
+      border-radius: 4px;
+    }
+    .table-responsive::-webkit-scrollbar-thumb:hover {
+      background: #8B53FF;
+    }
+    .table-scroll-hint {
+      display: none;
+      align-items: center;
+      gap: 5px;
+      font-size: 10px;
+      color: var(--text-dim);
+      margin-bottom: 6px;
+      user-select: none;
+    }
+    @media (max-width: 768px) {
+      .table-scroll-hint {
+        display: inline-flex;
+      }
     }
     .custom-table {
       width: 100%;
+      min-width: 620px;
       border-collapse: collapse;
       font-size: 12px;
     }
@@ -884,6 +915,7 @@
       text-transform: uppercase;
       letter-spacing: 0.8px;
       border-bottom: 1px solid var(--border-color);
+      white-space: nowrap;
     }
     .custom-table td {
       padding: 14px;
@@ -1880,6 +1912,12 @@
         grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: 10px;
       }
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
     }
 
     /* ========================================== */
@@ -1899,12 +1937,12 @@
         overflow-x: hidden;
       }
       .top-bar {
-        height: 54px;
-        padding: 0 10px;
+        height: 52px;
+        padding: 0 8px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 8px;
+        gap: 6px;
         position: relative;
         z-index: 50;
       }
@@ -1921,11 +1959,12 @@
         overflow: hidden;
       }
       .top-left h2 {
-        font-size: 13px;
+        font-size: 12px !important;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
         margin: 0;
+        max-width: 170px;
       }
       .top-left p {
         display: none !important;
@@ -1937,9 +1976,33 @@
         flex-shrink: 0;
       }
       .top-actions .action-btn {
-        padding: 6px 8px;
-        font-size: 11px;
+        padding: 5px 7px !important;
+        font-size: 11px !important;
         flex-shrink: 0;
+      }
+      .card {
+        padding: 14px 12px !important;
+        margin-bottom: 14px !important;
+        border-radius: var(--radius-sm) !important;
+      }
+      .card-title {
+        font-size: 13px !important;
+        margin-bottom: 10px !important;
+      }
+      .table-responsive {
+        margin-left: -4px;
+        margin-right: -4px;
+        width: calc(100% + 8px) !important;
+        max-width: calc(100% + 8px) !important;
+        padding-bottom: 4px;
+      }
+      .custom-table th {
+        padding: 8px 10px !important;
+        font-size: 10px !important;
+      }
+      .custom-table td {
+        padding: 10px 10px !important;
+        font-size: 11px !important;
       }
       .action-btn {
         padding: 6px 9px;
@@ -2823,63 +2886,66 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <span>💳 Matriz de Métodos de Pago, Fechas y Estados por Plataforma</span>
             <span class="badge">Datos de Auditoría SIREN</span>
           </div>
+          <div class="table-scroll-hint"><i data-lucide="chevrons-right" style="width:12px; height:12px; color:var(--primary-light);"></i> Desliza horizontalmente para ver todas las columnas</div>
 
-          <table class="custom-table">
-            <thead>
-              <tr>
-                <th>Plataforma</th>
-                <th>Moneda Base</th>
-                <th>Comisión Modelo</th>
-                <th>Frecuencia de Pago</th>
-                <th>Días de Corte / Pago</th>
-                <th>Mínimo Retiro</th>
-                <th>Métodos Soportados</th>
-                <th>Estado Cuenta</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong><i data-lucide="gem" style="width:12px; vertical-align:middle; color:var(--primary-light);"></i> LoyalFans</strong></td>
-                <td>USD ($) Directo</td>
-                <td><span class="table-badge badge-success">80% Neto</span></td>
-                <td>Quincenal (Bi-monthly)</td>
-                <td>1ro y 16 de cada mes</td>
-                <td>$50.00 USD</td>
-                <td>Paxum, Wire, ACH Direct</td>
-                <td><span class="table-badge badge-warning" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">⚠️ Sin Configurar (Requiere Setup)</span></td>
-              </tr>
-              <tr>
-                <td><strong><i data-lucide="zap" style="width:12px; vertical-align:middle; color:#8B53FF;"></i> Streamate</strong></td>
-                <td>Gold / USD</td>
-                <td><span class="table-badge badge-warning">~30% - 35%</span></td>
-                <td>Semanal / Quincenal</td>
-                <td>Cada Miércoles / Quincena</td>
-                <td>$100.00 USD</td>
-                <td>Paxum, Wire, Cheque Electrónico</td>
-                <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
-              </tr>
-              <tr>
-                <td><strong><i data-lucide="flame" style="width:12px; vertical-align:middle; color:#fb7185;"></i> Stripchat</strong></td>
-                <td>Tokens ($0.05 / tk)</td>
-                <td><span class="table-badge badge-info">~50% Nominal</span></td>
-                <td>Semanal</td>
-                <td>Todos los Martes</td>
-                <td>$20.00 - $50.00 USD</td>
-                <td>Paxum, Cripto (USDT/BTC), Wire</td>
-                <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
-              </tr>
-              <tr>
-                <td><strong><i data-lucide="sparkle" style="width:12px; vertical-align:middle; color:#1AE589;"></i> Flirt4Free</strong></td>
-                <td>Créditos VIP</td>
-                <td><span class="table-badge badge-warning">~30% - 40%</span></td>
-                <td>Quincenal / Mensual</td>
-                <td>15 y 30 de cada mes</td>
-                <td>$100.00 USD</td>
-                <td>Paxum, ACH, Wire Internacional</td>
-                <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="table-responsive">
+            <table class="custom-table">
+              <thead>
+                <tr>
+                  <th>Plataforma</th>
+                  <th>Moneda Base</th>
+                  <th>Comisión Modelo</th>
+                  <th>Frecuencia de Pago</th>
+                  <th>Días de Corte / Pago</th>
+                  <th>Mínimo Retiro</th>
+                  <th>Métodos Soportados</th>
+                  <th>Estado Cuenta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong><i data-lucide="gem" style="width:12px; vertical-align:middle; color:var(--primary-light);"></i> LoyalFans</strong></td>
+                  <td>USD ($) Directo</td>
+                  <td><span class="table-badge badge-success">80% Neto</span></td>
+                  <td>Quincenal (Bi-monthly)</td>
+                  <td>1ro y 16 de cada mes</td>
+                  <td>$50.00 USD</td>
+                  <td>Paxum, Wire, ACH Direct</td>
+                  <td><span class="table-badge badge-warning" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">⚠️ Sin Configurar (Requiere Setup)</span></td>
+                </tr>
+                <tr>
+                  <td><strong><i data-lucide="zap" style="width:12px; vertical-align:middle; color:#8B53FF;"></i> Streamate</strong></td>
+                  <td>Gold / USD</td>
+                  <td><span class="table-badge badge-warning">~30% - 35%</span></td>
+                  <td>Semanal / Quincenal</td>
+                  <td>Cada Miércoles / Quincena</td>
+                  <td>$100.00 USD</td>
+                  <td>Paxum, Wire, Cheque Electrónico</td>
+                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                </tr>
+                <tr>
+                  <td><strong><i data-lucide="flame" style="width:12px; vertical-align:middle; color:#fb7185;"></i> Stripchat</strong></td>
+                  <td>Tokens ($0.05 / tk)</td>
+                  <td><span class="table-badge badge-info">~50% Nominal</span></td>
+                  <td>Semanal</td>
+                  <td>Todos los Martes</td>
+                  <td>$20.00 - $50.00 USD</td>
+                  <td>Paxum, Cripto (USDT/BTC), Wire</td>
+                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                </tr>
+                <tr>
+                  <td><strong><i data-lucide="sparkle" style="width:12px; vertical-align:middle; color:#1AE589;"></i> Flirt4Free</strong></td>
+                  <td>Créditos VIP</td>
+                  <td><span class="table-badge badge-warning">~30% - 40%</span></td>
+                  <td>Quincenal / Mensual</td>
+                  <td>15 y 30 de cada mes</td>
+                  <td>$100.00 USD</td>
+                  <td>Paxum, ACH, Wire Internacional</td>
+                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
 
         <!-- Detalle de Ingresos & Quien Tipeó -->
@@ -2917,40 +2983,42 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <i data-lucide="receipt" style="width: 13px; height: 13px; color: var(--secondary);"></i>
                 Últimos Compradores Registrados
               </h4>
-              <table class="custom-table">
-                <thead>
-                  <tr>
-                    <th>Fecha & Hora</th>
-                    <th>Comprador</th>
-                    <th>Tipo</th>
-                    <th>Bruto</th>
-                    <th>Neto (80%)</th>
-                  </tr>
-                </thead>
-                <tbody id="live-transactions-table-body">
-                  <tr>
-                    <td>14 oct, 2026 02:15 p. m.</td>
-                    <td><strong style="color: var(--secondary);">@guyeeeo009</strong></td>
-                    <td>Mensaje PPV</td>
-                    <td>$0.50</td>
-                    <td><strong style="color: #34d399;">$0.40 USD</strong></td>
-                  </tr>
-                  <tr>
-                    <td>14 oct, 2026 02:12 p. m.</td>
-                    <td><strong style="color: var(--secondary);">@guyeeeo009</strong></td>
-                    <td>Mensaje PPV</td>
-                    <td>$0.50</td>
-                    <td><strong style="color: #34d399;">$0.40 USD</strong></td>
-                  </tr>
-                  <tr>
-                    <td>14 oct, 2026 02:12 p. m.</td>
-                    <td><strong style="color: var(--secondary);">@guyeeeo009</strong></td>
-                    <td>Mensaje PPV</td>
-                    <td>$0.50</td>
-                    <td><strong style="color: #34d399;">$0.40 USD</strong></td>
-                  </tr>
-                </tbody>
-              </table>
+              <div class="table-responsive">
+                <table class="custom-table">
+                  <thead>
+                    <tr>
+                      <th>Fecha & Hora</th>
+                      <th>Comprador</th>
+                      <th>Tipo</th>
+                      <th>Bruto</th>
+                      <th>Neto (80%)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="live-transactions-table-body">
+                    <tr>
+                      <td>14 oct, 2026 02:15 p. m.</td>
+                      <td><strong style="color: var(--secondary);">@guyeeeo009</strong></td>
+                      <td>Mensaje PPV</td>
+                      <td>$0.50</td>
+                      <td><strong style="color: #34d399;">$0.40 USD</strong></td>
+                    </tr>
+                    <tr>
+                      <td>14 oct, 2026 02:12 p. m.</td>
+                      <td><strong style="color: var(--secondary);">@guyeeeo009</strong></td>
+                      <td>Mensaje PPV</td>
+                      <td>$0.50</td>
+                      <td><strong style="color: #34d399;">$0.40 USD</strong></td>
+                    </tr>
+                    <tr>
+                      <td>14 oct, 2026 02:12 p. m.</td>
+                      <td><strong style="color: var(--secondary);">@guyeeeo009</strong></td>
+                      <td>Mensaje PPV</td>
+                      <td>$0.50</td>
+                      <td><strong style="color: #34d399;">$0.40 USD</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
 
             <!-- Tabla de Resumen Mensual -->
@@ -2958,42 +3026,44 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <i data-lucide="bar-chart-2" style="width: 13px; height: 13px; color: var(--primary-light);"></i>
               Facturación por Periodo
             </h4>
-            <table class="custom-table">
-              <thead>
-                <tr>
-                  <th>Periodo / Mes</th>
-                  <th>Monto Ganado</th>
-                  <th>Estado del Fondo</th>
-                  <th>Detalle</th>
-                </tr>
-              </thead>
-              <tbody id="live-monthly-history-body">
-                <tr>
-                  <td><strong>Octubre 2026 (Actual)</strong></td>
-                  <td><strong id="live-october-table-val" style="color: #1AE589;">$20.00 USD</strong></td>
-                  <td><span class="table-badge badge-purple">Mes en Curso</span></td>
-                  <td id="live-october-table-desc">Ventas activas confirmadas ($18.80 hoy + $1.20 ayer)</td>
-                </tr>
-                <tr>
-                  <td><strong>Septiembre 2026</strong></td>
-                  <td><strong style="color: #a78bfa;">$7.19 USD</strong></td>
-                  <td><span class="table-badge badge-warning" style="background:rgba(239,68,68,0.15); color:#f87171;">Saldo Pendiente</span></td>
-                  <td>Acumulado para retiro</td>
-                </tr>
-                <tr>
-                  <td><strong>Junio 2026</strong></td>
-                  <td><strong>$32.32 USD</strong></td>
-                  <td><span class="table-badge badge-success">Procesado</span></td>
-                  <td>Ingreso generado por clips</td>
-                </tr>
-                <tr>
-                  <td><strong>Julio 2025</strong></td>
-                  <td><strong>$599.92 USD</strong></td>
-                  <td><span class="table-badge badge-success">Récord Histórico</span></td>
-                  <td>Pico máximo de facturación</td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Periodo / Mes</th>
+                    <th>Monto Ganado</th>
+                    <th>Estado del Fondo</th>
+                    <th>Detalle</th>
+                  </tr>
+                </thead>
+                <tbody id="live-monthly-history-body">
+                  <tr>
+                    <td><strong>Octubre 2026 (Actual)</strong></td>
+                    <td><strong id="live-october-table-val" style="color: #1AE589;">$20.00 USD</strong></td>
+                    <td><span class="table-badge badge-purple">Mes en Curso</span></td>
+                    <td id="live-october-table-desc">Ventas activas confirmadas ($18.80 hoy + $1.20 ayer)</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Septiembre 2026</strong></td>
+                    <td><strong style="color: #a78bfa;">$7.19 USD</strong></td>
+                    <td><span class="table-badge badge-warning" style="background:rgba(239,68,68,0.15); color:#f87171;">Saldo Pendiente</span></td>
+                    <td>Acumulado para retiro</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Junio 2026</strong></td>
+                    <td><strong>$32.32 USD</strong></td>
+                    <td><span class="table-badge badge-success">Procesado</span></td>
+                    <td>Ingreso generado por clips</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Julio 2025</strong></td>
+                    <td><strong>$599.92 USD</strong></td>
+                    <td><span class="table-badge badge-success">Récord Histórico</span></td>
+                    <td>Pico máximo de facturación</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         </div> <!-- Fin de sub-finanzas-loyalfans -->
@@ -3118,63 +3188,66 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>💳 Matriz Consolidada de Métodos de Pago, Fechas y Estados por Plataforma</span>
               <span class="badge">Datos de Auditoría SIREN</span>
             </div>
+            <div class="table-scroll-hint"><i data-lucide="chevrons-right" style="width:12px; height:12px; color:var(--primary-light);"></i> Desliza horizontalmente para ver todas las columnas</div>
 
-            <table class="custom-table">
-              <thead>
-                <tr>
-                  <th>Plataforma</th>
-                  <th>Moneda Base</th>
-                  <th>Comisión Modelo</th>
-                  <th>Frecuencia de Pago</th>
-                  <th>Días de Corte / Pago</th>
-                  <th>Mínimo Retiro</th>
-                  <th>Métodos Soportados</th>
-                  <th>Estado Cuenta</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td><strong><i data-lucide="gem" style="width:12px; vertical-align:middle; color:var(--primary-light);"></i> LoyalFans</strong></td>
-                  <td>USD ($) Directo</td>
-                  <td><span class="table-badge badge-success">80% Neto</span></td>
-                  <td>Quincenal (Bi-monthly)</td>
-                  <td>1ro y 16 de cada mes</td>
-                  <td>$50.00 USD</td>
-                  <td>Paxum, Wire, ACH Direct</td>
-                  <td><span class="table-badge badge-warning" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">⚠️ Sin Configurar (Requiere Setup)</span></td>
-                </tr>
-                <tr>
-                  <td><strong><i data-lucide="zap" style="width:12px; vertical-align:middle; color:#8B53FF;"></i> Streamate</strong></td>
-                  <td>Gold / USD</td>
-                  <td><span class="table-badge badge-warning">~30% - 35%</span></td>
-                  <td>Semanal / Quincenal</td>
-                  <td>Cada Miércoles / Quincena</td>
-                  <td>$100.00 USD</td>
-                  <td>Paxum, Wire, Cheque Electrónico</td>
-                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
-                </tr>
-                <tr>
-                  <td><strong><i data-lucide="flame" style="width:12px; vertical-align:middle; color:#fb7185;"></i> Stripchat</strong></td>
-                  <td>Tokens ($0.05 / tk)</td>
-                  <td><span class="table-badge badge-info">~50% Nominal</span></td>
-                  <td>Semanal</td>
-                  <td>Todos los Martes</td>
-                  <td>$20.00 - $50.00 USD</td>
-                  <td>Paxum, Cripto (USDT/BTC), Wire</td>
-                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
-                </tr>
-                <tr>
-                  <td><strong><i data-lucide="sparkle" style="width:12px; vertical-align:middle; color:#1AE589;"></i> Flirt4Free</strong></td>
-                  <td>Créditos VIP</td>
-                  <td><span class="table-badge badge-warning">~30% - 40%</span></td>
-                  <td>Quincenal / Mensual</td>
-                  <td>15 y 30 de cada mes</td>
-                  <td>$100.00 USD</td>
-                  <td>Paxum, ACH, Wire Internacional</td>
-                  <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
-                </tr>
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Plataforma</th>
+                    <th>Moneda Base</th>
+                    <th>Comisión Modelo</th>
+                    <th>Frecuencia de Pago</th>
+                    <th>Días de Corte / Pago</th>
+                    <th>Mínimo Retiro</th>
+                    <th>Métodos Soportados</th>
+                    <th>Estado Cuenta</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong><i data-lucide="gem" style="width:12px; vertical-align:middle; color:var(--primary-light);"></i> LoyalFans</strong></td>
+                    <td>USD ($) Directo</td>
+                    <td><span class="table-badge badge-success">80% Neto</span></td>
+                    <td>Quincenal (Bi-monthly)</td>
+                    <td>1ro y 16 de cada mes</td>
+                    <td>$50.00 USD</td>
+                    <td>Paxum, Wire, ACH Direct</td>
+                    <td><span class="table-badge badge-warning" style="background: rgba(239, 68, 68, 0.15); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.3);">⚠️ Sin Configurar (Requiere Setup)</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong><i data-lucide="zap" style="width:12px; vertical-align:middle; color:#8B53FF;"></i> Streamate</strong></td>
+                    <td>Gold / USD</td>
+                    <td><span class="table-badge badge-warning">~30% - 35%</span></td>
+                    <td>Semanal / Quincenal</td>
+                    <td>Cada Miércoles / Quincena</td>
+                    <td>$100.00 USD</td>
+                    <td>Paxum, Wire, Cheque Electrónico</td>
+                    <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong><i data-lucide="flame" style="width:12px; vertical-align:middle; color:#fb7185;"></i> Stripchat</strong></td>
+                    <td>Tokens ($0.05 / tk)</td>
+                    <td><span class="table-badge badge-info">~50% Nominal</span></td>
+                    <td>Semanal</td>
+                    <td>Todos los Martes</td>
+                    <td>$20.00 - $50.00 USD</td>
+                    <td>Paxum, Cripto (USDT/BTC), Wire</td>
+                    <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                  </tr>
+                  <tr>
+                    <td><strong><i data-lucide="sparkle" style="width:12px; vertical-align:middle; color:#1AE589;"></i> Flirt4Free</strong></td>
+                    <td>Créditos VIP</td>
+                    <td><span class="table-badge badge-warning">~30% - 40%</span></td>
+                    <td>Quincenal / Mensual</td>
+                    <td>15 y 30 de cada mes</td>
+                    <td>$100.00 USD</td>
+                    <td>Paxum, ACH, Wire Internacional</td>
+                    <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
 
@@ -3516,6 +3589,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <span class="badge">4 Plataformas Auditadas</span>
           </div>
 
+          <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+          <div class="table-responsive">
           <table class="custom-table">
             <thead>
               <tr>
@@ -3562,6 +3637,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
 
         <!-- Impacto de Reacciones e Interacciones en Feed (LoyalFans & Stripchat) -->
@@ -3760,6 +3836,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             En <strong>LoyalFans</strong> ya actualizamos la biografía en inglés, tags y arquetipo Tomboy en vivo con Playwright. Las demás plataformas están preparadas y solo se dispararán cuando tú presiones el botón de confirmación:
           </p>
 
+          <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+          <div class="table-responsive">
           <table class="custom-table">
             <thead>
               <tr>
@@ -3809,6 +3887,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
 
         <div class="card">
@@ -4248,6 +4327,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <span class="badge">Machine Learning / Regresión Lineal Simple</span>
           </div>
 
+          <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+          <div class="table-responsive">
           <table class="custom-table">
             <thead>
               <tr>
@@ -4294,6 +4375,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </section>
 
@@ -4337,6 +4419,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <span class="badge badge-success">✓ 100% EN VIVO & SIN IMÁGENES</span>
           </div>
 
+          <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+          <div class="table-responsive">
           <table class="custom-table">
             <thead>
               <tr>
@@ -4391,6 +4475,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </tr>
             </tbody>
           </table>
+          </div>
         </div>
       </section>
 
