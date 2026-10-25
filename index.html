@@ -628,6 +628,10 @@
       display: flex;
       flex-direction: column;
       overflow: hidden;
+      max-width: 100vw;
+      width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
       background: radial-gradient(circle at 85% 10%, rgba(147, 51, 234, 0.07) 0%, transparent 60%);
     }
 
@@ -696,8 +700,12 @@
     .content-area {
       flex: 1;
       overflow-y: auto;
+      overflow-x: hidden;
       padding: 26px 30px;
       position: relative;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
 
     .tab-view {
@@ -844,6 +852,11 @@
       padding: 22px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
       margin-bottom: 22px;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .card-title {
       font-size: 15px;
@@ -853,6 +866,8 @@
       align-items: center;
       justify-content: space-between;
       margin-bottom: 16px;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .card-title .badge {
       font-size: 10px;
@@ -862,9 +877,18 @@
       background: rgba(147, 51, 234, 0.15);
       color: var(--primary-light);
       border: 1px solid rgba(147, 51, 234, 0.3);
+      white-space: nowrap;
     }
 
-    /* TABLES */
+    /* TABLES & RESPONSIVE WRAPPERS */
+    .table-responsive {
+      width: 100%;
+      max-width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 14px;
+      box-sizing: border-box;
+    }
     .custom-table {
       width: 100%;
       border-collapse: collapse;
@@ -1179,6 +1203,10 @@
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .prompt-pill {
       background: rgba(255, 255, 255, 0.03);
@@ -1192,6 +1220,12 @@
       display: inline-flex;
       align-items: center;
       gap: 6px;
+      white-space: normal;
+      word-break: break-word;
+      text-align: left;
+      line-height: 1.35;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .prompt-pill:hover {
       background: rgba(147, 51, 234, 0.15);
@@ -1251,10 +1285,14 @@
     /* ROXANNE COPILOT 2-COLUMN LAYOUT (CHAT EN EL CENTRO, PANEL INICIAL A LA DERECHA) */
     .roxanne-layout-container {
       display: grid;
-      grid-template-columns: minmax(0, 1.45fr) minmax(340px, 380px);
+      grid-template-columns: minmax(0, 1.45fr) minmax(320px, 380px);
       gap: 20px;
       align-items: stretch;
       transition: all 0.25s ease;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .roxanne-layout-container.right-collapsed {
       grid-template-columns: 1fr !important;
@@ -1271,36 +1309,66 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .roxanne-center-chat .chat-console {
       height: 100%;
       display: flex;
       flex-direction: column;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .roxanne-center-chat .chat-messages-container {
       flex: 1;
       min-height: 520px;
       max-height: calc(100vh - 350px);
       height: 540px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .roxanne-right-panel {
       display: flex;
       flex-direction: column;
       gap: 14px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
+    }
+    .assistant-tools-panel {
+      display: flex;
+      flex-direction: column !important;
+      gap: 14px;
+      width: 100% !important;
+      max-width: 100% !important;
+      min-width: 0 !important;
+      box-sizing: border-box !important;
     }
     .roxanne-kpi-stack {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 12px;
+      gap: 10px;
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .roxanne-kpi-mini {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-md);
-      padding: 12px 14px;
+      padding: 10px 12px;
       display: flex;
       flex-direction: column;
       gap: 4px;
+      min-width: 0;
+      overflow: hidden;
+      box-sizing: border-box;
     }
     .roxanne-kpi-mini .title {
       font-size: 10px;
@@ -1308,15 +1376,24 @@
       letter-spacing: 0.8px;
       color: var(--text-muted);
       font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .roxanne-kpi-mini .val {
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 800;
       color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     .roxanne-kpi-mini .sub {
       font-size: 10px;
       color: var(--text-dim);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     body.light-theme .roxanne-kpi-mini {
       background: #ffffff;
@@ -1335,6 +1412,10 @@
       grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
       gap: 12px;
       margin-bottom: 18px;
+      width: 100%;
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     .assistant-card {
       background: var(--bg-card);
@@ -1348,6 +1429,10 @@
       gap: 12px;
       position: relative;
       user-select: none;
+      min-width: 0;
+      max-width: 100%;
+      overflow: hidden;
+      box-sizing: border-box;
     }
     .assistant-card:hover {
       border-color: rgba(139, 83, 255, 0.5);
@@ -1385,6 +1470,7 @@
     .assistant-card .card-info {
       flex: 1;
       min-width: 0;
+      overflow: hidden;
     }
     .assistant-card .card-name {
       font-size: 13px;
@@ -1393,6 +1479,9 @@
       align-items: center;
       gap: 6px;
       color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
     body.light-theme .assistant-card .card-name {
       color: #0f172a;
@@ -1413,6 +1502,11 @@
       margin-top: 5px;
       display: inline-block;
       letter-spacing: 0.3px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      box-sizing: border-box;
     }
 
     /* ============================================================== */
@@ -1714,11 +1808,26 @@
     /* ========================================== */
     @media (max-width: 1050px) {
       .roxanne-layout-container {
+        display: flex !important;
+        flex-direction: column !important;
         grid-template-columns: 1fr !important;
         gap: 16px;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+      }
+      .roxanne-center-chat {
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
       }
       .roxanne-right-panel {
-        width: 100%;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
       }
       .instagram-phone-frame {
         max-width: 380px;
@@ -1763,7 +1872,7 @@
         padding: 16px;
       }
       .assistants-deck-grid {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: 10px;
       }
     }
@@ -1781,6 +1890,8 @@
         height: 100dvh;
         min-height: 100dvh;
         width: 100vw;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
       .top-bar {
         height: 54px;
@@ -1838,52 +1949,84 @@
       .content-area {
         padding: 10px 10px 30px;
         overflow-y: auto;
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        box-sizing: border-box !important;
         -webkit-overflow-scrolling: touch;
       }
 
       /* Deck de Asistentes en Celular (2 columnas compactas) */
       .assistants-deck-grid {
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
         gap: 8px;
         margin-bottom: 12px;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .assistant-card {
-        padding: 8px 10px;
-        gap: 8px;
+        padding: 6px 8px;
+        gap: 6px;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        overflow: hidden !important;
+        box-sizing: border-box !important;
       }
       .assistant-card .card-avatar {
-        width: 32px;
-        height: 32px;
-        min-width: 32px;
-        font-size: 12px;
+        width: 30px;
+        height: 30px;
+        min-width: 30px;
+        font-size: 11px;
         border-radius: 8px;
+        flex-shrink: 0;
+      }
+      .assistant-card .card-info {
+        min-width: 0 !important;
+        overflow: hidden !important;
       }
       .assistant-card .card-name {
         font-size: 11px;
         gap: 4px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .assistant-card .card-role {
         font-size: 9px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .assistant-card .card-pill {
         font-size: 8px;
         padding: 1px 4px;
         margin-top: 3px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+        display: block;
       }
 
       /* Chat Console en Celular */
       .roxanne-center-chat .chat-console {
         padding: 10px;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .roxanne-center-chat .chat-messages-container {
         min-height: 280px;
         height: 380px;
         max-height: 52dvh;
         padding: 10px;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .chat-msg {
         gap: 8px;
         margin-bottom: 10px;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .chat-msg-avatar {
         width: 28px !important;
@@ -1896,24 +2039,42 @@
         line-height: 1.45;
         padding: 10px 12px;
         max-width: 95%;
+        word-break: break-word !important;
+        overflow-wrap: break-word !important;
+        box-sizing: border-box !important;
       }
       .prompt-pills-wrap {
+        display: flex;
+        flex-wrap: wrap;
         gap: 6px;
+        width: 100% !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .prompt-pill {
         font-size: 10px;
         padding: 5px 9px;
+        white-space: normal !important;
+        word-break: break-word !important;
+        text-align: left;
+        line-height: 1.35;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .chat-input-bar {
         gap: 6px;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
       }
       .chat-textarea {
         font-size: 12px;
         padding: 8px 10px;
+        min-width: 0 !important;
       }
       .chat-send-btn {
         padding: 8px 14px;
         font-size: 11px;
+        flex-shrink: 0;
       }
 
       /* Visor Instagram en Celular */
@@ -4349,9 +4510,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 </button>
               </div>
 
-              <div style="font-size: 11px; color: var(--text-dim); display:flex; justify-content: space-between; align-items:center;">
+              <div style="font-size: 11px; color: var(--text-dim); display:flex; flex-wrap: wrap; justify-content: space-between; align-items:center; gap: 6px;">
                 <span>⚡ <strong>Regla Inviolable:</strong> Si el fan escribe en español, Sam responde en español. De lo contrario, 100% inglés.</span>
-                <span>💾 Base de datos: <code>velvet_analytics.db</code> (Historial Persistente)</span>
+                <span>💾 Base de datos: <code>velvet_analytics.db</code></span>
               </div>
             </div>
           </div>
@@ -4371,7 +4532,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <!-- ============================================== -->
             <!-- COMPLEMENTO 1: ROXANNE (STREAMATE & WEBCAM) -->
             <!-- ============================================== -->
-            <div id="panel-tools-roxanne" class="assistant-tools-panel">
+            <div id="panel-tools-roxanne" class="assistant-tools-panel" style="display: flex; flex-direction: column; gap: 14px; width: 100%; max-width: 100%; min-width: 0; box-sizing: border-box;">
               <!-- Card Desplegable: Herramientas Streamate & Mahia -->
               <div class="card" style="padding: 0; overflow: hidden; border-color: rgba(139, 83, 255, 0.35); background: rgba(139, 83, 255, 0.03); margin-bottom: 14px;">
                 <div id="sm-tools-card-header" onclick="toggleStreamateToolsDropdown()" style="padding: 12px 14px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; background: rgba(139, 83, 255, 0.08); transition: background 0.2s ease;">
@@ -4382,7 +4543,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     <div>
                       <div style="font-size: 12px; font-weight: 800; color: #8B53FF; display: flex; align-items: center; gap: 6px;">
                         Herramientas Streamate
-                        <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Puente Mahia</span>
+                        <span class="table-badge badge-purple" style="font-size: 9px; padding: 1px 6px;">Puente Mahia</span>
                       </div>
                       <div style="font-size: 10px; color: var(--text-dim);">Automatizaciones sin interferir con Stream Monitor</div>
                     </div>
@@ -5570,6 +5731,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       const targetPanel = document.getElementById(`panel-tools-${assistantId}`);
       if (targetPanel) {
         targetPanel.style.display = 'flex';
+        targetPanel.style.flexDirection = 'column';
       }
 
       // 4. Update Prompt Pills
