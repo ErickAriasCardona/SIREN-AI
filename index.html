@@ -14,28 +14,31 @@
 
   <style>
     :root {
-      --bg-dark: #07090e;
-      --bg-surface: #0e121b;
-      --bg-card: #141926;
-      --bg-card-hover: #1b2234;
-      --border-color: rgba(255, 255, 255, 0.08);
-      --border-accent: rgba(168, 85, 247, 0.3);
-      --primary: #9333ea;
-      --primary-light: #c084fc;
-      --secondary: #06b6d4;
-      --accent: #f43f5e;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --text-main: #f1f5f9;
-      --text-muted: #94a3b8;
-      --text-dim: #64748b;
+      /* SIREN_AI Centralized Palette (from lib/paleta colores/theme.tsx) */
+      --primary: #8B53FF;           /* HEX 8B53FF (RGB 139, 83, 255) */
+      --primary-light: #A77BFF;
+      --primary-dark: #1E2432;      /* HEX 1E2432 (RGB 30, 36, 50) */
+      --secondary: #1AE589;         /* HEX 1AE589 (RGB 26, 229, 139) */
+      --accent-green: #1AE589;
+      --accent: #1AE589;
+      --success: #1AE589;
+      --warning: #fbbf24;
+      --bg-dark: #1E2432;           /* Fondo noche profundo */
+      --bg-surface: #181D29;
+      --bg-card: #262D3D;
+      --bg-card-hover: #2E364A;
+      --border-color: rgba(242, 242, 242, 0.08);
+      --border-accent: rgba(139, 83, 255, 0.35);
+      --text-main: #F2F2F2;          /* HEX F2F2F2 (RGB 242, 242, 242) */
+      --text-muted: #9BA4B5;
+      --text-dim: #737E94;
       --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --shadow-glow: 0 0 25px rgba(147, 51, 234, 0.15);
-      --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.45);
+      --shadow-glow: 0 0 25px rgba(139, 83, 255, 0.25);
+      --shadow-card: 0 8px 32px rgba(30, 36, 50, 0.45);
     }
 
     * {
@@ -54,21 +57,20 @@
       -webkit-font-smoothing: antialiased;
     }
 
-
     /* ========================================== */
     /* ☀️ MODO CLARO (LIGHT THEME) — SIREN AI   */
     /* ========================================== */
     body.light-theme {
-      --bg-dark: #f8fafc;
+      --bg-dark: #F2F2F2;           /* HEX F2F2F2 (RGB 242, 242, 242) */
       --bg-surface: #ffffff;
       --bg-card: #ffffff;
       --bg-card-hover: #f1f5f9;
-      --border-color: rgba(0, 0, 0, 0.08);
-      --border-accent: rgba(147, 51, 234, 0.25);
-      --text-main: #0f172a;
-      --text-muted: #475569;
-      --text-dim: #64748b;
-      --shadow-card: 0 4px 20px rgba(0, 0, 0, 0.06);
+      --border-color: rgba(30, 36, 50, 0.08);
+      --border-accent: rgba(139, 83, 255, 0.25);
+      --text-main: #1E2432;         /* HEX 1E2432 (RGB 30, 36, 50) */
+      --text-muted: #525B6F;
+      --text-dim: #737E94;
+      --shadow-card: 0 4px 20px rgba(30, 36, 50, 0.06);
     }
     body.light-theme #sidebar {
       background: #ffffff;
@@ -3994,6 +3996,26 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         }
       }
     });
+
+    // ==========================================
+    // 🎨 PALETA DE COLORES CENTRALIZADA (lib/paleta colores/theme.tsx)
+    // ==========================================
+    const SIREN_AI = {
+      primary: '#8B53FF',           // HEX 8B53FF (RGB 139, 83, 255) - Púrpura Neón
+      primaryLight: '#A77BFF',
+      primaryDark: '#1E2432',       // HEX 1E2432 (RGB 30, 36, 50) - Azul Noche Profundo
+      accentGreen: '#1AE589',       // HEX 1AE589 (RGB 26, 229, 139) - Verde Neón Esmeralda
+      lightBackground: '#F2F2F2',   // HEX F2F2F2 (RGB 242, 242, 242) - Blanco Suave
+      darkSurface: '#181D29',
+      darkCard: '#262D3D',
+      darkCardHover: '#2E364A',
+      lightSurface: '#FFFFFF',
+      success: '#1AE589',
+      warning: '#FBBF24',
+      danger: '#F43F5E',
+      info: '#38BDF8'
+    };
+    window.SIREN_AI = SIREN_AI;
 
     // Main Tab Switching
     function switchMainTab(tabId) {
