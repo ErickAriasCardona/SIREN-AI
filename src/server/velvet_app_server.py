@@ -3,6 +3,8 @@ import sys
 import json
 import sqlite3
 import datetime
+import time
+import base64
 import urllib.request
 import urllib.error
 from pathlib import Path
@@ -148,6 +150,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_instagram_sync_live()
         elif self.path == "/api/push/vapid_public_key":
             self.handle_api_push_vapid_public_key()
+        elif self.path == "/api/logo_status":
+            self.handle_api_logo_status()
         elif self.path == "/manifest.json":
             self.send_response(200)
             self.send_header("Content-Type", "application/manifest+json; charset=utf-8")
@@ -172,6 +176,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/chat":
             self.handle_api_chat()
+        elif self.path == "/api/upload_logo":
+            self.handle_api_upload_logo()
+        elif self.path == "/api/reset_logo":
+            self.handle_api_reset_logo()
         elif self.path.startswith("/api/clear_chat_history"):
             self.handle_api_clear_chat_history()
         elif self.path == "/api/push/subscribe":
@@ -326,6 +334,138 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps({"error": str(e)}).encode("utf-8"))
+
+    def handle_api_logo_status(self):
+        """Devuelve el estado del logotipo activo (opción oficial 2 o personalizado)."""
+        logo_cfg = ROOT / "data" / "logo_config.json"
+        status = {"type": "option2", "url": "", "updated_at": 0}
+        if logo_cfg.exists():
+            try:
+                with open(logo_cfg, "r", encoding="utf-8") as f:
+                    status = json.load(f)
+            except Exception:
+                pass
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(status).encode("utf-8"))
+
+    def handle_api_upload_logo(self):
+        """Recibe una imagen, genera todos los tamaños para PWA, favicons y web, y actualiza el sistema."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            img_b64 = data.get("image", "")
+
+            if not img_b64:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"error": "No se recibió imagen"}).encode("utf-8"))
+                return
+
+            if "," in img_b64:
+                header, encoded = img_b64.split(",", 1)
+            else:
+                encoded = img_b64
+
+            raw_bytes = base64.b64decode(encoded)
+            icons_dir = ROOT / "icons"
+            icons_dir.mkdir(parents=True, exist_ok=True)
+
+            custom_logo_path = icons_dir / "custom_logo.png"
+            with open(custom_logo_path, "wb") as f:
+                f.write(raw_bytes)
+
+            t_now = int(time.time())
+
+            # Redimensionar usando Pillow para PWA (192, 512, maskable, badge)
+            try:
+                from PIL import Image, ImageOps
+                with Image.open(custom_logo_path) as im:
+                    im_rgba = im.convert("RGBA")
+                    # 1. custom_logo optimizado
+                    im_rgba.save(icons_dir / "custom_logo.png", "PNG")
+
+                    # 2. icon-512x512
+                    im_512 = Image.new("RGBA", (512, 512), (30, 36, 50, 255))
+                    im_fit_512 = ImageOps.contain(im_rgba, (440, 440), Image.Resampling.LANCZOS)
+                    im_512.paste(im_fit_512, ((512 - im_fit_512.width) // 2, (512 - im_fit_512.height) // 2), im_fit_512)
+                    im_512.save(icons_dir / "icon-512x512.png", "PNG")
+
+                    # 3. icon-512x512-maskable
+                    im_mask = Image.new("RGBA", (512, 512), (30, 36, 50, 255))
+                    im_fit_mask = ImageOps.contain(im_rgba, (380, 380), Image.Resampling.LANCZOS)
+                    im_mask.paste(im_fit_mask, ((512 - im_fit_mask.width) // 2, (512 - im_fit_mask.height) // 2), im_fit_mask)
+                    im_mask.save(icons_dir / "icon-512x512-maskable.png", "PNG")
+
+                    # 4. icon-192x192
+                    im_192 = Image.new("RGBA", (192, 192), (30, 36, 50, 255))
+                    im_fit_192 = ImageOps.contain(im_rgba, (160, 160), Image.Resampling.LANCZOS)
+                    im_192.paste(im_fit_192, ((192 - im_fit_192.width) // 2, (192 - im_fit_192.height) // 2), im_fit_192)
+                    im_192.save(icons_dir / "icon-192x192.png", "PNG")
+
+                    # 5. badge-72x72
+                    im_72 = ImageOps.contain(im_rgba, (72, 72), Image.Resampling.LANCZOS)
+                    im_72.save(icons_dir / "badge-72x72.png", "PNG")
+            except Exception as pe:
+                print("[Logo Image Processing Warning]:", pe)
+
+            logo_cfg = ROOT / "data" / "logo_config.json"
+            logo_cfg.parent.mkdir(parents=True, exist_ok=True)
+            with open(logo_cfg, "w", encoding="utf-8") as f:
+                json.dump({"type": "custom", "updated_at": t_now, "url": f"/icons/custom_logo.png?v={t_now}"}, f)
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "success": True,
+                "message": "Logotipo personalizado guardado y actualizado en PWA, Favicons y Header",
+                "logo_url": f"/icons/custom_logo.png?v={t_now}",
+                "updated_at": t_now
+            }).encode("utf-8"))
+
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_reset_logo(self):
+        """Restablece los iconos al logotipo oficial de SIREN (Opción 2: Cyber Pulse Aegis)."""
+        try:
+            from scripts.generate_pwa_icons import create_option2_pwa_icons
+            create_option2_pwa_icons()
+
+            logo_cfg = ROOT / "data" / "logo_config.json"
+            logo_cfg.parent.mkdir(parents=True, exist_ok=True)
+            t_now = int(time.time())
+            with open(logo_cfg, "w", encoding="utf-8") as f:
+                json.dump({"type": "option2", "updated_at": t_now, "url": ""}, f)
+
+            custom_file = ROOT / "icons" / "custom_logo.png"
+            if custom_file.exists():
+                try:
+                    custom_file.unlink()
+                except Exception:
+                    pass
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "success": True,
+                "message": "Logotipo restablecido a la Opción 2 Oficial (Cyber Pulse Aegis)",
+                "type": "option2",
+                "updated_at": t_now
+            }).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     def handle_api_financials(self):
         """Devuelve el balance en vivo, desglose de octubre y transacciones recientes."""
