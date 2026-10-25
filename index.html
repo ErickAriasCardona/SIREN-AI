@@ -6482,8 +6482,8 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       if (indicator) indicator.style.display = 'flex';
       if (sendBtn) sendBtn.disabled = true;
 
-      // Armar historial para backend
-      const historyPayload = (assistantChatHistories[activeAssistant] || []).map(item => ({
+      // Armar historial para backend (últimos 6 mensajes para agilidad máxima)
+      const historyPayload = (assistantChatHistories[activeAssistant] || []).slice(-6).map(item => ({
         role: item.sender === 'sam' ? 'user' : 'assistant',
         content: item.message
       }));
@@ -6723,7 +6723,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     // ==============================================================
     // 🌐 SISTEMA DE ENLACE RESILIENTE AL SERVIDOR (CASA <-> ESTUDIO)
     // ==============================================================
-    const DEFAULT_TUNNEL_URL = 'https://mouth-but-myrtle-helps.trycloudflare.com';
+    const DEFAULT_TUNNEL_URL = 'https://rehabilitation-firewire-speech-township.trycloudflare.com';
     let activeTunnelUrl = localStorage.getItem('siren_tunnel_url') || DEFAULT_TUNNEL_URL;
 
     // Sincronizar automáticamente la URL del túnel desde GitHub Pages y local
