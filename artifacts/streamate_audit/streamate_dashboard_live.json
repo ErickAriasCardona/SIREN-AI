@@ -1,0 +1,440 @@
+{
+  "success": true,
+  "account_info": {
+    "performer_name": "SamBartone",
+    "performer_id": "144675665",
+    "rating_official": "4.0 ★ (Verificado)",
+    "account_type": "Cuenta Estudio Satélite (Centenario Studio)",
+    "status": "✓ Activa y Verificada (Liquidación 50% Split Neto)",
+    "rates": {
+      "private": "$2.99 / min",
+      "exclusive": "$3.99 / min",
+      "dynamic_range": "$2.99 - $6.99"
+    },
+    "payout_status": "Liquidación Automática Semanal por Estudio (Sin configuración bancaria pendiente)"
+  },
+  "kpis": {
+    "total_hours_week": 24.0,
+    "free_chat_hours": 17.1,
+    "private_hours": 6.9,
+    "total_gold_earned": 575.43,
+    "studio_cut_35_usd": 201.4,
+    "sam_net_earnings_usd": 100.71,
+    "eph_usd_hour": 4.2,
+    "total_shows_count": 12,
+    "rated_shows_count": 9,
+    "unrated_shows_count": 3,
+    "rating_rate_percent": 75.0,
+    "avg_private_duration_min": 13.1
+  },
+  "top_tags_added": [
+    {
+      "tag": "#Tomboy",
+      "count": 5
+    },
+    {
+      "tag": "#Versatile",
+      "count": 3
+    },
+    {
+      "tag": "#Ukelele",
+      "count": 2
+    },
+    {
+      "tag": "#Cam2Cam",
+      "count": 2
+    },
+    {
+      "tag": "#Sensual",
+      "count": 2
+    },
+    {
+      "tag": "#Natural",
+      "count": 2
+    },
+    {
+      "tag": "#Athletic",
+      "count": 1
+    },
+    {
+      "tag": "#Dominant",
+      "count": 1
+    },
+    {
+      "tag": "#ShortHair",
+      "count": 1
+    },
+    {
+      "tag": "#Smart",
+      "count": 1
+    },
+    {
+      "tag": "#Tattooed",
+      "count": 1
+    },
+    {
+      "tag": "#Intense",
+      "count": 1
+    },
+    {
+      "tag": "#BikerVibe",
+      "count": 1
+    }
+  ],
+  "recent_reviews": [
+    {
+      "fan": "AlphaWolf_99",
+      "date": "2026-10-26 12:45",
+      "rating": 5.0,
+      "comment": "Increíble vibra tomboy, directa y hermosa. El toque en ukelele antes de arrancar fue épico.",
+      "show_type": "Exclusivo"
+    },
+    {
+      "fan": "VegasRider_TX",
+      "date": "2026-10-26 11:20",
+      "rating": 5.0,
+      "comment": "Súper sensual, mirada penetrante y muy cómplice en Cam2Cam.",
+      "show_type": "Privado"
+    },
+    {
+      "fan": "SilentGaze",
+      "date": "2026-10-25 17:15",
+      "rating": 5.0,
+      "comment": "Excelente ritmo, dominación sutil sin sobreactuar. Respetó todo lo pactado. 10/10.",
+      "show_type": "Exclusivo"
+    },
+    {
+      "fan": "KevUK_84",
+      "date": "2026-10-25 14:10",
+      "rating": 4.8,
+      "comment": "Chica inteligente y genuina. Muy buen show privado.",
+      "show_type": "Exclusivo"
+    },
+    {
+      "fan": "NordicStorm",
+      "date": "2026-10-25 12:30",
+      "rating": 5.0,
+      "comment": "Encantadora sonrisa y actitud segura. Definitivamente volveré.",
+      "show_type": "Privado"
+    },
+    {
+      "fan": "Cyber_Ghost",
+      "date": "2026-10-24 14:20",
+      "rating": 5.0,
+      "comment": "Energía única. Habla poco pero cuando lo hace te hipnotiza.",
+      "show_type": "Privado"
+    },
+    {
+      "fan": "Maximus_Rome",
+      "date": "2026-10-24 12:15",
+      "rating": 5.0,
+      "comment": "El mejor show exclusivo del mes. La interacción en Cam2Cam es de otro nivel.",
+      "show_type": "Exclusivo"
+    },
+    {
+      "fan": "TorontoFan_91",
+      "date": "2026-10-23 13:45",
+      "rating": 4.9,
+      "comment": "Buena música de fondo y conversación interesante antes del juego íntimo.",
+      "show_type": "Exclusivo"
+    },
+    {
+      "fan": "AustinBiker",
+      "date": "2026-10-22 17:00",
+      "rating": 5.0,
+      "comment": "Totalmente tomboy y auténtica, cero plástica.",
+      "show_type": "Privado"
+    }
+  ],
+  "shows_history": [
+    {
+      "id": 12,
+      "timestamp": "2026-10-22 17:00",
+      "fan": "AustinBiker",
+      "type": "Privado",
+      "duration": 10,
+      "rate": 2.99,
+      "gold": 29.9,
+      "gross_usd": 29.9,
+      "studio_usd": 10.46,
+      "sam_net_usd": 5.23,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "Totalmente tomboy y auténtica, cero plástica.",
+      "tags": [
+        "Tomboy",
+        "BikerVibe"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 11,
+      "timestamp": "2026-10-23 13:45",
+      "fan": "TorontoFan_91",
+      "type": "Exclusivo",
+      "duration": 12,
+      "rate": 3.99,
+      "gold": 47.88,
+      "gross_usd": 47.88,
+      "studio_usd": 16.76,
+      "sam_net_usd": 8.38,
+      "rating": 4.9,
+      "rating_status": "Calificado (4.9 ★)",
+      "comment": "Buena música de fondo y conversación interesante antes del juego íntimo.",
+      "tags": [
+        "Ukelele",
+        "Natural"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 10,
+      "timestamp": "2026-10-23 16:10",
+      "fan": "SteelPulse",
+      "type": "Privado",
+      "duration": 7,
+      "rate": 2.99,
+      "gold": 20.93,
+      "gross_usd": 20.93,
+      "studio_usd": 7.33,
+      "sam_net_usd": 3.66,
+      "rating": 0.0,
+      "rating_status": "Sin Calificar",
+      "comment": "Sin comentario registrado",
+      "tags": [],
+      "cam2cam": false
+    },
+    {
+      "id": 9,
+      "timestamp": "2026-10-24 12:15",
+      "fan": "Maximus_Rome",
+      "type": "Exclusivo",
+      "duration": 25,
+      "rate": 3.99,
+      "gold": 99.75,
+      "gross_usd": 99.75,
+      "studio_usd": 34.91,
+      "sam_net_usd": 17.46,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "El mejor show exclusivo del mes. La interacción en Cam2Cam es de otro nivel.",
+      "tags": [
+        "Tomboy",
+        "Versatile",
+        "Intense"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 8,
+      "timestamp": "2026-10-24 14:20",
+      "fan": "Cyber_Ghost",
+      "type": "Privado",
+      "duration": 9,
+      "rate": 2.99,
+      "gold": 26.91,
+      "gross_usd": 26.91,
+      "studio_usd": 9.42,
+      "sam_net_usd": 4.71,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "Energía única. Habla poco pero cuando lo hace te hipnotiza.",
+      "tags": [
+        "Sensual",
+        "Tattooed"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 7,
+      "timestamp": "2026-10-24 16:50",
+      "fan": "Midnight_Runner",
+      "type": "Exclusivo",
+      "duration": 15,
+      "rate": 3.99,
+      "gold": 59.85,
+      "gross_usd": 59.85,
+      "studio_usd": 20.95,
+      "sam_net_usd": 10.47,
+      "rating": 0.0,
+      "rating_status": "Sin Calificar",
+      "comment": "Sin comentario registrado",
+      "tags": [],
+      "cam2cam": true
+    },
+    {
+      "id": 6,
+      "timestamp": "2026-10-25 12:30",
+      "fan": "NordicStorm",
+      "type": "Privado",
+      "duration": 11,
+      "rate": 2.99,
+      "gold": 32.89,
+      "gross_usd": 32.89,
+      "studio_usd": 11.51,
+      "sam_net_usd": 5.76,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "Encantadora sonrisa y actitud segura. Definitivamente volveré.",
+      "tags": [
+        "Tomboy",
+        "Cam2Cam"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 5,
+      "timestamp": "2026-10-25 14:10",
+      "fan": "KevUK_84",
+      "type": "Exclusivo",
+      "duration": 18,
+      "rate": 3.99,
+      "gold": 71.82,
+      "gross_usd": 71.82,
+      "studio_usd": 25.14,
+      "sam_net_usd": 12.57,
+      "rating": 4.8,
+      "rating_status": "Calificado (4.8 ★)",
+      "comment": "Chica inteligente y genuina. Muy buen show privado.",
+      "tags": [
+        "Versatile",
+        "ShortHair",
+        "Smart"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 4,
+      "timestamp": "2026-10-25 15:40",
+      "fan": "BlueLagoon77",
+      "type": "Privado",
+      "duration": 6,
+      "rate": 2.99,
+      "gold": 17.94,
+      "gross_usd": 17.94,
+      "studio_usd": 6.28,
+      "sam_net_usd": 3.14,
+      "rating": 0.0,
+      "rating_status": "Sin Calificar",
+      "comment": "Sin comentario registrado",
+      "tags": [],
+      "cam2cam": true
+    },
+    {
+      "id": 3,
+      "timestamp": "2026-10-25 17:15",
+      "fan": "SilentGaze",
+      "type": "Exclusivo",
+      "duration": 22,
+      "rate": 3.99,
+      "gold": 87.78,
+      "gross_usd": 87.78,
+      "studio_usd": 30.72,
+      "sam_net_usd": 15.36,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "Excelente ritmo, dominación sutil sin sobreactuar. Respetó todo lo pactado. 10/10.",
+      "tags": [
+        "Tomboy",
+        "Dominant",
+        "Natural"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 2,
+      "timestamp": "2026-10-26 11:20",
+      "fan": "VegasRider_TX",
+      "type": "Privado",
+      "duration": 8,
+      "rate": 2.99,
+      "gold": 23.92,
+      "gross_usd": 23.92,
+      "studio_usd": 8.37,
+      "sam_net_usd": 4.19,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "Súper sensual, mirada penetrante y muy cómplice en Cam2Cam.",
+      "tags": [
+        "Cam2Cam",
+        "Athletic",
+        "Sensual"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 1,
+      "timestamp": "2026-10-26 12:45",
+      "fan": "AlphaWolf_99",
+      "type": "Exclusivo",
+      "duration": 14,
+      "rate": 3.99,
+      "gold": 55.86,
+      "gross_usd": 55.86,
+      "studio_usd": 19.55,
+      "sam_net_usd": 9.78,
+      "rating": 5.0,
+      "rating_status": "Calificado (5.0 ★)",
+      "comment": "Increíble vibra tomboy, directa y hermosa. El toque en ukelele antes de arrancar fue épico.",
+      "tags": [
+        "Tomboy",
+        "Ukelele",
+        "Versatile"
+      ],
+      "cam2cam": true
+    }
+  ],
+  "shifts_history": [
+    {
+      "date": "2026-10-22",
+      "label": "Jueves (Turno 11:00 - 18:00)",
+      "total_hours": 4.0,
+      "free_hours": 3.1,
+      "pvt_hours": 0.9,
+      "gold": 58.9,
+      "sam_net": 10.31,
+      "eph": 14.73
+    },
+    {
+      "date": "2026-10-23",
+      "label": "Viernes (Turno 11:00 - 18:00)",
+      "total_hours": 4.0,
+      "free_hours": 2.9,
+      "pvt_hours": 1.1,
+      "gold": 68.81,
+      "sam_net": 12.04,
+      "eph": 17.2
+    },
+    {
+      "date": "2026-10-24",
+      "label": "Sábado (Turno 11:00 - 18:00)",
+      "total_hours": 5.5,
+      "free_hours": 3.8,
+      "pvt_hours": 1.7,
+      "gold": 186.51,
+      "sam_net": 32.64,
+      "eph": 33.91
+    },
+    {
+      "date": "2026-10-25",
+      "label": "Domingo (Turno 11:00 - 18:00)",
+      "total_hours": 6.0,
+      "free_hours": 4.1,
+      "pvt_hours": 1.9,
+      "gold": 210.43,
+      "sam_net": 36.82,
+      "eph": 35.07
+    },
+    {
+      "date": "2026-10-26",
+      "label": "Lunes (Turno 11:00 - 18:00)",
+      "total_hours": 4.5,
+      "free_hours": 3.2,
+      "pvt_hours": 1.3,
+      "gold": 79.78,
+      "sam_net": 13.97,
+      "eph": 17.72
+    }
+  ],
+  "last_sync": "2026-10-26 13:57:26"
+}
