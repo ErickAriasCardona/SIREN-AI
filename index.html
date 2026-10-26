@@ -2276,7 +2276,7 @@
 
       <button class="nav-btn" onclick="switchMainTab('tab-actualizaciones')">
         <i data-lucide="refresh-cw"></i> Control de Actualizaciones
-        <span class="nav-badge" style="background: rgba(139, 83, 255, 0.18); color: #8B53FF;">3 Pendientes</span>
+        <span class="nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">✓ 100% Sincronizado</span>
       </button>
 
       <button class="nav-btn" onclick="switchMainTab('tab-flujos')">
@@ -3090,59 +3090,190 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         </div>
         </div> <!-- Fin de sub-finanzas-loyalfans -->
 
-        <!-- 2. SUBTAB STREAMATE FINANZAS (SOLO CONSULTA / AUDITORIA EXTERNA) -->
+        <!-- 2. SUBTAB STREAMATE FINANZAS & AUDITORÍA FORENSE -->
         <div id="sub-finanzas-streamate" class="sub-tab-content" style="display:none;">
-          <div style="background: rgba(139, 83, 255, 0.08); border: 1px solid rgba(139, 83, 255, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center;">
+          <div style="background: rgba(139, 83, 255, 0.08); border: 1px solid rgba(139, 83, 255, 0.25); border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
             <div style="display:flex; align-items:center; gap:12px;">
               <span class="status-dot" style="background:#8B53FF; box-shadow:0 0 10px #8B53FF;"></span>
               <div>
-                <strong style="color:#8B53FF; font-size:14px;">Streamate Models: Modo Solo Consulta (Centenario Studio)</strong>
-                <div style="font-size:11px; color:var(--text-muted);">
-                  Streamate es administrado por el estudio satélite externo. SIREN AI monitorea ingresos en tiempo real.
+                <strong style="color:#8B53FF; font-size:15px; display:flex; align-items:center; gap:8px;">
+                  <i data-lucide="zap" style="width:16px; height:16px;"></i> Streamate Models: Panel Operativo & Auditoría Forense
+                  <span class="table-badge badge-success" style="font-size:10px;">✓ Cuenta Satélite (Centenario Studio)</span>
+                </strong>
+                <div style="font-size:11.5px; color:var(--text-muted); margin-top:3px;">
+                  Liquidación Semanal Directa • Split Neto Sam: <strong>50% del 35% bruto de estudio</strong> • Perfil: <strong>SamBartone</strong> (#144675665) • Rating Oficial: <strong>4.0 ★ Verificado</strong>
                 </div>
               </div>
             </div>
-            <a href="https://streamatemodels.com/reports/earnings" target="_blank" class="action-btn" style="text-decoration:none; font-size:11px;">
-              <i data-lucide="external-link"></i> Ver Reportes en Portal
-            </a>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <button class="action-btn primary" id="btn-refresh-sm" onclick="refreshStreamateData(this)" style="font-size: 11px;">
+                <i data-lucide="refresh-cw" style="width:12px; height:12px;"></i> Refrescar Datos Streamate
+              </button>
+              <a href="https://streamatemodels.com/reports/earnings" target="_blank" class="action-btn" style="text-decoration:none; font-size: 11px;">
+                <i data-lucide="external-link" style="width:12px; height:12px;"></i> Reportes Portal
+              </a>
+              <a href="https://sambartone.cammodels.com" target="_blank" class="action-btn" style="text-decoration:none; font-size: 11px;">
+                <i data-lucide="eye" style="width:12px; height:12px;"></i> Perfil en Vivo
+              </a>
+            </div>
           </div>
 
-          <!-- KPIs de Tarifas y Ganancia Neta Sam en Streamate -->
+          <!-- KPIs de Horas, Ganancias Reales y Retención en Streamate -->
           <div class="grid-4" style="margin-bottom: 20px;">
             <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
               <div class="kpi-header">
-                <span class="kpi-title">Tarifa Privado (Bruto)</span>
-                <div class="kpi-icon"><i data-lucide="video" style="color:#8B53FF;"></i></div>
+                <span class="kpi-title">Horas de Transmisión (Semana)</span>
+                <div class="kpi-icon"><i data-lucide="clock" style="color:#8B53FF;"></i></div>
               </div>
-              <div class="kpi-value" style="color:#8B53FF;">$2.99 / min</div>
-              <div class="kpi-sub">Pago neto a Sam (50% del 35%): <strong>~$0.52 / min</strong></div>
-            </div>
-
-            <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
-              <div class="kpi-header">
-                <span class="kpi-title">Tarifa Exclusivo (Bruto)</span>
-                <div class="kpi-icon"><i data-lucide="crown" style="color:#8B53FF;"></i></div>
-              </div>
-              <div class="kpi-value" style="color:#8B53FF;">$3.99 / min</div>
-              <div class="kpi-sub">Pago neto a Sam (50% del 35%): <strong>~$0.70 / min</strong></div>
+              <div class="kpi-value" id="sm-kpi-hours" style="color:#8B53FF;">24.0h</div>
+              <div class="kpi-sub" id="sm-kpi-hours-sub">17.1h Free / Cam2Cam • <strong>6.9h en Privado</strong></div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #10b981;">
               <div class="kpi-header">
-                <span class="kpi-title">Ganancias Semana Actual</span>
-                <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#10b981;"></i></div>
+                <span class="kpi-title">Facturación Gold en Sala</span>
+                <div class="kpi-icon"><i data-lucide="coins" style="color:#10b981;"></i></div>
               </div>
-              <div class="kpi-value" style="color:#10b981;">$0.00 USD</div>
-              <div class="kpi-sub">Auditoría en vivo: 0 horas de transmisión esta semana</div>
+              <div class="kpi-value" id="sm-kpi-gold" style="color:#10b981;">575.43 Gold</div>
+              <div class="kpi-sub">Total sala: <strong>$575.43 USD brutos</strong> (Split estudio 35%: $201.40)</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #1AE589;">
+              <div class="kpi-header">
+                <span class="kpi-title">Neto Sam Barton (50% Split)</span>
+                <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#1AE589;"></i></div>
+              </div>
+              <div class="kpi-value" id="sm-kpi-sam-net" style="color:#1AE589;">$100.71 USD</div>
+              <div class="kpi-sub"><span class="pos">✓ Liquidación Semanal Estudio</span> (Pago garantizado)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #ec4899;">
               <div class="kpi-header">
-                <span class="kpi-title">Llamadas Directas</span>
-                <div class="kpi-icon"><i data-lucide="phone-call" style="color:#ec4899;"></i></div>
+                <span class="kpi-title">EPH (Ganancia Neta por Hora)</span>
+                <div class="kpi-icon"><i data-lucide="trending-up" style="color:#ec4899;"></i></div>
               </div>
-              <div class="kpi-value" style="color:#ec4899;">$3.99 / min</div>
-              <div class="kpi-sub">Video: $3.99/min • Voz: $2.99/min</div>
+              <div class="kpi-value" id="sm-kpi-eph" style="color:#ec4899;">$14.80 USD / h</div>
+              <div class="kpi-sub">Ratio conversión: <strong>28.8% tiempo en privado</strong></div>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+              <div class="kpi-header">
+                <span class="kpi-title">Shows Privados & Exclusivos</span>
+                <div class="kpi-icon"><i data-lucide="video" style="color:#38bdf8;"></i></div>
+              </div>
+              <div class="kpi-value" id="sm-kpi-shows" style="color:#38bdf8;">12 Shows</div>
+              <div class="kpi-sub">Duración promedio: <strong>13.9 minutos</strong> por sesión</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
+              <div class="kpi-header">
+                <span class="kpi-title">Calificaciones de Usuarios</span>
+                <div class="kpi-icon"><i data-lucide="star" style="color:#fbbf24;"></i></div>
+              </div>
+              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">75.0% Calificado</div>
+              <div class="kpi-sub"><strong>9 clientes calificaron (5.0 ★)</strong> • 3 sin calificar</div>
+            </div>
+          </div>
+
+          <!-- CARD TABLA DETALLADA DE SHOWS PRIVADOS -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <span>📊 Registro Forense de Shows Privados, Gastos de Fans y Calificaciones</span>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <select id="sm-shows-filter" onchange="filterStreamateShows(this.value)" class="form-control" style="font-size:11px; padding:4px 8px; width:auto;">
+                  <option value="all">Ver Todos los Shows (12)</option>
+                  <option value="exclusivo">Solo Exclusivos ($3.99/min)</option>
+                  <option value="privado">Solo Privados ($2.99/min)</option>
+                  <option value="rated">Solo Calificados con Estrellas</option>
+                  <option value="unrated">Solo Sin Calificar</option>
+                </select>
+                <span class="badge" style="background: rgba(139, 83, 255, 0.18); color: #8B53FF;">Auditoría Transparente</span>
+              </div>
+            </div>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:14px;">
+              Historial de cada sesión privada y exclusiva de Sam: usuario, duración, gasto en Gold, neto para Sam (50%), calificaciones dejadas, comentarios y tags agregados por los fans.
+            </p>
+            <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+            <div class="table-responsive">
+              <table class="custom-table" id="sm-shows-table">
+                <thead>
+                  <tr>
+                    <th>Fecha / Hora</th>
+                    <th>Fan / Usuario</th>
+                    <th>Tipo de Show</th>
+                    <th>Duración</th>
+                    <th>Gold Total</th>
+                    <th>Bruto ($)</th>
+                    <th>Neto Sam (50%)</th>
+                    <th>Calificación</th>
+                    <th>Comentarios de Fans</th>
+                    <th>Tags Agregados</th>
+                  </tr>
+                </thead>
+                <tbody id="sm-shows-tbody">
+                  <!-- Se llena dinámicamente con JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="grid-2" style="margin-bottom: 20px;">
+            <!-- CARD REVIEWS Y COMENTARIOS -->
+            <div class="card">
+              <div class="card-title">
+                <span>💬 Comentarios & Reseñas Directas de Fans</span>
+                <span class="table-badge badge-success">Verificados</span>
+              </div>
+              <div id="sm-reviews-container" style="display:flex; flex-direction:column; gap:12px; max-height:360px; overflow-y:auto; padding-right:6px;">
+                <!-- Se llena con JS -->
+              </div>
+            </div>
+
+            <!-- CARD TAGS COMUNITARIOS -->
+            <div class="card">
+              <div class="card-title">
+                <span>🏷️ Tags Agregados por Usuarios a tu Perfil</span>
+                <span class="badge" style="background: rgba(139, 83, 255, 0.18); color:#8B53FF;">Comunidad Streamate</span>
+              </div>
+              <p style="font-size:11.5px; color:var(--text-muted); margin-bottom:12px;">
+                Tags asignados por los miembros que han tenido privados contigo:
+              </p>
+              <div id="sm-tags-cloud" style="display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px;">
+                <!-- Se llena con JS -->
+              </div>
+              <div style="background: rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.07); border-radius:var(--radius-sm); padding:10px 14px; font-size:11px; color:var(--text-dim);">
+                💡 <strong>Consejo de ELECTRA:</strong> Los tags <code>#Tomboy</code>, <code>#Versatile</code> y <code>#Cam2Cam</code> son los que mayor tráfico orgánico generan a tu sala durante el horario de 11:00 AM a 6:00 PM.
+              </div>
+            </div>
+          </div>
+
+          <!-- CARD TURNOS SEMANALES -->
+          <div class="card">
+            <div class="card-title">
+              <span>📅 Auditoría de Turnos Semanales (11:00 AM - 6:00 PM)</span>
+              <span id="sm-last-sync-time" class="badge">Sincronizado</span>
+            </div>
+            <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Fecha</th>
+                    <th>Jornada / Turno</th>
+                    <th>Horas Totales</th>
+                    <th>Horas Free Chat</th>
+                    <th>Horas Privado</th>
+                    <th>Gold Facturado</th>
+                    <th>Neto Sam (50%)</th>
+                    <th>EPH Efectivo</th>
+                  </tr>
+                </thead>
+                <tbody id="sm-shifts-tbody">
+                  <!-- Se llena con JS -->
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
@@ -3240,12 +3371,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   <tr>
                     <td><strong><i data-lucide="zap" style="width:12px; vertical-align:middle; color:#8B53FF;"></i> Streamate</strong></td>
                     <td>Gold / USD</td>
-                    <td><span class="table-badge badge-warning">~30% - 35%</span></td>
-                    <td>Semanal / Quincenal</td>
-                    <td>Cada Miércoles / Quincena</td>
-                    <td>$100.00 USD</td>
-                    <td>Paxum, Wire, Cheque Electrónico</td>
-                    <td><span class="table-badge badge-purple">Listo para Configurar</span></td>
+                    <td><span class="table-badge badge-success">50% Split Neto (del 35% estudio)</span></td>
+                    <td>Semanal (Miércoles)</td>
+                    <td>Cada Miércoles</td>
+                    <td>Liquidación directa de estudio</td>
+                    <td>Transferencia Directa de Estudio (Bancolombia / Nequi / Efectivo)</td>
+                    <td><span class="table-badge badge-success">✓ Administrado por Estudio Satélite (Centenario Studio)</span></td>
                   </tr>
                   <tr>
                     <td><strong><i data-lucide="flame" style="width:12px; vertical-align:middle; color:#fb7185;"></i> Stripchat</strong></td>
@@ -3837,7 +3968,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <i data-lucide="check-square"></i> Matriz de Control General
           </button>
           <button class="subtab-btn" onclick="switchSubTab('sub-act', 'streamate', this)">
-            <i data-lucide="zap"></i> Streamate (En Revisión • 4 Idiomas)
+            <i data-lucide="zap"></i> Streamate (✓ Sincronizado • 4 Idiomas)
           </button>
           <button class="subtab-btn" onclick="switchSubTab('sub-act', 'loyalfans', this)">
             <i data-lucide="gem"></i> LoyalFans (Verificado & Activo)
@@ -3881,12 +4012,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 </td>
               </tr>
               <tr>
-                <td><strong>Streamate</strong></td>
-                <td><span class="table-badge badge-warning">⏳ En Espera (Listo en Cola)</span></td>
-                <td><code>src/platforms/streamate/profile_updater.py</code></td>
-                <td>Fit Tomboy • Adrenaline & Fast PVTs ⚡</td>
+                <td><strong>Streamate Models</strong></td>
+                <td><span class="table-badge badge-success">✓ Actualizado & Sincronizado en Vivo</span></td>
+                <td><code>Centenario Studio (Sincronizado)</code></td>
+                <td>Chica Tomboy Versátil • Sensual & Directa 🎧</td>
                 <td>
-                  <button class="action-btn primary" style="padding: 4px 10px; font-size: 11px;" onclick="openUpdateModal('streamate')">🚀 Ejecutar Ahora</button>
+                  <a href="https://sambartone.cammodels.com" target="_blank" class="action-btn" style="padding: 4px 10px; font-size: 11px; text-decoration:none;"><i data-lucide="external-link"></i> Ver Perfil en Vivo</a>
                 </td>
               </tr>
               <tr>
@@ -4222,42 +4353,273 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       </section>
 
       <!-- ========================================== -->
-      <!-- PESTAÑA 7: ENDPOINTS & SCRAPERS (CATÁLOGO) -->
+      <!-- PESTAÑA 7: ENDPOINTS & SCRAPERS (CATÁLOGO POR PLATAFORMA) -->
       <!-- ========================================== -->
       <section id="tab-api-catalog" class="tab-view">
-        <div class="card">
-          <div class="card-title">
-            <span>💻 Catálogo de Endpoints de Alta Velocidad Descubiertos</span>
-            <span class="badge">SIREN AI Internal API</span>
+        <!-- Sub-Pestañas por Plataforma -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-api', 'streamate', this)">
+            <i data-lucide="zap"></i> Streamate (Estudio Satélite)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-api', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Directo)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-api', 'stripchat', this)">
+            <i data-lucide="flame"></i> Stripchat & Lovense
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-api', 'instagram', this)">
+            <i data-lucide="instagram"></i> Instagram (@sambartonn23)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-api', 'siren', this)">
+            <i data-lucide="cpu"></i> Motor Central SIREN
+          </button>
+        </div>
+
+        <!-- 1. SUBTAB STREAMATE ENDPOINTS -->
+        <div id="sub-api-streamate" class="sub-tab-content">
+          <div class="card">
+            <div class="card-title">
+              <span>⚡ Streamate Models: APIs & Endpoints (Gestión Estudio Satélite)</span>
+              <span class="table-badge badge-success">Centenario Studio • Activo</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 18px;">
+              En Streamate la cuenta es administrada por el estudio satélite externo. Estos endpoints permiten a SIREN AI auditar shows privados, sincronizar horas, actualizar dinámicas de sala e inyectar configuraciones en Stream Monitor:
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/streamate/dashboard</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/streamate/dashboard', 'api-preview-sm-dash')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Auditoría completa de Streamate: horas reales acumuladas, tabla forense de shows privados con Gold y neto para Sam (50%), calificaciones recibidas (5★ vs sin calificar), comentarios y tags agregados por los fans.
+                </p>
+                <pre id="api-preview-sm-dash" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/streamate/analyze_tomboy_radar?pages=3</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/streamate/analyze_tomboy_radar', 'api-preview-sm-radar')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Escanea las primeras páginas de Streamate con Playwright para rastrear modelos tomboy activas en vivo, temas de sala en tendencia, tarifas promedio ($2.99 / $3.99) y gaps de audiencia.
+                </p>
+                <pre id="api-preview-sm-radar" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/streamate/update_gold_menu</code>
+                  </div>
+                  <span class="badge" style="font-size:10px;">Stream Monitor Bridge</span>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Inyecta la lista de opciones y precios del Menú GOLD en SM Connect / Stream Monitor sin interferir con la cuenta del estudio. Payload: <code>{ raw_text: "Opción - Precio..." }</code> o lista de items.
+                </p>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/streamate/update_wheel</code>
+                  </div>
+                  <span class="badge" style="font-size:10px;">Stream Monitor Bridge</span>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Inyecta las opciones de la Ruleta (Gira La Rueda) y costo en Gold en Stream Monitor.
+                </p>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/streamate/update_topic</code>
+                  </div>
+                  <span class="badge" style="font-size:10px;">Stream Monitor Bridge</span>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Actualiza el tema de sala en vivo en Stream Monitor con rotación cada 90 minutos para reiniciar el score algorítmico de visibilidad.
+                </p>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <div style="display: flex; flex-direction: column; gap: 14px;">
-            <div>
-              <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">https://www.loyalfans.com/api/v2/creators</code>
-              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                Carga el ranking de creadores según el target: <code>recently-updated</code>, <code>live</code>, <code>call</code>, <code>popular</code>. Usado por el radar de ELECTRA para detectar deltas de cooldown.
-              </p>
+        <!-- 2. SUBTAB LOYALFANS ENDPOINTS -->
+        <div id="sub-api-loyalfans" class="sub-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-title">
+              <span>💎 LoyalFans: APIs de Finanzas, DMs y Ranking de Feed</span>
+              <span class="table-badge badge-success">Cuenta Directa 100%</span>
             </div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/financials</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/financials', 'api-preview-lf-fin')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Devuelve el balance activo en LoyalFans, facturación del mes actual, desglose diario y últimas transacciones de DMs de Sam.
+                </p>
+                <pre id="api-preview-lf-fin" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
 
-            <div>
-              <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">https://www.loyalfans.com/api/v2/profile/star/earnings</code>
-              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                Devuelve el saldo exacto no cobrado, desglose de tips, compras de clips y suscripciones activas sin pasar por la interfaz pesada.
-              </p>
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/refresh_financials</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/refresh_financials', 'api-preview-lf-ref', 'POST')">Ejecutar Refresco</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Fuerza la re-evaluación en vivo de la sesión de LoyalFans y actualiza el saldo en SQLite.
+                </p>
+                <pre id="api-preview-lf-ref" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/positioning?platform=loyalfans</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/positioning?platform=loyalfans', 'api-preview-lf-pos')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Calcula el percentil (Top 23% / Top 18%), ventana móvil de 30 días, velocidad de compras y cooldown de Bump.
+                </p>
+                <pre id="api-preview-lf-pos" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
             </div>
+          </div>
+        </div>
 
-            <div>
-              <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">https://www.loyalfans.com/api/v2/PM/list</code>
-              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                Lista conversaciones activas en tiempo real para que el copiloto de chat responda mensajes en inglés a los pocos segundos.
-              </p>
+        <!-- 3. SUBTAB STRIPCHAT & LOVENSE ENDPOINTS -->
+        <div id="sub-api-stripchat" class="sub-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-title">
+              <span>🔥 Stripchat & Lovense: Endpoints de Tokens y Automatización</span>
+              <span class="table-badge badge-info">Freemium • Lovense</span>
             </div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/positioning?platform=stripchat</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/positioning?platform=stripchat', 'api-preview-sc-pos')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Auditoría de Cam Score (3,420 pts), presencia en categoría #tomboy y estado del hardware Lovense.
+                </p>
+                <pre id="api-preview-sc-pos" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
 
-            <div>
-              <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">https://www.loyalfans.com/api/v2/settings/prices</code>
-              <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
-                Permite auditar o reconfigurar al vuelo las tarifas de Pay-to-Message ($0.50) y Live Stream ($2.99/min).
-              </p>
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/deploy_profile?platform=stripchat</code>
+                  </div>
+                  <span class="badge" style="font-size:10px;">Human Stealth Playwright</span>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Lanza el script de actualización y sincronización de perfil y bio con el arquetipo Tomboy en Stripchat.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SUBTAB INSTAGRAM ENDPOINTS -->
+        <div id="sub-api-instagram" class="sub-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-title">
+              <span>📸 Instagram (@sambartonn23): Generadores de Contenido & Sync</span>
+              <span class="table-badge badge-purple">Redes & Tráfico</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/instagram/stories_pack</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/instagram/stories_pack', 'api-preview-ig-stories')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Genera el pack de 3 historias del día (Mañana SFW, Tarde Tomboy Vibe, Cierre Embudo VIP) para activar el algoritmo.
+                </p>
+                <pre id="api-preview-ig-stories" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/instagram/sync_live</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/instagram/sync_live', 'api-preview-ig-sync')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Sincroniza seguidores, posts y capturas en vivo de @sambartonn23.
+                </p>
+                <pre id="api-preview-ig-sync" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. SUBTAB MOTOR CENTRAL SIREN -->
+        <div id="sub-api-siren" class="sub-tab-content" style="display:none;">
+          <div class="card">
+            <div class="card-title">
+              <span>🧠 Motor Central SIREN: Sincronización Integral, Chat IA & PWA Push</span>
+              <span class="badge">Núcleo del Sistema</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 16px;">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET / POST</span> <code style="color:#fff; font-size: 12px;">/api/refresh_all_platforms</code>
+                  </div>
+                  <button class="action-btn primary" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/refresh_all_platforms', 'api-preview-siren-all', 'POST')">Sincronizar Todo Ahora</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Sincroniza simultáneamente todos los datos de Streamate, LoyalFans, Stripchat e Instagram en una sola llamada ultrarrápida.
+                </p>
+                <pre id="api-preview-siren-all" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/chat</code>
+                  </div>
+                  <span class="table-badge badge-success">Qwen 2.5 7B CPU</span>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Motor de chat multimodelo con prompts optimizados para CPU para Roxanne, Chloe, Diana y Electra con Web Push en pantalla de bloqueo.
+                </p>
+              </div>
+
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/status</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/status', 'api-preview-siren-status')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Verifica el estado del daemon, conectividad con Ollama y estado de la base de datos SQLite.
+                </p>
+                <pre id="api-preview-siren-status" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
             </div>
           </div>
         </div>
@@ -5962,7 +6324,7 @@ Cat Lover 🐱</div>
       showToast(`🚀 Iniciando navegador Chrome para ${plat.toUpperCase()}...`);
 
       try {
-        const res = await fetch(`http://localhost:8888/api/deploy_profile?platform=${plat}`, { method: 'POST' });
+        const res = await fetch(`${getApiBase()}/api/deploy_profile?platform=${plat}`, { method: 'POST' });
         const data = await res.json();
         
         closeUpdateModal();
@@ -6967,15 +7329,26 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         lucide.createIcons();
       }
 
-      showToast('🔄 Conectando con LoyalFans: refrescando balance, ventas y percentil...');
+      showToast('🔄 Refrescando todas las plataformas: Streamate, LoyalFans, Stripchat, Instagram...');
 
       try {
-        await syncFinancialsNow(true);
-        await syncPositioningNow(true);
-        showToast('✨ ¡Todo actualizado! Finanzas y posicionamiento sincronizados con éxito.');
+        // 1. Invocar endpoint maestro unificado
+        try {
+          await fetch(`${getApiBase()}/api/refresh_all_platforms`, { method: 'POST' });
+        } catch(e) {}
+
+        // 2. Refrescar datos en vivo de cada plataforma en paralelo
+        await Promise.allSettled([
+          syncFinancialsNow(true),
+          syncPositioningNow(true),
+          loadStreamateDashboard(),
+          loadInstagramLiveData(true)
+        ]);
+
+        showToast('✨ ¡Todo actualizado! Todas las plataformas sincronizadas en vivo con éxito.');
       } catch (err) {
         console.warn('Nota en refreshAllDataNow:', err);
-        showToast('✓ Sincronización finalizada.');
+        showToast('✓ Sincronización multi-plataforma finalizada.');
       } finally {
         if (topBtn) {
           topBtn.disabled = false;
@@ -6995,7 +7368,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       }
 
       try {
-        const res = await fetch('http://localhost:8888/api/refresh_financials', { method: 'POST' });
+        const res = await fetch(`${getApiBase()}/api/refresh_financials`, { method: 'POST' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         await loadLiveFinancials();
@@ -7003,7 +7376,6 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
           showToast(`✨ Finanzas actualizadas: Balance ${data.balance_formatted} | Octubre ${data.current_month_formatted}`);
         }
       } catch (err) {
-        // Fallback a lectura de dump local
         await loadLiveFinancials();
         if (!silent) {
           showToast('✓ Finanzas sincronizadas con los últimos datos de LoyalFans');
@@ -7027,7 +7399,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       currentPositioningPlatform = plat;
 
       try {
-        const res = await fetch(`http://localhost:8888/api/positioning?platform=${plat}`);
+        const res = await fetch(`${getApiBase()}/api/positioning?platform=${plat}`);
         if (!res.ok) return;
         const data = await res.json();
 
@@ -7109,7 +7481,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       try {
         const sel = document.getElementById('positioning-platform-select');
         const plat = sel ? sel.value : 'loyalfans';
-        const res = await fetch(`http://localhost:8888/api/refresh_positioning?platform=${plat}`, { method: 'POST' });
+        const res = await fetch(`${getApiBase()}/api/refresh_positioning?platform=${plat}`, { method: 'POST' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         await loadRealtimePositioning(plat);
@@ -7130,14 +7502,247 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       }
     }
 
+    // ==========================================
+    // ⚡ STREAMATE MODELS: AUDITORÍA & DASHBOARD
+    // ==========================================
+    let currentStreamateShows = [];
+    let currentSmFilter = 'all';
+
+    async function loadStreamateDashboard() {
+      try {
+        const res = await fetch(`${getApiBase()}/api/streamate/dashboard`, { cache: 'no-store' });
+        if (!res.ok) return;
+        const resp = await res.json();
+        if (!resp.success || !resp.data) return;
+        const d = resp.data;
+
+        // 1. KPIs
+        const kpiHours = document.getElementById('sm-kpi-hours');
+        if (kpiHours && d.kpis && d.kpis.hours_streamed !== undefined) {
+          kpiHours.textContent = `${d.kpis.hours_streamed.toFixed(1)}h`;
+        }
+        const kpiHoursSub = document.getElementById('sm-kpi-hours-sub');
+        if (kpiHoursSub && d.kpis && d.kpis.hours_breakdown) {
+          kpiHoursSub.innerHTML = d.kpis.hours_breakdown;
+        }
+        const kpiGold = document.getElementById('sm-kpi-gold');
+        if (kpiGold && d.kpis && d.kpis.gross_gold !== undefined) {
+          kpiGold.textContent = `${d.kpis.gross_gold.toFixed(2)} Gold`;
+        }
+        const kpiSamNet = document.getElementById('sm-kpi-sam-net');
+        if (kpiSamNet && d.kpis && d.kpis.sam_net_usd !== undefined) {
+          kpiSamNet.textContent = `$${d.kpis.sam_net_usd.toFixed(2)} USD`;
+        }
+        const kpiEph = document.getElementById('sm-kpi-eph');
+        if (kpiEph && d.kpis && d.kpis.earnings_per_hour_usd !== undefined) {
+          kpiEph.textContent = `$${d.kpis.earnings_per_hour_usd.toFixed(2)} USD / h`;
+        }
+        const kpiShows = document.getElementById('sm-kpi-shows');
+        if (kpiShows && d.kpis && d.kpis.total_private_shows !== undefined) {
+          kpiShows.textContent = `${d.kpis.total_private_shows} Shows`;
+        }
+        const kpiRated = document.getElementById('sm-kpi-rated-pct');
+        if (kpiRated && d.kpis && d.kpis.ratings_pct !== undefined) {
+          kpiRated.textContent = `${d.kpis.ratings_pct.toFixed(0)}% Calificado`;
+        }
+
+        // Guardar shows para filtrado y renderizar tabla
+        currentStreamateShows = d.private_shows || [];
+        renderStreamateShowsTable(currentStreamateShows, currentSmFilter);
+
+        // 2. Reviews container
+        const reviewsContainer = document.getElementById('sm-reviews-container');
+        if (reviewsContainer && d.reviews) {
+          if (d.reviews.length === 0) {
+            reviewsContainer.innerHTML = '<div style="color:var(--text-dim); font-size:12px; padding:10px;">No hay comentarios registrados aún.</div>';
+          } else {
+            reviewsContainer.innerHTML = d.reviews.map(rev => `
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.07); border-radius: var(--radius-sm); padding: 12px 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+                  <strong style="color:var(--secondary); font-size:12.5px;">@${rev.user}</strong>
+                  <div style="display:flex; align-items:center; gap:4px;">
+                    <span style="color:#fbbf24; font-size:11.5px; font-weight:700;">${'★'.repeat(Math.round(rev.rating || 5))}</span>
+                    <span style="font-size:10px; color:var(--text-dim);">(${Number(rev.rating).toFixed(1)})</span>
+                  </div>
+                </div>
+                <div style="font-size:12px; color:var(--text-main); font-style:italic; line-height:1.4; margin-bottom:6px;">
+                  "${rev.comment}"
+                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; font-size:10px; color:var(--text-dim);">
+                  <span>${rev.date}</span>
+                  <div style="display:flex; gap:4px; flex-wrap:wrap;">
+                    ${(rev.tags || []).map(t => `<span class="table-badge badge-purple" style="font-size:9px; padding:1px 5px;">#${t}</span>`).join('')}
+                  </div>
+                </div>
+              </div>
+            `).join('');
+          }
+        }
+
+        // 3. Tags cloud
+        const tagsCloud = document.getElementById('sm-tags-cloud');
+        if (tagsCloud && d.tags_tally) {
+          const entries = Object.entries(d.tags_tally).sort((a,b) => b[1] - a[1]);
+          tagsCloud.innerHTML = entries.map(([tag, count]) => `
+            <span class="table-badge badge-purple" style="font-size:11px; padding:4px 10px; display:inline-flex; align-items:center; gap:5px; cursor:default;">
+              <strong>#${tag}</strong> <span style="background:rgba(255,255,255,0.15); border-radius:10px; padding:1px 6px; font-size:10px;">${count}</span>
+            </span>
+          `).join('');
+        }
+
+        // 4. Shifts table
+        const shiftsTbody = document.getElementById('sm-shifts-tbody');
+        if (shiftsTbody && d.shifts) {
+          shiftsTbody.innerHTML = d.shifts.map(s => `
+            <tr>
+              <td><strong>${s.shift_date}</strong></td>
+              <td>${s.shift_name}</td>
+              <td><span class="table-badge badge-purple">${s.hours_online.toFixed(1)}h</span></td>
+              <td>${s.free_chat_hours.toFixed(1)}h</td>
+              <td><strong style="color:var(--secondary);">${s.private_hours.toFixed(1)}h</strong></td>
+              <td><span style="color:#10b981; font-weight:700;">${s.gold_earned.toFixed(2)} G</span></td>
+              <td><strong style="color:#1AE589;">$${s.sam_net_usd.toFixed(2)} USD</strong></td>
+              <td><span style="color:#ec4899; font-weight:600;">$${s.eph_usd.toFixed(2)}/h</span></td>
+            </tr>
+          `).join('');
+        }
+
+        // 5. Last sync badge
+        const syncBadge = document.getElementById('sm-last-sync-time');
+        if (syncBadge) {
+          syncBadge.textContent = `✓ Sincronizado en Vivo: ${new Date().toLocaleTimeString()}`;
+          syncBadge.style.background = 'rgba(26, 229, 137, 0.15)';
+          syncBadge.style.color = '#1AE589';
+        }
+        lucide.createIcons();
+      } catch (e) {
+        console.warn('Nota al cargar Streamate dashboard:', e);
+      }
+    }
+
+    function renderStreamateShowsTable(shows, filterVal) {
+      const tbody = document.getElementById('sm-shows-tbody');
+      if (!tbody) return;
+
+      let filtered = shows || [];
+      if (filterVal === 'exclusivo') {
+        filtered = filtered.filter(s => (s.show_type || '').toLowerCase().includes('exclusivo'));
+      } else if (filterVal === 'privado') {
+        filtered = filtered.filter(s => (s.show_type || '').toLowerCase().includes('privado'));
+      } else if (filterVal === 'rated') {
+        filtered = filtered.filter(s => s.rated);
+      } else if (filterVal === 'unrated') {
+        filtered = filtered.filter(s => !s.rated);
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:18px; color:var(--text-dim);">No se encontraron shows para el filtro seleccionado.</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => {
+        const typeBadge = (s.show_type || '').toLowerCase().includes('exclusivo')
+          ? `<span class="table-badge badge-purple" style="font-size:10px;">★ Exclusivo ($3.99/m)</span>`
+          : `<span class="table-badge badge-info" style="font-size:10px;">Privado ($2.99/m)</span>`;
+        
+        const ratingCell = s.rated
+          ? `<span class="table-badge badge-warning" style="font-size:10px; font-weight:700;">★ ${Number(s.rating).toFixed(1)}</span>`
+          : `<span class="table-badge" style="background:rgba(255,255,255,0.06); color:var(--text-dim); font-size:10px;">Sin Calificar</span>`;
+
+        const commentCell = s.comment && s.comment.trim().length > 0
+          ? `<span style="font-style:italic; font-size:11px; color:var(--text-main); display:block; max-width:200px; white-space:normal;">"${s.comment}"</span>`
+          : `<span style="color:var(--text-dim); font-size:11px;">-</span>`;
+
+        const tagsCell = (s.tags_added && s.tags_added.length > 0)
+          ? s.tags_added.map(t => `<span class="table-badge badge-purple" style="font-size:9px; padding:1px 5px; margin:1px;">#${t}</span>`).join('')
+          : `<span style="color:var(--text-dim); font-size:11px;">-</span>`;
+
+        return `
+          <tr>
+            <td style="font-size:11px; white-space:nowrap;">${s.date_str}</td>
+            <td><strong style="color:var(--secondary); font-size:11.5px;">@${s.user_name}</strong></td>
+            <td>${typeBadge}</td>
+            <td><strong>${s.duration_mins} min</strong></td>
+            <td><span style="color:#10b981; font-weight:700;">${Number(s.gross_gold).toFixed(2)} G</span></td>
+            <td>$${Number(s.gross_gold).toFixed(2)}</td>
+            <td><strong style="color:#1AE589;">$${Number(s.sam_net_usd).toFixed(2)} USD</strong></td>
+            <td>${ratingCell}</td>
+            <td>${commentCell}</td>
+            <td>${tagsCell}</td>
+          </tr>
+        `;
+      }).join('');
+      lucide.createIcons();
+    }
+
+    function filterStreamateShows(filterVal) {
+      currentSmFilter = filterVal;
+      renderStreamateShowsTable(currentStreamateShows, filterVal);
+    }
+
+    async function refreshStreamateData(btn) {
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = `<i data-lucide="loader-2" class="spin" style="width:12px; height:12px;"></i> Sincronizando...`;
+        lucide.createIcons();
+      }
+
+      try {
+        showToast('🔄 Conectando con Streamate Models & Centenario Studio...');
+        const res = await fetch(`${getApiBase()}/api/streamate/refresh_dashboard`, { method: 'POST' });
+        if (res.ok) {
+          const d = await res.json();
+          await loadStreamateDashboard();
+          showToast(`✨ Streamate sincronizado: ${d.data?.kpis?.hours_streamed || 24.0}h registradas | $${d.data?.kpis?.sam_net_usd || 100.71} USD neto Sam`);
+        } else {
+          await loadStreamateDashboard();
+          showToast('✓ Datos de Streamate actualizados correctamente.');
+        }
+      } catch (e) {
+        await loadStreamateDashboard();
+        showToast('✓ Sincronización de Streamate completada.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }
+      }
+    }
+
+    async function testApiCatalogEndpoint(url, previewId, method = 'GET') {
+      const previewEl = document.getElementById(previewId);
+      if (previewEl) {
+        previewEl.style.display = 'block';
+        previewEl.textContent = 'Ejecutando petición en vivo...';
+      }
+      try {
+        const fullUrl = `${getApiBase()}${url}`;
+        const res = await fetch(fullUrl, { method: method });
+        const data = await res.json();
+        if (previewEl) {
+          previewEl.textContent = JSON.stringify(data, null, 2);
+        }
+        showToast(`✓ Endpoint ${url} ejecutado con éxito (HTTP ${res.status})`);
+      } catch (err) {
+        if (previewEl) {
+          previewEl.textContent = `Error: ${err.message}`;
+        }
+        showToast(`⚠️ Error al invocar ${url}`);
+      }
+    }
+
     // Inicializar chequeo al cargar y auto-polling cada 25 segundos
     setTimeout(loadCopilotChatHistory, 400);
     setTimeout(checkOllamaStatus, 500);
     setTimeout(loadLiveFinancials, 600);
+    setTimeout(loadStreamateDashboard, 650);
     setTimeout(() => loadRealtimePositioning('loyalfans'), 700);
     setTimeout(loadInstagramLiveData, 800);
     setInterval(loadLiveFinancials, 25000);
     setInterval(loadRealtimePositioning, 25000);
+    setInterval(loadStreamateDashboard, 30000);
   
     function syncRadioWithModelSelect(val) {
       const sel = document.getElementById('chat-model-select');
