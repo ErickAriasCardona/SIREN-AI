@@ -3135,7 +3135,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <div class="kpi-icon"><i data-lucide="coins" style="color:#10b981;"></i></div>
               </div>
               <div class="kpi-value" id="sm-kpi-gold" style="color:#10b981;">4.79 Gold</div>
-              <div class="kpi-sub">Total sala: <strong>$4.79 USD brutos</strong> (Generado en portal: $1.43 USD)</div>
+              <div class="kpi-sub" id="sm-kpi-gold-sub">Total sala: <strong>$4.79 USD brutos</strong> (Generado en portal: $1.43 USD)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #1AE589;">
@@ -3144,7 +3144,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#1AE589;"></i></div>
               </div>
               <div class="kpi-value" id="sm-kpi-sam-net" style="color:#1AE589;">$0.72 USD</div>
-              <div class="kpi-sub"><span class="pos">✓ Liquidación Semanal Estudio</span> (Oct 25, 2026)</div>
+              <div class="kpi-sub" id="sm-kpi-sam-net-sub"><span class="pos">✓ Liquidación Semanal Estudio</span> (50% Split: $0.72 USD)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #ec4899;">
@@ -3153,7 +3153,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <div class="kpi-icon"><i data-lucide="trending-up" style="color:#ec4899;"></i></div>
               </div>
               <div class="kpi-value" id="sm-kpi-eph" style="color:#ec4899;">$0.21 USD / h</div>
-              <div class="kpi-sub">Velocidad actual en sala: <strong>1 Show Exclusivo</strong></div>
+              <div class="kpi-sub" id="sm-kpi-eph-sub">Tiempo pagado en sala: <strong>01m 12s</strong> (1 show)</div>
             </div>
           </div>
 
@@ -3164,7 +3164,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <div class="kpi-icon"><i data-lucide="video" style="color:#38bdf8;"></i></div>
               </div>
               <div class="kpi-value" id="sm-kpi-shows" style="color:#38bdf8;">1 Show</div>
-              <div class="kpi-sub">Duración: <strong>01m 12s</strong> • Exclusivo ($3.99/min)</div>
+              <div class="kpi-sub" id="sm-kpi-shows-sub">Duración: <strong>01m 12s</strong> • Exclusivo ($3.99/min)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
@@ -3172,8 +3172,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Calificaciones de Usuarios</span>
                 <div class="kpi-icon"><i data-lucide="star" style="color:#fbbf24;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">user0864</div>
-              <div class="kpi-sub"><strong>ID #144708265</strong> • Sin Calificar</div>
+              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">Sin Calificar</div>
+              <div class="kpi-sub" id="sm-kpi-rated-sub">Cliente: <strong>@user0864 (ID: 144708265)</strong></div>
             </div>
           </div>
 
@@ -3183,7 +3183,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>📊 Registro Forense de Shows Privados, Gastos de Fans y Calificaciones</span>
               <div style="display:flex; align-items:center; gap:8px;">
                 <select id="sm-shows-filter" onchange="filterStreamateShows(this.value)" class="form-control" style="font-size:11px; padding:4px 8px; width:auto;">
-                  <option value="all">Ver Todos los Shows (12)</option>
+                  <option value="all">Ver Todos los Shows</option>
                   <option value="exclusivo">Solo Exclusivos ($3.99/min)</option>
                   <option value="privado">Solo Privados ($2.99/min)</option>
                   <option value="rated">Solo Calificados con Estrellas</option>
@@ -7518,14 +7518,14 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
 
         // 1. KPIs
         const kpis = d.kpis;
-        const totalHrs = (kpis.total_hours_week !== undefined) ? kpis.total_hours_week : (kpis.hours_streamed !== undefined ? kpis.hours_streamed : 24.0);
-        const freeHrs = (kpis.free_chat_hours !== undefined) ? kpis.free_chat_hours : 17.1;
-        const pvtHrs = (kpis.private_hours !== undefined) ? kpis.private_hours : 6.9;
-        const totGold = (kpis.total_gold_earned !== undefined) ? kpis.total_gold_earned : (kpis.gross_gold !== undefined ? kpis.gross_gold : 575.43);
-        const samNet = (kpis.sam_net_earnings_usd !== undefined) ? kpis.sam_net_earnings_usd : (kpis.sam_net_usd !== undefined ? kpis.sam_net_usd : 100.71);
-        const ephVal = (kpis.eph_usd_hour !== undefined) ? kpis.eph_usd_hour : (kpis.earnings_per_hour_usd !== undefined ? kpis.earnings_per_hour_usd : 14.80);
-        const showsCnt = (kpis.total_shows_count !== undefined) ? kpis.total_shows_count : (kpis.total_private_shows !== undefined ? kpis.total_private_shows : 12);
-        const ratedPct = (kpis.rating_rate_percent !== undefined) ? kpis.rating_rate_percent : (kpis.ratings_pct !== undefined ? kpis.ratings_pct : 75.0);
+        const totalHrs = (kpis.total_hours_week !== undefined) ? kpis.total_hours_week : (kpis.hours_streamed !== undefined ? kpis.hours_streamed : 6.7);
+        const freeHrs = (kpis.free_chat_hours !== undefined) ? kpis.free_chat_hours : 6.68;
+        const pvtHrs = (kpis.private_hours !== undefined) ? kpis.private_hours : 0.02;
+        const totGold = (kpis.total_gold_earned !== undefined) ? kpis.total_gold_earned : (kpis.gross_gold !== undefined ? kpis.gross_gold : 4.79);
+        const samNet = (kpis.sam_net_earnings_usd !== undefined) ? kpis.sam_net_earnings_usd : (kpis.sam_net_usd !== undefined ? kpis.sam_net_usd : 0.72);
+        const ephVal = (kpis.eph_usd_hour !== undefined) ? kpis.eph_usd_hour : (kpis.earnings_per_hour_usd !== undefined ? kpis.earnings_per_hour_usd : 0.21);
+        const showsCnt = (kpis.total_shows_count !== undefined) ? kpis.total_shows_count : (kpis.total_private_shows !== undefined ? kpis.total_private_shows : 1);
+        const ratedPct = (kpis.rating_rate_percent !== undefined) ? kpis.rating_rate_percent : (kpis.ratings_pct !== undefined ? kpis.ratings_pct : 0.0);
 
         const kpiHours = document.getElementById('sm-kpi-hours');
         if (kpiHours) kpiHours.textContent = kpis.stream_time_formatted || `${Number(totalHrs).toFixed(1)}h`;
@@ -7538,14 +7538,34 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         const kpiGold = document.getElementById('sm-kpi-gold');
         if (kpiGold) kpiGold.textContent = `${Number(totGold).toFixed(2)} Gold`;
 
+        const kpiGoldSub = document.getElementById('sm-kpi-gold-sub');
+        if (kpiGoldSub) {
+          kpiGoldSub.innerHTML = `Total sala: <strong>$${Number(totGold).toFixed(2)} USD brutos</strong> (Generado en portal: $${Number(kpis.studio_cut_35_usd || 1.43).toFixed(2)} USD)`;
+        }
+
         const kpiSamNet = document.getElementById('sm-kpi-sam-net');
         if (kpiSamNet) kpiSamNet.textContent = `$${Number(samNet).toFixed(2)} USD`;
+
+        const kpiSamNetSub = document.getElementById('sm-kpi-sam-net-sub');
+        if (kpiSamNetSub) {
+          kpiSamNetSub.innerHTML = `<span class="pos">✓ Liquidación Semanal Estudio</span> (50% Split: $${Number(samNet).toFixed(2)} USD)`;
+        }
 
         const kpiEph = document.getElementById('sm-kpi-eph');
         if (kpiEph) kpiEph.textContent = `$${Number(ephVal).toFixed(2)} USD / h`;
 
+        const kpiEphSub = document.getElementById('sm-kpi-eph-sub');
+        if (kpiEphSub) {
+          kpiEphSub.innerHTML = `Tiempo pagado en sala: <strong>${kpis.paid_time_formatted || '01m 12s'}</strong> (${showsCnt} show)`;
+        }
+
         const kpiShows = document.getElementById('sm-kpi-shows');
         if (kpiShows) kpiShows.textContent = `${showsCnt} Show${showsCnt === 1 ? '' : 's'}`;
+
+        const kpiShowsSub = document.getElementById('sm-kpi-shows-sub');
+        if (kpiShowsSub) {
+          kpiShowsSub.innerHTML = `Duración: <strong>${kpis.paid_time_formatted || '01m 12s'}</strong> • Exclusivo ($3.99/min)`;
+        }
 
         const kpiRated = document.getElementById('sm-kpi-rated-pct');
         if (kpiRated) {
@@ -7553,6 +7573,15 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
             kpiRated.textContent = d.shows_history[0].rating_status === 'rated' ? `★ ${d.shows_history[0].rating}` : 'Sin Calificar';
           } else {
             kpiRated.textContent = `${Number(ratedPct).toFixed(0)}% Calificado`;
+          }
+        }
+
+        const kpiRatedSub = document.getElementById('sm-kpi-rated-sub');
+        if (kpiRatedSub) {
+          if (showsCnt === 1 && d.shows_history && d.shows_history[0]) {
+            kpiRatedSub.innerHTML = `Cliente: <strong>@${d.shows_history[0].fan}</strong>`;
+          } else {
+            kpiRatedSub.innerHTML = `<strong>${kpis.rated_shows_count || 0} calificados</strong> • ${kpis.unrated_shows_count || 0} sin calificar`;
           }
         }
 
@@ -7743,7 +7772,7 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         if (res.ok) {
           const d = await res.json();
           await loadStreamateDashboard();
-          showToast(`✨ Streamate sincronizado: ${d.data?.kpis?.hours_streamed || 24.0}h registradas | $${d.data?.kpis?.sam_net_usd || 100.71} USD neto Sam`);
+          showToast(`✨ Streamate sincronizado: ${d.data?.kpis?.hours_streamed || 6.7}h registradas | $${d.data?.kpis?.sam_net_usd || 0.72} USD neto Sam`);
         } else {
           await loadStreamateDashboard();
           showToast('✓ Datos de Streamate actualizados correctamente.');
