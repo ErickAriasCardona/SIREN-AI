@@ -3125,8 +3125,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Horas de Transmisión (Semana)</span>
                 <div class="kpi-icon"><i data-lucide="clock" style="color:#8B53FF;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-hours" style="color:#8B53FF;">24.0h</div>
-              <div class="kpi-sub" id="sm-kpi-hours-sub">17.1h Free / Cam2Cam • <strong>6.9h en Privado</strong></div>
+              <div class="kpi-value" id="sm-kpi-hours" style="color:#8B53FF;">06h 42m</div>
+              <div class="kpi-sub" id="sm-kpi-hours-sub">06h 40m Free / Cam2Cam • <strong>01m 12s en Privado</strong></div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #10b981;">
@@ -3134,8 +3134,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Facturación Gold en Sala</span>
                 <div class="kpi-icon"><i data-lucide="coins" style="color:#10b981;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-gold" style="color:#10b981;">575.43 Gold</div>
-              <div class="kpi-sub">Total sala: <strong>$575.43 USD brutos</strong> (Split estudio 35%: $201.40)</div>
+              <div class="kpi-value" id="sm-kpi-gold" style="color:#10b981;">4.79 Gold</div>
+              <div class="kpi-sub">Total sala: <strong>$4.79 USD brutos</strong> (Generado en portal: $1.43 USD)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #1AE589;">
@@ -3143,8 +3143,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Neto Sam Barton (50% Split)</span>
                 <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#1AE589;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-sam-net" style="color:#1AE589;">$100.71 USD</div>
-              <div class="kpi-sub"><span class="pos">✓ Liquidación Semanal Estudio</span> (Pago garantizado)</div>
+              <div class="kpi-value" id="sm-kpi-sam-net" style="color:#1AE589;">$0.72 USD</div>
+              <div class="kpi-sub"><span class="pos">✓ Liquidación Semanal Estudio</span> (Oct 25, 2026)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #ec4899;">
@@ -3152,8 +3152,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">EPH (Ganancia Neta por Hora)</span>
                 <div class="kpi-icon"><i data-lucide="trending-up" style="color:#ec4899;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-eph" style="color:#ec4899;">$14.80 USD / h</div>
-              <div class="kpi-sub">Ratio conversión: <strong>28.8% tiempo en privado</strong></div>
+              <div class="kpi-value" id="sm-kpi-eph" style="color:#ec4899;">$0.21 USD / h</div>
+              <div class="kpi-sub">Velocidad actual en sala: <strong>1 Show Exclusivo</strong></div>
             </div>
           </div>
 
@@ -3163,8 +3163,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Shows Privados & Exclusivos</span>
                 <div class="kpi-icon"><i data-lucide="video" style="color:#38bdf8;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-shows" style="color:#38bdf8;">12 Shows</div>
-              <div class="kpi-sub">Duración promedio: <strong>13.9 minutos</strong> por sesión</div>
+              <div class="kpi-value" id="sm-kpi-shows" style="color:#38bdf8;">1 Show</div>
+              <div class="kpi-sub">Duración: <strong>01m 12s</strong> • Exclusivo ($3.99/min)</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
@@ -3172,8 +3172,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Calificaciones de Usuarios</span>
                 <div class="kpi-icon"><i data-lucide="star" style="color:#fbbf24;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">75.0% Calificado</div>
-              <div class="kpi-sub"><strong>9 clientes calificaron (5.0 ★)</strong> • 3 sin calificar</div>
+              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">user0864</div>
+              <div class="kpi-sub"><strong>ID #144708265</strong> • Sin Calificar</div>
             </div>
           </div>
 
@@ -7528,11 +7528,11 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         const ratedPct = (kpis.rating_rate_percent !== undefined) ? kpis.rating_rate_percent : (kpis.ratings_pct !== undefined ? kpis.ratings_pct : 75.0);
 
         const kpiHours = document.getElementById('sm-kpi-hours');
-        if (kpiHours) kpiHours.textContent = `${Number(totalHrs).toFixed(1)}h`;
+        if (kpiHours) kpiHours.textContent = kpis.stream_time_formatted || `${Number(totalHrs).toFixed(1)}h`;
 
         const kpiHoursSub = document.getElementById('sm-kpi-hours-sub');
         if (kpiHoursSub) {
-          kpiHoursSub.innerHTML = `${Number(freeHrs).toFixed(1)}h Free / Cam2Cam • <strong>${Number(pvtHrs).toFixed(1)}h en Privado</strong>`;
+          kpiHoursSub.innerHTML = kpis.hours_breakdown || `${Number(freeHrs).toFixed(1)}h Free / Cam2Cam • <strong>${Number(pvtHrs).toFixed(1)}h en Privado</strong>`;
         }
 
         const kpiGold = document.getElementById('sm-kpi-gold');
@@ -7545,10 +7545,16 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         if (kpiEph) kpiEph.textContent = `$${Number(ephVal).toFixed(2)} USD / h`;
 
         const kpiShows = document.getElementById('sm-kpi-shows');
-        if (kpiShows) kpiShows.textContent = `${showsCnt} Shows`;
+        if (kpiShows) kpiShows.textContent = `${showsCnt} Show${showsCnt === 1 ? '' : 's'}`;
 
         const kpiRated = document.getElementById('sm-kpi-rated-pct');
-        if (kpiRated) kpiRated.textContent = `${Number(ratedPct).toFixed(0)}% Calificado`;
+        if (kpiRated) {
+          if (showsCnt === 1 && d.shows_history && d.shows_history[0]) {
+            kpiRated.textContent = d.shows_history[0].rating_status === 'rated' ? `★ ${d.shows_history[0].rating}` : 'Sin Calificar';
+          } else {
+            kpiRated.textContent = `${Number(ratedPct).toFixed(0)}% Calificado`;
+          }
+        }
 
         // Guardar shows para filtrado y renderizar tabla
         currentStreamateShows = d.shows_history || d.private_shows || [];
