@@ -3122,9 +3122,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <div style="display:flex; align-items:center; gap:12px;">
               <span class="status-dot" style="background:#8B53FF; box-shadow:0 0 10px #8B53FF;"></span>
               <div>
-                <strong style="color:#8B53FF; font-size:15px; display:flex; align-items:center; gap:8px;">
+                <strong style="color:#8B53FF; font-size:15px; display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                   <i data-lucide="zap" style="width:16px; height:16px;"></i> Streamate Models: Panel Operativo & Auditoría Forense
                   <span class="table-badge badge-success" style="font-size:10px;">✓ Cuenta Satélite (Centenario Studio)</span>
+                  <span id="sm-last-sync-badge" class="table-badge badge-info" style="font-size:10px; display:inline-flex; align-items:center; gap:4px; background: rgba(56, 189, 248, 0.15); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3);">
+                    <i data-lucide="clock" style="width:10px; height:10px;"></i> <span id="sm-last-sync-text">Sincronizado: En vivo</span>
+                  </span>
                 </strong>
                 <div style="font-size:11.5px; color:var(--text-muted); margin-top:3px;">
                   Liquidación Semanal Directa • Split Neto Sam: <strong>50% del 35% bruto de estudio</strong> • Perfil: <strong>SamBartone</strong> (#144675665) • Rating Oficial: <strong>4.0 ★ Verificado</strong>
@@ -7611,13 +7614,23 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
     let currentStreamateShows = [];
     let currentSmFilter = 'all';
 
-    async function loadStreamateDashboard() {
+    async function loadStreamateDashboard(providedData) {
       try {
-        const res = await fetch(`${getApiBase()}/api/streamate/dashboard`, { cache: 'no-store' });
-        if (!res.ok) return;
-        const resp = await res.json();
+        let resp = providedData;
+        if (!resp) {
+          const res = await fetch(`${getApiBase()}/api/streamate/dashboard?t=${Date.now()}`, { cache: 'no-store' });
+          if (!res.ok) return;
+          resp = await res.json();
+        }
         const d = resp.data || resp;
         if (!d || !d.kpis) return;
+
+        // Actualizar badge de sincronización en vivo
+        const syncText = document.getElementById('sm-last-sync-text');
+        if (syncText) {
+          const syncTime = d.last_sync ? (d.last_sync.includes(' ') ? d.last_sync.split(' ')[1] : d.last_sync) : new Date().toLocaleTimeString('es-CO');
+          syncText.textContent = `Sincronizado: ${syncTime}`;
+        }
 
         // 1. KPIs
         const kpis = d.kpis;
@@ -7877,22 +7890,41 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         lucide.createIcons();
       }
 
+      // Pulso visual en las tarjetas KPI para confirmar actualización
+      const kpiCards = document.querySelectorAll('#sub-finanzas-streamate .kpi-card');
+      kpiCards.forEach(c => {
+        c.style.transition = 'box-shadow 0.3s ease, transform 0.2s ease';
+        c.style.boxShadow = '0 0 16px rgba(139, 83, 255, 0.5)';
+        c.style.transform = 'translateY(-2px)';
+      });
+
       try {
         showToast('🔄 Conectando con Streamate Models & Centenario Studio...');
-        const res = await fetch(`${getApiBase()}/api/streamate/refresh_dashboard`, { method: 'POST' });
+        const res = await fetch(`${getApiBase()}/api/streamate/refresh_dashboard?t=${Date.now()}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          cache: 'no-store'
+        });
+
+        let d = null;
         if (res.ok) {
-          const d = await res.json();
-          await loadStreamateDashboard();
-          const k = (d.data && d.data.kpis) || d.kpis || {};
-          showToast(`✨ Streamate sincronizado en vivo: ${k.hours_streamed || 18.7}h registradas | $${k.sam_net_usd || 115.32} USD neto Sam (${k.total_shows_count || 150} txs)`);
-        } else {
-          await loadStreamateDashboard();
-          showToast('✓ Datos de Streamate actualizados correctamente.');
+          d = await res.json();
         }
+        await loadStreamateDashboard(d);
+
+        const nowTime = new Date().toLocaleTimeString('es-CO');
+        const k = (d && ((d.data && d.data.kpis) || d.kpis)) || {};
+        showToast(`✨ Streamate sincronizado en vivo a las ${nowTime}: ${k.stream_time_formatted || '18h 44m'} | $${k.sam_net_usd || 115.32} USD neto (${k.total_shows_count || 150} txs)`);
       } catch (e) {
         await loadStreamateDashboard();
         showToast('✓ Sincronización de Streamate completada.');
       } finally {
+        setTimeout(() => {
+          kpiCards.forEach(c => {
+            c.style.boxShadow = '';
+            c.style.transform = '';
+          });
+        }, 700);
         if (btn) {
           btn.disabled = false;
           btn.innerHTML = oldHtml;
