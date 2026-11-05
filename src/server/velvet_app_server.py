@@ -221,6 +221,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_positioning()
         elif self.path.startswith("/api/streamate/dashboard"):
             self.handle_api_streamate_dashboard()
+        elif self.path.startswith("/api/streamate/update_gold_menu"):
+            self.handle_api_streamate_update_gold_menu()
+        elif self.path.startswith("/api/streamate/update_wheel"):
+            self.handle_api_streamate_update_wheel()
+        elif self.path.startswith("/api/streamate/update_topic"):
+            self.handle_api_streamate_update_topic()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
@@ -273,6 +279,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_push_test()
         elif self.path.startswith("/api/streamate/dashboard") or self.path.startswith("/api/streamate/refresh_dashboard"):
             self.handle_api_streamate_dashboard()
+        elif self.path.startswith("/api/streamate/update_gold_menu"):
+            self.handle_api_streamate_update_gold_menu()
+        elif self.path.startswith("/api/streamate/update_wheel"):
+            self.handle_api_streamate_update_wheel()
+        elif self.path.startswith("/api/streamate/update_topic"):
+            self.handle_api_streamate_update_topic()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
@@ -934,10 +946,19 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 
 
     def handle_api_streamate_update_gold_menu(self):
-        """Actualiza el menú GOLD en SM Connect / Stream Monitor."""
+        """Actualiza el menú GOLD en SM Connect / Stream Monitor o devuelve configuración actual."""
         try:
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            if self.command == "GET":
+                cfg = load_streamate_tools_config()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "items": cfg.get("gold_menu", [])}, ensure_ascii=False).encode("utf-8"))
+                return
+
             content_length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(content_length).decode("utf-8")
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
             data = json.loads(body) if body else {}
 
             raw_text = data.get("raw_text", "")
@@ -947,21 +968,31 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 items = parse_gold_menu_text(raw_text)
 
             res = asyncio.run(update_gold_menu_live(items))
-            self.send_response(200 if res.get("success") else 400)
+            self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
         except Exception as e:
-            self.send_response(500)
+            self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
-            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}, ensure_ascii=False).encode("utf-8"))
 
     def handle_api_streamate_update_wheel(self):
-        """Actualiza la Ruleta (Gira La Rueda) en SM Connect / Stream Monitor."""
+        """Actualiza la Ruleta (Gira La Rueda) en SM Connect / Stream Monitor o devuelve configuración."""
         try:
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            if self.command == "GET":
+                cfg = load_streamate_tools_config()
+                wheel = cfg.get("wheel", {"cost": 20, "items": []})
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "cost": wheel.get("cost", 20), "items": wheel.get("items", [])}, ensure_ascii=False).encode("utf-8"))
+                return
+
             content_length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(content_length).decode("utf-8")
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
             data = json.loads(body) if body else {}
 
             raw_text = data.get("raw_text", "")
@@ -974,34 +1005,43 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 items = parsed["items"]
 
             res = asyncio.run(update_wheel_game_live(cost, items))
-            self.send_response(200 if res.get("success") else 400)
+            self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
         except Exception as e:
-            self.send_response(500)
+            self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
-            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}, ensure_ascii=False).encode("utf-8"))
 
     def handle_api_streamate_update_topic(self):
-        """Actualiza el Tema de Habitación (Room Topic) en SM Connect."""
+        """Actualiza el Tema de Habitación (Room Topic) en SM Connect o devuelve configuración."""
         try:
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            if self.command == "GET":
+                cfg = load_streamate_tools_config()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": True, "topic": cfg.get("room_topic", "")}, ensure_ascii=False).encode("utf-8"))
+                return
+
             content_length = int(self.headers.get("Content-Length", 0))
-            body = self.rfile.read(content_length).decode("utf-8")
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
             data = json.loads(body) if body else {}
 
             topic = data.get("topic", "").strip()
             res = asyncio.run(update_room_topic_live(topic))
-            self.send_response(200 if res.get("success") else 400)
+            self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
         except Exception as e:
-            self.send_response(500)
+            self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
-            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}, ensure_ascii=False).encode("utf-8"))
 
     def handle_api_streamate_analyze_tomboy_radar(self):
         """Ejecuta escaneo de competidoras tomboy en Streamate y devuelve métricas."""
