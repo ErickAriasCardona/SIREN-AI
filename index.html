@@ -2673,25 +2673,53 @@
             </div>
 
             <div class="editorial-body">
+              <!-- COLUMNA IZQUIERDA: HERO PORTRAIT & SPECS TÉCNICOS -->
               <div class="editorial-left-col">
-                <div class="editorial-portrait-frame">
-                  <img src="artifacts/test_public_profile_verified.png" alt="Sam Barton LoyalFans Portrait">
-                  <div class="editorial-portrait-overlay">
-                    <strong style="color: #fff; font-size: 18px; font-weight: 800;">Sam Barton</strong>
-                    <div style="font-size: 11px; color: #c084fc;">@samm_bartonn • Top 23% Platform Rank</div>
+                <!-- FOTO DE PERFIL OFICIAL LOYALFANS (CIRCULAR & COMPACTA) -->
+                <div class="editorial-portrait-circular-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
+                  <div style="position: relative; width: 130px; height: 130px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #c084fc, #9333ea); box-shadow: 0 0 24px rgba(192, 132, 252, 0.45);">
+                    <img src="artifacts/sam_loyalfans_avatar.png" alt="Sam Barton Foto Oficial LoyalFans" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; border: 2px solid #0f1319;">
+                    <span style="position: absolute; bottom: 2px; right: 8px; background: #9333ea; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 2px solid #0f1319; box-shadow: 0 2px 6px rgba(0,0,0,0.5);">TOP 23%</span>
+                  </div>
+                  <div>
+                    <strong style="color: #fff; font-size: 17px; font-weight: 800; display: block; letter-spacing: -0.3px;">Sam Barton</strong>
+                    <div style="font-size: 11px; color: #c084fc; margin-top: 3px; display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                      <span>@samm_bartonn</span> • <span>Top 23% Global</span> • <span>Creadora Directa</span>
+                    </div>
+                    <div style="margin-top: 6px;">
+                      <span class="table-badge badge-success" style="font-size: 9px; padding: 2px 8px;">✓ Perfil Oficial Verificado LoyalFans</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="spec-block" style="border-left: 3px solid #c084fc;">
-                  <div class="spec-label"><i data-lucide="lock" style="width:12px; height:12px;"></i> ACCESO DIRECTO LOYALFANS</div>
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px;">
-                    <span style="color:var(--text-dim);">Usuario:</span>
-                    <code style="color:var(--secondary); font-family:var(--font-mono); font-size:11px;">sambartonn23@gmail.com</code>
+                <!-- IDENTITY ANCHOR (FAN CLUB DIRECTO) -->
+                <div class="editorial-anchor-box">
+                  <img src="artifacts/sam_loyalfans_avatar.png" alt="Reference Thumbnail" class="editorial-anchor-thumb" style="border-radius: 50%; border: 2px solid #c084fc;">
+                  <div style="flex:1;">
+                    <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#c084fc; font-weight:700;">IDENTITY ANCHOR (FAN CLUB DIRECTO)</div>
+                    <div style="font-size:11px; color:var(--text-main); font-weight:600;">Sam Barton • Software & AI Architect ⚡ Versatile Tomboy</div>
+                    <div style="font-size:10px; color:var(--text-muted);">Monetización Directa • Fan Club, Mensajería & Multimedia</div>
                   </div>
+                </div>
+
+                <!-- CREDENCIALES Y TODAS LAS CARACTERÍSTICAS DEL PERFIL LOYALFANS -->
+                <div class="spec-block" style="border-left: 3px solid #c084fc;">
+                  <div class="spec-label"><i data-lucide="lock" style="width:12px; height:12px;"></i> ACCESO & CREDENCIALES (CREADORA DIRECTA)</div>
+                  
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px;">
+                    <span style="color:var(--text-dim);">Usuario / Email:</span>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <code style="color:var(--secondary); font-family:var(--font-mono); font-size:11px;">sambartonn23@gmail.com</code>
+                      <button class="action-btn" style="padding:2px 6px; font-size:10px;" onclick="copyToClipboard('sambartonn23@gmail.com', this)">
+                        <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                      </button>
+                    </div>
+                  </div>
+
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px;">
                     <span style="color:var(--text-dim);">Contraseña:</span>
                     <div style="display:flex; align-items:center; gap:6px;">
-                      <input type="password" id="pwd-lf-card" value="Kjc20009*" readonly style="background:transparent; border:none; color:var(--primary-light); font-family:var(--font-mono); font-size:11px; width:90px; outline:none;">
+                      <input type="password" id="pwd-lf-card" value="Kjc20009*" readonly style="background:transparent; border:none; color:var(--primary-light); font-family:var(--font-mono); font-size:11px; width:110px; outline:none;">
                       <button class="action-btn" style="padding:2px 6px; font-size:10px;" onclick="togglePasswordVisibility('pwd-lf-card', this)">
                         <i data-lucide="eye" style="width:11px; height:11px;"></i>
                       </button>
@@ -2700,25 +2728,128 @@
                       </button>
                     </div>
                   </div>
+
+                  <!-- TARIFAS Y PARÁMETROS COMERCIALES -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="dollar-sign" style="width:11px; height:11px;"></i> Tarifas & Monetización Fan Club
+                  </div>
+                  <div class="specs-grid-table">
+                    <div class="spec-item">
+                      <span class="label">Suscripción Fan Club:</span>
+                      <span class="value" style="color:#c084fc;">$10.00 / mes</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Mensaje de Texto:</span>
+                      <span class="value" style="color:#c084fc;">$0.50 / msg</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Mensaje con Foto:</span>
+                      <span class="value">$0.50 / foto</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Mensaje con Video:</span>
+                      <span class="value">$1.00 / video</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Ranking Plataforma:</span>
+                      <span class="value" style="color:#10b981;">Top 23% Global</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Geobloqueo:</span>
+                      <span class="value" style="color:#34d399;">Sin Bloqueo</span>
+                    </div>
+                  </div>
+
+                  <!-- CARACTERÍSTICAS FÍSICAS Y BIOMETRÍA -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="user" style="width:11px; height:11px;"></i> Características Físicas & Biometría
+                  </div>
+                  <div class="specs-grid-table">
+                    <div class="spec-item">
+                      <span class="label">Estatura:</span>
+                      <span class="value">1.60 m (5'3")</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Peso:</span>
+                      <span class="value">55 kg (121 lbs)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Medidas:</span>
+                      <span class="value">89 - 61 - 94 cm</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Cabello:</span>
+                      <span class="value">Castaño Corto / Tomboy Fade</span>
+                    </div>
+                    <div class="spec-item" style="grid-column: span 2;">
+                      <span class="label">Tatuajes & Piercings:</span>
+                      <span class="value">Cuello, manga completa, torso y orejas</span>
+                    </div>
+                  </div>
+
+                  <!-- TAGS & IDENTIDAD LOYALFANS -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="tag" style="width:11px; height:11px;"></i> Tags & Posicionamiento
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:5px; margin-top:6px;">
+                    <span class="table-badge badge-purple" style="font-size:10px;">Tomboy</span>
+                    <span class="table-badge badge-info" style="font-size:10px;">Software Architect</span>
+                    <span class="table-badge badge-warning" style="font-size:10px;">Biker</span>
+                    <span class="table-badge badge-success" style="font-size:10px;">Versatile</span>
+                    <span class="table-badge" style="font-size:10px; background:rgba(255,255,255,0.06); color:var(--text-muted);">Ukulele</span>
+                    <span class="table-badge" style="font-size:10px; background:rgba(255,255,255,0.06); color:var(--text-muted);">Tattooed</span>
+                    <span class="table-badge" style="font-size:10px; background:rgba(255,255,255,0.06); color:var(--text-muted);">InuYasha</span>
+                  </div>
                 </div>
               </div>
 
+              <!-- COLUMNA DERECHA: PROMPT NARRATIVO Y DIRECCIÓN EDITORIAL -->
               <div class="editorial-right-col">
                 <div class="editorial-prompt-title" style="color: #c084fc;">
-                  <i data-lucide="sparkles" style="width:24px; height:24px;"></i> LoyalFans Architectural Bio
+                  <i data-lucide="terminal" style="width:24px; height:24px;"></i> LoyalFans Architectural Bio & Outreach
                 </div>
-                <div class="spec-block">
-                  <div class="spec-label">ENGLISH OUTBOUND OFFICIAL COPY</div>
-                  <div class="act-card" style="border-left-color: #c084fc;">
-                    <div class="act-text" style="white-space: pre-wrap; font-size:12px;">🐺 Sam Barton | Software & AI Architect ⚡ Versatile Tomboy 🏍️
 
-Smart by day, driven about my goals, and teasingly wicked by night.
+                <div class="spec-block">
+                  <div class="spec-label">ROLE & AESTHETIC (ROL & IDENTIDAD CENTRAL)</div>
+                  <div class="spec-content">
+                    Software & AI Architect de día, tomboy misteriosa y provocadora de noche. Pasión visceral por las motocicletas, la velocidad, los perros y gatos de su manada. Creativa, auténtica, toca el ukelele y canta desde el corazón sin poses artificiales.
+                  </div>
+                </div>
+
+                <!-- BIO OFICIAL EN INGLÉS -->
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <div class="spec-label" style="margin-bottom:0;"><i data-lucide="book-open" style="width:12px; height:12px;"></i> ENGLISH OUTBOUND OFFICIAL COPY</div>
+                    <button class="action-btn" style="padding:3px 10px; font-size:11px;" onclick="copyBioLoyalFans(this)">
+                      <i data-lucide="copy" style="width:12px; height:12px;"></i> Copiar Bio Completa
+                    </button>
+                  </div>
+
+                  <div class="act-card" style="border-left-color: #c084fc;">
+                    <div class="act-title">🐺 Sam Barton | Software & AI Architect ⚡ Versatile Tomboy 🏍️</div>
+                    <div class="act-text" style="white-space: pre-wrap; font-size:12px; line-height: 1.6;">Smart by day, driven about my goals, and teasingly wicked by night.
 
 Software & AI Architect by trade, but my real sanctuary is motorcycles, speed, and my beloved pack: my dogs and my 2 cats are my greatest blessings in this world 🐾🐈. Gym addict, soccer player, late-night sketcher, and an absolute InuYasha devotee 🍙. I also play the ukulele and sing straight from the heart.
 
 Obsessed with neon in the dark, skulls, and eerie October vibes 💀✨. Working hard every single day to buy my used car in December 🚗 and escape to Cancun 🌴.
 
 Want my attention? Be respectful, intelligent, different, and abnormal. Generic, boring guys bore me to death. If you're a real man who knows how to treat a girl, I just might let you take the wheel... under my explicit permission. 😈⚡</div>
+                  </div>
+                </div>
+
+                <!-- SPECS TÉCNICOS & MENSAJERÍA AUTOMATIZADA -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div class="spec-block">
+                    <div class="spec-label">OUTBOUND FUNNEL STRATEGY</div>
+                    <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+                      Conversión desde Instagram (@sambartonn23) directo al Fan Club. Mensajes automatizados de bienvenida y venta de contenido exclusivo por PPV en inbox.
+                    </div>
+                  </div>
+                  <div class="spec-block">
+                    <div class="spec-label">PAYOUT SETTINGS</div>
+                    <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+                      100% Cuenta Directa • Retiros semanales directos • Sin intermediarios ni porcentajes de estudio retenidos.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -2747,25 +2878,53 @@ Want my attention? Be respectful, intelligent, different, and abnormal. Generic,
             </div>
 
             <div class="editorial-body">
+              <!-- COLUMNA IZQUIERDA: HERO PORTRAIT & SPECS TÉCNICOS -->
               <div class="editorial-left-col">
-                <div class="editorial-portrait-frame">
-                  <img src="artifacts/stripchat_profile_updated_20261014_211003.png" alt="Sam Barton Stripchat Portrait">
-                  <div class="editorial-portrait-overlay">
-                    <strong style="color: #fff; font-size: 18px; font-weight: 800;">Sam Barton</strong>
-                    <div style="font-size: 11px; color: #f43f5e;">@sam_barton • Tokens & Interactive Toys</div>
+                <!-- FOTO DE PERFIL OFICIAL STRIPCHAT (CIRCULAR & COMPACTA) -->
+                <div class="editorial-portrait-circular-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
+                  <div style="position: relative; width: 130px; height: 130px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #f43f5e, #fb7185); box-shadow: 0 0 24px rgba(244, 63, 94, 0.45);">
+                    <img src="artifacts/sam_stripchat_avatar.png" alt="Sam Barton Foto Oficial Stripchat" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; border: 2px solid #0f1319;">
+                    <span style="position: absolute; bottom: 2px; right: 8px; background: #f43f5e; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 2px solid #0f1319; box-shadow: 0 2px 6px rgba(0,0,0,0.5);">LOVENSE ✓</span>
+                  </div>
+                  <div>
+                    <strong style="color: #fff; font-size: 17px; font-weight: 800; display: block; letter-spacing: -0.3px;">Sam Barton</strong>
+                    <div style="font-size: 11px; color: #f43f5e; margin-top: 3px; display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap;">
+                      <span>@sam_barton</span> • <span>Tokens & Juguetes</span> • <span>Colombia | 22</span>
+                    </div>
+                    <div style="margin-top: 6px;">
+                      <span class="table-badge badge-info" style="font-size: 9px; padding: 2px 8px;">✓ Perfil Oficial Verificado Stripchat</span>
+                    </div>
                   </div>
                 </div>
 
-                <div class="spec-block" style="border-left: 3px solid #f43f5e;">
-                  <div class="spec-label"><i data-lucide="lock" style="width:12px; height:12px;"></i> ACCESO DIRECTO STRIPCHAT</div>
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px;">
-                    <span style="color:var(--text-dim);">Usuario:</span>
-                    <code style="color:var(--secondary); font-family:var(--font-mono); font-size:11px;">sambartonn23@gmail.com</code>
+                <!-- IDENTITY ANCHOR (GAMER & INTERACTIVA) -->
+                <div class="editorial-anchor-box">
+                  <img src="artifacts/sam_stripchat_avatar.png" alt="Reference Thumbnail" class="editorial-anchor-thumb" style="border-radius: 50%; border: 2px solid #f43f5e;">
+                  <div style="flex:1;">
+                    <div style="font-family:'JetBrains Mono',monospace; font-size:10px; color:#f43f5e; font-weight:700;">IDENTITY ANCHOR (GAMER & INTERACTIVA)</div>
+                    <div style="font-size:11px; color:var(--text-main); font-weight:600;">Sam Barton • Cute Tomboy Gamer 🎮</div>
+                    <div style="font-size:10px; color:var(--text-muted);">Lovense Conectado • Dinámicas de Tokens & Propinas Interactivas</div>
                   </div>
+                </div>
+
+                <!-- CREDENCIALES Y TODAS LAS CARACTERÍSTICAS DEL PERFIL STRIPCHAT -->
+                <div class="spec-block" style="border-left: 3px solid #f43f5e;">
+                  <div class="spec-label"><i data-lucide="lock" style="width:12px; height:12px;"></i> ACCESO & CREDENCIALES (DIRECTO STRIPCHAT)</div>
+                  
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px;">
+                    <span style="color:var(--text-dim);">Usuario / Email:</span>
+                    <div style="display:flex; align-items:center; gap:6px;">
+                      <code style="color:var(--secondary); font-family:var(--font-mono); font-size:11px;">sambartonn23@gmail.com</code>
+                      <button class="action-btn" style="padding:2px 6px; font-size:10px;" onclick="copyToClipboard('sambartonn23@gmail.com', this)">
+                        <i data-lucide="copy" style="width:11px; height:11px;"></i>
+                      </button>
+                    </div>
+                  </div>
+
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-top:8px; font-size:12px;">
                     <span style="color:var(--text-dim);">Contraseña:</span>
                     <div style="display:flex; align-items:center; gap:6px;">
-                      <input type="password" id="pwd-sc-card" value="6L!3K3RUnEdPKPt" readonly style="background:transparent; border:none; color:var(--primary-light); font-family:var(--font-mono); font-size:11px; width:90px; outline:none;">
+                      <input type="password" id="pwd-sc-card" value="6L!3K3RUnEdPKPt" readonly style="background:transparent; border:none; color:var(--primary-light); font-family:var(--font-mono); font-size:11px; width:110px; outline:none;">
                       <button class="action-btn" style="padding:2px 6px; font-size:10px;" onclick="togglePasswordVisibility('pwd-sc-card', this)">
                         <i data-lucide="eye" style="width:11px; height:11px;"></i>
                       </button>
@@ -2774,19 +2933,125 @@ Want my attention? Be respectful, intelligent, different, and abnormal. Generic,
                       </button>
                     </div>
                   </div>
+
+                  <!-- TARIFAS DE TOKENS & SHOWS -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="coins" style="width:11px; height:11px;"></i> Tarifas de Tokens & Shows
+                  </div>
+                  <div class="specs-grid-table">
+                    <div class="spec-item">
+                      <span class="label">Valor por Token:</span>
+                      <span class="value" style="color:#f43f5e;">$0.05 USD / token</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Show Privado:</span>
+                      <span class="value" style="color:#f43f5e;">60 tokens / min ($3.00)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Show Exclusivo:</span>
+                      <span class="value">90 tokens / min ($4.50)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Propina Mínima:</span>
+                      <span class="value">1 token ($0.05)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Lovense Connect:</span>
+                      <span class="value" style="color:#10b981;">Conectado (5 niveles)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Cam2Cam Privado:</span>
+                      <span class="value" style="color:#34d399;">Activado</span>
+                    </div>
+                  </div>
+
+                  <!-- NIVELES DE VIBRACIÓN LOVENSE -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="zap" style="width:11px; height:11px;"></i> Niveles Lovense Configurados
+                  </div>
+                  <div class="specs-grid-table">
+                    <div class="spec-item">
+                      <span class="label">1 - 9 Tokens:</span>
+                      <span class="value">Nivel 1 (Suave)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">10 - 24 Tokens:</span>
+                      <span class="value">Nivel 2 (Medio)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">25 - 49 Tokens:</span>
+                      <span class="value">Nivel 3 (Fuerte)</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">50 - 99 Tokens:</span>
+                      <span class="value" style="color:#f43f5e;">Nivel 4 (Intenso)</span>
+                    </div>
+                    <div class="spec-item" style="grid-column: span 2;">
+                      <span class="label">100+ Tokens:</span>
+                      <span class="value" style="color:#ec4899; font-weight:700;">Nivel 5 (Ultra Shake 30 seg)</span>
+                    </div>
+                  </div>
+
+                  <!-- CARACTERÍSTICAS FÍSICAS & BIOMETRÍA -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="user" style="width:11px; height:11px;"></i> Biometría & Estilo
+                  </div>
+                  <div class="specs-grid-table">
+                    <div class="spec-item">
+                      <span class="label">Estatura:</span>
+                      <span class="value">1.60 m (5'3")</span>
+                    </div>
+                    <div class="spec-item">
+                      <span class="label">Peso:</span>
+                      <span class="value">55 kg (121 lbs)</span>
+                    </div>
+                    <div class="spec-item" style="grid-column: span 2;">
+                      <span class="label">Estilo / Tattoos:</span>
+                      <span class="value">Tomboy gamer con manga completa y tatuajes</span>
+                    </div>
+                  </div>
+
+                  <!-- TAGS REGISTRADOS STRIPCHAT -->
+                  <div class="spec-section-divider">
+                    <i data-lucide="tag" style="width:11px; height:11px;"></i> Tags Stripchat
+                  </div>
+                  <div style="display:flex; flex-wrap:wrap; gap:5px; margin-top:6px;">
+                    <span class="table-badge badge-danger" style="font-size:10px;">tomboy</span>
+                    <span class="table-badge badge-info" style="font-size:10px;">gamer</span>
+                    <span class="table-badge badge-warning" style="font-size:10px;">lovense</span>
+                    <span class="table-badge badge-success" style="font-size:10px;">athletic</span>
+                    <span class="table-badge badge-purple" style="font-size:10px;">biker</span>
+                    <span class="table-badge" style="font-size:10px; background:rgba(255,255,255,0.06); color:var(--text-muted);">cam2cam</span>
+                    <span class="table-badge" style="font-size:10px; background:rgba(255,255,255,0.06); color:var(--text-muted);">ukulele</span>
+                  </div>
                 </div>
               </div>
 
+              <!-- COLUMNA DERECHA: PROMPT NARRATIVO Y DIRECCIÓN EDITORIAL -->
               <div class="editorial-right-col">
                 <div class="editorial-prompt-title" style="color: #f43f5e;">
-                  <i data-lucide="flame" style="width:24px; height:24px;"></i> Stripchat Interactive Narrative
+                  <i data-lucide="terminal" style="width:24px; height:24px;"></i> Stripchat Interactive Narrative & Topic
                 </div>
-                <div class="spec-block">
-                  <div class="spec-label">TOPIC & LOVENSE LIVE PROMPT</div>
-                  <div class="act-card" style="border-left-color: #f43f5e;">
-                    <div class="act-text" style="white-space: pre-wrap; font-size:12px;">🐺 Sam Barton | Cute Tomboy Gamer ⚡ Lovense Interactive 🏍️
 
-Software & AI Architect by day, gaming tomboy & teasing companion by night.
+                <div class="spec-block">
+                  <div class="spec-label">ROLE & AESTHETIC (ROL & IDENTIDAD CENTRAL)</div>
+                  <div class="spec-content">
+                    Cute Tomboy Gamer interactiva, mirada pícara y directa, energía fresca y atlética. Disfruta interactuar con sus juguetes Lovense en vivo, tocar ukelele y crear conexión genuina con los usuarios de su sala.
+                  </div>
+                </div>
+
+                <!-- TOPIC & COPY OFICIAL STRIPCHAT -->
+                <div>
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <div class="spec-label" style="margin-bottom:0;"><i data-lucide="book-open" style="width:12px; height:12px;"></i> TOPIC & LOVENSE LIVE PROMPT</div>
+                    <button class="action-btn" style="padding:3px 10px; font-size:11px;" onclick="copyBioStripchat(this)">
+                      <i data-lucide="copy" style="width:12px; height:12px;"></i> Copiar Narrativa & Topic
+                    </button>
+                  </div>
+
+                  <div class="act-card" style="border-left-color: #f43f5e;">
+                    <div class="act-title">🎮 Sam Barton | Cute Tomboy Gamer ⚡ Lovense Interactive 🏍️</div>
+                    <div class="act-text" style="white-space: pre-wrap; font-size:12px; line-height: 1.6;">Software & AI Architect by day, gaming tomboy & teasing companion by night.
 Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats 🐾.
 InuYasha devotee 🍙, indie music lover & ukulele player 🎶.
 
@@ -2795,6 +3060,22 @@ Working hard every single day to buy my used car in December 🚗 and escape to 
 
 💖 LOVENSE SYNCED:
 My toys are active and connect directly to every tip! Send tokens to make me buzz, trigger reactions, or take me into Private / Exclusive for full control 😈🖤.</div>
+                  </div>
+                </div>
+
+                <!-- SPECS TÉCNICOS & HARDWARE -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                  <div class="spec-block">
+                    <div class="spec-label">LOVENSE DYNAMICS</div>
+                    <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+                      Conexión directa vía Lovense Connect Bluetooth. Niveles escalonados de respuesta visual y vocal inmediata con cada propina.
+                    </div>
+                  </div>
+                  <div class="spec-block">
+                    <div class="spec-label">TECHNICAL HARDWARE</div>
+                    <div style="font-size: 11px; color: var(--text-muted); line-height: 1.5;">
+                      OBS Virtual Cam configurada a 1080p 60fps • Iluminación dual Neón Azul / Rojo • Audio estéreo limpio sin eco.
+                    </div>
                   </div>
                 </div>
               </div>
@@ -6498,6 +6779,52 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         const oldHtml = btn.innerHTML;
         btn.innerHTML = '<span style="color:#10b981; font-weight:700;">✓ ¡Copiados los 4 Actos!</span>';
         showToast('Los 4 Actos de Streamate copiados al portapapeles');
+        setTimeout(() => {
+          btn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }, 2200);
+      });
+    }
+
+    function copyBioLoyalFans(btn) {
+      const bioText = `🐺 Sam Barton | Software & AI Architect ⚡ Versatile Tomboy 🏍️
+
+Smart by day, driven about my goals, and teasingly wicked by night.
+
+Software & AI Architect by trade, but my real sanctuary is motorcycles, speed, and my beloved pack: my dogs and my 2 cats are my greatest blessings in this world 🐾🐈. Gym addict, soccer player, late-night sketcher, and an absolute InuYasha devotee 🍙. I also play the ukulele and sing straight from the heart.
+
+Obsessed with neon in the dark, skulls, and eerie October vibes 💀✨. Working hard every single day to buy my used car in December 🚗 and escape to Cancun 🌴.
+
+Want my attention? Be respectful, intelligent, different, and abnormal. Generic, boring guys bore me to death. If you're a real man who knows how to treat a girl, I just might let you take the wheel... under my explicit permission. 😈⚡`;
+
+      navigator.clipboard.writeText(bioText).then(() => {
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<span style="color:#10b981; font-weight:700;">✓ ¡Copiada Bio LoyalFans!</span>';
+        showToast('Bio oficial de LoyalFans copiada al portapapeles');
+        setTimeout(() => {
+          btn.innerHTML = oldHtml;
+          lucide.createIcons();
+        }, 2200);
+      });
+    }
+
+    function copyBioStripchat(btn) {
+      const scText = `🐺 Sam Barton | Cute Tomboy Gamer ⚡ Lovense Interactive 🏍️
+
+Software & AI Architect by day, gaming tomboy & teasing companion by night.
+Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats 🐾.
+InuYasha devotee 🍙, indie music lover & ukulele player 🎶.
+
+Obsessed with neon in the dark, skulls, and Halloween vibes 💀✨.
+Working hard every single day to buy my used car in December 🚗 and escape to Cancun 🌴!
+
+💖 LOVENSE SYNCED:
+My toys are active and connect directly to every tip! Send tokens to make me buzz, trigger reactions, or take me into Private / Exclusive for full control 😈🖤.`;
+
+      navigator.clipboard.writeText(scText).then(() => {
+        const oldHtml = btn.innerHTML;
+        btn.innerHTML = '<span style="color:#10b981; font-weight:700;">✓ ¡Copiado Topic Stripchat!</span>';
+        showToast('Narrativa y Topic de Stripchat copiados al portapapeles');
         setTimeout(() => {
           btn.innerHTML = oldHtml;
           lucide.createIcons();
