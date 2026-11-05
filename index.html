@@ -6216,6 +6216,21 @@ Cat Lover 🐱</div>
         label.textContent = 'Instrucción o Parámetros de Búsqueda (Opcional):';
         textarea.value = `Escanear páginas 1 a 3 en Streamate: tomboy, short hair, tech, acoustic, alt vibes`;
         applyBtn.innerHTML = '<i data-lucide="search" style="width:13px; height:13px;"></i> Iniciar Escaneo de Radar';
+      if (type === 'gold' || type === 'wheel' || type === 'topic') {
+        const fetchEp = type === 'gold' ? 'update_gold_menu' : (type === 'wheel' ? 'update_wheel' : 'update_topic');
+        fetch(`${getApiBase()}/api/streamate/${fetchEp}`)
+          .then(r => r.json())
+          .then(d => {
+            if (!d || !d.success) return;
+            if (type === 'gold' && d.items && d.items.length) {
+              textarea.value = d.items.map(it => `${it.name} - ${it.gold}`).join('\n');
+            } else if (type === 'wheel' && d.items && d.items.length) {
+              textarea.value = `Costo: ${d.cost || 20}\n` + d.items.join('\n');
+            } else if (type === 'topic' && d.topic) {
+              textarea.value = d.topic;
+            }
+          })
+          .catch(() => {});
       }
 
       modal.classList.add('open');
@@ -6234,6 +6249,7 @@ Cat Lover 🐱</div>
 
       if (!text) {
         showToast('⚠️ Por favor ingresa el texto correspondiente.');
+        alert('⚠️ Por favor ingresa el texto correspondiente antes de aplicar.');
         return;
       }
 
@@ -6265,24 +6281,34 @@ Cat Lover 🐱</div>
           body: JSON.stringify(payload)
         });
 
-        const data = await res.json();
+        const resText = await res.text();
+        let data;
+        try {
+          data = JSON.parse(resText);
+        } catch (e) {
+          throw new Error(`Respuesta inválida del servidor (${res.status}): ${resText.substring(0, 120)}`);
+        }
+
         closeSmModal();
 
         if (data.success) {
           showToast(`✓ ${data.message || 'Acción completada con éxito en Streamate'}`);
+          alert(`✅ [SIREN AI — Stream Monitor]\n\n${data.message || '¡Cambio procesado con éxito!'}`);
           // Publicar notificación directa en el chat de Roxanne
           if (currentSmModalType === 'radar') {
             const models = (data.radar?.models_found || []).map(m => `• **${m.performer}** (${m.private_rate}): *"${m.room_topic}"* - ${m.key_tactics}`).join('\n');
             appendChatMessage('roxanne', `🔭 **Radar Tomboy Streamate (En Vivo):**\n\n${models}\n\n💡 **Tendencias clave:**\n${(data.radar?.market_trends || []).join('\n')}`, 'es', 'Radar Intelligence');
           } else {
-            appendChatMessage('roxanne', `✓ **[Stream Monitor]:** ${data.message || 'Actualización inyectada con éxito en tu cuenta de Streamate.'}`, 'es', 'Stream Monitor Daemon');
+            appendChatMessage('roxanne', `✓ **[Stream Monitor]:** ${data.message || 'Actualización guardada e inyectada con éxito.'}`, 'es', 'Stream Monitor Daemon');
           }
         } else {
           showToast(`⚠️ ${data.error || 'No se pudo aplicar el cambio.'}`);
+          alert(`⚠️ [SIREN AI — Stream Monitor: No Aplicado]\n\n${data.error || 'No se pudo aplicar el cambio. Revisa el formato e intenta nuevamente.'}`);
         }
       } catch (err) {
         console.error('Error aplicando acción en Stream Monitor:', err);
-        showToast(`⚠️ Error conectando con el servidor local: ${err.message}`);
+        showToast(`⚠️ Error: ${err.message}`);
+        alert(`❌ [SIREN AI — Error de Conexión]\n\n${err.message}`);
         closeSmModal();
       } finally {
         applyBtn.disabled = false;
