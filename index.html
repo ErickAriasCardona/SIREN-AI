@@ -5036,8 +5036,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
               <!-- Pastillas de Prompts Rápidos Dinámicas -->
               <div style="display:flex; flex-direction:column; gap:6px;">
-                <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.8px;">
-                  Estrategias Rápidas (Haz clic para enviar al instante):
+                <span id="quick-prompts-label" style="font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-dim); letter-spacing: 0.8px;">
+                  Estrategias Rápidas para <strong style="color:var(--primary-light);">ROXANNE</strong> (Haz clic para enviar al instante):
                 </span>
                 <div id="assistant-prompt-pills" class="prompt-pills-wrap">
                   <!-- Rendered dynamically by updatePromptPills() -->
@@ -6216,6 +6216,8 @@ Cat Lover 🐱</div>
         label.textContent = 'Instrucción o Parámetros de Búsqueda (Opcional):';
         textarea.value = `Escanear páginas 1 a 3 en Streamate: tomboy, short hair, tech, acoustic, alt vibes`;
         applyBtn.innerHTML = '<i data-lucide="search" style="width:13px; height:13px;"></i> Iniciar Escaneo de Radar';
+      }
+
       if (type === 'gold' || type === 'wheel' || type === 'topic') {
         const fetchEp = type === 'gold' ? 'update_gold_menu' : (type === 'wheel' ? 'update_wheel' : 'update_topic');
         fetch(`${getApiBase()}/api/streamate/${fetchEp}`)
@@ -6535,11 +6537,13 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         rightHeader: 'Herramientas Streamate & Estado',
         welcome: '¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, responder y entrenar cómo contestar a fans en LoyalFans, Stripchat o Streamate, planear metas de sala con Lovense o armar tus dinámicas. ¿En qué trabajamos hoy? 🐺✨',
         pills: [
-          { label: '💬 "Fan pide rebaja para privado en Streamate"', prompt: '¿Cómo respondo a un fan que me pide rebaja para ir a privado en Streamate?' },
-          { label: '🎯 "Metas Lovense para show de hoy en Stripchat"', prompt: 'Ayúdame a planear las metas de propinas con Lovense para el show de hoy en Stripchat' },
-          { label: '🏍️ "What motorcycle do you ride?" (EN)', prompt: 'Hey Sam! What motorcycle do you ride?' },
-          { label: '📹 "Hola hermosa, ¿haces videollamadas?" (ES)', prompt: 'Hola hermosa, qué linda estás. ¿Haces videollamadas privadas?' },
-          { label: '🎸 "Sugerir toque de ukelele para motivar privado"', prompt: '¿Cómo sugerirle a un fan que toco ukelele en privado para motivarlo a entrar?' }
+          { label: '💬 "Fan pide rebaja para privado en Streamate"', prompt: '¿Cómo respondo a un fan que me pide rebaja para ir a privado en Streamate? Dame una respuesta concisa y profesional para motivarlo a entrar sin bajar el precio.' },
+          { label: '🎯 "Metas Lovense para show de hoy en Stripchat"', prompt: 'Ayúdame a planear 3 metas de propinas con Lovense para el show de hoy en Stripchat (Nivel 1, Nivel 2 y Clímax) y dinámicas atractivas.' },
+          { label: '🏍️ "What motorcycle do you ride?" (EN)', prompt: 'Un fan en inglés me pregunta: "Hey Sam! What motorcycle do you ride?". Respóndele en inglés con vibra tomboy, coqueta y auténtica.' },
+          { label: '📹 "Hola hermosa, ¿haces videollamadas?" (ES)', prompt: 'Un fan me escribe en español: "Hola hermosa, ¿haces videollamadas privadas o por WhatsApp?". Respóndele en español marcando el límite con respeto y guiándolo a mi sala privada en la plataforma.' },
+          { label: '🎸 "Sugerir toque de ukelele para motivar privado"', prompt: '¿Cómo sugerirle a un fan en el chat público que toco ukelele en privado para motivarlo a entrar a privado o exclusivo ya mismo?' },
+          { label: '🔥 "3 ganchos para convertir Free Chat a Privado"', prompt: 'Dame 3 frases directas y picantes con actitud tomboy para motivar a los usuarios de Free Chat a pasar a Privado de inmediato.' },
+          { label: '🛑 "Fan insiste en pedir contacto fuera de la página"', prompt: 'Un fan insiste en pedirme contacto personal o redes privadas. Dame una respuesta firme para proteger mi cuenta y no arriesgar baneo.' }
         ]
       },
       chloe: {
@@ -6554,11 +6558,12 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         rightHeader: 'Herramientas Instagram & Visor Mobile',
         welcome: '¡Hola Sam! Soy Chloe, tu estratega especializada para tu cuenta de Instagram de modelo (@sambartonn23). Te ayudaré a diseñar el feed perfecto, crear packs de historias interactivas con stickers, redactar captions magnéticos en inglés y convertir seguidores en fans de LoyalFans y Streamate sin riesgo de shadowban. ¿Qué publicamos o analizamos hoy? 📸✨',
         pills: [
-          { label: '⚡ "Estrategia de Instagram de hoy para @sambartonn23"', prompt: 'Chloe, por favor genera la estrategia de Instagram de hoy para @sambartonn23 con horarios, historias y llamada a la acción.' },
-          { label: '📸 "Pack de 4 historias interactivas de hoy"', prompt: 'Chloe, dame un pack de 4 historias interactivas para publicar hoy con fotos, stickers y copy en inglés.' },
-          { label: '✍️ "Caption en inglés tomboy & ukelele"', prompt: 'Escribe un caption magnético en inglés para una foto mía tocando ukelele con look tomboy relajado.' },
-          { label: '🛡️ "Hashtags seguros y regla anti-shadowban"', prompt: '¿Cuáles son los hashtags seguros y palabras permitidas para no caer en shadowban en Meta hoy?' },
-          { label: '⏰ "Mejores horarios de publicación hoy"', prompt: '¿Cuáles son los mejores horarios hoy para publicar en Instagram y captar tráfico de USA y Europa?' }
+          { label: '⚡ "Estrategia de Instagram de hoy para @sambartonn23"', prompt: 'Chloe, por favor genera mi estrategia de Instagram de hoy para @sambartonn23: horarios recomendados, 3 ideas de historias interactivas y llamada a la acción.' },
+          { label: '📸 "Pack de 4 historias interactivas con stickers"', prompt: 'Dame un pack de 4 historias interactivas para publicar hoy con fotos tomboy/biker, encuestas o preguntas y copy en inglés.' },
+          { label: '✍️ "Caption magnético tomboy & ukelele (EN)"', prompt: 'Escribe un caption magnético en inglés para una foto mía tocando ukelele con look tomboy relajado. Incluye gancho y hashtags seguros.' },
+          { label: '🛡️ "Hashtags seguros y regla anti-shadowban"', prompt: '¿Cuáles son los hashtags seguros y palabras de alto riesgo que debo evitar en Instagram hoy para no caer en shadowban en Meta?' },
+          { label: '⏰ "Mejores horarios de publicación hoy para USA"', prompt: '¿Cuáles son los horarios pico hoy para publicar en Instagram y captar la mayor atención de usuarios en Estados Unidos y Europa?' },
+          { label: '💬 "Respuesta a DM de seguidor curioso"', prompt: 'Un seguidor me envió un DM preguntando si tengo contenido exclusivo. Dame una respuesta en inglés con vibra tomboy para guiarlo a mi enlace sin infringir normas.' }
         ]
       },
       diana: {
@@ -6573,10 +6578,11 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         rightHeader: 'Métricas Financieras & Simulador',
         welcome: '¡Hola Sam! Soy Diana, tu auditora financiera y especialista de pagos. Estoy lista para monitorear tus balances en tiempo real, calcular tus splits exactos de Streamate (50% de tu 35%), verificar tu umbral de cobro de $50 USD en LoyalFans y proteger tu flujo de caja. ¿Qué revisamos hoy? 💰📊',
         pills: [
-          { label: '💰 "Calcular mi ganancia neta en Streamate hoy"', prompt: 'Diana, si genero 150 Gold hoy en Streamate, ¿cuánto es mi neto real teniendo en cuenta el 50% de mi 35% de estudio?' },
-          { label: '📈 "Estado del payout mínimo de $50 en LoyalFans"', prompt: '¿Cuánto me falta exactamente para el corte de cobro de $50 USD en LoyalFans con mi balance actual?' },
-          { label: '💳 "Cosmo Payment vs Paxum: comisiones"', prompt: 'Compara las comisiones y tiempos de retiro entre Cosmo Payment y Paxum para modelos en Colombia.' },
-          { label: '🎯 "Proyección de EPH a $2.99 y $3.99/min"', prompt: 'Calcula cuánto facturo por cada hora de privado continuo a $2.99 y exclusivo a $3.99 en Streamate.' }
+          { label: '💰 "Calcular mi ganancia neta en Streamate hoy"', prompt: 'Diana, si genero 150 Gold hoy en Streamate, calcúlame el neto exacto en USD sabiendo que el estudio recibe el 35% y a mí me corresponde el 50% de ese 35%.' },
+          { label: '📈 "Estado del payout mínimo de $50 en LoyalFans"', prompt: '¿Cuánto me falta exactamente para el corte de cobro de $50 USD en LoyalFans con mi balance actual y cuándo se procesa?' },
+          { label: '💳 "Cosmo Payment vs Paxum: comisiones en Colombia"', prompt: 'Diana, compara comisiones, tasa de cambio y tiempos de retiro a cuenta bancaria colombiana entre Cosmo Payment y Paxum para modelos.' },
+          { label: '🎯 "Proyección de EPH a $2.99 y $3.99/min"', prompt: 'Calcula cuánto facturo por cada hora de privado continuo a $2.99 y exclusivo a $3.99 en Streamate con mi porcentaje neto de estudio.' },
+          { label: '💵 "Simulación de meta semanal de $300 USD netos"', prompt: 'Diana, para ganarme $300 USD netos esta semana entre Streamate y LoyalFans, ¿cuántos Gold y horas de transmisión necesito promediar al día?' }
         ]
       },
       electra: {
@@ -6591,10 +6597,11 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
         rightHeader: 'Radar Algorítmico & Tráfico',
         welcome: '¡Hola Sam! Soy Electra, tu especialista en ingeniería algorítmica y tráfico. Mi trabajo es mantenerte en la cima de los feeds: controlo tus ciclos de Bump cada 3.5h en LoyalFans, audito tu retención en Streamate y posiciono tu perfil en Stripchat. Vamos a conquistar los rankings hoy. ⚡🚀',
         pills: [
-          { label: '⚡ "Estado del Bump Cooldown de LoyalFans (3.5h)"', prompt: 'Electra, ¿cómo está mi tiempo de cooldown de bump en LoyalFans y cuál es el momento óptimo para re-bumpear?' },
-          { label: '🚀 "Cómo aumentar retención en primeros 30s de Streamate"', prompt: '¿Qué técnicas auditadas aumentan la retención de miembros en free chat de Streamate para que el algoritmo me suba a página 1?' },
-          { label: '🏷️ "Tags de Stripchat con mayor tráfico tomboy"', prompt: '¿Cuáles son los tags con menor competencia y mayor tráfico calificado en Stripchat hoy?' },
-          { label: '🛡️ "Auditoría de Shadowban preventivo"', prompt: 'Revisa si mis últimos textos o tags tienen algún riesgo de limitación algorítmica.' }
+          { label: '⚡ "Estado del Bump Cooldown de LoyalFans (3.5h)"', prompt: 'Electra, ¿cómo está mi tiempo de cooldown de bump en LoyalFans y cuál es el momento óptimo para re-bumpear y volver al Top 1 del feed?' },
+          { label: '🚀 "Técnicas de retención en primeros 30s de Streamate"', prompt: '¿Qué dinámicas visuales y de bienvenida aumentan la retención en los primeros 30 segundos de Free Chat en Streamate para que el algoritmo me suba a página 1?' },
+          { label: '🏷️ "Tags de Stripchat con mayor tráfico tomboy"', prompt: '¿Cuáles son los tags con menor competencia y mayor tráfico calificado en Stripchat hoy para modelos tomboy?' },
+          { label: '🛡️ "Auditoría de textos contra shadowban algorítmico"', prompt: 'Revisa si mis últimos textos o descripciones tienen algún término que los algoritmos de Streamate o Stripchat penalicen en el ranking.' },
+          { label: '📈 "Top palabras clave para Bio en Streamate"', prompt: 'Electra, dame las palabras clave de alto volumen de búsqueda en Streamate para posicionar mi perfil Tomboy Biker.' }
         ]
       }
     };
@@ -6663,13 +6670,50 @@ Dejar que la curiosidad abra paso a momentos de intimidad, permitiendo experimen
       pillsContainer.innerHTML = '';
       const data = ASSISTANTS_DATA[assistantId] || ASSISTANTS_DATA.roxanne;
 
+      const labelEl = document.getElementById('quick-prompts-label');
+      if (labelEl) {
+        labelEl.innerHTML = `Estrategias Rápidas para <strong style="color:var(--primary-light);">${data.name}</strong> (Haz clic para enviar al instante):`;
+      }
+
       data.pills.forEach(p => {
         const btn = document.createElement('button');
         btn.className = 'prompt-pill';
         btn.innerHTML = p.label;
+        btn.title = p.prompt;
         btn.onclick = () => useQuickPrompt(p.prompt);
         pillsContainer.appendChild(btn);
       });
+    }
+
+    function useQuickPrompt(promptText) {
+      if (!promptText) return;
+
+      // Si el prompt menciona explícitamente a un asistente, seleccionarlo automáticamente
+      const lower = promptText.toLowerCase();
+      if (lower.startsWith('chloe') && activeAssistant !== 'chloe') {
+        selectAssistant('chloe');
+      } else if (lower.startsWith('diana') && activeAssistant !== 'diana') {
+        selectAssistant('diana');
+      } else if (lower.startsWith('electra') && activeAssistant !== 'electra') {
+        selectAssistant('electra');
+      } else if (lower.startsWith('roxanne') && activeAssistant !== 'roxanne') {
+        selectAssistant('roxanne');
+      }
+
+      // Cambiar automáticamente a la pestaña de Asistentes si Sam está en otra vista
+      if (typeof switchMainTab === 'function') {
+        const asstTab = document.getElementById('tab-asistentes');
+        if (asstTab && !asstTab.classList.contains('active')) {
+          switchMainTab('tab-asistentes');
+        }
+      }
+
+      const inputEl = document.getElementById('copilot-input');
+      if (inputEl) {
+        inputEl.value = promptText;
+        inputEl.focus();
+        sendCopilotMessage();
+      }
     }
 
     function renderAssistantChat(assistantId) {
