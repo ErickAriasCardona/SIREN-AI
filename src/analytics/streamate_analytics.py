@@ -80,12 +80,12 @@ def seed_streamate_data_if_empty():
         if parser_script.exists():
             subprocess.run([sys.executable, str(parser_script)], check=False)
 
-def get_streamate_dashboard_data() -> Dict[str, Any]:
+def get_streamate_dashboard_data(force_refresh: bool = False) -> Dict[str, Any]:
     """Recopila y devuelve la auditoría forense completa de Streamate Models para Sam."""
     seed_streamate_data_if_empty()
 
-    # Si existe el caché validado con los 150 registros en vivo, usarlo prioritariamente
-    if CACHE_FILE.exists():
+    # Si NO se solicita refresco forzado y existe el caché, usarlo
+    if not force_refresh and CACHE_FILE.exists():
         try:
             with open(CACHE_FILE, "r", encoding="utf-8") as f:
                 data = json.load(f)
@@ -283,4 +283,4 @@ def get_streamate_dashboard_data() -> Dict[str, Any]:
 def refresh_streamate_data() -> Dict[str, Any]:
     """Refresca y devuelve la analítica forense en tiempo real."""
     seed_streamate_data_if_empty()
-    return get_streamate_dashboard_data()
+    return get_streamate_dashboard_data(force_refresh=True)

@@ -219,7 +219,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_financials()
         elif self.path.startswith("/api/positioning"):
             self.handle_api_positioning()
-        elif self.path.startswith("/api/streamate/dashboard"):
+        elif self.path.startswith("/api/streamate/dashboard") or self.path.startswith("/api/streamate/refresh_dashboard"):
             self.handle_api_streamate_dashboard()
         elif self.path.startswith("/api/streamate/update_gold_menu"):
             self.handle_api_streamate_update_gold_menu()
@@ -634,7 +634,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             import importlib
             import src.analytics.streamate_analytics as sa
             importlib.reload(sa)
-            data = sa.get_streamate_dashboard_data()
+            is_refresh = "refresh" in self.path or "force" in self.path or self.command == "POST"
+            data = sa.get_streamate_dashboard_data(force_refresh=is_refresh)
         except Exception as e:
             data = {"success": False, "error": str(e)}
         self.send_response(200 if data.get("success") else 500)
@@ -653,7 +654,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             importlib.reload(fls)
             importlib.reload(pls)
 
-            sm_data = sa.get_streamate_dashboard_data()
+            sm_data = sa.get_streamate_dashboard_data(force_refresh=True)
             lf_fin = fls.parse_financials_dump()
             lf_pos = pls.get_realtime_positioning("loyalfans")
             sc_pos = pls.get_realtime_positioning("stripchat")
