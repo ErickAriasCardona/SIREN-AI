@@ -2223,15 +2223,55 @@
       .modal-card {
         max-width: 95vw !important;
         width: 95vw !important;
-        padding: 16px 14px;
-        margin: auto;
-        max-height: 88dvh;
-        overflow-y: auto !important;
         -webkit-overflow-scrolling: touch;
         box-sizing: border-box;
       }
     }
 
+    /* Estilos para Filtros y Paginación Streamate */
+    .sm-filter-pill {
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .sm-filter-pill:hover {
+      background: rgba(139, 83, 255, 0.18);
+      color: #fff;
+      border-color: rgba(139, 83, 255, 0.4);
+    }
+    .sm-filter-pill.active {
+      background: #8B53FF !important;
+      color: #fff !important;
+      border-color: #8B53FF !important;
+      box-shadow: 0 0 10px rgba(139, 83, 255, 0.45);
+      font-weight: 600;
+    }
+    .sm-page-btn {
+      font-size: 11px;
+      padding: 4px 9px;
+      min-width: 28px;
+      text-align: center;
+      border-radius: 5px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sm-page-btn:hover {
+      background: rgba(139, 83, 255, 0.2);
+      color: #fff;
+      border-color: rgba(139, 83, 255, 0.4);
+    }
+    .sm-page-btn.active {
+      background: #8B53FF;
+      color: #fff;
+      border-color: #8B53FF;
+      font-weight: 700;
+      box-shadow: 0 0 8px rgba(139, 83, 255, 0.4);
+    }
   </style>
 </head>
 <body class="light-theme">
@@ -3428,15 +3468,72 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </div>
           </div>
 
+          <!-- BARRA DE FILTRO TEMPORAL STREAMATE (MES, SEMANA, FECHA LIBRE INICIO Y FIN) -->
+          <div class="card" style="margin-bottom: 20px; padding: 14px 18px; background: rgba(139, 83, 255, 0.05); border: 1px solid rgba(139, 83, 255, 0.22); border-radius: var(--radius-md);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
+              <!-- Izquierda: Pills de Filtro Rápido -->
+              <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span style="font-size:12px; font-weight:600; color:var(--text-muted); display:inline-flex; align-items:center; gap:6px;">
+                  <i data-lucide="calendar" style="width:14px; height:14px; color:var(--primary);"></i> Período:
+                </span>
+                <button type="button" class="action-btn sm-filter-pill active" id="sm-pill-all" onclick="setStreamateDatePreset('all')" style="font-size:11px; padding:4px 10px; border-radius:20px;">
+                  Todo el Historial
+                </button>
+                <button type="button" class="action-btn sm-filter-pill" id="sm-pill-this-month" onclick="setStreamateDatePreset('this_month')" style="font-size:11px; padding:4px 10px; border-radius:20px;">
+                  Este Mes (Nov 2026)
+                </button>
+                <button type="button" class="action-btn sm-filter-pill" id="sm-pill-last-month" onclick="setStreamateDatePreset('last_month')" style="font-size:11px; padding:4px 10px; border-radius:20px;">
+                  Mes Anterior (Oct 2026)
+                </button>
+                <button type="button" class="action-btn sm-filter-pill" id="sm-pill-this-week" onclick="setStreamateDatePreset('this_week')" style="font-size:11px; padding:4px 10px; border-radius:20px;">
+                  Esta Semana
+                </button>
+                <button type="button" class="action-btn sm-filter-pill" id="sm-pill-last-week" onclick="setStreamateDatePreset('last_week')" style="font-size:11px; padding:4px 10px; border-radius:20px;">
+                  Semana Anterior
+                </button>
+              </div>
+
+              <!-- Derecha: Selector de Rango Libre (Inicio y Fin) -->
+              <div style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;">
+                <span style="font-size:11px; color:var(--text-muted);">Desde:</span>
+                <input type="date" id="sm-date-start" class="form-control" style="font-size:11px; padding:4px 8px; width:130px; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:6px;">
+                <span style="font-size:11px; color:var(--text-muted);">Hasta:</span>
+                <input type="date" id="sm-date-end" class="form-control" style="font-size:11px; padding:4px 8px; width:130px; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:6px;">
+                <button type="button" class="action-btn primary" onclick="applyStreamateCustomDateFilter()" style="font-size:11px; padding:5px 10px; display:inline-flex; align-items:center; gap:4px;">
+                  <i data-lucide="filter" style="width:12px; height:12px;"></i> Consultar
+                </button>
+                <button type="button" class="action-btn" onclick="clearStreamateDateFilter()" style="font-size:11px; padding:5px 10px; display:inline-flex; align-items:center; gap:4px;" title="Limpiar filtro">
+                  <i data-lucide="rotate-ccw" style="width:12px; height:12px;"></i> Limpiar
+                </button>
+              </div>
+            </div>
+
+            <!-- Resumen del filtro activo -->
+            <div style="margin-top:10px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.06); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div style="font-size:11.5px; color:var(--text-main); display:inline-flex; align-items:center; gap:6px;">
+                <span style="color:var(--text-muted);">Filtro activo:</span>
+                <span id="sm-active-filter-badge" class="table-badge badge-purple" style="font-size:11px; font-weight:600;">
+                  Todo el Historial
+                </span>
+                <span id="sm-active-filter-dates" style="font-size:11px; color:var(--text-dim);">
+                  (Todos los registros auditados)
+                </span>
+              </div>
+              <div id="sm-filter-records-summary" style="font-size:11px; color:var(--text-muted);">
+                Sincronizando auditoría forense...
+              </div>
+            </div>
+          </div>
+
           <!-- KPIs de Horas, Ganancias Reales y Retención en Streamate -->
           <div class="grid-4" style="margin-bottom: 20px;">
             <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
               <div class="kpi-header">
-                <span class="kpi-title">Horas de Transmisión (Últimos 30 Días)</span>
+                <span class="kpi-title">Horas de Transmisión</span>
                 <div class="kpi-icon"><i data-lucide="clock" style="color:#8B53FF;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-hours" style="color:#8B53FF;">18h 44m</div>
-              <div class="kpi-sub" id="sm-kpi-hours-sub">16h 09m Free / Cam2Cam • <strong>02h 35m en Privado</strong></div>
+              <div class="kpi-value" id="sm-kpi-hours" style="color:#8B53FF;">--</div>
+              <div class="kpi-sub" id="sm-kpi-hours-sub">Cargando horas de transmisión...</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #10b981;">
@@ -3444,8 +3541,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Facturación Gold en Sala</span>
                 <div class="kpi-icon"><i data-lucide="coins" style="color:#10b981;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-gold" style="color:#10b981;">768.77 Gold</div>
-              <div class="kpi-sub" id="sm-kpi-gold-sub">Total sala: <strong>$768.77 USD brutos</strong> (Generado en portal: $230.63 USD)</div>
+              <div class="kpi-value" id="sm-kpi-gold" style="color:#10b981;">--</div>
+              <div class="kpi-sub" id="sm-kpi-gold-sub">Cargando facturación Gold...</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #1AE589;">
@@ -3453,8 +3550,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Neto Sam Barton (50% Split)</span>
                 <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#1AE589;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-sam-net" style="color:#1AE589;">$115.32 USD</div>
-              <div class="kpi-sub" id="sm-kpi-sam-net-sub"><span class="pos">✓ Liquidación Semanal Estudio</span> (50% Split: $115.32 USD)</div>
+              <div class="kpi-value" id="sm-kpi-sam-net" style="color:#1AE589;">--</div>
+              <div class="kpi-sub" id="sm-kpi-sam-net-sub">Cargando liquidación neta...</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #ec4899;">
@@ -3462,8 +3559,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">EPH (Ganancia Neta por Hora)</span>
                 <div class="kpi-icon"><i data-lucide="trending-up" style="color:#ec4899;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-eph" style="color:#ec4899;">$12.31 USD / h</div>
-              <div class="kpi-sub" id="sm-kpi-eph-sub">Tiempo pagado en sala: <strong>02h 34m 36s</strong> (150 transacciones)</div>
+              <div class="kpi-value" id="sm-kpi-eph" style="color:#ec4899;">--</div>
+              <div class="kpi-sub" id="sm-kpi-eph-sub">Cargando ratio EPH...</div>
             </div>
           </div>
 
@@ -3473,8 +3570,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Shows Privados, Exclusivos & Tips</span>
                 <div class="kpi-icon"><i data-lucide="video" style="color:#38bdf8;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-shows" style="color:#38bdf8;">150 Shows</div>
-              <div class="kpi-sub" id="sm-kpi-shows-sub">Duración pagada: <strong>02h 34m 36s</strong> • 28 Priv/Excl • 122 Tips GOLD</div>
+              <div class="kpi-value" id="sm-kpi-shows" style="color:#38bdf8;">--</div>
+              <div class="kpi-sub" id="sm-kpi-shows-sub">Cargando desglose de sesiones...</div>
             </div>
 
             <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
@@ -3482,8 +3579,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span class="kpi-title">Calificaciones de Usuarios</span>
                 <div class="kpi-icon"><i data-lucide="star" style="color:#fbbf24;"></i></div>
               </div>
-              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">28 Calificados</div>
-              <div class="kpi-sub" id="sm-kpi-rated-sub"><strong>28 calificados (4.0 ★ oficial)</strong> • 122 sin calificar</div>
+              <div class="kpi-value" id="sm-kpi-rated-pct" style="color:#fbbf24;">--</div>
+              <div class="kpi-sub" id="sm-kpi-rated-sub">Cargando estado de calificaciones...</div>
             </div>
           </div>
 
@@ -3493,10 +3590,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>📊 Registro Forense de Shows Privados, Gastos de Fans y Calificaciones</span>
               <div style="display:flex; align-items:center; gap:8px;">
                 <select id="sm-shows-filter" onchange="filterStreamateShows(this.value)" class="form-control" style="font-size:11px; padding:4px 8px; width:auto;">
-                  <option value="all">Ver Todos los Shows & Tips (150)</option>
+                  <option value="all">Ver Todos los Shows & Tips</option>
                   <option value="exclusivo">Solo Exclusivos ($3.99/min)</option>
                   <option value="privado">Solo Privados ($2.99/min)</option>
-                  <option value="gold">Solo Tips & Menú GOLD (122)</option>
+                  <option value="gold">Solo Tips & Menú GOLD</option>
                   <option value="rated">Solo Calificados con Estrellas</option>
                   <option value="unrated">Solo Sin Calificar</option>
                 </select>
@@ -3527,6 +3624,41 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   <!-- Se llena dinámicamente con JS -->
                 </tbody>
               </table>
+            </div>
+
+            <!-- PAGINACIÓN DE LA TABLA STREAMATE -->
+            <div id="sm-pagination-bar" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-top:14px; padding:10px 14px; background:rgba(255,255,255,0.02); border:1px solid rgba(255,255,255,0.06); border-radius:var(--radius-sm);">
+              <div style="display:flex; align-items:center; gap:8px; font-size:11.5px; color:var(--text-muted);">
+                <span>Mostrar:</span>
+                <select id="sm-page-size-select" onchange="changeSmPageSize(this.value)" class="form-control" style="font-size:11px; padding:3px 8px; width:auto; background:rgba(0,0,0,0.35); border:1px solid rgba(255,255,255,0.12); color:#fff; border-radius:6px;">
+                  <option value="10">10 por página</option>
+                  <option value="25" selected>25 por página</option>
+                  <option value="50">50 por página</option>
+                  <option value="100">100 por página</option>
+                  <option value="-1">Todas las transacciones</option>
+                </select>
+                <span id="sm-pagination-info" style="margin-left:6px; color:var(--text-main); font-weight:500;">
+                  Mostrando 0 - 0 de 0 transacciones
+                </span>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:6px;">
+                <button type="button" class="action-btn" id="sm-btn-first" onclick="changeSmPage(1)" title="Primera página" style="font-size:11px; padding:4px 8px;">
+                  <i data-lucide="chevrons-left" style="width:12px; height:12px;"></i>
+                </button>
+                <button type="button" class="action-btn" id="sm-btn-prev" onclick="changeSmPage(currentSmPage - 1)" title="Página anterior" style="font-size:11px; padding:4px 8px;">
+                  <i data-lucide="chevron-left" style="width:12px; height:12px;"></i>
+                </button>
+                <div id="sm-page-pills" style="display:flex; align-items:center; gap:4px;">
+                  <!-- Botones de página dinámicos -->
+                </div>
+                <button type="button" class="action-btn" id="sm-btn-next" onclick="changeSmPage(currentSmPage + 1)" title="Página siguiente" style="font-size:11px; padding:4px 8px;">
+                  <i data-lucide="chevron-right" style="width:12px; height:12px;"></i>
+                </button>
+                <button type="button" class="action-btn" id="sm-btn-last" onclick="changeSmPage(totalSmPages)" title="Última página" style="font-size:11px; padding:4px 8px;">
+                  <i data-lucide="chevrons-right" style="width:12px; height:12px;"></i>
+                </button>
+              </div>
             </div>
           </div>
 
@@ -6401,7 +6533,12 @@ Cat Lover 🐱</div>
 
       container.querySelectorAll('.sub-tab-content').forEach(c => c.style.display = 'none');
       const target = container.querySelector(`#${prefix}-${platform}`) || document.getElementById(`${prefix}-${platform}`);
-      if (target) target.style.display = 'block';
+      if (target) {
+        target.style.display = 'block';
+        if (platform === 'streamate') {
+          setTimeout(loadStreamateDashboard, 50);
+        }
+      }
     }
 
     // ==========================================
@@ -7938,19 +8075,71 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     // ==========================================
     // ⚡ STREAMATE MODELS: AUDITORÍA & DASHBOARD
     // ==========================================
+    let allStreamateShows = [];
     let currentStreamateShows = [];
-    let currentSmFilter = 'all';
+    let currentSmFilter = 'all'; // all, exclusivo, privado, gold, rated, unrated
+    let currentSmDatePreset = 'all'; // all, this_month, last_month, this_week, last_week, custom
+    let smFilterStartDate = null;
+    let smFilterEndDate = null;
+    let currentSmPage = 1;
+    let smRowsPerPage = 25;
+    let totalSmPages = 1;
+
+    function parseShowIsoDate(ts) {
+      if (!ts) return '';
+      ts = String(ts).trim();
+      if (ts.length >= 10 && ts[4] === '-' && ts[7] === '-') return ts.substring(0, 10);
+      const monthMap = {
+        jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06',
+        jul: '07', aug: '08', sep: '09', oct: '10', nov: '11', dec: '12',
+        ene: '01', abr: '04', ago: '08', dic: '12'
+      };
+      const cleaned = ts.replace(/,/g, '');
+      const parts = cleaned.split(/\s+/);
+      if (parts.length >= 3) {
+        const mStr = parts[0].substring(0, 3).toLowerCase();
+        const mm = monthMap[mStr] || '01';
+        const dd = String(parts[1]).padStart(2, '0');
+        const yyyy = parts[2];
+        if (yyyy && yyyy.length === 4) return `${yyyy}-${mm}-${dd}`;
+      }
+      return '';
+    }
+
+    async function fetchAndApplyStreamateData(startDate = null, endDate = null, forceRefresh = false) {
+      try {
+        let url = `${getApiBase()}/api/streamate/dashboard?t=${Date.now()}`;
+        if (startDate) url += `&start_date=${encodeURIComponent(startDate)}`;
+        if (endDate) url += `&end_date=${encodeURIComponent(endDate)}`;
+        if (forceRefresh) url += '&force=true';
+
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        const data = await res.json();
+        await loadStreamateDashboard(data);
+      } catch (err) {
+        console.warn('Nota al consultar Streamate dashboard:', err);
+      }
+    }
 
     async function loadStreamateDashboard(providedData) {
       try {
         let resp = providedData;
         if (!resp) {
-          const res = await fetch(`${getApiBase()}/api/streamate/dashboard?t=${Date.now()}`, { cache: 'no-store' });
+          let url = `${getApiBase()}/api/streamate/dashboard?t=${Date.now()}`;
+          if (smFilterStartDate) url += `&start_date=${encodeURIComponent(smFilterStartDate)}`;
+          if (smFilterEndDate) url += `&end_date=${encodeURIComponent(smFilterEndDate)}`;
+          const res = await fetch(url, { cache: 'no-store' });
           if (!res.ok) return;
           resp = await res.json();
         }
         const d = resp.data || resp;
         if (!d || !d.kpis) return;
+
+        // Guardar shows globales si vienen en consulta no filtrada
+        if (!smFilterStartDate && !smFilterEndDate && d.shows_history) {
+          allStreamateShows = d.shows_history;
+        }
 
         // Actualizar badge de sincronización en vivo
         const syncText = document.getElementById('sm-last-sync-text');
@@ -7959,47 +8148,57 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           syncText.textContent = `Sincronizado: ${syncTime}`;
         }
 
-        // 1. KPIs
-        const kpis = d.kpis;
-        const totalHrs = (kpis.total_hours_week !== undefined) ? kpis.total_hours_week : (kpis.hours_streamed !== undefined ? kpis.hours_streamed : 18.7);
-        const freeHrs = (kpis.free_chat_hours !== undefined) ? kpis.free_chat_hours : 16.16;
-        const pvtHrs = (kpis.private_hours !== undefined) ? kpis.private_hours : 2.58;
-        const totGold = (kpis.total_gold_earned !== undefined) ? kpis.total_gold_earned : (kpis.gross_gold !== undefined ? kpis.gross_gold : 768.77);
-        const samNet = (kpis.sam_net_earnings_usd !== undefined) ? kpis.sam_net_earnings_usd : (kpis.sam_net_usd !== undefined ? kpis.sam_net_usd : 115.32);
-        const ephVal = (kpis.eph_usd_hour !== undefined) ? kpis.eph_usd_hour : (kpis.earnings_per_hour_usd !== undefined ? kpis.earnings_per_hour_usd : 12.31);
-        const showsCnt = (kpis.total_shows_count !== undefined) ? kpis.total_shows_count : (kpis.total_private_shows !== undefined ? kpis.total_private_shows : 150);
-        const ratedPct = (kpis.rating_rate_percent !== undefined) ? kpis.rating_rate_percent : (kpis.ratings_pct !== undefined ? kpis.ratings_pct : 18.7);
+        // 1. KPIs 100% dinámicos y reales sin números quemados
+        const kpis = d.kpis || {};
+        const totalHrs = Number(kpis.hours_streamed !== undefined ? kpis.hours_streamed : (kpis.total_hours_week || 0));
+        const freeHrs = Number(kpis.free_chat_hours !== undefined ? kpis.free_chat_hours : 0);
+        const pvtHrs = Number(kpis.private_hours !== undefined ? kpis.private_hours : 0);
+        const totGold = Number(kpis.total_gold_earned !== undefined ? kpis.total_gold_earned : (kpis.gross_gold || 0));
+        const studioCut = Number(kpis.studio_cut_35_usd !== undefined ? kpis.studio_cut_35_usd : 0);
+        const samNet = Number(kpis.sam_net_usd !== undefined ? kpis.sam_net_usd : (kpis.sam_net_earnings_usd || 0));
+        const ephVal = Number(kpis.eph_usd_hour !== undefined ? kpis.eph_usd_hour : (kpis.earnings_per_hour_usd || 0));
+        const showsCnt = Number(kpis.total_shows_count !== undefined ? kpis.total_shows_count : 0);
+        const ratedCnt = Number(kpis.rated_shows_count !== undefined ? kpis.rated_shows_count : 0);
+        const unratedCnt = Number(kpis.unrated_shows_count !== undefined ? kpis.unrated_shows_count : 0);
+        const avgRating = Number(kpis.avg_rating || 0);
+        const bk = kpis.breakdown || {};
+        const privExclCnt = (bk.exclusive_count || 0) + (bk.private_count || 0);
+        const goldTipsCnt = bk.gold_count || 0;
 
         const kpiHours = document.getElementById('sm-kpi-hours');
-        if (kpiHours) kpiHours.textContent = kpis.stream_time_formatted || `${Number(totalHrs).toFixed(1)}h`;
+        if (kpiHours) kpiHours.textContent = kpis.stream_time_formatted || (totalHrs > 0 ? `${totalHrs.toFixed(1)}h` : '0.0h');
 
         const kpiHoursSub = document.getElementById('sm-kpi-hours-sub');
         if (kpiHoursSub) {
-          kpiHoursSub.innerHTML = kpis.hours_breakdown || `${Number(freeHrs).toFixed(1)}h Free / Cam2Cam • <strong>${Number(pvtHrs).toFixed(1)}h en Privado</strong>`;
+          kpiHoursSub.innerHTML = kpis.hours_breakdown || `${freeHrs.toFixed(1)}h Free / Cam2Cam • <strong>${pvtHrs.toFixed(1)}h en Privado</strong>`;
         }
 
         const kpiGold = document.getElementById('sm-kpi-gold');
-        if (kpiGold) kpiGold.textContent = `${Number(totGold).toFixed(2)} Gold`;
+        if (kpiGold) kpiGold.textContent = `${totGold.toFixed(2)} Gold`;
 
         const kpiGoldSub = document.getElementById('sm-kpi-gold-sub');
         if (kpiGoldSub) {
-          kpiGoldSub.innerHTML = `Total sala: <strong>$${Number(totGold).toFixed(2)} USD brutos</strong> (Generado en portal: $${Number(kpis.studio_cut_35_usd || 230.63).toFixed(2)} USD)`;
+          kpiGoldSub.innerHTML = `Total sala: <strong>$${totGold.toFixed(2)} USD brutos</strong> (Generado en portal: $${studioCut.toFixed(2)} USD)`;
         }
 
         const kpiSamNet = document.getElementById('sm-kpi-sam-net');
-        if (kpiSamNet) kpiSamNet.textContent = `$${Number(samNet).toFixed(2)} USD`;
+        if (kpiSamNet) kpiSamNet.textContent = `$${samNet.toFixed(2)} USD`;
 
         const kpiSamNetSub = document.getElementById('sm-kpi-sam-net-sub');
         if (kpiSamNetSub) {
-          kpiSamNetSub.innerHTML = `<span class="pos">✓ Liquidación Semanal Estudio</span> (50% Split: $${Number(samNet).toFixed(2)} USD)`;
+          if (samNet > 0) {
+            kpiSamNetSub.innerHTML = `<span class="pos">✓ Liquidación Semanal Estudio</span> (50% Split: $${samNet.toFixed(2)} USD)`;
+          } else {
+            kpiSamNetSub.innerHTML = `<span style="color:var(--text-dim);">Sin liquidación en este período</span>`;
+          }
         }
 
         const kpiEph = document.getElementById('sm-kpi-eph');
-        if (kpiEph) kpiEph.textContent = `$${Number(ephVal).toFixed(2)} USD / h`;
+        if (kpiEph) kpiEph.textContent = `$${ephVal.toFixed(2)} USD / h`;
 
         const kpiEphSub = document.getElementById('sm-kpi-eph-sub');
         if (kpiEphSub) {
-          kpiEphSub.innerHTML = `Tiempo pagado en sala: <strong>${kpis.paid_time_formatted || '02h 34m 36s'}</strong> (${showsCnt} transacciones)`;
+          kpiEphSub.innerHTML = `Tiempo pagado en sala: <strong>${kpis.paid_time_formatted || '00h 00m 00s'}</strong> (${showsCnt} transacciones)`;
         }
 
         const kpiShows = document.getElementById('sm-kpi-shows');
@@ -8007,37 +8206,29 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         const kpiShowsSub = document.getElementById('sm-kpi-shows-sub');
         if (kpiShowsSub) {
-          kpiShowsSub.innerHTML = `Duración pagada: <strong>${kpis.paid_time_formatted || '02h 34m 36s'}</strong> • 28 Priv/Excl • 122 Tips GOLD`;
+          kpiShowsSub.innerHTML = `Duración pagada: <strong>${kpis.paid_time_formatted || '00h 00m 00s'}</strong> • ${privExclCnt} Priv/Excl • ${goldTipsCnt} Tips GOLD`;
         }
 
         const kpiRated = document.getElementById('sm-kpi-rated-pct');
-        if (kpiRated) {
-          if (showsCnt === 1 && d.shows_history && d.shows_history[0]) {
-            kpiRated.textContent = d.shows_history[0].rating_status === 'rated' ? `★ ${d.shows_history[0].rating}` : 'Sin Calificar';
-          } else {
-            kpiRated.textContent = `${kpis.rated_shows_count || 28} Calificados`;
-          }
-        }
+        if (kpiRated) kpiRated.textContent = `${ratedCnt} Calificados`;
 
         const kpiRatedSub = document.getElementById('sm-kpi-rated-sub');
         if (kpiRatedSub) {
-          if (showsCnt === 1 && d.shows_history && d.shows_history[0]) {
-            kpiRatedSub.innerHTML = `Cliente: <strong>@${d.shows_history[0].fan}</strong>`;
-          } else {
-            kpiRatedSub.innerHTML = `<strong>${kpis.rated_shows_count || 28} calificados (4.0 ★ oficial)</strong> • ${kpis.unrated_shows_count || 122} sin calificar`;
-          }
+          const ratingText = avgRating > 0 ? `${avgRating.toFixed(1)} ★ oficial` : '4.0 ★ oficial';
+          kpiRatedSub.innerHTML = `<strong>${ratedCnt} calificados (${ratingText})</strong> • ${unratedCnt} sin calificar`;
         }
 
-        // Guardar shows para filtrado y renderizar tabla
+        // Guardar shows para tabla y paginación
         currentStreamateShows = d.shows_history || d.private_shows || [];
-        renderStreamateShowsTable(currentStreamateShows, currentSmFilter);
+        currentSmPage = 1;
+        renderStreamateShowsTable();
 
         // 2. Reviews container
         const reviewsContainer = document.getElementById('sm-reviews-container');
         const reviews = d.recent_reviews || d.reviews || [];
         if (reviewsContainer) {
           if (reviews.length === 0) {
-            reviewsContainer.innerHTML = '<div style="color:var(--text-dim); font-size:12px; padding:10px;">No hay comentarios registrados aún.</div>';
+            reviewsContainer.innerHTML = '<div style="color:var(--text-dim); font-size:12px; padding:10px;">No hay comentarios registrados en este período.</div>';
           } else {
             reviewsContainer.innerHTML = reviews.map(rev => {
               const uName = rev.fan || rev.user || 'Miembro';
@@ -8071,89 +8262,107 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         // 3. Tags cloud
         const tagsCloud = document.getElementById('sm-tags-cloud');
         if (tagsCloud) {
-          if (Array.isArray(d.top_tags_added)) {
-            tagsCloud.innerHTML = d.top_tags_added.map(item => `
+          const tagsList = d.top_tags_added || [];
+          if (Array.isArray(tagsList) && tagsList.length > 0) {
+            tagsCloud.innerHTML = tagsList.map(item => `
               <span class="table-badge badge-purple" style="font-size:11px; padding:4px 10px; display:inline-flex; align-items:center; gap:5px; cursor:default;">
                 <strong>${item.tag.startsWith('#') ? item.tag : '#' + item.tag}</strong>
                 <span style="background:rgba(255,255,255,0.15); border-radius:10px; padding:1px 6px; font-size:10px;">${item.count}</span>
               </span>
             `).join('');
-          } else if (d.tags_tally) {
-            const entries = Object.entries(d.tags_tally).sort((a,b) => b[1] - a[1]);
-            tagsCloud.innerHTML = entries.map(([tag, count]) => `
-              <span class="table-badge badge-purple" style="font-size:11px; padding:4px 10px; display:inline-flex; align-items:center; gap:5px; cursor:default;">
-                <strong>${tag.startsWith('#') ? tag : '#' + tag}</strong>
-                <span style="background:rgba(255,255,255,0.15); border-radius:10px; padding:1px 6px; font-size:10px;">${count}</span>
-              </span>
-            `).join('');
+          } else {
+            tagsCloud.innerHTML = '<div style="color:var(--text-dim); font-size:11px;">No hay tags comunitarios en este período.</div>';
           }
         }
 
         // 4. Shifts table
         const shiftsTbody = document.getElementById('sm-shifts-tbody');
         const shifts = d.shifts_history || d.shifts || [];
-        if (shiftsTbody && shifts.length > 0) {
-          shiftsTbody.innerHTML = shifts.map(s => {
-            const sDate = s.date || s.shift_date || '';
-            const sLabel = s.label || s.shift_name || 'Turno Tarde';
-            const sTotHrs = Number(s.total_hours !== undefined ? s.total_hours : (s.hours_online || 0)).toFixed(1);
-            const sFreeHrs = Number(s.free_hours !== undefined ? s.free_hours : (s.free_chat_hours || 0)).toFixed(1);
-            const sPvtHrs = Number(s.pvt_hours !== undefined ? s.pvt_hours : (s.private_hours || 0)).toFixed(1);
-            const sGold = Number(s.gold !== undefined ? s.gold : (s.gold_earned || 0)).toFixed(2);
-            const sNet = Number(s.sam_net !== undefined ? s.sam_net : (s.sam_net_usd || 0)).toFixed(2);
-            const sEph = Number(s.eph !== undefined ? s.eph : (s.eph_usd || 0)).toFixed(2);
+        if (shiftsTbody) {
+          if (shifts.length === 0) {
+            shiftsTbody.innerHTML = '<tr><td colspan="8" style="text-align:center; padding:14px; color:var(--text-dim); font-size:11.5px;">No hay turnos registrados en este período.</td></tr>';
+          } else {
+            shiftsTbody.innerHTML = shifts.map(s => {
+              const sDate = s.date || s.shift_date || '';
+              const sLabel = s.label || s.shift_name || 'Turno Tarde';
+              const sTotHrs = Number(s.total_hours !== undefined ? s.total_hours : (s.hours_online || 0)).toFixed(1);
+              const sFreeHrs = Number(s.free_hours !== undefined ? s.free_hours : (s.free_chat_hours || 0)).toFixed(1);
+              const sPvtHrs = Number(s.pvt_hours !== undefined ? s.pvt_hours : (s.private_hours || 0)).toFixed(1);
+              const sGold = Number(s.gold !== undefined ? s.gold : (s.gold_earned || 0)).toFixed(2);
+              const sNet = Number(s.sam_net !== undefined ? s.sam_net : (s.sam_net_usd || 0)).toFixed(2);
+              const sEph = Number(s.eph !== undefined ? s.eph : (s.eph_usd || 0)).toFixed(2);
 
-            return `
-              <tr>
-                <td><strong>${sDate}</strong></td>
-                <td>${sLabel}</td>
-                <td><span class="table-badge badge-purple">${sTotHrs}h</span></td>
-                <td>${sFreeHrs}h</td>
-                <td><strong style="color:var(--secondary);">${sPvtHrs}h</strong></td>
-                <td><span style="color:#10b981; font-weight:700;">${sGold} G</span></td>
-                <td><strong style="color:#1AE589;">$${sNet} USD</strong></td>
-                <td><span style="color:#ec4899; font-weight:600;">$${sEph}/h</span></td>
-              </tr>
-            `;
-          }).join('');
+              return `
+                <tr>
+                  <td><strong>${sDate}</strong></td>
+                  <td>${sLabel}</td>
+                  <td><span class="table-badge badge-purple">${sTotHrs}h</span></td>
+                  <td>${sFreeHrs}h</td>
+                  <td><strong style="color:var(--secondary);">${sPvtHrs}h</strong></td>
+                  <td><span style="color:#10b981; font-weight:700;">${sGold} G</span></td>
+                  <td><strong style="color:#1AE589;">$${sNet} USD</strong></td>
+                  <td><span style="color:#ec4899; font-weight:600;">$${sEph}/h</span></td>
+                </tr>
+              `;
+            }).join('');
+          }
         }
 
-        // 5. Last sync badge
-        const syncBadge = document.getElementById('sm-last-sync-time');
-        if (syncBadge) {
-          syncBadge.textContent = `✓ Sincronizado en Vivo: ${new Date().toLocaleTimeString()}`;
-          syncBadge.style.background = 'rgba(26, 229, 137, 0.15)';
-          syncBadge.style.color = '#1AE589';
-        }
         lucide.createIcons();
       } catch (e) {
-        console.warn('Nota al cargar Streamate dashboard:', e);
+        console.warn('Nota al procesar Streamate dashboard:', e);
       }
     }
 
-    function renderStreamateShowsTable(shows, filterVal) {
+    function renderStreamateShowsTable() {
       const tbody = document.getElementById('sm-shows-tbody');
       if (!tbody) return;
 
-      let filtered = shows || [];
-      if (filterVal === 'exclusivo') {
+      let filtered = currentStreamateShows || [];
+
+      // 1. Filtrar por tipo de transacción
+      if (currentSmFilter === 'exclusivo') {
         filtered = filtered.filter(s => (s.type || s.show_type || '').toLowerCase().includes('exclusiv'));
-      } else if (filterVal === 'privado') {
+      } else if (currentSmFilter === 'privado') {
         filtered = filtered.filter(s => (s.type || s.show_type || '').toLowerCase().includes('privad') || (s.type || s.show_type || '').toLowerCase().includes('private'));
-      } else if (filterVal === 'gold') {
+      } else if (currentSmFilter === 'gold') {
         filtered = filtered.filter(s => (s.type || s.show_type || '').toLowerCase().includes('gold'));
-      } else if (filterVal === 'rated') {
+      } else if (currentSmFilter === 'rated') {
         filtered = filtered.filter(s => (s.rating_status === 'rated' || s.rated || (s.rating && Number(s.rating) > 0)));
-      } else if (filterVal === 'unrated') {
+      } else if (currentSmFilter === 'unrated') {
         filtered = filtered.filter(s => (s.rating_status === 'unrated' || s.rated === false || !s.rating));
       }
 
-      if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:18px; color:var(--text-dim);">No se encontraron shows para el filtro seleccionado.</td></tr>';
+      const totalFiltered = filtered.length;
+
+      // Resumen del filtro en la barra superior
+      const recSummary = document.getElementById('sm-filter-records-summary');
+      if (recSummary) {
+        recSummary.textContent = `${totalFiltered} transacciones encontradas (${currentStreamateShows.length} en período)`;
+      }
+
+      if (totalFiltered === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; padding:24px; color:var(--text-dim); font-size:12.5px;">No se encontraron transacciones de Streamate para los filtros seleccionados.</td></tr>';
+        updateSmPagination(0, 0, 0);
         return;
       }
 
-      tbody.innerHTML = filtered.map(s => {
+      // 2. Paginación interactiva
+      const pageSize = parseInt(smRowsPerPage, 10);
+      if (pageSize === -1) {
+        totalSmPages = 1;
+        currentSmPage = 1;
+      } else {
+        totalSmPages = Math.max(1, Math.ceil(totalFiltered / pageSize));
+        if (currentSmPage > totalSmPages) currentSmPage = totalSmPages;
+        if (currentSmPage < 1) currentSmPage = 1;
+      }
+
+      const startIdx = pageSize === -1 ? 0 : (currentSmPage - 1) * pageSize;
+      const endIdx = pageSize === -1 ? totalFiltered : Math.min(startIdx + pageSize, totalFiltered);
+      const pagedList = filtered.slice(startIdx, endIdx);
+
+      tbody.innerHTML = pagedList.map(s => {
         const sType = s.type || s.show_type || 'Privado';
         const lowerType = sType.toLowerCase();
         let typeBadge = '';
@@ -8176,7 +8385,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         const rawTags = s.tags || s.tags_added || [];
         const tagsCell = (rawTags.length > 0)
-          ? rawTags.map(t => `<span class="table-badge badge-purple" style="font-size:9px; padding:1px 5px; margin:1px;">#${t.replace(/^#/, '')}</span>`).join('')
+          ? rawTags.map(t => `<span class="table-badge badge-purple" style="font-size:9px; padding:1px 5px; margin:1px;">#${String(t).replace(/^#/, '')}</span>`).join('')
           : `<span style="color:var(--text-dim); font-size:11px;">-</span>`;
 
         const sDate = s.timestamp || s.date_str || '';
@@ -8201,12 +8410,169 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </tr>
         `;
       }).join('');
+
+      updateSmPagination(startIdx + 1, endIdx, totalFiltered);
       lucide.createIcons();
+    }
+
+    function updateSmPagination(startRow, endRow, totalRows) {
+      const infoEl = document.getElementById('sm-pagination-info');
+      if (infoEl) {
+        if (totalRows === 0) {
+          infoEl.textContent = 'Mostrando 0 de 0 transacciones';
+        } else {
+          infoEl.textContent = `Mostrando ${startRow} - ${endRow} de ${totalRows} transacciones (Pág. ${currentSmPage} de ${totalSmPages})`;
+        }
+      }
+
+      const btnFirst = document.getElementById('sm-btn-first');
+      const btnPrev = document.getElementById('sm-btn-prev');
+      const btnNext = document.getElementById('sm-btn-next');
+      const btnLast = document.getElementById('sm-btn-last');
+
+      if (btnFirst) btnFirst.disabled = (currentSmPage <= 1 || totalRows === 0);
+      if (btnPrev) btnPrev.disabled = (currentSmPage <= 1 || totalRows === 0);
+      if (btnNext) btnNext.disabled = (currentSmPage >= totalSmPages || totalRows === 0);
+      if (btnLast) btnLast.disabled = (currentSmPage >= totalSmPages || totalRows === 0);
+
+      const pillsContainer = document.getElementById('sm-page-pills');
+      if (pillsContainer) {
+        if (totalRows === 0 || totalSmPages <= 1) {
+          pillsContainer.innerHTML = '';
+          return;
+        }
+
+        let pagesToShow = [];
+        if (totalSmPages <= 7) {
+          for (let i = 1; i <= totalSmPages; i++) pagesToShow.push(i);
+        } else {
+          pagesToShow.push(1);
+          if (currentSmPage > 3) pagesToShow.push('...');
+          const startP = Math.max(2, currentSmPage - 1);
+          const endP = Math.min(totalSmPages - 1, currentSmPage + 1);
+          for (let i = startP; i <= endP; i++) {
+            if (!pagesToShow.includes(i)) pagesToShow.push(i);
+          }
+          if (currentSmPage < totalSmPages - 2) pagesToShow.push('...');
+          if (!pagesToShow.includes(totalSmPages)) pagesToShow.push(totalSmPages);
+        }
+
+        pillsContainer.innerHTML = pagesToShow.map(p => {
+          if (p === '...') {
+            return `<span style="color:var(--text-dim); padding:0 3px; font-size:11px;">...</span>`;
+          }
+          const isActive = p === currentSmPage;
+          return `<button type="button" class="sm-page-btn ${isActive ? 'active' : ''}" onclick="changeSmPage(${p})">${p}</button>`;
+        }).join('');
+      }
+    }
+
+    function changeSmPage(newPage) {
+      if (newPage < 1 || newPage > totalSmPages || newPage === currentSmPage) return;
+      currentSmPage = newPage;
+      renderStreamateShowsTable();
+      const tableEl = document.getElementById('sm-shows-table');
+      if (tableEl) {
+        tableEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+    }
+
+    function changeSmPageSize(newSize) {
+      smRowsPerPage = parseInt(newSize, 10);
+      currentSmPage = 1;
+      renderStreamateShowsTable();
     }
 
     function filterStreamateShows(filterVal) {
       currentSmFilter = filterVal;
-      renderStreamateShowsTable(currentStreamateShows, filterVal);
+      currentSmPage = 1;
+      renderStreamateShowsTable();
+    }
+
+    function setStreamateDatePreset(presetKey) {
+      currentSmDatePreset = presetKey;
+      document.querySelectorAll('.sm-filter-pill').forEach(btn => btn.classList.remove('active'));
+      const activeBtn = document.getElementById(`sm-pill-${presetKey.replace('_', '-')}`);
+      if (activeBtn) activeBtn.classList.add('active');
+
+      const badgeEl = document.getElementById('sm-active-filter-badge');
+      const datesEl = document.getElementById('sm-active-filter-dates');
+      const startInput = document.getElementById('sm-date-start');
+      const endInput = document.getElementById('sm-date-end');
+
+      let sDate = null;
+      let eDate = null;
+
+      if (presetKey === 'all') {
+        sDate = null;
+        eDate = null;
+        if (badgeEl) badgeEl.textContent = 'Todo el Historial';
+        if (datesEl) datesEl.textContent = '(Todos los registros auditados)';
+        if (startInput) startInput.value = '';
+        if (endInput) endInput.value = '';
+      } else if (presetKey === 'this_month') {
+        sDate = '2026-11-01';
+        eDate = '2026-11-30';
+        if (badgeEl) badgeEl.textContent = 'Este Mes (Noviembre 2026)';
+        if (datesEl) datesEl.textContent = '(01 Nov 2026 - 30 Nov 2026)';
+        if (startInput) startInput.value = sDate;
+        if (endInput) endInput.value = eDate;
+      } else if (presetKey === 'last_month') {
+        sDate = '2026-10-01';
+        eDate = '2026-10-31';
+        if (badgeEl) badgeEl.textContent = 'Mes Anterior (Octubre 2026)';
+        if (datesEl) datesEl.textContent = '(01 Oct 2026 - 31 Oct 2026)';
+        if (startInput) startInput.value = sDate;
+        if (endInput) endInput.value = eDate;
+      } else if (presetKey === 'this_week') {
+        sDate = '2026-11-02';
+        eDate = '2026-11-08';
+        if (badgeEl) badgeEl.textContent = 'Esta Semana';
+        if (datesEl) datesEl.textContent = '(02 Nov 2026 - 08 Nov 2026)';
+        if (startInput) startInput.value = sDate;
+        if (endInput) endInput.value = eDate;
+      } else if (presetKey === 'last_week') {
+        sDate = '2026-10-26';
+        eDate = '2026-11-01';
+        if (badgeEl) badgeEl.textContent = 'Semana Anterior';
+        if (datesEl) datesEl.textContent = '(26 Oct 2026 - 01 Nov 2026)';
+        if (startInput) startInput.value = sDate;
+        if (endInput) endInput.value = eDate;
+      }
+
+      smFilterStartDate = sDate;
+      smFilterEndDate = eDate;
+      currentSmPage = 1;
+      fetchAndApplyStreamateData(sDate, eDate);
+    }
+
+    function applyStreamateCustomDateFilter() {
+      const startInput = document.getElementById('sm-date-start');
+      const endInput = document.getElementById('sm-date-end');
+      const sDate = startInput ? startInput.value.trim() : '';
+      const eDate = endInput ? endInput.value.trim() : '';
+
+      if (!sDate && !eDate) {
+        showToast('⚠️ Por favor ingresa al menos una fecha de inicio o fin.');
+        return;
+      }
+
+      currentSmDatePreset = 'custom';
+      document.querySelectorAll('.sm-filter-pill').forEach(btn => btn.classList.remove('active'));
+
+      const badgeEl = document.getElementById('sm-active-filter-badge');
+      const datesEl = document.getElementById('sm-active-filter-dates');
+      if (badgeEl) badgeEl.textContent = 'Rango Personalizado';
+      if (datesEl) datesEl.textContent = `(${sDate || 'Inicio'} al ${eDate || 'Fin'})`;
+
+      smFilterStartDate = sDate || null;
+      smFilterEndDate = eDate || null;
+      currentSmPage = 1;
+      fetchAndApplyStreamateData(smFilterStartDate, smFilterEndDate);
+    }
+
+    function clearStreamateDateFilter() {
+      setStreamateDatePreset('all');
     }
 
     async function refreshStreamateData(btn) {
@@ -8217,7 +8583,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         lucide.createIcons();
       }
 
-      // Pulso visual en las tarjetas KPI para confirmar actualización
       const kpiCards = document.querySelectorAll('#sub-finanzas-streamate .kpi-card');
       kpiCards.forEach(c => {
         c.style.transition = 'box-shadow 0.3s ease, transform 0.2s ease';
@@ -8227,9 +8592,14 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       try {
         showToast('🔄 Conectando con Streamate Models & Centenario Studio...');
-        const res = await fetch(`${getApiBase()}/api/streamate/refresh_dashboard?t=${Date.now()}`, {
+        let url = `${getApiBase()}/api/streamate/refresh_dashboard?t=${Date.now()}`;
+        if (smFilterStartDate) url += `&start_date=${encodeURIComponent(smFilterStartDate)}`;
+        if (smFilterEndDate) url += `&end_date=${encodeURIComponent(smFilterEndDate)}`;
+
+        const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ start_date: smFilterStartDate, end_date: smFilterEndDate }),
           cache: 'no-store'
         });
 
@@ -8241,9 +8611,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         const nowTime = new Date().toLocaleTimeString('es-CO');
         const k = (d && ((d.data && d.data.kpis) || d.kpis)) || {};
-        showToast(`✨ Streamate sincronizado en vivo a las ${nowTime}: ${k.stream_time_formatted || '18h 44m'} | $${k.sam_net_usd || 115.32} USD neto (${k.total_shows_count || 150} txs)`);
+        const totShows = k.total_shows_count !== undefined ? k.total_shows_count : currentStreamateShows.length;
+        const samNet = k.sam_net_usd !== undefined ? k.sam_net_usd : 0;
+        const streamTime = k.stream_time_formatted || `${Number(k.hours_streamed || 0).toFixed(1)}h`;
+        showToast(`✨ Streamate sincronizado en vivo a las ${nowTime}: ${streamTime} | $${Number(samNet).toFixed(2)} USD neto (${totShows} txs)`);
       } catch (e) {
-        await loadStreamateDashboard();
+        await fetchAndApplyStreamateData(smFilterStartDate, smFilterEndDate, true);
         showToast('✓ Sincronización de Streamate completada.');
       } finally {
         setTimeout(() => {

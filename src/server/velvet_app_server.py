@@ -632,10 +632,29 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
         """Devuelve la auditoría completa de Streamate: horas reales, privados, ratings, reviews y tags."""
         try:
             import importlib
+            import urllib.parse
             import src.analytics.streamate_analytics as sa
             importlib.reload(sa)
-            is_refresh = "refresh" in self.path or "force" in self.path or self.command == "POST"
-            data = sa.get_streamate_dashboard_data(force_refresh=is_refresh)
+
+            parsed_url = urllib.parse.urlparse(self.path)
+            query_params = urllib.parse.parse_qs(parsed_url.query)
+            start_date = query_params.get("start_date", [None])[0]
+            end_date = query_params.get("end_date", [None])[0]
+            is_refresh = "refresh" in self.path or "force" in self.path or self.command == "POST" or "force" in query_params
+
+            if self.command == "POST":
+                content_len = int(self.headers.get("Content-Length", 0))
+                if content_len > 0:
+                    try:
+                        post_body = json.loads(self.rfile.read(content_len).decode("utf-8"))
+                        if not start_date and "start_date" in post_body:
+                            start_date = post_body.get("start_date")
+                        if not end_date and "end_date" in post_body:
+                            end_date = post_body.get("end_date")
+                    except Exception:
+                        pass
+
+            data = sa.get_streamate_dashboard_data(start_date=start_date, end_date=end_date, force_refresh=is_refresh)
         except Exception as e:
             data = {"success": False, "error": str(e)}
         self.send_response(200 if data.get("success") else 500)
