@@ -2196,17 +2196,168 @@
       transition: width 0.25s cubic-bezier(0.4, 0, 0.2, 1), transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease;
     }
 
-    /* Colapso en Desktop / Pantallas grandes */
-    body.sidebar-collapsed #sidebar {
-      width: 0 !important;
-      min-width: 0 !important;
-      overflow: hidden !important;
-      border-right: none !important;
-      opacity: 0 !important;
-      pointer-events: none !important;
-    }
-    body.sidebar-collapsed #btn-open-sidebar {
-      display: inline-flex !important;
+    /* ==============================================================
+       MINI-SIDEBAR (ICON RAIL) PARA DESKTOP
+       Cuando el sidebar está "oculto" / colapsado en desktop,
+       se mantiene una barra lateral compacta (68px) donde todos los iconos
+       están 100% visibles, centrados, interactivos y con tooltips flotantes.
+       ============================================================== */
+    @media (min-width: 921px) {
+      body.sidebar-collapsed #sidebar {
+        width: 68px !important;
+        min-width: 68px !important;
+        max-width: 68px !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        overflow: visible !important;
+        border-right: 1px solid var(--border-color) !important;
+        box-shadow: 2px 0 16px rgba(0, 0, 0, 0.2);
+        z-index: 100;
+      }
+      body.light-theme.sidebar-collapsed #sidebar {
+        border-right-color: #e2e8f0 !important;
+        background: #ffffff !important;
+        box-shadow: 2px 0 10px rgba(0, 0, 0, 0.04);
+      }
+      body.sidebar-collapsed #main-wrapper {
+        width: calc(100vw - 68px);
+        max-width: calc(100vw - 68px);
+      }
+      body.sidebar-collapsed .sidebar-header {
+        padding: 12px 6px;
+        justify-content: center;
+      }
+      body.sidebar-collapsed .sidebar-logo-bar {
+        justify-content: center;
+        gap: 0;
+      }
+      body.sidebar-collapsed .siren-header-logo-wrap {
+        display: none !important;
+      }
+      body.sidebar-collapsed #btn-collapse-sidebar {
+        display: inline-flex !important;
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: rgba(139, 83, 255, 0.15);
+        border: 1px solid rgba(139, 83, 255, 0.35);
+        color: var(--primary-light);
+        margin: 0 auto;
+      }
+      body.light-theme.sidebar-collapsed #btn-collapse-sidebar {
+        background: #ede9fe;
+        border-color: #c4b5fd;
+        color: #6b21a8;
+      }
+      body.sidebar-collapsed .sidebar-nav {
+        padding: 10px 6px;
+        align-items: center;
+        gap: 6px;
+        overflow-x: hidden;
+      }
+      body.sidebar-collapsed .nav-section-label {
+        width: 32px;
+        height: 1px;
+        padding: 0;
+        margin: 6px auto;
+        background: var(--border-color);
+        font-size: 0;
+        line-height: 0;
+        overflow: hidden;
+      }
+      body.light-theme.sidebar-collapsed .nav-section-label {
+        background: #e2e8f0;
+      }
+      body.sidebar-collapsed .nav-btn {
+        width: 46px;
+        height: 46px;
+        padding: 0;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        border-radius: 12px;
+        position: relative;
+        font-size: 0;
+        gap: 0;
+      }
+      body.sidebar-collapsed .nav-btn i,
+      body.sidebar-collapsed .nav-btn svg {
+        width: 22px;
+        height: 22px;
+        margin: 0 auto;
+        flex-shrink: 0;
+        display: block;
+      }
+      body.sidebar-collapsed .nav-btn .nav-label,
+      body.sidebar-collapsed .nav-btn .nav-badge {
+        display: none !important;
+      }
+      body.sidebar-collapsed .nav-btn.active {
+        background: linear-gradient(135deg, rgba(139, 83, 255, 0.35) 0%, rgba(139, 83, 255, 0.18) 100%);
+        border: 1px solid var(--primary-light);
+        box-shadow: 0 0 14px rgba(139, 83, 255, 0.35);
+        border-left: 1px solid var(--primary-light);
+      }
+      body.light-theme.sidebar-collapsed .nav-btn.active {
+        background: #ede9fe !important;
+        border: 1px solid #8B53FF !important;
+        box-shadow: 0 2px 8px rgba(139, 83, 255, 0.15) !important;
+      }
+      body.sidebar-collapsed .nav-btn.active i,
+      body.sidebar-collapsed .nav-btn.active svg {
+        color: var(--primary-light);
+      }
+      body.light-theme.sidebar-collapsed .nav-btn.active i,
+      body.light-theme.sidebar-collapsed .nav-btn.active svg {
+        color: #6b21a8 !important;
+      }
+      /* Tooltips flotantes elegantes al pasar el cursor sobre los iconos del rail */
+      body.sidebar-collapsed .nav-btn::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        left: 56px;
+        top: 50%;
+        transform: translateY(-50%) scale(0.92);
+        background: #181d29;
+        color: #ffffff;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 11.5px;
+        font-weight: 600;
+        white-space: nowrap;
+        pointer-events: none;
+        opacity: 0;
+        transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        z-index: 1000;
+      }
+      body.light-theme.sidebar-collapsed .nav-btn::after {
+        background: #0f172a;
+        color: #ffffff;
+        border-color: #334155;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.15);
+      }
+      body.sidebar-collapsed .nav-btn:hover::after {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+      }
+      body.sidebar-collapsed .sidebar-footer {
+        padding: 10px 4px;
+        justify-content: center;
+      }
+      body.sidebar-collapsed .sidebar-version-pill {
+        padding: 4px;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+      }
+      body.sidebar-collapsed .version-text {
+        display: none !important;
+      }
+      body.sidebar-collapsed #btn-open-sidebar {
+        display: none !important;
+      }
     }
 
     /* Botón de apertura en Top Bar */
@@ -2690,52 +2841,52 @@
     <nav class="sidebar-nav">
       <div class="nav-section-label">Inteligencia de Plataformas</div>
       
-      <button class="nav-btn active" onclick="switchMainTab('tab-perfiles')">
-        <i data-lucide="user-check"></i> Perfil por Plataforma
+      <button class="nav-btn active" onclick="switchMainTab('tab-perfiles')" data-tooltip="Perfil por Plataforma" title="Perfil por Plataforma">
+        <i data-lucide="user-check"></i> <span class="nav-label">Perfil por Plataforma</span>
         <span class="nav-badge">4 Webs</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-finanzas')">
-        <i data-lucide="wallet"></i> Finanzas & Pagos
+      <button class="nav-btn" onclick="switchMainTab('tab-finanzas')" data-tooltip="Finanzas & Pagos" title="Finanzas & Pagos">
+        <i data-lucide="wallet"></i> <span class="nav-label">Finanzas & Pagos</span>
         <span class="nav-badge">$100% Split</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-posicionamiento')">
-        <i data-lucide="crosshair"></i> Posicionamiento & Radar
+      <button class="nav-btn" onclick="switchMainTab('tab-posicionamiento')" data-tooltip="Posicionamiento & Radar" title="Posicionamiento & Radar">
+        <i data-lucide="crosshair"></i> <span class="nav-label">Posicionamiento & Radar</span>
         <span class="nav-badge live">Top #1</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-algoritmos')">
-        <i data-lucide="cpu"></i> Algoritmos & Herramientas
+      <button class="nav-btn" onclick="switchMainTab('tab-algoritmos')" data-tooltip="Algoritmos & Herramientas" title="Algoritmos & Herramientas">
+        <i data-lucide="cpu"></i> <span class="nav-label">Algoritmos & Herramientas</span>
         <span class="nav-badge">Auditado</span>
       </button>
 
       <div class="nav-section-label">Ejecución & Tareas</div>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-actualizaciones')">
-        <i data-lucide="refresh-cw"></i> Control de Actualizaciones
+      <button class="nav-btn" onclick="switchMainTab('tab-actualizaciones')" data-tooltip="Control de Actualizaciones" title="Control de Actualizaciones">
+        <i data-lucide="refresh-cw"></i> <span class="nav-label">Control de Actualizaciones</span>
         <span class="nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">✓ 100% Sincronizado</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-flujos')">
-        <i data-lucide="git-merge"></i> Plan de Trabajo & Flujos
+      <button class="nav-btn" onclick="switchMainTab('tab-flujos')" data-tooltip="Plan de Trabajo & Flujos" title="Plan de Trabajo & Flujos">
+        <i data-lucide="git-merge"></i> <span class="nav-label">Plan de Trabajo & Flujos</span>
         <span class="nav-badge">Sam 24/7</span>
       </button>
 
       <div class="nav-section-label">Ciencia de Datos & IA</div>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-datascience')">
-        <i data-lucide="bar-chart-3"></i> Data Science & Embudo
+      <button class="nav-btn" onclick="switchMainTab('tab-datascience')" data-tooltip="Data Science & Embudo" title="Data Science & Embudo">
+        <i data-lucide="bar-chart-3"></i> <span class="nav-label">Data Science & Embudo</span>
         <span class="nav-badge" style="background: rgba(16, 185, 129, 0.2); color: #34d399;">Read % Real</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-asistentes')">
-        <i data-lucide="bot"></i> Asistentes
+      <button class="nav-btn" onclick="switchMainTab('tab-asistentes')" data-tooltip="Asistentes IA" title="Asistentes IA">
+        <i data-lucide="bot"></i> <span class="nav-label">Asistentes</span>
         <span class="nav-badge" style="background: rgba(139, 83, 255, 0.25); color: #8B53FF;">Multi-Agente</span>
       </button>
 
-      <button class="nav-btn" onclick="switchMainTab('tab-api-catalog')">
-        <i data-lucide="terminal"></i> Endpoints & Scrapers
+      <button class="nav-btn" onclick="switchMainTab('tab-api-catalog')" data-tooltip="Endpoints & Scrapers" title="Endpoints & Scrapers">
+        <i data-lucide="terminal"></i> <span class="nav-label">Endpoints & Scrapers</span>
         <span class="nav-badge">/api/v2</span>
       </button>
     </nav>
@@ -7551,6 +7702,21 @@ Cat Lover 🐱</div>
           document.body.classList.toggle('sidebar-collapsed');
         }
       }
+
+      // Sincronizar icono y tooltip del botón de colapso en el rail
+      const isCollapsed = document.body.classList.contains('sidebar-collapsed');
+      const collapseBtn = document.getElementById('btn-collapse-sidebar');
+      if (collapseBtn) {
+        collapseBtn.innerHTML = isCollapsed ? 
+          '<i data-lucide="panel-left-open"></i>' : 
+          '<i data-lucide="panel-left-close"></i>';
+        collapseBtn.title = isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral';
+      }
+
+      try {
+        localStorage.setItem('siren_sidebar_collapsed', isCollapsed ? '1' : '0');
+      } catch (e) {}
+
       if (window.lucide) {
         lucide.createIcons();
       }
