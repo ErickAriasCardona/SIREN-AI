@@ -987,6 +987,11 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             if raw_text and not items:
                 items = parse_gold_menu_text(raw_text)
 
+            # Persistir localmente de inmediato para que nunca se pierda
+            if items:
+                from src.platforms.streamate.stream_monitor_controller import save_streamate_tools_config
+                save_streamate_tools_config("gold_menu", items)
+
             res = asyncio.run(update_gold_menu_live(items))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1001,7 +1006,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def handle_api_streamate_update_wheel(self):
         """Actualiza la Ruleta (Gira La Rueda) en SM Connect / Stream Monitor o devuelve configuración."""
         try:
-            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config, save_streamate_tools_config
             if self.command == "GET":
                 cfg = load_streamate_tools_config()
                 wheel = cfg.get("wheel", {"cost": 20, "items": []})
@@ -1024,6 +1029,9 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 cost = parsed["cost"]
                 items = parsed["items"]
 
+            # Persistir localmente de inmediato
+            save_streamate_tools_config("wheel", {"cost": cost, "items": items})
+
             res = asyncio.run(update_wheel_game_live(cost, items))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1038,7 +1046,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def handle_api_streamate_update_topic(self):
         """Actualiza el Tema de Habitación (Room Topic) en SM Connect o devuelve configuración."""
         try:
-            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config, save_streamate_tools_config
             if self.command == "GET":
                 cfg = load_streamate_tools_config()
                 self.send_response(200)
@@ -1052,6 +1060,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             data = json.loads(body) if body else {}
 
             topic = data.get("topic", "").strip()
+            # Persistir localmente de inmediato
+            if topic:
+                save_streamate_tools_config("room_topic", topic)
+
             res = asyncio.run(update_room_topic_live(topic))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")

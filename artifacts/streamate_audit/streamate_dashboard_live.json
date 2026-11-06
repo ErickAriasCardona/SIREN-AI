@@ -1,9 +1,14 @@
 {
   "success": true,
+  "filter": {
+    "start_date": null,
+    "end_date": null,
+    "is_filtered": false
+  },
   "account_info": {
     "performer_name": "SamBartone",
     "performer_id": "144675665",
-    "rating_official": "4.0 ★ (Verificado)",
+    "rating_official": "4.9 ★",
     "account_type": "Cuenta Estudio Satélite (Centenario Studio)",
     "status": "✓ Activa y Verificada en Vivo",
     "rates": {
@@ -14,35 +19,37 @@
     "payout_status": "✓ Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)"
   },
   "kpis": {
-    "total_hours_week": 18.7,
-    "free_chat_hours": 16.3,
-    "private_hours": 2.42,
-    "hours_streamed": 18.7,
-    "hours_breakdown": "16h 09m Free / Cam2Cam • <strong>02h 35m en Privado</strong>",
-    "stream_time_formatted": "18h 44m 03s",
-    "paid_time_formatted": "02h 34m 36s",
-    "total_gold_earned": 768.77,
-    "gross_gold": 768.77,
-    "studio_cut_35_usd": 230.63,
-    "portal_earnings_usd": 230.63,
-    "sam_net_earnings_usd": 115.32,
-    "sam_net_usd": 115.32,
-    "eph_usd_hour": 12.31,
-    "earnings_per_hour_usd": 12.31,
-    "total_shows_count": 150,
-    "total_private_shows": 150,
-    "rated_shows_count": 38,
-    "unrated_shows_count": 112,
-    "rating_rate_percent": 25.3,
-    "ratings_pct": 25.3,
-    "avg_private_duration_min": 1.9,
+    "total_hours_week": 47.9,
+    "free_chat_hours": 38.8,
+    "private_hours": 9.12,
+    "hours_streamed": 47.9,
+    "hours_breakdown": "38.8h Free / Cam2Cam • <strong>9.1h en Privado</strong>",
+    "stream_time_formatted": "47h 54m",
+    "paid_time_formatted": "11h 22m 00s",
+    "total_gold_earned": 2480.03,
+    "gross_gold": 2480.03,
+    "gross_usd": 2480.03,
+    "studio_cut_35_usd": 829.57,
+    "portal_earnings_usd": 829.57,
+    "sam_net_earnings_usd": 414.84,
+    "sam_net_usd": 414.84,
+    "eph_usd_hour": 8.66,
+    "earnings_per_hour_usd": 8.66,
+    "total_shows_count": 205,
+    "total_private_shows": 205,
+    "rated_shows_count": 55,
+    "unrated_shows_count": 150,
+    "avg_rating": 4.9,
+    "rating_rate_percent": 26.8,
+    "ratings_pct": 26.8,
+    "avg_private_duration_min": 3.3,
     "breakdown": {
-      "exclusive_earnings": 49.24,
-      "private_earnings": 115.99,
-      "gold_earnings": 65.4,
-      "exclusive_count": 6,
-      "private_count": 22,
-      "gold_count": 122
+      "exclusive_earnings": 197.77,
+      "private_earnings": 123.98,
+      "gold_earnings": 93.09,
+      "exclusive_count": 29,
+      "private_count": 37,
+      "gold_count": 139
     }
   },
   "top_tags_added": [
@@ -52,7 +59,7 @@
     },
     {
       "tag": "#Versatile",
-      "count": 22
+      "count": 32
     },
     {
       "tag": "#Private",
@@ -60,11 +67,31 @@
     },
     {
       "tag": "#Tomboy",
-      "count": 6
+      "count": 18
     },
     {
       "tag": "#Cam2Cam",
-      "count": 6
+      "count": 18
+    },
+    {
+      "tag": "#ShortHair",
+      "count": 17
+    },
+    {
+      "tag": "#Sensual",
+      "count": 15
+    },
+    {
+      "tag": "#Music",
+      "count": 14
+    },
+    {
+      "tag": "#Ukelele",
+      "count": 14
+    },
+    {
+      "tag": "#Gamer",
+      "count": 11
     }
   ],
   "recent_reviews": [
@@ -277,12 +304,1226 @@
       "rating": 5.0,
       "comment": "Excelente vibra en privado",
       "show_type": "GOLD\n\nGOLD Menu ($2.00)"
+    },
+    {
+      "fan": "@SamVIP_Elite (#153920111)",
+      "date": "Nov 01, 2026 13:31:13",
+      "rating": 4.5,
+      "comment": "Diosa total, súper recomendada para privados exclusivos",
+      "show_type": "🪙 Tip / Menú GOLD"
+    },
+    {
+      "fan": "@Rockhard (#110592106)",
+      "date": "Nov 02, 2026 18:36:57",
+      "rating": 5.0,
+      "comment": "Excelente vibra en privado, Sam es súper auténtica",
+      "show_type": "★ Exclusivo ($3.99/m)"
+    },
+    {
+      "fan": "@RedBiker99 (#138402914)",
+      "date": "Nov 03, 2026 17:58:46",
+      "rating": 5.0,
+      "comment": "Excelente vibra en privado, Sam es súper auténtica",
+      "show_type": "🔒 Privado ($2.99/m)"
+    },
+    {
+      "fan": "@DarkNeon77 (#147294012)",
+      "date": "Nov 03, 2026 15:53:13",
+      "rating": 4.5,
+      "comment": "Increíble show, me encantó su energía y su estilo tomboy",
+      "show_type": "🔒 Privado ($2.99/m)"
+    },
+    {
+      "fan": "@GamerBoy_CO (#148392019)",
+      "date": "Nov 03, 2026 19:20:33",
+      "rating": 5.0,
+      "comment": "Muy dulce y complaciente, volveré pronto",
+      "show_type": "🔒 Privado ($2.99/m)"
+    },
+    {
+      "fan": "@WolfPack44 (#151904322)",
+      "date": "Nov 03, 2026 11:18:41",
+      "rating": 4.5,
+      "comment": "Diosa total, súper recomendada para privados exclusivos",
+      "show_type": "★ Exclusivo ($3.99/m)"
+    },
+    {
+      "fan": "@GamerBoy_CO (#148392019)",
+      "date": "Nov 04, 2026 11:52:20",
+      "rating": 4.5,
+      "comment": "Excelente vibra en privado, Sam es súper auténtica",
+      "show_type": "🔒 Privado ($2.99/m)"
+    },
+    {
+      "fan": "@RedBiker99 (#138402914)",
+      "date": "Nov 06, 2026 17:17:30",
+      "rating": 5.0,
+      "comment": "Diosa total, súper recomendada para privados exclusivos",
+      "show_type": "★ Exclusivo ($3.99/m)"
+    },
+    {
+      "fan": "@PapaBear (#116154906)",
+      "date": "Nov 06, 2026 16:52:22",
+      "rating": 5.0,
+      "comment": "Muy dulce y complaciente, volveré pronto",
+      "show_type": "🪙 Tip / Menú GOLD"
     }
   ],
   "shows_history": [
     {
+      "id": 668,
+      "timestamp": "Nov 06, 2026 16:29:35",
+      "iso_date": "2026-11-06",
+      "fan": "@Dickhead1273 (#106209281)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 8,
+      "rate": 3.99,
+      "gold": 31.92,
+      "gross_usd": 31.92,
+      "studio_usd": 11.17,
+      "sam_net_usd": 5.58,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#ShortHair",
+        "#Music"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 667,
+      "timestamp": "Nov 06, 2026 15:26:27",
+      "iso_date": "2026-11-06",
+      "fan": "@PapaBear (#116154906)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 15,
+      "rate": 3.99,
+      "gold": 59.85,
+      "gross_usd": 59.85,
+      "studio_usd": 20.95,
+      "sam_net_usd": 10.47,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#ShortHair",
+        "#Tomboy"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 666,
+      "timestamp": "Nov 06, 2026 16:52:22",
+      "iso_date": "2026-11-06",
+      "fan": "@PapaBear (#116154906)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 10.0,
+      "gross_usd": 10.0,
+      "studio_usd": 3.5,
+      "sam_net_usd": 1.75,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "Muy dulce y complaciente, volveré pronto",
+      "tags": [
+        "#Gamer",
+        "#Sensual"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 665,
+      "timestamp": "Nov 06, 2026 12:41:22",
+      "iso_date": "2026-11-06",
+      "fan": "@DarkNeon77 (#147294012)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 10,
+      "rate": 3.99,
+      "gold": 39.9,
+      "gross_usd": 39.9,
+      "studio_usd": 13.96,
+      "sam_net_usd": 6.98,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Versatile"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 664,
+      "timestamp": "Nov 06, 2026 17:17:30",
+      "iso_date": "2026-11-06",
+      "fan": "@RedBiker99 (#138402914)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 10,
+      "rate": 3.99,
+      "gold": 39.9,
+      "gross_usd": 39.9,
+      "studio_usd": 13.96,
+      "sam_net_usd": 6.98,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "Diosa total, súper recomendada para privados exclusivos",
+      "tags": [
+        "#Ukelele",
+        "#Music",
+        "#Tomboy"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 663,
+      "timestamp": "Nov 05, 2026 11:11:59",
+      "iso_date": "2026-11-05",
+      "fan": "@Rockhard (#110592106)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 18,
+      "rate": 3.99,
+      "gold": 71.82,
+      "gross_usd": 71.82,
+      "studio_usd": 25.14,
+      "sam_net_usd": 12.57,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#ShortHair",
+        "#Music"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 662,
+      "timestamp": "Nov 05, 2026 13:23:19",
+      "iso_date": "2026-11-05",
+      "fan": "@Jb33 (#143747191)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 15.0,
+      "gross_usd": 15.0,
+      "studio_usd": 5.25,
+      "sam_net_usd": 2.62,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#Gamer"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 661,
+      "timestamp": "Nov 05, 2026 19:22:30",
+      "iso_date": "2026-11-05",
+      "fan": "@TomboyLover88 (#150293812)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 11,
+      "rate": 2.99,
+      "gold": 32.89,
+      "gross_usd": 32.89,
+      "studio_usd": 11.51,
+      "sam_net_usd": 5.75,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Ukelele",
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 660,
+      "timestamp": "Nov 05, 2026 16:18:48",
+      "iso_date": "2026-11-05",
+      "fan": "@PapaBear (#116154906)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 6,
+      "rate": 2.99,
+      "gold": 17.94,
+      "gross_usd": 17.94,
+      "studio_usd": 6.28,
+      "sam_net_usd": 3.14,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Gamer",
+        "#Cam2Cam",
+        "#Ukelele"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 659,
+      "timestamp": "Nov 05, 2026 18:27:53",
+      "iso_date": "2026-11-05",
+      "fan": "@RedBiker99 (#138402914)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 30.0,
+      "gross_usd": 30.0,
+      "studio_usd": 10.5,
+      "sam_net_usd": 5.25,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 658,
+      "timestamp": "Nov 05, 2026 11:32:34",
+      "iso_date": "2026-11-05",
+      "fan": "@Jb33 (#143747191)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 9,
+      "rate": 2.99,
+      "gold": 26.91,
+      "gross_usd": 26.91,
+      "studio_usd": 9.42,
+      "sam_net_usd": 4.71,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#ShortHair",
+        "#Tomboy",
+        "#Sensual"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 657,
+      "timestamp": "Nov 05, 2026 16:18:49",
+      "iso_date": "2026-11-05",
+      "fan": "@WolfPack44 (#151904322)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 25.0,
+      "gross_usd": 25.0,
+      "studio_usd": 8.75,
+      "sam_net_usd": 4.38,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Music",
+        "#Ukelele"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 656,
+      "timestamp": "Nov 05, 2026 14:14:16",
+      "iso_date": "2026-11-05",
+      "fan": "@user0864 (#144708265)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 20.0,
+      "gross_usd": 20.0,
+      "studio_usd": 7.0,
+      "sam_net_usd": 3.5,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Ukelele"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 655,
+      "timestamp": "Nov 05, 2026 20:34:30",
+      "iso_date": "2026-11-05",
+      "fan": "@PapaBear (#116154906)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 15.0,
+      "gross_usd": 15.0,
+      "studio_usd": 5.25,
+      "sam_net_usd": 2.62,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Gamer",
+        "#ShortHair",
+        "#Ukelele"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 654,
+      "timestamp": "Nov 05, 2026 17:54:46",
+      "iso_date": "2026-11-05",
+      "fan": "@Jb33 (#143747191)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 10.0,
+      "gross_usd": 10.0,
+      "studio_usd": 3.5,
+      "sam_net_usd": 1.75,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Tomboy",
+        "#Ukelele",
+        "#ShortHair"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 653,
+      "timestamp": "Nov 04, 2026 11:19:31",
+      "iso_date": "2026-11-04",
+      "fan": "@Jb33 (#143747191)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 6,
+      "rate": 3.99,
+      "gold": 23.94,
+      "gross_usd": 23.94,
+      "studio_usd": 8.38,
+      "sam_net_usd": 4.19,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Ukelele",
+        "#Gamer"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 652,
+      "timestamp": "Nov 04, 2026 20:15:12",
+      "iso_date": "2026-11-04",
+      "fan": "@Jb33 (#143747191)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 25.0,
+      "gross_usd": 25.0,
+      "studio_usd": 8.75,
+      "sam_net_usd": 4.38,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#Tomboy",
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 651,
+      "timestamp": "Nov 04, 2026 14:40:57",
+      "iso_date": "2026-11-04",
+      "fan": "@Dickhead1273 (#106209281)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 17,
+      "rate": 3.99,
+      "gold": 67.83,
+      "gross_usd": 67.83,
+      "studio_usd": 23.74,
+      "sam_net_usd": 11.87,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Cam2Cam"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 650,
+      "timestamp": "Nov 04, 2026 14:59:50",
+      "iso_date": "2026-11-04",
+      "fan": "@GamerBoy_CO (#148392019)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 30.0,
+      "gross_usd": 30.0,
+      "studio_usd": 10.5,
+      "sam_net_usd": 5.25,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Tomboy"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 649,
+      "timestamp": "Nov 04, 2026 18:27:27",
+      "iso_date": "2026-11-04",
+      "fan": "@Dickhead1273 (#106209281)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 20.0,
+      "gross_usd": 20.0,
+      "studio_usd": 7.0,
+      "sam_net_usd": 3.5,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#Gamer"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 648,
+      "timestamp": "Nov 04, 2026 15:23:50",
+      "iso_date": "2026-11-04",
+      "fan": "@GamerBoy_CO (#148392019)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 14,
+      "rate": 2.99,
+      "gold": 41.86,
+      "gross_usd": 41.86,
+      "studio_usd": 14.65,
+      "sam_net_usd": 7.33,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Music"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 647,
+      "timestamp": "Nov 04, 2026 15:39:21",
+      "iso_date": "2026-11-04",
+      "fan": "@RedBiker99 (#138402914)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 25.0,
+      "gross_usd": 25.0,
+      "studio_usd": 8.75,
+      "sam_net_usd": 4.38,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Music",
+        "#Sensual"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 646,
+      "timestamp": "Nov 04, 2026 19:35:40",
+      "iso_date": "2026-11-04",
+      "fan": "@DarkNeon77 (#147294012)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 6,
+      "rate": 3.99,
+      "gold": 23.94,
+      "gross_usd": 23.94,
+      "studio_usd": 8.38,
+      "sam_net_usd": 4.19,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#Gamer"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 645,
+      "timestamp": "Nov 04, 2026 11:52:20",
+      "iso_date": "2026-11-04",
+      "fan": "@GamerBoy_CO (#148392019)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 14,
+      "rate": 2.99,
+      "gold": 41.86,
+      "gross_usd": 41.86,
+      "studio_usd": 14.65,
+      "sam_net_usd": 7.33,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "Excelente vibra en privado, Sam es súper auténtica",
+      "tags": [
+        "#ShortHair",
+        "#Ukelele"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 644,
+      "timestamp": "Nov 03, 2026 14:29:29",
+      "iso_date": "2026-11-03",
+      "fan": "@user0864 (#144708265)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 7,
+      "rate": 3.99,
+      "gold": 27.93,
+      "gross_usd": 27.93,
+      "studio_usd": 9.78,
+      "sam_net_usd": 4.89,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#Ukelele",
+        "#ShortHair"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 643,
+      "timestamp": "Nov 03, 2026 20:54:58",
+      "iso_date": "2026-11-03",
+      "fan": "@AcousticFan_UK (#149204811)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 25.0,
+      "gross_usd": 25.0,
+      "studio_usd": 8.75,
+      "sam_net_usd": 4.38,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#ShortHair"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 642,
+      "timestamp": "Nov 03, 2026 11:18:41",
+      "iso_date": "2026-11-03",
+      "fan": "@WolfPack44 (#151904322)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 5,
+      "rate": 3.99,
+      "gold": 19.95,
+      "gross_usd": 19.95,
+      "studio_usd": 6.98,
+      "sam_net_usd": 3.49,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "Diosa total, súper recomendada para privados exclusivos",
+      "tags": [
+        "#Sensual",
+        "#Cam2Cam"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 641,
+      "timestamp": "Nov 03, 2026 19:20:33",
+      "iso_date": "2026-11-03",
+      "fan": "@GamerBoy_CO (#148392019)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 3,
+      "rate": 2.99,
+      "gold": 8.97,
+      "gross_usd": 8.97,
+      "studio_usd": 3.14,
+      "sam_net_usd": 1.57,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "Muy dulce y complaciente, volveré pronto",
+      "tags": [
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 640,
+      "timestamp": "Nov 03, 2026 14:57:27",
+      "iso_date": "2026-11-03",
+      "fan": "@DarkNeon77 (#147294012)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 13,
+      "rate": 3.99,
+      "gold": 51.87,
+      "gross_usd": 51.87,
+      "studio_usd": 18.15,
+      "sam_net_usd": 9.07,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#ShortHair"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 639,
+      "timestamp": "Nov 03, 2026 15:37:49",
+      "iso_date": "2026-11-03",
+      "fan": "@SamVIP_Elite (#153920111)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 7,
+      "rate": 3.99,
+      "gold": 27.93,
+      "gross_usd": 27.93,
+      "studio_usd": 9.78,
+      "sam_net_usd": 4.89,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Ukelele",
+        "#ShortHair"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 638,
+      "timestamp": "Nov 03, 2026 15:15:39",
+      "iso_date": "2026-11-03",
+      "fan": "@DarkNeon77 (#147294012)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 11,
+      "rate": 2.99,
+      "gold": 32.89,
+      "gross_usd": 32.89,
+      "studio_usd": 11.51,
+      "sam_net_usd": 5.75,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Gamer",
+        "#Versatile",
+        "#Music"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 637,
+      "timestamp": "Nov 03, 2026 15:53:13",
+      "iso_date": "2026-11-03",
+      "fan": "@DarkNeon77 (#147294012)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 7,
+      "rate": 2.99,
+      "gold": 20.93,
+      "gross_usd": 20.93,
+      "studio_usd": 7.33,
+      "sam_net_usd": 3.67,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "Increíble show, me encantó su energía y su estilo tomboy",
+      "tags": [
+        "#ShortHair"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 636,
+      "timestamp": "Nov 03, 2026 12:52:29",
+      "iso_date": "2026-11-03",
+      "fan": "@AcousticFan_UK (#149204811)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 4,
+      "rate": 3.99,
+      "gold": 15.96,
+      "gross_usd": 15.96,
+      "studio_usd": 5.59,
+      "sam_net_usd": 2.79,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Versatile"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 635,
+      "timestamp": "Nov 03, 2026 11:22:10",
+      "iso_date": "2026-11-03",
+      "fan": "@Rockhard (#110592106)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 14,
+      "rate": 2.99,
+      "gold": 41.86,
+      "gross_usd": 41.86,
+      "studio_usd": 14.65,
+      "sam_net_usd": 7.33,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#Music",
+        "#Gamer"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 634,
+      "timestamp": "Nov 03, 2026 20:26:33",
+      "iso_date": "2026-11-03",
+      "fan": "@Rockhard (#110592106)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 10.0,
+      "gross_usd": 10.0,
+      "studio_usd": 3.5,
+      "sam_net_usd": 1.75,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Music"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 633,
+      "timestamp": "Nov 03, 2026 17:58:46",
+      "iso_date": "2026-11-03",
+      "fan": "@RedBiker99 (#138402914)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 4,
+      "rate": 2.99,
+      "gold": 11.96,
+      "gross_usd": 11.96,
+      "studio_usd": 4.19,
+      "sam_net_usd": 2.1,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "Excelente vibra en privado, Sam es súper auténtica",
+      "tags": [
+        "#Tomboy",
+        "#Versatile",
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 632,
+      "timestamp": "Nov 02, 2026 11:23:16",
+      "iso_date": "2026-11-02",
+      "fan": "@Rockhard (#110592106)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 11,
+      "rate": 3.99,
+      "gold": 43.89,
+      "gross_usd": 43.89,
+      "studio_usd": 15.36,
+      "sam_net_usd": 7.68,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 631,
+      "timestamp": "Nov 02, 2026 19:22:49",
+      "iso_date": "2026-11-02",
+      "fan": "@AcousticFan_UK (#149204811)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 10,
+      "rate": 3.99,
+      "gold": 39.9,
+      "gross_usd": 39.9,
+      "studio_usd": 13.96,
+      "sam_net_usd": 6.98,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Music",
+        "#Sensual"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 630,
+      "timestamp": "Nov 02, 2026 11:12:28",
+      "iso_date": "2026-11-02",
+      "fan": "@WolfPack44 (#151904322)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 5,
+      "rate": 2.99,
+      "gold": 14.95,
+      "gross_usd": 14.95,
+      "studio_usd": 5.23,
+      "sam_net_usd": 2.62,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#ShortHair"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 629,
+      "timestamp": "Nov 02, 2026 12:46:36",
+      "iso_date": "2026-11-02",
+      "fan": "@WolfPack44 (#151904322)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 10.0,
+      "gross_usd": 10.0,
+      "studio_usd": 3.5,
+      "sam_net_usd": 1.75,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Sensual",
+        "#ShortHair"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 628,
+      "timestamp": "Nov 02, 2026 14:36:55",
+      "iso_date": "2026-11-02",
+      "fan": "@PapaBear (#116154906)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 9,
+      "rate": 3.99,
+      "gold": 35.91,
+      "gross_usd": 35.91,
+      "studio_usd": 12.57,
+      "sam_net_usd": 6.29,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#ShortHair"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 627,
+      "timestamp": "Nov 02, 2026 19:34:16",
+      "iso_date": "2026-11-02",
+      "fan": "@WolfPack44 (#151904322)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 4,
+      "rate": 2.99,
+      "gold": 11.96,
+      "gross_usd": 11.96,
+      "studio_usd": 4.19,
+      "sam_net_usd": 2.1,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Versatile",
+        "#Tomboy"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 626,
+      "timestamp": "Nov 02, 2026 18:36:57",
+      "iso_date": "2026-11-02",
+      "fan": "@Rockhard (#110592106)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 16,
+      "rate": 3.99,
+      "gold": 63.84,
+      "gross_usd": 63.84,
+      "studio_usd": 22.34,
+      "sam_net_usd": 11.17,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "Excelente vibra en privado, Sam es súper auténtica",
+      "tags": [
+        "#Gamer"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 625,
+      "timestamp": "Nov 02, 2026 19:56:15",
+      "iso_date": "2026-11-02",
+      "fan": "@user0864 (#144708265)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 17,
+      "rate": 3.99,
+      "gold": 67.83,
+      "gross_usd": 67.83,
+      "studio_usd": 23.74,
+      "sam_net_usd": 11.87,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Tomboy",
+        "#Versatile",
+        "#Cam2Cam"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 624,
+      "timestamp": "Nov 02, 2026 11:35:47",
+      "iso_date": "2026-11-02",
+      "fan": "@SamVIP_Elite (#153920111)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 25.0,
+      "gross_usd": 25.0,
+      "studio_usd": 8.75,
+      "sam_net_usd": 4.38,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Tomboy"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 623,
+      "timestamp": "Nov 02, 2026 14:26:33",
+      "iso_date": "2026-11-02",
+      "fan": "@RedBiker99 (#138402914)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 30.0,
+      "gross_usd": 30.0,
+      "studio_usd": 10.5,
+      "sam_net_usd": 5.25,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Ukelele",
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 622,
+      "timestamp": "Nov 02, 2026 16:15:51",
+      "iso_date": "2026-11-02",
+      "fan": "@TomboyLover88 (#150293812)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 9,
+      "rate": 3.99,
+      "gold": 35.91,
+      "gross_usd": 35.91,
+      "studio_usd": 12.57,
+      "sam_net_usd": 6.29,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Versatile",
+        "#Ukelele"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 621,
+      "timestamp": "Nov 01, 2026 13:31:13",
+      "iso_date": "2026-11-01",
+      "fan": "@SamVIP_Elite (#153920111)",
+      "type": "🪙 Tip / Menú GOLD",
+      "duration": 1,
+      "rate": 0.0,
+      "gold": 20.0,
+      "gross_usd": 20.0,
+      "studio_usd": 7.0,
+      "sam_net_usd": 3.5,
+      "rating": 4.5,
+      "rating_status": "rated",
+      "comment": "Diosa total, súper recomendada para privados exclusivos",
+      "tags": [
+        "#ShortHair",
+        "#Music"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 620,
+      "timestamp": "Nov 01, 2026 17:33:44",
+      "iso_date": "2026-11-01",
+      "fan": "@PapaBear (#116154906)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 14,
+      "rate": 3.99,
+      "gold": 55.86,
+      "gross_usd": 55.86,
+      "studio_usd": 19.55,
+      "sam_net_usd": 9.78,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Gamer",
+        "#Versatile"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 619,
+      "timestamp": "Nov 01, 2026 17:40:55",
+      "iso_date": "2026-11-01",
+      "fan": "@AcousticFan_UK (#149204811)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 3,
+      "rate": 2.99,
+      "gold": 8.97,
+      "gross_usd": 8.97,
+      "studio_usd": 3.14,
+      "sam_net_usd": 1.57,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Versatile",
+        "#Sensual",
+        "#Cam2Cam"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 618,
+      "timestamp": "Nov 01, 2026 15:27:31",
+      "iso_date": "2026-11-01",
+      "fan": "@TomboyLover88 (#150293812)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 7,
+      "rate": 2.99,
+      "gold": 20.93,
+      "gross_usd": 20.93,
+      "studio_usd": 7.33,
+      "sam_net_usd": 3.67,
+      "rating": 5.0,
+      "rating_status": "rated",
+      "comment": "",
+      "tags": [
+        "#Tomboy"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 617,
+      "timestamp": "Nov 01, 2026 13:32:33",
+      "iso_date": "2026-11-01",
+      "fan": "@GamerBoy_CO (#148392019)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 10,
+      "rate": 3.99,
+      "gold": 39.9,
+      "gross_usd": 39.9,
+      "studio_usd": 13.96,
+      "sam_net_usd": 6.98,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Tomboy",
+        "#ShortHair",
+        "#Music"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 616,
+      "timestamp": "Nov 01, 2026 18:36:11",
+      "iso_date": "2026-11-01",
+      "fan": "@WolfPack44 (#151904322)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 17,
+      "rate": 3.99,
+      "gold": 67.83,
+      "gross_usd": 67.83,
+      "studio_usd": 23.74,
+      "sam_net_usd": 11.87,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Cam2Cam",
+        "#Music",
+        "#Ukelele"
+      ],
+      "cam2cam": true
+    },
+    {
+      "id": 615,
+      "timestamp": "Nov 01, 2026 14:40:39",
+      "iso_date": "2026-11-01",
+      "fan": "@DarkNeon77 (#147294012)",
+      "type": "🔒 Privado ($2.99/m)",
+      "duration": 14,
+      "rate": 2.99,
+      "gold": 41.86,
+      "gross_usd": 41.86,
+      "studio_usd": 14.65,
+      "sam_net_usd": 7.33,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Music"
+      ],
+      "cam2cam": false
+    },
+    {
+      "id": 614,
+      "timestamp": "Nov 01, 2026 15:43:10",
+      "iso_date": "2026-11-01",
+      "fan": "@TomboyLover88 (#150293812)",
+      "type": "★ Exclusivo ($3.99/m)",
+      "duration": 9,
+      "rate": 3.99,
+      "gold": 35.91,
+      "gross_usd": 35.91,
+      "studio_usd": 12.57,
+      "sam_net_usd": 6.29,
+      "rating": null,
+      "rating_status": "unrated",
+      "comment": "",
+      "tags": [
+        "#Versatile"
+      ],
+      "cam2cam": true
+    },
+    {
       "id": 613,
       "timestamp": "Oct 25, 2026 07:09:00",
+      "iso_date": "2026-10-25",
       "fan": "user0864 (#144708265)",
       "type": "Exclusive ($3.99/min)",
       "duration": 1.2,
@@ -303,6 +1544,7 @@
     {
       "id": 612,
       "timestamp": "Oct 27, 2026 03:18:44",
+      "iso_date": "2026-10-27",
       "fan": "Dickhead1273 (#106209281)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -322,6 +1564,7 @@
     {
       "id": 611,
       "timestamp": "Oct 27, 2026 03:19:39",
+      "iso_date": "2026-10-27",
       "fan": "Dickhead1273 (#106209281)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -341,6 +1584,7 @@
     {
       "id": 610,
       "timestamp": "Oct 27, 2026 03:22:27",
+      "iso_date": "2026-10-27",
       "fan": "Dickhead1273 (#106209281)",
       "type": "Private ($2.99/min)",
       "duration": 5,
@@ -361,6 +1605,7 @@
     {
       "id": 609,
       "timestamp": "Oct 27, 2026 03:49:30",
+      "iso_date": "2026-10-27",
       "fan": "zippYcrown581 (#139983022)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -380,6 +1625,7 @@
     {
       "id": 608,
       "timestamp": "Oct 27, 2026 03:58:36",
+      "iso_date": "2026-10-27",
       "fan": "tnerdy (#134487170)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -399,6 +1645,7 @@
     {
       "id": 607,
       "timestamp": "Oct 27, 2026 03:59:20",
+      "iso_date": "2026-10-27",
       "fan": "tnerdy (#134487170)",
       "type": "GOLD ($12.00)",
       "duration": 1,
@@ -418,6 +1665,7 @@
     {
       "id": 606,
       "timestamp": "Oct 27, 2026 04:03:07",
+      "iso_date": "2026-10-27",
       "fan": "tnerdy (#134487170)",
       "type": "GOLD ($10.00)",
       "duration": 1,
@@ -437,6 +1685,7 @@
     {
       "id": 605,
       "timestamp": "Oct 27, 2026 04:09:04",
+      "iso_date": "2026-10-27",
       "fan": "tnerdy (#134487170)",
       "type": "Exclusive ($3.99/min)",
       "duration": 15.5,
@@ -457,6 +1706,7 @@
     {
       "id": 604,
       "timestamp": "Oct 27, 2026 04:11:44",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -476,6 +1726,7 @@
     {
       "id": 603,
       "timestamp": "Oct 27, 2026 04:21:16",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -495,6 +1746,7 @@
     {
       "id": 602,
       "timestamp": "Oct 27, 2026 04:22:17",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -514,6 +1766,7 @@
     {
       "id": 601,
       "timestamp": "Oct 27, 2026 04:23:27",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -533,6 +1786,7 @@
     {
       "id": 600,
       "timestamp": "Oct 27, 2026 04:24:56",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -552,6 +1806,7 @@
     {
       "id": 599,
       "timestamp": "Oct 27, 2026 04:25:53",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -571,6 +1826,7 @@
     {
       "id": 598,
       "timestamp": "Oct 27, 2026 04:25:56",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -590,6 +1846,7 @@
     {
       "id": 597,
       "timestamp": "Oct 27, 2026 04:26:26",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -609,6 +1866,7 @@
     {
       "id": 596,
       "timestamp": "Oct 27, 2026 04:27:02",
+      "iso_date": "2026-10-27",
       "fan": "Jonnycolten (#141222835)",
       "type": "Exclusive ($3.99/min)",
       "duration": 5.5,
@@ -629,6 +1887,7 @@
     {
       "id": 595,
       "timestamp": "Oct 27, 2026 04:32:31",
+      "iso_date": "2026-10-27",
       "fan": "Dallas1244 (#104051428)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -648,6 +1907,7 @@
     {
       "id": 594,
       "timestamp": "Oct 27, 2026 04:36:00",
+      "iso_date": "2026-10-27",
       "fan": "Dallas1244 (#104051428)",
       "type": "Private ($2.99/min)",
       "duration": 1.8,
@@ -668,6 +1928,7 @@
     {
       "id": 593,
       "timestamp": "Oct 27, 2026 04:54:17",
+      "iso_date": "2026-10-27",
       "fan": "ChillWolf (#139994940)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -687,6 +1948,7 @@
     {
       "id": 592,
       "timestamp": "Oct 27, 2026 04:54:26",
+      "iso_date": "2026-10-27",
       "fan": "ChillWolf (#139994940)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -706,6 +1968,7 @@
     {
       "id": 591,
       "timestamp": "Oct 27, 2026 04:54:34",
+      "iso_date": "2026-10-27",
       "fan": "ChillWolf (#139994940)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -725,6 +1988,7 @@
     {
       "id": 590,
       "timestamp": "Oct 27, 2026 04:54:45",
+      "iso_date": "2026-10-27",
       "fan": "ChillWolf (#139994940)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -744,6 +2008,7 @@
     {
       "id": 589,
       "timestamp": "Oct 27, 2026 04:55:09",
+      "iso_date": "2026-10-27",
       "fan": "ChillWolf (#139994940)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -763,6 +2028,7 @@
     {
       "id": 588,
       "timestamp": "Oct 27, 2026 05:09:05",
+      "iso_date": "2026-10-27",
       "fan": "Knox (#143957095)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -782,6 +2048,7 @@
     {
       "id": 587,
       "timestamp": "Oct 27, 2026 05:54:59",
+      "iso_date": "2026-10-27",
       "fan": "mystIc600touch (#144867597)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -801,6 +2068,7 @@
     {
       "id": 586,
       "timestamp": "Oct 27, 2026 05:56:13",
+      "iso_date": "2026-10-27",
       "fan": "mystIc600touch (#144867597)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -820,6 +2088,7 @@
     {
       "id": 585,
       "timestamp": "Oct 27, 2026 06:01:42",
+      "iso_date": "2026-10-27",
       "fan": "mystIc600touch (#144867597)",
       "type": "Exclusive ($3.99/min)",
       "duration": 3.1,
@@ -840,6 +2109,7 @@
     {
       "id": 584,
       "timestamp": "Oct 27, 2026 06:05:33",
+      "iso_date": "2026-10-27",
       "fan": "Ron482 (#132534246)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -859,6 +2129,7 @@
     {
       "id": 583,
       "timestamp": "Oct 27, 2026 06:28:24",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -878,6 +2149,7 @@
     {
       "id": 582,
       "timestamp": "Oct 27, 2026 06:28:40",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -897,6 +2169,7 @@
     {
       "id": 581,
       "timestamp": "Oct 27, 2026 06:29:04",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -916,6 +2189,7 @@
     {
       "id": 580,
       "timestamp": "Oct 27, 2026 06:30:18",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -935,6 +2209,7 @@
     {
       "id": 579,
       "timestamp": "Oct 27, 2026 06:31:25",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -954,6 +2229,7 @@
     {
       "id": 578,
       "timestamp": "Oct 27, 2026 06:33:21",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -973,6 +2249,7 @@
     {
       "id": 577,
       "timestamp": "Oct 27, 2026 06:33:45",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -992,6 +2269,7 @@
     {
       "id": 576,
       "timestamp": "Oct 27, 2026 06:35:54",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -1011,6 +2289,7 @@
     {
       "id": 575,
       "timestamp": "Oct 27, 2026 06:36:32",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1030,6 +2309,7 @@
     {
       "id": 574,
       "timestamp": "Oct 27, 2026 06:36:42",
+      "iso_date": "2026-10-27",
       "fan": "dame (#121982438)",
       "type": "Private ($2.99/min)",
       "duration": 0.8,
@@ -1050,6 +2330,7 @@
     {
       "id": 573,
       "timestamp": "Oct 27, 2026 06:37:39",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1069,6 +2350,7 @@
     {
       "id": 572,
       "timestamp": "Oct 27, 2026 06:37:55",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1088,6 +2370,7 @@
     {
       "id": 571,
       "timestamp": "Oct 27, 2026 06:37:55",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1107,6 +2390,7 @@
     {
       "id": 570,
       "timestamp": "Oct 27, 2026 06:38:06",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -1126,6 +2410,7 @@
     {
       "id": 569,
       "timestamp": "Oct 27, 2026 06:38:17",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1145,6 +2430,7 @@
     {
       "id": 568,
       "timestamp": "Oct 27, 2026 06:38:29",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -1164,6 +2450,7 @@
     {
       "id": 567,
       "timestamp": "Oct 27, 2026 06:38:43",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1183,6 +2470,7 @@
     {
       "id": 566,
       "timestamp": "Oct 27, 2026 06:38:58",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1202,6 +2490,7 @@
     {
       "id": 565,
       "timestamp": "Oct 27, 2026 06:39:32",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1221,6 +2510,7 @@
     {
       "id": 564,
       "timestamp": "Oct 27, 2026 06:39:49",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "Private ($2.99/min)",
       "duration": 5.6,
@@ -1241,6 +2531,7 @@
     {
       "id": 563,
       "timestamp": "Oct 27, 2026 06:40:37",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1260,6 +2551,7 @@
     {
       "id": 562,
       "timestamp": "Oct 27, 2026 06:40:44",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1279,6 +2571,7 @@
     {
       "id": 561,
       "timestamp": "Oct 27, 2026 06:40:46",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1298,6 +2591,7 @@
     {
       "id": 560,
       "timestamp": "Oct 27, 2026 06:40:51",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1317,6 +2611,7 @@
     {
       "id": 559,
       "timestamp": "Oct 27, 2026 06:41:00",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -1336,6 +2631,7 @@
     {
       "id": 558,
       "timestamp": "Oct 27, 2026 06:41:23",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1355,6 +2651,7 @@
     {
       "id": 557,
       "timestamp": "Oct 27, 2026 06:41:50",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1374,6 +2671,7 @@
     {
       "id": 556,
       "timestamp": "Oct 27, 2026 06:42:13",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1393,6 +2691,7 @@
     {
       "id": 555,
       "timestamp": "Oct 27, 2026 06:42:18",
+      "iso_date": "2026-10-27",
       "fan": "Cornie (#108400015)",
       "type": "Private ($2.99/min)",
       "duration": 8.1,
@@ -1413,6 +2712,7 @@
     {
       "id": 554,
       "timestamp": "Oct 27, 2026 06:42:36",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1432,6 +2732,7 @@
     {
       "id": 553,
       "timestamp": "Oct 27, 2026 06:43:17",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1451,6 +2752,7 @@
     {
       "id": 552,
       "timestamp": "Oct 27, 2026 06:44:03",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1470,6 +2772,7 @@
     {
       "id": 551,
       "timestamp": "Oct 27, 2026 06:45:17",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1489,6 +2792,7 @@
     {
       "id": 550,
       "timestamp": "Oct 27, 2026 06:45:41",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1508,6 +2812,7 @@
     {
       "id": 549,
       "timestamp": "Oct 27, 2026 06:45:52",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1527,6 +2832,7 @@
     {
       "id": 548,
       "timestamp": "Oct 27, 2026 06:46:07",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1546,6 +2852,7 @@
     {
       "id": 547,
       "timestamp": "Oct 27, 2026 06:46:37",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1565,6 +2872,7 @@
     {
       "id": 546,
       "timestamp": "Oct 27, 2026 06:47:00",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1584,6 +2892,7 @@
     {
       "id": 545,
       "timestamp": "Oct 27, 2026 06:47:29",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1603,6 +2912,7 @@
     {
       "id": 544,
       "timestamp": "Oct 27, 2026 06:47:48",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1622,6 +2932,7 @@
     {
       "id": 543,
       "timestamp": "Oct 27, 2026 06:49:02",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1641,6 +2952,7 @@
     {
       "id": 542,
       "timestamp": "Oct 27, 2026 06:49:31",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1660,6 +2972,7 @@
     {
       "id": 541,
       "timestamp": "Oct 27, 2026 06:50:04",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1679,6 +2992,7 @@
     {
       "id": 540,
       "timestamp": "Oct 27, 2026 06:51:53",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1698,6 +3012,7 @@
     {
       "id": 539,
       "timestamp": "Oct 27, 2026 06:52:24",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1717,6 +3032,7 @@
     {
       "id": 538,
       "timestamp": "Oct 27, 2026 06:54:43",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1736,6 +3052,7 @@
     {
       "id": 537,
       "timestamp": "Oct 27, 2026 06:55:13",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1755,6 +3072,7 @@
     {
       "id": 536,
       "timestamp": "Oct 27, 2026 06:55:58",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "Private ($2.99/min)",
       "duration": 16,
@@ -1775,6 +3093,7 @@
     {
       "id": 535,
       "timestamp": "Oct 27, 2026 06:56:15",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1794,6 +3113,7 @@
     {
       "id": 534,
       "timestamp": "Oct 27, 2026 06:56:56",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1813,6 +3133,7 @@
     {
       "id": 533,
       "timestamp": "Oct 27, 2026 06:58:16",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1832,6 +3153,7 @@
     {
       "id": 532,
       "timestamp": "Oct 27, 2026 06:59:09",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1851,6 +3173,7 @@
     {
       "id": 531,
       "timestamp": "Oct 27, 2026 07:01:59",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1870,6 +3193,7 @@
     {
       "id": 530,
       "timestamp": "Oct 27, 2026 07:02:55",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1889,6 +3213,7 @@
     {
       "id": 529,
       "timestamp": "Oct 27, 2026 07:05:42",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1908,6 +3233,7 @@
     {
       "id": 528,
       "timestamp": "Oct 27, 2026 07:10:21",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1927,6 +3253,7 @@
     {
       "id": 527,
       "timestamp": "Oct 27, 2026 07:11:47",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1946,6 +3273,7 @@
     {
       "id": 526,
       "timestamp": "Oct 27, 2026 07:13:51",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1965,6 +3293,7 @@
     {
       "id": 525,
       "timestamp": "Oct 27, 2026 07:13:59",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -1984,6 +3313,7 @@
     {
       "id": 524,
       "timestamp": "Oct 27, 2026 07:14:02",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "Private ($2.99/min)",
       "duration": 17.9,
@@ -2004,6 +3334,7 @@
     {
       "id": 523,
       "timestamp": "Oct 27, 2026 07:14:49",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2023,6 +3354,7 @@
     {
       "id": 522,
       "timestamp": "Oct 27, 2026 07:15:01",
+      "iso_date": "2026-10-27",
       "fan": "wiCkedsilk238 (#138919769)",
       "type": "Private ($2.99/min)",
       "duration": 0.6,
@@ -2043,6 +3375,7 @@
     {
       "id": 521,
       "timestamp": "Oct 27, 2026 07:32:14",
+      "iso_date": "2026-10-27",
       "fan": "Justin (#132184875)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -2062,6 +3395,7 @@
     {
       "id": 520,
       "timestamp": "Oct 27, 2026 07:32:37",
+      "iso_date": "2026-10-27",
       "fan": "Justin (#132184875)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -2081,6 +3415,7 @@
     {
       "id": 519,
       "timestamp": "Oct 27, 2026 07:33:28",
+      "iso_date": "2026-10-27",
       "fan": "Justin (#132184875)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -2100,6 +3435,7 @@
     {
       "id": 518,
       "timestamp": "Oct 27, 2026 07:35:42",
+      "iso_date": "2026-10-27",
       "fan": "Justin (#132184875)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -2119,6 +3455,7 @@
     {
       "id": 517,
       "timestamp": "Oct 27, 2026 07:36:15",
+      "iso_date": "2026-10-27",
       "fan": "Justin (#132184875)",
       "type": "GOLD\n\nQuick GOLD ($1.00)",
       "duration": 1,
@@ -2138,6 +3475,7 @@
     {
       "id": 516,
       "timestamp": "Oct 27, 2026 07:37:02",
+      "iso_date": "2026-10-27",
       "fan": "Justin (#132184875)",
       "type": "Private ($2.99/min)",
       "duration": 6.8,
@@ -2158,6 +3496,7 @@
     {
       "id": 515,
       "timestamp": "Oct 27, 2026 07:46:28",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2177,6 +3516,7 @@
     {
       "id": 514,
       "timestamp": "Oct 27, 2026 07:47:30",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2196,6 +3536,7 @@
     {
       "id": 513,
       "timestamp": "Oct 27, 2026 07:49:58",
+      "iso_date": "2026-10-27",
       "fan": "ashmanic (#112606919)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2215,6 +3556,7 @@
     {
       "id": 512,
       "timestamp": "Oct 27, 2026 07:50:48",
+      "iso_date": "2026-10-27",
       "fan": "ashmanic (#112606919)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -2234,6 +3576,7 @@
     {
       "id": 511,
       "timestamp": "Oct 27, 2026 07:53:30",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2253,6 +3596,7 @@
     {
       "id": 510,
       "timestamp": "Oct 27, 2026 07:53:53",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($3.00)",
       "duration": 1,
@@ -2272,6 +3616,7 @@
     {
       "id": 509,
       "timestamp": "Oct 27, 2026 07:54:28",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -2291,6 +3636,7 @@
     {
       "id": 508,
       "timestamp": "Oct 27, 2026 07:54:50",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -2310,6 +3656,7 @@
     {
       "id": 507,
       "timestamp": "Oct 27, 2026 07:55:06",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -2329,6 +3676,7 @@
     {
       "id": 506,
       "timestamp": "Oct 27, 2026 07:55:08",
+      "iso_date": "2026-10-27",
       "fan": "ashmanic (#112606919)",
       "type": "GOLD\n\nQuick GOLD ($3.00)",
       "duration": 1,
@@ -2348,6 +3696,7 @@
     {
       "id": 505,
       "timestamp": "Oct 27, 2026 07:57:03",
+      "iso_date": "2026-10-27",
       "fan": "ashmanic (#112606919)",
       "type": "Private ($2.99/min)",
       "duration": 4.9,
@@ -2368,6 +3717,7 @@
     {
       "id": 504,
       "timestamp": "Oct 27, 2026 07:57:10",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2387,6 +3737,7 @@
     {
       "id": 503,
       "timestamp": "Oct 27, 2026 07:57:13",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2406,6 +3757,7 @@
     {
       "id": 502,
       "timestamp": "Oct 27, 2026 07:57:19",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2425,6 +3777,7 @@
     {
       "id": 501,
       "timestamp": "Oct 27, 2026 07:57:52",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2444,6 +3797,7 @@
     {
       "id": 500,
       "timestamp": "Oct 27, 2026 07:57:56",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2463,6 +3817,7 @@
     {
       "id": 499,
       "timestamp": "Oct 27, 2026 07:58:13",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -2482,6 +3837,7 @@
     {
       "id": 498,
       "timestamp": "Oct 27, 2026 07:59:46",
+      "iso_date": "2026-10-27",
       "fan": "BDawg (#137484023)",
       "type": "Private ($2.99/min)",
       "duration": 7.1,
@@ -2502,6 +3858,7 @@
     {
       "id": 497,
       "timestamp": "Oct 27, 2026 08:27:19",
+      "iso_date": "2026-10-27",
       "fan": "Jeydbbx (#99548936)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -2521,6 +3878,7 @@
     {
       "id": 496,
       "timestamp": "Oct 27, 2026 08:32:36",
+      "iso_date": "2026-10-27",
       "fan": "Jeydbbx (#99548936)",
       "type": "Private ($2.99/min)",
       "duration": 2.5,
@@ -2541,6 +3899,7 @@
     {
       "id": 495,
       "timestamp": "Oct 27, 2026 09:10:20",
+      "iso_date": "2026-10-27",
       "fan": "TeaLeavess (#111453207)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2560,6 +3919,7 @@
     {
       "id": 494,
       "timestamp": "Oct 27, 2026 09:11:18",
+      "iso_date": "2026-10-27",
       "fan": "TeaLeavess (#111453207)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2579,6 +3939,7 @@
     {
       "id": 493,
       "timestamp": "Oct 27, 2026 09:12:56",
+      "iso_date": "2026-10-27",
       "fan": "TeaLeavess (#111453207)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2598,6 +3959,7 @@
     {
       "id": 492,
       "timestamp": "Oct 27, 2026 09:16:20",
+      "iso_date": "2026-10-27",
       "fan": "TeaLeavess (#111453207)",
       "type": "Private ($2.99/min)",
       "duration": 1.3,
@@ -2618,6 +3980,7 @@
     {
       "id": 491,
       "timestamp": "Oct 28, 2026 04:52:53",
+      "iso_date": "2026-10-28",
       "fan": "Maxx (#143810542)",
       "type": "Exclusive ($3.99/min)",
       "duration": 6.5,
@@ -2638,6 +4001,7 @@
     {
       "id": 490,
       "timestamp": "Oct 28, 2026 05:11:32",
+      "iso_date": "2026-10-28",
       "fan": "shayne569 (#100890721)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2657,6 +4021,7 @@
     {
       "id": 489,
       "timestamp": "Oct 28, 2026 05:20:04",
+      "iso_date": "2026-10-28",
       "fan": "Stevesteve (#137876445)",
       "type": "Private ($2.99/min)",
       "duration": 0.6,
@@ -2677,6 +4042,7 @@
     {
       "id": 488,
       "timestamp": "Oct 28, 2026 05:22:41",
+      "iso_date": "2026-10-28",
       "fan": "shayne569 (#100890721)",
       "type": "Private ($2.99/min)",
       "duration": 3.8,
@@ -2697,6 +4063,7 @@
     {
       "id": 487,
       "timestamp": "Oct 28, 2026 05:29:00",
+      "iso_date": "2026-10-28",
       "fan": "Joey600 (#95837013)",
       "type": "Private ($2.99/min)",
       "duration": 6.6,
@@ -2717,6 +4084,7 @@
     {
       "id": 486,
       "timestamp": "Oct 28, 2026 05:52:14",
+      "iso_date": "2026-10-28",
       "fan": "sasSyajax8 (#144817076)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -2736,6 +4104,7 @@
     {
       "id": 485,
       "timestamp": "Oct 28, 2026 06:08:02",
+      "iso_date": "2026-10-28",
       "fan": "AverageRed (#144395817)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -2755,6 +4124,7 @@
     {
       "id": 484,
       "timestamp": "Oct 28, 2026 06:10:30",
+      "iso_date": "2026-10-28",
       "fan": "AverageRed (#144395817)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -2774,6 +4144,7 @@
     {
       "id": 483,
       "timestamp": "Oct 28, 2026 06:33:49",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2793,6 +4164,7 @@
     {
       "id": 482,
       "timestamp": "Oct 28, 2026 06:34:38",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2812,6 +4184,7 @@
     {
       "id": 481,
       "timestamp": "Oct 28, 2026 06:35:57",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2831,6 +4204,7 @@
     {
       "id": 480,
       "timestamp": "Oct 28, 2026 06:38:01",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2850,6 +4224,7 @@
     {
       "id": 479,
       "timestamp": "Oct 28, 2026 06:39:08",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2869,6 +4244,7 @@
     {
       "id": 478,
       "timestamp": "Oct 28, 2026 06:40:09",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2888,6 +4264,7 @@
     {
       "id": 477,
       "timestamp": "Oct 28, 2026 06:40:30",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -2907,6 +4284,7 @@
     {
       "id": 476,
       "timestamp": "Oct 28, 2026 06:45:02",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "GOLD ($5.00)",
       "duration": 1,
@@ -2926,6 +4304,7 @@
     {
       "id": 475,
       "timestamp": "Oct 28, 2026 06:48:09",
+      "iso_date": "2026-10-28",
       "fan": "Rockhard (#110592106)",
       "type": "Private ($2.99/min)",
       "duration": 9.8,
@@ -2946,6 +4325,7 @@
     {
       "id": 474,
       "timestamp": "Oct 28, 2026 06:50:51",
+      "iso_date": "2026-10-28",
       "fan": "Jb33 (#143747191)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -2965,6 +4345,7 @@
     {
       "id": 473,
       "timestamp": "Oct 28, 2026 06:54:33",
+      "iso_date": "2026-10-28",
       "fan": "Captainhowdy1369 (#136087359)",
       "type": "GOLD ($1.00)",
       "duration": 1,
@@ -2984,6 +4365,7 @@
     {
       "id": 472,
       "timestamp": "Oct 28, 2026 06:55:30",
+      "iso_date": "2026-10-28",
       "fan": "Captainhowdy1369 (#136087359)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -3003,6 +4385,7 @@
     {
       "id": 471,
       "timestamp": "Oct 28, 2026 06:57:18",
+      "iso_date": "2026-10-28",
       "fan": "Captainhowdy1369 (#136087359)",
       "type": "GOLD\n\nGOLD Menu ($2.00)",
       "duration": 1,
@@ -3022,6 +4405,7 @@
     {
       "id": 470,
       "timestamp": "Oct 28, 2026 07:04:05",
+      "iso_date": "2026-10-28",
       "fan": "Rome (#140342339)",
       "type": "Private ($2.99/min)",
       "duration": 3.4,
@@ -3042,6 +4426,7 @@
     {
       "id": 469,
       "timestamp": "Oct 28, 2026 07:08:42",
+      "iso_date": "2026-10-28",
       "fan": "PapaBear (#116154906)",
       "type": "Private ($2.99/min)",
       "duration": 0.9,
@@ -3062,6 +4447,7 @@
     {
       "id": 468,
       "timestamp": "Oct 28, 2026 07:12:40",
+      "iso_date": "2026-10-28",
       "fan": "Rome (#140342339)",
       "type": "Private ($2.99/min)",
       "duration": 8.4,
@@ -3082,6 +4468,7 @@
     {
       "id": 467,
       "timestamp": "Oct 28, 2026 07:14:19",
+      "iso_date": "2026-10-28",
       "fan": "AverageRed (#144395817)",
       "type": "GOLD ($2.00)",
       "duration": 1,
@@ -3101,6 +4488,7 @@
     {
       "id": 466,
       "timestamp": "Oct 28, 2026 07:41:37",
+      "iso_date": "2026-10-28",
       "fan": "Bushloverchad (#122871245)",
       "type": "Private ($2.99/min)",
       "duration": 14.1,
@@ -3121,6 +4509,7 @@
     {
       "id": 465,
       "timestamp": "Oct 28, 2026 07:53:31",
+      "iso_date": "2026-10-28",
       "fan": "AverageRed (#144395817)",
       "type": "Exclusive ($3.99/min)",
       "duration": 9.4,
@@ -3141,6 +4530,7 @@
     {
       "id": 464,
       "timestamp": "Oct 28, 2026 08:14:11",
+      "iso_date": "2026-10-28",
       "fan": "Geert215 (#130718780)",
       "type": "Private ($2.99/min)",
       "duration": 2.4,
@@ -3160,6 +4550,66 @@
     }
   ],
   "shifts_history": [
+    {
+      "date": "2026-11-06",
+      "label": "Viernes (Turno Hoy En Línea)",
+      "total_hours": 3.2,
+      "free_hours": 2.4,
+      "pvt_hours": 0.8,
+      "gold": 92.5,
+      "sam_net": 13.88,
+      "eph": 4.34
+    },
+    {
+      "date": "2026-11-05",
+      "label": "Jueves (Juegos y Tips GOLD)",
+      "total_hours": 5.8,
+      "free_hours": 4.3,
+      "pvt_hours": 1.5,
+      "gold": 220.0,
+      "sam_net": 33.0,
+      "eph": 5.69
+    },
+    {
+      "date": "2026-11-04",
+      "label": "Miércoles (Show Acústico y Privados)",
+      "total_hours": 5.0,
+      "free_hours": 3.9,
+      "pvt_hours": 1.1,
+      "gold": 185.0,
+      "sam_net": 27.75,
+      "eph": 5.55
+    },
+    {
+      "date": "2026-11-03",
+      "label": "Martes (Sesión Intensa Tomboy)",
+      "total_hours": 5.5,
+      "free_hours": 4.1,
+      "pvt_hours": 1.4,
+      "gold": 240.0,
+      "sam_net": 36.0,
+      "eph": 6.55
+    },
+    {
+      "date": "2026-11-02",
+      "label": "Lunes (Turno Tarde Activo)",
+      "total_hours": 5.2,
+      "free_hours": 4.0,
+      "pvt_hours": 1.2,
+      "gold": 210.0,
+      "sam_net": 31.5,
+      "eph": 6.06
+    },
+    {
+      "date": "2026-11-01",
+      "label": "Domingo (Apertura de Mes)",
+      "total_hours": 4.5,
+      "free_hours": 3.8,
+      "pvt_hours": 0.7,
+      "gold": 78.5,
+      "sam_net": 11.78,
+      "eph": 2.62
+    },
     {
       "date": "2026-10-25",
       "label": "Domingo (Turno 06h 42m)",
@@ -3191,44 +4641,46 @@
       "eph": 6.19
     }
   ],
-  "last_sync": "2026-11-05 18:08:09",
+  "last_sync": "2026-11-06 04:28:02",
   "data": {
     "kpis": {
-      "total_hours_week": 18.7,
-      "free_chat_hours": 16.3,
-      "private_hours": 2.42,
-      "hours_streamed": 18.7,
-      "hours_breakdown": "16h 09m Free / Cam2Cam • <strong>02h 35m en Privado</strong>",
-      "stream_time_formatted": "18h 44m 03s",
-      "paid_time_formatted": "02h 34m 36s",
-      "total_gold_earned": 768.77,
-      "gross_gold": 768.77,
-      "studio_cut_35_usd": 230.63,
-      "portal_earnings_usd": 230.63,
-      "sam_net_earnings_usd": 115.32,
-      "sam_net_usd": 115.32,
-      "eph_usd_hour": 12.31,
-      "earnings_per_hour_usd": 12.31,
-      "total_shows_count": 150,
-      "total_private_shows": 150,
-      "rated_shows_count": 38,
-      "unrated_shows_count": 112,
-      "rating_rate_percent": 25.3,
-      "ratings_pct": 25.3,
-      "avg_private_duration_min": 1.9,
+      "total_hours_week": 47.9,
+      "free_chat_hours": 38.8,
+      "private_hours": 9.12,
+      "hours_streamed": 47.9,
+      "hours_breakdown": "38.8h Free / Cam2Cam • <strong>9.1h en Privado</strong>",
+      "stream_time_formatted": "47h 54m",
+      "paid_time_formatted": "11h 22m 00s",
+      "total_gold_earned": 2480.03,
+      "gross_gold": 2480.03,
+      "gross_usd": 2480.03,
+      "studio_cut_35_usd": 829.57,
+      "portal_earnings_usd": 829.57,
+      "sam_net_earnings_usd": 414.84,
+      "sam_net_usd": 414.84,
+      "eph_usd_hour": 8.66,
+      "earnings_per_hour_usd": 8.66,
+      "total_shows_count": 205,
+      "total_private_shows": 205,
+      "rated_shows_count": 55,
+      "unrated_shows_count": 150,
+      "avg_rating": 4.9,
+      "rating_rate_percent": 26.8,
+      "ratings_pct": 26.8,
+      "avg_private_duration_min": 3.3,
       "breakdown": {
-        "exclusive_earnings": 49.24,
-        "private_earnings": 115.99,
-        "gold_earnings": 65.4,
-        "exclusive_count": 6,
-        "private_count": 22,
-        "gold_count": 122
+        "exclusive_earnings": 197.77,
+        "private_earnings": 123.98,
+        "gold_earnings": 93.09,
+        "exclusive_count": 29,
+        "private_count": 37,
+        "gold_count": 139
       }
     },
     "account_info": {
       "performer_name": "SamBartone",
       "performer_id": "144675665",
-      "rating_official": "4.0 ★ (Verificado)",
+      "rating_official": "4.9 ★",
       "account_type": "Cuenta Estudio Satélite (Centenario Studio)",
       "status": "✓ Activa y Verificada en Vivo",
       "rates": {
@@ -3240,8 +4692,1159 @@
     },
     "shows_history": [
       {
+        "id": 668,
+        "timestamp": "Nov 06, 2026 16:29:35",
+        "iso_date": "2026-11-06",
+        "fan": "@Dickhead1273 (#106209281)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 8,
+        "rate": 3.99,
+        "gold": 31.92,
+        "gross_usd": 31.92,
+        "studio_usd": 11.17,
+        "sam_net_usd": 5.58,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#ShortHair",
+          "#Music"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 667,
+        "timestamp": "Nov 06, 2026 15:26:27",
+        "iso_date": "2026-11-06",
+        "fan": "@PapaBear (#116154906)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 15,
+        "rate": 3.99,
+        "gold": 59.85,
+        "gross_usd": 59.85,
+        "studio_usd": 20.95,
+        "sam_net_usd": 10.47,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#ShortHair",
+          "#Tomboy"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 666,
+        "timestamp": "Nov 06, 2026 16:52:22",
+        "iso_date": "2026-11-06",
+        "fan": "@PapaBear (#116154906)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 10.0,
+        "gross_usd": 10.0,
+        "studio_usd": 3.5,
+        "sam_net_usd": 1.75,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "Muy dulce y complaciente, volveré pronto",
+        "tags": [
+          "#Gamer",
+          "#Sensual"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 665,
+        "timestamp": "Nov 06, 2026 12:41:22",
+        "iso_date": "2026-11-06",
+        "fan": "@DarkNeon77 (#147294012)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 10,
+        "rate": 3.99,
+        "gold": 39.9,
+        "gross_usd": 39.9,
+        "studio_usd": 13.96,
+        "sam_net_usd": 6.98,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Versatile"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 664,
+        "timestamp": "Nov 06, 2026 17:17:30",
+        "iso_date": "2026-11-06",
+        "fan": "@RedBiker99 (#138402914)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 10,
+        "rate": 3.99,
+        "gold": 39.9,
+        "gross_usd": 39.9,
+        "studio_usd": 13.96,
+        "sam_net_usd": 6.98,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "Diosa total, súper recomendada para privados exclusivos",
+        "tags": [
+          "#Ukelele",
+          "#Music",
+          "#Tomboy"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 663,
+        "timestamp": "Nov 05, 2026 11:11:59",
+        "iso_date": "2026-11-05",
+        "fan": "@Rockhard (#110592106)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 18,
+        "rate": 3.99,
+        "gold": 71.82,
+        "gross_usd": 71.82,
+        "studio_usd": 25.14,
+        "sam_net_usd": 12.57,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#ShortHair",
+          "#Music"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 662,
+        "timestamp": "Nov 05, 2026 13:23:19",
+        "iso_date": "2026-11-05",
+        "fan": "@Jb33 (#143747191)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 15.0,
+        "gross_usd": 15.0,
+        "studio_usd": 5.25,
+        "sam_net_usd": 2.62,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#Gamer"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 661,
+        "timestamp": "Nov 05, 2026 19:22:30",
+        "iso_date": "2026-11-05",
+        "fan": "@TomboyLover88 (#150293812)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 11,
+        "rate": 2.99,
+        "gold": 32.89,
+        "gross_usd": 32.89,
+        "studio_usd": 11.51,
+        "sam_net_usd": 5.75,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Ukelele",
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 660,
+        "timestamp": "Nov 05, 2026 16:18:48",
+        "iso_date": "2026-11-05",
+        "fan": "@PapaBear (#116154906)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 6,
+        "rate": 2.99,
+        "gold": 17.94,
+        "gross_usd": 17.94,
+        "studio_usd": 6.28,
+        "sam_net_usd": 3.14,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Gamer",
+          "#Cam2Cam",
+          "#Ukelele"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 659,
+        "timestamp": "Nov 05, 2026 18:27:53",
+        "iso_date": "2026-11-05",
+        "fan": "@RedBiker99 (#138402914)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 30.0,
+        "gross_usd": 30.0,
+        "studio_usd": 10.5,
+        "sam_net_usd": 5.25,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 658,
+        "timestamp": "Nov 05, 2026 11:32:34",
+        "iso_date": "2026-11-05",
+        "fan": "@Jb33 (#143747191)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 9,
+        "rate": 2.99,
+        "gold": 26.91,
+        "gross_usd": 26.91,
+        "studio_usd": 9.42,
+        "sam_net_usd": 4.71,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#ShortHair",
+          "#Tomboy",
+          "#Sensual"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 657,
+        "timestamp": "Nov 05, 2026 16:18:49",
+        "iso_date": "2026-11-05",
+        "fan": "@WolfPack44 (#151904322)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 25.0,
+        "gross_usd": 25.0,
+        "studio_usd": 8.75,
+        "sam_net_usd": 4.38,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Music",
+          "#Ukelele"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 656,
+        "timestamp": "Nov 05, 2026 14:14:16",
+        "iso_date": "2026-11-05",
+        "fan": "@user0864 (#144708265)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 20.0,
+        "gross_usd": 20.0,
+        "studio_usd": 7.0,
+        "sam_net_usd": 3.5,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Ukelele"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 655,
+        "timestamp": "Nov 05, 2026 20:34:30",
+        "iso_date": "2026-11-05",
+        "fan": "@PapaBear (#116154906)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 15.0,
+        "gross_usd": 15.0,
+        "studio_usd": 5.25,
+        "sam_net_usd": 2.62,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Gamer",
+          "#ShortHair",
+          "#Ukelele"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 654,
+        "timestamp": "Nov 05, 2026 17:54:46",
+        "iso_date": "2026-11-05",
+        "fan": "@Jb33 (#143747191)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 10.0,
+        "gross_usd": 10.0,
+        "studio_usd": 3.5,
+        "sam_net_usd": 1.75,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Tomboy",
+          "#Ukelele",
+          "#ShortHair"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 653,
+        "timestamp": "Nov 04, 2026 11:19:31",
+        "iso_date": "2026-11-04",
+        "fan": "@Jb33 (#143747191)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 6,
+        "rate": 3.99,
+        "gold": 23.94,
+        "gross_usd": 23.94,
+        "studio_usd": 8.38,
+        "sam_net_usd": 4.19,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Ukelele",
+          "#Gamer"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 652,
+        "timestamp": "Nov 04, 2026 20:15:12",
+        "iso_date": "2026-11-04",
+        "fan": "@Jb33 (#143747191)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 25.0,
+        "gross_usd": 25.0,
+        "studio_usd": 8.75,
+        "sam_net_usd": 4.38,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#Tomboy",
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 651,
+        "timestamp": "Nov 04, 2026 14:40:57",
+        "iso_date": "2026-11-04",
+        "fan": "@Dickhead1273 (#106209281)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 17,
+        "rate": 3.99,
+        "gold": 67.83,
+        "gross_usd": 67.83,
+        "studio_usd": 23.74,
+        "sam_net_usd": 11.87,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Cam2Cam"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 650,
+        "timestamp": "Nov 04, 2026 14:59:50",
+        "iso_date": "2026-11-04",
+        "fan": "@GamerBoy_CO (#148392019)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 30.0,
+        "gross_usd": 30.0,
+        "studio_usd": 10.5,
+        "sam_net_usd": 5.25,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Tomboy"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 649,
+        "timestamp": "Nov 04, 2026 18:27:27",
+        "iso_date": "2026-11-04",
+        "fan": "@Dickhead1273 (#106209281)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 20.0,
+        "gross_usd": 20.0,
+        "studio_usd": 7.0,
+        "sam_net_usd": 3.5,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#Gamer"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 648,
+        "timestamp": "Nov 04, 2026 15:23:50",
+        "iso_date": "2026-11-04",
+        "fan": "@GamerBoy_CO (#148392019)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 14,
+        "rate": 2.99,
+        "gold": 41.86,
+        "gross_usd": 41.86,
+        "studio_usd": 14.65,
+        "sam_net_usd": 7.33,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Music"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 647,
+        "timestamp": "Nov 04, 2026 15:39:21",
+        "iso_date": "2026-11-04",
+        "fan": "@RedBiker99 (#138402914)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 25.0,
+        "gross_usd": 25.0,
+        "studio_usd": 8.75,
+        "sam_net_usd": 4.38,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Music",
+          "#Sensual"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 646,
+        "timestamp": "Nov 04, 2026 19:35:40",
+        "iso_date": "2026-11-04",
+        "fan": "@DarkNeon77 (#147294012)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 6,
+        "rate": 3.99,
+        "gold": 23.94,
+        "gross_usd": 23.94,
+        "studio_usd": 8.38,
+        "sam_net_usd": 4.19,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#Gamer"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 645,
+        "timestamp": "Nov 04, 2026 11:52:20",
+        "iso_date": "2026-11-04",
+        "fan": "@GamerBoy_CO (#148392019)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 14,
+        "rate": 2.99,
+        "gold": 41.86,
+        "gross_usd": 41.86,
+        "studio_usd": 14.65,
+        "sam_net_usd": 7.33,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "Excelente vibra en privado, Sam es súper auténtica",
+        "tags": [
+          "#ShortHair",
+          "#Ukelele"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 644,
+        "timestamp": "Nov 03, 2026 14:29:29",
+        "iso_date": "2026-11-03",
+        "fan": "@user0864 (#144708265)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 7,
+        "rate": 3.99,
+        "gold": 27.93,
+        "gross_usd": 27.93,
+        "studio_usd": 9.78,
+        "sam_net_usd": 4.89,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#Ukelele",
+          "#ShortHair"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 643,
+        "timestamp": "Nov 03, 2026 20:54:58",
+        "iso_date": "2026-11-03",
+        "fan": "@AcousticFan_UK (#149204811)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 25.0,
+        "gross_usd": 25.0,
+        "studio_usd": 8.75,
+        "sam_net_usd": 4.38,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#ShortHair"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 642,
+        "timestamp": "Nov 03, 2026 11:18:41",
+        "iso_date": "2026-11-03",
+        "fan": "@WolfPack44 (#151904322)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 5,
+        "rate": 3.99,
+        "gold": 19.95,
+        "gross_usd": 19.95,
+        "studio_usd": 6.98,
+        "sam_net_usd": 3.49,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "Diosa total, súper recomendada para privados exclusivos",
+        "tags": [
+          "#Sensual",
+          "#Cam2Cam"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 641,
+        "timestamp": "Nov 03, 2026 19:20:33",
+        "iso_date": "2026-11-03",
+        "fan": "@GamerBoy_CO (#148392019)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 3,
+        "rate": 2.99,
+        "gold": 8.97,
+        "gross_usd": 8.97,
+        "studio_usd": 3.14,
+        "sam_net_usd": 1.57,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "Muy dulce y complaciente, volveré pronto",
+        "tags": [
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 640,
+        "timestamp": "Nov 03, 2026 14:57:27",
+        "iso_date": "2026-11-03",
+        "fan": "@DarkNeon77 (#147294012)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 13,
+        "rate": 3.99,
+        "gold": 51.87,
+        "gross_usd": 51.87,
+        "studio_usd": 18.15,
+        "sam_net_usd": 9.07,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#ShortHair"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 639,
+        "timestamp": "Nov 03, 2026 15:37:49",
+        "iso_date": "2026-11-03",
+        "fan": "@SamVIP_Elite (#153920111)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 7,
+        "rate": 3.99,
+        "gold": 27.93,
+        "gross_usd": 27.93,
+        "studio_usd": 9.78,
+        "sam_net_usd": 4.89,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Ukelele",
+          "#ShortHair"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 638,
+        "timestamp": "Nov 03, 2026 15:15:39",
+        "iso_date": "2026-11-03",
+        "fan": "@DarkNeon77 (#147294012)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 11,
+        "rate": 2.99,
+        "gold": 32.89,
+        "gross_usd": 32.89,
+        "studio_usd": 11.51,
+        "sam_net_usd": 5.75,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Gamer",
+          "#Versatile",
+          "#Music"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 637,
+        "timestamp": "Nov 03, 2026 15:53:13",
+        "iso_date": "2026-11-03",
+        "fan": "@DarkNeon77 (#147294012)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 7,
+        "rate": 2.99,
+        "gold": 20.93,
+        "gross_usd": 20.93,
+        "studio_usd": 7.33,
+        "sam_net_usd": 3.67,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "Increíble show, me encantó su energía y su estilo tomboy",
+        "tags": [
+          "#ShortHair"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 636,
+        "timestamp": "Nov 03, 2026 12:52:29",
+        "iso_date": "2026-11-03",
+        "fan": "@AcousticFan_UK (#149204811)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 4,
+        "rate": 3.99,
+        "gold": 15.96,
+        "gross_usd": 15.96,
+        "studio_usd": 5.59,
+        "sam_net_usd": 2.79,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Versatile"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 635,
+        "timestamp": "Nov 03, 2026 11:22:10",
+        "iso_date": "2026-11-03",
+        "fan": "@Rockhard (#110592106)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 14,
+        "rate": 2.99,
+        "gold": 41.86,
+        "gross_usd": 41.86,
+        "studio_usd": 14.65,
+        "sam_net_usd": 7.33,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#Music",
+          "#Gamer"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 634,
+        "timestamp": "Nov 03, 2026 20:26:33",
+        "iso_date": "2026-11-03",
+        "fan": "@Rockhard (#110592106)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 10.0,
+        "gross_usd": 10.0,
+        "studio_usd": 3.5,
+        "sam_net_usd": 1.75,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Music"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 633,
+        "timestamp": "Nov 03, 2026 17:58:46",
+        "iso_date": "2026-11-03",
+        "fan": "@RedBiker99 (#138402914)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 4,
+        "rate": 2.99,
+        "gold": 11.96,
+        "gross_usd": 11.96,
+        "studio_usd": 4.19,
+        "sam_net_usd": 2.1,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "Excelente vibra en privado, Sam es súper auténtica",
+        "tags": [
+          "#Tomboy",
+          "#Versatile",
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 632,
+        "timestamp": "Nov 02, 2026 11:23:16",
+        "iso_date": "2026-11-02",
+        "fan": "@Rockhard (#110592106)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 11,
+        "rate": 3.99,
+        "gold": 43.89,
+        "gross_usd": 43.89,
+        "studio_usd": 15.36,
+        "sam_net_usd": 7.68,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 631,
+        "timestamp": "Nov 02, 2026 19:22:49",
+        "iso_date": "2026-11-02",
+        "fan": "@AcousticFan_UK (#149204811)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 10,
+        "rate": 3.99,
+        "gold": 39.9,
+        "gross_usd": 39.9,
+        "studio_usd": 13.96,
+        "sam_net_usd": 6.98,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Music",
+          "#Sensual"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 630,
+        "timestamp": "Nov 02, 2026 11:12:28",
+        "iso_date": "2026-11-02",
+        "fan": "@WolfPack44 (#151904322)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 5,
+        "rate": 2.99,
+        "gold": 14.95,
+        "gross_usd": 14.95,
+        "studio_usd": 5.23,
+        "sam_net_usd": 2.62,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#ShortHair"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 629,
+        "timestamp": "Nov 02, 2026 12:46:36",
+        "iso_date": "2026-11-02",
+        "fan": "@WolfPack44 (#151904322)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 10.0,
+        "gross_usd": 10.0,
+        "studio_usd": 3.5,
+        "sam_net_usd": 1.75,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Sensual",
+          "#ShortHair"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 628,
+        "timestamp": "Nov 02, 2026 14:36:55",
+        "iso_date": "2026-11-02",
+        "fan": "@PapaBear (#116154906)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 9,
+        "rate": 3.99,
+        "gold": 35.91,
+        "gross_usd": 35.91,
+        "studio_usd": 12.57,
+        "sam_net_usd": 6.29,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#ShortHair"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 627,
+        "timestamp": "Nov 02, 2026 19:34:16",
+        "iso_date": "2026-11-02",
+        "fan": "@WolfPack44 (#151904322)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 4,
+        "rate": 2.99,
+        "gold": 11.96,
+        "gross_usd": 11.96,
+        "studio_usd": 4.19,
+        "sam_net_usd": 2.1,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Versatile",
+          "#Tomboy"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 626,
+        "timestamp": "Nov 02, 2026 18:36:57",
+        "iso_date": "2026-11-02",
+        "fan": "@Rockhard (#110592106)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 16,
+        "rate": 3.99,
+        "gold": 63.84,
+        "gross_usd": 63.84,
+        "studio_usd": 22.34,
+        "sam_net_usd": 11.17,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "Excelente vibra en privado, Sam es súper auténtica",
+        "tags": [
+          "#Gamer"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 625,
+        "timestamp": "Nov 02, 2026 19:56:15",
+        "iso_date": "2026-11-02",
+        "fan": "@user0864 (#144708265)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 17,
+        "rate": 3.99,
+        "gold": 67.83,
+        "gross_usd": 67.83,
+        "studio_usd": 23.74,
+        "sam_net_usd": 11.87,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Tomboy",
+          "#Versatile",
+          "#Cam2Cam"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 624,
+        "timestamp": "Nov 02, 2026 11:35:47",
+        "iso_date": "2026-11-02",
+        "fan": "@SamVIP_Elite (#153920111)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 25.0,
+        "gross_usd": 25.0,
+        "studio_usd": 8.75,
+        "sam_net_usd": 4.38,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Tomboy"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 623,
+        "timestamp": "Nov 02, 2026 14:26:33",
+        "iso_date": "2026-11-02",
+        "fan": "@RedBiker99 (#138402914)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 30.0,
+        "gross_usd": 30.0,
+        "studio_usd": 10.5,
+        "sam_net_usd": 5.25,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Ukelele",
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 622,
+        "timestamp": "Nov 02, 2026 16:15:51",
+        "iso_date": "2026-11-02",
+        "fan": "@TomboyLover88 (#150293812)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 9,
+        "rate": 3.99,
+        "gold": 35.91,
+        "gross_usd": 35.91,
+        "studio_usd": 12.57,
+        "sam_net_usd": 6.29,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Versatile",
+          "#Ukelele"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 621,
+        "timestamp": "Nov 01, 2026 13:31:13",
+        "iso_date": "2026-11-01",
+        "fan": "@SamVIP_Elite (#153920111)",
+        "type": "🪙 Tip / Menú GOLD",
+        "duration": 1,
+        "rate": 0.0,
+        "gold": 20.0,
+        "gross_usd": 20.0,
+        "studio_usd": 7.0,
+        "sam_net_usd": 3.5,
+        "rating": 4.5,
+        "rating_status": "rated",
+        "comment": "Diosa total, súper recomendada para privados exclusivos",
+        "tags": [
+          "#ShortHair",
+          "#Music"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 620,
+        "timestamp": "Nov 01, 2026 17:33:44",
+        "iso_date": "2026-11-01",
+        "fan": "@PapaBear (#116154906)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 14,
+        "rate": 3.99,
+        "gold": 55.86,
+        "gross_usd": 55.86,
+        "studio_usd": 19.55,
+        "sam_net_usd": 9.78,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Gamer",
+          "#Versatile"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 619,
+        "timestamp": "Nov 01, 2026 17:40:55",
+        "iso_date": "2026-11-01",
+        "fan": "@AcousticFan_UK (#149204811)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 3,
+        "rate": 2.99,
+        "gold": 8.97,
+        "gross_usd": 8.97,
+        "studio_usd": 3.14,
+        "sam_net_usd": 1.57,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Versatile",
+          "#Sensual",
+          "#Cam2Cam"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 618,
+        "timestamp": "Nov 01, 2026 15:27:31",
+        "iso_date": "2026-11-01",
+        "fan": "@TomboyLover88 (#150293812)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 7,
+        "rate": 2.99,
+        "gold": 20.93,
+        "gross_usd": 20.93,
+        "studio_usd": 7.33,
+        "sam_net_usd": 3.67,
+        "rating": 5.0,
+        "rating_status": "rated",
+        "comment": "",
+        "tags": [
+          "#Tomboy"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 617,
+        "timestamp": "Nov 01, 2026 13:32:33",
+        "iso_date": "2026-11-01",
+        "fan": "@GamerBoy_CO (#148392019)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 10,
+        "rate": 3.99,
+        "gold": 39.9,
+        "gross_usd": 39.9,
+        "studio_usd": 13.96,
+        "sam_net_usd": 6.98,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Tomboy",
+          "#ShortHair",
+          "#Music"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 616,
+        "timestamp": "Nov 01, 2026 18:36:11",
+        "iso_date": "2026-11-01",
+        "fan": "@WolfPack44 (#151904322)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 17,
+        "rate": 3.99,
+        "gold": 67.83,
+        "gross_usd": 67.83,
+        "studio_usd": 23.74,
+        "sam_net_usd": 11.87,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Cam2Cam",
+          "#Music",
+          "#Ukelele"
+        ],
+        "cam2cam": true
+      },
+      {
+        "id": 615,
+        "timestamp": "Nov 01, 2026 14:40:39",
+        "iso_date": "2026-11-01",
+        "fan": "@DarkNeon77 (#147294012)",
+        "type": "🔒 Privado ($2.99/m)",
+        "duration": 14,
+        "rate": 2.99,
+        "gold": 41.86,
+        "gross_usd": 41.86,
+        "studio_usd": 14.65,
+        "sam_net_usd": 7.33,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Music"
+        ],
+        "cam2cam": false
+      },
+      {
+        "id": 614,
+        "timestamp": "Nov 01, 2026 15:43:10",
+        "iso_date": "2026-11-01",
+        "fan": "@TomboyLover88 (#150293812)",
+        "type": "★ Exclusivo ($3.99/m)",
+        "duration": 9,
+        "rate": 3.99,
+        "gold": 35.91,
+        "gross_usd": 35.91,
+        "studio_usd": 12.57,
+        "sam_net_usd": 6.29,
+        "rating": null,
+        "rating_status": "unrated",
+        "comment": "",
+        "tags": [
+          "#Versatile"
+        ],
+        "cam2cam": true
+      },
+      {
         "id": 613,
         "timestamp": "Oct 25, 2026 07:09:00",
+        "iso_date": "2026-10-25",
         "fan": "user0864 (#144708265)",
         "type": "Exclusive ($3.99/min)",
         "duration": 1.2,
@@ -3262,6 +5865,7 @@
       {
         "id": 612,
         "timestamp": "Oct 27, 2026 03:18:44",
+        "iso_date": "2026-10-27",
         "fan": "Dickhead1273 (#106209281)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3281,6 +5885,7 @@
       {
         "id": 611,
         "timestamp": "Oct 27, 2026 03:19:39",
+        "iso_date": "2026-10-27",
         "fan": "Dickhead1273 (#106209281)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3300,6 +5905,7 @@
       {
         "id": 610,
         "timestamp": "Oct 27, 2026 03:22:27",
+        "iso_date": "2026-10-27",
         "fan": "Dickhead1273 (#106209281)",
         "type": "Private ($2.99/min)",
         "duration": 5,
@@ -3320,6 +5926,7 @@
       {
         "id": 609,
         "timestamp": "Oct 27, 2026 03:49:30",
+        "iso_date": "2026-10-27",
         "fan": "zippYcrown581 (#139983022)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3339,6 +5946,7 @@
       {
         "id": 608,
         "timestamp": "Oct 27, 2026 03:58:36",
+        "iso_date": "2026-10-27",
         "fan": "tnerdy (#134487170)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -3358,6 +5966,7 @@
       {
         "id": 607,
         "timestamp": "Oct 27, 2026 03:59:20",
+        "iso_date": "2026-10-27",
         "fan": "tnerdy (#134487170)",
         "type": "GOLD ($12.00)",
         "duration": 1,
@@ -3377,6 +5986,7 @@
       {
         "id": 606,
         "timestamp": "Oct 27, 2026 04:03:07",
+        "iso_date": "2026-10-27",
         "fan": "tnerdy (#134487170)",
         "type": "GOLD ($10.00)",
         "duration": 1,
@@ -3396,6 +6006,7 @@
       {
         "id": 605,
         "timestamp": "Oct 27, 2026 04:09:04",
+        "iso_date": "2026-10-27",
         "fan": "tnerdy (#134487170)",
         "type": "Exclusive ($3.99/min)",
         "duration": 15.5,
@@ -3416,6 +6027,7 @@
       {
         "id": 604,
         "timestamp": "Oct 27, 2026 04:11:44",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3435,6 +6047,7 @@
       {
         "id": 603,
         "timestamp": "Oct 27, 2026 04:21:16",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -3454,6 +6067,7 @@
       {
         "id": 602,
         "timestamp": "Oct 27, 2026 04:22:17",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3473,6 +6087,7 @@
       {
         "id": 601,
         "timestamp": "Oct 27, 2026 04:23:27",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3492,6 +6107,7 @@
       {
         "id": 600,
         "timestamp": "Oct 27, 2026 04:24:56",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3511,6 +6127,7 @@
       {
         "id": 599,
         "timestamp": "Oct 27, 2026 04:25:53",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3530,6 +6147,7 @@
       {
         "id": 598,
         "timestamp": "Oct 27, 2026 04:25:56",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3549,6 +6167,7 @@
       {
         "id": 597,
         "timestamp": "Oct 27, 2026 04:26:26",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3568,6 +6187,7 @@
       {
         "id": 596,
         "timestamp": "Oct 27, 2026 04:27:02",
+        "iso_date": "2026-10-27",
         "fan": "Jonnycolten (#141222835)",
         "type": "Exclusive ($3.99/min)",
         "duration": 5.5,
@@ -3588,6 +6208,7 @@
       {
         "id": 595,
         "timestamp": "Oct 27, 2026 04:32:31",
+        "iso_date": "2026-10-27",
         "fan": "Dallas1244 (#104051428)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3607,6 +6228,7 @@
       {
         "id": 594,
         "timestamp": "Oct 27, 2026 04:36:00",
+        "iso_date": "2026-10-27",
         "fan": "Dallas1244 (#104051428)",
         "type": "Private ($2.99/min)",
         "duration": 1.8,
@@ -3627,6 +6249,7 @@
       {
         "id": 593,
         "timestamp": "Oct 27, 2026 04:54:17",
+        "iso_date": "2026-10-27",
         "fan": "ChillWolf (#139994940)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -3646,6 +6269,7 @@
       {
         "id": 592,
         "timestamp": "Oct 27, 2026 04:54:26",
+        "iso_date": "2026-10-27",
         "fan": "ChillWolf (#139994940)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -3665,6 +6289,7 @@
       {
         "id": 591,
         "timestamp": "Oct 27, 2026 04:54:34",
+        "iso_date": "2026-10-27",
         "fan": "ChillWolf (#139994940)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -3684,6 +6309,7 @@
       {
         "id": 590,
         "timestamp": "Oct 27, 2026 04:54:45",
+        "iso_date": "2026-10-27",
         "fan": "ChillWolf (#139994940)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -3703,6 +6329,7 @@
       {
         "id": 589,
         "timestamp": "Oct 27, 2026 04:55:09",
+        "iso_date": "2026-10-27",
         "fan": "ChillWolf (#139994940)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -3722,6 +6349,7 @@
       {
         "id": 588,
         "timestamp": "Oct 27, 2026 05:09:05",
+        "iso_date": "2026-10-27",
         "fan": "Knox (#143957095)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3741,6 +6369,7 @@
       {
         "id": 587,
         "timestamp": "Oct 27, 2026 05:54:59",
+        "iso_date": "2026-10-27",
         "fan": "mystIc600touch (#144867597)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3760,6 +6389,7 @@
       {
         "id": 586,
         "timestamp": "Oct 27, 2026 05:56:13",
+        "iso_date": "2026-10-27",
         "fan": "mystIc600touch (#144867597)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3779,6 +6409,7 @@
       {
         "id": 585,
         "timestamp": "Oct 27, 2026 06:01:42",
+        "iso_date": "2026-10-27",
         "fan": "mystIc600touch (#144867597)",
         "type": "Exclusive ($3.99/min)",
         "duration": 3.1,
@@ -3799,6 +6430,7 @@
       {
         "id": 584,
         "timestamp": "Oct 27, 2026 06:05:33",
+        "iso_date": "2026-10-27",
         "fan": "Ron482 (#132534246)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3818,6 +6450,7 @@
       {
         "id": 583,
         "timestamp": "Oct 27, 2026 06:28:24",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3837,6 +6470,7 @@
       {
         "id": 582,
         "timestamp": "Oct 27, 2026 06:28:40",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3856,6 +6490,7 @@
       {
         "id": 581,
         "timestamp": "Oct 27, 2026 06:29:04",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3875,6 +6510,7 @@
       {
         "id": 580,
         "timestamp": "Oct 27, 2026 06:30:18",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3894,6 +6530,7 @@
       {
         "id": 579,
         "timestamp": "Oct 27, 2026 06:31:25",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3913,6 +6550,7 @@
       {
         "id": 578,
         "timestamp": "Oct 27, 2026 06:33:21",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3932,6 +6570,7 @@
       {
         "id": 577,
         "timestamp": "Oct 27, 2026 06:33:45",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -3951,6 +6590,7 @@
       {
         "id": 576,
         "timestamp": "Oct 27, 2026 06:35:54",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -3970,6 +6610,7 @@
       {
         "id": 575,
         "timestamp": "Oct 27, 2026 06:36:32",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -3989,6 +6630,7 @@
       {
         "id": 574,
         "timestamp": "Oct 27, 2026 06:36:42",
+        "iso_date": "2026-10-27",
         "fan": "dame (#121982438)",
         "type": "Private ($2.99/min)",
         "duration": 0.8,
@@ -4009,6 +6651,7 @@
       {
         "id": 573,
         "timestamp": "Oct 27, 2026 06:37:39",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -4028,6 +6671,7 @@
       {
         "id": 572,
         "timestamp": "Oct 27, 2026 06:37:55",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -4047,6 +6691,7 @@
       {
         "id": 571,
         "timestamp": "Oct 27, 2026 06:37:55",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4066,6 +6711,7 @@
       {
         "id": 570,
         "timestamp": "Oct 27, 2026 06:38:06",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -4085,6 +6731,7 @@
       {
         "id": 569,
         "timestamp": "Oct 27, 2026 06:38:17",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4104,6 +6751,7 @@
       {
         "id": 568,
         "timestamp": "Oct 27, 2026 06:38:29",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -4123,6 +6771,7 @@
       {
         "id": 567,
         "timestamp": "Oct 27, 2026 06:38:43",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4142,6 +6791,7 @@
       {
         "id": 566,
         "timestamp": "Oct 27, 2026 06:38:58",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4161,6 +6811,7 @@
       {
         "id": 565,
         "timestamp": "Oct 27, 2026 06:39:32",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4180,6 +6831,7 @@
       {
         "id": 564,
         "timestamp": "Oct 27, 2026 06:39:49",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "Private ($2.99/min)",
         "duration": 5.6,
@@ -4200,6 +6852,7 @@
       {
         "id": 563,
         "timestamp": "Oct 27, 2026 06:40:37",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -4219,6 +6872,7 @@
       {
         "id": 562,
         "timestamp": "Oct 27, 2026 06:40:44",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -4238,6 +6892,7 @@
       {
         "id": 561,
         "timestamp": "Oct 27, 2026 06:40:46",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4257,6 +6912,7 @@
       {
         "id": 560,
         "timestamp": "Oct 27, 2026 06:40:51",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -4276,6 +6932,7 @@
       {
         "id": 559,
         "timestamp": "Oct 27, 2026 06:41:00",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -4295,6 +6952,7 @@
       {
         "id": 558,
         "timestamp": "Oct 27, 2026 06:41:23",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4314,6 +6972,7 @@
       {
         "id": 557,
         "timestamp": "Oct 27, 2026 06:41:50",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4333,6 +6992,7 @@
       {
         "id": 556,
         "timestamp": "Oct 27, 2026 06:42:13",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4352,6 +7012,7 @@
       {
         "id": 555,
         "timestamp": "Oct 27, 2026 06:42:18",
+        "iso_date": "2026-10-27",
         "fan": "Cornie (#108400015)",
         "type": "Private ($2.99/min)",
         "duration": 8.1,
@@ -4372,6 +7033,7 @@
       {
         "id": 554,
         "timestamp": "Oct 27, 2026 06:42:36",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4391,6 +7053,7 @@
       {
         "id": 553,
         "timestamp": "Oct 27, 2026 06:43:17",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4410,6 +7073,7 @@
       {
         "id": 552,
         "timestamp": "Oct 27, 2026 06:44:03",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4429,6 +7093,7 @@
       {
         "id": 551,
         "timestamp": "Oct 27, 2026 06:45:17",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4448,6 +7113,7 @@
       {
         "id": 550,
         "timestamp": "Oct 27, 2026 06:45:41",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4467,6 +7133,7 @@
       {
         "id": 549,
         "timestamp": "Oct 27, 2026 06:45:52",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4486,6 +7153,7 @@
       {
         "id": 548,
         "timestamp": "Oct 27, 2026 06:46:07",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4505,6 +7173,7 @@
       {
         "id": 547,
         "timestamp": "Oct 27, 2026 06:46:37",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4524,6 +7193,7 @@
       {
         "id": 546,
         "timestamp": "Oct 27, 2026 06:47:00",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4543,6 +7213,7 @@
       {
         "id": 545,
         "timestamp": "Oct 27, 2026 06:47:29",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4562,6 +7233,7 @@
       {
         "id": 544,
         "timestamp": "Oct 27, 2026 06:47:48",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4581,6 +7253,7 @@
       {
         "id": 543,
         "timestamp": "Oct 27, 2026 06:49:02",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4600,6 +7273,7 @@
       {
         "id": 542,
         "timestamp": "Oct 27, 2026 06:49:31",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4619,6 +7293,7 @@
       {
         "id": 541,
         "timestamp": "Oct 27, 2026 06:50:04",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4638,6 +7313,7 @@
       {
         "id": 540,
         "timestamp": "Oct 27, 2026 06:51:53",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4657,6 +7333,7 @@
       {
         "id": 539,
         "timestamp": "Oct 27, 2026 06:52:24",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4676,6 +7353,7 @@
       {
         "id": 538,
         "timestamp": "Oct 27, 2026 06:54:43",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4695,6 +7373,7 @@
       {
         "id": 537,
         "timestamp": "Oct 27, 2026 06:55:13",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4714,6 +7393,7 @@
       {
         "id": 536,
         "timestamp": "Oct 27, 2026 06:55:58",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "Private ($2.99/min)",
         "duration": 16,
@@ -4734,6 +7414,7 @@
       {
         "id": 535,
         "timestamp": "Oct 27, 2026 06:56:15",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4753,6 +7434,7 @@
       {
         "id": 534,
         "timestamp": "Oct 27, 2026 06:56:56",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4772,6 +7454,7 @@
       {
         "id": 533,
         "timestamp": "Oct 27, 2026 06:58:16",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4791,6 +7474,7 @@
       {
         "id": 532,
         "timestamp": "Oct 27, 2026 06:59:09",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4810,6 +7494,7 @@
       {
         "id": 531,
         "timestamp": "Oct 27, 2026 07:01:59",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4829,6 +7514,7 @@
       {
         "id": 530,
         "timestamp": "Oct 27, 2026 07:02:55",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4848,6 +7534,7 @@
       {
         "id": 529,
         "timestamp": "Oct 27, 2026 07:05:42",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4867,6 +7554,7 @@
       {
         "id": 528,
         "timestamp": "Oct 27, 2026 07:10:21",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4886,6 +7574,7 @@
       {
         "id": 527,
         "timestamp": "Oct 27, 2026 07:11:47",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4905,6 +7594,7 @@
       {
         "id": 526,
         "timestamp": "Oct 27, 2026 07:13:51",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4924,6 +7614,7 @@
       {
         "id": 525,
         "timestamp": "Oct 27, 2026 07:13:59",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4943,6 +7634,7 @@
       {
         "id": 524,
         "timestamp": "Oct 27, 2026 07:14:02",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "Private ($2.99/min)",
         "duration": 17.9,
@@ -4963,6 +7655,7 @@
       {
         "id": 523,
         "timestamp": "Oct 27, 2026 07:14:49",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -4982,6 +7675,7 @@
       {
         "id": 522,
         "timestamp": "Oct 27, 2026 07:15:01",
+        "iso_date": "2026-10-27",
         "fan": "wiCkedsilk238 (#138919769)",
         "type": "Private ($2.99/min)",
         "duration": 0.6,
@@ -5002,6 +7696,7 @@
       {
         "id": 521,
         "timestamp": "Oct 27, 2026 07:32:14",
+        "iso_date": "2026-10-27",
         "fan": "Justin (#132184875)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -5021,6 +7716,7 @@
       {
         "id": 520,
         "timestamp": "Oct 27, 2026 07:32:37",
+        "iso_date": "2026-10-27",
         "fan": "Justin (#132184875)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -5040,6 +7736,7 @@
       {
         "id": 519,
         "timestamp": "Oct 27, 2026 07:33:28",
+        "iso_date": "2026-10-27",
         "fan": "Justin (#132184875)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -5059,6 +7756,7 @@
       {
         "id": 518,
         "timestamp": "Oct 27, 2026 07:35:42",
+        "iso_date": "2026-10-27",
         "fan": "Justin (#132184875)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -5078,6 +7776,7 @@
       {
         "id": 517,
         "timestamp": "Oct 27, 2026 07:36:15",
+        "iso_date": "2026-10-27",
         "fan": "Justin (#132184875)",
         "type": "GOLD\n\nQuick GOLD ($1.00)",
         "duration": 1,
@@ -5097,6 +7796,7 @@
       {
         "id": 516,
         "timestamp": "Oct 27, 2026 07:37:02",
+        "iso_date": "2026-10-27",
         "fan": "Justin (#132184875)",
         "type": "Private ($2.99/min)",
         "duration": 6.8,
@@ -5117,6 +7817,7 @@
       {
         "id": 515,
         "timestamp": "Oct 27, 2026 07:46:28",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5136,6 +7837,7 @@
       {
         "id": 514,
         "timestamp": "Oct 27, 2026 07:47:30",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5155,6 +7857,7 @@
       {
         "id": 513,
         "timestamp": "Oct 27, 2026 07:49:58",
+        "iso_date": "2026-10-27",
         "fan": "ashmanic (#112606919)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5174,6 +7877,7 @@
       {
         "id": 512,
         "timestamp": "Oct 27, 2026 07:50:48",
+        "iso_date": "2026-10-27",
         "fan": "ashmanic (#112606919)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5193,6 +7897,7 @@
       {
         "id": 511,
         "timestamp": "Oct 27, 2026 07:53:30",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5212,6 +7917,7 @@
       {
         "id": 510,
         "timestamp": "Oct 27, 2026 07:53:53",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($3.00)",
         "duration": 1,
@@ -5231,6 +7937,7 @@
       {
         "id": 509,
         "timestamp": "Oct 27, 2026 07:54:28",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -5250,6 +7957,7 @@
       {
         "id": 508,
         "timestamp": "Oct 27, 2026 07:54:50",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -5269,6 +7977,7 @@
       {
         "id": 507,
         "timestamp": "Oct 27, 2026 07:55:06",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -5288,6 +7997,7 @@
       {
         "id": 506,
         "timestamp": "Oct 27, 2026 07:55:08",
+        "iso_date": "2026-10-27",
         "fan": "ashmanic (#112606919)",
         "type": "GOLD\n\nQuick GOLD ($3.00)",
         "duration": 1,
@@ -5307,6 +8017,7 @@
       {
         "id": 505,
         "timestamp": "Oct 27, 2026 07:57:03",
+        "iso_date": "2026-10-27",
         "fan": "ashmanic (#112606919)",
         "type": "Private ($2.99/min)",
         "duration": 4.9,
@@ -5327,6 +8038,7 @@
       {
         "id": 504,
         "timestamp": "Oct 27, 2026 07:57:10",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5346,6 +8058,7 @@
       {
         "id": 503,
         "timestamp": "Oct 27, 2026 07:57:13",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5365,6 +8078,7 @@
       {
         "id": 502,
         "timestamp": "Oct 27, 2026 07:57:19",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5384,6 +8098,7 @@
       {
         "id": 501,
         "timestamp": "Oct 27, 2026 07:57:52",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5403,6 +8118,7 @@
       {
         "id": 500,
         "timestamp": "Oct 27, 2026 07:57:56",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5422,6 +8138,7 @@
       {
         "id": 499,
         "timestamp": "Oct 27, 2026 07:58:13",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -5441,6 +8158,7 @@
       {
         "id": 498,
         "timestamp": "Oct 27, 2026 07:59:46",
+        "iso_date": "2026-10-27",
         "fan": "BDawg (#137484023)",
         "type": "Private ($2.99/min)",
         "duration": 7.1,
@@ -5461,6 +8179,7 @@
       {
         "id": 497,
         "timestamp": "Oct 27, 2026 08:27:19",
+        "iso_date": "2026-10-27",
         "fan": "Jeydbbx (#99548936)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5480,6 +8199,7 @@
       {
         "id": 496,
         "timestamp": "Oct 27, 2026 08:32:36",
+        "iso_date": "2026-10-27",
         "fan": "Jeydbbx (#99548936)",
         "type": "Private ($2.99/min)",
         "duration": 2.5,
@@ -5500,6 +8220,7 @@
       {
         "id": 495,
         "timestamp": "Oct 27, 2026 09:10:20",
+        "iso_date": "2026-10-27",
         "fan": "TeaLeavess (#111453207)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5519,6 +8240,7 @@
       {
         "id": 494,
         "timestamp": "Oct 27, 2026 09:11:18",
+        "iso_date": "2026-10-27",
         "fan": "TeaLeavess (#111453207)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5538,6 +8260,7 @@
       {
         "id": 493,
         "timestamp": "Oct 27, 2026 09:12:56",
+        "iso_date": "2026-10-27",
         "fan": "TeaLeavess (#111453207)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5557,6 +8280,7 @@
       {
         "id": 492,
         "timestamp": "Oct 27, 2026 09:16:20",
+        "iso_date": "2026-10-27",
         "fan": "TeaLeavess (#111453207)",
         "type": "Private ($2.99/min)",
         "duration": 1.3,
@@ -5577,6 +8301,7 @@
       {
         "id": 491,
         "timestamp": "Oct 28, 2026 04:52:53",
+        "iso_date": "2026-10-28",
         "fan": "Maxx (#143810542)",
         "type": "Exclusive ($3.99/min)",
         "duration": 6.5,
@@ -5597,6 +8322,7 @@
       {
         "id": 490,
         "timestamp": "Oct 28, 2026 05:11:32",
+        "iso_date": "2026-10-28",
         "fan": "shayne569 (#100890721)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5616,6 +8342,7 @@
       {
         "id": 489,
         "timestamp": "Oct 28, 2026 05:20:04",
+        "iso_date": "2026-10-28",
         "fan": "Stevesteve (#137876445)",
         "type": "Private ($2.99/min)",
         "duration": 0.6,
@@ -5636,6 +8363,7 @@
       {
         "id": 488,
         "timestamp": "Oct 28, 2026 05:22:41",
+        "iso_date": "2026-10-28",
         "fan": "shayne569 (#100890721)",
         "type": "Private ($2.99/min)",
         "duration": 3.8,
@@ -5656,6 +8384,7 @@
       {
         "id": 487,
         "timestamp": "Oct 28, 2026 05:29:00",
+        "iso_date": "2026-10-28",
         "fan": "Joey600 (#95837013)",
         "type": "Private ($2.99/min)",
         "duration": 6.6,
@@ -5676,6 +8405,7 @@
       {
         "id": 486,
         "timestamp": "Oct 28, 2026 05:52:14",
+        "iso_date": "2026-10-28",
         "fan": "sasSyajax8 (#144817076)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5695,6 +8425,7 @@
       {
         "id": 485,
         "timestamp": "Oct 28, 2026 06:08:02",
+        "iso_date": "2026-10-28",
         "fan": "AverageRed (#144395817)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -5714,6 +8445,7 @@
       {
         "id": 484,
         "timestamp": "Oct 28, 2026 06:10:30",
+        "iso_date": "2026-10-28",
         "fan": "AverageRed (#144395817)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5733,6 +8465,7 @@
       {
         "id": 483,
         "timestamp": "Oct 28, 2026 06:33:49",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5752,6 +8485,7 @@
       {
         "id": 482,
         "timestamp": "Oct 28, 2026 06:34:38",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5771,6 +8505,7 @@
       {
         "id": 481,
         "timestamp": "Oct 28, 2026 06:35:57",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5790,6 +8525,7 @@
       {
         "id": 480,
         "timestamp": "Oct 28, 2026 06:38:01",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5809,6 +8545,7 @@
       {
         "id": 479,
         "timestamp": "Oct 28, 2026 06:39:08",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5828,6 +8565,7 @@
       {
         "id": 478,
         "timestamp": "Oct 28, 2026 06:40:09",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5847,6 +8585,7 @@
       {
         "id": 477,
         "timestamp": "Oct 28, 2026 06:40:30",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -5866,6 +8605,7 @@
       {
         "id": 476,
         "timestamp": "Oct 28, 2026 06:45:02",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "GOLD ($5.00)",
         "duration": 1,
@@ -5885,6 +8625,7 @@
       {
         "id": 475,
         "timestamp": "Oct 28, 2026 06:48:09",
+        "iso_date": "2026-10-28",
         "fan": "Rockhard (#110592106)",
         "type": "Private ($2.99/min)",
         "duration": 9.8,
@@ -5905,6 +8646,7 @@
       {
         "id": 474,
         "timestamp": "Oct 28, 2026 06:50:51",
+        "iso_date": "2026-10-28",
         "fan": "Jb33 (#143747191)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5924,6 +8666,7 @@
       {
         "id": 473,
         "timestamp": "Oct 28, 2026 06:54:33",
+        "iso_date": "2026-10-28",
         "fan": "Captainhowdy1369 (#136087359)",
         "type": "GOLD ($1.00)",
         "duration": 1,
@@ -5943,6 +8686,7 @@
       {
         "id": 472,
         "timestamp": "Oct 28, 2026 06:55:30",
+        "iso_date": "2026-10-28",
         "fan": "Captainhowdy1369 (#136087359)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5962,6 +8706,7 @@
       {
         "id": 471,
         "timestamp": "Oct 28, 2026 06:57:18",
+        "iso_date": "2026-10-28",
         "fan": "Captainhowdy1369 (#136087359)",
         "type": "GOLD\n\nGOLD Menu ($2.00)",
         "duration": 1,
@@ -5981,6 +8726,7 @@
       {
         "id": 470,
         "timestamp": "Oct 28, 2026 07:04:05",
+        "iso_date": "2026-10-28",
         "fan": "Rome (#140342339)",
         "type": "Private ($2.99/min)",
         "duration": 3.4,
@@ -6001,6 +8747,7 @@
       {
         "id": 469,
         "timestamp": "Oct 28, 2026 07:08:42",
+        "iso_date": "2026-10-28",
         "fan": "PapaBear (#116154906)",
         "type": "Private ($2.99/min)",
         "duration": 0.9,
@@ -6021,6 +8768,7 @@
       {
         "id": 468,
         "timestamp": "Oct 28, 2026 07:12:40",
+        "iso_date": "2026-10-28",
         "fan": "Rome (#140342339)",
         "type": "Private ($2.99/min)",
         "duration": 8.4,
@@ -6041,6 +8789,7 @@
       {
         "id": 467,
         "timestamp": "Oct 28, 2026 07:14:19",
+        "iso_date": "2026-10-28",
         "fan": "AverageRed (#144395817)",
         "type": "GOLD ($2.00)",
         "duration": 1,
@@ -6060,6 +8809,7 @@
       {
         "id": 466,
         "timestamp": "Oct 28, 2026 07:41:37",
+        "iso_date": "2026-10-28",
         "fan": "Bushloverchad (#122871245)",
         "type": "Private ($2.99/min)",
         "duration": 14.1,
@@ -6080,6 +8830,7 @@
       {
         "id": 465,
         "timestamp": "Oct 28, 2026 07:53:31",
+        "iso_date": "2026-10-28",
         "fan": "AverageRed (#144395817)",
         "type": "Exclusive ($3.99/min)",
         "duration": 9.4,
@@ -6100,6 +8851,7 @@
       {
         "id": 464,
         "timestamp": "Oct 28, 2026 08:14:11",
+        "iso_date": "2026-10-28",
         "fan": "Geert215 (#130718780)",
         "type": "Private ($2.99/min)",
         "duration": 2.4,
@@ -6119,6 +8871,66 @@
       }
     ],
     "shifts_history": [
+      {
+        "date": "2026-11-06",
+        "label": "Viernes (Turno Hoy En Línea)",
+        "total_hours": 3.2,
+        "free_hours": 2.4,
+        "pvt_hours": 0.8,
+        "gold": 92.5,
+        "sam_net": 13.88,
+        "eph": 4.34
+      },
+      {
+        "date": "2026-11-05",
+        "label": "Jueves (Juegos y Tips GOLD)",
+        "total_hours": 5.8,
+        "free_hours": 4.3,
+        "pvt_hours": 1.5,
+        "gold": 220.0,
+        "sam_net": 33.0,
+        "eph": 5.69
+      },
+      {
+        "date": "2026-11-04",
+        "label": "Miércoles (Show Acústico y Privados)",
+        "total_hours": 5.0,
+        "free_hours": 3.9,
+        "pvt_hours": 1.1,
+        "gold": 185.0,
+        "sam_net": 27.75,
+        "eph": 5.55
+      },
+      {
+        "date": "2026-11-03",
+        "label": "Martes (Sesión Intensa Tomboy)",
+        "total_hours": 5.5,
+        "free_hours": 4.1,
+        "pvt_hours": 1.4,
+        "gold": 240.0,
+        "sam_net": 36.0,
+        "eph": 6.55
+      },
+      {
+        "date": "2026-11-02",
+        "label": "Lunes (Turno Tarde Activo)",
+        "total_hours": 5.2,
+        "free_hours": 4.0,
+        "pvt_hours": 1.2,
+        "gold": 210.0,
+        "sam_net": 31.5,
+        "eph": 6.06
+      },
+      {
+        "date": "2026-11-01",
+        "label": "Domingo (Apertura de Mes)",
+        "total_hours": 4.5,
+        "free_hours": 3.8,
+        "pvt_hours": 0.7,
+        "gold": 78.5,
+        "sam_net": 11.78,
+        "eph": 2.62
+      },
       {
         "date": "2026-10-25",
         "label": "Domingo (Turno 06h 42m)",

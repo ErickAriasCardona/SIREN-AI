@@ -7158,7 +7158,8 @@ Cat Lover 🐱</div>
           </div>
         `;
         label.textContent = 'Opciones del Menú GOLD (3 a 7 líneas):';
-        textarea.value = `10x nalgadas - 15\nAcercamiento en senos - 20\nBaile sensual - 25\nMostrar juguetes - 30`;
+        const savedGold = localStorage.getItem('siren_sm_gold_menu');
+        textarea.value = savedGold || `10x nalgadas - 15\nAcercamiento en senos - 20\nBaile sensual - 25\nMostrar juguetes - 30`;
         applyBtn.innerHTML = '<i data-lucide="play" style="width:13px; height:13px;"></i> Aplicar Menú GOLD Ahora';
       } else if (type === 'wheel') {
         heading.textContent = '🎡 Configurar Gira La Rueda (Spin the Wheel)';
@@ -7180,7 +7181,8 @@ Cat Lover 🐱</div>
           </div>
         `;
         label.textContent = 'Costo y Premios de la Ruleta (8 a 14 opciones):';
-        textarea.value = `Costo: 20\n10x nalgadas\nASMR al oído\nAcercamiento en rostro\nBaile\nDi mi nombre\nGemido\nQuiño pícaro\nSonrisa y beso`;
+        const savedWheel = localStorage.getItem('siren_sm_wheel');
+        textarea.value = savedWheel || `Costo: 20\n10x nalgadas\nASMR al oído\nAcercamiento en rostro\nBaile\nDi mi nombre\nGemido\nQuiño pícaro\nSonrisa y beso`;
         applyBtn.innerHTML = '<i data-lucide="play" style="width:13px; height:13px;"></i> Aplicar Ruleta Ahora';
       } else if (type === 'topic') {
         heading.textContent = '🏷️ Actualizar Tema de Habitación (Room Topic)';
@@ -7192,7 +7194,8 @@ Cat Lover 🐱</div>
           <em>* Regla de oro: No uses emojis ni caracteres especiales para evitar errores en Streamate.</em>
         `;
         label.textContent = 'Tema de Habitación:';
-        textarea.value = `Tomboy tech vibes & soft ukelele chords. Come say hi and ask what you want.`;
+        const savedTopic = localStorage.getItem('siren_sm_topic');
+        textarea.value = savedTopic || `Tomboy tech vibes & soft ukelele chords. Come say hi and ask what you want.`;
         applyBtn.innerHTML = '<i data-lucide="play" style="width:13px; height:13px;"></i> Actualizar Tema Ahora';
       } else if (type === 'radar') {
         heading.textContent = '🔭 Radar de Competencia Tomboy en Streamate';
@@ -7214,11 +7217,16 @@ Cat Lover 🐱</div>
           .then(d => {
             if (!d || !d.success) return;
             if (type === 'gold' && d.items && d.items.length) {
-              textarea.value = d.items.map(it => `${it.name} - ${it.gold}`).join('\n');
+              const formatted = d.items.map(it => `${it.name} - ${it.gold}`).join('\n');
+              textarea.value = formatted;
+              localStorage.setItem('siren_sm_gold_menu', formatted);
             } else if (type === 'wheel' && d.items && d.items.length) {
-              textarea.value = `Costo: ${d.cost || 20}\n` + d.items.join('\n');
+              const formatted = `Costo: ${d.cost || 20}\n` + d.items.join('\n');
+              textarea.value = formatted;
+              localStorage.setItem('siren_sm_wheel', formatted);
             } else if (type === 'topic' && d.topic) {
               textarea.value = d.topic;
+              localStorage.setItem('siren_sm_topic', d.topic);
             }
           })
           .catch(() => {});
@@ -7255,12 +7263,15 @@ Cat Lover 🐱</div>
         if (currentSmModalType === 'gold') {
           endpoint = `${getApiBase()}/api/streamate/update_gold_menu`;
           payload = { raw_text: text };
+          localStorage.setItem('siren_sm_gold_menu', text);
         } else if (currentSmModalType === 'wheel') {
           endpoint = `${getApiBase()}/api/streamate/update_wheel`;
           payload = { raw_text: text };
+          localStorage.setItem('siren_sm_wheel', text);
         } else if (currentSmModalType === 'topic') {
           endpoint = `${getApiBase()}/api/streamate/update_topic`;
           payload = { topic: text };
+          localStorage.setItem('siren_sm_topic', text);
         } else if (currentSmModalType === 'radar') {
           endpoint = `${getApiBase()}/api/streamate/analyze_tomboy_radar`;
           payload = { query: text };
