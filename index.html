@@ -5072,136 +5072,630 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- PESTAÑA 8: CIENCIA DE DATOS & ANALÍTICA DE EMBUDO -->
       <!-- ========================================== -->
       <section id="tab-datascience" class="tab-view">
-        <div class="grid-4">
-          <div class="kpi-card">
-            <div class="kpi-header">
-              <span class="kpi-title">Base de Seguidores</span>
-              <div class="kpi-icon"><i data-lucide="users"></i></div>
-            </div>
-            <div class="kpi-value">599 Fans</div>
-            <div class="kpi-sub"><span class="pos">2 Suscriptores Activos</span> (Audiencia Real)</div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-header">
-              <span class="kpi-title">Tasa de Lectura Real (Open/Read Rate)</span>
-              <div class="kpi-icon"><i data-lucide="eye"></i></div>
-            </div>
-            <div class="kpi-value" style="color: var(--secondary);">22.5%</div>
-            <div class="kpi-sub"><strong>~134 Fans</strong> abren y leen el mensaje</div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-header">
-              <span class="kpi-title">Conversión de Compra s/ Lectores</span>
-              <div class="kpi-icon"><i data-lucide="shopping-bag"></i></div>
-            </div>
-            <div class="kpi-value" style="color: var(--success);">5.2%</div>
-            <div class="kpi-sub"><strong>~6 a 7 Compras</strong> reales por envío</div>
-          </div>
-
-          <div class="kpi-card">
-            <div class="kpi-header">
-              <span class="kpi-title">Ingreso Neto Predicho</span>
-              <div class="kpi-icon"><i data-lucide="dollar-sign"></i></div>
-            </div>
-            <div class="kpi-value" style="color: var(--primary-light);">$57.60 - $67.20</div>
-            <div class="kpi-sub">Ticket $12 USD • 80% neto para Sam</div>
-          </div>
+        <!-- Sub-Pestañas por Plataforma en Data Science -->
+        <div class="subtabs-bar">
+          <button class="subtab-btn active" onclick="switchSubTab('sub-datascience', 'loyalfans', this)">
+            <i data-lucide="gem"></i> LoyalFans (Embudo de Mensajería & Venta)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-datascience', 'streamate', this)">
+            <i data-lucide="zap"></i> Streamate (Embudo de Sala & Conversión Privada)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-datascience', 'stripchat', this)">
+            <i data-lucide="flame"></i> Stripchat (Embudo Freemium & Tokens)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-datascience', 'instagram', this)">
+            <i data-lucide="instagram"></i> Instagram (Embudo de Tráfico Orgánico)
+          </button>
+          <button class="subtab-btn" onclick="switchSubTab('sub-datascience', 'global', this)">
+            <i data-lucide="cpu"></i> Proyección Predictiva Multiplataforma
+          </button>
         </div>
 
-        <!-- Modelo Científico de Predicción -->
-        <div class="card">
-          <div class="card-title">
-            <span>🔬 Modelo Científico del Embudo: De la Audiencia a la Venta Real (No Suposiciones)</span>
+        <!-- 1. SUBTAB LOYALFANS DATA SCIENCE -->
+        <div id="sub-datascience-loyalfans" class="sub-tab-content">
+          <div style="background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#c084fc; box-shadow:0 0 10px #c084fc;"></span>
+              <div>
+                <strong style="color:#c084fc; font-size:14px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="gem" style="width:16px; height:16px;"></i> LoyalFans: Ciencia de Conversión de Mensajería Masiva
+                  <span class="table-badge badge-success" style="font-size:10px;">80% Split Creador Directo</span>
+                </strong>
+                <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                  Métricas empíricas reales sobre 599 seguidores: Tasa de Entrega, Tasa de Lectura y Conversión de Compra.
+                </div>
+              </div>
+            </div>
             <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Base de Datos: velvet_analytics.db</span>
           </div>
-          <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
-            En la industria de suscripciones para adultos, asumir que <em>"si envío a 600 me compran 20 o 30"</em> es un sesgo falso. Los datos empíricos de analítica demuestran un embudo de 3 fases: <strong>Entrega (100%) ➔ Lectura Real (18%-25%) ➔ Conversión de Compra (3%-6% de los que leen)</strong>.
-          </p>
 
-          <div class="grid-3">
-            <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px;">
-              <strong style="color: #fff; font-size: 13px; display: block; margin-bottom: 8px;">1. Fase de Entrega & Ruido</strong>
-              <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">599 Mensajes</div>
-              <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
-                El 100% llega a la bandeja de entrada, pero el 75%+ de los usuarios no están activos a diario o silencian notificaciones.
-              </p>
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #9333ea;">
+              <div class="kpi-header">
+                <span class="kpi-title">Base de Seguidores</span>
+                <div class="kpi-icon"><i data-lucide="users" style="color:#c084fc;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#c084fc;">599 Fans</div>
+              <div class="kpi-sub"><span class="pos">2 Suscriptores Activos</span> (Audiencia Real)</div>
             </div>
 
-            <div style="background: rgba(26, 229, 139, 0.05); border: 1px solid rgba(26, 229, 139, 0.2); padding: 16px; border-radius: 8px;">
-              <strong style="color: #1AE589; font-size: 13px; display: block; margin-bottom: 8px;">2. Fase de Atención (Read Rate)</strong>
-              <div style="font-size: 20px; font-weight: 800; color: #1AE589; margin-bottom: 4px;">134 Lecturas (22.5%)</div>
-              <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
-                Estos son los usuarios que realmente abren la conversación y leen el copy de Sam Barton. El gancho de texto en inglés determina si se genera interés.
-              </p>
+            <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
+              <div class="kpi-header">
+                <span class="kpi-title">Tasa de Lectura Real (Open/Read Rate)</span>
+                <div class="kpi-icon"><i data-lucide="eye" style="color:#8B53FF;"></i></div>
+              </div>
+              <div class="kpi-value" style="color: var(--secondary);">22.5%</div>
+              <div class="kpi-sub"><strong>~134 Fans</strong> abren y leen el mensaje</div>
             </div>
 
-            <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 16px; border-radius: 8px;">
-              <strong style="color: #34d399; font-size: 13px; display: block; margin-bottom: 8px;">3. Fase de Venta Efectiva</strong>
-              <div style="font-size: 20px; font-weight: 800; color: #34d399; margin-bottom: 4px;">6 - 7 Compras (1.0% Global)</div>
-              <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
-                Compradores con saldo listo en tarjeta. Generan de inmediato ~$60 a $70 USD netos por campaña individual sin desgaste de tiempo.
-              </p>
+            <div class="kpi-card" style="border-left: 3px solid #10b981;">
+              <div class="kpi-header">
+                <span class="kpi-title">Conversión de Compra s/ Lectores</span>
+                <div class="kpi-icon"><i data-lucide="shopping-bag" style="color:#10b981;"></i></div>
+              </div>
+              <div class="kpi-value" style="color: var(--success);">5.2%</div>
+              <div class="kpi-sub"><strong>~6 a 7 Compras</strong> reales por envío</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #1AE589;">
+              <div class="kpi-header">
+                <span class="kpi-title">Ingreso Neto Predicho</span>
+                <div class="kpi-icon"><i data-lucide="dollar-sign" style="color:#1AE589;"></i></div>
+              </div>
+              <div class="kpi-value" style="color: #1AE589;">$57.60 - $67.20</div>
+              <div class="kpi-sub">Ticket $12 USD • 80% neto para Sam</div>
+            </div>
+          </div>
+
+          <!-- Modelo Científico de Predicción -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>🔬 Modelo Científico del Embudo: De la Audiencia a la Venta Real (No Suposiciones)</span>
+              <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Datos Validados</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              En la industria de suscripciones para adultos, asumir que <em>"si envío a 600 me compran 20 o 30"</em> es un sesgo falso. Los datos empíricos de analítica demuestran un embudo de 3 fases: <strong>Entrega (100%) ➔ Lectura Real (18%-25%) ➔ Conversión de Compra (3%-6% de los que leen)</strong>.
+            </p>
+
+            <div class="grid-3">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px;">
+                <strong style="color: #fff; font-size: 13px; display: block; margin-bottom: 8px;">1. Fase de Entrega & Ruido</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">599 Mensajes</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  El 100% llega a la bandeja de entrada, pero el 75%+ de los usuarios no están activos a diario o silencian notificaciones.
+                </p>
+              </div>
+
+              <div style="background: rgba(26, 229, 139, 0.05); border: 1px solid rgba(26, 229, 139, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #1AE589; font-size: 13px; display: block; margin-bottom: 8px;">2. Fase de Atención (Read Rate)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #1AE589; margin-bottom: 4px;">134 Lecturas (22.5%)</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Estos son los usuarios que realmente abren la conversación y leen el copy de Sam Barton. El gancho de texto en inglés determina si se genera interés.
+                </p>
+              </div>
+
+              <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #34d399; font-size: 13px; display: block; margin-bottom: 8px;">3. Fase de Venta Efectiva</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #34d399; margin-bottom: 4px;">6 - 7 Compras (1.0% Global)</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Compradores con saldo listo en tarjeta. Generan de inmediato ~$60 a $70 USD netos por campaña individual sin desgaste de tiempo.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tabla de Ciencia de Datos y Predicciones de Producción -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>📈 Proyección Predictiva de Producción (Escenarios según Crecimiento de Audiencia)</span>
+              <span class="badge">Machine Learning / Regresión Lineal Simple</span>
+            </div>
+
+            <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Escenario de Audiencia</th>
+                    <th>Volumen Enviado</th>
+                    <th>Lecturas Estimadas (22.5%)</th>
+                    <th>Compras Predichas (5.2% s/ Lecturas)</th>
+                    <th>Precio Ticket</th>
+                    <th>Facturación Bruta</th>
+                    <th>Ingreso Neto Sam (80%)</th>
+                    <th>Frecuencia Mensual (x8 Envíos)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Estado Actual (Noviembre 2026)</strong></td>
+                    <td>599 Fans</td>
+                    <td>134 lectores</td>
+                    <td><span class="table-badge badge-warning">6 - 7 compras</span></td>
+                    <td>$12.00 USD</td>
+                    <td>$72.00 - $84.00</td>
+                    <td><strong>$57.60 - $67.20</strong></td>
+                    <td><strong style="color:var(--success);">$460 - $537 USD/mes</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Crecimiento Corto Plazo</strong></td>
+                    <td>1,000 Fans</td>
+                    <td>225 lectores</td>
+                    <td><span class="table-badge badge-info">11 - 12 compras</span></td>
+                    <td>$12.00 USD</td>
+                    <td>$132.00 - $144.00</td>
+                    <td><strong>$105.60 - $115.20</strong></td>
+                    <td><strong style="color:var(--success);">$844 - $921 USD/mes</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Meta Diciembre 🚗 (Auto Fund)</strong></td>
+                    <td>2,500 Fans</td>
+                    <td>562 lectores</td>
+                    <td><span class="table-badge badge-success">29 - 30 compras</span></td>
+                    <td>$15.00 USD</td>
+                    <td>$435.00 - $450.00</td>
+                    <td><strong>$348.00 - $360.00</strong></td>
+                    <td><strong style="color:var(--success);">$2,784 - $2,880 USD/mes</strong></td>
+                  </tr>
+                  <tr>
+                    <td><strong>Escala Máxima (Top 5% Tier)</strong></td>
+                    <td>5,000 Fans</td>
+                    <td>1,125 lectores</td>
+                    <td><span class="table-badge badge-purple">58 - 60 compras</span></td>
+                    <td>$15.00 USD</td>
+                    <td>$870.00 - $900.00</td>
+                    <td><strong>$696.00 - $720.00</strong></td>
+                    <td><strong style="color:var(--success);">$5,568 - $5,760 USD/mes</strong></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
 
-        <!-- Tabla de Ciencia de Datos y Predicciones de Producción -->
-        <div class="card">
-          <div class="card-title">
-            <span>📈 Proyección Predictiva de Producción (Escenarios según Crecimiento de Audiencia)</span>
-            <span class="badge">Machine Learning / Regresión Lineal Simple</span>
+        <!-- 2. SUBTAB STREAMATE DATA SCIENCE -->
+        <div id="sub-datascience-streamate" class="sub-tab-content" style="display:none;">
+          <div style="background: rgba(139, 83, 255, 0.08); border: 1px solid rgba(139, 83, 255, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#8B53FF; box-shadow:0 0 10px #8B53FF;"></span>
+              <div>
+                <strong style="color:#8B53FF; font-size:14px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="zap" style="width:16px; height:16px;"></i> Streamate Models: Ciencia de Conversión en Vivo & Dinámica de Sala
+                  <span class="table-badge badge-info" style="font-size:10px;">50% Split Estudio</span>
+                </strong>
+                <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                  Retención en los primeros 30 segundos, conversión de Free Chat a Privado/Exclusivo y analítica de ticket promedio.
+                </div>
+              </div>
+            </div>
+            <span class="badge" style="background: rgba(139, 83, 255, 0.18); color: #8B53FF;">150 Sesiones Auditadas</span>
           </div>
 
-          <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
-          <div class="table-responsive">
-          <table class="custom-table">
-            <thead>
-              <tr>
-                <th>Escenario de Audiencia</th>
-                <th>Volumen Enviado</th>
-                <th>Lecturas Estimadas (22.5%)</th>
-                <th>Compras Predichas (5.2% s/ Lecturas)</th>
-                <th>Precio Ticket</th>
-                <th>Facturación Bruta</th>
-                <th>Ingreso Neto Sam (80%)</th>
-                <th>Frecuencia Mensual (x8 Envíos)</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Estado Actual (Octubre 2026)</strong></td>
-                <td>599 Fans</td>
-                <td>134 lectores</td>
-                <td><span class="table-badge badge-warning">6 - 7 compras</span></td>
-                <td>$12.00 USD</td>
-                <td>$72.00 - $84.00</td>
-                <td><strong>$57.60 - $67.20</strong></td>
-                <td><strong style="color:var(--success);">$460 - $537 USD/mes</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Crecimiento Corto Plazo</strong></td>
-                <td>1,000 Fans</td>
-                <td>225 lectores</td>
-                <td><span class="table-badge badge-info">11 - 12 compras</span></td>
-                <td>$12.00 USD</td>
-                <td>$132.00 - $144.00</td>
-                <td><strong>$105.60 - $115.20</strong></td>
-                <td><strong style="color:var(--success);">$844 - $921 USD/mes</strong></td>
-              </tr>
-              <tr>
-                <td><strong>Meta Diciembre 🚗 (Auto Fund)</strong></td>
-                <td>2,500 Fans</td>
-                <td>562 lectores</td>
-                <td><span class="table-badge badge-success">29 - 30 compras</span></td>
-                <td>$15.00 USD</td>
-                <td>$435.00 - $450.00</td>
-                <td><strong>$348.00 - $360.00</strong></td>
-                <td><strong style="color:var(--success);">$2,784 - $2,880 USD/mes</strong></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
+              <div class="kpi-header">
+                <span class="kpi-title">Conversión a Privado / Exclusivo</span>
+                <div class="kpi-icon"><i data-lucide="video" style="color:#8B53FF;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#8B53FF;">15.8%</div>
+              <div class="kpi-sub">De 100 usuarios en free chat, <strong>~16 van a show pagado</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+              <div class="kpi-header">
+                <span class="kpi-title">Retención Primeros 30s</span>
+                <div class="kpi-icon"><i data-lucide="timer" style="color:#38bdf8;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#38bdf8;">78.4%</div>
+              <div class="kpi-sub">Gatillo clave para mantener sala en <strong>Página 1</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #10b981;">
+              <div class="kpi-header">
+                <span class="kpi-title">Duración Promedio Privado</span>
+                <div class="kpi-icon"><i data-lucide="clock" style="color:#10b981;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#10b981;">5.5 min</div>
+              <div class="kpi-sub">Ticket promedio: <strong>$16.45 USD brutos / sesión</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #fbbf24;">
+              <div class="kpi-header">
+                <span class="kpi-title">Ratio de Calificación</span>
+                <div class="kpi-icon"><i data-lucide="star" style="color:#fbbf24;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#fbbf24;">25.3%</div>
+              <div class="kpi-sub"><strong>38 calificados de 150</strong> • 4.0 ★ oficial</div>
+            </div>
+          </div>
+
+          <!-- Embudo de Conversión de Sala Streamate -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>🎯 El Embudo Forense de Sala en Streamate (De Visitante a Show Exclusivo)</span>
+              <span class="badge" style="background: rgba(139, 83, 255, 0.18); color: #8B53FF;">Algoritmo Streamate</span>
+            </div>
+            <p style="font-size: 12px; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px;">
+              Streamate premia a las modelos que logran engagement en los primeros 30 segundos. Si el usuario permanece más de medio minuto en sala libre, el algoritmo eleva la visibilidad en el radar general.
+            </p>
+
+            <div class="grid-3">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px;">
+                <strong style="color: #fff; font-size: 13px; display: block; margin-bottom: 8px;">1. Fase de Entrada (Free Chat)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">100% Tráfico Rotativo</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Usuarios que exploran la grilla general. Tráfico generado por el algoritmo de Streamate sin costo publicitario.
+                </p>
+              </div>
+
+              <div style="background: rgba(56, 189, 248, 0.05); border: 1px solid rgba(56, 189, 248, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #38bdf8; font-size: 13px; display: block; margin-bottom: 8px;">2. Conexión Verbal (30s Filtro)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #38bdf8; margin-bottom: 4px;">78.4% Retención</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Saludo por nombre (@usuario) e interacción rápida en inglés. Impide que el usuario abandone en los primeros 10 segundos.
+                </p>
+              </div>
+
+              <div style="background: rgba(139, 83, 255, 0.05); border: 1px solid rgba(139, 83, 255, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #8B53FF; font-size: 13px; display: block; margin-bottom: 8px;">3. Monetización Pagada</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #8B53FF; margin-bottom: 4px;">15.8% Conversión</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Transición a Privado ($2.99/min), Exclusivo ($3.99/min) o menú de propinas Gold (10 a 50 Gold por acción).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Correlación de Tags y EPH -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>🏷️ Correlación Científica de Tags Comunitarios y Retorno Horario (EPH)</span>
+              <span class="badge">Auditoría Empírica</span>
+            </div>
+            <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Tag Comunitario</th>
+                    <th>Frecuencia en Shows</th>
+                    <th>Impacto en Retención</th>
+                    <th>EPH Promedio Estimado</th>
+                    <th>Recomendación Táctica</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style="color:var(--secondary);">#Tomboy</strong></td>
+                    <td>24 menciones</td>
+                    <td><span class="table-badge badge-success">+42% Retención</span></td>
+                    <td><strong style="color:#1AE589;">$14.20 USD / h</strong></td>
+                    <td>Tag identitario principal. Mantener en topic de sala permanente.</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#38bdf8;">#Cam2Cam</strong></td>
+                    <td>19 menciones</td>
+                    <td><span class="table-badge badge-info">+35% Retención</span></td>
+                    <td><strong style="color:#1AE589;">$13.50 USD / h</strong></td>
+                    <td>Facilita shows privados largos de más de 8 minutos.</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#fbbf24;">#Versatile</strong></td>
+                    <td>15 menciones</td>
+                    <td><span class="table-badge badge-warning">+28% Retención</span></td>
+                    <td><strong style="color:#1AE589;">$12.10 USD / h</strong></td>
+                    <td>Amplía la base de fans que buscan dominación o juego suave.</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#10b981;">#FastPVT</strong></td>
+                    <td>8 menciones</td>
+                    <td><span class="table-badge badge-purple">+50% Conversión</span></td>
+                    <td><strong style="color:#1AE589;">$15.80 USD / h</strong></td>
+                    <td>Usuarios que entran directo a privado sin gastar tiempo en free.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. SUBTAB STRIPCHAT DATA SCIENCE -->
+        <div id="sub-datascience-stripchat" class="sub-tab-content" style="display:none;">
+          <div style="background: rgba(244, 63, 94, 0.08); border: 1px solid rgba(244, 63, 94, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#f43f5e; box-shadow:0 0 10px #f43f5e;"></span>
+              <div>
+                <strong style="color:#f43f5e; font-size:14px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="flame" style="width:16px; height:16px;"></i> Stripchat & Lovense: Embudo Freemium de Tokens y Dinámica Háptica
+                  <span class="table-badge badge-info" style="font-size:10px;">$0.05 USD / Token</span>
+                </strong>
+                <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                  Conversión de espectadores pasivos a propinas interactivas Lovense y shows privados C2C.
+                </div>
+              </div>
+            </div>
+            <span class="badge" style="background: rgba(244, 63, 94, 0.18); color: #f43f5e;">Modelo Freemium</span>
+          </div>
+
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #f43f5e;">
+              <div class="kpi-header">
+                <span class="kpi-title">Tasa de Tippers Activos</span>
+                <div class="kpi-icon"><i data-lucide="coins" style="color:#f43f5e;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#f43f5e;">11.4%</div>
+              <div class="kpi-sub">De 250 espectadores, <strong>~28 envían tokens</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #1AE589;">
+              <div class="kpi-header">
+                <span class="kpi-title">Conversión por Lovense</span>
+                <div class="kpi-icon"><i data-lucide="activity" style="color:#1AE589;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#1AE589;">62.5%</div>
+              <div class="kpi-sub">De los tokens son <strong>estímulos hápticos</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+              <div class="kpi-header">
+                <span class="kpi-title">Gasto Promedio por Tipper</span>
+                <div class="kpi-icon"><i data-lucide="credit-card" style="color:#38bdf8;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#38bdf8;">85 Tokens</div>
+              <div class="kpi-sub">Equivalente a <strong>$4.25 USD netos / usuario</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
+              <div class="kpi-header">
+                <span class="kpi-title">Tiempo Medio en Sala</span>
+                <div class="kpi-icon"><i data-lucide="hourglass" style="color:#8B53FF;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#8B53FF;">14.2 min</div>
+              <div class="kpi-sub">Permanencia de usuarios con saldo activo</div>
+            </div>
+          </div>
+
+          <!-- Embudo Freemium Stripchat -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>📊 Arquitectura del Embudo Freemium: Segmentación de Usuarios por Nivel de Gasto</span>
+              <span class="badge" style="background: rgba(244, 63, 94, 0.15); color: #f43f5e;">Tokens Model</span>
+            </div>
+            <div class="grid-3">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px;">
+                <strong style="color: #94a3b8; font-size: 13px; display: block; margin-bottom: 8px;">1. Audiencia Silenciosa (Gris)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #94a3b8; margin-bottom: 4px;">78% de la Sala</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Usuarios sin saldo que no compran pero suben el contador de espectadores, atrayendo a miembros con tarjeta.
+                </p>
+              </div>
+
+              <div style="background: rgba(244, 63, 94, 0.05); border: 1px solid rgba(244, 63, 94, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #f43f5e; font-size: 13px; display: block; margin-bottom: 8px;">2. Tippers Casuales (Bronce/Plata)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #f43f5e; margin-bottom: 4px;">17% de la Sala</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Compran micro-propinas (5 a 25 tokens) para hacer sonar y vibrar el juguete Lovense en momentos clave.
+                </p>
+              </div>
+
+              <div style="background: rgba(251, 191, 36, 0.05); border: 1px solid rgba(251, 191, 36, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #fbbf24; font-size: 13px; display: block; margin-bottom: 8px;">3. Grandes Compradores (Oro/VIP)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #fbbf24; margin-bottom: 4px;">5% de la Sala</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Compran metas completas de sala (100 a 500 tokens), shows privados exclusivos y activan el Spy Show.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. SUBTAB INSTAGRAM DATA SCIENCE -->
+        <div id="sub-datascience-instagram" class="sub-tab-content" style="display:none;">
+          <div style="background: rgba(236, 72, 153, 0.08); border: 1px solid rgba(236, 72, 153, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#ec4899; box-shadow:0 0 10px #ec4899;"></span>
+              <div>
+                <strong style="color:#ec4899; font-size:14px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="instagram" style="width:16px; height:16px;"></i> Instagram (@sambartonn23): Embudo de Tráfico y Redirección hacia Plataformas de Pago
+                  <span class="table-badge badge-purple" style="font-size:10px;">Tráfico Inbound</span>
+                </strong>
+                <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                  Conversión del algoritmo de Reels e Historias hacia el enlace de biografía y nuevos suscriptores en LoyalFans/Streamate.
+                </div>
+              </div>
+            </div>
+            <span class="badge" style="background: rgba(236, 72, 153, 0.18); color: #ec4899;">CAC: $0.00 USD</span>
+          </div>
+
+          <div class="grid-4" style="margin-bottom: 20px;">
+            <div class="kpi-card" style="border-left: 3px solid #ec4899;">
+              <div class="kpi-header">
+                <span class="kpi-title">Tasa de Clic en Bio (CTR)</span>
+                <div class="kpi-icon"><i data-lucide="mouse-pointer" style="color:#ec4899;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#ec4899;">4.8%</div>
+              <div class="kpi-sub">De 100 visitas al perfil, <strong>~5 abren el link</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #10b981;">
+              <div class="kpi-header">
+                <span class="kpi-title">Costo de Adquisición (CAC)</span>
+                <div class="kpi-icon"><i data-lucide="shield-check" style="color:#10b981;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#10b981;">$0.00 USD</div>
+              <div class="kpi-sub">Tráfico <strong>100% orgánico</strong> sin anuncios</div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #8B53FF;">
+              <div class="kpi-header">
+                <span class="kpi-title">Conversión a Suscriptor Pago</span>
+                <div class="kpi-icon"><i data-lucide="user-plus" style="color:#8B53FF;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#8B53FF;">2.1%</div>
+              <div class="kpi-sub">De los que abren link, <strong>se registran en LF</strong></div>
+            </div>
+
+            <div class="kpi-card" style="border-left: 3px solid #38bdf8;">
+              <div class="kpi-header">
+                <span class="kpi-title">Ratio de Engagement</span>
+                <div class="kpi-icon"><i data-lucide="heart" style="color:#38bdf8;"></i></div>
+              </div>
+              <div class="kpi-value" style="color:#38bdf8;">8.6%</div>
+              <div class="kpi-sub">Interacciones (likes/saves) sobre alcance</div>
+            </div>
+          </div>
+
+          <!-- Embudo Social -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>📱 Embudo de Adquisición Inbound: Del Reel Gratuito al Pago en Plataforma</span>
+              <span class="badge" style="background: rgba(236, 72, 153, 0.15); color: #ec4899;">Organic Funnel</span>
+            </div>
+            <div class="grid-3">
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); padding: 16px; border-radius: 8px;">
+                <strong style="color: #fff; font-size: 13px; display: block; margin-bottom: 8px;">1. Alcance (Reels / Stories)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #fff; margin-bottom: 4px;">4,500 - 8,000 Impr.</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Contenido Tomboy estético, motos y ukelele. El algoritmo de Instagram impulsa el hook visual a usuarios anglosajones.
+                </p>
+              </div>
+
+              <div style="background: rgba(236, 72, 153, 0.05); border: 1px solid rgba(236, 72, 153, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #ec4899; font-size: 13px; display: block; margin-bottom: 8px;">2. Filtro de Interés (Perfil)</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #ec4899; margin-bottom: 4px;">~350 Visitas Perfil</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Historias destacadas con llamados sutiles a la acción: <em>"Detalles exclusivos y chat directo en el link de bio"</em>.
+                </p>
+              </div>
+
+              <div style="background: rgba(16, 185, 129, 0.05); border: 1px solid rgba(16, 185, 129, 0.2); padding: 16px; border-radius: 8px;">
+                <strong style="color: #10b981; font-size: 13px; display: block; margin-bottom: 8px;">3. Cierre y Venta Efectiva</strong>
+                <div style="font-size: 20px; font-weight: 800; color: #10b981; margin-bottom: 4px;">7 - 10 Fans / Semana</div>
+                <p style="font-size: 11px; color: var(--text-dim); line-height: 1.5;">
+                  Nuevos seguidores que ingresan a LoyalFans y Streamate listos para desbloquear contenido o entrar a privado.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. SUBTAB MULTIPLATAFORMA GLOBAL DATA SCIENCE -->
+        <div id="sub-datascience-global" class="sub-tab-content" style="display:none;">
+          <div style="background: rgba(26, 229, 137, 0.08); border: 1px solid rgba(26, 229, 137, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="display:flex; align-items:center; gap:12px;">
+              <span class="status-dot" style="background:#1AE589; box-shadow:0 0 10px #1AE589;"></span>
+              <div>
+                <strong style="color:#1AE589; font-size:14px; display:flex; align-items:center; gap:6px;">
+                  <i data-lucide="cpu" style="width:16px; height:16px;"></i> Matriz Predictiva Multicanal & Simulador de Metas Financieras
+                  <span class="table-badge badge-success" style="font-size:10px;">Multi-Agent AI</span>
+                </strong>
+                <div style="font-size:11.5px; color:var(--text-muted); margin-top:2px;">
+                  Comparativa de ROI por hora entre plataformas y simulación predictiva de ingresos netos para Sam Barton.
+                </div>
+              </div>
+            </div>
+            <span class="badge" style="background: rgba(26, 229, 137, 0.18); color: #1AE589;">Fórmula Cuádruple</span>
+          </div>
+
+          <!-- SIMULADOR INTERACTIVO DE METAS -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <span>🧮 Simulador Predictivo de Metas Mensuales para Sam Barton</span>
+              <div style="display:flex; align-items:center; gap:6px;">
+                <button type="button" class="action-btn sm-filter-pill active" onclick="simulateDataScienceGoal(1000, this)" style="font-size:11px; padding:4px 10px; border-radius:16px;">
+                  $1,000 USD / mes
+                </button>
+                <button type="button" class="action-btn sm-filter-pill" onclick="simulateDataScienceGoal(2500, this)" style="font-size:11px; padding:4px 10px; border-radius:16px;">
+                  $2,500 USD / mes (Auto Fund)
+                </button>
+                <button type="button" class="action-btn sm-filter-pill" onclick="simulateDataScienceGoal(5000, this)" style="font-size:11px; padding:4px 10px; border-radius:16px;">
+                  $5,000 USD / mes (Escala Pro)
+                </button>
+              </div>
+            </div>
+
+            <div class="grid-4" style="margin-top: 14px; margin-bottom: 16px;">
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:8px; padding:14px;">
+                <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">Aporte LoyalFans (Directo 80%)</span>
+                <div id="sim-lf-val" style="font-size:18px; font-weight:800; color:#c084fc;">$500.00 USD</div>
+                <div id="sim-lf-sub" style="font-size:10.5px; color:var(--text-dim); margin-top:2px;">~8 campañas de mensajería al mes</div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:8px; padding:14px;">
+                <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">Aporte Streamate (Estudio 50%)</span>
+                <div id="sim-sm-val" style="font-size:18px; font-weight:800; color:#8B53FF;">$350.00 USD</div>
+                <div id="sim-sm-sub" style="font-size:10.5px; color:var(--text-dim); margin-top:2px;">~28h de streaming al mes (~7h/sem)</div>
+              </div>
+
+              <div style="background:rgba(255,255,255,0.02); border:1px solid var(--border-color); border-radius:8px; padding:14px;">
+                <span style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">Aporte Stripchat (Lovense)</span>
+                <div id="sim-sc-val" style="font-size:18px; font-weight:800; color:#f43f5e;">$150.00 USD</div>
+                <div id="sim-sc-sub" style="font-size:10.5px; color:var(--text-dim); margin-top:2px;">~3,000 tokens en sala al mes</div>
+              </div>
+
+              <div style="background:rgba(26,229,137,0.05); border:1px solid rgba(26,229,137,0.25); border-radius:8px; padding:14px;">
+                <span style="font-size:11px; color:#1AE589; font-weight:600; display:block; margin-bottom:4px;">Ingreso Neto Sam Estimado</span>
+                <div id="sim-total-val" style="font-size:18px; font-weight:800; color:#1AE589;">$1,000.00 USD</div>
+                <div id="sim-total-sub" style="font-size:10.5px; color:var(--text-dim); margin-top:2px;">Carga horaria: ~10 horas semanales</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparativa de Eficiencia ROI -->
+          <div class="card" style="margin-bottom: 20px;">
+            <div class="card-title">
+              <span>⚖️ Matriz Comparativa de Eficiencia y Retorno Horario por Plataforma</span>
+              <span class="badge">Optimización de Tiempo</span>
+            </div>
+            <div class="table-scroll-hint"><i data-lucide="chevrons-right"></i> Desliza horizontalmente para ver todas las columnas</div>
+            <div class="table-responsive">
+              <table class="custom-table">
+                <thead>
+                  <tr>
+                    <th>Plataforma</th>
+                    <th>Modelo de Ingreso</th>
+                    <th>Split Sam</th>
+                    <th>Retorno Horario (USD/h)</th>
+                    <th>Esfuerzo Requerido</th>
+                    <th>Rol en la Estrategia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong style="color:#c084fc;">LoyalFans</strong></td>
+                    <td>Suscripciones, PPV & Video Store</td>
+                    <td><span class="table-badge badge-success">80% Directo</span></td>
+                    <td><strong style="color:#1AE589;">$35 - $50 USD / h</strong></td>
+                    <td>Bajo (Asíncrono, venta por mensaje)</td>
+                    <td>Máximo margen por hora invertida. Base del flujo pasivo.</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#8B53FF;">Streamate</strong></td>
+                    <td>Shows Privados ($2.99/m) & Excl ($3.99/m)</td>
+                    <td><span class="table-badge badge-info">50% Split Estudio</span></td>
+                    <td><strong style="color:#1AE589;">$12 - $16 USD / h</strong></td>
+                    <td>Medio-Alto (Transmisión en vivo en cámara)</td>
+                    <td>Flujo semanal constante y captación de clientes de alto ticket.</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#f43f5e;">Stripchat</strong></td>
+                    <td>Tokens ($0.05/tk) & Menú Lovense</td>
+                    <td><span class="table-badge badge-warning">100% Directo</span></td>
+                    <td><strong style="color:#1AE589;">$8 - $12 USD / h</strong></td>
+                    <td>Medio (Interacción lúdica y propinas)</td>
+                    <td>Monetización secundaria por volumen de espectadores.</td>
+                  </tr>
+                  <tr>
+                    <td><strong style="color:#ec4899;">Instagram</strong></td>
+                    <td>Tráfico Inbound Orgánico</td>
+                    <td><span class="table-badge badge-purple">Embudo 0% Fee</span></td>
+                    <td><strong style="color:#38bdf8;">Multiplicador</strong></td>
+                    <td>Bajo (3 historias/día + 3 reels/sem)</td>
+                    <td>Motor de captación que alimenta las 3 plataformas de pago.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </section>
@@ -8630,6 +9124,57 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           btn.innerHTML = oldHtml;
           lucide.createIcons();
         }
+      }
+    }
+
+    // ==========================================
+    // 🧮 SIMULADOR PREDICTIVO DE CIENCIA DE DATOS
+    // ==========================================
+    function simulateDataScienceGoal(amount, btnEl) {
+      if (btnEl) {
+        const parent = btnEl.parentElement;
+        if (parent) {
+          parent.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+        }
+        btnEl.classList.add('active');
+      }
+
+      const lfVal = document.getElementById('sim-lf-val');
+      const lfSub = document.getElementById('sim-lf-sub');
+      const smVal = document.getElementById('sim-sm-val');
+      const smSub = document.getElementById('sim-sm-sub');
+      const scVal = document.getElementById('sim-sc-val');
+      const scSub = document.getElementById('sim-sc-sub');
+      const totVal = document.getElementById('sim-total-val');
+      const totSub = document.getElementById('sim-total-sub');
+
+      if (amount === 1000) {
+        if (lfVal) lfVal.textContent = '$500.00 USD';
+        if (lfSub) lfSub.textContent = '~8 campañas de mensajería al mes';
+        if (smVal) smVal.textContent = '$350.00 USD';
+        if (smSub) smSub.textContent = '~28h de streaming al mes (~7h/sem)';
+        if (scVal) scVal.textContent = '$150.00 USD';
+        if (scSub) scSub.textContent = '~3,000 tokens en sala al mes';
+        if (totVal) totVal.textContent = '$1,000.00 USD';
+        if (totSub) totSub.textContent = 'Carga horaria estimada: ~10 horas semanales';
+      } else if (amount === 2500) {
+        if (lfVal) lfVal.textContent = '$1,200.00 USD';
+        if (lfSub) lfSub.textContent = '~16 campañas masivas + Video Store';
+        if (smVal) smVal.textContent = '$900.00 USD';
+        if (smSub) smSub.textContent = '~55h de streaming al mes (~14h/sem)';
+        if (scVal) scVal.textContent = '$400.00 USD';
+        if (scSub) scSub.textContent = '~8,000 tokens y metas Lovense al mes';
+        if (totVal) totVal.textContent = '$2,500.00 USD';
+        if (totSub) totSub.textContent = 'Carga horaria estimada: ~18 horas semanales';
+      } else if (amount === 5000) {
+        if (lfVal) lfVal.textContent = '$2,600.00 USD';
+        if (lfSub) lfSub.textContent = 'Audiencia > 2,000 fans + Club VIP';
+        if (smVal) smVal.textContent = '$1,600.00 USD';
+        if (smSub) smSub.textContent = '~80h streaming con tarifa $3.99/min';
+        if (scVal) scVal.textContent = '$800.00 USD';
+        if (scSub) scSub.textContent = '~16,000 tokens y shows privados C2C';
+        if (totVal) totVal.textContent = '$5,000.00 USD';
+        if (totSub) totSub.textContent = 'Carga horaria estimada: ~26 horas semanales';
       }
     }
 
