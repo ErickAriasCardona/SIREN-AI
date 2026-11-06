@@ -7964,7 +7964,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         // Auto-recuperación: verificar si el túnel en tu casa cambió
         try {
-          const checkRes = await fetch('https://erickariascardona.github.io/VELVET-AI/tunnel_config.json?t=' + Date.now(), { cache: 'no-store' });
+          const checkRes = await fetch('./tunnel_config.json?t=' + Date.now(), { cache: 'no-store' });
           if (checkRes.ok) {
             const checkCfg = await checkRes.json();
             const curOrigin = window.location.origin.replace(/\/+$/, '');
@@ -8152,45 +8152,44 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     const DEFAULT_TUNNEL_URL = 'https://rehabilitation-firewire-speech-township.trycloudflare.com';
     let activeTunnelUrl = localStorage.getItem('siren_tunnel_url') || DEFAULT_TUNNEL_URL;
 
-    // Sincronizar automáticamente la URL del túnel desde GitHub Pages y local
+    // Sincronizar automáticamente la URL del túnel desde la configuración activa y puente GitHub
     async function syncActiveTunnelFromBridge() {
-      // 1. Intentar leer desde GitHub Pages (Siempre disponible públicamente en internet)
-      try {
-        const r = await fetch('https://erickariascardona.github.io/VELVET-AI/tunnel_config.json?t=' + Date.now(), { cache: 'no-store' });
-        if (r.ok) {
-          const cfg = await r.json();
-          if (cfg && cfg.tunnel_url && cfg.tunnel_url.startsWith('https://')) {
-            const cleanUrl = cfg.tunnel_url.replace(/\/+$/, '');
-            activeTunnelUrl = cleanUrl;
-            localStorage.setItem('siren_tunnel_url', cleanUrl);
-            const inputEl = document.getElementById('cfg-tunnel-url-input');
-            if (inputEl) inputEl.value = cleanUrl;
+      const sources = [
+        './tunnel_config.json?t=' + Date.now(),
+        'https://raw.githubusercontent.com/ErickAriasCardona/SIREN-AI/gh-pages/tunnel_config.json?t=' + Date.now(),
+        'https://erickariascardona.github.io/SIREN-AI/tunnel_config.json?t=' + Date.now()
+      ];
 
-            // Si el usuario tiene abierta una URL vieja de trycloudflare que ya caducó, auto-redirigir a la activa
-            const curOrigin = window.location.origin.replace(/\/+$/, '');
-            if (window.location.hostname.includes('trycloudflare.com') && curOrigin !== cleanUrl) {
-              console.log('[Auto-Redirect] Enlace desactualizado detectado. Redirigiendo a:', cleanUrl);
-              showToast('🔄 Tu PC generó un nuevo enlace. Redirigiendo automáticamente...');
-              setTimeout(() => {
-                window.location.href = cleanUrl + window.location.search;
-              }, 1500);
+      for (const src of sources) {
+        try {
+          const lr = await fetch(src, { cache: 'no-store' });
+          if (lr.ok) {
+            const lcfg = await lr.json();
+            if (lcfg && lcfg.tunnel_url && lcfg.tunnel_url.startsWith('https://')) {
+              const cleanUrl = lcfg.tunnel_url.replace(/\/+$/, '');
+              activeTunnelUrl = cleanUrl;
+              localStorage.setItem('siren_tunnel_url', cleanUrl);
+              const inputEl = document.getElementById('cfg-tunnel-url-input');
+              if (inputEl) inputEl.value = cleanUrl;
+
+              const curOrigin = window.location.origin.replace(/\/+$/, '');
+              const isGithub = window.location.hostname.includes('github.io');
+              const isOldCloudflare = window.location.hostname.includes('trycloudflare.com') && curOrigin !== cleanUrl;
+
+              // Si el usuario abrió desde el link permanente de GitHub Pages o un túnel anterior vencido,
+              // auto-redirigir a la URL del túnel Cloudflare activo para acceso sin restricciones
+              if (isGithub || isOldCloudflare) {
+                console.log('[Auto-Redirect] Enlazando con el túnel seguro activo de tu PC:', cleanUrl);
+                showToast('🚀 Enlazando con tu PC de casa (' + cleanUrl.replace('https://', '').split('.')[0] + ')...');
+                setTimeout(() => {
+                  window.location.href = cleanUrl + window.location.search;
+                }, 1000);
+              }
+              return;
             }
-            return;
           }
-        }
-      } catch (e) {}
-
-      // 2. Fallback a tunnel_config local
-      try {
-        const lr = await fetch('./tunnel_config.json?t=' + Date.now(), { cache: 'no-store' });
-        if (lr.ok) {
-          const lcfg = await lr.json();
-          if (lcfg && lcfg.tunnel_url) {
-            activeTunnelUrl = lcfg.tunnel_url.replace(/\/+$/, '');
-            localStorage.setItem('siren_tunnel_url', activeTunnelUrl);
-          }
-        }
-      } catch (le) {}
+        } catch (e) {}
+      }
     }
 
     syncActiveTunnelFromBridge();
