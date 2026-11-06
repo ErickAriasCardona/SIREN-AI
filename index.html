@@ -6700,6 +6700,73 @@ Cat Lover 🐱</div>
   <!-- JAVASCRIPT LOGIC -->
   <script>
     // ==============================================================
+    // 🌐 SISTEMA DE ENLACE RESILIENTE AL SERVIDOR (CASA <-> ESTUDIO)
+    // ==============================================================
+    const DEFAULT_TUNNEL_URL = 'https://density-horn-volvo-layers.trycloudflare.com';
+    var activeTunnelUrl = localStorage.getItem('siren_tunnel_url') || DEFAULT_TUNNEL_URL;
+
+    function getApiBase() {
+      const host = window.location.hostname;
+      const port = window.location.port;
+
+      if (port === '8888' || host.includes('trycloudflare') || host.includes('loca.lt')) {
+        return '';
+      }
+      if (host === 'localhost' || host === '127.0.0.1') {
+        return 'http://localhost:8888';
+      }
+
+      const custom = localStorage.getItem('siren_tunnel_url');
+      if (custom && custom.startsWith('https://')) {
+        return custom.replace(/\/+$/, '');
+      }
+      return (activeTunnelUrl || DEFAULT_TUNNEL_URL).replace(/\/+$/, '');
+    }
+
+    // Sincronizar automáticamente la URL del túnel desde la configuración activa y puente GitHub
+    async function syncActiveTunnelFromBridge() {
+      const sources = [
+        './tunnel_config.json?t=' + Date.now(),
+        'https://raw.githubusercontent.com/ErickAriasCardona/SIREN-AI/gh-pages/tunnel_config.json?t=' + Date.now(),
+        'https://erickariascardona.github.io/SIREN-AI/tunnel_config.json?t=' + Date.now()
+      ];
+
+      for (const src of sources) {
+        try {
+          const lr = await fetch(src, { cache: 'no-store' });
+          if (lr.ok) {
+            const lcfg = await lr.json();
+            if (lcfg && lcfg.tunnel_url && lcfg.tunnel_url.startsWith('https://')) {
+              const cleanUrl = lcfg.tunnel_url.replace(/\/+$/, '');
+              activeTunnelUrl = cleanUrl;
+              localStorage.setItem('siren_tunnel_url', cleanUrl);
+              const inputEl = document.getElementById('cfg-tunnel-url-input');
+              if (inputEl) inputEl.value = cleanUrl;
+
+              const curOrigin = window.location.origin.replace(/\/+$/, '');
+              const isGithub = window.location.hostname.includes('github.io');
+              const isOldCloudflare = window.location.hostname.includes('trycloudflare.com') && curOrigin !== cleanUrl;
+
+              // Si el usuario abrió desde el link permanente de GitHub Pages o un túnel anterior vencido,
+              // auto-redirigir a la URL del túnel Cloudflare activo para acceso sin restricciones
+              if (isGithub || isOldCloudflare) {
+                console.log('[Auto-Redirect] Enlazando con el túnel seguro activo de tu PC:', cleanUrl);
+                showToast('🚀 Enlazando con tu PC de casa (' + cleanUrl.replace('https://', '').split('.')[0] + ')...');
+                setTimeout(() => {
+                  window.location.href = cleanUrl + window.location.search;
+                }, 1000);
+              }
+              return;
+            }
+          }
+        } catch (e) {}
+      }
+    }
+
+    syncActiveTunnelFromBridge();
+    setInterval(syncActiveTunnelFromBridge, 45000);
+
+    // ==============================================================
     // 🎨 SISTEMA DE IDENTIDAD DE LOGO SIREN (OPCIÓN 2 OFICIAL + CARGA PERSONALIZADA)
     // ==============================================================
     const SIREN_OFFICIAL_LOGO_SVG = `<svg width="150" height="38" viewBox="0 0 150 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="siren-logo-svg">
@@ -8144,77 +8211,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       if (resEl) {
         resEl.textContent = `Por ${val} Gold ($${val} USD): Estudio recibe $${studio35.toFixed(2)} USD (35%). Neto para Sam: $${samNet.toFixed(2)} USD (50%).`;
       }
-    }
-
-    // ==============================================================
-    // 🌐 SISTEMA DE ENLACE RESILIENTE AL SERVIDOR (CASA <-> ESTUDIO)
-    // ==============================================================
-    const DEFAULT_TUNNEL_URL = 'https://rehabilitation-firewire-speech-township.trycloudflare.com';
-    let activeTunnelUrl = localStorage.getItem('siren_tunnel_url') || DEFAULT_TUNNEL_URL;
-
-    // Sincronizar automáticamente la URL del túnel desde la configuración activa y puente GitHub
-    async function syncActiveTunnelFromBridge() {
-      const sources = [
-        './tunnel_config.json?t=' + Date.now(),
-        'https://raw.githubusercontent.com/ErickAriasCardona/SIREN-AI/gh-pages/tunnel_config.json?t=' + Date.now(),
-        'https://erickariascardona.github.io/SIREN-AI/tunnel_config.json?t=' + Date.now()
-      ];
-
-      for (const src of sources) {
-        try {
-          const lr = await fetch(src, { cache: 'no-store' });
-          if (lr.ok) {
-            const lcfg = await lr.json();
-            if (lcfg && lcfg.tunnel_url && lcfg.tunnel_url.startsWith('https://')) {
-              const cleanUrl = lcfg.tunnel_url.replace(/\/+$/, '');
-              activeTunnelUrl = cleanUrl;
-              localStorage.setItem('siren_tunnel_url', cleanUrl);
-              const inputEl = document.getElementById('cfg-tunnel-url-input');
-              if (inputEl) inputEl.value = cleanUrl;
-
-              const curOrigin = window.location.origin.replace(/\/+$/, '');
-              const isGithub = window.location.hostname.includes('github.io');
-              const isOldCloudflare = window.location.hostname.includes('trycloudflare.com') && curOrigin !== cleanUrl;
-
-              // Si el usuario abrió desde el link permanente de GitHub Pages o un túnel anterior vencido,
-              // auto-redirigir a la URL del túnel Cloudflare activo para acceso sin restricciones
-              if (isGithub || isOldCloudflare) {
-                console.log('[Auto-Redirect] Enlazando con el túnel seguro activo de tu PC:', cleanUrl);
-                showToast('🚀 Enlazando con tu PC de casa (' + cleanUrl.replace('https://', '').split('.')[0] + ')...');
-                setTimeout(() => {
-                  window.location.href = cleanUrl + window.location.search;
-                }, 1000);
-              }
-              return;
-            }
-          }
-        } catch (e) {}
-      }
-    }
-
-    syncActiveTunnelFromBridge();
-    setInterval(syncActiveTunnelFromBridge, 45000); // Chequeo automático cada 45 segundos
-
-    function getApiBase() {
-      const host = window.location.hostname;
-      const port = window.location.port;
-
-      // 1. Si estamos sirviendo directamente desde el servidor local (localhost:8888)
-      //    o directamente desde el dominio del túnel (trycloudflare.com / loca.lt)
-      if (port === '8888' || host.includes('trycloudflare') || host.includes('loca.lt')) {
-        return '';
-      }
-      if (host === 'localhost' || host === '127.0.0.1') {
-        return 'http://localhost:8888';
-      }
-
-      // 2. Si estamos en GitHub Pages (erickariascardona.github.io) o acceso HTTPS externo
-      //    NUNCA devolver http://localhost:8888 porque el navegador lo bloquea por Mixed Content
-      const custom = localStorage.getItem('siren_tunnel_url');
-      if (custom && custom.startsWith('https://')) {
-        return custom.replace(/\/+$/, '');
-      }
-      return (activeTunnelUrl || DEFAULT_TUNNEL_URL).replace(/\/+$/, '');
     }
 
     // Modal de Conexión del Servidor
