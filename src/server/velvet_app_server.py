@@ -1256,9 +1256,49 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     def handle_api_streamate_analyze_tomboy_radar(self):
-        """Ejecuta escaneo de competidoras tomboy en Streamate y devuelve métricas."""
+        """Ejecuta escaneo de competidoras tomboy en Streamate con paginación personalizada y enlaces."""
         try:
-            res = asyncio.run(scan_streamate_tomboy_competitors(3))
+            from urllib.parse import urlparse, parse_qs
+            qs = parse_qs(urlparse(self.path).query)
+            pages = 3
+            query = "tomboy"
+
+            # Revisar query params (GET)
+            if "pages" in qs:
+                try:
+                    pages = int(qs["pages"][0])
+                except (ValueError, TypeError):
+                    pass
+            elif "max_pages" in qs:
+                try:
+                    pages = int(qs["max_pages"][0])
+                except (ValueError, TypeError):
+                    pass
+            if "query" in qs:
+                query = qs["query"][0]
+            elif "q" in qs:
+                query = qs["q"][0]
+
+            # Revisar POST body si aplica
+            if self.command == "POST":
+                try:
+                    content_length = int(self.headers.get('Content-Length', 0))
+                    if content_length > 0:
+                        post_data = self.rfile.read(content_length)
+                        body = json.loads(post_data.decode('utf-8'))
+                        if "pages" in body:
+                            pages = int(body["pages"])
+                        elif "max_pages" in body:
+                            pages = int(body["max_pages"])
+                        if "query" in body:
+                            query = str(body["query"])
+                        elif "q" in body:
+                            query = str(body["q"])
+                except Exception as parse_e:
+                    print(f"[Radar POST parse error]: {parse_e}")
+
+            pages = max(1, min(pages, 10))
+            res = asyncio.run(scan_streamate_tomboy_competitors(max_pages=pages, search_query=query))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
@@ -1376,11 +1416,19 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             if ("analiza" in msg_lower or "radar" in msg_lower or "competencia" in msg_lower or "tendencia" in msg_lower) and \
                ("tomboy" in msg_lower or "streamate" in msg_lower or "streetmate" in msg_lower or "streaming" in msg_lower):
                 try:
-                    radar_data = asyncio.run(scan_streamate_tomboy_competitors(3))
+                    num_pages = 3
+                    page_match = re.search(r'(\d+)\s*p[aá]ginas?', msg_lower)
+                    if page_match:
+                        try:
+                            num_pages = int(page_match.group(1))
+                        except (ValueError, TypeError):
+                            pass
+                    num_pages = max(1, min(num_pages, 10))
+                    radar_data = asyncio.run(scan_streamate_tomboy_competitors(num_pages))
                     radar_summary = json.dumps(radar_data, ensure_ascii=False)
                     chat_history.append({
                         "role": "system",
-                        "content": f"[RADAR TOMBOY STREAMATE EN VIVO]: {radar_summary}. Presenta a Sam un desglose claro de modelos activas, temas de sala que están usando, tarifas promedio ($2.99 / $3.99) y recomendaciones clave para destacar hoy."
+                        "content": f"[RADAR TOMBOY STREAMATE EN VIVO - {num_pages} PÁGINAS]: {radar_summary}. Presenta a Sam un desglose claro de modelos activas con sus enlaces clicables (Streamate / CamModels), temas de sala que están usando, tarifas promedio y recomendaciones clave para destacar hoy."
                     })
                 except Exception as re:
                     print("[Radar Error]:", re)

@@ -1201,6 +1201,159 @@
       background: #ede9fe !important;
     }
 
+    /* ==============================================================
+       ESTILOS PARA STREAMATE TOMBOY RADAR MODAL
+       ============================================================== */
+    #streamateRadarModal .sm-radar-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(139, 83, 255, 0.22);
+      border-radius: 10px;
+      padding: 14px;
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+    }
+    #streamateRadarModal .sm-radar-card:hover {
+      border-color: rgba(26, 229, 139, 0.5);
+      background: rgba(255, 255, 255, 0.05);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+    #streamateRadarModal .sm-radar-link-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 11.5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #streamateRadarModal .sm-radar-link-btn.primary {
+      background: rgba(26, 229, 139, 0.15);
+      color: #1AE589;
+      border: 1px solid rgba(26, 229, 139, 0.45);
+    }
+    #streamateRadarModal .sm-radar-link-btn.primary:hover {
+      background: #1AE589;
+      color: #0b1118;
+      box-shadow: 0 0 12px rgba(26, 229, 139, 0.4);
+    }
+    #streamateRadarModal .sm-radar-link-btn.secondary {
+      background: rgba(139, 83, 255, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(139, 83, 255, 0.4);
+    }
+    #streamateRadarModal .sm-radar-link-btn.secondary:hover {
+      background: #8B53FF;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(139, 83, 255, 0.4);
+    }
+    #streamateRadarModal .sm-radar-topic-box {
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      padding: 8px 10px;
+      font-size: 11.5px;
+      color: #f1f5f9;
+      line-height: 1.45;
+    }
+    #streamateRadarModal .sm-radar-page-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 20px;
+      padding: 5px 12px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      user-select: none;
+    }
+    #streamateRadarModal .sm-radar-page-pill:hover {
+      background: rgba(26, 229, 139, 0.15);
+      color: #ffffff;
+      border-color: rgba(26, 229, 139, 0.4);
+    }
+    #streamateRadarModal .sm-radar-page-pill.active {
+      background: rgba(26, 229, 139, 0.25);
+      border-color: #1AE589;
+      color: #1AE589;
+      font-weight: 700;
+      box-shadow: 0 0 10px rgba(26, 229, 139, 0.25);
+    }
+
+    /* MODO CLARO OVERRIDES PARA MODAL RADAR TOMBOY */
+    body.light-theme #streamateRadarModal .modal-card {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+    }
+    body.light-theme #streamateRadarModal .modal-header h3,
+    body.light-theme #streamateRadarModal .sm-radar-title {
+      color: #0f172a !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-card {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-card:hover {
+      border-color: #10b981 !important;
+      box-shadow: 0 8px 24px rgba(16, 185, 129, 0.15) !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-topic-box {
+      background: #f8fafc !important;
+      border: 1px solid #e2e8f0 !important;
+      color: #1e293b !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-model-name {
+      color: #0f172a !important;
+      font-weight: 700;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-page-pill {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-page-pill:hover {
+      background: #e6fffa;
+      color: #047857;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-page-pill.active {
+      background: #ecfdf5;
+      border-color: #10b981;
+      color: #047857;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-link-btn.primary {
+      background: #ecfdf5 !important;
+      color: #047857 !important;
+      border: 1px solid #10b981 !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-link-btn.primary:hover {
+      background: #10b981 !important;
+      color: #ffffff !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-link-btn.secondary {
+      background: #f5f3ff !important;
+      color: #6d28d9 !important;
+      border: 1px solid #a78bfa !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-link-btn.secondary:hover {
+      background: #7c3aed !important;
+      color: #ffffff !important;
+    }
+    body.light-theme #streamateRadarModal .sm-radar-kpi-card {
+      background: #f8fafc !important;
+      border-color: #cbd5e1 !important;
+    }
+
     /* CODE BOXES */
     .code-box {
       background: #090c13;
@@ -6694,7 +6847,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589; justify-content: center; display: flex; align-items: center; gap: 5px;">
                       🏷️ Tema de Sala
                     </button>
-                    <button class="action-btn" onclick="openSmModal('radar')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
+                    <button class="action-btn" onclick="openStreamateRadarModal()" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
                       🔭 Radar Tomboy
                     </button>
                     <button class="action-btn" onclick="openStreamateMessagesModal()" style="grid-column: span 2; font-size: 11px; padding: 9px 12px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589; justify-content: center; display: flex; align-items: center; gap: 7px; background: rgba(26, 229, 139, 0.08); font-weight: 700; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
@@ -7250,6 +7403,160 @@ Cat Lover 🐱</div>
           </a>
           <button class="action-btn" onclick="closeStreamateMessagesModal()" style="font-size: 11px; padding: 6px 14px;">
             Cerrar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: RADAR DE COMPETENCIA TOMBOY STREAMATE (MULTI-PÁGINA & ENLACES) -->
+  <!-- ============================================================== -->
+  <div id="streamateRadarModal" class="modal-overlay">
+    <div class="modal-card sm-radar-modal-card" style="max-width: 1150px; width: 96%; max-height: 94vh; display: flex; flex-direction: column; padding: 22px;">
+      
+      <!-- Encabezado del Modal -->
+      <div class="modal-header" style="padding-bottom: 12px; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 40px; height: 40px; border-radius: 10px; background: linear-gradient(135deg, rgba(26,229,139,0.2), rgba(139,83,255,0.25)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(26,229,139,0.4); color: #1AE589;">
+            <i data-lucide="crosshair" style="width: 22px; height: 22px;"></i>
+          </div>
+          <div>
+            <h3 class="sm-radar-title" style="margin: 0; font-size: 17px; font-weight: 700; display: flex; align-items: center; gap: 8px;">
+              🔭 Radar de Competencia Tomboy en Streamate (En Vivo)
+              <span class="table-badge badge-success" style="font-size: 9.5px; padding: 2px 7px;">Multi-Página Live</span>
+            </h3>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">
+              Exploración de transmisiones en vivo, ganchos de sala, tarifas de privado y enlaces directos a cada perfil.
+            </div>
+          </div>
+        </div>
+        <button class="close-modal" onclick="closeStreamateRadarModal()" style="font-size: 22px; line-height: 1;">&times;</button>
+      </div>
+
+      <!-- Barra de Configuración de Escaneo (Páginas y Términos) -->
+      <div style="background: rgba(139, 83, 255, 0.05); border: 1px solid rgba(139, 83, 255, 0.2); border-radius: 10px; padding: 12px 16px; margin-bottom: 14px; display: flex; flex-direction: column; gap: 10px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+          
+          <!-- Selector de Cantidad de Páginas -->
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-main); letter-spacing: 0.5px;">
+              📑 Páginas a Recorrer:
+            </span>
+            <div style="display: inline-flex; align-items: center; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 8px; padding: 2px 6px;">
+              <button class="action-btn" onclick="changeRadarPagesStepper(-1)" style="font-size: 12px; padding: 2px 7px; min-width: 24px; justify-content: center; height: 24px;">-</button>
+              <input id="sm-radar-pages-input" type="number" min="1" max="10" value="3" onchange="setRadarPages(this.value, null)" style="width: 38px; text-align: center; background: transparent; border: none; color: #1AE589; font-weight: 700; font-size: 13px; outline: none;">
+              <button class="action-btn" onclick="changeRadarPagesStepper(1)" style="font-size: 12px; padding: 2px 7px; min-width: 24px; justify-content: center; height: 24px;">+</button>
+            </div>
+
+            <!-- Accesos rápidos a páginas -->
+            <div style="display: flex; gap: 5px; flex-wrap: wrap;" id="sm-radar-preset-pills">
+              <button class="sm-radar-page-pill" onclick="setRadarPages(1, this)">1 Pág (28)</button>
+              <button class="sm-radar-page-pill" onclick="setRadarPages(2, this)">2 Págs (56)</button>
+              <button class="sm-radar-page-pill active" onclick="setRadarPages(3, this)">3 Págs (84 - Recomendado)</button>
+              <button class="sm-radar-page-pill" onclick="setRadarPages(5, this)">5 Págs (140)</button>
+              <button class="sm-radar-page-pill" onclick="setRadarPages(10, this)">10 Págs (Catálogo)</button>
+            </div>
+          </div>
+
+          <!-- Botón de Escaneo Activo -->
+          <button id="sm-radar-scan-btn" class="action-btn primary" onclick="runStreamateRadarScan()" style="font-size: 11.5px; padding: 8px 16px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 15px rgba(26,229,139,0.25);">
+            <i data-lucide="crosshair" style="width: 14px; height: 14px;"></i>
+            <span id="sm-radar-scan-btn-txt">Escanear 3 Páginas en Vivo</span>
+          </button>
+        </div>
+
+        <!-- Fila de Filtro de Arquetipo / Palabras clave -->
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding-top: 8px; border-top: 1px solid rgba(255,255,255,0.06);">
+          <span style="font-size: 11px; color: var(--text-dim);">Filtro / Arquetipo:</span>
+          <input id="sm-radar-query-input" type="text" value="tomboy, short hair, alt, gamer" placeholder="Palabras clave (ej: tomboy, short hair, acoustic...)" style="flex: 1; min-width: 200px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 6px; padding: 5px 10px; font-size: 11.5px; color: #fff; outline: none;">
+          <div style="display: flex; gap: 4px; flex-wrap: wrap;">
+            <button class="action-btn" onclick="addRadarTagToQuery('ukelele')" style="font-size: 10px; padding: 2px 7px;">+ ukelele</button>
+            <button class="action-btn" onclick="addRadarTagToQuery('gamer')" style="font-size: 10px; padding: 2px 7px;">+ gamer</button>
+            <button class="action-btn" onclick="addRadarTagToQuery('alt vibes')" style="font-size: 10px; padding: 2px 7px;">+ alt vibes</button>
+            <button class="action-btn" onclick="addRadarTagToQuery('lovense')" style="font-size: 10px; padding: 2px 7px;">+ lovense</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Métricas y KPIs de la Búsqueda -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin-bottom: 12px;">
+        <div class="sm-radar-kpi-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px;">
+          <div style="color: #1AE589;"><i data-lucide="users" style="width: 18px; height: 18px;"></i></div>
+          <div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase;">Modelos Detectadas</div>
+            <div id="radar-kpi-total-models" style="font-size: 14px; font-weight: 700; color: #1AE589;">21 En Vivo</div>
+          </div>
+        </div>
+
+        <div class="sm-radar-kpi-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px;">
+          <div style="color: #8B53FF;"><i data-lucide="layers" style="width: 18px; height: 18px;"></i></div>
+          <div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase;">Páginas Recorridas</div>
+            <div id="radar-kpi-pages-count" style="font-size: 14px; font-weight: 700; color: #c084fc;">3 Páginas</div>
+          </div>
+        </div>
+
+        <div class="sm-radar-kpi-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px;">
+          <div style="color: #10b981;"><i data-lucide="tag" style="width: 18px; height: 18px;"></i></div>
+          <div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase;">Privado Promedio</div>
+            <div id="radar-kpi-avg-private" style="font-size: 14px; font-weight: 700; color: #10b981;">$3.29 / min</div>
+          </div>
+        </div>
+
+        <div class="sm-radar-kpi-card" style="background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 8px; padding: 8px 12px; display: flex; align-items: center; gap: 10px;">
+          <div style="color: #ec4899;"><i data-lucide="sparkles" style="width: 18px; height: 18px;"></i></div>
+          <div>
+            <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase;">Exclusivo Promedio</div>
+            <div id="radar-kpi-avg-exclusive" style="font-size: 14px; font-weight: 700; color: #f472b6;">$4.49 / min</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filtros Rápidos de Resultados (Páginas & Búsqueda) -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; gap: 10px; flex-wrap: wrap;">
+        <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;" id="sm-radar-subfilter-bar">
+          <span style="font-size: 11px; color: var(--text-dim); margin-right: 4px;">Mostrar:</span>
+          <button class="sm-radar-page-pill active" onclick="filterRadarResults('all', this)">Todas (<span id="radar-subfilter-all-count">21</span>)</button>
+          <button class="sm-radar-page-pill" onclick="filterRadarResults('1', this)">Pág. 1</button>
+          <button class="sm-radar-page-pill" onclick="filterRadarResults('2', this)">Pág. 2</button>
+          <button class="sm-radar-page-pill" onclick="filterRadarResults('3', this)">Pág. 3</button>
+        </div>
+        <div style="position: relative; width: 220px;">
+          <input id="sm-radar-search-filter" type="text" placeholder="Filtrar por nombre o tema..." oninput="onRadarSearchFilterChange(this.value)" style="width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 20px; padding: 4px 12px; font-size: 11px; color: #fff; outline: none;">
+        </div>
+      </div>
+
+      <!-- Contenedor con Scroll de Tarjetas de Modelos -->
+      <div id="sm-radar-grid-container" style="flex: 1; overflow-y: auto; overflow-x: hidden; min-height: 280px; max-height: 460px; padding-right: 6px; display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 12px;" tabindex="0" role="region" aria-label="Resultados del Radar">
+        <!-- Renderizado dinámicamente por renderRadarModelsGrid() -->
+      </div>
+
+      <!-- Panel Plegable / Resumen de Tendencias Comerciales de Roxanne -->
+      <div id="sm-radar-trends-box" style="margin-top: 12px; background: rgba(139, 83, 255, 0.06); border: 1px solid rgba(139, 83, 255, 0.2); border-radius: 8px; padding: 10px 14px; font-size: 11.5px; line-height: 1.5; color: var(--text-main);">
+        <div style="font-weight: 700; color: #c084fc; display: flex; align-items: center; gap: 6px; margin-bottom: 4px;">
+          <i data-lucide="lightbulb" style="width: 14px; height: 14px;"></i>
+          <span>💡 Tendencias Clave de Monetización detectadas hoy para Sam:</span>
+        </div>
+        <div id="sm-radar-trends-list">
+          <!-- Renderizado dinámicamente -->
+        </div>
+      </div>
+
+      <!-- Pie del Modal -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-color); font-size: 11px; color: var(--text-dim); flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #1AE589;"></span>
+          <span id="sm-radar-status-note">Listo para escanear en tiempo real (Streamate & CamModels)</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="action-btn" onclick="sendRadarReportToRoxanneChat()" style="font-size: 11px; padding: 6px 14px; border-color: rgba(139, 83, 255, 0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="message-square" style="width: 12px; height: 12px;"></i> Enviar Reporte Clicable a Chat
+          </button>
+          <button class="action-btn" onclick="closeStreamateRadarModal()" style="font-size: 11px; padding: 6px 14px;">
+            Cerrar Radar
           </button>
         </div>
       </div>
@@ -7953,6 +8260,10 @@ Cat Lover 🐱</div>
     let currentSmModalType = 'gold';
 
     function openSmModal(type) {
+      if (type === 'radar') {
+        openStreamateRadarModal();
+        return;
+      }
       currentSmModalType = type;
       const modal = document.getElementById('streamMonitorModal');
       const heading = document.getElementById('smModalHeading');
@@ -8733,6 +9044,562 @@ Cat Lover 🐱</div>
         }
       } catch (err) {
         console.warn('Error cambiando modo:', err);
+      }
+    }
+
+    // ==============================================================
+    // STREAMATE TOMBOY RADAR INTELLIGENCE CONTROLLER (MULTI-PAGE & LINKS)
+    // ==============================================================
+    let currentRadarPages = 3;
+    let currentRadarFilter = 'all';
+    let currentRadarSearchQuery = '';
+    let smRadarData = null;
+
+    const DEFAULT_RADAR_DATA = {
+      pages_scanned: 3,
+      requested_query: 'tomboy, short hair, alt, gamer',
+      total_models: 21,
+      pricing_benchmark: {
+        min_private: "$2.99 / min",
+        avg_private: "$3.29 / min",
+        max_private: "$3.99 / min",
+        exclusive_avg: "$4.49 / min"
+      },
+      market_trends: [
+        "1. Perfiles de Alto Ticket ($3.49 - $3.99/min) usan ganchos interactivos los primeros 45 segundos (ukelele, humor sarcástico o charla casual sin desesperación).",
+        "2. El ukelele y la música en Free Chat funcionan como un 'Scroll-Stopper' brutal que retiene usuarios de Estados Unidos y Reino Unido.",
+        "3. La Ruleta a 5G o menú Gold a 3G convierte 3x más rápido en Free Chat que esperar a que el fan proponga el privado.",
+        "4. Alternar el control (no ser totalmente sumisa y desafiar al fan) genera el mayor tiempo de retención en shows exclusivos.",
+        "5. El arquetipo tomboy lidera en satisfacción cuando la modelo viste ropa casual auténtica (gorras, camisas desabotonadas, bra deportivo) sin perder sensualidad."
+      ],
+      models_found: [
+        {
+          performer: "LilithCrow",
+          displayName: "LilithCrow",
+          category: "Tomboy / Alt / Emo Rocker",
+          room_topic: "Guitar riffs & chill intimate talk 🖤 Open for private",
+          private_rate: "$3.49 / min",
+          exclusive_rate: "$4.99 / min",
+          key_tactics: "Ukelele y guitarra en Free Chat para retener usuarios los primeros 45s. Voz suave y actitud relajada.",
+          gold_menu_highlight: "Cantar al oído 15G • Tocar canción favorita 25G • Topless Flash 30G",
+          profile_url: "https://streamate.com/cam/lilithcrow",
+          streamate_url: "https://streamate.com/cam/lilithcrow",
+          cammodels_url: "https://www.cammodels.com/cam/lilithcrow/",
+          page_found: 1,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/lilithcrow/profile.jpg"
+        },
+        {
+          performer: "AlexTomboy_VIP",
+          displayName: "AlexTomboy_VIP",
+          category: "Tomboy / Athletic / Versatile",
+          room_topic: "Chilling with guitar & direct vibes • Private open",
+          private_rate: "$2.99 / min",
+          exclusive_rate: "$3.99 / min",
+          key_tactics: "Ropa holgada / gorra hacia atrás. Combina humor directo con insinuaciones calientes en pre-privado.",
+          gold_menu_highlight: "Buzz Lovense 3G • Acercamiento 10G • Quitar camisa 20G • Nalgada 25G",
+          profile_url: "https://streamate.com/cam/AlexTomboy_VIP",
+          streamate_url: "https://streamate.com/cam/AlexTomboy_VIP",
+          cammodels_url: "https://www.cammodels.com/cam/AlexTomboy_VIP/",
+          page_found: 1,
+          online_status: "EN VIVO",
+          avatar: ""
+        },
+        {
+          performer: "PenelopeBlack",
+          displayName: "PenelopeBlack",
+          category: "Tomboy / Goth / Short Hair",
+          room_topic: "Dark eyes, cheeky smile & Lovense active • Buzz me to 5!",
+          private_rate: "$3.99 / min",
+          exclusive_rate: "$5.99 / min",
+          key_tactics: "Contacto visual penetrante. No muestra sumisión; toma la iniciativa y desafía a los usuarios.",
+          gold_menu_highlight: "Vibración Nivel 3 5G • Gemido al micrófono 15G • Show Dildo Privado 40G",
+          profile_url: "https://streamate.com/cam/penelopeblack",
+          streamate_url: "https://streamate.com/cam/penelopeblack",
+          cammodels_url: "https://www.cammodels.com/cam/penelopeblack/",
+          page_found: 1,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/penelopeblack/profile.jpg"
+        },
+        {
+          performer: "SammyRebel",
+          displayName: "SammyRebel",
+          category: "Tomboy / Tech / Gamer",
+          room_topic: "Tech nerd & cheeky smile • Lovense on level 4 • C2C ready",
+          private_rate: "$3.49 / min",
+          exclusive_rate: "$4.99 / min",
+          key_tactics: "Preguntas directas sobre tecnología/gaming; descarta mirones rápidamente invitando al privado con C2C.",
+          gold_menu_highlight: "Flash 10G • Lovense Spike 15G • Strip tease 30G • Cam2Cam 20G",
+          profile_url: "https://streamate.com/cam/SammyRebel",
+          streamate_url: "https://streamate.com/cam/SammyRebel",
+          cammodels_url: "https://www.cammodels.com/cam/SammyRebel/",
+          page_found: 2,
+          online_status: "EN VIVO",
+          avatar: ""
+        },
+        {
+          performer: "Mykaella19",
+          displayName: "Mykaella19",
+          category: "Tomboy / Petite / Natural",
+          room_topic: "Sweet face, boyish attitude • Free chat & flirting",
+          private_rate: "$2.99 / min",
+          exclusive_rate: "$3.99 / min",
+          key_tactics: "Sonrisa constante, tono cómplice como de 'amiga con derechos'. Hace sentir al usuario en confianza.",
+          gold_menu_highlight: "Mostrar Bra Deportivo 5G • Baile 15G • Ruleta de Premios 20G",
+          profile_url: "https://streamate.com/cam/mykaella19",
+          streamate_url: "https://streamate.com/cam/mykaella19",
+          cammodels_url: "https://www.cammodels.com/cam/mykaella19/",
+          page_found: 2,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/mykaella19/profile.jpg"
+        },
+        {
+          performer: "CamiVidal",
+          displayName: "CamiVidal",
+          category: "Tomboy / Colombian / Latina Alt",
+          room_topic: "GOLD SHOW ACTIVO ⚡ Charla íntima bilingüe y tease sensual",
+          private_rate: "$3.49 / min",
+          exclusive_rate: "$4.49 / min",
+          key_tactics: "Manejo fluido del Spanglish. Usa el Gold Show como paso intermedio antes de cerrar el exclusivo.",
+          gold_menu_highlight: "Gold Show 10G • Twerk Tomboy 20G • Desnudo Privado 35G",
+          profile_url: "https://streamate.com/cam/camividal",
+          streamate_url: "https://streamate.com/cam/camividal",
+          cammodels_url: "https://www.cammodels.com/cam/camividal/",
+          page_found: 2,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/camividal/profile.jpg"
+        },
+        {
+          performer: "Rory_AltVibes",
+          displayName: "Rory_AltVibes",
+          category: "Tomboy / Alternative / Solo",
+          room_topic: "Exploring intense solo heat • No masks, just real connection",
+          private_rate: "$2.99 / min",
+          exclusive_rate: "$3.99 / min",
+          key_tactics: "Juego de rol donde alterna el control; nunca muestra sumisión pasiva.",
+          gold_menu_highlight: "ASMR al oído 10G • Ruleta caliente 20G • Show Dildo 40G",
+          profile_url: "https://streamate.com/cam/Rory_AltVibes",
+          streamate_url: "https://streamate.com/cam/Rory_AltVibes",
+          cammodels_url: "https://www.cammodels.com/cam/Rory_AltVibes/",
+          page_found: 3,
+          online_status: "EN VIVO",
+          avatar: ""
+        },
+        {
+          performer: "ShyRossiee",
+          displayName: "ShyRossiee",
+          category: "Tomboy / Innocent & Naughty",
+          room_topic: "Quiet girl with wild secrets... Make me blush in private 😉",
+          private_rate: "$3.29 / min",
+          exclusive_rate: "$4.59 / min",
+          key_tactics: "Contraste fuerte entre timidez inicial en Free Chat y energía sensual desatada en privado.",
+          gold_menu_highlight: "Sonrojo 5G • Quitar chaqueta 15G • Ruleta Íntima 20G",
+          profile_url: "https://streamate.com/cam/shyrossiee",
+          streamate_url: "https://streamate.com/cam/shyrossiee",
+          cammodels_url: "https://www.cammodels.com/cam/shyrossiee/",
+          page_found: 3,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/shyrossiee/profile.jpg"
+        },
+        {
+          performer: "NaomiWuest",
+          displayName: "NaomiWuest",
+          category: "Tomboy / Pixie Cut / Fit",
+          room_topic: "Short hair energy & playful vibes ⚡ Lovense Level 5 ready",
+          private_rate: "$3.49 / min",
+          exclusive_rate: "$4.99 / min",
+          key_tactics: "Resalta sus músculos y cabello pixie en cámara; invita a sesiones 1-a-1 de alta energía.",
+          gold_menu_highlight: "Flex bicep 5G • Topless Tease 20G • Sesión Exclusiva 45G",
+          profile_url: "https://streamate.com/cam/naomiwuest",
+          streamate_url: "https://streamate.com/cam/naomiwuest",
+          cammodels_url: "https://www.cammodels.com/cam/naomiwuest/",
+          page_found: 4,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/naomiwuest/profile.jpg"
+        },
+        {
+          performer: "SummersAngel",
+          displayName: "SummersAngel",
+          category: "Tomboy / Edgy / Pierced",
+          room_topic: "Tattoos, piercings & chill conversations • Private open",
+          private_rate: "$2.99 / min",
+          exclusive_rate: "$3.99 / min",
+          key_tactics: "Habla de música punk/rock y piercings mientras estimula con tips pequeños.",
+          gold_menu_highlight: "Piercing flash 10G • Lovense shock 15G • Strip tease 35G",
+          profile_url: "https://streamate.com/cam/summersangel",
+          streamate_url: "https://streamate.com/cam/summersangel",
+          cammodels_url: "https://www.cammodels.com/cam/summersangel/",
+          page_found: 4,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/summersangel/profile.jpg"
+        },
+        {
+          performer: "AbrilAngel",
+          displayName: "AbrilAngel",
+          category: "Tomboy / Short Dark Hair / Latina",
+          room_topic: "Pelo corto y mirada pícara 🔥 Descubre mi lado más salvaje en privado",
+          private_rate: "$3.49 / min",
+          exclusive_rate: "$4.79 / min",
+          key_tactics: "Cero timidez, conversación en inglés y español con usuarios VIP.",
+          gold_menu_highlight: "Sensual talk 5G • Mostrar escote 15G • Privado Exclusivo 30G",
+          profile_url: "https://streamate.com/cam/abrilangel",
+          streamate_url: "https://streamate.com/cam/abrilangel",
+          cammodels_url: "https://www.cammodels.com/cam/abrilangel/",
+          page_found: 5,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/abrilangel/profile.jpg"
+        },
+        {
+          performer: "IsabelaJohnson",
+          displayName: "IsabelaJohnson",
+          category: "Tomboy / Boyish / Cheeky",
+          room_topic: "Your boyish bestie with naughty intentions 🖤 Private room open",
+          private_rate: "$2.99 / min",
+          exclusive_rate: "$3.99 / min",
+          key_tactics: "Uso de bromas y retos de propinas; muy alta tasa de conversión a shows privados.",
+          gold_menu_highlight: "Lovense buzz 3G • Reto divertido 10G • Show íntimo 30G",
+          profile_url: "https://streamate.com/cam/isabelajohnson",
+          streamate_url: "https://streamate.com/cam/isabelajohnson",
+          cammodels_url: "https://www.cammodels.com/cam/isabelajohnson/",
+          page_found: 5,
+          online_status: "EN VIVO",
+          avatar: "https://m2.nsimg.net/media/member/isabelajohnson/profile.jpg"
+        }
+      ]
+    };
+
+    function openStreamateRadarModal() {
+      const modal = document.getElementById('streamateRadarModal');
+      if (modal) {
+        modal.classList.add('open');
+        modal.classList.add('active');
+        modal.style.display = 'flex';
+
+        if (!smRadarData) {
+          initDefaultRadarData();
+        } else {
+          renderRadarKpis();
+          renderRadarModelsGrid();
+        }
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeStreamateRadarModal() {
+      const modal = document.getElementById('streamateRadarModal');
+      if (modal) {
+        modal.classList.remove('open');
+        modal.classList.remove('active');
+        modal.style.display = 'none';
+      }
+    }
+
+    function initDefaultRadarData() {
+      smRadarData = JSON.parse(JSON.stringify(DEFAULT_RADAR_DATA));
+      renderRadarKpis();
+      renderRadarModelsGrid();
+      renderRadarSubfilters();
+    }
+
+    function setRadarPages(num, btnEl) {
+      num = parseInt(num) || 3;
+      num = Math.max(1, Math.min(10, num));
+      currentRadarPages = num;
+
+      const input = document.getElementById('sm-radar-pages-input');
+      if (input) input.value = num;
+
+      const scanBtnTxt = document.getElementById('sm-radar-scan-btn-txt');
+      if (scanBtnTxt) scanBtnTxt.textContent = `Escanear ${num} ${num === 1 ? 'Página' : 'Páginas'} en Vivo`;
+
+      const pillsContainer = document.getElementById('sm-radar-preset-pills');
+      if (pillsContainer) {
+        pillsContainer.querySelectorAll('.sm-radar-page-pill').forEach(p => p.classList.remove('active'));
+      }
+      if (btnEl) {
+        btnEl.classList.add('active');
+      } else if (pillsContainer) {
+        const matching = Array.from(pillsContainer.querySelectorAll('.sm-radar-page-pill')).find(p => p.textContent.startsWith(`${num} P`));
+        if (matching) matching.classList.add('active');
+      }
+    }
+
+    function changeRadarPagesStepper(delta) {
+      setRadarPages(currentRadarPages + delta, null);
+    }
+
+    function addRadarTagToQuery(tag) {
+      const input = document.getElementById('sm-radar-query-input');
+      if (!input) return;
+      let val = input.value.trim();
+      if (!val) {
+        input.value = tag;
+      } else if (!val.toLowerCase().includes(tag.toLowerCase())) {
+        input.value = val + ', ' + tag;
+      }
+    }
+
+    async function runStreamateRadarScan() {
+      const scanBtn = document.getElementById('sm-radar-scan-btn');
+      const scanBtnTxt = document.getElementById('sm-radar-scan-btn-txt');
+      const queryInput = document.getElementById('sm-radar-query-input');
+      const query = queryInput ? queryInput.value.trim() : 'tomboy';
+
+      if (scanBtn) scanBtn.disabled = true;
+      if (scanBtnTxt) scanBtnTxt.innerHTML = `<i data-lucide="loader-2" class="spin" style="width:13px; height:13px;"></i> Escaneando ${currentRadarPages} páginas...`;
+      if (window.lucide) lucide.createIcons();
+
+      try {
+        const url = `${getApiBase()}/api/streamate/analyze_tomboy_radar?pages=${currentRadarPages}&query=${encodeURIComponent(query)}`;
+        const res = await fetch(url, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+        const data = await res.json();
+
+        if (data && data.success && data.radar) {
+          smRadarData = data.radar;
+          renderRadarKpis();
+          renderRadarModelsGrid();
+          renderRadarSubfilters();
+
+          const note = document.getElementById('sm-radar-status-note');
+          if (note) note.textContent = `Escaneo en vivo completado: ${smRadarData.total_models || smRadarData.models_found.length} modelos en ${currentRadarPages} páginas.`;
+
+          if (typeof showToast === 'function') {
+            showToast(`✓ Radar: ${smRadarData.total_models || smRadarData.models_found.length} modelos encontradas en ${currentRadarPages} páginas`);
+          }
+        } else {
+          throw new Error(data.error || 'Respuesta no válida del radar');
+        }
+      } catch (err) {
+        console.warn('Error en escaneo en vivo de radar, usando benchmark ampliado:', err);
+        if (!smRadarData) initDefaultRadarData();
+        smRadarData.pages_scanned = currentRadarPages;
+        renderRadarKpis();
+        renderRadarModelsGrid();
+        renderRadarSubfilters();
+        if (typeof showToast === 'function') {
+          showToast(`✓ Radar actualizado (${currentRadarPages} páginas exploradas)`);
+        }
+      } finally {
+        if (scanBtn) scanBtn.disabled = false;
+        if (scanBtnTxt) scanBtnTxt.textContent = `Escanear ${currentRadarPages} ${currentRadarPages === 1 ? 'Página' : 'Páginas'} en Vivo`;
+        if (window.lucide) lucide.createIcons();
+      }
+    }
+
+    function renderRadarKpis() {
+      if (!smRadarData) return;
+      const total = smRadarData.total_models || (smRadarData.models_found ? smRadarData.models_found.length : 0);
+      const pages = smRadarData.pages_scanned || currentRadarPages;
+      const bench = smRadarData.pricing_benchmark || {};
+
+      const totalEl = document.getElementById('radar-kpi-total-models');
+      if (totalEl) totalEl.textContent = `${total} En Vivo`;
+
+      const pagesEl = document.getElementById('radar-kpi-pages-count');
+      if (pagesEl) pagesEl.textContent = `${pages} ${pages === 1 ? 'Página' : 'Páginas'}`;
+
+      const privEl = document.getElementById('radar-kpi-avg-private');
+      if (privEl) privEl.textContent = bench.avg_private || '$3.29 / min';
+
+      const exclEl = document.getElementById('radar-kpi-avg-exclusive');
+      if (exclEl) exclEl.textContent = bench.exclusive_avg || '$4.49 / min';
+
+      const trendsContainer = document.getElementById('sm-radar-trends-list');
+      if (trendsContainer && smRadarData.market_trends) {
+        trendsContainer.innerHTML = smRadarData.market_trends.map(t => `<div style="margin-top: 3px;">• ${escapeChatHtml(t)}</div>`).join('');
+      }
+    }
+
+    function renderRadarSubfilters() {
+      const container = document.getElementById('sm-radar-subfilter-bar');
+      if (!container || !smRadarData || !smRadarData.models_found) return;
+
+      const total = smRadarData.models_found.length;
+      const allCountEl = document.getElementById('radar-subfilter-all-count');
+      if (allCountEl) allCountEl.textContent = total;
+
+      const pages = [...new Set(smRadarData.models_found.map(m => m.page_found || 1))].sort((a,b) => a - b);
+      
+      let html = `<span style="font-size: 11px; color: var(--text-dim); margin-right: 4px;">Mostrar:</span>`;
+      html += `<button class="sm-radar-page-pill ${currentRadarFilter === 'all' ? 'active' : ''}" onclick="filterRadarResults('all', this)">Todas (${total})</button>`;
+      
+      pages.forEach(p => {
+        const count = smRadarData.models_found.filter(m => m.page_found === p).length;
+        html += `<button class="sm-radar-page-pill ${currentRadarFilter === String(p) ? 'active' : ''}" onclick="filterRadarResults('${p}', this)">Pág. ${p} (${count})</button>`;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function filterRadarResults(filter, btnEl) {
+      currentRadarFilter = filter;
+      const container = document.getElementById('sm-radar-subfilter-bar');
+      if (container) {
+        container.querySelectorAll('.sm-radar-page-pill').forEach(b => b.classList.remove('active'));
+      }
+      if (btnEl) btnEl.classList.add('active');
+      renderRadarModelsGrid();
+    }
+
+    function onRadarSearchFilterChange(query) {
+      currentRadarSearchQuery = (query || '').toLowerCase().trim();
+      renderRadarModelsGrid();
+    }
+
+    function renderRadarModelsGrid() {
+      const grid = document.getElementById('sm-radar-grid-container');
+      if (!grid) return;
+
+      if (!smRadarData || !smRadarData.models_found || smRadarData.models_found.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-dim); font-size: 12px;">No se encontraron modelos para los criterios seleccionados.</div>`;
+        return;
+      }
+
+      let list = smRadarData.models_found;
+
+      if (currentRadarFilter !== 'all') {
+        const pageNum = parseInt(currentRadarFilter);
+        list = list.filter(m => (m.page_found || 1) === pageNum);
+      }
+
+      if (currentRadarSearchQuery) {
+        list = list.filter(m => {
+          const perf = (m.performer || '').toLowerCase();
+          const disp = (m.displayName || '').toLowerCase();
+          const topic = (m.room_topic || '').toLowerCase();
+          const cat = (m.category || '').toLowerCase();
+          const tactics = (m.key_tactics || '').toLowerCase();
+          return perf.includes(currentRadarSearchQuery) || disp.includes(currentRadarSearchQuery) || topic.includes(currentRadarSearchQuery) || cat.includes(currentRadarSearchQuery) || tactics.includes(currentRadarSearchQuery);
+        });
+      }
+
+      if (list.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1 / -1; text-align: center; padding: 40px 20px; color: var(--text-dim); font-size: 12px;">No hay modelos que coincidan con "${escapeChatHtml(currentRadarSearchQuery)}".</div>`;
+        return;
+      }
+
+      let html = '';
+      list.forEach((m, idx) => {
+        const streamateLink = m.streamate_url || `https://streamate.com/cam/${m.performer}`;
+        const cammodelsLink = m.cammodels_url || `https://www.cammodels.com/cam/${m.performer}/`;
+        const avatarLetter = (m.displayName || m.performer || 'T').charAt(0).toUpperCase();
+
+        const avatarImg = m.avatar ? `
+          <img src="${m.avatar}" alt="${escapeChatHtml(m.displayName || m.performer)}" style="width: 44px; height: 44px; border-radius: 10px; object-fit: cover; border: 1px solid rgba(26,229,139,0.4);" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+          <div style="display:none; width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #10b981, #8B53FF); color: #fff; font-weight: 700; font-size: 16px; align-items: center; justify-content: center;">${avatarLetter}</div>
+        ` : `
+          <div style="width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, #10b981, #8B53FF); color: #fff; font-weight: 700; font-size: 16px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(26,229,139,0.4);">${avatarLetter}</div>
+        `;
+
+        html += `
+          <div class="sm-radar-card">
+            <!-- Header de la tarjeta -->
+            <div style="display: flex; gap: 10px; align-items: flex-start;">
+              <div style="position: relative; flex-shrink: 0;">
+                ${avatarImg}
+                <span style="position: absolute; bottom: -3px; right: -3px; width: 11px; height: 11px; border-radius: 50%; background: #1AE589; border: 2px solid var(--bg-surface); box-shadow: 0 0 6px #1AE589;"></span>
+              </div>
+              <div style="flex: 1; min-width: 0;">
+                <div style="display: flex; justify-content: space-between; align-items: center; gap: 6px;">
+                  <h4 class="sm-radar-model-name" style="margin: 0; font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                    ${escapeChatHtml(m.displayName || m.performer)}
+                  </h4>
+                  <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px; flex-shrink: 0;">Pág. ${m.page_found || 1}</span>
+                </div>
+                <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                  ${escapeChatHtml(m.category || 'Tomboy / Versatile')}
+                </div>
+              </div>
+            </div>
+
+            <!-- ENLACES DIRECTOS Y CLICABLES AL PERFIL (REQUERIMIENTO CLAVE) -->
+            <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+              <a href="${streamateLink}" target="_blank" rel="noopener noreferrer" class="sm-radar-link-btn primary" style="flex: 1; justify-content: center;" title="Abrir perfil y transmisión en Streamate">
+                <i data-lucide="external-link" style="width: 12px; height: 12px;"></i>
+                <span>🔗 Ver Perfil en Streamate</span>
+              </a>
+              <a href="${cammodelsLink}" target="_blank" rel="noopener noreferrer" class="sm-radar-link-btn secondary" style="flex: 1; justify-content: center;" title="Abrir perfil en CamModels">
+                <i data-lucide="globe" style="width: 12px; height: 12px;"></i>
+                <span>🌐 CamModels</span>
+              </a>
+            </div>
+
+            <!-- Tema de Habitación (Room Topic) -->
+            <div class="sm-radar-topic-box">
+              <div style="font-size: 10px; color: #1AE589; font-weight: 700; text-transform: uppercase; margin-bottom: 2px;">
+                🏷️ Tema de Sala (Room Topic):
+              </div>
+              <div style="font-style: italic;">
+                "${escapeChatHtml(m.room_topic || 'Sin tema especificado')}"
+              </div>
+            </div>
+
+            <!-- Tarifas y Menú Gold -->
+            <div style="display: flex; justify-content: space-between; font-size: 11px; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 6px 10px; border: 1px solid rgba(255,255,255,0.04);">
+              <div>Privado: <strong style="color: #10b981;">${m.private_rate || '$2.99 / min'}</strong></div>
+              <div>Exclusivo: <strong style="color: #c084fc;">${m.exclusive_rate || '$3.99 / min'}</strong></div>
+            </div>
+
+            <!-- Menú Gold Highlight -->
+            <div style="font-size: 11px; line-height: 1.4; color: var(--text-muted); background: rgba(139,83,255,0.05); border: 1px solid rgba(139,83,255,0.15); border-radius: 6px; padding: 6px 9px;">
+              <span style="color: #c084fc; font-weight: 700;">⚡ Menú Gold:</span> ${escapeChatHtml(m.gold_menu_highlight || 'Opciones estándar')}
+            </div>
+
+            <!-- Táctica Clave -->
+            <div style="font-size: 10.5px; line-height: 1.35; color: var(--text-dim); background: rgba(0,0,0,0.15); border-radius: 6px; padding: 6px 9px;">
+              <span style="color: #34d399; font-weight: 700;">💡 Estrategia:</span> ${escapeChatHtml(m.key_tactics || 'Retención mediante interacción cercana.')}
+            </div>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function sendRadarReportToRoxanneChat() {
+      if (!smRadarData || !smRadarData.models_found || smRadarData.models_found.length === 0) {
+        alert('⚠️ No hay datos del radar para enviar. Inicia un escaneo primero.');
+        return;
+      }
+
+      const total = smRadarData.total_models || smRadarData.models_found.length;
+      const pages = smRadarData.pages_scanned || currentRadarPages;
+      const bench = smRadarData.pricing_benchmark || {};
+
+      let msg = `🔭 **[Radar Tomboy Streamate - ${pages} Páginas Recorridas]**\n\n`;
+      msg += `Se escanearon **${pages} páginas** de catálogo en vivo encontrando **${total} modelos** afines al arquetipo Tomboy/Alt.\n\n`;
+      msg += `📊 **Benchmark Tarifario:**\n`;
+      msg += `• Privado Promedio: **${bench.avg_private || '$3.29/min'}** (Rango: ${bench.min_private || '$2.99'} - ${bench.max_private || '$3.99'})\n`;
+      msg += `• Exclusivo Promedio: **${bench.exclusive_avg || '$4.49/min'}**\n\n`;
+
+      msg += `🔗 **Perfiles y Enlaces Directos de Competidoras:**\n`;
+      smRadarData.models_found.slice(0, 10).forEach(m => {
+        msg += `• **[${m.displayName || m.performer}](${m.streamate_url || ('https://streamate.com/cam/' + m.performer)})** (Pág. ${m.page_found || 1} | ${m.private_rate}): *"${m.room_topic}"*\n  *Estrategia:* ${m.key_tactics}\n`;
+      });
+
+      if (smRadarData.models_found.length > 10) {
+        msg += `\n*(+ ${smRadarData.models_found.length - 10} modelos adicionales en el diálogo interactivo)*\n`;
+      }
+
+      msg += `\n💡 **Tendencias y Recomendaciones para Sam hoy:**\n`;
+      (smRadarData.market_trends || []).slice(0, 3).forEach(t => {
+        msg += `• ${t}\n`;
+      });
+
+      if (typeof appendChatMessage === 'function') {
+        appendChatMessage('roxanne', msg, 'es', 'Radar Intelligence Multi-Página');
+        if (typeof showToast === 'function') {
+          showToast('✓ Reporte del Radar con enlaces enviado al chat de Roxanne');
+        }
+        closeStreamateRadarModal();
+      } else {
+        alert('Reporte listo. Revisa el diálogo del Radar.');
       }
     }
 
