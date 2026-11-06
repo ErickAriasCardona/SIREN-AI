@@ -79,7 +79,6 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
     if assistant_id == "chloe":
         if is_table_query:
             return (
-                "✨ **[CHLOE - Matriz de Contenido Semanal para Instagram]**\n\n"
                 "Sam, aquí tienes tu matriz estratégica de publicaciones para la semana en **@sambartonn23**:\n\n"
                 "| Día | Formato | Temática Tomboy | Objetivo de Interacción | Llamado a la Acción (CTA) |\n"
                 "|---|---|---|---|---|\n"
@@ -94,7 +93,6 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         elif any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
             return (
-                "✨ **[CHLOE - Estrategia Rápida de Instagram]**\n\n"
                 "Para tus historias de hoy con vibra tomboy:\n"
                 "1. **Mañana**: Boomerang casual afinando el ukelele o preparando café con texto: *'Modo enfoque activado... ¿quién anda por acá?'* + sticker de encuesta.\n"
                 "2. **Tarde**: Foto en cabina/set con luz tenue: *'Segunda mitad del día, lista para lo bueno 🖤'*.\n"
@@ -102,18 +100,15 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
-                "✨ **[CHLOE - Asistente de Instagram]**\n\n"
                 "¡Hola Sam! Lista para mover el algoritmo de @sambartonn23 hoy. ¿Quieres que preparemos una matriz de contenido semanal, el pack de historias del día o un copy para tu próximo post?"
             )
         else:
             return (
-                f"✨ **[CHLOE - Estrategia Instagram]**\n\n"
                 f"Sam, respecto a tu consulta: para mantener alta la retención en @sambartonn23, publica historias con stickers interactivos cada 3 horas y usa siempre un gancho claro al inicio."
             )
     elif assistant_id == "diana":
         if is_table_query or any(w in msg_low for w in ["ganancia", "split", "cuanto", "precio", "privado", "exclusivo", "gold", "dolar", "balance"]):
             return (
-                "📊 **[DIANA - Matriz Financiera & Splits de Monetización]**\n\n"
                 "Sam, aquí tienes la auditoría detallada y matriz comparativa de tus splits reales por plataforma:\n\n"
                 "| Plataforma / Modalidad | Tarifa Pública | Split Estudio / Fee | Neto Sam Barton | Neto Estimado por Sesión |\n"
                 "|---|---|---|---|---|\n"
@@ -127,18 +122,15 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
-                "📊 **[DIANA - Auditora Financiera]**\n\n"
                 "¡Hola Sam! Aquí revisando tus balances y proyecciones. ¿Quieres que auditemos tus splits en una tabla matriz o revisemos el balance para el próximo corte?"
             )
         else:
             return (
-                f"📊 **[DIANA - Auditoría Financiera]**\n\n"
                 f"Sam, analizando tu consulta: recuerda siempre separar los ingresos directos (LoyalFans 80%) de los de cuenta estudio (Streamate 50% split) para calcular con exactitud tu flujo de caja neto."
             )
     elif assistant_id == "electra":
         if is_table_query:
             return (
-                "⚡ **[ELECTRA - Matriz Algorítmica de Tráfico & Bumps]**\n\n"
                 "Sam, esta es tu matriz de posicionamiento y horarios de tráfico alto para dominar los feeds:\n\n"
                 "| Plataforma | Factor Algorítmico | Horario Óptimo (USA / Col) | Acción Inmediata | Impacto en Ranking |\n"
                 "|---|---|---|---|---|\n"
@@ -150,7 +142,6 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         elif any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
             return (
-                "⚡ **[ELECTRA - Tráfico & Algoritmos]**\n\n"
                 "Sam, checklist del algoritmo:\n"
                 "1. **LoyalFans**: Ejecuta el bump cada 3.5 horas exactas. Esto te devuelve a la parte superior del feed orgánico.\n"
                 "2. **Streamate**: Los primeros 30 segundos de free chat definen tu multiplicador de visibilidad. Mantén la interacción verbal activa de inmediato.\n"
@@ -158,37 +149,66 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
-                "⚡ **[ELECTRA - Algoritmos & Tráfico]**\n\n"
                 "¡Hola Sam! Monitores de tráfico al 100%. ¿Quieres revisar una matriz de horarios de tráfico o el cooldown de tu bump en LoyalFans?"
             )
         else:
             return (
-                f"⚡ **[ELECTRA - Algoritmos de Tráfico]**\n\n"
                 f"Sam, sobre tu consulta: para elevar el score en los rankings de streaming, cambia el tema de sala cada 90 minutos y estimula las propinas rápidas en los primeros minutos de transmisión."
             )
     else: # Roxanne
-        if is_table_query:
+        if any(w in msg_low for w in ["menu", "menú", "gold", "ruleta", "rueda", "wheel", "topic", "tema", "sala", "buzz"]):
             return (
-                "🐺 **[ROXANNE - Matriz de Dinámicas & Tarifas de Turno]**\n\n"
+                "¡Entendido, Sam! Aquí tienes tu configuración completa para hoy enfocada en **Golds & Buzz Lovense**, con precios accesibles (3G y 5G), opciones de ruleta más íntimas (distintas al menú) y el topic con hashtags optimizado a 110 caracteres (límite 140):\n\n"
+                "### ⚡ 1. Menú GOLD (Todos a 3 Gold)\n"
+                "*(Estructura lista para copiar en la herramienta Menú GOLD)*\n"
+                "```text\n"
+                "Buzz Lovense Nivel 1 (15 seg) - 3\n"
+                "Vibración Lovense Media (25 seg) - 3\n"
+                "Subir Top / Mostrar Bra Deportivo - 3\n"
+                "Nalgadita Sonora en Cámara - 3\n"
+                "Desabotonar Camisa Tomboy - 3\n"
+                "Susurro Erótico al Micrófono - 3\n"
+                "```\n\n"
+                "### 🎡 2. Ruleta Íntima (Costo: 5 Gold por giro)\n"
+                "*(Opciones más íntimas y exclusivas, 100% diferentes al menú Gold)*\n"
+                "```text\n"
+                "Costo: 5\n"
+                "Buzz Lovense Nivel Máximo (45 seg)\n"
+                "Twerk Tomboy Lento y Cercano\n"
+                "Topless Rápido Flash (5 seg)\n"
+                "Control Total de mi Lovense x 1 min\n"
+                "Baile Sensual con Gorra Hacia Atrás\n"
+                "Quitarme la Camisa (Quedo en Bra)\n"
+                "Tease Exclusivo en Pantalón Ajustado\n"
+                "Doble Giro de Ruleta Gratis\n"
+                "Audio Erótico Susurrado al Oído\n"
+                "1 Minuto de Pre-Privado Exclusivo\n"
+                "```\n\n"
+                "### 🏷️ 3. Tema de la Sala (110 caracteres / Máx 140)\n"
+                "```text\n"
+                "🔥 BUZZ LOVENSE ACTIVO 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy en Vivo #Tomboy #Lovense #Gold #Cam2Cam\n"
+                "```\n\n"
+                "💡 *Ya actualicé y dejé guardados estos valores en tu configuración local. Al abrir cualquiera de los botones de Stream Monitor en la barra lateral derecha, ya los encontrarás precargados para aplicar.*"
+            )
+        elif is_table_query:
+            return (
                 "Sam, aquí tienes la matriz estructurada con tus tarifas y dinámicas recomendadas para el turno:\n\n"
                 "| Modalidad / Nivel | Tarifa Sugerida | Dinámica en Cámara | Meta de Tensión / Conversión |\n"
                 "|---|---|---|---|\n"
                 "| **Free Chat Público** | Gratis | Charla cercana + ukelele acústico | Enganchar en primeros 30s sin mostrar de más |\n"
                 "| **Privado Cam2Cam** | **$2.99 / min** | Miradas fijas, susurros y complicidad | Mantener al fan mínimo 5 minutos ($2.60 neto) |\n"
                 "| **Exclusivo VIP** | **$3.99 / min** | Rol personalizado alternando el control | Tensión sensual progresiva sin sumisión forzada |\n"
-                "| **Gold Menu: Nivel 1** | **10 Gold ($1.75 neto)** | Tocar intro acústica dedicada | Gancho rápido para calentar sala |\n"
-                "| **Gold Menu: Nivel 2** | **25 Gold ($4.37 neto)** | Desabotonar camisa / cambio outfit tomboy | Escalar el interés hacia show privado |\n"
+                "| **Gold Menu: Nivel 1** | **3 Gold (Económico)** | Buzz Lovense o subida de top | Gancho de volumen y microtips rápidos |\n"
+                "| **Ruleta de Turno** | **5 Gold por giro** | Dinámicas íntimas (Twerk, Tease, Control) | Retención y juego continuo en sala |\n"
                 "| **Gold Menu: Clímax** | **50 Gold ($8.75 neto)** | Dinámica Lovense nivel máximo | Conexión directa y salto a exclusivo |\n\n"
                 "💡 **Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
-                "🐺 **[ROXANNE - Co-Piloto]**\n\n"
                 "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, una matriz de tarifas o preparemos las dinámicas de cámara."
             )
         elif any(w in msg_low for w in ["mensaje", "mensajes", "messenger", "pendiente", "pendientes", "responder", "inbox"]):
             return (
-                "🐺 **[ROXANNE - Reporte de Mensajes Pendientes en Streamate Models]**\n\n"
                 "Sam, he auditado tu bandeja de entrada de **Streamate Messenger** consultando tus 5 mensajes pendientes:\n\n"
                 "| Fan / Usuario | Tiempo sin Responder | Último Mensaje Recibido | Sugerencia Streamate (Oficial) | Sugerencia Roxanne (Tomboy & Monetización) | Elección IA |\n"
                 "|---|---|---|---|---|---|\n"
@@ -201,13 +221,11 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
             return (
-                "🐺 **[ROXANNE - Co-Piloto]**\n\n"
                 "Pégame el mensaje que te envió el fan y te preparo 2 opciones de respuesta de inmediato: una coqueta y directa con tu vibra tomboy, y otra para monetizar con fotos o propinas."
             )
         else:
             return (
-                f"🐺 **[ROXANNE - Co-Piloto]**\n\n"
-                f"Sam, respecto a tu mensaje: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
+                f"Sam, respecto a tu consulta: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
             )
 
 DB_PATH = ROOT / "data" / "velvet_analytics.db"
