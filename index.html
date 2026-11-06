@@ -120,19 +120,23 @@
       border-color: #cbd5e1;
     }
     body.light-theme .chat-bubble {
-      background: #f1f5f9;
+      background: #ffffff;
       color: #0f172a;
-      border-color: #e2e8f0;
+      border-color: #cbd5e1;
     }
-    body.light-theme .chat-msg.sam .chat-bubble {
-      background: #f5f3ff;
-      border-color: #ddd6fe;
-      color: #4c1d95;
-    }
+    body.light-theme .chat-bubble.chat-bubble-sam,
     body.light-theme .chat-msg.fan .chat-bubble {
-      background: #f8fafc;
-      border-color: rgba(30, 36, 50, 0.12);
-      color: #1E2432;
+      background: #f3e8ff !important;
+      border: 1px solid #c4b5fd !important;
+      color: #1e1b4b !important;
+      box-shadow: 0 1px 4px rgba(139, 83, 255, 0.08);
+    }
+    body.light-theme .chat-bubble.chat-bubble-assistant,
+    body.light-theme .chat-msg.sam .chat-bubble {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 1px 6px rgba(0, 0, 0, 0.04);
     }
     body.light-theme .chat-messages-container {
       background: #f8fafc;
@@ -1221,6 +1225,19 @@
       color: #f1f5f9;
       border-top-left-radius: 2px;
     }
+    /* Bubbles dedicadas para el Chat de Asistentes */
+    .chat-bubble.chat-bubble-sam {
+      background: rgba(139, 83, 255, 0.18);
+      border: 1px solid rgba(139, 83, 255, 0.4);
+      color: #f8fafc;
+      border-top-right-radius: 2px;
+    }
+    .chat-bubble.chat-bubble-assistant {
+      background: rgba(30, 36, 50, 0.85);
+      border: 1px solid rgba(139, 83, 255, 0.28);
+      color: #f1f5f9;
+      border-top-left-radius: 2px;
+    }
     .copy-msg-btn {
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1252,6 +1269,7 @@
     .chat-bubble .chat-p {
       margin: 0 0 8px 0;
       line-height: 1.55;
+      color: inherit;
     }
     .chat-bubble .chat-p:last-child {
       margin-bottom: 0;
@@ -1261,23 +1279,24 @@
     .chat-bubble .chat-h3,
     .chat-bubble .chat-h4 {
       font-weight: 700;
-      color: #fff;
       margin: 12px 0 6px 0;
       display: flex;
       align-items: center;
       gap: 6px;
     }
-    .chat-bubble .chat-h1 { font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; }
+    .chat-bubble .chat-h1 { font-size: 15px; color: #fff; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 4px; }
     .chat-bubble .chat-h2 { font-size: 14px; color: var(--primary-light, #a77bff); }
     .chat-bubble .chat-h3 { font-size: 13px; color: var(--accent-green, #1ae589); }
-    .chat-bubble .chat-h4 { font-size: 12.5px; color: #e2e8f0; }
+    .chat-bubble .chat-h4 { font-size: 12.5px; color: #f1f5f9; }
 
     .chat-bubble strong {
-      color: #fff;
-      font-weight: 600;
+      color: inherit;
+      font-weight: 700;
+      filter: contrast(1.15);
     }
     .chat-bubble em {
-      color: #cbd5e1;
+      color: inherit;
+      opacity: 0.92;
       font-style: italic;
     }
     
@@ -1293,14 +1312,14 @@
     .chat-bubble .chat-list li,
     .chat-bubble .chat-ol li {
       line-height: 1.5;
-      color: #e2e8f0;
+      color: inherit;
     }
     .chat-bubble .chat-list li::marker {
       color: var(--primary-light, #a77bff);
     }
     .chat-bubble .chat-ol li::marker {
       color: var(--accent-green, #1ae589);
-      font-weight: 600;
+      font-weight: 700;
     }
 
     /* Badges de precios y métricas dentro de chats */
@@ -1325,7 +1344,7 @@
       padding: 8px 12px;
       border-radius: 0 8px 8px 0;
       margin: 8px 0;
-      color: #f1f5f9;
+      color: inherit;
       font-size: 12.5px;
     }
 
@@ -1363,13 +1382,10 @@
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 12px;
       line-height: 1.45;
-      color: #e2e8f0;
+      color: #f1f5f9;
     }
 
-    /* ==============================================================
-       TABLAS Y MATRICES EN EL CHAT (MODERN WEB GUIDANCE)
-       Responsive Table con sticky header, dark glass, overflow auto
-       ============================================================== */
+    /* Tablas y Matrices */
     .chat-bubble .chat-table-wrapper {
       position: relative;
       overflow-x: auto;
@@ -1407,7 +1423,7 @@
     .chat-bubble .chat-matrix-table td {
       padding: 8px 12px;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      color: #e2e8f0;
+      color: inherit;
       vertical-align: middle;
       line-height: 1.4;
     }
@@ -1421,7 +1437,8 @@
       background: rgba(139, 83, 255, 0.08);
     }
     .chat-bubble .chat-matrix-table td strong {
-      color: #fff;
+      color: inherit;
+      font-weight: 700;
     }
     .chat-bubble .matrix-summary-pill {
       display: inline-block;
@@ -1467,6 +1484,139 @@
       font-weight: 700;
       letter-spacing: -1.5px;
       font-size: 11px;
+    }
+
+    /* ==============================================================
+       ACCESSIBILITY & LIGHT THEME CONTRAST OVERRIDES (WCAG AAA)
+       Garantiza que listas, títulos, tablas, callouts y negritas
+       tengan contraste absoluto tanto en modo oscuro como en modo claro.
+       ============================================================== */
+    body.light-theme .chat-bubble {
+      color: #0f172a;
+    }
+    body.light-theme .chat-bubble .chat-p {
+      color: inherit;
+    }
+    body.light-theme .chat-bubble strong {
+      color: #0f172a !important;
+      font-weight: 700;
+    }
+    body.light-theme .chat-bubble.chat-bubble-sam strong {
+      color: #1e1b4b !important;
+    }
+    body.light-theme .chat-bubble em {
+      color: #334155 !important;
+    }
+    body.light-theme .chat-bubble .chat-list li,
+    body.light-theme .chat-bubble .chat-ol li {
+      color: inherit !important;
+    }
+    body.light-theme .chat-bubble .chat-list li::marker {
+      color: #7c3aed !important;
+    }
+    body.light-theme .chat-bubble .chat-ol li::marker {
+      color: #047857 !important;
+      font-weight: 800;
+    }
+    body.light-theme .chat-bubble .chat-h1 {
+      color: #0f172a !important;
+      border-bottom: 1px solid #cbd5e1;
+    }
+    body.light-theme .chat-bubble .chat-h2 {
+      color: #6b21a8 !important;
+    }
+    body.light-theme .chat-bubble .chat-h3 {
+      color: #047857 !important;
+    }
+    body.light-theme .chat-bubble .chat-h4 {
+      color: #1e293b !important;
+    }
+    body.light-theme .chat-bubble .chat-callout {
+      border-left: 3px solid #7c3aed;
+      background: #ede9fe;
+      color: #1e1b4b !important;
+    }
+    body.light-theme .chat-bubble .chat-inline-code {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #b91c1c;
+      font-weight: 600;
+    }
+    body.light-theme .chat-bubble .chat-code-block {
+      background: #0f172a;
+      border-color: #334155;
+    }
+    body.light-theme .chat-bubble .chat-code-header {
+      background: #1e293b;
+      color: #cbd5e1;
+      border-bottom: 1px solid #334155;
+    }
+    body.light-theme .chat-bubble .chat-code-block pre {
+      color: #f8fafc;
+    }
+    body.light-theme .chat-bubble .chat-table-wrapper {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    }
+    body.light-theme .chat-bubble .chat-matrix-table thead {
+      background: #f8fafc;
+    }
+    body.light-theme .chat-bubble .chat-matrix-table th {
+      color: #6b21a8 !important;
+      border-bottom: 2px solid #cbd5e1;
+      font-weight: 700;
+    }
+    body.light-theme .chat-bubble .chat-matrix-table td {
+      color: #1e293b !important;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    body.light-theme .chat-bubble .chat-matrix-table td strong {
+      color: #0f172a !important;
+    }
+    body.light-theme .chat-bubble .chat-matrix-table tbody tr:nth-child(even) {
+      background: #f8fafc;
+    }
+    body.light-theme .chat-bubble .chat-matrix-table tbody tr:hover {
+      background: #ede9fe;
+    }
+    body.light-theme .chat-bubble .chat-badge-price {
+      background: #ecfdf5;
+      border: 1px solid #059669;
+      color: #047857;
+      font-weight: 700;
+    }
+    body.light-theme .chat-date-divider span {
+      background: #e2e8f0;
+      border: 1px solid #cbd5e1;
+      color: #334155;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+    body.light-theme .chat-bubble-footer {
+      color: #64748b;
+      font-weight: 500;
+    }
+    body.light-theme .chat-check-read {
+      color: #0284c7;
+    }
+    body.light-theme .chat-msg-meta {
+      color: #64748b;
+    }
+    body.light-theme .chat-msg-meta strong {
+      color: #6b21a8 !important;
+    }
+    body.light-theme .chat-msg.fan .chat-msg-meta strong {
+      color: #047857 !important;
+    }
+    body.light-theme .copy-msg-btn {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    body.light-theme .copy-msg-btn:hover {
+      background: #ede9fe;
+      border-color: #a77bff;
+      color: #4c1d95;
     }
 
     .prompt-pills-wrap {
@@ -9093,7 +9243,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>• Lista</span>
               <span class="table-badge ${data.badgeClass}" style="font-size: 9px; padding: 1px 6px;">Asistente Activa</span>
             </div>
-            <div class="chat-bubble">
+            <div class="chat-bubble chat-bubble-assistant">
               ${formatChatMessage(data.welcome)}
               <div class="chat-bubble-footer">
                 <span>Ahora</span>
@@ -9233,7 +9383,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>• ${displayTime}</span>
               <strong style="color: var(--secondary);">Tú</strong>
             </div>
-            <div class="chat-bubble" style="background: rgba(139, 83, 255, 0.12); border: 1px solid rgba(139, 83, 255, 0.3); color: var(--text-main);">
+            <div class="chat-bubble chat-bubble-sam">
               ${formatChatMessage(text)}
               <div class="chat-bubble-footer">
                 <span>${displayTime}</span>
@@ -9257,7 +9407,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>• ${displayTime}</span>
               <span class="table-badge ${asstBadgeClass}" style="font-size:9px; padding:1px 6px;">IA Activa</span>
             </div>
-            <div class="chat-bubble">
+            <div class="chat-bubble chat-bubble-assistant">
               ${formatChatMessage(text)}
               <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 8px; flex-wrap: wrap; gap: 6px;">
                 <button class="copy-msg-btn" onclick="copyMsgText(this)">
