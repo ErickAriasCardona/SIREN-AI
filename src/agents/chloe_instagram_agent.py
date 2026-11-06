@@ -56,6 +56,7 @@ CHLOE_INSTAGRAM_SYSTEM_PROMPT = """Eres CHLOE, la Asistente de Inteligencia Arti
 - Habla en español latinoamericano, con tono fresco, cómplice, entusiasta, estético y muy profesional.
 - Ofrece siempre ejemplos listos para copiar y pegar en Instagram.
 - Si le das un caption o historia, redacta la versión en inglés lista para publicar y su explicación en español.
+- Si Sam te pide una matriz de contenido, cronograma o comparativa, preséntala SIEMPRE en formato de tabla Markdown (| Columna 1 | Columna 2 |) estructurada por días, horarios y formatos.
 """
 
 def generate_daily_instagram_strategy() -> Dict[str, Any]:

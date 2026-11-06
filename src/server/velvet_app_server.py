@@ -49,25 +49,46 @@ from src.automation.push_notification_service import push_service
 ROXANNE_CPU_SYSTEM_PROMPT = """Eres ROXANNE, Co-Piloto Estratégica y mentora personal de la modelo y creadora Sam Barton (@sambartonn23).
 Sam es modelo tomboy versátil en LoyalFans, Stripchat y Streamate (cuenta estudio, 50% split, rating 4.0).
 Asistes a Sam directamente en español con respuestas a fans, metas de sala, dinámicas Lovense y tácticas de monetización.
-Sé concisa, práctica, directa y estratégica. Responde con calidez y profesionalismo."""
+Sé concisa, práctica, directa y estratégica. Responde con calidez y profesionalismo.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices, comparativas o resúmenes, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con encabezados concisos y datos ordenados fila por fila. Usa subtítulos y listas con viñetas cuando corresponda."""
 
 CHLOE_CPU_SYSTEM_PROMPT = """Eres CHLOE, estratega de Instagram de Sam Barton (@sambartonn23).
 Creas ideas de historias, ganchos visuales y textos con estilo tomboy para reactivar el algoritmo y dirigir tráfico a LoyalFans y Streamate.
-Sé creativa, concisa, moderna y enfocada en interacción."""
+Sé creativa, concisa, moderna y enfocada en interacción.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, cronogramas, matrices de contenido o comparativas, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con datos ordenados y claros."""
 
 DIANA_CPU_SYSTEM_PROMPT = """Eres DIANA, auditora financiera y especialista de pagos de Sam Barton (@sambartonn23).
 Especialista en splits de Streamate (50% neto del 35% del estudio), pagos de LoyalFans (80% creador, retiro mínimo $50) y Stripchat.
-Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad."""
+Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de splits, proyecciones o balances, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con cifras exactas, comisiones y netos desglosados."""
 
 ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartonn23).
 Especialista en SEO de streaming, ciclo de bump cada 3.5h en LoyalFans, retención de los primeros 30 segundos en Streamate y tags clave (#Tomboy, #Versatile).
-Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos."""
+Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de algoritmos, horarios o tags, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) estructurados por horario, plataforma y métrica."""
 
 def generate_contextual_fallback(assistant_id: str, message: str) -> str:
-    """Genera una respuesta contextual inteligente si Ollama no está disponible o está reiniciando."""
+    """Genera una respuesta contextual inteligente con soporte completo de Markdown y Matrices/Tablas."""
     msg_low = message.lower()
+    is_table_query = any(w in msg_low for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
+
     if assistant_id == "chloe":
-        if any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
+        if is_table_query:
+            return (
+                "✨ **[CHLOE - Matriz de Contenido Semanal para Instagram]**\n\n"
+                "Sam, aquí tienes tu matriz estratégica de publicaciones para la semana en **@sambartonn23**:\n\n"
+                "| Día | Formato | Temática Tomboy | Objetivo de Interacción | Llamado a la Acción (CTA) |\n"
+                "|---|---|---|---|---|\n"
+                "| **Lunes** | Historia + Encuesta | Ukelele acústico & café de mañana | Reactivar visualizaciones tempranas | *'¿Qué canción acústica quieren hoy?'* |\n"
+                "| **Martes** | Reel / Post Feed | Outfit Tomboy deportivo casual | Gancho de atracción estética | *'Vibra relajada. Link en bio para charlar conmigo 🖤'* |\n"
+                "| **Miércoles** | 3 Historias con Stickers | Detrás de cámaras en setup de luces | Preguntas de fans de USA | Cajita de preguntas en inglés |\n"
+                "| **Jueves** | Post Foto + Caption EN | Mirada directa y look biker | Posicionamiento internacional | *'Late night session starting soon...'* |\n"
+                "| **Viernes** | Countdown Story | Teaser de turno de fin de semana | Embudo hacia Streamate / LoyalFans | Recordatorio para conectar en directo |\n"
+                "| **Sábado** | Reel Dinámico | Acústico corto en vivo | Tráfico directo de fin de semana | *'Full acoustic session on my private link'* |\n"
+                "| **Domingo** | Carrusel Lifestyle | Rutina de descanso & ukelele | Fidelización de comunidad | Interacción relajada en comentarios |\n\n"
+                "💡 **Consejo Anti-Shadowban**: Recuerda usar siempre enlaces puente en tu biografía y evitar términos explícitos en stories."
+            )
+        elif any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
             return (
                 "✨ **[CHLOE - Estrategia Rápida de Instagram]**\n\n"
                 "Para tus historias de hoy con vibra tomboy:\n"
@@ -78,7 +99,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
                 "✨ **[CHLOE - Asistente de Instagram]**\n\n"
-                "¡Hola Sam! Lista para mover el algoritmo de @sambartonn23 hoy. ¿Quieres que preparemos el pack de historias del día o un copy para un nuevo post?"
+                "¡Hola Sam! Lista para mover el algoritmo de @sambartonn23 hoy. ¿Quieres que preparemos una matriz de contenido semanal, el pack de historias del día o un copy para tu próximo post?"
             )
         else:
             return (
@@ -86,18 +107,24 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 f"Sam, respecto a tu consulta: para mantener alta la retención en @sambartonn23, publica historias con stickers interactivos cada 3 horas y usa siempre un gancho claro al inicio."
             )
     elif assistant_id == "diana":
-        if any(w in msg_low for w in ["ganancia", "split", "cuanto", "precio", "privado", "exclusivo", "gold", "dolar"]):
+        if is_table_query or any(w in msg_low for w in ["ganancia", "split", "cuanto", "precio", "privado", "exclusivo", "gold", "dolar", "balance"]):
             return (
-                "📊 **[DIANA - Auditoría Financiera]**\n\n"
-                "Sam, recordatorio de tus tasas activas:\n"
-                "• **Streamate**: Privado $2.99/min, Exclusivo $3.99/min. De cada 100 Gold ($100 USD), el estudio recibe $35 USD y tu neto es $17.50 USD (50% de la comisión del estudio).\n"
-                "• **LoyalFans**: DMs $0.50, te quedas con el 80% neto directo. Retiro mínimo de $50 USD.\n"
-                "• **Meta recomendada**: Prioriza sesiones privadas de más de 6 minutos para superar el ticket promedio."
+                "📊 **[DIANA - Matriz Financiera & Splits de Monetización]**\n\n"
+                "Sam, aquí tienes la auditoría detallada y matriz comparativa de tus splits reales por plataforma:\n\n"
+                "| Plataforma / Modalidad | Tarifa Pública | Split Estudio / Fee | Neto Sam Barton | Neto Estimado por Sesión |\n"
+                "|---|---|---|---|---|\n"
+                "| **Streamate Privado** | $2.99 / min | 35% estudio | **17.5% ($0.52 / min)** | $5.23 USD (10 min priv) |\n"
+                "| **Streamate Exclusivo** | $3.99 / min | 35% estudio | **17.5% ($0.70 / min)** | $10.47 USD (15 min excl) |\n"
+                "| **Streamate Gold Menu (25G)** | $25.00 USD | 35% estudio | **$4.37 USD neto** | $4.37 USD por compra |\n"
+                "| **LoyalFans Pay-per-msg** | $1.00 / msg | 20% plataforma | **80% ($0.80 / msg)** | $16.00 USD (20 chats) |\n"
+                "| **LoyalFans Venta Clip VIP** | $15.00 USD | 20% plataforma | **80% ($12.00 neto)** | $12.00 USD por venta |\n"
+                "| **Stripchat Tip Goal Lovense** | 25 tokens ($1.25) | 50% modelo | **50% ($0.62 neto)** | $6.25 USD (10 tips) |\n\n"
+                "💡 **Regla de Rentabilidad**: En Streamate tu ticket más eficiente es el Exclusivo a **$3.99/min** ($0.70 neto/min). En LoyalFans tu umbral mínimo de cobro es **$50 USD** con 80% directo a tu favor."
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
                 "📊 **[DIANA - Auditora Financiera]**\n\n"
-                "¡Hola Sam! Aquí revisando tus balances y proyecciones. ¿Qué cifra o split quieres que auditemos para tu turno de hoy?"
+                "¡Hola Sam! Aquí revisando tus balances y proyecciones. ¿Quieres que auditemos tus splits en una tabla matriz o revisemos el balance para el próximo corte?"
             )
         else:
             return (
@@ -105,7 +132,19 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 f"Sam, analizando tu consulta: recuerda siempre separar los ingresos directos (LoyalFans 80%) de los de cuenta estudio (Streamate 50% split) para calcular con exactitud tu flujo de caja neto."
             )
     elif assistant_id == "electra":
-        if any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
+        if is_table_query:
+            return (
+                "⚡ **[ELECTRA - Matriz Algorítmica de Tráfico & Bumps]**\n\n"
+                "Sam, esta es tu matriz de posicionamiento y horarios de tráfico alto para dominar los feeds:\n\n"
+                "| Plataforma | Factor Algorítmico | Horario Óptimo (USA / Col) | Acción Inmediata | Impacto en Ranking |\n"
+                "|---|---|---|---|---|\n"
+                "| **LoyalFans** | Ciclo de Bump cada 3.5h | 11:00 AM, 2:30 PM, 6:00 PM, 9:30 PM | Ejecutar re-bump exacto | Devuelve tu perfil al Top 1 del feed |\n"
+                "| **Streamate** | Retención Free Chat (<30s) | 8:00 PM - 12:00 AM (Prime US) | Charla verbal de bienvenida al segundo 3 | Sube a Página 1 en categoría Tomboy |\n"
+                "| **Stripchat** | Tip Goals Lovense tempranos | Primeros 15 min de transmisión | Activar meta de 50 tokens de bienvenida | Activa badge *'Trending Now'* en sala |\n"
+                "| **Instagram** | Historias con Sticker Interactivo | 1:00 PM y 7:30 PM | Encuesta o cajita de preguntas | Reactiva la cuenta antes de iniciar transmisión |\n\n"
+                "💡 **Clave de Tráfico**: Los primeros 30 segundos de free chat en Streamate determinan el 70% de las conversiones hacia privado."
+            )
+        elif any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
             return (
                 "⚡ **[ELECTRA - Tráfico & Algoritmos]**\n\n"
                 "Sam, checklist del algoritmo:\n"
@@ -116,7 +155,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
                 "⚡ **[ELECTRA - Algoritmos & Tráfico]**\n\n"
-                "¡Hola Sam! Monitores de tráfico al 100%. ¿Quieres revisar el cooldown de tu bump o la estrategia de retención para Streamate?"
+                "¡Hola Sam! Monitores de tráfico al 100%. ¿Quieres revisar una matriz de horarios de tráfico o el cooldown de tu bump en LoyalFans?"
             )
         else:
             return (
@@ -124,10 +163,24 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 f"Sam, sobre tu consulta: para elevar el score en los rankings de streaming, cambia el tema de sala cada 90 minutos y estimula las propinas rápidas en los primeros minutos de transmisión."
             )
     else: # Roxanne
-        if any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
+        if is_table_query:
+            return (
+                "🐺 **[ROXANNE - Matriz de Dinámicas & Tarifas de Turno]**\n\n"
+                "Sam, aquí tienes la matriz estructurada con tus tarifas y dinámicas recomendadas para el turno:\n\n"
+                "| Modalidad / Nivel | Tarifa Sugerida | Dinámica en Cámara | Meta de Tensión / Conversión |\n"
+                "|---|---|---|---|\n"
+                "| **Free Chat Público** | Gratis | Charla cercana + ukelele acústico | Enganchar en primeros 30s sin mostrar de más |\n"
+                "| **Privado Cam2Cam** | **$2.99 / min** | Miradas fijas, susurros y complicidad | Mantener al fan mínimo 5 minutos ($2.60 neto) |\n"
+                "| **Exclusivo VIP** | **$3.99 / min** | Rol personalizado alternando el control | Tensión sensual progresiva sin sumisión forzada |\n"
+                "| **Gold Menu: Nivel 1** | **10 Gold ($1.75 neto)** | Tocar intro acústica dedicada | Gancho rápido para calentar sala |\n"
+                "| **Gold Menu: Nivel 2** | **25 Gold ($4.37 neto)** | Desabotonar camisa / cambio outfit tomboy | Escalar el interés hacia show privado |\n"
+                "| **Gold Menu: Clímax** | **50 Gold ($8.75 neto)** | Dinámica Lovense nivel máximo | Conexión directa y salto a exclusivo |\n\n"
+                "💡 **Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
+            )
+        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
                 "🐺 **[ROXANNE - Co-Piloto]**\n\n"
-                "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, ajustemos el menú de sala o preparemos las dinámicas de cámara."
+                "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, una matriz de tarifas o preparemos las dinámicas de cámara."
             )
         elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
             return (
@@ -1259,6 +1312,11 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             messages.extend(recent_history)
             messages.append({"role": "user", "content": message})
 
+            # Detectar si Sam pide una tabla, matriz o comparativa para dar más contexto y predicción
+            is_table_query = any(w in msg_lower for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
+            predict_tokens = 750 if is_table_query else 280
+            ctx_tokens = 2048 if is_table_query else 1024
+
             # Inferencia vía Ollama con paralelismo multihilo de CPU
             ollama_payload = {
                 "model": model_name,
@@ -1266,8 +1324,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "stream": False,
                 "options": {
                     "num_thread": 10,
-                    "num_ctx": 1024,
-                    "num_predict": 180,
+                    "num_ctx": ctx_tokens,
+                    "num_predict": predict_tokens,
                     "temperature": 0.7,
                     "top_p": 0.9
                 }

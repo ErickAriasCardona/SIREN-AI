@@ -1240,6 +1240,197 @@
       color: #fff;
       border-color: var(--primary-light);
     }
+    
+    /* ==============================================================
+       ESTILOS PARA RENDERIZADO RICO EN CHAT DE ASISTENTES
+       (Markdown, Tablas/Matrices, Listas, Títulos, Callouts, Badges)
+       ============================================================== */
+    .chat-bubble {
+      word-break: break-word;
+      overflow-wrap: break-word;
+    }
+    .chat-bubble .chat-p {
+      margin: 0 0 8px 0;
+      line-height: 1.55;
+    }
+    .chat-bubble .chat-p:last-child {
+      margin-bottom: 0;
+    }
+    .chat-bubble .chat-h1,
+    .chat-bubble .chat-h2,
+    .chat-bubble .chat-h3,
+    .chat-bubble .chat-h4 {
+      font-weight: 700;
+      color: #fff;
+      margin: 12px 0 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .chat-bubble .chat-h1 { font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 4px; }
+    .chat-bubble .chat-h2 { font-size: 14px; color: var(--primary-light, #a77bff); }
+    .chat-bubble .chat-h3 { font-size: 13px; color: var(--accent-green, #1ae589); }
+    .chat-bubble .chat-h4 { font-size: 12.5px; color: #e2e8f0; }
+
+    .chat-bubble strong {
+      color: #fff;
+      font-weight: 600;
+    }
+    .chat-bubble em {
+      color: #cbd5e1;
+      font-style: italic;
+    }
+    
+    /* Listas dentro de burbujas */
+    .chat-bubble .chat-list,
+    .chat-bubble .chat-ol {
+      margin: 6px 0 10px 0;
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .chat-bubble .chat-list li,
+    .chat-bubble .chat-ol li {
+      line-height: 1.5;
+      color: #e2e8f0;
+    }
+    .chat-bubble .chat-list li::marker {
+      color: var(--primary-light, #a77bff);
+    }
+    .chat-bubble .chat-ol li::marker {
+      color: var(--accent-green, #1ae589);
+      font-weight: 600;
+    }
+
+    /* Badges de precios y métricas dentro de chats */
+    .chat-bubble .chat-badge-price {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(26, 229, 139, 0.15);
+      border: 1px solid rgba(26, 229, 139, 0.4);
+      color: #1ae589;
+      font-weight: 600;
+      font-size: 11px;
+      padding: 1px 6px;
+      border-radius: 4px;
+      margin: 0 2px;
+      vertical-align: middle;
+    }
+
+    /* Callouts y Citas */
+    .chat-bubble .chat-callout {
+      border-left: 3px solid var(--primary-light, #8B53FF);
+      background: rgba(139, 83, 255, 0.08);
+      padding: 8px 12px;
+      border-radius: 0 8px 8px 0;
+      margin: 8px 0;
+      color: #f1f5f9;
+      font-size: 12.5px;
+    }
+
+    /* Bloques de código e inline code */
+    .chat-bubble .chat-inline-code {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: #f472b6;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11.5px;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+    .chat-bubble .chat-code-block {
+      background: #0f131a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      margin: 8px 0;
+      overflow: hidden;
+    }
+    .chat-bubble .chat-code-header {
+      background: rgba(255, 255, 255, 0.04);
+      padding: 4px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .chat-bubble .chat-code-block pre {
+      margin: 0;
+      padding: 10px 12px;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.45;
+      color: #e2e8f0;
+    }
+
+    /* ==============================================================
+       TABLAS Y MATRICES EN EL CHAT (MODERN WEB GUIDANCE)
+       Responsive Table con sticky header, dark glass, overflow auto
+       ============================================================== */
+    .chat-bubble .chat-table-wrapper {
+      position: relative;
+      overflow-x: auto;
+      max-width: 100%;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(15, 19, 26, 0.65);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      -webkit-overflow-scrolling: touch;
+    }
+    .chat-bubble .chat-matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      text-align: left;
+      min-width: 320px;
+    }
+    .chat-bubble .chat-matrix-table thead {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #171d28;
+    }
+    .chat-bubble .chat-matrix-table th {
+      padding: 8px 12px;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #a77bff;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      white-space: nowrap;
+    }
+    .chat-bubble .chat-matrix-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      vertical-align: middle;
+      line-height: 1.4;
+    }
+    .chat-bubble .chat-matrix-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+    .chat-bubble .chat-matrix-table tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.02);
+    }
+    .chat-bubble .chat-matrix-table tbody tr:hover {
+      background: rgba(139, 83, 255, 0.08);
+    }
+    .chat-bubble .chat-matrix-table td strong {
+      color: #fff;
+    }
+    .chat-bubble .matrix-summary-pill {
+      display: inline-block;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
     .prompt-pills-wrap {
       display: flex;
       flex-wrap: wrap;
@@ -7583,6 +7774,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         rightHeader: 'Herramientas Streamate & Estado',
         welcome: '¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, responder y entrenar cómo contestar a fans en LoyalFans, Stripchat o Streamate, planear metas de sala con Lovense o armar tus dinámicas. ¿En qué trabajamos hoy? 🐺✨',
         pills: [
+          { label: '📊 "Matriz de Dinámicas & Tarifas Streamate"', prompt: 'Roxanne, por favor preséntame una tabla matriz con mis tarifas sugeridas de Privado ($2.99), Exclusivo ($3.99), Cam2Cam y Gold Menu para mi perfil tomboy, incluyendo la dinámica recomendada y meta de conversión para cada una.' },
           { label: '💬 "Fan pide rebaja para privado en Streamate"', prompt: '¿Cómo respondo a un fan que me pide rebaja para ir a privado en Streamate? Dame una respuesta concisa y profesional para motivarlo a entrar sin bajar el precio.' },
           { label: '🎯 "Metas Lovense para show de hoy en Stripchat"', prompt: 'Ayúdame a planear 3 metas de propinas con Lovense para el show de hoy en Stripchat (Nivel 1, Nivel 2 y Clímax) y dinámicas atractivas.' },
           { label: '🏍️ "What motorcycle do you ride?" (EN)', prompt: 'Un fan en inglés me pregunta: "Hey Sam! What motorcycle do you ride?". Respóndele en inglés con vibra tomboy, coqueta y auténtica.' },
@@ -7604,6 +7796,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         rightHeader: 'Herramientas Instagram & Visor Mobile',
         welcome: '¡Hola Sam! Soy Chloe, tu estratega especializada para tu cuenta de Instagram de modelo (@sambartonn23). Te ayudaré a diseñar el feed perfecto, crear packs de historias interactivas con stickers, redactar captions magnéticos en inglés y convertir seguidores en fans de LoyalFans y Streamate sin riesgo de shadowban. ¿Qué publicamos o analizamos hoy? 📸✨',
         pills: [
+          { label: '📊 "Matriz de Contenido Semanal para Instagram"', prompt: 'Chloe, por favor diseña una tabla matriz semanal de lunes a domingo para @sambartonn23 con: Formato, Temática Tomboy/Ukelele, Objetivo de Interacción y Llamado a la Acción (CTA).' },
           { label: '⚡ "Estrategia de Instagram de hoy para @sambartonn23"', prompt: 'Chloe, por favor genera mi estrategia de Instagram de hoy para @sambartonn23: horarios recomendados, 3 ideas de historias interactivas y llamada a la acción.' },
           { label: '📸 "Pack de 4 historias interactivas con stickers"', prompt: 'Dame un pack de 4 historias interactivas para publicar hoy con fotos tomboy/biker, encuestas o preguntas y copy en inglés.' },
           { label: '✍️ "Caption magnético tomboy & ukelele (EN)"', prompt: 'Escribe un caption magnético en inglés para una foto mía tocando ukelele con look tomboy relajado. Incluye gancho y hashtags seguros.' },
@@ -7624,6 +7817,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         rightHeader: 'Métricas Financieras & Simulador',
         welcome: '¡Hola Sam! Soy Diana, tu auditora financiera y especialista de pagos. Estoy lista para monitorear tus balances en tiempo real, calcular tus splits exactos de Streamate (50% de tu 35%), verificar tu umbral de cobro de $50 USD en LoyalFans y proteger tu flujo de caja. ¿Qué revisamos hoy? 💰📊',
         pills: [
+          { label: '📊 "Matriz Comparativa de Splits & Payouts"', prompt: 'Diana, por favor genera una tabla matriz comparativa de mis plataformas (Streamate split 50% de 35%, LoyalFans 80% neto, Stripchat) detallando tarifa pública, fee/split, ganancia neta para Sam y retorno estimado por sesión.' },
           { label: '💰 "Calcular mi ganancia neta en Streamate hoy"', prompt: 'Diana, si genero 150 Gold hoy en Streamate, calcúlame el neto exacto en USD sabiendo que el estudio recibe el 35% y a mí me corresponde el 50% de ese 35%.' },
           { label: '📈 "Estado del payout mínimo de $50 en LoyalFans"', prompt: '¿Cuánto me falta exactamente para el corte de cobro de $50 USD en LoyalFans con mi balance actual y cuándo se procesa?' },
           { label: '💳 "Cosmo Payment vs Paxum: comisiones en Colombia"', prompt: 'Diana, compara comisiones, tasa de cambio y tiempos de retiro a cuenta bancaria colombiana entre Cosmo Payment y Paxum para modelos.' },
@@ -7643,6 +7837,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         rightHeader: 'Radar Algorítmico & Tráfico',
         welcome: '¡Hola Sam! Soy Electra, tu especialista en ingeniería algorítmica y tráfico. Mi trabajo es mantenerte en la cima de los feeds: controlo tus ciclos de Bump cada 3.5h en LoyalFans, audito tu retención en Streamate y posiciono tu perfil en Stripchat. Vamos a conquistar los rankings hoy. ⚡🚀',
         pills: [
+          { label: '📊 "Matriz Algorítmica de Tráfico & Bumps"', prompt: 'Electra, genera una tabla matriz de optimización algorítmica con: Plataforma, Factor Algorítmico, Horario Óptimo (USA/Col), Acción Inmediata e Impacto en el Ranking.' },
           { label: '⚡ "Estado del Bump Cooldown de LoyalFans (3.5h)"', prompt: 'Electra, ¿cómo está mi tiempo de cooldown de bump en LoyalFans y cuál es el momento óptimo para re-bumpear y volver al Top 1 del feed?' },
           { label: '🚀 "Técnicas de retención en primeros 30s de Streamate"', prompt: '¿Qué dinámicas visuales y de bienvenida aumentan la retención en los primeros 30 segundos de Free Chat en Streamate para que el algoritmo me suba a página 1?' },
           { label: '🏷️ "Tags de Stripchat con mayor tráfico tomboy"', prompt: '¿Cuáles son los tags con menor competencia y mayor tráfico calificado en Stripchat hoy para modelos tomboy?' },
@@ -7762,6 +7957,298 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
+    // ==============================================================
+    // 📋 FUNCIONES DE COPIADO AL PORTAPAPELES
+    // ==============================================================
+    function copyMsgText(btn) {
+      if (!btn) return;
+      const bubble = btn.closest('.chat-bubble');
+      if (!bubble) return;
+      
+      const clone = bubble.cloneNode(true);
+      const copyBtns = clone.querySelectorAll('.copy-msg-btn, button');
+      copyBtns.forEach(b => b.remove());
+      
+      const textToCopy = clone.innerText.trim();
+      if (!textToCopy) return;
+
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        const originalHTML = btn.innerHTML;
+        btn.innerHTML = `<i data-lucide="check" style="width:10px; height:10px; color:#1AE589;"></i> ¡Copiado con éxito!`;
+        btn.style.borderColor = '#1AE589';
+        btn.style.color = '#1AE589';
+        if (window.lucide) lucide.createIcons();
+        if (typeof showToast === 'function') {
+          showToast('Respuesta copiada al portapapeles');
+        }
+        setTimeout(() => {
+          btn.innerHTML = originalHTML;
+          btn.style.borderColor = '';
+          btn.style.color = '';
+          if (window.lucide) lucide.createIcons();
+        }, 2200);
+      }).catch(err => {
+        console.error('Error al copiar al portapapeles:', err);
+        const textarea = document.createElement('textarea');
+        textarea.value = textToCopy;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          if (typeof showToast === 'function') showToast('Respuesta copiada');
+        } catch (e) {}
+        document.body.removeChild(textarea);
+      });
+    }
+
+    function copySnippetText(btn, codeText) {
+      if (!codeText && btn) {
+        const block = btn.closest('.chat-code-block');
+        const pre = block ? block.querySelector('pre') : null;
+        codeText = pre ? pre.innerText : '';
+      }
+      if (!codeText) return;
+      navigator.clipboard.writeText(codeText).then(() => {
+        if (btn) {
+          const orig = btn.innerText;
+          btn.innerText = '¡Copiado!';
+          setTimeout(() => { btn.innerText = orig; }, 2000);
+        }
+        if (typeof showToast === 'function') showToast('Código copiado');
+      });
+    }
+
+    // ==============================================================
+    // 🎨 PARSER Y RENDERIZADOR RICO DE CHAT (MARKDOWN, TABLAS/MATRICES)
+    // ==============================================================
+    function escapeChatHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function formatInlineText(text) {
+      if (!text) return '';
+      let res = text;
+      
+      // Inline code: `code`
+      res = res.replace(/`([^`]+)`/g, (match, code) => {
+        return `<code class="chat-inline-code">${escapeChatHtml(code)}</code>`;
+      });
+
+      // Bold + Italic: ***text***
+      res = res.replace(/\*\*\*([^*]+)\*\*\*/g, '<strong><em>$1</em></strong>');
+
+      // Bold: **text**
+      res = res.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+      // Italic: *text* or _text_
+      res = res.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+      res = res.replace(/(^|\s)_([^_]+)_(\s|$)/g, '$1<em>$2</em>$3');
+
+      // Badge de precios y tarifas: ($2.99 / min), ($3.99), etc.
+      res = res.replace(/\(\s*(\$\d+(?:\.\d+)?(?:\s*\/\s*[a-zA-Z]+)?)\s*\)/g, '(<span class="chat-badge-price">$1</span>)');
+
+      return res;
+    }
+
+    function formatChatMessage(rawText) {
+      if (!rawText) return '';
+      let text = String(rawText).trim();
+
+      // 1. Extraer bloques de código multilínea (```)
+      const codeBlocks = [];
+      text = text.replace(/```([a-zA-Z0-9_-]*)\n([\s\S]*?)```/g, (match, lang, code) => {
+        const id = `__CHAT_CODE_BLOCK_${codeBlocks.length}__`;
+        codeBlocks.push({
+          lang: lang || 'code',
+          code: escapeChatHtml(code.trim())
+        });
+        return `\n${id}\n`;
+      });
+
+      // 2. Pre-normalización inteligente de viñetas, listas y secciones inline
+      text = text.replace(/([^\n])\s*[•]\s+(?=\*\*)/g, '$1\n• ');
+      text = text.replace(/([^\n])\s+(\d+\.)\s+/g, '$1\n$2 ');
+      text = text.replace(/([^\n])\s+([💡🔭🔥⚡📊🎯💰📸🏍️📹🎸🛑]\s*\*\*)/g, '$1\n\n$2');
+
+      const lines = text.split('\n');
+      const htmlParts = [];
+      let inList = null; // 'ul' | 'ol'
+      let inTable = false;
+      let tableRows = [];
+
+      function flushList() {
+        if (inList) {
+          htmlParts.push(`</${inList}>`);
+          inList = null;
+        }
+      }
+
+      function flushTable() {
+        if (inTable && tableRows.length > 0) {
+          let headHtml = '';
+          let bodyHtml = '';
+          let isHeaderParsed = false;
+
+          for (let r = 0; r < tableRows.length; r++) {
+            const rawRow = tableRows[r].trim();
+            // Filtrar delimitadores (|---|---| o |:---:|)
+            if (/^\|?(\s*:?-+:?\s*\|)+\s*:?-+:?\s*\|?$/.test(rawRow)) {
+              isHeaderParsed = true;
+              continue;
+            }
+
+            let cells = rawRow.split('|');
+            if (rawRow.startsWith('|')) cells.shift();
+            if (rawRow.endsWith('|')) cells.pop();
+            cells = cells.map(c => c.trim());
+
+            if (!isHeaderParsed) {
+              headHtml += '<tr>' + cells.map(c => `<th>${formatInlineText(escapeChatHtml(c))}</th>`).join('') + '</tr>';
+              isHeaderParsed = true;
+            } else {
+              const rowCells = cells.map(c => {
+                const formatted = formatInlineText(escapeChatHtml(c));
+                return `<td>${formatted}</td>`;
+              }).join('');
+              bodyHtml += `<tr>${rowCells}</tr>`;
+            }
+          }
+
+          const tableEl = `
+            <div class="chat-table-wrapper" tabindex="0" role="region" aria-label="Tabla o Matriz de Datos">
+              <table class="chat-matrix-table">
+                ${headHtml ? `<thead>${headHtml}</thead>` : ''}
+                ${bodyHtml ? `<tbody>${bodyHtml}</tbody>` : ''}
+              </table>
+            </div>
+          `;
+          htmlParts.push(tableEl);
+          tableRows = [];
+          inTable = false;
+        }
+      }
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+
+        if (!line) {
+          flushList();
+          flushTable();
+          continue;
+        }
+
+        // Bloque de código preservado
+        if (line.startsWith('__CHAT_CODE_BLOCK_') && line.endsWith('__')) {
+          flushList();
+          flushTable();
+          const blockIdx = parseInt(line.replace('__CHAT_CODE_BLOCK_', '').replace('__', ''), 10);
+          const blockData = codeBlocks[blockIdx];
+          if (blockData) {
+            htmlParts.push(`
+              <div class="chat-code-block">
+                <div class="chat-code-header">
+                  <span>${blockData.lang}</span>
+                  <button class="copy-msg-btn" onclick="copySnippetText(this)">
+                    <i data-lucide="copy" style="width:10px; height:10px;"></i> Copiar
+                  </button>
+                </div>
+                <pre><code>${blockData.code}</code></pre>
+              </div>
+            `);
+          }
+          continue;
+        }
+
+        // Separador horizontal (---, ***, ___)
+        if (/^(\-{3,}|\*{3,}|_{3,})$/.test(line)) {
+          flushList();
+          flushTable();
+          htmlParts.push('<hr style="border:0; border-top:1px solid rgba(255,255,255,0.1); margin:12px 0;">');
+          continue;
+        }
+
+        // Detección de Tabla Markdown
+        if (line.includes('|') && (line.startsWith('|') || /\|.*\|/.test(line))) {
+          flushList();
+          inTable = true;
+          tableRows.push(line);
+          continue;
+        } else {
+          flushTable();
+        }
+
+        // Títulos (#, ##, ###, ####)
+        if (line.startsWith('#### ')) {
+          flushList();
+          htmlParts.push(`<h4 class="chat-h4">${formatInlineText(escapeChatHtml(line.slice(5)))}</h4>`);
+          continue;
+        }
+        if (line.startsWith('### ')) {
+          flushList();
+          htmlParts.push(`<h3 class="chat-h3">${formatInlineText(escapeChatHtml(line.slice(4)))}</h3>`);
+          continue;
+        }
+        if (line.startsWith('## ')) {
+          flushList();
+          htmlParts.push(`<h2 class="chat-h2">${formatInlineText(escapeChatHtml(line.slice(3)))}</h2>`);
+          continue;
+        }
+        if (line.startsWith('# ')) {
+          flushList();
+          htmlParts.push(`<h1 class="chat-h1">${formatInlineText(escapeChatHtml(line.slice(2)))}</h1>`);
+          continue;
+        }
+
+        // Blockquotes / Citas (> )
+        if (line.startsWith('> ')) {
+          flushList();
+          htmlParts.push(`<div class="chat-callout">${formatInlineText(escapeChatHtml(line.slice(2)))}</div>`);
+          continue;
+        }
+
+        // Lista no ordenada (- , * , • )
+        const bulletMatch = line.match(/^([-*•])\s+(.+)$/);
+        if (bulletMatch) {
+          if (inList !== 'ul') {
+            flushList();
+            htmlParts.push('<ul class="chat-list">');
+            inList = 'ul';
+          }
+          htmlParts.push(`<li>${formatInlineText(escapeChatHtml(bulletMatch[2]))}</li>`);
+          continue;
+        }
+
+        // Lista ordenada (1. , 2. )
+        const numMatch = line.match(/^(\d+)\.\s+(.+)$/);
+        if (numMatch) {
+          if (inList !== 'ol') {
+            flushList();
+            htmlParts.push('<ol class="chat-ol">');
+            inList = 'ol';
+          }
+          htmlParts.push(`<li>${formatInlineText(escapeChatHtml(numMatch[2]))}</li>`);
+          continue;
+        }
+
+        // Párrafo normal
+        flushList();
+        htmlParts.push(`<p class="chat-p">${formatInlineText(escapeChatHtml(line))}</p>`);
+      }
+
+      flushList();
+      flushTable();
+
+      return htmlParts.join('\n');
+    }
+
     function renderAssistantChat(assistantId) {
       const box = document.getElementById('chat-messages-box');
       if (!box) return;
@@ -7771,7 +8258,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const data = ASSISTANTS_DATA[assistantId] || ASSISTANTS_DATA.roxanne;
 
       if (history.length === 0) {
-        // Mensaje de bienvenida inicial
+        // Mensaje de bienvenida inicial formateado
         const welcomeDiv = document.createElement('div');
         welcomeDiv.className = 'chat-msg sam';
         welcomeDiv.innerHTML = `
@@ -7783,7 +8270,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span class="table-badge ${data.badgeClass}" style="font-size: 9px; padding: 1px 6px;">Asistente Activa</span>
             </div>
             <div class="chat-bubble">
-              ${data.welcome}
+              ${formatChatMessage(data.welcome)}
             </div>
           </div>
         `;
@@ -7880,7 +8367,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       msgDiv.className = `chat-msg ${sender === 'sam' ? 'fan' : 'sam'}`;
       
       const currentTime = timeStr || new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-      const escapedText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
       const currentAssistantData = ASSISTANTS_DATA[activeAssistant] || ASSISTANTS_DATA.roxanne;
 
       if (sender === 'sam') {
@@ -7892,7 +8378,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span>• ${currentTime}</span>
               <strong style="color: var(--secondary);">Tú</strong>
             </div>
-            <div class="chat-bubble" style="background: rgba(139, 83, 255, 0.12); border: 1px solid rgba(139, 83, 255, 0.3); color: var(--text-main);">${escapedText}</div>
+            <div class="chat-bubble" style="background: rgba(139, 83, 255, 0.12); border: 1px solid rgba(139, 83, 255, 0.3); color: var(--text-main);">${formatChatMessage(text)}</div>
           </div>
         `;
       } else {
@@ -7911,7 +8397,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <span class="table-badge ${asstBadgeClass}" style="font-size:9px; padding:1px 6px;">IA Activa</span>
             </div>
             <div class="chat-bubble">
-              ${escapedText}
+              ${formatChatMessage(text)}
               <div style="margin-top: 8px;">
                 <button class="copy-msg-btn" onclick="copyMsgText(this)">
                   <i data-lucide="copy" style="width:10px; height:10px;"></i> Copiar respuesta lista
