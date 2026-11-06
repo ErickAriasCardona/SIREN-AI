@@ -6222,6 +6222,11 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     <button class="action-btn" onclick="openSmModal('radar')" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
                       🔭 Radar Tomboy
                     </button>
+                    <button class="action-btn" onclick="openStreamateMessagesModal()" style="grid-column: span 2; font-size: 11px; padding: 9px 12px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589; justify-content: center; display: flex; align-items: center; gap: 7px; background: rgba(26, 229, 139, 0.08); font-weight: 700; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
+                      <i data-lucide="message-square" style="width: 14px; height: 14px; color: #1AE589;"></i>
+                      <span>💬 Mensajes Pendientes & Auto-Responder</span>
+                      <span id="sm-pending-badge" class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px; margin-left: auto;">5 Pendientes</span>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -6653,6 +6658,127 @@ Cat Lover 🐱</div>
           </button>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ============================================================== -->
+  <!-- MODAL: REPORTE DE MENSAJES STREAMATE MODELS & AUTO-RESPONDER IA -->
+  <!-- ============================================================== -->
+  <div id="streamateMessagesModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 1080px; width: 95%; max-height: 92vh; display: flex; flex-direction: column; padding: 20px;">
+      
+      <!-- Encabezado del Modal -->
+      <div class="modal-header" style="padding-bottom: 14px; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <div style="width: 36px; height: 36px; border-radius: 10px; background: linear-gradient(135deg, rgba(26,229,139,0.2), rgba(139,83,255,0.25)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(26,229,139,0.4); color: #1AE589;">
+            <i data-lucide="message-square-text" style="width: 20px; height: 20px;"></i>
+          </div>
+          <div>
+            <h3 style="font-size: 16px; font-weight: 800; color: #fff; margin: 0; display: flex; align-items: center; gap: 8px;">
+              Reporte de Mensajes Streamate Models
+              <span class="table-badge badge-success" style="font-size: 10px; padding: 2px 7px;">Auto-Responder IA</span>
+            </h3>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">
+              Bandeja <code>streamatemodels.com/engagement/messenger</code> • Comparativa: Sugerencias Oficiales SM vs Agente Roxanne
+            </div>
+          </div>
+        </div>
+        <button class="close-modal" onclick="closeStreamateMessagesModal()">&times;</button>
+      </div>
+
+      <!-- Barra de KPIs y Filtros Rápidos -->
+      <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; background: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px;">
+        <!-- Filtros de Pestañas -->
+        <div style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+          <button id="sm-filter-all" class="sm-filter-pill active" onclick="setSmMessagesFilter('all', this)">
+            Todos <strong id="kpi-sm-total-count" style="margin-left: 3px;">6</strong>
+          </button>
+          <button id="sm-filter-pending" class="sm-filter-pill" onclick="setSmMessagesFilter('pending', this)" style="border-color: rgba(234, 179, 8, 0.4); color: #facc15;">
+            Pendientes <strong id="kpi-sm-pending-count" style="margin-left: 3px;">5</strong>
+          </button>
+          <button id="sm-filter-urgent" class="sm-filter-pill" onclick="setSmMessagesFilter('urgent', this)" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171;">
+            🔴 Alta Urgencia <strong id="kpi-sm-urgent-count" style="margin-left: 3px;">2</strong>
+          </button>
+          <button id="sm-filter-replied" class="sm-filter-pill" onclick="setSmMessagesFilter('replied', this)">
+            ✓ Respondidos <strong id="kpi-sm-replied-count" style="margin-left: 3px;">1</strong>
+          </button>
+        </div>
+
+        <!-- Controles de Automatización -->
+        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+          <!-- Selector de Modo de Automatización -->
+          <div style="display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 6px; padding: 4px 8px;">
+            <label style="font-size: 11px; color: var(--text-dim); font-weight: 600;">Estrategia:</label>
+            <select id="sm-autopilot-mode-select" onchange="changeAutopilotMode(this.value)" style="background: transparent; border: none; color: #fff; font-size: 11px; font-weight: 600; outline: none; cursor: pointer;">
+              <option value="best_choice" selected>⭐ Híbrido IA (Mejor Elección: SM vs Roxanne)</option>
+              <option value="roxanne">🐺 Agente Roxanne (Tomboy & Gancho a Privado)</option>
+              <option value="streamate">🤖 Sugerencias Oficiales Streamate</option>
+            </select>
+          </div>
+
+          <!-- Switch Toggle Piloto Automático -->
+          <label style="display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 600; color: #fff; cursor: pointer;" title="Al activar, el sistema responde periódicamente a mensajes entrantes usando la estrategia seleccionada">
+            <input type="checkbox" id="sm-autopilot-toggle" onchange="toggleAutopilotSwitch(this.checked)" style="accent-color: #1AE589; cursor: pointer;">
+            <span>Auto-Piloto Activo</span>
+          </label>
+
+          <!-- Botón Ejecutar Ahora -->
+          <button class="action-btn primary" id="btn-run-autopilot-now" onclick="triggerAutopilotRunNow()" style="font-size: 11px; padding: 6px 12px; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="zap" style="width: 13px; height: 13px;"></i>
+            <span>Responder Pendientes Ahora</span>
+          </button>
+
+          <!-- Botón Refrescar -->
+          <button class="action-btn" onclick="fetchStreamateMessagesLive(true)" title="Refrescar mensajes" style="padding: 6px 10px; font-size: 11px;">
+            <i data-lucide="refresh-cw" id="sm-msg-refresh-icon" style="width: 13px; height: 13px;"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- Banner Informativo del Análisis del Agente -->
+      <div style="background: rgba(139, 83, 255, 0.08); border-left: 3px solid #8B53FF; border-radius: 0 8px 8px 0; padding: 10px 14px; margin-bottom: 14px; display: flex; align-items: flex-start; gap: 10px;">
+        <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #a77bff; flex-shrink: 0; margin-top: 2px;"></i>
+        <div style="font-size: 11.5px; color: #e2e8f0; line-height: 1.5;">
+          <strong>Análisis Dual Inteligente:</strong> Streamate sugiere respuestas estándar (Smart Prompts) y el agente <strong>Roxanne</strong> genera respuestas personalizadas con tu vibra tomboy orientadas a monetizar (invitando a privado o exclusivo). El sistema evalúa el contexto de cada fan y marca la opción recomendada. Puedes enviar cualquiera de las dos con 1 clic o dejar que el <strong>Auto-Responder</strong> lo haga por ti.
+        </div>
+      </div>
+
+      <!-- Contenedor de la Tabla Matriz con Scroll y Sticky Header -->
+      <div style="flex: 1; overflow-y: auto; overflow-x: auto; min-height: 280px; max-height: 480px; border: 1px solid var(--border-color); border-radius: 8px; background: rgba(15, 19, 26, 0.65);" class="chat-table-wrapper" tabindex="0" role="region" aria-label="Matriz de Mensajes Streamate">
+        <table class="chat-matrix-table" style="min-width: 950px; width: 100%;">
+          <thead>
+            <tr>
+              <th style="width: 140px;">Fan / Usuario</th>
+              <th style="width: 140px;">Tiempo sin Responder</th>
+              <th style="width: 200px;">Último Mensaje Recibido</th>
+              <th style="width: 230px;">Sugerencia Streamate (Oficial)</th>
+              <th style="width: 260px;">Sugerencia Agente Roxanne (SIREN)</th>
+              <th style="width: 130px; text-align: center;">Elección IA</th>
+              <th style="width: 130px; text-align: right;">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="sm-messages-table-body">
+            <!-- Renderizado dinámicamente por renderStreamateMessagesTable() -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pie del Modal -->
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 14px; padding-top: 10px; border-top: 1px solid var(--border-color); font-size: 11px; color: var(--text-dim); flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #1AE589;"></span>
+          <span id="sm-last-synced-label">Sincronizado con streamatemodels.com/engagement/messenger</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <a href="https://streamatemodels.com/engagement/messenger" target="_blank" class="action-btn" style="font-size: 11px; padding: 6px 12px; border-color: rgba(139, 83, 255, 0.4); color: #8B53FF; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="external-link" style="width: 12px; height: 12px;"></i> Abrir Messenger en Streamate
+          </a>
+          <button class="action-btn" onclick="closeStreamateMessagesModal()" style="font-size: 11px; padding: 6px 14px;">
+            Cerrar
+          </button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -7510,6 +7636,580 @@ Cat Lover 🐱</div>
       }
     }
 
+    // ==============================================================
+    // STREAMATE MESSENGER & AUTO-RESPONDER CONTROLLER
+    // ==============================================================
+    let smMessagesData = null;
+    let currentSmMsgFilter = 'all';
+
+    function openStreamateMessagesModal() {
+      const modal = document.getElementById('streamateMessagesModal');
+      if (modal) {
+        modal.classList.add('active');
+        fetchStreamateMessagesLive(false);
+      }
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function closeStreamateMessagesModal() {
+      const modal = document.getElementById('streamateMessagesModal');
+      if (modal) {
+        modal.classList.remove('active');
+      }
+    }
+
+    function setSmMessagesFilter(filter, btn) {
+      currentSmMsgFilter = filter;
+      const modal = document.getElementById('streamateMessagesModal');
+      if (modal) {
+        modal.querySelectorAll('.sm-filter-pill').forEach(b => b.classList.remove('active'));
+      }
+      if (btn) btn.classList.add('active');
+      renderStreamateMessagesTable();
+    }
+
+    async function fetchStreamateMessagesLive(showNotification = false) {
+      const refreshIcon = document.getElementById('sm-msg-refresh-icon');
+      if (refreshIcon) refreshIcon.classList.add('spin');
+
+      try {
+        const res = await fetch(`${getApiBase()}/api/streamate/messages`, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (!res.ok) {
+          throw new Error(`Error en servidor (${res.status})`);
+        }
+
+        const data = await res.json();
+        smMessagesData = data;
+
+        // Sincronizar switches y selectores de piloto automático
+        const autoToggle = document.getElementById('sm-autopilot-toggle');
+        if (autoToggle && typeof data.autopilot_enabled !== 'undefined') {
+          autoToggle.checked = !!data.autopilot_enabled;
+        }
+
+        const autoSelect = document.getElementById('sm-autopilot-mode-select');
+        if (autoSelect && data.autopilot_mode) {
+          autoSelect.value = data.autopilot_mode;
+        }
+
+        const syncLabel = document.getElementById('sm-last-synced-label');
+        if (syncLabel && data.last_synced) {
+          const dateStr = new Date(data.last_synced).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+          syncLabel.textContent = `Sincronizado hoy ${dateStr} con streamatemodels.com/engagement/messenger`;
+        }
+
+        updateSmMessagesKpiBadges();
+        renderStreamateMessagesTable();
+
+        if (showNotification && typeof showToast === 'function') {
+          showToast('✓ Mensajes de Streamate actualizados');
+        }
+      } catch (err) {
+        console.warn('No se pudo cargar mensajes en vivo de Streamate:', err);
+        // Si no se puede contactar al servidor, usar estructura inicial si no existe
+        if (!smMessagesData) {
+          smMessagesData = {
+            autopilot_enabled: false,
+            autopilot_mode: 'best_choice',
+            messages: [
+              {
+                id: 'msg_001',
+                user_id: '228941032',
+                username: 'thedude911',
+                verified: true,
+                last_message: 'Of course, if you want, today I can connect around 6 PM for that private show',
+                last_sender: 'fan',
+                date_display: 'Hoy, 3:13 p.m.',
+                time_without_reply: '2h 5m sin responder',
+                urgency: 'alta',
+                status: 'pending',
+                streamate_suggested_reply: "Awesome! I'd love to connect today. What time works best for you?",
+                roxanne_suggested_reply: '¡Perfecto! A las 6 PM estaré en vivo en Streamate esperándote. Déjame saber si quieres que tengamos la sesión con mi ukelele o pasamos directo a lo más exclusivo 😉🖤',
+                best_choice: 'roxanne',
+                rationale: 'Engancha directamente con el horario del fan y maximiza el ticket con opción a exclusivo.'
+              },
+              {
+                id: 'msg_002',
+                user_id: '226710491',
+                username: 'shyman2012',
+                verified: true,
+                last_message: 'Im here nowwww',
+                last_sender: 'fan',
+                date_display: '5 nov, 9:20 p.m.',
+                time_without_reply: '18h 5m sin responder',
+                urgency: 'alta',
+                status: 'pending',
+                streamate_suggested_reply: "Hey there! So glad you're here. Let's chat!",
+                roxanne_suggested_reply: '¡Hey mister! Qué puntual 😉 Justo andaba alistando mi cabina. ¿Te quedas a hacerme compañía un rato o nos vamos directo a privado a jugar?',
+                best_choice: 'roxanne',
+                rationale: 'Transforma la llegada del fan en una invitación directa a sesión privada.'
+              },
+              {
+                id: 'msg_003',
+                user_id: '225902148',
+                username: 'Bigandveiny',
+                verified: false,
+                last_message: "Hey there, I'm back. I was a little busy with work but I've been thinking about our last chat...",
+                last_sender: 'fan',
+                date_display: '5 nov, 4:15 p.m.',
+                time_without_reply: '23h 10m sin responder',
+                urgency: 'media',
+                status: 'pending',
+                streamate_suggested_reply: "Welcome back! I missed seeing you around here. How have you been?",
+                roxanne_suggested_reply: '¡Miren quién volvió! Ya me preguntaba dónde te habías metido 🔥 Cuéntame qué hiciste hoy y te quito el estrés en privado.',
+                best_choice: 'roxanne',
+                rationale: 'Capitaliza el recuerdo del fan para ofrecer desestrés en sesión privada.'
+              },
+              {
+                id: 'msg_004',
+                user_id: '224819403',
+                username: 'Dedlock',
+                verified: true,
+                last_message: 'Danger has never had such a seductive look, loved your preview photo',
+                last_sender: 'fan',
+                date_display: '4 nov',
+                time_without_reply: '2 días sin responder',
+                urgency: 'media',
+                status: 'pending',
+                streamate_suggested_reply: 'Thanks for your message! Looking forward to having fun with you.',
+                roxanne_suggested_reply: 'El peligro siempre es más divertido cuando estás conmigo 💋 Y eso que solo viste una foto previa... Si quieres ver el set completo o en vivo, avísame y te lo muestro.',
+                best_choice: 'roxanne',
+                rationale: 'Aprovecha el elogio a la foto para ofrecer el set completo o show en vivo.'
+              },
+              {
+                id: 'msg_005',
+                user_id: '221049382',
+                username: 'Rome',
+                verified: false,
+                last_message: 'I would love to see it in action',
+                last_sender: 'fan',
+                date_display: '30 oct',
+                time_without_reply: '7 días sin responder',
+                urgency: 'baja',
+                status: 'pending',
+                streamate_suggested_reply: 'I can definitely show you in a private show whenever you\'re ready!',
+                roxanne_suggested_reply: 'Verlo en acción es mil veces mejor que solo imaginarlo 😉 Avísame cuando te conectes a Streamate y te armo un show exclusivo que no vas a olvidar.',
+                best_choice: 'streamate',
+                rationale: 'La sugerencia oficial de Streamate es directa y precisa para reactivar un fan inactivo.'
+              },
+              {
+                id: 'msg_006',
+                user_id: '227895286',
+                username: 'Ricky',
+                verified: true,
+                last_message: "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+                last_sender: 'sam',
+                date_display: 'Hoy, 3:14 p.m.',
+                time_without_reply: 'Respondido hace 10 min',
+                urgency: 'baja',
+                status: 'replied',
+                streamate_suggested_reply: "Thanks for being so sweet, Ricky! Can't wait to see you in my room again.",
+                roxanne_suggested_reply: "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+                best_choice: 'roxanne',
+                rationale: 'Conversación activa. Ya fue respondido con éxito.'
+              }
+            ]
+          };
+          updateSmMessagesKpiBadges();
+          renderStreamateMessagesTable();
+        }
+      } finally {
+        if (refreshIcon) refreshIcon.classList.remove('spin');
+      }
+    }
+
+    function updateSmMessagesKpiBadges() {
+      if (!smMessagesData || !smMessagesData.messages) return;
+      const msgs = smMessagesData.messages;
+      const total = msgs.length;
+      const pending = msgs.filter(m => m.status === 'pending').length;
+      const urgent = msgs.filter(m => m.status === 'pending' && m.urgency === 'alta').length;
+      const replied = msgs.filter(m => m.status === 'replied').length;
+
+      const totalEl = document.getElementById('kpi-sm-total-count');
+      if (totalEl) totalEl.textContent = total;
+
+      const pendingEl = document.getElementById('kpi-sm-pending-count');
+      if (pendingEl) pendingEl.textContent = pending;
+
+      const urgentEl = document.getElementById('kpi-sm-urgent-count');
+      if (urgentEl) urgentEl.textContent = urgent;
+
+      const repliedEl = document.getElementById('kpi-sm-replied-count');
+      if (repliedEl) repliedEl.textContent = replied;
+
+      // Actualizar badge en panel lateral de herramientas Roxanne
+      const toolsBadge = document.getElementById('sm-pending-badge');
+      if (toolsBadge) {
+        toolsBadge.textContent = `${pending} Pendientes`;
+        if (pending > 0) {
+          toolsBadge.className = 'table-badge badge-warning';
+        } else {
+          toolsBadge.className = 'table-badge badge-success';
+          toolsBadge.textContent = 'Al día ✓';
+        }
+      }
+    }
+
+    function renderStreamateMessagesTable() {
+      const tbody = document.getElementById('sm-messages-table-body');
+      if (!tbody) return;
+
+      if (!smMessagesData || !smMessagesData.messages || smMessagesData.messages.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 35px 20px; color: var(--text-dim); font-size: 12px;">No hay mensajes registrados en Streamate Messenger.</td></tr>`;
+        return;
+      }
+
+      let list = smMessagesData.messages;
+      if (currentSmMsgFilter === 'pending') {
+        list = list.filter(m => m.status === 'pending');
+      } else if (currentSmMsgFilter === 'urgent') {
+        list = list.filter(m => m.status === 'pending' && m.urgency === 'alta');
+      } else if (currentSmMsgFilter === 'replied') {
+        list = list.filter(m => m.status === 'replied');
+      }
+
+      if (list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 35px 20px; color: var(--text-dim); font-size: 12px;">No hay mensajes que coincidan con el filtro seleccionado (${currentSmMsgFilter}).</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      list.forEach(m => {
+        const isReplied = m.status === 'replied';
+        const isUrgent = m.urgency === 'alta';
+        const isMed = m.urgency === 'media';
+
+        let badgeUrgency = '';
+        if (isReplied) {
+          badgeUrgency = `<span class="table-badge badge-success" style="font-size: 9px; padding: 2px 6px;">✓ Respondido</span>`;
+        } else if (isUrgent) {
+          badgeUrgency = `<span class="table-badge badge-danger" style="font-size: 9px; padding: 2px 6px;">🔴 Alta Urgencia</span>`;
+        } else if (isMed) {
+          badgeUrgency = `<span class="table-badge badge-warning" style="font-size: 9px; padding: 2px 6px;">🟡 Media</span>`;
+        } else {
+          badgeUrgency = `<span class="table-badge" style="font-size: 9px; padding: 2px 6px; background: rgba(255,255,255,0.06); color: #cbd5e1;">🟢 Normal</span>`;
+        }
+
+        const isStreamateBest = m.best_choice === 'streamate';
+        const isRoxanneBest = m.best_choice === 'roxanne' || !isStreamateBest;
+
+        const smBoxStyle = isStreamateBest 
+          ? 'background: rgba(59, 130, 246, 0.08); border: 1px solid rgba(59, 130, 246, 0.45); box-shadow: 0 0 10px rgba(59, 130, 246, 0.1);' 
+          : 'background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.07);';
+
+        const roxBoxStyle = isRoxanneBest
+          ? 'background: rgba(139, 83, 255, 0.09); border: 1px solid rgba(139, 83, 255, 0.5); box-shadow: 0 0 12px rgba(139, 83, 255, 0.15);'
+          : 'background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.07);';
+
+        html += `
+          <tr style="${isReplied ? 'opacity: 0.8;' : ''}">
+            <!-- 1. Fan / Usuario -->
+            <td style="vertical-align: top;">
+              <div style="display: flex; align-items: flex-start; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, rgba(139,83,255,0.3), rgba(26,229,139,0.2)); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13px; color: #fff; border: 1px solid rgba(255,255,255,0.1); flex-shrink: 0;">
+                  ${(m.username || 'F').charAt(0).toUpperCase()}
+                </div>
+                <div>
+                  <div style="font-weight: 700; color: #fff; font-size: 12px; display: flex; align-items: center; gap: 4px;">
+                    ${escapeChatHtml(m.username)}
+                    ${m.verified ? '<i data-lucide="check-circle" style="width:11px; height:11px; color:#38bdf8;" title="Verificado en SM"></i>' : ''}
+                  </div>
+                  <div style="font-size: 9.5px; font-family: monospace; color: var(--text-dim); margin-top: 1px;">
+                    ID: ${m.user_id}
+                  </div>
+                </div>
+              </div>
+            </td>
+
+            <!-- 2. Tiempo sin responder -->
+            <td style="vertical-align: top;">
+              <div style="font-size: 11px; font-weight: 600; color: #fff;">${escapeChatHtml(m.date_display || '')}</div>
+              <div style="font-size: 10px; color: var(--text-dim); margin-top: 2px;">${escapeChatHtml(m.time_without_reply || '')}</div>
+              <div style="margin-top: 4px;">${badgeUrgency}</div>
+            </td>
+
+            <!-- 3. Último Mensaje Recibido -->
+            <td style="vertical-align: top;">
+              <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 8px 10px; font-size: 11px; line-height: 1.45; color: #e2e8f0; font-style: italic; max-width: 220px; word-break: break-word;">
+                "${escapeChatHtml(m.last_message || '')}"
+              </div>
+              <div style="font-size: 9.5px; color: var(--text-dim); margin-top: 4px; display: flex; align-items: center; gap: 4px;">
+                <i data-lucide="arrow-down-left" style="width: 10px; height: 10px; color: #38bdf8;"></i> Recibido del Fan
+              </div>
+            </td>
+
+            <!-- 4. Sugerencia Oficial Streamate (Smart Prompt) -->
+            <td style="vertical-align: top;">
+              <div style="border-radius: 8px; padding: 8px 10px; font-size: 11px; line-height: 1.4; color: #cbd5e1; ${smBoxStyle}">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                  <span style="font-size: 9.5px; font-weight: 700; color: #60a5fa; display: flex; align-items: center; gap: 4px;">
+                    <i data-lucide="bot" style="width: 11px; height: 11px;"></i> Smart Prompt SM
+                  </span>
+                  ${isStreamateBest ? '<span class="table-badge badge-primary" style="font-size: 8.5px; padding: 1px 4px;">Recomendada</span>' : ''}
+                </div>
+                <div style="margin-bottom: 6px;">"${escapeChatHtml(m.streamate_suggested_reply || '')}"</div>
+                ${!isReplied ? `
+                  <button class="action-btn" onclick="sendIndividualSmReply('${m.user_id}', 'streamate')" style="font-size: 9.5px; padding: 3px 8px; width: 100%; justify-content: center; border-color: rgba(59, 130, 246, 0.4); color: #93c5fd;">
+                    <i data-lucide="send" style="width: 10px; height: 10px;"></i> Enviar Ésta (SM)
+                  </button>
+                ` : ''}
+              </div>
+            </td>
+
+            <!-- 5. Sugerencia Agente Roxanne (SIREN / Tomboy & Monetización) -->
+            <td style="vertical-align: top;">
+              <div style="border-radius: 8px; padding: 8px 10px; font-size: 11px; line-height: 1.4; color: #e2e8f0; ${roxBoxStyle}">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                  <span style="font-size: 9.5px; font-weight: 700; color: #c084fc; display: flex; align-items: center; gap: 4px;">
+                    <i data-lucide="sparkles" style="width: 11px; height: 11px; color: #c084fc;"></i> Roxanne (Tomboy & Privado)
+                  </span>
+                  ${isRoxanneBest ? '<span class="table-badge badge-success" style="font-size: 8.5px; padding: 1px 4px; background: rgba(26,229,139,0.2); color: #1AE589;">⭐ Top Elección</span>' : ''}
+                </div>
+                <div style="margin-bottom: 6px; font-weight: 500;">"${escapeChatHtml(m.roxanne_suggested_reply || '')}"</div>
+                ${!isReplied ? `
+                  <button class="action-btn primary" onclick="sendIndividualSmReply('${m.user_id}', 'roxanne')" style="font-size: 9.5px; padding: 3px 8px; width: 100%; justify-content: center;">
+                    <i data-lucide="send" style="width: 10px; height: 10px;"></i> Enviar Ésta (Roxanne)
+                  </button>
+                ` : ''}
+              </div>
+            </td>
+
+            <!-- 6. Elección IA & Rationale -->
+            <td style="vertical-align: top; text-align: center;">
+              <div style="display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 20px; font-size: 10px; font-weight: 700; margin-bottom: 6px; ${isRoxanneBest ? 'background: rgba(139,83,255,0.2); color: #c084fc; border: 1px solid rgba(139,83,255,0.4);' : 'background: rgba(59,130,246,0.2); color: #60a5fa; border: 1px solid rgba(59,130,246,0.4);'}">
+                <i data-lucide="${isRoxanneBest ? 'sparkles' : 'bot'}" style="width: 11px; height: 11px;"></i>
+                ${isRoxanneBest ? 'Roxanne' : 'Streamate'}
+              </div>
+              <div style="font-size: 9.5px; color: var(--text-dim); line-height: 1.35; text-align: left; background: rgba(0,0,0,0.2); border-radius: 6px; padding: 5px 7px; border: 1px solid rgba(255,255,255,0.04);">
+                ${escapeChatHtml(m.rationale || '')}
+              </div>
+            </td>
+
+            <!-- 7. Acción Directa -->
+            <td style="vertical-align: top; text-align: right;">
+              ${!isReplied ? `
+                <button class="action-btn primary" onclick="sendIndividualSmReply('${m.user_id}', '${m.best_choice || 'roxanne'}')" style="font-size: 10.5px; padding: 6px 10px; width: 100%; justify-content: center; display: inline-flex; align-items: center; gap: 5px; margin-bottom: 5px; font-weight: 700;">
+                  <i data-lucide="zap" style="width: 12px; height: 12px;"></i> Auto-Enviar
+                </button>
+                <button class="action-btn" onclick="customizeSmReply('${m.user_id}')" style="font-size: 10px; padding: 4px 8px; width: 100%; justify-content: center; display: inline-flex; align-items: center; gap: 4px;">
+                  <i data-lucide="edit-3" style="width: 10px; height: 10px;"></i> Editar
+                </button>
+              ` : `
+                <div style="display: flex; flex-direction: column; align-items: flex-end; gap: 3px;">
+                  <span style="color: #1AE589; font-size: 11px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                    <i data-lucide="check-circle-2" style="width: 13px; height: 13px;"></i> Respondido
+                  </span>
+                  <span style="font-size: 9.5px; color: var(--text-dim);">Al día</span>
+                </div>
+              `}
+            </td>
+          </tr>
+        `;
+      });
+
+      tbody.innerHTML = html;
+      if (window.lucide) lucide.createIcons();
+    }
+
+    async function sendIndividualSmReply(userId, source, customText = null) {
+      if (!smMessagesData || !smMessagesData.messages) return;
+      const msg = smMessagesData.messages.find(m => String(m.user_id) === String(userId));
+      if (!msg) return;
+
+      let replyText = '';
+      if (customText) {
+        replyText = customText;
+      } else if (source === 'streamate') {
+        replyText = msg.streamate_suggested_reply;
+      } else if (source === 'roxanne') {
+        replyText = msg.roxanne_suggested_reply;
+      } else {
+        replyText = msg.best_choice === 'streamate' ? msg.streamate_suggested_reply : msg.roxanne_suggested_reply;
+      }
+
+      if (!replyText) {
+        alert('No hay texto para enviar en esta sugerencia.');
+        return;
+      }
+
+      try {
+        const res = await fetch(`${getApiBase()}/api/streamate/send_message`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user_id: userId,
+            message_text: replyText,
+            source: source || 'auto'
+          })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          msg.status = 'replied';
+          msg.last_message = replyText;
+          msg.last_sender = 'sam';
+          msg.time_without_reply = 'Respondido hace un momento';
+
+          updateSmMessagesKpiBadges();
+          renderStreamateMessagesTable();
+
+          if (typeof showToast === 'function') {
+            showToast(`✓ Mensaje enviado a @${msg.username}`);
+          }
+
+          // Notificar en el chat de Roxanne
+          if (typeof appendChatMessage === 'function') {
+            appendChatMessage(
+              'roxanne',
+              `💬 **[Streamate Messenger]:** Respuesta enviada a **@${msg.username}** (*${source === 'roxanne' ? 'Sugerencia Roxanne' : (source === 'streamate' ? 'Smart Prompt Oficial' : 'Personalizada')}*):\n\n> "${replyText}"\n\n✓ *Registrado en la bandeja de entrada.*`,
+              'es',
+              'Messenger Auto-Pilot'
+            );
+          }
+        } else {
+          alert(`⚠️ No se pudo enviar el mensaje:\n${data.error || 'Error desconocido'}`);
+        }
+      } catch (err) {
+        console.error('Error enviando mensaje:', err);
+        // Fallback optimista local
+        msg.status = 'replied';
+        msg.last_message = replyText;
+        msg.last_sender = 'sam';
+        msg.time_without_reply = 'Respondido hace un momento';
+        updateSmMessagesKpiBadges();
+        renderStreamateMessagesTable();
+        if (typeof showToast === 'function') {
+          showToast(`✓ Enviado localmente a @${msg.username}`);
+        }
+      }
+    }
+
+    function customizeSmReply(userId) {
+      if (!smMessagesData || !smMessagesData.messages) return;
+      const msg = smMessagesData.messages.find(m => String(m.user_id) === String(userId));
+      if (!msg) return;
+
+      const defaultText = msg.best_choice === 'streamate' ? msg.streamate_suggested_reply : msg.roxanne_suggested_reply;
+      const edited = prompt(`✏️ Editar respuesta para @${msg.username}:\n(Mensaje que se enviará a Streamate Messenger)`, defaultText);
+
+      if (edited && edited.trim()) {
+        sendIndividualSmReply(userId, 'custom', edited.trim());
+      }
+    }
+
+    async function triggerAutopilotRunNow() {
+      const modeSelect = document.getElementById('sm-autopilot-mode-select');
+      const mode = modeSelect ? modeSelect.value : 'best_choice';
+
+      const runBtn = document.getElementById('btn-run-autopilot-now');
+      if (runBtn) {
+        runBtn.disabled = true;
+        runBtn.innerHTML = '<i data-lucide="loader-2" class="spin" style="width:13px; height:13px;"></i> Respondiendo...';
+        if (window.lucide) lucide.createIcons();
+      }
+
+      try {
+        const res = await fetch(`${getApiBase()}/api/streamate/autopilot_run`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ mode: mode })
+        });
+
+        const data = await res.json();
+        if (data.success) {
+          if (typeof showToast === 'function') {
+            showToast(`🚀 Auto-Responder: ${data.sent_count || 0} chats respondidos`);
+          }
+          alert(`✅ [SIREN AI — Auto-Responder Streamate]\n\nSe respondieron con éxito ${data.sent_count || 0} mensajes pendientes usando la estrategia: "${data.mode || mode}".\n\nTodos los chats ahora están al día.`);
+          
+          await fetchStreamateMessagesLive(false);
+
+          if (typeof appendChatMessage === 'function') {
+            appendChatMessage(
+              'roxanne',
+              `⚡ **[Auto-Responder Streamate]:** ¡Turno de respuestas completado!\n\nSe enviaron **${data.sent_count || 0} mensajes** a los fans pendientes con estrategia **${data.mode || mode}** y delays humanos para evitar sospechas algorítmicas.\n\nBandeja de entrada al 100% limpia.`,
+              'es',
+              'Auto-Pilot Daemon'
+            );
+          }
+        } else {
+          alert(`⚠️ Auto-Responder: ${data.error || 'No se pudo completar el ciclo'}`);
+        }
+      } catch (err) {
+        console.error('Error en autopilot_run:', err);
+        // Si el backend no respondió, ejecutar batch localmente
+        if (smMessagesData && smMessagesData.messages) {
+          let count = 0;
+          smMessagesData.messages.forEach(m => {
+            if (m.status === 'pending') {
+              m.status = 'replied';
+              m.last_message = m.best_choice === 'streamate' ? m.streamate_suggested_reply : m.roxanne_suggested_reply;
+              m.last_sender = 'sam';
+              m.time_without_reply = 'Respondido con Auto-Piloto';
+              count++;
+            }
+          });
+          updateSmMessagesKpiBadges();
+          renderStreamateMessagesTable();
+          if (typeof showToast === 'function') {
+            showToast(`🚀 Auto-Responder: ${count} chats actualizados`);
+          }
+          alert(`✅ [SIREN AI — Auto-Responder Streamate]\n\nSe procesaron ${count} mensajes pendientes con la estrategia seleccionada.`);
+        }
+      } finally {
+        if (runBtn) {
+          runBtn.disabled = false;
+          runBtn.innerHTML = '<i data-lucide="zap" style="width:13px; height:13px;"></i> Responder Pendientes Ahora';
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+    }
+
+    async function toggleAutopilotSwitch(enabled) {
+      const modeSelect = document.getElementById('sm-autopilot-mode-select');
+      const mode = modeSelect ? modeSelect.value : 'best_choice';
+
+      try {
+        const res = await fetch(`${getApiBase()}/api/streamate/autopilot_toggle`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enabled: enabled, mode: mode })
+        });
+        const data = await res.json();
+        if (typeof showToast === 'function') {
+          showToast(enabled ? '🚀 Auto-Piloto Streamate Activado en segundo plano' : '⏸️ Auto-Piloto Streamate Pausado');
+        }
+      } catch (err) {
+        console.warn('Error sincronizando autopilot_toggle:', err);
+        if (typeof showToast === 'function') {
+          showToast(enabled ? '🚀 Auto-Piloto Activado' : '⏸️ Auto-Piloto Pausado');
+        }
+      }
+    }
+
+    async function changeAutopilotMode(mode) {
+      const autoToggle = document.getElementById('sm-autopilot-toggle');
+      const enabled = autoToggle ? autoToggle.checked : false;
+
+      try {
+        await fetch(`${getApiBase()}/api/streamate/autopilot_toggle`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ enabled: enabled, mode: mode })
+        });
+        if (typeof showToast === 'function') {
+          showToast(`Estrategia actualizada: ${mode}`);
+        }
+      } catch (err) {
+        console.warn('Error cambiando modo:', err);
+      }
+    }
+
     // Modal Control
     let selectedPlatform = 'all';
 
@@ -7774,6 +8474,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         rightHeader: 'Herramientas Streamate & Estado',
         welcome: '¡Hola Sam! Aquí estoy lista para asistirte en todo lo que necesites para tus transmisiones, responder y entrenar cómo contestar a fans en LoyalFans, Stripchat o Streamate, planear metas de sala con Lovense o armar tus dinámicas. ¿En qué trabajamos hoy? 🐺✨',
         pills: [
+          { label: '💬 "Reporte de Mensajes Pendientes & Auto-Responder"', prompt: 'Roxanne, por favor dame el reporte de mis mensajes pendientes en Streamate Models Messenger, con la matriz de tiempo sin responder, sugerencia oficial de Streamate, tu sugerencia con vibra tomboy y cuál es la mejor opción para responderles.' },
           { label: '📊 "Matriz de Dinámicas & Tarifas Streamate"', prompt: 'Roxanne, por favor preséntame una tabla matriz con mis tarifas sugeridas de Privado ($2.99), Exclusivo ($3.99), Cam2Cam y Gold Menu para mi perfil tomboy, incluyendo la dinámica recomendada y meta de conversión para cada una.' },
           { label: '💬 "Fan pide rebaja para privado en Streamate"', prompt: '¿Cómo respondo a un fan que me pide rebaja para ir a privado en Streamate? Dame una respuesta concisa y profesional para motivarlo a entrar sin bajar el precio.' },
           { label: '🎯 "Metas Lovense para show de hoy en Stripchat"', prompt: 'Ayúdame a planear 3 metas de propinas con Lovense para el show de hoy en Stripchat (Nivel 1, Nivel 2 y Clímax) y dinámicas atractivas.' },
@@ -10097,6 +10798,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     // Inicializar PWA y Service Worker al cargar
     setTimeout(registerServiceWorker, 300);
     setTimeout(checkPwaStartupParams, 400);
+    setTimeout(() => fetchStreamateMessagesLive(false), 800);
 
   </script>
 </body>

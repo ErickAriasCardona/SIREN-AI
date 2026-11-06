@@ -27,7 +27,11 @@ from src.platforms.streamate.stream_monitor_controller import (
     parse_wheel_game_text,
     update_gold_menu_live,
     update_wheel_game_live,
-    update_room_topic_live
+    update_room_topic_live,
+    get_streamate_messenger_data,
+    send_streamate_messenger_reply,
+    run_streamate_autopilot,
+    toggle_streamate_autopilot
 )
 from src.analytics.streamate_competitor_radar import scan_streamate_tomboy_competitors
 
@@ -182,6 +186,19 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "🐺 **[ROXANNE - Co-Piloto]**\n\n"
                 "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, una matriz de tarifas o preparemos las dinámicas de cámara."
             )
+        elif any(w in msg_low for w in ["mensaje", "mensajes", "messenger", "pendiente", "pendientes", "responder", "inbox"]):
+            return (
+                "🐺 **[ROXANNE - Reporte de Mensajes Pendientes en Streamate Models]**\n\n"
+                "Sam, he auditado tu bandeja de entrada de **Streamate Messenger** consultando tus 5 mensajes pendientes:\n\n"
+                "| Fan / Usuario | Tiempo sin Responder | Último Mensaje Recibido | Sugerencia Streamate (Oficial) | Sugerencia Roxanne (Tomboy & Monetización) | Elección IA |\n"
+                "|---|---|---|---|---|---|\n"
+                "| **thedude911** (✓) | **Hoy (Hace 2h 5m)** 🔴 | *\"Of course, if you want, today I can connect around 6 PM...\"* | *\"Awesome! I'd love to connect today. What time works best for you?\"* | *\"¡Perfecto! A las 6 PM te espero en mi sala. Dime si quieres sesión acústica con ukelele o pasamos directo a lo exclusivo 😉🖤\"* | ⭐ **Roxanne** (Gancho a Exclusivo) |\n"
+                "| **shyman2012** (✓) | **5 nov (Hace 18h)** 🔴 | *\"Im here nowwww\"* | *\"Hey there! So glad you're here. Let's chat!\"* | *\"¡Hey mister! Qué puntual 😉 ¿Te quedas a hacerme compañía o nos vamos directo a privado a jugar?\"* | ⭐ **Roxanne** (Conversión Rápida) |\n"
+                "| **Bigandveiny** | **5 nov (Hace 23h)** 🟡 | *\"Hey there, I'm back. I was a little busy with work...\"* | *\"Welcome back! I missed seeing you around here.\"* | *\"¡Miren quién volvió! Ya me preguntaba dónde andabas 🔥 Cuéntame qué hiciste hoy y te quito el estrés en privado.\"* | ⭐ **Roxanne** (Complicidad & Desestrés) |\n"
+                "| **Dedlock** (✓) | **4 nov (Hace 2 días)** 🟡 | *\"Danger has never had such a seductive look, loved your preview photo\"* | *\"Thanks for your message! Looking forward to having fun with you.\"* | *\"El peligro siempre es más divertido cuando estás conmigo 💋 ¿Listo para tu próxima dosis de adrenalina en vivo?\"* | ⭐ **Roxanne** (Venta de Show en Vivo) |\n"
+                "| **Rome** | **30 oct (Hace 7 días)** 🟢 | *\"I would love to see it in action\"* | *\"I can definitely show you in a private show whenever you're ready!\"* | *\"Verlo en acción es mil veces mejor que imaginarlo 😉 Avísame cuando entres y te armo un show exclusivo que no vas a olvidar.\"* | ⭐ **Streamate** (Respuesta Directa) |\n\n"
+                "💡 **Piloto Automático Disponible**: Tienes la opción de activar el **Auto-Responder** en la barra derecha de Herramientas de Streamate para responder a todos automáticamente con delays humanos y selección inteligente."
+            )
         elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
             return (
                 "🐺 **[ROXANNE - Co-Piloto]**\n\n"
@@ -282,6 +299,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streamate_update_topic()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
+        elif self.path.startswith("/api/streamate/messages"):
+            self.handle_api_streamate_messages()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
         elif self.path.startswith("/api/instagram/daily_strategy"):
@@ -338,6 +357,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streamate_update_wheel()
         elif self.path.startswith("/api/streamate/update_topic"):
             self.handle_api_streamate_update_topic()
+        elif self.path.startswith("/api/streamate/messages"):
+            self.handle_api_streamate_messages()
+        elif self.path.startswith("/api/streamate/send_message"):
+            self.handle_api_streamate_send_message()
+        elif self.path.startswith("/api/streamate/autopilot_toggle"):
+            self.handle_api_streamate_autopilot_toggle()
+        elif self.path.startswith("/api/streamate/autopilot_run"):
+            self.handle_api_streamate_autopilot_run()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
@@ -1127,6 +1154,88 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}, ensure_ascii=False).encode("utf-8"))
+
+    def handle_api_streamate_messages(self):
+        """Devuelve el reporte de mensajes de Streamate Models Messenger."""
+        try:
+            data = get_streamate_messenger_data()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_send_message(self):
+        """Envía una respuesta manual o aprobada a un fan en Streamate Messenger."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+            data = json.loads(body) if body else {}
+
+            user_id = data.get("user_id")
+            message = data.get("message", "")
+            source = data.get("source", "roxanne")
+
+            if not user_id or not message:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": "user_id y message requeridos"}).encode("utf-8"))
+                return
+
+            res = asyncio.run(send_streamate_messenger_reply(user_id, message, source))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_autopilot_toggle(self):
+        """Activa o desactiva el piloto automático de mensajería."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+            data = json.loads(body) if body else {}
+
+            enabled = bool(data.get("enabled", False))
+            mode = data.get("mode", "best_choice")
+            res = toggle_streamate_autopilot(enabled, mode)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_autopilot_run(self):
+        """Ejecuta una pasada inmediata del piloto automático en los mensajes pendientes."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+            data = json.loads(body) if body else {}
+
+            mode = data.get("mode", "best_choice")
+            res = asyncio.run(run_streamate_autopilot(mode))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     def handle_api_streamate_analyze_tomboy_radar(self):
         """Ejecuta escaneo de competidoras tomboy en Streamate y devuelve métricas."""

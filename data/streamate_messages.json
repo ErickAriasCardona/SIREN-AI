@@ -1,0 +1,177 @@
+{
+  "autopilot_enabled": false,
+  "autopilot_mode": "best_choice",
+  "last_synced": "2026-11-06T15:20:00",
+  "messages": [
+    {
+      "id": "msg_001",
+      "user_id": "228941032",
+      "username": "thedude911",
+      "verified": true,
+      "last_message": "Of course, if you want, today I can connect around 6 PM for that private show",
+      "last_sender": "fan",
+      "date_display": "Hoy, 3:13 p.m.",
+      "time_without_reply": "2h 5m sin responder",
+      "urgency": "alta",
+      "status": "pending",
+      "streamate_suggested_reply": "Awesome! I'd love to connect today. What time works best for you?",
+      "roxanne_suggested_reply": "¡Perfecto! A las 6 PM estaré en vivo en Streamate esperándote. Déjame saber si quieres que tengamos la sesión con mi ukelele o pasamos directo a lo más exclusivo 😉🖤",
+      "best_choice": "roxanne",
+      "rationale": "La respuesta de Roxanne engancha directamente con el horario propuesto por el fan y añade un gancho hacia exclusivo para maximizar el ticket.",
+      "history": [
+        {
+          "sender": "sam",
+          "text": "Hey handsome! Will I see you online today?",
+          "time": "2:45 p.m."
+        },
+        {
+          "sender": "fan",
+          "text": "Of course, if you want, today I can connect around 6 PM for that private show",
+          "time": "3:13 p.m."
+        }
+      ]
+    },
+    {
+      "id": "msg_002",
+      "user_id": "226710491",
+      "username": "shyman2012",
+      "verified": true,
+      "last_message": "Im here nowwww",
+      "last_sender": "fan",
+      "date_display": "5 nov, 9:20 p.m.",
+      "time_without_reply": "18h 5m sin responder",
+      "urgency": "alta",
+      "status": "pending",
+      "streamate_suggested_reply": "Hey there! So glad you're here. Let's chat!",
+      "roxanne_suggested_reply": "¡Hey mister! Qué puntual 😉 Justo andaba alistando mi cabina. ¿Te quedas a hacerme compañía un rato o nos vamos directo a privado a jugar?",
+      "best_choice": "roxanne",
+      "rationale": "Transforma la llegada del fan en una invitación directa a sesión privada antes de que se desconecte.",
+      "history": [
+        {
+          "sender": "fan",
+          "text": "Im here nowwww",
+          "time": "5 nov, 9:20 p.m."
+        }
+      ]
+    },
+    {
+      "id": "msg_003",
+      "user_id": "225902148",
+      "username": "Bigandveiny",
+      "verified": false,
+      "last_message": "Hey there, I'm back. I was a little busy with work but I've been thinking about our last chat...",
+      "last_sender": "fan",
+      "date_display": "5 nov, 4:15 p.m.",
+      "time_without_reply": "23h 10m sin responder",
+      "urgency": "media",
+      "status": "pending",
+      "streamate_suggested_reply": "Welcome back! I missed seeing you around here. How have you been?",
+      "roxanne_suggested_reply": "¡Miren quién volvió! Ya me preguntaba dónde te habías metido 🔥 Qué bueno saber que pensabas en mí... Cuéntame qué hiciste hoy y te quito el estrés en privado.",
+      "best_choice": "roxanne",
+      "rationale": "Mantiene la complicidad cálida y capitaliza que el fan estuvo pensando en ella para ofrecer desestrés en privado.",
+      "history": [
+        {
+          "sender": "fan",
+          "text": "Hey there, I'm back. I was a little busy with work but I've been thinking about our last chat...",
+          "time": "5 nov, 4:15 p.m."
+        }
+      ]
+    },
+    {
+      "id": "msg_004",
+      "user_id": "224819403",
+      "username": "Dedlock",
+      "verified": true,
+      "last_message": "Danger has never had such a seductive look, loved your preview photo",
+      "last_sender": "fan",
+      "date_display": "4 nov",
+      "time_without_reply": "2 días sin responder",
+      "urgency": "media",
+      "status": "pending",
+      "streamate_suggested_reply": "Thanks for your message! Looking forward to having fun with you.",
+      "roxanne_suggested_reply": "El peligro siempre es más divertido cuando estás conmigo 💋 Y eso que solo viste una foto previa... Si quieres ver el set completo o en vivo, avísame y te lo muestro.",
+      "best_choice": "roxanne",
+      "rationale": "Aprovecha el elogio a la foto para ofrecer el set completo o show en vivo.",
+      "history": [
+        {
+          "sender": "sam",
+          "text": "Danger has never had such a tempting face. Are you ready to enjoy it? 💋🍒",
+          "time": "4 nov"
+        },
+        {
+          "sender": "fan",
+          "text": "Danger has never had such a seductive look, loved your preview photo",
+          "time": "4 nov"
+        }
+      ]
+    },
+    {
+      "id": "msg_005",
+      "user_id": "221049382",
+      "username": "Rome",
+      "verified": false,
+      "last_message": "I would love to see it in action",
+      "last_sender": "fan",
+      "date_display": "30 oct",
+      "time_without_reply": "7 días sin responder",
+      "urgency": "baja",
+      "status": "pending",
+      "streamate_suggested_reply": "I can definitely show you in a private show whenever you're ready!",
+      "roxanne_suggested_reply": "Verlo en acción es mil veces mejor que solo imaginarlo 😉 Avísame cuando te conectes a Streamate y te armo un show exclusivo que no vas a olvidar.",
+      "best_choice": "streamate",
+      "rationale": "La respuesta sugerida oficial de Streamate es concisa, clara y directa para reactivar un fan de más de una semana.",
+      "history": [
+        {
+          "sender": "fan",
+          "text": "I would love to see it in action",
+          "time": "30 oct"
+        }
+      ]
+    },
+    {
+      "id": "msg_006",
+      "user_id": "227895286",
+      "username": "Ricky",
+      "verified": true,
+      "last_message": "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+      "last_sender": "sam",
+      "date_display": "Hoy, 3:14 p.m.",
+      "time_without_reply": "Respondido hace 10 min",
+      "urgency": "baja",
+      "status": "replied",
+      "streamate_suggested_reply": "Thanks for being so sweet, Ricky! Can't wait to see you in my room again.",
+      "roxanne_suggested_reply": "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+      "best_choice": "roxanne",
+      "rationale": "Conversación activa. Ya fue respondido con la sugerencia de Roxanne con éxito.",
+      "history": [
+        {
+          "sender": "sam",
+          "text": "Danger has never had such a tempting face. Are you ready to enjoy it? 💋🍒",
+          "time": "2:36 a.m."
+        },
+        {
+          "sender": "fan",
+          "text": "Damn you're sexy",
+          "time": "7:38 p.m."
+        },
+        {
+          "sender": "sam",
+          "text": "Thanks, Ricky... On a scale of 1 to 10, what score would you give me?",
+          "time": "1:50 a.m."
+        },
+        {
+          "sender": "fan",
+          "text": "11",
+          "time": "11:41 a.m."
+        },
+        {
+          "sender": "sam",
+          "text": "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+          "time": "3:14 p.m."
+        }
+      ]
+    }
+  ],
+  "pending_count": 5,
+  "total_count": 6
+}
