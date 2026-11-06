@@ -1029,8 +1029,9 @@
       align-items: center;
       justify-content: center;
     }
-    .modal-overlay.open {
-      display: flex;
+    .modal-overlay.open,
+    .modal-overlay.active {
+      display: flex !important;
     }
     .modal-card {
       background: var(--bg-surface);
@@ -1063,6 +1064,141 @@
       color: var(--text-dim);
       cursor: pointer;
       font-size: 20px;
+    }
+
+    /* ==============================================================
+       ESTILOS PARA STREAMATE MESSENGER & AUTO-RESPONDER MODAL
+       ============================================================== */
+    #streamateMessagesModal .sm-modal-title {
+      color: #ffffff;
+    }
+    #streamateMessagesModal .sm-user-title {
+      color: #ffffff;
+      font-weight: 700;
+    }
+    #streamateMessagesModal .sm-date-title {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    #streamateMessagesModal .sm-fan-msg-bubble {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e2e8f0;
+    }
+    #streamateMessagesModal .sm-box-style {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.45);
+      color: #cbd5e1;
+    }
+    #streamateMessagesModal .rox-box-style {
+      background: rgba(139, 83, 255, 0.09);
+      border: 1px solid rgba(139, 83, 255, 0.5);
+      color: #e2e8f0;
+    }
+    #streamateMessagesModal .sm-rationale-box {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-dim);
+    }
+    #streamateMessagesModal .sm-filter-pill {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      border-radius: 20px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    #streamateMessagesModal .sm-filter-pill:hover {
+      background: rgba(139, 83, 255, 0.15);
+      color: #ffffff;
+    }
+    #streamateMessagesModal .sm-filter-pill.active {
+      background: rgba(139, 83, 255, 0.25);
+      border-color: #8B53FF;
+      color: #c084fc;
+    }
+
+    /* MODO CLARO OVERRIDES PARA MODAL STREAMATE */
+    body.light-theme #streamateMessagesModal .modal-card {
+      background: #ffffff !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15) !important;
+    }
+    body.light-theme #streamateMessagesModal .modal-header h3,
+    body.light-theme #streamateMessagesModal .sm-modal-title {
+      color: #0f172a !important;
+    }
+    body.light-theme #streamateMessagesModal .sm-user-title {
+      color: #0f172a !important;
+    }
+    body.light-theme #streamateMessagesModal .sm-date-title {
+      color: #1e293b !important;
+    }
+    body.light-theme #streamateMessagesModal .sm-fan-msg-bubble {
+      background: #f8fafc !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #1e293b !important;
+    }
+    body.light-theme #streamateMessagesModal .sm-box-style {
+      background: #eff6ff !important;
+      border: 1px solid #93c5fd !important;
+      color: #1e3a8a !important;
+    }
+    body.light-theme #streamateMessagesModal .rox-box-style {
+      background: #fdf4ff !important;
+      border: 1px solid #d8b4fe !important;
+      color: #581c87 !important;
+    }
+    body.light-theme #streamateMessagesModal .sm-rationale-box {
+      background: #f1f5f9 !important;
+      border: 1px solid #cbd5e1 !important;
+      color: #334155 !important;
+    }
+    body.light-theme #streamateMessagesModal .sm-filter-pill {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      color: #334155;
+    }
+    body.light-theme #streamateMessagesModal .sm-filter-pill:hover {
+      background: #ede9fe;
+      color: #6b21a8;
+    }
+    body.light-theme #streamateMessagesModal .sm-filter-pill.active {
+      background: #ede9fe;
+      border-color: #8B53FF;
+      color: #6b21a8;
+    }
+    body.light-theme #streamateMessagesModal select {
+      background: #ffffff !important;
+      color: #0f172a !important;
+    }
+    body.light-theme #streamateMessagesModal label {
+      color: #0f172a !important;
+    }
+    body.light-theme #streamateMessagesModal .chat-table-wrapper {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+    }
+    body.light-theme #streamateMessagesModal .chat-matrix-table thead {
+      background: #f8fafc !important;
+    }
+    body.light-theme #streamateMessagesModal .chat-matrix-table th {
+      color: #6b21a8 !important;
+      border-bottom: 2px solid #cbd5e1 !important;
+    }
+    body.light-theme #streamateMessagesModal .chat-matrix-table td {
+      color: #1e293b !important;
+      border-bottom: 1px solid #e2e8f0 !important;
+    }
+    body.light-theme #streamateMessagesModal .chat-matrix-table tbody tr:nth-child(even) {
+      background: #f8fafc !important;
+    }
+    body.light-theme #streamateMessagesModal .chat-matrix-table tbody tr:hover {
+      background: #ede9fe !important;
     }
 
     /* CODE BOXES */
@@ -8019,7 +8155,16 @@ Cat Lover 🐱</div>
     function openStreamateMessagesModal() {
       const modal = document.getElementById('streamateMessagesModal');
       if (modal) {
+        modal.classList.add('open');
         modal.classList.add('active');
+        modal.style.display = 'flex';
+        // Renderizar inmediatamente con caché/defaults para evitar parpadeo o espera
+        if (!smMessagesData) {
+          initDefaultSmMessagesData();
+        } else {
+          updateSmMessagesKpiBadges();
+          renderStreamateMessagesTable();
+        }
         fetchStreamateMessagesLive(false);
       }
       if (window.lucide) lucide.createIcons();
@@ -8028,7 +8173,9 @@ Cat Lover 🐱</div>
     function closeStreamateMessagesModal() {
       const modal = document.getElementById('streamateMessagesModal');
       if (modal) {
+        modal.classList.remove('open');
         modal.classList.remove('active');
+        modal.style.display = 'none';
       }
     }
 
@@ -8039,6 +8186,115 @@ Cat Lover 🐱</div>
         modal.querySelectorAll('.sm-filter-pill').forEach(b => b.classList.remove('active'));
       }
       if (btn) btn.classList.add('active');
+      renderStreamateMessagesTable();
+    }
+
+    const DEFAULT_SM_MESSAGES_DATA = {
+      autopilot_enabled: false,
+      autopilot_mode: 'best_choice',
+      messages: [
+        {
+          id: 'msg_001',
+          user_id: '228941032',
+          username: 'thedude911',
+          verified: true,
+          last_message: 'Of course, if you want, today I can connect around 6 PM for that private show',
+          last_sender: 'fan',
+          date_display: 'Hoy, 3:13 p.m.',
+          time_without_reply: '2h 5m sin responder',
+          urgency: 'alta',
+          status: 'pending',
+          streamate_suggested_reply: "Awesome! I'd love to connect today. What time works best for you?",
+          roxanne_suggested_reply: '¡Perfecto! A las 6 PM estaré en vivo en Streamate esperándote. Déjame saber si quieres que tengamos la sesión con mi ukelele o pasamos directo a lo más exclusivo 😉🖤',
+          best_choice: 'roxanne',
+          rationale: 'Engancha directamente con el horario del fan y maximiza el ticket con opción a exclusivo.'
+        },
+        {
+          id: 'msg_002',
+          user_id: '226710491',
+          username: 'shyman2012',
+          verified: true,
+          last_message: 'Im here nowwww',
+          last_sender: 'fan',
+          date_display: '5 nov, 9:20 p.m.',
+          time_without_reply: '18h 5m sin responder',
+          urgency: 'alta',
+          status: 'pending',
+          streamate_suggested_reply: "Hey there! So glad you're here. Let's chat!",
+          roxanne_suggested_reply: '¡Hey mister! Qué puntual 😉 Justo andaba alistando mi cabina. ¿Te quedas a hacerme compañía un rato o nos vamos directo a privado a jugar?',
+          best_choice: 'roxanne',
+          rationale: 'Transforma la llegada del fan en una invitación directa a sesión privada.'
+        },
+        {
+          id: 'msg_003',
+          user_id: '225902148',
+          username: 'Bigandveiny',
+          verified: false,
+          last_message: "Hey there, I'm back. I was a little busy with work but I've been thinking about our last chat...",
+          last_sender: 'fan',
+          date_display: '5 nov, 4:15 p.m.',
+          time_without_reply: '23h 10m sin responder',
+          urgency: 'media',
+          status: 'pending',
+          streamate_suggested_reply: "Welcome back! I missed seeing you around here. How have you been?",
+          roxanne_suggested_reply: '¡Miren quién volvió! Ya me preguntaba dónde te habías metido 🔥 Cuéntame qué hiciste hoy y te quito el estrés en privado.',
+          best_choice: 'roxanne',
+          rationale: 'Capitaliza el recuerdo del fan para ofrecer desestrés en sesión privada.'
+        },
+        {
+          id: 'msg_004',
+          user_id: '224819403',
+          username: 'Dedlock',
+          verified: true,
+          last_message: 'Danger has never had such a seductive look, loved your preview photo',
+          last_sender: 'fan',
+          date_display: '4 nov',
+          time_without_reply: '2 días sin responder',
+          urgency: 'media',
+          status: 'pending',
+          streamate_suggested_reply: 'Thanks for your message! Looking forward to having fun with you.',
+          roxanne_suggested_reply: 'El peligro siempre es más divertido cuando estás conmigo 💋 Y eso que solo viste una foto previa... Si quieres ver el set completo o en vivo, avísame y te lo muestro.',
+          best_choice: 'roxanne',
+          rationale: 'Aprovecha el elogio a la foto para ofrecer el set completo o show en vivo.'
+        },
+        {
+          id: 'msg_005',
+          user_id: '221049382',
+          username: 'Rome',
+          verified: false,
+          last_message: 'I would love to see it in action',
+          last_sender: 'fan',
+          date_display: '30 oct',
+          time_without_reply: '7 días sin responder',
+          urgency: 'baja',
+          status: 'pending',
+          streamate_suggested_reply: 'I can definitely show you in a private show whenever you\'re ready!',
+          roxanne_suggested_reply: 'Verlo en acción es mil veces mejor que solo imaginarlo 😉 Avísame cuando te conectes a Streamate y te armo un show exclusivo que no vas a olvidar.',
+          best_choice: 'streamate',
+          rationale: 'La sugerencia oficial de Streamate es directa y precisa para reactivar un fan inactivo.'
+        },
+        {
+          id: 'msg_006',
+          user_id: '227895286',
+          username: 'Ricky',
+          verified: true,
+          last_message: "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+          last_sender: 'sam',
+          date_display: 'Hoy, 3:14 p.m.',
+          time_without_reply: 'Respondido hace 10 min',
+          urgency: 'baja',
+          status: 'replied',
+          streamate_suggested_reply: "Thanks for being so sweet, Ricky! Can't wait to see you in my room again.",
+          roxanne_suggested_reply: "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
+          best_choice: 'roxanne',
+          rationale: 'Conversación activa. Ya fue respondido con éxito.'
+        }
+      ]
+    };
+
+    function initDefaultSmMessagesData() {
+      smMessagesData = JSON.parse(JSON.stringify(DEFAULT_SM_MESSAGES_DATA));
+      updateSmMessagesKpiBadges();
       renderStreamateMessagesTable();
     }
 
@@ -8084,112 +8340,8 @@ Cat Lover 🐱</div>
         }
       } catch (err) {
         console.warn('No se pudo cargar mensajes en vivo de Streamate:', err);
-        // Si no se puede contactar al servidor, usar estructura inicial si no existe
         if (!smMessagesData) {
-          smMessagesData = {
-            autopilot_enabled: false,
-            autopilot_mode: 'best_choice',
-            messages: [
-              {
-                id: 'msg_001',
-                user_id: '228941032',
-                username: 'thedude911',
-                verified: true,
-                last_message: 'Of course, if you want, today I can connect around 6 PM for that private show',
-                last_sender: 'fan',
-                date_display: 'Hoy, 3:13 p.m.',
-                time_without_reply: '2h 5m sin responder',
-                urgency: 'alta',
-                status: 'pending',
-                streamate_suggested_reply: "Awesome! I'd love to connect today. What time works best for you?",
-                roxanne_suggested_reply: '¡Perfecto! A las 6 PM estaré en vivo en Streamate esperándote. Déjame saber si quieres que tengamos la sesión con mi ukelele o pasamos directo a lo más exclusivo 😉🖤',
-                best_choice: 'roxanne',
-                rationale: 'Engancha directamente con el horario del fan y maximiza el ticket con opción a exclusivo.'
-              },
-              {
-                id: 'msg_002',
-                user_id: '226710491',
-                username: 'shyman2012',
-                verified: true,
-                last_message: 'Im here nowwww',
-                last_sender: 'fan',
-                date_display: '5 nov, 9:20 p.m.',
-                time_without_reply: '18h 5m sin responder',
-                urgency: 'alta',
-                status: 'pending',
-                streamate_suggested_reply: "Hey there! So glad you're here. Let's chat!",
-                roxanne_suggested_reply: '¡Hey mister! Qué puntual 😉 Justo andaba alistando mi cabina. ¿Te quedas a hacerme compañía un rato o nos vamos directo a privado a jugar?',
-                best_choice: 'roxanne',
-                rationale: 'Transforma la llegada del fan en una invitación directa a sesión privada.'
-              },
-              {
-                id: 'msg_003',
-                user_id: '225902148',
-                username: 'Bigandveiny',
-                verified: false,
-                last_message: "Hey there, I'm back. I was a little busy with work but I've been thinking about our last chat...",
-                last_sender: 'fan',
-                date_display: '5 nov, 4:15 p.m.',
-                time_without_reply: '23h 10m sin responder',
-                urgency: 'media',
-                status: 'pending',
-                streamate_suggested_reply: "Welcome back! I missed seeing you around here. How have you been?",
-                roxanne_suggested_reply: '¡Miren quién volvió! Ya me preguntaba dónde te habías metido 🔥 Cuéntame qué hiciste hoy y te quito el estrés en privado.',
-                best_choice: 'roxanne',
-                rationale: 'Capitaliza el recuerdo del fan para ofrecer desestrés en sesión privada.'
-              },
-              {
-                id: 'msg_004',
-                user_id: '224819403',
-                username: 'Dedlock',
-                verified: true,
-                last_message: 'Danger has never had such a seductive look, loved your preview photo',
-                last_sender: 'fan',
-                date_display: '4 nov',
-                time_without_reply: '2 días sin responder',
-                urgency: 'media',
-                status: 'pending',
-                streamate_suggested_reply: 'Thanks for your message! Looking forward to having fun with you.',
-                roxanne_suggested_reply: 'El peligro siempre es más divertido cuando estás conmigo 💋 Y eso que solo viste una foto previa... Si quieres ver el set completo o en vivo, avísame y te lo muestro.',
-                best_choice: 'roxanne',
-                rationale: 'Aprovecha el elogio a la foto para ofrecer el set completo o show en vivo.'
-              },
-              {
-                id: 'msg_005',
-                user_id: '221049382',
-                username: 'Rome',
-                verified: false,
-                last_message: 'I would love to see it in action',
-                last_sender: 'fan',
-                date_display: '30 oct',
-                time_without_reply: '7 días sin responder',
-                urgency: 'baja',
-                status: 'pending',
-                streamate_suggested_reply: 'I can definitely show you in a private show whenever you\'re ready!',
-                roxanne_suggested_reply: 'Verlo en acción es mil veces mejor que solo imaginarlo 😉 Avísame cuando te conectes a Streamate y te armo un show exclusivo que no vas a olvidar.',
-                best_choice: 'streamate',
-                rationale: 'La sugerencia oficial de Streamate es directa y precisa para reactivar un fan inactivo.'
-              },
-              {
-                id: 'msg_006',
-                user_id: '227895286',
-                username: 'Ricky',
-                verified: true,
-                last_message: "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
-                last_sender: 'sam',
-                date_display: 'Hoy, 3:14 p.m.',
-                time_without_reply: 'Respondido hace 10 min',
-                urgency: 'baja',
-                status: 'replied',
-                streamate_suggested_reply: "Thanks for being so sweet, Ricky! Can't wait to see you in my room again.",
-                roxanne_suggested_reply: "Haha, 11? You're making me blush over here, Ricky! I love a guy who isn't afraid to flatter a girl.",
-                best_choice: 'roxanne',
-                rationale: 'Conversación activa. Ya fue respondido con éxito.'
-              }
-            ]
-          };
-          updateSmMessagesKpiBadges();
-          renderStreamateMessagesTable();
+          initDefaultSmMessagesData();
         }
       } finally {
         if (refreshIcon) refreshIcon.classList.remove('spin');
