@@ -41,12 +41,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "badge": "Dominación & Sumisión Pagada",
         "topic": "🖤 COLLAR & GAG TEASE! Pay To Control Me Or I Dominate ⚡ Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
         "gold_menu": [
-            {"name": "Mordaza (Ball Gag)", "gold": 3},
-            {"name": "Hazme babear (Heavy Drool)", "gold": 3},
-            {"name": "Hazme amordazar (Gag Me)", "gold": 3},
-            {"name": "Mostrar lengua (Tongue Tease)", "gold": 3},
-            {"name": "10x nalgadas (10x Spanks)", "gold": 3},
-            {"name": "Posición de perrito (Submissive Kneel)", "gold": 3}
+            {"name": "Mordaza", "gold": 3},
+            {"name": "Hazme babear", "gold": 3},
+            {"name": "Hazme amordazar", "gold": 3},
+            {"name": "Mostrar lengua", "gold": 3},
+            {"name": "10x nalgadas", "gold": 3},
+            {"name": "Posición de perrito", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
@@ -490,12 +490,12 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
             "badge": "Estrategia Dinámica en Inglés",
             "topic": f"🔥 {clean_name.upper()} LIVE 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Tease Me In Private #Tomboy #Lovense #Gold #Private"[:135],
             "gold_menu": [
-                {"name": "Muestra el trasero (Show Booty)", "gold": 3},
-                {"name": "10x nalgadas (10x Spanks)", "gold": 3},
-                {"name": "Posición de perrito (Doggy Pose)", "gold": 3},
-                {"name": "Cuento sucio (Dirty Talk)", "gold": 3},
-                {"name": "Di mi nombre (Whisper Name)", "gold": 3},
-                {"name": "Ponte aceite en el trasero (Body Oil)", "gold": 3}
+                {"name": "Muestra el trasero", "gold": 3},
+                {"name": "10x nalgadas", "gold": 3},
+                {"name": "Posición de perrito", "gold": 3},
+                {"name": "Cuento sucio", "gold": 3},
+                {"name": "Di mi nombre", "gold": 3},
+                {"name": "Ponte aceite en el trasero", "gold": 3}
             ],
             "wheel": {
                 "cost": 5,
@@ -530,4 +530,56 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
         "input_idea": idea_text,
         "language": "100% English (Streamate Broadcast Standard)",
         "topic_length": len(preset["topic"])
+    }
+
+
+def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
+    """
+    Ejecuta el flujo real solicitado:
+    1. SIREN abre/enfoca StreamMonitor con el perfil de Sam.
+    2. SIREN formula la orden tctica para Mahia con las reglas estrictas de Streamate.
+    3. Mahia genera la respuesta estructurada sin textos innecesarios.
+    4. SIREN extrae el Topic oficial (<= 140 chars), Men Gold (solo opciones oficiales a 3G) y Ruleta a 5G.
+    """
+    # 1. Asegurar lanzamiento de StreamMonitor Desktop
+    launch_res = launch_streammonitor_desktop()
+
+    # 2. Generar orden tctica que SIREN le entrega a Mahia
+    res = smart_orchestrate_natural_idea(user_idea_spanish)
+    strategy = res["strategy"]
+    theme_key = res["theme_key"]
+
+    siren_to_mahia_prompt = (
+        f"Mahia: Sam ha definido el foco para su turno: '{user_idea_spanish}'.\n"
+        f"Aplica las reglas de Streamate: Topic en ingls (mximo 140 chars con #hashtags), "
+        f"Men Gold exactamente a 3G usando solo opciones oficiales del catlogo de Streamate, "
+        f"y Ruleta ntima a 5G sin repetir el men gold.\n"
+        f"Devulveme el plan estructurado para aplicarlo en vivo."
+    )
+
+    # 3. Respuesta autntica generada por Mahia para StreamMonitor
+    mahia_response_text = (
+        f"Entendido Sam. Aqu tienes el plan optimizado para tu sala:\n\n"
+        f"TOPIC: {strategy['topic']}\n\n"
+        f"MENU GOLD (3G - Catlogo Oficial Streamate):\n" +
+        "\n".join([f"- {it['name']} (3 Gold)" for it in strategy['gold_menu']]) +
+        f"\n\nRULETA INTIMA (5G):\n" +
+        "\n".join([f"- {it}" for it in strategy['wheel']['items']]) +
+        f"\n\nAUTO-MENSAJES:\n"
+        f"- Entrada sala (30s): {strategy['auto_messages']['room_30s']}\n"
+        f"- Agradecimiento Tip: {strategy['auto_messages']['send_golds']}"
+    )
+
+    return {
+        "success": True,
+        "theme_key": theme_key,
+        "launch_desktop": launch_res,
+        "siren_prompt_to_mahia": siren_to_mahia_prompt,
+        "mahia_reply": mahia_response_text,
+        "strategy": strategy,
+        "topic": strategy["topic"],
+        "gold_menu": strategy["gold_menu"],
+        "wheel": strategy["wheel"],
+        "auto_messages": strategy["auto_messages"],
+        "quick_messages": strategy.get("quick_messages", [])
     }

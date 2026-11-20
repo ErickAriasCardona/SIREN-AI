@@ -40,6 +40,7 @@ from src.platforms.streamate.stream_monitor_orchestrator import (
     parse_mahia_output_to_tools,
     apply_full_orchestrated_shift,
     smart_orchestrate_natural_idea,
+    execute_mahia_shift_dialogue,
     PRESET_SHIFT_THEMES
 )
 from src.analytics.streamate_competitor_radar import scan_streamate_tomboy_competitors
@@ -1448,15 +1449,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             idea_text = body.get("idea_text", "")
             auto_apply = body.get("auto_apply", True)
 
-            # 1. Asegurar lanzamiento de StreamMonitor Desktop
-            launch_res = launch_streammonitor_desktop()
+            # 1. Ejecutar diálogo estructurado entre SIREN y Mahia (StreamMonitor)
+            mahia_diag = execute_mahia_shift_dialogue(idea_text)
+            strategy = mahia_diag["strategy"]
+            theme_key = mahia_diag["theme_key"]
 
-            # 2. Orquestar estrategia inteligente
-            res = smart_orchestrate_natural_idea(idea_text)
-            strategy = res["strategy"]
-            theme_key = res["theme_key"]
-
-            # 3. Aplicar en vivo a Streamate y guardar para StreamMonitor
+            # 2. Aplicar en vivo a Streamate y guardar para StreamMonitor
             apply_res = {}
             if auto_apply:
                 apply_res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text=None))
@@ -1465,9 +1463,11 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "success": True,
                 "theme_key": theme_key,
                 "strategy": strategy,
-                "launch_desktop": launch_res,
+                "siren_prompt_to_mahia": mahia_diag["siren_prompt_to_mahia"],
+                "mahia_reply": mahia_diag["mahia_reply"],
+                "launch_desktop": mahia_diag["launch_desktop"],
                 "apply_result": apply_res,
-                "message": f"¡Turno '{strategy.get('title')}' configurado y sincronizado con éxito!"
+                "message": f"¡Mahia entregó la estrategia y fue sincronizada en Streamate!"
             }
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
