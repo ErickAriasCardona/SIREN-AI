@@ -33,6 +33,14 @@ from src.platforms.streamate.stream_monitor_controller import (
     run_streamate_autopilot,
     toggle_streamate_autopilot
 )
+from src.platforms.streamate.stream_monitor_orchestrator import (
+    inspect_streammonitor_status,
+    launch_streammonitor_desktop,
+    generate_mahia_prompt,
+    parse_mahia_output_to_tools,
+    apply_full_orchestrated_shift,
+    PRESET_SHIFT_THEMES
+)
 from src.analytics.streamate_competitor_radar import scan_streamate_tomboy_competitors
 
 from src.agents.roxanne_multimodel_copilot import (
@@ -319,6 +327,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_refresh_all_platforms()
         elif self.path.startswith("/api/streamate/messages"):
             self.handle_api_streamate_messages()
+        elif self.path.startswith("/api/streammonitor/status"):
+            self.handle_api_streammonitor_status()
+        elif self.path.startswith("/api/streammonitor/presets"):
+            self.handle_api_streammonitor_presets()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
         elif self.path.startswith("/api/instagram/daily_strategy"):
@@ -385,6 +397,18 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streamate_autopilot_run()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
+        elif self.path.startswith("/api/streammonitor/status"):
+            self.handle_api_streammonitor_status()
+        elif self.path.startswith("/api/streammonitor/presets"):
+            self.handle_api_streammonitor_presets()
+        elif self.path.startswith("/api/streammonitor/launch"):
+            self.handle_api_streammonitor_launch()
+        elif self.path.startswith("/api/streammonitor/generate_mahia_prompt"):
+            self.handle_api_streammonitor_generate_mahia_prompt()
+        elif self.path.startswith("/api/streammonitor/parse_mahia_response"):
+            self.handle_api_streammonitor_parse_mahia_response()
+        elif self.path.startswith("/api/streammonitor/apply_shift"):
+            self.handle_api_streammonitor_apply_shift()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
         elif self.path == "/api/refresh_financials":
@@ -1309,6 +1333,109 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
+
+    def handle_api_streammonitor_status(self):
+        """Devuelve el estado de ejecución, hardware y perfiles de StreamMonitor Desktop."""
+        try:
+            status = inspect_streammonitor_status()
+            resp = dict(status)
+            resp["success"] = True
+            resp["status"] = status
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_presets(self):
+        """Devuelve las metas comerciales pre-optimizadas para el turno."""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "presets": PRESET_SHIFT_THEMES}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_launch(self):
+        """Lanza StreamMonitor Desktop en la máquina local."""
+        try:
+            res = launch_streammonitor_desktop()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_generate_mahia_prompt(self):
+        """Genera la orden concisa y no redundante para el chat de Mahia en StreamMonitor."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            theme = body.get("shift_theme") or body.get("theme", "ass_twerk")
+            custom_desc = body.get("custom_description") or body.get("custom_text", "")
+            res = generate_mahia_prompt(theme, custom_desc)
+            resp = dict(res)
+            resp["success"] = True
+            resp["data"] = res
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_parse_mahia_response(self):
+        """Parsea y valida la respuesta recibida de Mahia para alimentar las herramientas."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            raw_text = body.get("raw_text", "")
+            res = parse_mahia_output_to_tools(raw_text)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "parsed": res}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_apply_shift(self):
+        """Inyecta en un solo ciclo toda la estrategia comercial en Streamate y StreamMonitor."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            theme_key = body.get("theme_key") or body.get("theme", "ass_twerk")
+            custom_text = body.get("custom_text", None)
+            res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text))
+            if isinstance(res, dict):
+                res["injected_topic"] = res.get("orchestrated_data", {}).get("topic", "")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
     def handle_api_instagram_daily_strategy(self):
         """Genera la estrategia diaria estructurada para @sambartonn23."""
         try:
@@ -1432,6 +1559,18 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     })
                 except Exception as re:
                     print("[Radar Error]:", re)
+
+            # DETECCIÓN DE INTENCIÓN: ORQUESTADOR STREAMMONITOR & MAHIA (EJ. VENDER ASS, FOCO DEL TURNO)
+            elif ("streammonitor" in msg_lower or "mahia" in msg_lower or "vender ass" in msg_lower or "especial ass" in msg_lower or "foco de hoy" in msg_lower or "meta de hoy" in msg_lower or "meta comercial" in msg_lower):
+                try:
+                    theme = "ass_twerk" if ("ass" in msg_lower or "twerk" in msg_lower or "trasero" in msg_lower) else ("tomboy_ukelele" if ("ukelele" in msg_lower or "acústic" in msg_lower) else "full_lovense")
+                    prompt_info = generate_mahia_prompt(theme, message)
+                    chat_history.append({
+                        "role": "system",
+                        "content": f"[ORQUESTADOR STREAMMONITOR & MAHIA]: Sam ha definido la meta comercial '{prompt_info['target_name']}'. Presenta el plan estratégico completo: 1) El Topic optimizado (máx 130 chars con hashtags), 2) Menú Gold alineado a 3G, 3) Ruleta a 5G y 4) La orden concisa generada para Mahia. Recuerda que SIREN es el complemento táctico que ahorra tiempo a la modelo y a los managers sin duplicar funciones de StreamMonitor."
+                    })
+                except Exception as me:
+                    print("[StreamMonitor Chat Intent Error]:", me)
 
             # DETECCIÓN DE INTENCIÓN: ACTUALIZAR MENÚ GOLD
             elif ("menú gold" in msg_lower or "menu gold" in msg_lower) and ("actualiza" in msg_lower or "cambia" in msg_lower or "-" in message):

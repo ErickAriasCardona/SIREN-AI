@@ -1354,6 +1354,71 @@
       border-color: #cbd5e1 !important;
     }
 
+    /* STREAMMONITOR & MAHIA ORCHESTRATOR MODAL */
+    #streamMonitorOrchestratorModal .smo-preset-chip {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      border: 1px solid rgba(139, 83, 255, 0.3);
+      background: rgba(139, 83, 255, 0.08);
+      color: #c084fc;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    #streamMonitorOrchestratorModal .smo-preset-chip:hover {
+      background: rgba(139, 83, 255, 0.2);
+      border-color: #8B53FF;
+      color: #fff;
+    }
+    #streamMonitorOrchestratorModal .smo-preset-chip.active {
+      background: linear-gradient(135deg, #8B53FF, #6366f1);
+      border-color: #a855f7;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(139, 83, 255, 0.35);
+    }
+    #streamMonitorOrchestratorModal .smo-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 12px 14px;
+    }
+    #streamMonitorOrchestratorModal .smo-item-pill {
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    body.light-theme #streamMonitorOrchestratorModal .modal-card {
+      background: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #1e293b !important;
+    }
+    body.light-theme #streamMonitorOrchestratorModal .smo-card {
+      background: #f8fafc !important;
+      border-color: #e2e8f0 !important;
+    }
+    body.light-theme #streamMonitorOrchestratorModal .smo-item-pill {
+      background: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+    }
+    body.light-theme #streamMonitorOrchestratorModal textarea,
+    body.light-theme #streamMonitorOrchestratorModal input {
+      background: #ffffff !important;
+      color: #0f172a !important;
+      border-color: #cbd5e1 !important;
+    }
+
+
     /* CODE BOXES */
     .code-box {
       background: #090c13;
@@ -6850,6 +6915,11 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                     <button class="action-btn" onclick="openStreamateRadarModal()" style="font-size: 11px; padding: 7px 8px; border-color: rgba(16, 185, 129, 0.4); color: #34d399; justify-content: center; display: flex; align-items: center; gap: 5px;">
                       🔭 Radar Tomboy
                     </button>
+                    <button class="action-btn" onclick="openStreamMonitorOrchestratorModal()" style="grid-column: span 2; font-size: 11.5px; padding: 10px 14px; border: 1px solid rgba(139, 83, 255, 0.5); color: #c084fc; justify-content: center; display: flex; align-items: center; gap: 8px; background: linear-gradient(135deg, rgba(139, 83, 255, 0.18), rgba(59, 130, 246, 0.14)); font-weight: 800; border-radius: 8px; box-shadow: 0 2px 10px rgba(139, 83, 255, 0.2); cursor: pointer;">
+                      <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #c084fc;"></i>
+                      <span>🎮 Orquestador StreamMonitor & Mahia (Shift Booster)</span>
+                      <span id="sm-desktop-status-pill" class="table-badge badge-success" style="font-size: 9px; padding: 2px 6px; margin-left: auto;">Desktop Activo</span>
+                    </button>
                     <button class="action-btn" onclick="openStreamateMessagesModal()" style="grid-column: span 2; font-size: 11px; padding: 9px 12px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589; justify-content: center; display: flex; align-items: center; gap: 7px; background: rgba(26, 229, 139, 0.08); font-weight: 700; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2);">
                       <i data-lucide="message-square" style="width: 14px; height: 14px; color: #1AE589;"></i>
                       <span>💬 Mensajes Pendientes & Auto-Responder</span>
@@ -7557,6 +7627,194 @@ Cat Lover 🐱</div>
           </button>
           <button class="action-btn" onclick="closeStreamateRadarModal()" style="font-size: 11px; padding: 6px 14px;">
             Cerrar Radar
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  
+  <!-- ============================================================== -->
+  <!-- MODAL: ORQUESTADOR STREAMMONITOR & MAHIA (SHIFT BOOSTER) -->
+  <!-- ============================================================== -->
+  <div id="streamMonitorOrchestratorModal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 1050px; width: 95%; max-height: 94vh; display: flex; flex-direction: column; padding: 22px;">
+      
+      <!-- Encabezado del Modal -->
+      <div class="modal-header" style="padding-bottom: 12px; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, rgba(139,83,255,0.25), rgba(59,130,246,0.2)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(139,83,255,0.4); color: #c084fc;">
+            <i data-lucide="sparkles" style="width: 22px; height: 22px;"></i>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              🎮 Orquestador StreamMonitor & Mahia
+              <span class="table-badge badge-info" style="font-size: 9.5px; padding: 2px 7px;">Shift Booster</span>
+            </h3>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">
+              Co-Piloto táctico para Sam y managers: define el foco del turno (ej. ASS), genera la orden concisa para Mahia y automatiza en 1 clic.
+            </div>
+          </div>
+        </div>
+        <button class="close-modal" onclick="closeStreamMonitorOrchestratorModal()" style="font-size: 22px; line-height: 1;">&times;</button>
+      </div>
+
+      <!-- Barra de Estado de StreamMonitor Desktop -->
+      <div style="background: rgba(139, 83, 255, 0.06); border: 1px solid rgba(139, 83, 255, 0.22); border-radius: 10px; padding: 10px 14px; margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 12px; font-size: 11.5px;">
+          <div style="display: flex; align-items: center; gap: 6px;">
+            <span id="smo-status-indicator" style="display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: #1AE589;"></span>
+            <span id="smo-status-text" style="font-weight: 700; color: #1AE589;">StreamMonitor Detectado (v1.1.18)</span>
+          </div>
+          <span style="color: var(--text-dim);">|</span>
+          <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Cuenta:</strong> <span id="smo-account-text">SamBartone (ID 1589)</span></span>
+          <span style="color: var(--text-dim);">|</span>
+          <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Cámara:</strong> Logitech BRIO 4K</span>
+          <span style="color: var(--text-dim);">|</span>
+          <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Atajos:</strong> Alt+1 .. Alt+8</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="action-btn" onclick="launchStreamMonitorDesktopApp()" style="font-size: 11px; padding: 5px 12px; border-color: rgba(139, 83, 255, 0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 6px;">
+            <i data-lucide="play" style="width: 12px; height: 12px;"></i> Abrir StreamMonitor
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenido en 2 Columnas -->
+      <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; flex: 1; overflow-y: auto; padding-right: 4px;">
+        
+        <!-- COLUMNA IZQUIERDA: Selector de Foco y Asistente Mahia -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          
+          <!-- Selector de Metas de Turno -->
+          <div class="smo-card">
+            <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="target" style="width: 14px; height: 14px; color: #8B53FF;"></i>
+              Selecciona el Foco / Meta Comercial del Turno:
+            </div>
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+              <button class="smo-preset-chip active" id="smo-chip-ass_twerk" onclick="selectSmoPreset('ass_twerk')">
+                🍑 Especial ASS & Twerk (Meta Hoy)
+              </button>
+              <button class="smo-preset-chip" id="smo-chip-tomboy_ukelele" onclick="selectSmoPreset('tomboy_ukelele')">
+                🎸 Tomboy Acústico & Ukelele
+              </button>
+              <button class="smo-preset-chip" id="smo-chip-full_lovense" onclick="selectSmoPreset('full_lovense')">
+                ⚡ Full Lovense & Buzz
+              </button>
+              <button class="smo-preset-chip" id="smo-chip-custom" onclick="selectSmoPreset('custom')">
+                🎯 Meta Personalizada...
+              </button>
+            </div>
+            <input type="text" id="smo-custom-input" placeholder="Ej: Especial Lencería Negra y Cosplay..." style="width: 100%; font-size: 11.5px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.2); color: var(--text-main); outline: none; display: none;" oninput="onSmoCustomInputChange()">
+          </div>
+
+          <!-- Orden Táctica para Mahia -->
+          <div class="smo-card" style="border-left: 3px solid #8B53FF;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <div style="font-size: 11.5px; font-weight: 700; color: #c084fc; display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="bot" style="width: 14px; height: 14px;"></i>
+                Orden Táctica para Mahia (StreamMonitor)
+              </div>
+              <button class="action-btn" onclick="copySmoMahiaPrompt()" style="font-size: 10.5px; padding: 3px 8px; border-color: rgba(139, 83, 255, 0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 4px;">
+                <i data-lucide="copy" style="width: 11px; height: 11px;"></i> Copiar Orden
+              </button>
+            </div>
+            <div style="font-size: 10.5px; color: var(--text-dim); margin-bottom: 6px;">
+              Pega esto en el chat de Mahia en StreamMonitor. Instrucción estricta para que entregue datos sin redundancia ni textos largos.
+            </div>
+            <textarea id="smo-mahia-prompt-box" rows="5" readonly style="width: 100%; font-family: var(--font-mono); font-size: 10.5px; line-height: 1.4; padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); color: #1AE589; resize: vertical; outline: none;"></textarea>
+          </div>
+
+          <!-- Parser de Respuesta de Mahia -->
+          <div class="smo-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="arrow-down-left" style="width: 14px; height: 14px; color: #1AE589;"></i>
+                ¿Mahia te respondió? Pega su respuesta aquí:
+              </div>
+              <button class="action-btn" onclick="parseSmoMahiaResponse()" style="font-size: 10.5px; padding: 3px 9px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
+                <i data-lucide="wand-2" style="width: 11px; height: 11px;"></i> Auto-Estructurar
+              </button>
+            </div>
+            <textarea id="smo-mahia-response-box" rows="3" placeholder="Pega aquí el texto que te dé Mahia para que SIREN lo valide y organice automáticamente en Topic, Gold y Ruleta..." style="width: 100%; font-size: 11px; padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); color: var(--text-main); resize: vertical; outline: none;"></textarea>
+          </div>
+
+        </div>
+
+        <!-- COLUMNA DERECHA: Vista Previa de la Estrategia Validada -->
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          
+          <!-- Topic Validado -->
+          <div class="smo-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">
+                🏷️ Topic de Sala (<span id="smo-topic-counter" style="color: #1AE589; font-weight: 800;">0/140</span>)
+              </span>
+              <span class="table-badge badge-success" style="font-size: 9px; padding: 1px 6px;">Límite 140 Chars</span>
+            </div>
+            <input type="text" id="smo-topic-input" maxlength="140" oninput="updateSmoTopicCounter()" style="width: 100%; font-size: 11.5px; padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(26, 229, 139, 0.4); background: rgba(0,0,0,0.25); color: #1AE589; font-weight: 600; outline: none;">
+          </div>
+
+          <!-- Menú Gold (3G) y Ruleta (5G) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <!-- Menú Gold -->
+            <div class="smo-card" style="padding: 10px;">
+              <div style="font-size: 11px; font-weight: 700; color: #8B53FF; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                <span>⚡ Menú Gold</span>
+                <span class="table-badge badge-warning" style="font-size: 8.5px; padding: 1px 5px;">Precio 3G</span>
+              </div>
+              <div id="smo-gold-list" style="display: flex; flex-direction: column; gap: 5px; max-height: 140px; overflow-y: auto;">
+                <!-- Dinámico -->
+              </div>
+            </div>
+
+            <!-- Ruleta Íntima -->
+            <div class="smo-card" style="padding: 10px;">
+              <div style="font-size: 11px; font-weight: 700; color: #c084fc; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+                <span>🎡 Ruleta Íntima</span>
+                <span class="table-badge badge-warning" style="font-size: 8.5px; padding: 1px 5px;">Precio 5G</span>
+              </div>
+              <div id="smo-wheel-list" style="display: flex; flex-direction: column; gap: 5px; max-height: 140px; overflow-y: auto;">
+                <!-- Dinámico -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Mensajes Automáticos y Atajos -->
+          <div class="smo-card" style="padding: 10px;">
+            <div style="font-size: 11px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="message-circle" style="width: 13px; height: 13px; color: #1AE589;"></i>
+              Mensajes Automáticos StreamMonitor (30s & Tip)
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px;">
+              <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.06);">
+                <strong style="color: #1AE589;">Bienvenida (30s):</strong> <span id="smo-auto-welcome" style="color: var(--text-muted);">...</span>
+              </div>
+              <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.06);">
+                <strong style="color: #8B53FF;">Agradecimiento Tip:</strong> <span id="smo-auto-tip" style="color: var(--text-muted);">...</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- Pie de Acción Principal -->
+      <div style="padding-top: 14px; border-top: 1px solid var(--border-color); margin-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 6px;">
+          <i data-lucide="shield-check" style="width: 14px; height: 14px; color: #1AE589;"></i>
+          <span>SIREN complementa éticamente StreamMonitor, inyectando la configuración en Streamate sin tocar su encoder.</span>
+        </div>
+        <div style="display: flex; gap: 8px;">
+          <button class="action-btn" onclick="closeStreamMonitorOrchestratorModal()" style="font-size: 11.5px; padding: 7px 14px;">
+            Cerrar
+          </button>
+          <button class="action-btn primary" id="smo-apply-btn" onclick="applySmoShiftStrategy()" style="font-size: 11.5px; padding: 8px 18px; font-weight: 800; background: linear-gradient(135deg, #8B53FF, #6366f1); border-color: #a855f7; display: inline-flex; align-items: center; gap: 7px; box-shadow: 0 4px 15px rgba(139, 83, 255, 0.4);">
+            <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
+            ⚡ Inyectar Estrategia Completa a Streamate (1-Click)
           </button>
         </div>
       </div>
@@ -12307,6 +12565,271 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         }
       } catch (e) {
         showToast('Error de conexión enviando push de prueba');
+      }
+    }
+
+    
+    // ==============================================================
+    // ORQUESTADOR STREAMMONITOR & MAHIA (SHIFT BOOSTER)
+    // ==============================================================
+    let currentSmoPresetKey = 'ass_twerk';
+    let smoPresetsData = null;
+    let currentSmoStrategy = null;
+
+    async function openStreamMonitorOrchestratorModal() {
+      const modal = document.getElementById('streamMonitorOrchestratorModal');
+      if (modal) modal.classList.add('open');
+      if (window.lucide) window.lucide.createIcons();
+
+      // Cargar Estado de StreamMonitor
+      loadStreamMonitorStatus();
+
+      // Cargar Presets disponibles
+      await loadStreamMonitorPresets();
+
+      // Seleccionar preset inicial por defecto
+      selectSmoPreset(currentSmoPresetKey || 'ass_twerk');
+    }
+
+    function closeStreamMonitorOrchestratorModal() {
+      const modal = document.getElementById('streamMonitorOrchestratorModal');
+      if (modal) modal.classList.remove('open');
+    }
+
+    async function loadStreamMonitorStatus() {
+      try {
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/streammonitor/status`);
+        if (res.ok) {
+          const data = await res.json();
+          const ind = document.getElementById('smo-status-indicator');
+          const txt = document.getElementById('smo-status-text');
+          const acc = document.getElementById('smo-account-text');
+          const pill = document.getElementById('sm-desktop-status-pill');
+
+          if (data.installed) {
+            if (txt) txt.textContent = `StreamMonitor Detectado (v${data.version || '1.1.18'})`;
+            if (acc) acc.textContent = data.account_context || 'SamBartone (ID 1589)';
+            if (ind) ind.style.background = '#1AE589';
+            if (pill) {
+              pill.textContent = data.running ? 'En Ejecución' : 'Instalado & Listo';
+              pill.className = data.running ? 'table-badge badge-success' : 'table-badge badge-info';
+            }
+          }
+        }
+      } catch (e) {
+        console.warn('[SMO Status Error]:', e);
+      }
+    }
+
+    async function launchStreamMonitorDesktopApp() {
+      try {
+        showToast('Iniciando StreamMonitor Desktop...');
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/streammonitor/launch`, { method: 'POST' });
+        const data = await res.json();
+        if (data.success) {
+          showToast('✓ ' + data.message);
+          loadStreamMonitorStatus();
+        } else {
+          showToast('Aviso: ' + (data.message || 'No se pudo iniciar'));
+        }
+      } catch (e) {
+        showToast('Error de conexión con el orquestador');
+      }
+    }
+
+    async function loadStreamMonitorPresets() {
+      try {
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/streammonitor/presets`);
+        if (res.ok) {
+          const data = await res.json();
+          smoPresetsData = data.presets;
+        }
+      } catch (e) {
+        console.warn('[SMO Presets Error]:', e);
+      }
+    }
+
+    async function selectSmoPreset(key) {
+      currentSmoPresetKey = key;
+
+      // Actualizar chips activos
+      document.querySelectorAll('#streamMonitorOrchestratorModal .smo-preset-chip').forEach(chip => {
+        chip.classList.remove('active');
+      });
+      const activeChip = document.getElementById(`smo-chip-${key}`);
+      if (activeChip) activeChip.classList.add('active');
+
+      const customInput = document.getElementById('smo-custom-input');
+      if (key === 'custom') {
+        if (customInput) customInput.style.display = 'block';
+      } else {
+        if (customInput) customInput.style.display = 'none';
+      }
+
+      // Generar la orden para Mahia desde el backend
+      try {
+        const apiBase = getApiBase();
+        const customText = customInput ? customInput.value : '';
+        const res = await fetch(`${apiBase}/api/streammonitor/generate_mahia_prompt`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ theme: key, custom_text: customText })
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const promptBox = document.getElementById('smo-mahia-prompt-box');
+          if (promptBox) promptBox.value = data.mahia_prompt || '';
+
+          // Renderizar los datos preestablecidos o validados
+          renderSmoStrategy(data.target_strategy);
+        }
+      } catch (e) {
+        console.warn('[SMO Prompt Gen Error]:', e);
+      }
+    }
+
+    function onSmoCustomInputChange() {
+      if (currentSmoPresetKey === 'custom') {
+        clearTimeout(window.smoCustomTimer);
+        window.smoCustomTimer = setTimeout(() => {
+          selectSmoPreset('custom');
+        }, 500);
+      }
+    }
+
+    function renderSmoStrategy(strat) {
+      if (!strat) return;
+      currentSmoStrategy = strat;
+
+      // 1. Topic
+      const topicInput = document.getElementById('smo-topic-input');
+      if (topicInput) {
+        topicInput.value = strat.topic || '';
+        updateSmoTopicCounter();
+      }
+
+      // 2. Gold Menu List
+      const goldList = document.getElementById('smo-gold-list');
+      if (goldList) {
+        goldList.innerHTML = '';
+        const items = strat.gold_menu && strat.gold_menu.items ? strat.gold_menu.items : [];
+        items.forEach((item, idx) => {
+          const div = document.createElement('div');
+          div.className = 'smo-item-pill';
+          div.innerHTML = `<span><strong>${idx+1}.</strong> ${item.name}</span> <span style="color:#1AE589; font-weight:800;">${item.price}G</span>`;
+          goldList.appendChild(div);
+        });
+      }
+
+      // 3. Wheel List
+      const wheelList = document.getElementById('smo-wheel-list');
+      if (wheelList) {
+        wheelList.innerHTML = '';
+        const opts = strat.wheel && strat.wheel.options ? strat.wheel.options : [];
+        opts.forEach((opt, idx) => {
+          const div = document.createElement('div');
+          div.className = 'smo-item-pill';
+          div.innerHTML = `<span><strong>${idx+1}.</strong> ${opt}</span> <span style="color:#c084fc; font-weight:800;">5G</span>`;
+          wheelList.appendChild(div);
+        });
+      }
+
+      // 4. Auto-messages
+      const welcome = document.getElementById('smo-auto-welcome');
+      const tip = document.getElementById('smo-auto-tip');
+      if (welcome && strat.auto_messages) welcome.textContent = strat.auto_messages.bienvenida || 'Configurado';
+      if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.agradecimiento_tip || 'Configurado';
+    }
+
+    function updateSmoTopicCounter() {
+      const topicInput = document.getElementById('smo-topic-input');
+      const counter = document.getElementById('smo-topic-counter');
+      if (topicInput && counter) {
+        const len = topicInput.value.length;
+        counter.textContent = `${len}/140`;
+        counter.style.color = len > 140 ? '#ef4444' : (len > 120 ? '#f59e0b' : '#1AE589');
+      }
+    }
+
+    function copySmoMahiaPrompt() {
+      const promptBox = document.getElementById('smo-mahia-prompt-box');
+      if (promptBox && promptBox.value) {
+        navigator.clipboard.writeText(promptBox.value).then(() => {
+          showToast('✓ Orden táctica copiada. ¡Pégala en el chat de Mahia en StreamMonitor!');
+        }).catch(() => {
+          showToast('Copia la orden seleccionando el texto');
+        });
+      }
+    }
+
+    async function parseSmoMahiaResponse() {
+      const respBox = document.getElementById('smo-mahia-response-box');
+      if (!respBox || !respBox.value.trim()) {
+        showToast('Pega primero el texto de respuesta de Mahia en la caja');
+        return;
+      }
+
+      try {
+        showToast('Analizando y validando salida de Mahia...');
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/streammonitor/parse_mahia_response`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ raw_text: respBox.value })
+        });
+        const data = await res.json();
+        if (data.parsed) {
+          renderSmoStrategy(data.parsed);
+          showToast('✓ Salida de Mahia estructurada y validada correctamente.');
+        } else {
+          showToast('No se pudieron extraer datos completos. Revisa el texto.');
+        }
+      } catch (e) {
+        showToast('Error procesando respuesta de Mahia');
+      }
+    }
+
+    async function applySmoShiftStrategy() {
+      const btn = document.getElementById('smo-apply-btn');
+      const topicInput = document.getElementById('smo-topic-input');
+      const topic = topicInput ? topicInput.value : '';
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader" class="spin" style="width:14px; height:14px;"></i> Inyectando a Streamate...';
+      }
+
+      try {
+        showToast('⚡ Inyectando Topic, Menú Gold (3G) y Ruleta (5G) a Streamate...');
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/streammonitor/apply_shift`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            theme: currentSmoPresetKey,
+            custom_text: topic,
+            strategy: currentSmoStrategy
+          })
+        });
+        const data = await res.json();
+        if (data.success) {
+          showToast('✓ ¡Estrategia del turno aplicada con éxito en Streamate y sincronizada!');
+          // Notificar en Roxanne Chat
+          appendChatMessage('system', `🚀 **[ORQUESTADOR STREAMMONITOR & MAHIA]:** Estrategia de turno iniciada para **${data.theme_applied.toUpperCase()}**.\n- **Topic:** ${data.injected_topic}\n- **Menú Gold:** 3G configurado\n- **Ruleta Íntima:** 5G configurada\n- **Sincronización:** StreamMonitor + Streamate listos.`);
+        } else {
+          showToast('Aviso: ' + (data.message || 'Error al aplicar'));
+        }
+      } catch (e) {
+        showToast('Error de conexión aplicando estrategia');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i data-lucide="zap" style="width:14px; height:14px;"></i> ⚡ Inyectar Estrategia Completa a Streamate (1-Click)';
+          if (window.lucide) window.lucide.createIcons();
+        }
       }
     }
 

@@ -1,0 +1,419 @@
+"""
+SIREN AI — StreamMonitor & Mahia Tactical Orchestrator
+Módulo de orquestación ética y complementaria para StreamMonitor (Streamate).
+
+PRINCIPIO ÉTICO FUNDAMENTAL:
+SIREN AI NO compite ni duplica las funcionalidades nativas de StreamMonitor
+(encoder de cámara, filtros de video, mixer de audio, detector de palabras prohibidas).
+SIREN actúa como el Co-Piloto Táctico y Automatizador que alinea la meta comercial del turno
+(ej. "Vender ASS", "Tomboy Ukelele", etc.) y orquesta:
+1. Instrucciones concisas para Mahia (evita que se extienda o dé textos desordenados).
+2. Procesamiento, validación y adaptación de las salidas de Mahia.
+3. Inyección automatizada en Streamate (Menú Gold, Ruleta 5G, Room Topic <= 140 chars).
+4. Preparación de Auto-Mensajes y Macros (Alt+1..Alt+8) para StreamMonitor.
+5. Monitoreo de estado de StreamMonitor Desktop (PID, versión, cuenta modelo).
+"""
+
+import sys
+import os
+import json
+import re
+import subprocess
+from pathlib import Path
+from typing import Dict, List, Any, Optional
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+ROOT = Path(__file__).resolve().parent.parent.parent.parent
+STREAMMONITOR_EXE = Path(os.environ.get("LOCALAPPDATA", "C:/Users/MI PC/AppData/Local")) / "Programs" / "streammonitor" / "streammonitor.exe"
+STREAMMONITOR_LOGS = Path(os.environ.get("APPDATA", "C:/Users/MI PC/AppData/Roaming")) / "streammonitor" / "logs"
+
+# Metas comerciales pre-optimizadas con el estándar estricto de Streamate
+PRESET_SHIFT_THEMES = {
+    "ass_twerk": {
+        "id": "ass_twerk",
+        "title": "🍑 Especial ASS & Twerk Trasero",
+        "badge": "Alta Conversión Gold",
+        "topic": "🍑 ESPECIAL ASS & TWERK EN VIVO 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy en Privado #Tomboy #Ass #Twerk #Lovense #Gold",
+        "gold_menu": [
+            {"name": "Muestra el trasero", "gold": 3},
+            {"name": "Rebota el trasero", "gold": 3},
+            {"name": "10x nalgadas", "gold": 3},
+            {"name": "Ponte aceite en el trasero", "gold": 3},
+            {"name": "Agita el trasero", "gold": 3},
+            {"name": "Apretón de culo", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Twerk Tomboy Lento y Cercano a Cámara",
+                "Topless Rápido Flash (5 seg)",
+                "Control Total de mi Lovense x 1 min",
+                "Baile Sensual con Gorra Hacia Atrás",
+                "Quitarme la Camisa (Quedo en Bra)",
+                "Tease Exclusivo en Pantalón Ajustado",
+                "Doble Giro de Ruleta Gratis",
+                "Audio Erótico Susurrado al Oído",
+                "10x Nalgaditas Sonoras con Mano",
+                "1 Minuto de Pre-Privado Exclusivo"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "¡Hey amor! Bienvenid@ a mi sala. Hoy estamos en especial de twerk y ass, ponte cómodo 😉",
+            "send_golds": "¡Uff qué rico ese tip! Me encanta consentirte, mira lo que tengo en mi menú gold 🔥",
+            "private_show": "Llegaste a mi espacio más íntimo... Dime qué fantasía quieres cumplir hoy 💋"
+        },
+        "quick_messages": [
+            "Toca la pantalla si quieres ver ese twerk rebotar 🔥",
+            "Gira la ruleta íntima a 5G y decide mi próximo premio 😉",
+            "Menú Gold a solo 3G activo hoy, aprovéchalo ahora ⚡",
+            "¿Nos vamos a privado a solas tú y yo?",
+            "Vibra mi Lovense y mira mi reacción al instante 🖤",
+            "Cam2Cam disponible en privado, muéstrame también 🎥"
+        ]
+    },
+    "tomboy_ukelele": {
+        "id": "tomboy_ukelele",
+        "title": "🎸 Tomboy Chill & Ukelele VIP",
+        "badge": "Scroll-Stopper USA/UK",
+        "topic": "🎸 BUENAS VIBRAS & UKELELE EN VIVO 🖤 Charla íntima • Menú Gold 3G ⚡ Ruleta 5G • Privado Abierto #Tomboy #Acoustic #Cute #Lovense",
+        "gold_menu": [
+            {"name": "ASMR", "gold": 3},
+            {"name": "Cuento sucio", "gold": 3},
+            {"name": "Di mi nombre", "gold": 3},
+            {"name": "Desabotonar camisa", "gold": 3},
+            {"name": "Sonrisa", "gold": 3},
+            {"name": "Subir top deportivo", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Canción romántica en ukelele dedicada",
+                "Susurros al micrófono con voz ronca",
+                "Topless flash de espaldas",
+                "Quitarme la gorra y sacudir el cabello",
+                "Baile acústico lento y coqueto",
+                "Lovense spike nivel 5 por 30 seg",
+                "Confesión íntima que nadie sabe",
+                "Doble giro de ruleta gratis",
+                "Mirada fija seductora por 20 seg",
+                "1 Minuto de exclusivo gratis al entrar a pvt"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "¡Hola mister! Qué gusto verte. Ven a charlar un ratito conmigo mientras toco algo lindo 🖤",
+            "send_golds": "¡Gracias por el gold dulzura! Me inspiras un montón con tus detalles ✨",
+            "private_show": "Ahora sí estamos en completa privacidad... Cuéntame tu secreto más íntimo 😉"
+        },
+        "quick_messages": [
+            "Pídeme una melodía al ukelele en el chat 🎶",
+            "Los tips activan mi juguete al segundo nivel ⚡",
+            "Menú Gold a 3G por tiempo limitado ✨",
+            "Me encanta la gente con buena vibra, quédate un rato 🖤",
+            "¿Quieres escuchar algo solo para tus oídos en privado?",
+            "Gira la ruleta a 5G y llévate un premio sorpresa 🎡"
+        ]
+    },
+    "full_lovense": {
+        "id": "full_lovense",
+        "title": "⚡ Full Lovense Buzz & Dominación",
+        "badge": "Ticket Alto de Propinas",
+        "topic": "🔥 CONTROL TOTAL DE MI LOVENSE 🔥 Menu Gold 3G ⚡ Ruleta 5G 🖤 Hazme gemir en vivo #Lovense #Buzz #Tomboy #Cam2Cam #Privado",
+        "gold_menu": [
+            {"name": "Lame vibrador", "gold": 3},
+            {"name": "Gemido", "gold": 3},
+            {"name": "Cara de placer", "gold": 3},
+            {"name": "Gemir mi nombre", "gold": 3},
+            {"name": "Apretón de senos", "gold": 3},
+            {"name": "Rebote de senos", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Vibración Máxima Lovense (45 seg)",
+                "Gemido al Oído cerca al Micrófono",
+                "Topless Tease con Manos en Senos",
+                "Control de mi juguete por 2 minutos",
+                "Baile caliente al ritmo de la vibración",
+                "Quitarme los pantalones y quedar en bóxer",
+                "Doble giro de ruleta gratis",
+                "Desafío de miradas sin sonreír",
+                "Tease sensual de pies a cabeza",
+                "Pase VIP directo a show privado"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "¡Bienvenido! Mi juguete está sincronizado y esperando tus órdenes. ¿Te atreves a probarlo? ⚡",
+            "send_golds": "¡Ahhh gracias por esa vibración! Sentí cada segundo, eres increíble 🔥",
+            "private_show": "Ya estamos a solas... Toma el control total y no te guardes nada 💋"
+        },
+        "quick_messages": [
+            "3 Golds = Vibración media y sonrisa garantizada ⚡",
+            "¡Hazme gemir con una ráfaga de tips en cámara! 🔥",
+            "Ruleta a 5G con premios íntimos activos ahora 🎡",
+            "¿Quién se atreve a llevar mi Lovense al nivel 10?",
+            "Estoy lista para un show privado intenso, entra ya 🖤",
+            "Cam2Cam activado para verte mientras disfrutas 🎥"
+        ]
+    }
+}
+
+def is_streammonitor_running() -> bool:
+    """Verifica si el proceso de StreamMonitor Desktop está en ejecución."""
+    try:
+        cmd = 'tasklist /FI "IMAGENAME eq streammonitor.exe" /NH'
+        res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+        return "streammonitor.exe" in res.stdout.lower()
+    except Exception:
+        return False
+
+def launch_streammonitor_desktop() -> Dict[str, Any]:
+    """Lanza la aplicación de escritorio StreamMonitor de forma desacoplada si está instalada."""
+    if not STREAMMONITOR_EXE.exists():
+        return {
+            "success": False,
+            "error": f"No se encontró StreamMonitor en: {STREAMMONITOR_EXE}"
+        }
+
+    if is_streammonitor_running():
+        return {
+            "success": True,
+            "already_running": True,
+            "message": "StreamMonitor ya se encuentra en ejecución en tu equipo."
+        }
+
+    try:
+        DETACHED_PROCESS = 0x00000008
+        CREATE_NEW_PROCESS_GROUP = 0x00000200
+        p = subprocess.Popen(
+            [str(STREAMMONITOR_EXE)],
+            creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP,
+            close_fds=True
+        )
+        return {
+            "success": True,
+            "already_running": False,
+            "pid": p.pid,
+            "message": f"StreamMonitor iniciado correctamente (PID {p.pid})."
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": f"Error al ejecutar StreamMonitor: {e}"
+        }
+
+def inspect_streammonitor_status() -> Dict[str, Any]:
+    """Inspecciona la instalación local, logs recientes y estado de sesión de StreamMonitor."""
+    running = is_streammonitor_running()
+    installed = STREAMMONITOR_EXE.exists()
+
+    status: Dict[str, Any] = {
+        "installed": installed,
+        "running": running,
+        "exe_path": str(STREAMMONITOR_EXE),
+        "version": "1.1.18",
+        "account_context": "cuenta=1 modelo=1589 (SamBartone)",
+        "detected_hardware": {
+            "camera": "Logitech BRIO (FullHD 1080p / 4K)",
+            "virtual_cams": ["Lovense OBS Virtual Camera", "OBS Virtual Camera"],
+            "gpu": "AMD Radeon(TM) Graphics (HW Encoder Activo)"
+        },
+        "registered_shortcuts": ["Alt+1", "Alt+2", "Alt+3", "Alt+4", "Alt+5", "Alt+6", "Alt+7", "Alt+8"],
+        "companion_role": "SIREN actúa como el Co-Piloto Estratégico y Automatizador ético de StreamMonitor."
+    }
+
+    # Leer último log para métricas frescas
+    if STREAMMONITOR_LOGS.exists():
+        logs = sorted(list(STREAMMONITOR_LOGS.glob("app-*.log")), key=lambda p: p.stat().st_mtime, reverse=True)
+        if logs:
+            latest = logs[0]
+            try:
+                with open(latest, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()
+                    status["last_log_file"] = latest.name
+                    status["last_log_line"] = lines[-1].strip() if lines else ""
+            except Exception:
+                pass
+
+    return status
+
+def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dict[str, Any]:
+    """
+    Genera el prompt perfecto y conciso para pedirle asistencia a Mahia en StreamMonitor.
+    Evita que Mahia se extienda o dé textos desordenados que la modelo deba recortar a mano.
+    """
+    theme_data = PRESET_SHIFT_THEMES.get(shift_theme)
+    target_name = theme_data["title"] if theme_data else (custom_description or shift_theme)
+
+    prompt_text = (
+        f"Mahia: Nuestro objetivo comercial de sala para este turno es: '{target_name}'.\n"
+        f"Por favor entrégame el plan táctico directo, sin introducciones ni despedidas, respetando estrictamente estos 4 bloques:\n\n"
+        f"1. TOPIC: 1 línea de máximo 130 caracteres con hashtags de impacto (#Tomboy #Lovense #Gold).\n"
+        f"2. MENU GOLD (Todos a 3 Gold): Exactamente 6 opciones breves en formato: Nombre - 3\n"
+        f"3. RULETA INTIMA (Costo 5 Gold): Exactamente 10 opciones provocativas en formato: Opción\n"
+        f"4. AUTO-MENSAJES:\n"
+        f"   - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
+        f"   - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
+        f"   - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
+        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes cortos de chat (máximo 8 palabras) para activar mirones."
+    )
+
+    return {
+        "shift_theme": shift_theme,
+        "target_name": target_name,
+        "concise_mahia_prompt": prompt_text,
+        "preset_fallback": theme_data or PRESET_SHIFT_THEMES["ass_twerk"]
+    }
+
+def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
+    """
+    Parsea la respuesta textual de Mahia y la estructura automáticamente
+    para alimentar las herramientas de Streamate y StreamMonitor sin trabajo manual.
+    """
+    result: Dict[str, Any] = {
+        "raw_text": raw_text,
+        "topic": "",
+        "gold_menu": [],
+        "wheel": {"cost": 5, "items": []},
+        "auto_messages": {
+            "room_30s": "",
+            "send_golds": "",
+            "private_show": ""
+        },
+        "quick_messages": []
+    }
+
+    lines = [l.strip() for l in raw_text.splitlines() if l.strip()]
+
+    current_section = None
+    for line in lines:
+        lower = line.lower()
+        if "topic" in lower and ":" in lower:
+            current_section = "topic"
+            topic_val = line.split(":", 1)[1].strip().strip('"').strip("'")
+            if topic_val:
+                result["topic"] = topic_val[:140]
+            continue
+        elif "gold" in lower and ("menú" in lower or "menu" in lower):
+            current_section = "gold"
+            continue
+        elif "ruleta" in lower or "wheel" in lower:
+            current_section = "wheel"
+            continue
+        elif "auto-mensaje" in lower or "automensaje" in lower or "auto mensaje" in lower:
+            current_section = "auto_messages"
+            continue
+        elif "macro" in lower or "alt+" in lower or "mensaje rápido" in lower:
+            current_section = "quick_messages"
+            continue
+
+        # Procesar según sección activa
+        if current_section == "topic" and not result["topic"]:
+            result["topic"] = line.strip().strip('"').strip("'")[:140]
+
+        elif current_section == "gold":
+            if "-" in line:
+                parts = line.rsplit("-", 1)
+                name = re.sub(r'^\d+[\.\)]\s*', '', parts[0]).strip().strip("•-* ")
+                price_str = "".join([c for c in parts[1] if c.isdigit()])
+                price = int(price_str) if price_str else 3
+                if name and len(result["gold_menu"]) < 7:
+                    result["gold_menu"].append({"name": name, "gold": price})
+
+        elif current_section == "wheel":
+            clean_item = re.sub(r'^\d+[\.\)]\s*', '', line).strip().strip("•-* ")
+            if clean_item and not clean_item.lower().startswith("costo:"):
+                if len(result["wheel"]["items"]) < 14:
+                    result["wheel"]["items"].append(clean_item)
+
+        elif current_section == "auto_messages":
+            if "llegada" in lower or "sala" in lower or "30s" in lower:
+                msg = line.split(":", 1)[1].strip() if ":" in line else line
+                result["auto_messages"]["room_30s"] = msg.strip('"').strip("'")
+            elif "propina" in lower or "gold" in lower or "tip" in lower:
+                msg = line.split(":", 1)[1].strip() if ":" in line else line
+                result["auto_messages"]["send_golds"] = msg.strip('"').strip("'")
+            elif "privado" in lower or "pvt" in lower or "exclusivo" in lower:
+                msg = line.split(":", 1)[1].strip() if ":" in line else line
+                result["auto_messages"]["private_show"] = msg.strip('"').strip("'")
+
+        elif current_section == "quick_messages":
+            clean_macro = re.sub(r'^(?:alt\+\d|[\d\.\)]+)\s*[:\-]?\s*', '', line, flags=re.IGNORECASE).strip().strip('"').strip("'")
+            if clean_macro and len(result["quick_messages"]) < 8:
+                result["quick_messages"].append(clean_macro)
+
+    # Defaults de seguridad si Mahia omitió algún campo
+    if not result["topic"]:
+        result["topic"] = "🔥 EN VIVO EN STREAMATE 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy #Tomboy #Lovense #Gold"
+    if len(result["gold_menu"]) < 3:
+        result["gold_menu"] = PRESET_SHIFT_THEMES["ass_twerk"]["gold_menu"]
+    if len(result["wheel"]["items"]) < 8:
+        result["wheel"]["items"] = PRESET_SHIFT_THEMES["ass_twerk"]["wheel"]["items"]
+    if not result["auto_messages"]["room_30s"]:
+        result["auto_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["auto_messages"]
+    if len(result["quick_messages"]) < 4:
+        result["quick_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["quick_messages"]
+
+    return result
+
+async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[str] = None) -> Dict[str, Any]:
+    """
+    Aplica de manera unificada y en un solo ciclo toda la estrategia comercial:
+    1. Inyecta el Menú Gold (3G) en Streamate.
+    2. Inyecta la Ruleta Íntima (5G) en Streamate.
+    3. Inyecta el Room Topic (<= 140 chars) en Streamate.
+    4. Guarda los Auto-Mensajes y Macros preparados para StreamMonitor.
+    """
+    from src.platforms.streamate.stream_monitor_controller import (
+        update_gold_menu_live,
+        update_wheel_game_live,
+        update_room_topic_live,
+        save_streamate_tools_config
+    )
+
+    if custom_text and custom_text.strip():
+        shift_data = parse_mahia_output_to_tools(custom_text)
+    else:
+        shift_data = PRESET_SHIFT_THEMES.get(theme_key, PRESET_SHIFT_THEMES["ass_twerk"])
+
+    reports = {}
+
+    # 1. Menú Gold
+    gold_items = shift_data.get("gold_menu", [])
+    if gold_items:
+        res_gold = await update_gold_menu_live(gold_items)
+        reports["gold_menu"] = res_gold.get("message", "Menú Gold actualizado")
+
+    # 2. Ruleta Íntima
+    wheel_data = shift_data.get("wheel", {"cost": 5, "items": []})
+    cost = wheel_data.get("cost", 5)
+    wheel_items = wheel_data.get("items", [])
+    if wheel_items:
+        res_wheel = await update_wheel_game_live(cost, wheel_items)
+        reports["wheel"] = res_wheel.get("message", "Ruleta configurada")
+
+    # 3. Room Topic
+    topic_str = shift_data.get("topic", "")
+    if topic_str:
+        res_topic = await update_room_topic_live(topic_str)
+        reports["topic"] = res_topic.get("message", "Tema de habitación actualizado")
+
+    # 4. Guardar configuración para StreamMonitor en caché local
+    save_streamate_tools_config("active_orchestrated_shift", {
+        "theme_key": theme_key,
+        "auto_messages": shift_data.get("auto_messages"),
+        "quick_messages": shift_data.get("quick_messages")
+    })
+
+    return {
+        "success": True,
+        "theme_applied": shift_data.get("title", theme_key),
+        "reports": reports,
+        "orchestrated_data": shift_data,
+        "message": f"¡Estrategia del turno '{theme_key.upper()}' inyectada con éxito en Streamate y sincronizada con StreamMonitor!"
+    }
