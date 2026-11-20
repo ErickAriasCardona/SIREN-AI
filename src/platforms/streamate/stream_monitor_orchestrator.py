@@ -215,48 +215,52 @@ def is_streammonitor_running() -> bool:
         return False
 
 def focus_streammonitor_window() -> bool:
-    """Enfoca y restaura la ventana gráfica de StreamMonitor en primer plano en Windows."""
+    """Enfoca y restaura la ventana gráfica de StreamMonitor en primer plano en el escritorio físico del usuario ('Default')."""
     if sys.platform != "win32":
         return False
     try:
         import ctypes
+        from ctypes import wintypes
         user32 = ctypes.windll.user32
-        
-        # 1. Obtener PIDs de streammonitor
-        cmd = 'tasklist /FI "IMAGENAME eq streammonitor.exe" /FO CSV /NH'
-        res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
-        pids = []
-        for line in res.stdout.strip().splitlines():
-            parts = [p.strip(' "') for p in line.split('","')]
-            if len(parts) >= 2 and parts[1].isdigit():
-                pids.append(int(parts[1]))
-        
-        if not pids:
-            return False
 
+        # 1. Conectar este hilo al escritorio físico real del usuario (WinSta0\\Default)
+        try:
+            hdesk = user32.OpenDesktopW('Default', 0, False, 0x10000000)  # GENERIC_ALL
+            if hdesk:
+                user32.SetThreadDesktop(hdesk)
+        except Exception:
+            pass
+
+        # 2. Buscar ventanas pertenecientes a StreamMonitor en el escritorio del usuario
         found_hwnds = []
         def enum_windows_callback(hwnd, extra):
-            pid = ctypes.c_ulong()
-            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
-            if pid.value in pids:
-                rect = (ctypes.c_long * 4)()
-                user32.GetWindowRect(hwnd, ctypes.byref(rect))
-                width = rect[2] - rect[0]
-                height = rect[3] - rect[1]
-                # La ventana principal de StreamMonitor mide > 300x200
-                if width > 300 and height > 200:
-                    found_hwnds.append((hwnd, width, height))
-            return True
+            rect = (ctypes.c_long * 4)()
+            user32.GetWindowRect(hwnd, ctypes.byref(rect))
+            width = rect[2] - rect[0]
+            height = rect[3] - rect[1]
+            if width > 400 and height > 300:
+                length = user32.GetWindowTextLengthW(hwnd)
+                buf = ctypes.create_unicode_buffer(length + 1)
+                user32.GetWindowTextW(hwnd, buf, length + 1)
+                cls_buf = ctypes.create_unicode_buffer(256)
+                user32.GetClassNameW(hwnd, cls_buf, 256)
+                title = buf.value.lower()
+                cls_name = cls_buf.value.lower()
+                if 'streammonitor' in title or 'chrome_widgetwin_1' in cls_name:
+                    found_hwnds.append((hwnd, width, height, buf.value))
+            return 1
 
-        WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+        WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p)
         cb = WNDENUMPROC(enum_windows_callback)
         user32.EnumWindows(cb, 0)
 
-        found_hwnds.sort(key=lambda x: x[1] * x[2], reverse=True)
+        # Filtrar solo la ventana que tenga título 'StreamMonitor' o la ventana principal de Electron
+        sm_windows = [item for item in found_hwnds if 'streammonitor' in item[3].lower()]
+        target_windows = sm_windows if sm_windows else found_hwnds
 
-        for hwnd, w, h in found_hwnds:
-            # SW_RESTORE (9) si está minimizada, luego traer al frente
-            user32.ShowWindow(hwnd, 9)
+        for hwnd, w, h, title in target_windows:
+            user32.ShowWindow(hwnd, 9)   # SW_RESTORE
+            user32.ShowWindow(hwnd, 3)   # SW_MAXIMIZE
             user32.SetForegroundWindow(hwnd)
             user32.BringWindowToTop(hwnd)
             return True
@@ -266,12 +270,12 @@ def focus_streammonitor_window() -> bool:
 
 
 def launch_streammonitor_desktop() -> Dict[str, Any]:
-    """Lanza y/o enfoca la ventana visual de StreamMonitor directamente en la pantalla de Windows."""
+    """
+    Lanza StreamMonitor explícitamente en el escritorio físico del usuario ('WinSta0\\Default').
+    Garantiza que la ventana aparezca en su pantalla principal y no en un escritorio oculto en segundo plano.
+    """
     import time
-    desktop_lnk = Path(os.environ.get("USERPROFILE", "C:/Users/MI PC")) / "Desktop" / "StreamMonitor.lnk"
-    target = desktop_lnk if desktop_lnk.exists() else STREAMMONITOR_EXE
-
-    if not target.exists() and not STREAMMONITOR_EXE.exists():
+    if not STREAMMONITOR_EXE.exists():
         return {
             "success": False,
             "error": f"No se encontró StreamMonitor en: {STREAMMONITOR_EXE}"
@@ -279,34 +283,100 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
 
     already_running = is_streammonitor_running()
 
-    try:
-        # En Windows, usar os.startfile abre a través del Shell de Windows en la sesión interactiva del usuario
-        if sys.platform == "win32":
-            os.startfile(str(target))
-        else:
-            subprocess.Popen([str(target)])
-        
-        # Breve pausa para que el proceso/ventana se inicialice o restaure
-        time.sleep(1.2)
+    # Si ya está en ejecución, simplemente traer la ventana al frente en su pantalla
+    if already_running:
         focused = focus_streammonitor_window()
-        
         return {
             "success": True,
-            "already_running": already_running,
+            "already_running": True,
             "focused": focused,
-            "message": "StreamMonitor abierto y visible en pantalla en primer plano." if focused else "StreamMonitor iniciado en tu escritorio."
+            "message": "StreamMonitor ya estaba activo y su ventana fue traída al frente en tu pantalla."
         }
+
+    # Si no está en ejecución, lanzarlo explícitamente sobre el escritorio interactivo WinSta0\\Default
+    try:
+        import ctypes
+        from ctypes import wintypes
+        kernel32 = ctypes.windll.kernel32
+
+        class STARTUPINFO(ctypes.Structure):
+            _fields_ = [
+                ('cb', wintypes.DWORD),
+                ('lpReserved', wintypes.LPWSTR),
+                ('lpDesktop', wintypes.LPWSTR),
+                ('lpTitle', wintypes.LPWSTR),
+                ('dwX', wintypes.DWORD),
+                ('dwY', wintypes.DWORD),
+                ('dwXSize', wintypes.DWORD),
+                ('dwYSize', wintypes.DWORD),
+                ('dwXCountChars', wintypes.DWORD),
+                ('dwYCountChars', wintypes.DWORD),
+                ('dwFillAttribute', wintypes.DWORD),
+                ('dwFlags', wintypes.DWORD),
+                ('wShowWindow', wintypes.WORD),
+                ('cbReserved2', wintypes.WORD),
+                ('lpReserved2', ctypes.c_char_p),
+                ('hStdInput', wintypes.HANDLE),
+                ('hStdOutput', wintypes.HANDLE),
+                ('hStdError', wintypes.HANDLE),
+            ]
+
+        class PROCESS_INFORMATION(ctypes.Structure):
+            _fields_ = [
+                ('hProcess', wintypes.HANDLE),
+                ('hThread', wintypes.HANDLE),
+                ('dwProcessId', wintypes.DWORD),
+                ('dwThreadId', wintypes.DWORD),
+            ]
+
+        si = STARTUPINFO()
+        si.cb = ctypes.sizeof(STARTUPINFO)
+        si.lpDesktop = 'WinSta0\\Default'
+        si.dwFlags = 1   # STARTF_USESHOWWINDOW
+        si.wShowWindow = 3   # SW_MAXIMIZE
+
+        pi = PROCESS_INFORMATION()
+        exe_path = str(STREAMMONITOR_EXE)
+        work_dir = str(STREAMMONITOR_EXE.parent)
+
+        success = kernel32.CreateProcessW(
+            exe_path,
+            None,
+            None,
+            None,
+            False,
+            0,
+            None,
+            work_dir,
+            ctypes.byref(si),
+            ctypes.byref(pi)
+        )
+
+        if success:
+            kernel32.CloseHandle(pi.hProcess)
+            kernel32.CloseHandle(pi.hThread)
+            time.sleep(2.0)
+            focused = focus_streammonitor_window()
+            return {
+                "success": True,
+                "already_running": False,
+                "pid": pi.dwProcessId,
+                "focused": focused,
+                "message": "StreamMonitor abierto y visible en pantalla en primer plano."
+            }
+        else:
+            err = kernel32.GetLastError()
+            raise RuntimeError(f"CreateProcessW falló con código {err}")
+
     except Exception as e:
         try:
-            # Fallback con Popen en el directorio de la aplicación
-            p = subprocess.Popen([str(STREAMMONITOR_EXE)], cwd=str(STREAMMONITOR_EXE.parent))
-            time.sleep(1.2)
+            os.startfile(str(STREAMMONITOR_EXE))
+            time.sleep(2.0)
             focused = focus_streammonitor_window()
             return {
                 "success": True,
                 "already_running": already_running,
                 "focused": focused,
-                "pid": p.pid,
                 "message": "StreamMonitor lanzado en tu pantalla."
             }
         except Exception as e2:
@@ -314,6 +384,7 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
                 "success": False,
                 "error": f"Error al ejecutar StreamMonitor: {e2}"
             }
+
 
 def inspect_streammonitor_status() -> Dict[str, Any]:
     """Inspecciona la instalación local, logs recientes y estado de sesión de StreamMonitor."""
