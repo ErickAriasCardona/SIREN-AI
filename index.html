@@ -7681,6 +7681,33 @@ Cat Lover 🐱</div>
         </div>
       </div>
 
+      
+      <!-- LANZADOR RÁPIDO DE FANTASÍA EN VIVO (CO-PILOTO SAM) -->
+      <div class="smo-card" style="margin-bottom: 12px; background: linear-gradient(135deg, rgba(139, 83, 255, 0.12), rgba(26, 229, 139, 0.08)); border: 1px solid rgba(139, 83, 255, 0.35); padding: 12px 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <div style="font-size: 12.5px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 7px;">
+            <i data-lucide="zap" style="width: 16px; height: 16px; color: #1AE589;"></i>
+            <span>💡 Co-Piloto en Vivo: Escribe lo que quieres vender hoy (En tus palabras):</span>
+          </div>
+          <span class="table-badge badge-success" style="font-size: 9px; padding: 2px 7px;">100% Inglés Automático</span>
+        </div>
+        <div style="display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap;">
+          <textarea id="smo-natural-idea-input" rows="2" placeholder="Ej: hoy quiero vender la ball que va en mi boca y cuando esta mucho tiempo me produce mucha saliva, tenerla en el cuello 4h, ser sumisa pero ojo no sumisión absoluta: domino o si soy sumisa es porque pagan..." style="flex: 1; min-width: 280px; font-size: 11.5px; padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(139, 83, 255, 0.4); background: rgba(0,0,0,0.3); color: #fff; resize: none; outline: none; line-height: 1.4;"></textarea>
+          <button class="action-btn primary" id="smo-orchestrate-btn" onclick="executeNaturalShiftOrchestration()" style="padding: 10px 18px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #8B53FF, #1AE589); border: none; color: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 4px 15px rgba(26, 229, 139, 0.3); min-width: 170px; cursor: pointer; height: 52px;">
+            <div style="display:flex; align-items:center; gap:6px;">
+              <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #000;"></i>
+              <span>🚀 ¡Automatizar Turno!</span>
+            </div>
+            <span style="font-size: 9.5px; font-weight: 700; opacity: 0.9; margin-top: 2px;">Abre StreamMonitor & Aplica</span>
+          </button>
+        </div>
+
+        <!-- Terminal de Progreso en Vivo de la Automatización -->
+        <div id="smo-live-console" style="display: none; margin-top: 10px; background: #080b11; border: 1px solid rgba(26, 229, 139, 0.3); border-radius: 8px; padding: 10px 12px; font-family: var(--font-mono); font-size: 10.5px; color: #1AE589; max-height: 130px; overflow-y: auto; line-height: 1.5;">
+          <!-- Mensajes dinámicos paso a paso -->
+        </div>
+      </div>
+
       <!-- Contenido en 2 Columnas -->
       <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; flex: 1; overflow-y: auto; padding-right: 4px;">
         
@@ -7694,6 +7721,9 @@ Cat Lover 🐱</div>
               Selecciona el Foco / Meta Comercial del Turno:
             </div>
             <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
+                            <button class="smo-preset-chip" id="smo-chip-ball_gag_sub_dom" onclick="selectSmoPreset('ball_gag_sub_dom')">
+                🖤 Ball Gag & Pay-To-Sub
+              </button>
               <button class="smo-preset-chip active" id="smo-chip-ass_twerk" onclick="selectSmoPreset('ass_twerk')">
                 🍑 Especial ASS & Twerk (Meta Hoy)
               </button>

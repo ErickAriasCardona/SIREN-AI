@@ -34,131 +34,173 @@ STREAMMONITOR_EXE = Path(os.environ.get("LOCALAPPDATA", "C:/Users/MI PC/AppData/
 STREAMMONITOR_LOGS = Path(os.environ.get("APPDATA", "C:/Users/MI PC/AppData/Roaming")) / "streammonitor" / "logs"
 
 # Metas comerciales pre-optimizadas con el estándar estricto de Streamate
-PRESET_SHIFT_THEMES = {
-    "ass_twerk": {
-        "id": "ass_twerk",
-        "title": "🍑 Especial ASS & Twerk Trasero",
-        "badge": "Alta Conversión Gold",
-        "topic": "🍑 ESPECIAL ASS & TWERK EN VIVO 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy en Privado #Tomboy #Ass #Twerk #Lovense #Gold",
+PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
+    "ball_gag_sub_dom": {
+        "id": "ball_gag_sub_dom",
+        "title": "🖤 Ball Gag, Collar & Pay-To-Sub Tease",
+        "badge": "Dominación & Sumisión Pagada",
+        "topic": "🖤 COLLAR & GAG TEASE! Pay To Control Me Or I Dominate ⚡ Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
         "gold_menu": [
-            {"name": "Muestra el trasero", "gold": 3},
-            {"name": "Rebota el trasero", "gold": 3},
-            {"name": "10x nalgadas", "gold": 3},
-            {"name": "Ponte aceite en el trasero", "gold": 3},
-            {"name": "Agita el trasero", "gold": 3},
-            {"name": "Apretón de culo", "gold": 3}
+            {"name": "Ball gag in mouth 2m", "gold": 3},
+            {"name": "Tighten collar tease", "gold": 3},
+            {"name": "Heavy drool close-up", "gold": 3},
+            {"name": "Hum song through gag", "gold": 3},
+            {"name": "10x spank in collar", "gold": 3},
+            {"name": "Leash crawl to cam", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
             "items": [
-                "Twerk Tomboy Lento y Cercano a Cámara",
-                "Topless Rápido Flash (5 seg)",
-                "Control Total de mi Lovense x 1 min",
-                "Baile Sensual con Gorra Hacia Atrás",
-                "Quitarme la Camisa (Quedo en Bra)",
-                "Tease Exclusivo en Pantalón Ajustado",
-                "Doble Giro de Ruleta Gratis",
-                "Audio Erótico Susurrado al Oído",
-                "10x Nalgaditas Sonoras con Mano",
-                "1 Minuto de Pre-Privado Exclusivo"
+                "Full ball gag on & drool stream (5G)",
+                "Lock collar on neck & kneel on cam (5G)",
+                "Muffled moans & eye contact in gag (5G)",
+                "Wipe drool on collar with tongue tease (5G)",
+                "Handcuffs + gag tease in kneeling pose (5G)",
+                "Take gag off, gasp for air & lick lips (5G)",
+                "Pull leash yourself & stare dominantly (5G)",
+                "Hold gag key in cleavage & tease (5G)",
+                "Sensual whisper with collar vibrating (5G)",
+                "Pay-to-sub: obey 1 viewer command (5G)"
             ]
         },
         "auto_messages": {
-            "room_30s": "¡Hey amor! Bienvenid@ a mi sala. Hoy estamos en especial de twerk y ass, ponte cómodo 😉",
-            "send_golds": "¡Uff qué rico ese tip! Me encanta consentirte, mira lo que tengo en mi menú gold 🔥",
-            "private_show": "Llegaste a mi espacio más íntimo... Dime qué fantasía quieres cumplir hoy 💋"
+            "room_30s": "Hey... see this collar and ball gag around my neck? Pay to control me or I stay in charge 🖤 Gold: 3G | Wheel: 5G",
+            "send_golds": "Mmm thank you for feeding my collar {fan}... want me gagged and drooling for you? 😉",
+            "private_show": "Welcome to my private room... are you ready to take complete control of my ball gag?"
         },
         "quick_messages": [
-            "Toca la pantalla si quieres ver ese twerk rebotar 🔥",
-            "Gira la ruleta íntima a 5G y decide mi próximo premio 😉",
-            "Menú Gold a solo 3G activo hoy, aprovéchalo ahora ⚡",
-            "¿Nos vamos a privado a solas tú y yo?",
-            "Vibra mi Lovense y mira mi reacción al instante 🖤",
-            "Cam2Cam disponible en privado, muéstrame también 🎥"
+            "Tip 3G to put the ball gag in my mouth 🖤",
+            "Who wants to see heavy drool close-up? 🤤",
+            "I only submit if you pay... Gold Menu is 3G ⚡",
+            "Spin the Wheel (5G) to lock my collar 🎡",
+            "Mmm 4 hours wearing this... so much saliva today 💦",
+            "Take me to Private to command me completely 🗝️"
+        ]
+    },
+    "ass_twerk": {
+        "id": "ass_twerk",
+        "title": "🍑 Especial ASS & Twerk Trasero",
+        "badge": "Alta Conversión de Tokens",
+        "topic": "🍑 BOOTY SHAKE & TWERK LIVE 🔥 Gold Menu 3G ⚡ Intimate Wheel 5G 🖤 Tease Me In Private #Tomboy #Ass #Twerk #Lovense #Gold",
+        "gold_menu": [
+            {"name": "Show booty close-up", "gold": 3},
+            {"name": "Slow twerk 30s", "gold": 3},
+            {"name": "10x spanks on ass", "gold": 3},
+            {"name": "Baby oil on booty", "gold": 3},
+            {"name": "Booty jiggle tease", "gold": 3},
+            {"name": "Ass squeeze in shorts", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Slow kneeling twerk to cam (5G)",
+                "Loud double-hand spank (5G)",
+                "Side thong pull tease (5G)",
+                "Booty oil massage to the beat (5G)",
+                "Extreme close-up doggy pose (5G)",
+                "Wall twerk bounce tease (5G)",
+                "Drop pants in private (5G)",
+                "Slow jiggle with wink (5G)",
+                "Lovense high buzz on booty (5G)",
+                "1-minute exclusive preview (5G)"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "Hey love! Welcome in. Booty & twerk special today. Make yourself comfortable 😉",
+            "send_golds": "Mmm thank you for that gold {fan}! Check out my 3G Gold Menu 🔥",
+            "private_show": "Welcome to my private room... what naughty fantasy are we doing today? 💋"
+        },
+        "quick_messages": [
+            "Tap the screen if you love this booty bouncing 🔥",
+            "Spin the intimate Wheel (5G) to pick my next treat 😉",
+            "Gold Menu only 3G today, treat yourself now ⚡",
+            "Take me to private for full uncensored action 🖤",
+            "Buzz my Lovense and watch me moan instantly ⚡",
+            "Cam2Cam ready in private, show me too 🎥"
         ]
     },
     "tomboy_ukelele": {
         "id": "tomboy_ukelele",
         "title": "🎸 Tomboy Chill & Ukelele VIP",
         "badge": "Scroll-Stopper USA/UK",
-        "topic": "🎸 BUENAS VIBRAS & UKELELE EN VIVO 🖤 Charla íntima • Menú Gold 3G ⚡ Ruleta 5G • Privado Abierto #Tomboy #Acoustic #Cute #Lovense",
+        "topic": "🎸 GOOD VIBES & UKELELE LIVE 🖤 Intimate chat • Gold Menu 3G ⚡ Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
         "gold_menu": [
-            {"name": "ASMR", "gold": 3},
-            {"name": "Cuento sucio", "gold": 3},
-            {"name": "Di mi nombre", "gold": 3},
-            {"name": "Desabotonar camisa", "gold": 3},
-            {"name": "Sonrisa", "gold": 3},
-            {"name": "Subir top deportivo", "gold": 3}
+            {"name": "ASMR whisper 1m", "gold": 3},
+            {"name": "Dirty confession", "gold": 3},
+            {"name": "Whisper your name", "gold": 3},
+            {"name": "Unbutton shirt tease", "gold": 3},
+            {"name": "Cute seductive smile", "gold": 3},
+            {"name": "Lift sports top flash", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
             "items": [
-                "Canción romántica en ukelele dedicada",
-                "Susurros al micrófono con voz ronca",
-                "Topless flash de espaldas",
-                "Quitarme la gorra y sacudir el cabello",
-                "Baile acústico lento y coqueto",
-                "Lovense spike nivel 5 por 30 seg",
-                "Confesión íntima que nadie sabe",
-                "Doble giro de ruleta gratis",
-                "Mirada fija seductora por 20 seg",
-                "1 Minuto de exclusivo gratis al entrar a pvt"
+                "Dedicated acoustic love song on ukelele (5G)",
+                "Deep raspy whispers close to mic (5G)",
+                "Backwards flash tease (5G)",
+                "Backwards cap hair shake tease (5G)",
+                "Slow acoustic sensual sway (5G)",
+                "Lovense level 5 spike 30s (5G)",
+                "Dark secret confession just for you (5G)",
+                "Free double wheel spin (5G)",
+                "20s intense eye contact stare (5G)",
+                "1-minute free exclusive preview (5G)"
             ]
         },
         "auto_messages": {
-            "room_30s": "¡Hola mister! Qué gusto verte. Ven a charlar un ratito conmigo mientras toco algo lindo 🖤",
-            "send_golds": "¡Gracias por el gold dulzura! Me inspiras un montón con tus detalles ✨",
-            "private_show": "Ahora sí estamos en completa privacidad... Cuéntame tu secreto más íntimo 😉"
+            "room_30s": "Hey mister! So nice to have you. Come chat with me while I play something sweet 🖤",
+            "send_golds": "Thank you for the gold sweetheart! You inspire me so much ✨",
+            "private_show": "We are completely alone now... Tell me your deepest secret 😉"
         },
         "quick_messages": [
-            "Pídeme una melodía al ukelele en el chat 🎶",
-            "Los tips activan mi juguete al segundo nivel ⚡",
-            "Menú Gold a 3G por tiempo limitado ✨",
-            "Me encanta la gente con buena vibra, quédate un rato 🖤",
-            "¿Quieres escuchar algo solo para tus oídos en privado?",
-            "Gira la ruleta a 5G y llévate un premio sorpresa 🎡"
+            "Ask me for a song on my ukelele in chat 🎶",
+            "Tips activate my toy to level 2 ⚡",
+            "Gold Menu at 3G for a limited time ✨",
+            "I love good vibes, stay with me a while 🖤",
+            "Want to hear something private just for your ears?",
+            "Spin the Wheel (5G) for an intimate treat 🎡"
         ]
     },
     "full_lovense": {
         "id": "full_lovense",
         "title": "⚡ Full Lovense Buzz & Dominación",
         "badge": "Ticket Alto de Propinas",
-        "topic": "🔥 CONTROL TOTAL DE MI LOVENSE 🔥 Menu Gold 3G ⚡ Ruleta 5G 🖤 Hazme gemir en vivo #Lovense #Buzz #Tomboy #Cam2Cam #Privado",
+        "topic": "🔥 FULL LOVENSE TOY CONTROL 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Make Me Moan Live #Lovense #Buzz #Tomboy #Cam2Cam #Private",
         "gold_menu": [
-            {"name": "Lame vibrador", "gold": 3},
-            {"name": "Gemido", "gold": 3},
-            {"name": "Cara de placer", "gold": 3},
-            {"name": "Gemir mi nombre", "gold": 3},
-            {"name": "Apretón de senos", "gold": 3},
-            {"name": "Rebote de senos", "gold": 3}
+            {"name": "Lick toy on cam", "gold": 3},
+            {"name": "Deep moan close mic", "gold": 3},
+            {"name": "Pleasure face tease", "gold": 3},
+            {"name": "Moan your name loud", "gold": 3},
+            {"name": "Tight bra squeeze", "gold": 3},
+            {"name": "Boob bounce tease", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
             "items": [
-                "Vibración Máxima Lovense (45 seg)",
-                "Gemido al Oído cerca al Micrófono",
-                "Topless Tease con Manos en Senos",
-                "Control de mi juguete por 2 minutos",
-                "Baile caliente al ritmo de la vibración",
-                "Quitarme los pantalones y quedar en bóxer",
-                "Doble giro de ruleta gratis",
-                "Desafío de miradas sin sonreír",
-                "Tease sensual de pies a cabeza",
-                "Pase VIP directo a show privado"
+                "Max Lovense vibration spike 45s (5G)",
+                "Ear whisper moan right by the mic (5G)",
+                "Topless hand-cover tease (5G)",
+                "Take total toy control for 2 min (5G)",
+                "Hot dance to the vibration pulse (5G)",
+                "Drop pants & tease in boxers (5G)",
+                "Free double wheel spin (5G)",
+                "No-blink eye contact challenge (5G)",
+                "Head-to-toe sensual tease (5G)",
+                "Direct VIP pass to private show (5G)"
             ]
         },
         "auto_messages": {
-            "room_30s": "¡Bienvenido! Mi juguete está sincronizado y esperando tus órdenes. ¿Te atreves a probarlo? ⚡",
-            "send_golds": "¡Ahhh gracias por esa vibración! Sentí cada segundo, eres increíble 🔥",
-            "private_show": "Ya estamos a solas... Toma el control total y no te guardes nada 💋"
+            "room_30s": "Welcome! My toy is synced and waiting for your tips. Dare to control it? ⚡",
+            "send_golds": "Ahhh thank you for that buzz! Felt every single second, you are amazing 🔥",
+            "private_show": "We are alone now... Take complete control, don't hold back 💋"
         },
         "quick_messages": [
-            "3 Golds = Vibración media y sonrisa garantizada ⚡",
-            "¡Hazme gemir con una ráfaga de tips en cámara! 🔥",
-            "Ruleta a 5G con premios íntimos activos ahora 🎡",
-            "¿Quién se atreve a llevar mi Lovense al nivel 10?",
-            "Estoy lista para un show privado intenso, entra ya 🖤",
-            "Cam2Cam activado para verte mientras disfrutas 🎥"
+            "3 Golds = Medium buzz and a big smile guaranteed ⚡",
+            "Make me moan with a tip shower on cam! 🔥",
+            "Wheel at 5G with intimate surprises active now 🎡",
+            "Who is brave enough to take my Lovense to level 10?",
+            "Ready for an intense private show, take me now 🖤",
+            "Cam2Cam active to watch you enjoy 🎥"
         ]
     }
 }
@@ -416,4 +458,76 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
         "reports": reports,
         "orchestrated_data": shift_data,
         "message": f"¡Estrategia del turno '{theme_key.upper()}' inyectada con éxito en Streamate y sincronizada con StreamMonitor!"
+    }
+
+
+def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
+    """
+    Toma cualquier idea expresada en lenguaje natural por la modelo (español) y la convierte
+    de inmediato en una estrategia comercial táctica 100% EN INGLÉS para Streamate.
+    """
+    raw_lower = idea_text.lower().strip()
+
+    # Detección semántica de conceptos clave
+    if any(k in raw_lower for k in ["ball", "gag", "saliva", "salivar", "boca", "cuello", "collar", "sumision", "sumisa", "domino", "pagan"]):
+        preset = PRESET_SHIFT_THEMES["ball_gag_sub_dom"]
+        theme_key = "ball_gag_sub_dom"
+    elif any(k in raw_lower for k in ["ass", "twerk", "cola", "trasero", "nalga", "pompis", "booty"]):
+        preset = PRESET_SHIFT_THEMES["ass_twerk"]
+        theme_key = "ass_twerk"
+    elif any(k in raw_lower for k in ["ukelele", "guitarra", "musica", "cantar", "cancion", "chill"]):
+        preset = PRESET_SHIFT_THEMES["tomboy_ukelele"]
+        theme_key = "tomboy_ukelele"
+    elif any(k in raw_lower for k in ["lovense", "buzz", "vibrador", "toy", "juguete"]):
+        preset = PRESET_SHIFT_THEMES["full_lovense"]
+        theme_key = "full_lovense"
+    else:
+        # Generar estrategia personalizada en inglés
+        clean_name = re.sub(r'[^a-zA-Z0-9 ]', '', idea_text)[:40].strip() or "Special Shift"
+        preset = {
+            "id": "custom_shift",
+            "title": f"🎯 Meta: {clean_name}",
+            "badge": "Estrategia Dinámica en Inglés",
+            "topic": f"🔥 {clean_name.upper()} LIVE 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Tease Me In Private #Tomboy #Lovense #Gold #Private"[:135],
+            "gold_menu": [
+                {"name": f"{clean_name} teaser 1m", "gold": 3},
+                {"name": "Slow sensual flash", "gold": 3},
+                {"name": "Whisper dirty confession", "gold": 3},
+                {"name": "Deep seductive eye contact", "gold": 3},
+                {"name": "Topless bra tease", "gold": 3},
+                {"name": "10x spank & moan", "gold": 3}
+            ],
+            "wheel": {
+                "cost": 5,
+                "items": [
+                    f"Full {clean_name} special tease (5G)",
+                    "Intimate slow dance to mic (5G)",
+                    "Lovense max vibration spike (5G)",
+                    "Drop pants in private tease (5G)",
+                    "Sensual whispered fantasy (5G)",
+                    "Kneeling obedience pose tease (5G)",
+                    "Double wheel spin free (5G)",
+                    "1-minute exclusive preview (5G)"
+                ]
+            },
+            "auto_messages": {
+                "room_30s": f"Hey handsome! Welcome to my room. Today is {clean_name} special 🖤 Gold: 3G | Wheel: 5G",
+                "send_golds": f"Thank you for that sweet gold {fan}! Loving this dynamic tonight ✨",
+                "private_show": "We are totally private now... Tell me your dirtiest command 😉"
+            },
+            "quick_messages": [
+                f"Gold Menu is only 3G today! Check out {clean_name} ⚡",
+                "Spin the intimate Wheel (5G) to decide my treat 🎡",
+                "Tips make me tease you faster 🖤",
+                "Take me to private for complete control 🗝️"
+            ]
+        }
+        theme_key = "custom_shift"
+
+    return {
+        "theme_key": theme_key,
+        "strategy": preset,
+        "input_idea": idea_text,
+        "language": "100% English (Streamate Broadcast Standard)",
+        "topic_length": len(preset["topic"])
     }

@@ -39,6 +39,7 @@ from src.platforms.streamate.stream_monitor_orchestrator import (
     generate_mahia_prompt,
     parse_mahia_output_to_tools,
     apply_full_orchestrated_shift,
+    smart_orchestrate_natural_idea,
     PRESET_SHIFT_THEMES
 )
 from src.analytics.streamate_competitor_radar import scan_streamate_tomboy_competitors
@@ -409,6 +410,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streammonitor_parse_mahia_response()
         elif self.path.startswith("/api/streammonitor/apply_shift"):
             self.handle_api_streammonitor_apply_shift()
+        elif self.path.startswith("/api/streammonitor/orchestrate_natural_idea"):
+            self.handle_api_streammonitor_orchestrate_natural_idea()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
         elif self.path == "/api/refresh_financials":
@@ -1430,6 +1433,46 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+
+    def handle_api_streammonitor_orchestrate_natural_idea(self):
+        """Toma la idea en lenguaje natural de Sam, lanza StreamMonitor y aplica la estrategia 100% en inglés."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            idea_text = body.get("idea_text", "")
+            auto_apply = body.get("auto_apply", True)
+
+            # 1. Asegurar lanzamiento de StreamMonitor Desktop
+            launch_res = launch_streammonitor_desktop()
+
+            # 2. Orquestar estrategia inteligente
+            res = smart_orchestrate_natural_idea(idea_text)
+            strategy = res["strategy"]
+            theme_key = res["theme_key"]
+
+            # 3. Aplicar en vivo a Streamate y guardar para StreamMonitor
+            apply_res = {}
+            if auto_apply:
+                apply_res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text=None))
+
+            resp = {
+                "success": True,
+                "theme_key": theme_key,
+                "strategy": strategy,
+                "launch_desktop": launch_res,
+                "apply_result": apply_res,
+                "message": f"¡Turno '{strategy.get('title')}' configurado y sincronizado con éxito!"
+            }
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode("utf-8"))
         except Exception as e:
             self.send_response(500)
             self.send_header("Content-Type", "application/json; charset=utf-8")
