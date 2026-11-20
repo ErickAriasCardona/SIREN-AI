@@ -7748,9 +7748,14 @@ Cat Lover 🐱</div>
           <!-- 1. Topic de Sala -->
           <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <span style="font-size: 11px; font-weight: 700; color: var(--text-main);">
-                🏷️ Tema de Sala (Topic en Inglés):
-              </span>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <span style="font-size: 11px; font-weight: 700; color: var(--text-main);">
+                  🏷️ Tema de Sala (Topic en Inglés):
+                </span>
+                <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 9.5px; padding: 2px 7px; border-color: rgba(26,229,139,0.4); color: #1AE589;">
+                  Ver en Herramienta Tema ↗
+                </button>
+              </div>
               <span style="font-size: 11px; font-weight: 800; color: #1AE589;">
                 Largo: <span id="smo-topic-counter">125/140</span> chars (Permitido &le; 140)
               </span>
@@ -7763,7 +7768,12 @@ Cat Lover 🐱</div>
             <!-- Menú Gold 3G -->
             <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 10px 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-size: 11.5px; font-weight: 700; color: #c084fc;">⚡ Menú GOLD (Oficial Streamate)</span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="font-size: 11.5px; font-weight: 700; color: #c084fc;">⚡ Menú GOLD (Oficial Streamate)</span>
+                  <button class="action-btn" onclick="openSmModal('gold')" style="font-size: 9.5px; padding: 1px 6px; border-color: rgba(139,83,255,0.4); color: #c084fc;">
+                    Ver en Herramienta GOLD ↗
+                  </button>
+                </div>
                 <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Precio Fijo 3G</span>
               </div>
               <div id="smo-gold-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
@@ -7774,7 +7784,12 @@ Cat Lover 🐱</div>
             <!-- Ruleta Íntima 5G -->
             <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(168,85,247,0.25); border-radius: 8px; padding: 10px 12px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-size: 11.5px; font-weight: 700; color: #a855f7;">🎡 Ruleta Íntima Diferenciada</span>
+                <div style="display: flex; align-items: center; gap: 6px;">
+                  <span style="font-size: 11.5px; font-weight: 700; color: #a855f7;">🎡 Ruleta Íntima Diferenciada</span>
+                  <button class="action-btn" onclick="openSmModal('wheel')" style="font-size: 9.5px; padding: 1px 6px; border-color: rgba(168,85,247,0.4); color: #a855f7;">
+                    Ver en Herramienta Ruleta ↗
+                  </button>
+                </div>
                 <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Precio Fijo 5G</span>
               </div>
               <div id="smo-wheel-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
@@ -12768,6 +12783,20 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const tip = document.getElementById('smo-auto-tip');
       if (welcome && strat.auto_messages) welcome.textContent = strat.auto_messages.room_30s || strat.auto_messages.bienvenida || 'Configurado';
       if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.send_golds || strat.auto_messages.agradecimiento_tip || 'Configurado';
+
+      // 5. SINCRONIZACIÓN INMEDIATA CON LAS OTRAS HERRAMIENTAS DE STREAMATE
+      if (strat.topic) {
+        localStorage.setItem('siren_sm_topic', strat.topic);
+      }
+      if (strat.gold_menu && strat.gold_menu.length) {
+        const formattedGold = strat.gold_menu.map(it => `${it.name || it} - ${it.gold || it.price || 3}`).join('\n');
+        localStorage.setItem('siren_sm_gold_menu', formattedGold);
+      }
+      const wItems = (strat.wheel && strat.wheel.items) ? strat.wheel.items : (strat.wheel || []);
+      if (wItems.length) {
+        const formattedWheel = `Costo: 5\n` + wItems.join('\n');
+        localStorage.setItem('siren_sm_wheel', formattedWheel);
+      }
     }
 
     function updateSmoTopicCounter() {

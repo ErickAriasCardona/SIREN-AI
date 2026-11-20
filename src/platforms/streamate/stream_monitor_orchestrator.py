@@ -41,12 +41,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "badge": "Dominación & Sumisión Pagada",
         "topic": "🖤 COLLAR & GAG TEASE! Pay To Control Me Or I Dominate ⚡ Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
         "gold_menu": [
-            {"name": "Ball gag in mouth 2m", "gold": 3},
-            {"name": "Tighten collar tease", "gold": 3},
-            {"name": "Heavy drool close-up", "gold": 3},
-            {"name": "Hum song through gag", "gold": 3},
-            {"name": "10x spank in collar", "gold": 3},
-            {"name": "Leash crawl to cam", "gold": 3}
+            {"name": "Mordaza (Ball Gag)", "gold": 3},
+            {"name": "Hazme babear (Heavy Drool)", "gold": 3},
+            {"name": "Hazme amordazar (Gag Me)", "gold": 3},
+            {"name": "Mostrar lengua (Tongue Tease)", "gold": 3},
+            {"name": "10x nalgadas (10x Spanks)", "gold": 3},
+            {"name": "Posición de perrito (Submissive Kneel)", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
@@ -490,12 +490,12 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
             "badge": "Estrategia Dinámica en Inglés",
             "topic": f"🔥 {clean_name.upper()} LIVE 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Tease Me In Private #Tomboy #Lovense #Gold #Private"[:135],
             "gold_menu": [
-                {"name": f"{clean_name} teaser 1m", "gold": 3},
-                {"name": "Slow sensual flash", "gold": 3},
-                {"name": "Whisper dirty confession", "gold": 3},
-                {"name": "Deep seductive eye contact", "gold": 3},
-                {"name": "Topless bra tease", "gold": 3},
-                {"name": "10x spank & moan", "gold": 3}
+                {"name": "Muestra el trasero (Show Booty)", "gold": 3},
+                {"name": "10x nalgadas (10x Spanks)", "gold": 3},
+                {"name": "Posición de perrito (Doggy Pose)", "gold": 3},
+                {"name": "Cuento sucio (Dirty Talk)", "gold": 3},
+                {"name": "Di mi nombre (Whisper Name)", "gold": 3},
+                {"name": "Ponte aceite en el trasero (Body Oil)", "gold": 3}
             ],
             "wheel": {
                 "cost": 5,
