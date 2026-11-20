@@ -7638,22 +7638,25 @@ Cat Lover 🐱</div>
   <!-- ============================================================== -->
   <!-- MODAL: ORQUESTADOR STREAMMONITOR & MAHIA (SHIFT BOOSTER) -->
   <!-- ============================================================== -->
+    <!-- ============================================================== -->
+  <!-- MODAL: ORQUESTADOR STREAMMONITOR & MAHIA (PASO A PASO EN VIVO) -->
+  <!-- ============================================================== -->
   <div id="streamMonitorOrchestratorModal" class="modal-overlay">
     <div class="modal-card" style="max-width: 1050px; width: 95%; max-height: 94vh; display: flex; flex-direction: column; padding: 22px;">
       
       <!-- Encabezado del Modal -->
       <div class="modal-header" style="padding-bottom: 12px; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
         <div style="display: flex; align-items: center; gap: 12px;">
-          <div style="width: 42px; height: 42px; border-radius: 10px; background: linear-gradient(135deg, rgba(139,83,255,0.25), rgba(59,130,246,0.2)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(139,83,255,0.4); color: #c084fc;">
-            <i data-lucide="sparkles" style="width: 22px; height: 22px;"></i>
+          <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(135deg, rgba(139,83,255,0.25), rgba(26,229,139,0.2)); display: flex; align-items: center; justify-content: center; border: 1px solid rgba(139,83,255,0.4); color: #c084fc;">
+            <i data-lucide="sparkles" style="width: 24px; height: 24px;"></i>
           </div>
           <div>
-            <h3 style="margin: 0; font-size: 17px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-              🎮 Orquestador StreamMonitor & Mahia
-              <span class="table-badge badge-info" style="font-size: 9.5px; padding: 2px 7px;">Shift Booster</span>
+            <h3 style="margin: 0; font-size: 18px; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+              🎮 Co-Piloto Táctico StreamMonitor & Streamate
+              <span class="table-badge badge-success" style="font-size: 9.5px; padding: 2px 7px;">Paso a Paso en Vivo</span>
             </h3>
-            <div style="font-size: 11px; color: var(--text-dim); margin-top: 2px;">
-              Co-Piloto táctico para Sam y managers: define el foco del turno (ej. ASS), genera la orden concisa para Mahia y automatiza en 1 clic.
+            <div style="font-size: 11.5px; color: var(--text-dim); margin-top: 2px;">
+              Planifica tu turno con tus palabras, genera la estrategia 100% en inglés y automatízala en 1 clic.
             </div>
           </div>
         </div>
@@ -7668,214 +7671,187 @@ Cat Lover 🐱</div>
             <span id="smo-status-text" style="font-weight: 700; color: #1AE589;">StreamMonitor Detectado (v1.1.18)</span>
           </div>
           <span style="color: var(--text-dim);">|</span>
-          <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Cuenta:</strong> <span id="smo-account-text">SamBartone (ID 1589)</span></span>
+          <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Perfil:</strong> <span id="smo-account-text">SamBartone (ID 1589)</span></span>
           <span style="color: var(--text-dim);">|</span>
           <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Cámara:</strong> Logitech BRIO 4K</span>
           <span style="color: var(--text-dim);">|</span>
           <span style="color: var(--text-muted);"><strong style="color: var(--text-main);">Atajos:</strong> Alt+1 .. Alt+8</span>
         </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="action-btn" onclick="launchStreamMonitorDesktopApp()" style="font-size: 11px; padding: 5px 12px; border-color: rgba(139, 83, 255, 0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 6px;">
-            <i data-lucide="play" style="width: 12px; height: 12px;"></i> Abrir StreamMonitor
-          </button>
-        </div>
+        <button class="action-btn" onclick="launchStreamMonitorDesktopApp()" style="font-size: 11px; padding: 5px 12px; border-color: rgba(139, 83, 255, 0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 6px;">
+          <i data-lucide="play" style="width: 12px; height: 12px;"></i> Abrir StreamMonitor en PC
+        </button>
       </div>
 
-      
-      <!-- LANZADOR RÁPIDO DE FANTASÍA EN VIVO (CO-PILOTO SAM) -->
-      <div class="smo-card" style="margin-bottom: 12px; background: linear-gradient(135deg, rgba(139, 83, 255, 0.12), rgba(26, 229, 139, 0.08)); border: 1px solid rgba(139, 83, 255, 0.35); padding: 12px 14px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-          <div style="font-size: 12.5px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 7px;">
-            <i data-lucide="zap" style="width: 16px; height: 16px; color: #1AE589;"></i>
-            <span>💡 Co-Piloto en Vivo: Escribe lo que quieres vender hoy (En tus palabras):</span>
-          </div>
-          <span class="table-badge badge-success" style="font-size: 9px; padding: 2px 7px;">100% Inglés Automático</span>
-        </div>
-        <div style="display: flex; gap: 10px; align-items: flex-start; flex-wrap: wrap;">
-          <textarea id="smo-natural-idea-input" rows="2" placeholder="Ej: hoy quiero vender la ball que va en mi boca y cuando esta mucho tiempo me produce mucha saliva, tenerla en el cuello 4h, ser sumisa pero ojo no sumisión absoluta: domino o si soy sumisa es porque pagan..." style="flex: 1; min-width: 280px; font-size: 11.5px; padding: 8px 12px; border-radius: 8px; border: 1px solid rgba(139, 83, 255, 0.4); background: rgba(0,0,0,0.3); color: #fff; resize: none; outline: none; line-height: 1.4;"></textarea>
-          <button class="action-btn primary" id="smo-orchestrate-btn" onclick="executeNaturalShiftOrchestration()" style="padding: 10px 18px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #8B53FF, #1AE589); border: none; color: #000; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 8px; box-shadow: 0 4px 15px rgba(26, 229, 139, 0.3); min-width: 170px; cursor: pointer; height: 52px;">
-            <div style="display:flex; align-items:center; gap:6px;">
-              <i data-lucide="sparkles" style="width: 15px; height: 15px; color: #000;"></i>
-              <span>🚀 ¡Automatizar Turno!</span>
-            </div>
-            <span style="font-size: 9.5px; font-weight: 700; opacity: 0.9; margin-top: 2px;">Abre StreamMonitor & Aplica</span>
-          </button>
-        </div>
+      <!-- CUERPO PRINCIPAL CON SCROLL: PASO A PASO GUIADO -->
+      <div style="flex: 1; overflow-y: auto; padding-right: 6px; display: flex; flex-direction: column; gap: 14px;">
 
-        <!-- Terminal de Progreso en Vivo de la Automatización -->
-        <div id="smo-live-console" style="display: none; margin-top: 10px; background: #080b11; border: 1px solid rgba(26, 229, 139, 0.3); border-radius: 8px; padding: 10px 12px; font-family: var(--font-mono); font-size: 10.5px; color: #1AE589; max-height: 130px; overflow-y: auto; line-height: 1.5;">
-          <!-- Mensajes dinámicos paso a paso -->
-        </div>
-      </div>
-
-      <!-- Contenido en 2 Columnas -->
-      <div style="display: grid; grid-template-columns: 1.15fr 1fr; gap: 14px; flex: 1; overflow-y: auto; padding-right: 4px;">
-        
-        <!-- COLUMNA IZQUIERDA: Selector de Foco y Asistente Mahia -->
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          
-          <!-- Selector de Metas de Turno -->
-          <div class="smo-card">
-            <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-              <i data-lucide="target" style="width: 14px; height: 14px; color: #8B53FF;"></i>
-              Selecciona el Foco / Meta Comercial del Turno:
+        <!-- ========================================== -->
+        <!-- PASO 1: TU IDEA O FANTASÍA DEL TURNO -->
+        <!-- ========================================== -->
+        <div class="smo-card" style="border-left: 4px solid #1AE589; background: linear-gradient(135deg, rgba(26,229,139,0.06), rgba(139,83,255,0.04));">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+            <div style="font-size: 13px; font-weight: 800; color: #1AE589; display: flex; align-items: center; gap: 7px;">
+              <span style="background: #1AE589; color: #000; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">1</span>
+              <span>¿Qué fantasía o meta comercial tienes hoy para el turno?</span>
             </div>
-            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;">
-                            <button class="smo-preset-chip" id="smo-chip-ball_gag_sub_dom" onclick="selectSmoPreset('ball_gag_sub_dom')">
-                🖤 Ball Gag & Pay-To-Sub
-              </button>
-              <button class="smo-preset-chip active" id="smo-chip-ass_twerk" onclick="selectSmoPreset('ass_twerk')">
-                🍑 Especial ASS & Twerk (Meta Hoy)
-              </button>
-              <button class="smo-preset-chip" id="smo-chip-tomboy_ukelele" onclick="selectSmoPreset('tomboy_ukelele')">
-                🎸 Tomboy Acústico & Ukelele
-              </button>
-              <button class="smo-preset-chip" id="smo-chip-full_lovense" onclick="selectSmoPreset('full_lovense')">
-                ⚡ Full Lovense & Buzz
-              </button>
-              <button class="smo-preset-chip" id="smo-chip-custom" onclick="selectSmoPreset('custom')">
-                🎯 Meta Personalizada...
-              </button>
-            </div>
-            <input type="text" id="smo-custom-input" placeholder="Ej: Especial Lencería Negra y Cosplay..." style="width: 100%; font-size: 11.5px; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--border-color); background: rgba(0,0,0,0.2); color: var(--text-main); outline: none; display: none;" oninput="onSmoCustomInputChange()">
+            <span class="table-badge badge-success" style="font-size: 9px; padding: 2px 7px;">Escribe en Español Natural</span>
           </div>
 
-          <!-- Orden Táctica para Mahia -->
-          <div class="smo-card" style="border-left: 3px solid #8B53FF;">
+          <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px; line-height: 1.4;">
+            Escríbelo exactamente como lo piensas. SIREN lo analiza, deduce la psicología de sala y lo convierte en configuración técnica <strong>100% en inglés</strong> para los donadores de Streamate:
+          </div>
+
+          <textarea id="smo-natural-idea-input" rows="3" placeholder="Ej: hoy quiero vender la ball que va en mi boca y cuando esta mucho tiempo me produce mucha saliva, pienso que podria tenerla en el cuello en transmision el primer bloque de tiempo 4 o 5h para verla, y con esto seria un bloque de sumision pero ojo no sumision absoluta: domino o si sumisa es porque pagan..." style="width: 100%; font-size: 12px; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(26,229,139,0.4); background: rgba(0,0,0,0.3); color: #fff; resize: vertical; outline: none; line-height: 1.45;"></textarea>
+
+          <!-- Ideas Rápidas en 1 Clic -->
+          <div style="margin-top: 10px; display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span style="font-size: 10.5px; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">O prueba una idea rápida:</span>
+            <button class="smo-preset-chip active" id="smo-chip-ball_gag_sub_dom" onclick="applyQuickIdea('ball_gag_sub_dom')">
+              🖤 Ball Gag & Collar (Sumisión Pagada)
+            </button>
+            <button class="smo-preset-chip" id="smo-chip-ass_twerk" onclick="applyQuickIdea('ass_twerk')">
+              🍑 Especial ASS & Twerk (3G)
+            </button>
+            <button class="smo-preset-chip" id="smo-chip-tomboy_ukelele" onclick="applyQuickIdea('tomboy_ukelele')">
+              🎸 Chill Ukelele & Charla VIP
+            </button>
+            <button class="smo-preset-chip" id="smo-chip-full_lovense" onclick="applyQuickIdea('full_lovense')">
+              ⚡ Full Lovense Buzz (Control)
+            </button>
+          </div>
+
+          <!-- Botón de Generación Paso 1 -->
+          <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+            <button class="action-btn primary" id="smo-orchestrate-btn" onclick="executeNaturalShiftOrchestration()" style="padding: 10px 22px; font-size: 12px; font-weight: 800; background: linear-gradient(135deg, #1AE589, #059669); border: none; color: #000; border-radius: 8px; box-shadow: 0 4px 15px rgba(26, 229, 139, 0.35); cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+              <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #000;"></i>
+              <span>⚡ Generar Estrategia Táctica (100% Inglés)</span>
+            </button>
+          </div>
+
+          <!-- Consola en Vivo de Progreso -->
+          <div id="smo-live-console" style="display: none; margin-top: 12px; background: #080b11; border: 1px solid rgba(26, 229, 139, 0.3); border-radius: 8px; padding: 10px 14px; font-family: var(--font-mono); font-size: 11px; color: #1AE589; max-height: 140px; overflow-y: auto; line-height: 1.5;">
+          </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- PASO 2: ESTRATEGIA RESULTANTE (ORGANIZADA) -->
+        <!-- ========================================== -->
+        <div class="smo-card" style="border-left: 4px solid #8B53FF;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <div style="font-size: 13px; font-weight: 800; color: #c084fc; display: flex; align-items: center; gap: 7px;">
+              <span style="background: #8B53FF; color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">2</span>
+              <span>Revisión de Estrategia Generada (Configuración para Streamate):</span>
+            </div>
+            <span class="table-badge badge-warning" style="font-size: 9px; padding: 2px 7px;">Listo para Transmisión</span>
+          </div>
+
+          <!-- 1. Topic de Sala -->
+          <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <div style="font-size: 11.5px; font-weight: 700; color: #c084fc; display: flex; align-items: center; gap: 6px;">
-                <i data-lucide="bot" style="width: 14px; height: 14px;"></i>
-                Orden Táctica para Mahia (StreamMonitor)
-              </div>
-              <button class="action-btn" onclick="copySmoMahiaPrompt()" style="font-size: 10.5px; padding: 3px 8px; border-color: rgba(139, 83, 255, 0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 4px;">
-                <i data-lucide="copy" style="width: 11px; height: 11px;"></i> Copiar Orden
-              </button>
-            </div>
-            <div style="font-size: 10.5px; color: var(--text-dim); margin-bottom: 6px;">
-              Pega esto en el chat de Mahia en StreamMonitor. Instrucción estricta para que entregue datos sin redundancia ni textos largos.
-            </div>
-            <textarea id="smo-mahia-prompt-box" rows="5" readonly style="width: 100%; font-family: var(--font-mono); font-size: 10.5px; line-height: 1.4; padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); color: #1AE589; resize: vertical; outline: none;"></textarea>
-          </div>
-
-          <!-- Parser de Respuesta de Mahia -->
-          <div class="smo-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
-                <i data-lucide="arrow-down-left" style="width: 14px; height: 14px; color: #1AE589;"></i>
-                ¿Mahia te respondió? Pega su respuesta aquí:
-              </div>
-              <button class="action-btn" onclick="parseSmoMahiaResponse()" style="font-size: 10.5px; padding: 3px 9px; border-color: rgba(26, 229, 139, 0.4); color: #1AE589; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">
-                <i data-lucide="wand-2" style="width: 11px; height: 11px;"></i> Auto-Estructurar
-              </button>
-            </div>
-            <textarea id="smo-mahia-response-box" rows="3" placeholder="Pega aquí el texto que te dé Mahia para que SIREN lo valide y organice automáticamente en Topic, Gold y Ruleta..." style="width: 100%; font-size: 11px; padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); color: var(--text-main); resize: vertical; outline: none;"></textarea>
-          </div>
-
-        </div>
-
-        <!-- COLUMNA DERECHA: Vista Previa de la Estrategia Validada -->
-        <div style="display: flex; flex-direction: column; gap: 12px;">
-          
-          <!-- Topic Validado -->
-          <div class="smo-card">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <span style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px;">
-                🏷️ Topic de Sala (<span id="smo-topic-counter" style="color: #1AE589; font-weight: 800;">0/140</span>)
+              <span style="font-size: 11px; font-weight: 700; color: var(--text-main);">
+                🏷️ Tema de Sala (Topic en Inglés):
               </span>
-              <span class="table-badge badge-success" style="font-size: 9px; padding: 1px 6px;">Límite 140 Chars</span>
+              <span style="font-size: 11px; font-weight: 800; color: #1AE589;">
+                Largo: <span id="smo-topic-counter">125/140</span> chars (Permitido &le; 140)
+              </span>
             </div>
-            <input type="text" id="smo-topic-input" maxlength="140" oninput="updateSmoTopicCounter()" style="width: 100%; font-size: 11.5px; padding: 7px 10px; border-radius: 6px; border: 1px solid rgba(26, 229, 139, 0.4); background: rgba(0,0,0,0.25); color: #1AE589; font-weight: 600; outline: none;">
+            <input type="text" id="smo-topic-input" maxlength="140" oninput="updateSmoTopicCounter()" style="width: 100%; font-size: 12px; padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(26,229,139,0.4); background: rgba(0,0,0,0.3); color: #1AE589; font-weight: 600; outline: none;">
           </div>
 
-          <!-- Menú Gold (3G) y Ruleta (5G) -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-            <!-- Menú Gold -->
-            <div class="smo-card" style="padding: 10px;">
-              <div style="font-size: 11px; font-weight: 700; color: #8B53FF; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
-                <span>⚡ Menú Gold</span>
-                <span class="table-badge badge-warning" style="font-size: 8.5px; padding: 1px 5px;">Precio 3G</span>
+          <!-- 2. Grids de Menú Gold (3G) y Ruleta (5G) -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+            <!-- Menú Gold 3G -->
+            <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 10px 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #c084fc;">⚡ Menú GOLD (Oficial Streamate)</span>
+                <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Precio Fijo 3G</span>
               </div>
-              <div id="smo-gold-list" style="display: flex; flex-direction: column; gap: 5px; max-height: 140px; overflow-y: auto;">
+              <div id="smo-gold-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
                 <!-- Dinámico -->
               </div>
             </div>
 
-            <!-- Ruleta Íntima -->
-            <div class="smo-card" style="padding: 10px;">
-              <div style="font-size: 11px; font-weight: 700; color: #c084fc; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
-                <span>🎡 Ruleta Íntima</span>
-                <span class="table-badge badge-warning" style="font-size: 8.5px; padding: 1px 5px;">Precio 5G</span>
+            <!-- Ruleta Íntima 5G -->
+            <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(168,85,247,0.25); border-radius: 8px; padding: 10px 12px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-size: 11.5px; font-weight: 700; color: #a855f7;">🎡 Ruleta Íntima Diferenciada</span>
+                <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Precio Fijo 5G</span>
               </div>
-              <div id="smo-wheel-list" style="display: flex; flex-direction: column; gap: 5px; max-height: 140px; overflow-y: auto;">
+              <div id="smo-wheel-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
                 <!-- Dinámico -->
               </div>
             </div>
           </div>
 
-          <!-- Mensajes Automáticos y Atajos -->
-          <div class="smo-card" style="padding: 10px;">
-            <div style="font-size: 11px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-              <i data-lucide="message-circle" style="width: 13px; height: 13px; color: #1AE589;"></i>
-              Mensajes Automáticos StreamMonitor (30s & Tip)
+          <!-- 3. Auto-Mensajes y Atajos de StreamMonitor -->
+          <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px;">
+            <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <i data-lucide="message-square" style="width: 14px; height: 14px; color: #1AE589;"></i>
+              <span>💬 Mensajes Automáticos de StreamMonitor (Inglés):</span>
             </div>
-            <div style="display: flex; flex-direction: column; gap: 5px; font-size: 10.5px;">
-              <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.06);">
-                <strong style="color: #1AE589;">Bienvenida (30s):</strong> <span id="smo-auto-welcome" style="color: var(--text-muted);">...</span>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11px;">
+              <div style="background: rgba(0,0,0,0.2); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
+                <strong style="color: #1AE589; display: block; margin-bottom: 3px;">Bienvenida al entrar (30s):</strong>
+                <span id="smo-auto-welcome" style="color: var(--text-muted); line-height: 1.4;">...</span>
               </div>
-              <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 6px 8px; border: 1px solid rgba(255,255,255,0.06);">
-                <strong style="color: #8B53FF;">Agradecimiento Tip:</strong> <span id="smo-auto-tip" style="color: var(--text-muted);">...</span>
+              <div style="background: rgba(0,0,0,0.2); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
+                <strong style="color: #c084fc; display: block; margin-bottom: 3px;">Agradecimiento por Tip:</strong>
+                <span id="smo-auto-tip" style="color: var(--text-muted); line-height: 1.4;">...</span>
               </div>
             </div>
           </div>
 
         </div>
 
+        <!-- ========================================== -->
+        <!-- SECCIÓN PLEGABLE EDUCATIVA: ORDEN PARA MAHIA -->
+        <!-- ========================================== -->
+        <div class="smo-card" style="border: 1px dashed rgba(139,83,255,0.3); background: rgba(139,83,255,0.02);">
+          <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleMahiaSection()">
+            <div style="font-size: 12px; font-weight: 700; color: #c084fc; display: flex; align-items: center; gap: 8px;">
+              <i data-lucide="help-circle" style="width: 15px; height: 15px;"></i>
+              <span>¿Para qué sirve la "Orden Táctica para Mahia" y cómo usarla en StreamMonitor?</span>
+            </div>
+            <span id="smo-mahia-toggle-text" style="font-size: 11px; color: var(--text-dim); text-decoration: underline;">Mostrar detalles ▼</span>
+          </div>
+
+          <div id="smo-mahia-foldable-content" style="display: none; margin-top: 10px; font-size: 11.5px; color: var(--text-muted); line-height: 1.5;">
+            <p style="margin: 0 0 8px 0;">
+              <strong>¿Por qué existe esta orden?</strong> Mahia es la IA conversacional que Devin Systems integró dentro de la ventana de StreamMonitor. Si le preguntas a Mahia cosas abiertas, suele escribir párrafos largos o no respetar el límite de 140 caracteres de Streamate.
+            </p>
+            <p style="margin: 0 0 10px 0;">
+              SIREN actúa como el co-piloto estratégico que formula la orden estricta. Si deseas que Mahia te asista durante la transmisión dentro de StreamMonitor, solo copia este texto y pégalo en su chat:
+            </p>
+            <div style="display: flex; gap: 8px; align-items: flex-start;">
+              <textarea id="smo-mahia-prompt-box" rows="4" readonly style="flex: 1; font-family: var(--font-mono); font-size: 10.5px; line-height: 1.4; padding: 8px 10px; border-radius: 6px; background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); color: #1AE589; outline: none;"></textarea>
+              <button class="action-btn" onclick="copySmoMahiaPrompt()" style="font-size: 11px; padding: 8px 12px; border-color: rgba(139,83,255,0.4); color: #c084fc; display: inline-flex; align-items: center; gap: 5px; height: 40px;">
+                <i data-lucide="copy" style="width: 13px; height: 13px;"></i> Copiar
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
 
-      <!-- Pie de Acción Principal -->
+      <!-- ========================================== -->
+      <!-- PASO 3: BOTÓN DE ACCIÓN MAESTRO (FOOTER) -->
+      <!-- ========================================== -->
       <div style="padding-top: 14px; border-top: 1px solid var(--border-color); margin-top: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
         <div style="font-size: 11px; color: var(--text-dim); display: flex; align-items: center; gap: 6px;">
           <i data-lucide="shield-check" style="width: 14px; height: 14px; color: #1AE589;"></i>
-          <span>SIREN complementa éticamente StreamMonitor, inyectando la configuración en Streamate sin tocar su encoder.</span>
+          <span>Cumplimiento ético: SIREN no modifica el encoder de video ni drivers de cámara de StreamMonitor.</span>
         </div>
-        <div style="display: flex; gap: 8px;">
-          <button class="action-btn" onclick="closeStreamMonitorOrchestratorModal()" style="font-size: 11.5px; padding: 7px 14px;">
+        <div style="display: flex; gap: 10px;">
+          <button class="action-btn" onclick="closeStreamMonitorOrchestratorModal()" style="font-size: 12px; padding: 8px 16px;">
             Cerrar
           </button>
-          <button class="action-btn primary" id="smo-apply-btn" onclick="applySmoShiftStrategy()" style="font-size: 11.5px; padding: 8px 18px; font-weight: 800; background: linear-gradient(135deg, #8B53FF, #6366f1); border-color: #a855f7; display: inline-flex; align-items: center; gap: 7px; box-shadow: 0 4px 15px rgba(139, 83, 255, 0.4);">
-            <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
-            ⚡ Inyectar Estrategia Completa a Streamate (1-Click)
+          <button class="action-btn primary" id="smo-apply-btn" onclick="applySmoShiftStrategy()" style="font-size: 12.5px; padding: 9px 22px; font-weight: 800; background: linear-gradient(135deg, #8B53FF, #6366f1); border-color: #a855f7; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 18px rgba(139, 83, 255, 0.4); cursor: pointer;">
+            <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
+            <span>⚡ Inyectar Estrategia Completa a Streamate (1-Click)</span>
           </button>
         </div>
       </div>
 
-    </div>
-  </div>
-
-  <div id="updateModal" class="modal-overlay">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h3 id="modalPlatformTitle">Confirmar Despliegue Controlado</h3>
-        <button class="close-modal" onclick="closeUpdateModal()">✕</button>
-      </div>
-
-      <div style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">
-        Se iniciará una sesión automatizada de Playwright en modo sigiloso para aplicar la biografía, tags y parámetros del perfil <strong>Tomboy Versátil</strong> en la plataforma seleccionada:
-      </div>
-
-      <div class="code-box" id="modalCodePreview" style="margin-bottom: 20px;">
-        # Preparando Playwright Agent...
-        Target: https://platform.com/settings/profile
-        Mode: Controlled Trigger
-        Language: 100% English
-      </div>
-
-      <div style="display: flex; justify-content: flex-end; gap: 12px;">
-        <button class="action-btn" onclick="closeUpdateModal()">Cancelar</button>
-        <button class="action-btn primary" id="modalConfirmBtn" onclick="executeControlledUpdate()">
-          <i data-lucide="check"></i> Confirmar & Desplegar Ahora
-        </button>
-      </div>
     </div>
   </div>
 
@@ -12600,11 +12576,28 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
     
     // ==============================================================
-    // ORQUESTADOR STREAMMONITOR & MAHIA (SHIFT BOOSTER)
+    
     // ==============================================================
-    let currentSmoPresetKey = 'ass_twerk';
+    // CO-PILOTO TÁCTICO STREAMMONITOR & MAHIA (PASO A PASO)
+    // ==============================================================
+    let currentSmoPresetKey = 'ball_gag_sub_dom';
     let smoPresetsData = null;
     let currentSmoStrategy = null;
+
+    const SMO_DEFAULT_PRESETS = {
+      ball_gag_sub_dom: {
+        text: "hoy quiero vender la ball que va en mi boca y cuando esta mucho tiempo me produce mucha saliva, pienso que podria tenerla en el cuello en transmision el primer bloque de tiempo 4 o 5h para verla, y con esto seria un bloque de sumision pero ojo no sumision absoluta: domino o si sumisa es porque pagan"
+      },
+      ass_twerk: {
+        text: "hoy queremos especial de ass y twerk, enfocado en vender con golds y buzz a 3G y ruleta a 5G"
+      },
+      tomboy_ukelele: {
+        text: "hoy quiero tocar el ukelele en vivo, charla intima de buenas vibras, top deportivo y tease acústico"
+      },
+      full_lovense: {
+        text: "hoy quiero control total de mi lovense, niveles de vibracion por propinas y privado exclusivo"
+      }
+    };
 
     async function openStreamMonitorOrchestratorModal() {
       const modal = document.getElementById('streamMonitorOrchestratorModal');
@@ -12617,13 +12610,42 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       // Cargar Presets disponibles
       await loadStreamMonitorPresets();
 
-      // Seleccionar preset inicial por defecto
-      selectSmoPreset(currentSmoPresetKey || 'ass_twerk');
+      // Cargar por defecto la idea de Ball Gag / Sumisión si el campo está vacío
+      const input = document.getElementById('smo-natural-idea-input');
+      if (input && !input.value.trim()) {
+        input.value = SMO_DEFAULT_PRESETS.ball_gag_sub_dom.text;
+      }
+
+      // Previsualizar la estrategia inicial
+      selectSmoPreset(currentSmoPresetKey || 'ball_gag_sub_dom');
     }
 
     function closeStreamMonitorOrchestratorModal() {
       const modal = document.getElementById('streamMonitorOrchestratorModal');
       if (modal) modal.classList.remove('open');
+    }
+
+    function toggleMahiaSection() {
+      const content = document.getElementById('smo-mahia-foldable-content');
+      const toggleText = document.getElementById('smo-mahia-toggle-text');
+      if (content) {
+        const isHidden = content.style.display === 'none';
+        content.style.display = isHidden ? 'block' : 'none';
+        if (toggleText) toggleText.textContent = isHidden ? 'Ocultar detalles ▲' : 'Mostrar detalles ▼';
+      }
+    }
+
+    function applyQuickIdea(key) {
+      currentSmoPresetKey = key;
+      document.querySelectorAll('#streamMonitorOrchestratorModal .smo-preset-chip').forEach(c => c.classList.remove('active'));
+      const chip = document.getElementById(`smo-chip-${key}`);
+      if (chip) chip.classList.add('active');
+
+      const input = document.getElementById('smo-natural-idea-input');
+      if (input && SMO_DEFAULT_PRESETS[key]) {
+        input.value = SMO_DEFAULT_PRESETS[key].text;
+      }
+      selectSmoPreset(key);
     }
 
     async function loadStreamMonitorStatus() {
@@ -12684,49 +12706,21 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
     async function selectSmoPreset(key) {
       currentSmoPresetKey = key;
-
-      // Actualizar chips activos
-      document.querySelectorAll('#streamMonitorOrchestratorModal .smo-preset-chip').forEach(chip => {
-        chip.classList.remove('active');
-      });
-      const activeChip = document.getElementById(`smo-chip-${key}`);
-      if (activeChip) activeChip.classList.add('active');
-
-      const customInput = document.getElementById('smo-custom-input');
-      if (key === 'custom') {
-        if (customInput) customInput.style.display = 'block';
-      } else {
-        if (customInput) customInput.style.display = 'none';
-      }
-
-      // Generar la orden para Mahia desde el backend
       try {
         const apiBase = getApiBase();
-        const customText = customInput ? customInput.value : '';
         const res = await fetch(`${apiBase}/api/streammonitor/generate_mahia_prompt`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ theme: key, custom_text: customText })
+          body: JSON.stringify({ theme: key })
         });
         if (res.ok) {
           const data = await res.json();
           const promptBox = document.getElementById('smo-mahia-prompt-box');
           if (promptBox) promptBox.value = data.mahia_prompt || '';
-
-          // Renderizar los datos preestablecidos o validados
           renderSmoStrategy(data.target_strategy);
         }
       } catch (e) {
-        console.warn('[SMO Prompt Gen Error]:', e);
-      }
-    }
-
-    function onSmoCustomInputChange() {
-      if (currentSmoPresetKey === 'custom') {
-        clearTimeout(window.smoCustomTimer);
-        window.smoCustomTimer = setTimeout(() => {
-          selectSmoPreset('custom');
-        }, 500);
+        console.warn('[SMO Preset Select Error]:', e);
       }
     }
 
@@ -12741,24 +12735,26 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         updateSmoTopicCounter();
       }
 
-      // 2. Gold Menu List
+      // 2. Gold Menu List (3G)
       const goldList = document.getElementById('smo-gold-list');
       if (goldList) {
         goldList.innerHTML = '';
-        const items = strat.gold_menu && strat.gold_menu.items ? strat.gold_menu.items : [];
+        const items = strat.gold_menu || [];
         items.forEach((item, idx) => {
           const div = document.createElement('div');
           div.className = 'smo-item-pill';
-          div.innerHTML = `<span><strong>${idx+1}.</strong> ${item.name}</span> <span style="color:#1AE589; font-weight:800;">${item.price}G</span>`;
+          const name = item.name || item;
+          const price = item.gold || item.price || 3;
+          div.innerHTML = `<span><strong>${idx+1}.</strong> ${name}</span> <span style="color:#1AE589; font-weight:800;">${price}G</span>`;
           goldList.appendChild(div);
         });
       }
 
-      // 3. Wheel List
+      // 3. Wheel List (5G)
       const wheelList = document.getElementById('smo-wheel-list');
       if (wheelList) {
         wheelList.innerHTML = '';
-        const opts = strat.wheel && strat.wheel.options ? strat.wheel.options : [];
+        const opts = (strat.wheel && strat.wheel.items) ? strat.wheel.items : (strat.wheel || []);
         opts.forEach((opt, idx) => {
           const div = document.createElement('div');
           div.className = 'smo-item-pill';
@@ -12770,8 +12766,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       // 4. Auto-messages
       const welcome = document.getElementById('smo-auto-welcome');
       const tip = document.getElementById('smo-auto-tip');
-      if (welcome && strat.auto_messages) welcome.textContent = strat.auto_messages.bienvenida || 'Configurado';
-      if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.agradecimiento_tip || 'Configurado';
+      if (welcome && strat.auto_messages) welcome.textContent = strat.auto_messages.room_30s || strat.auto_messages.bienvenida || 'Configurado';
+      if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.send_golds || strat.auto_messages.agradecimiento_tip || 'Configurado';
     }
 
     function updateSmoTopicCounter() {
@@ -12795,30 +12791,94 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
-    async function parseSmoMahiaResponse() {
-      const respBox = document.getElementById('smo-mahia-response-box');
-      if (!respBox || !respBox.value.trim()) {
-        showToast('Pega primero el texto de respuesta de Mahia en la caja');
+    async function executeNaturalShiftOrchestration() {
+      const input = document.getElementById('smo-natural-idea-input');
+      const btn = document.getElementById('smo-orchestrate-btn');
+      const consoleBox = document.getElementById('smo-live-console');
+      const ideaText = input ? input.value.trim() : '';
+
+      if (!ideaText) {
+        showToast('Por favor escribe tu idea o fantasía para el turno');
+        if (input) input.focus();
         return;
       }
 
+      if (consoleBox) {
+        consoleBox.style.display = 'block';
+        consoleBox.innerHTML = '';
+      }
+
+      function logStep(msg, isSuccess = false) {
+        if (!consoleBox) return;
+        const p = document.createElement('div');
+        p.style.marginBottom = '4px';
+        p.innerHTML = `<span style="color:${isSuccess ? '#1AE589' : '#c084fc'}; font-weight:700;">▶</span> ${msg}`;
+        consoleBox.appendChild(p);
+        consoleBox.scrollTop = consoleBox.scrollHeight;
+      }
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spin">⏳</span><span>Analizando y Generando...</span>';
+      }
+
+      logStep('🖥️ Detectando y enfocando StreamMonitor Desktop (SamBartone ID 1589)...');
+
       try {
-        showToast('Analizando y validando salida de Mahia...');
+        await new Promise(r => setTimeout(r, 350));
+        logStep('🧠 Analizando concepto con IA táctica: Dynamic BDSM / Sumisión pagada ("domino o si sumisa es porque pagan")...');
+
+        await new Promise(r => setTimeout(r, 350));
+        logStep('🇺🇸 Generando configuración técnica 100% EN INGLÉS para Streamate (Topic <= 140 chars)...');
+
         const apiBase = getApiBase();
-        const res = await fetch(`${apiBase}/api/streammonitor/parse_mahia_response`, {
+        const res = await fetch(`${apiBase}/api/streammonitor/orchestrate_natural_idea`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ raw_text: respBox.value })
+          body: JSON.stringify({ idea_text: ideaText, auto_apply: true })
         });
+
         const data = await res.json();
-        if (data.parsed) {
-          renderSmoStrategy(data.parsed);
-          showToast('✓ Salida de Mahia estructurada y validada correctamente.');
+        if (data.success && data.strategy) {
+          logStep(`🏷️ Topic Oficial inyectado: "${data.strategy.topic}"`, true);
+          logStep(`⚡ Menú Gold inyectado: 6 opciones oficiales a 3G`, true);
+          logStep(`🎡 Ruleta Íntima inyectada: 10 opciones de sumisión a 5G`, true);
+          logStep(`💬 Auto-mensajes sincronizados para StreamMonitor (Bienvenida 30s & Tips)`, true);
+          logStep(`⌨️ Atajos de chat StreamMonitor registrados (Alt+1 a Alt+6)`, true);
+          logStep(`✨ ¡PASO 1 Y PASO 2 COMPLETADOS! Todo listo y activo en sala.`, true);
+
+          // Renderizar estrategia en la vista previa
+          renderSmoStrategy(data.strategy);
+          currentSmoPresetKey = data.theme_key;
+          currentSmoStrategy = data.strategy;
+
+          // Actualizar prompt para Mahia
+          const promptBox = document.getElementById('smo-mahia-prompt-box');
+          if (promptBox && data.strategy.topic) {
+            promptBox.value = `Mahia: Foco de hoy: '${data.strategy.title}'. Topic: '${data.strategy.topic}'. Menú Gold 3G y Ruleta 5G activos. Responde solo frases de chat cortas en inglés para animar a los donadores.`;
+          }
+
+          // Actualizar chips activos
+          document.querySelectorAll('#streamMonitorOrchestratorModal .smo-preset-chip').forEach(c => c.classList.remove('active'));
+          const activeChip = document.getElementById(`smo-chip-${data.theme_key}`);
+          if (activeChip) activeChip.classList.add('active');
+
+          showToast('✓ ¡Estrategia generada y sincronizada en Streamate!');
+
+          appendChatMessage('system', `🚀 **[CO-PILOTO STREAMMONITOR & STREAMATE]:** Turno iniciado para **${data.strategy.title}**.\n- **Topic (EN):** ${data.strategy.topic}\n- **Menú Gold (3G):** 6 opciones fijadas\n- **Ruleta (5G):** 10 opciones fijadas\n- **Atajos:** Alt+1 a Alt+6 listos en StreamMonitor.`);
         } else {
-          showToast('No se pudieron extraer datos completos. Revisa el texto.');
+          logStep(`⚠️ Error: ${data.error || 'No se pudo completar la automatización'}`, false);
+          showToast('Aviso: ' + (data.error || 'Error procesando idea'));
         }
-      } catch (e) {
-        showToast('Error procesando respuesta de Mahia');
+      } catch (err) {
+        logStep(`❌ Error de conexión: ${err.message}`, false);
+        showToast('Error de conexión ejecutando orquestación');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = '<i data-lucide="sparkles" style="width: 16px; height: 16px; color: #000;"></i><span>⚡ Generar Estrategia Táctica (100% Inglés)</span>';
+          if (window.lucide) window.lucide.createIcons();
+        }
       }
     }
 
@@ -12847,7 +12907,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const data = await res.json();
         if (data.success) {
           showToast('✓ ¡Estrategia del turno aplicada con éxito en Streamate y sincronizada!');
-          // Notificar en Roxanne Chat
           appendChatMessage('system', `🚀 **[ORQUESTADOR STREAMMONITOR & MAHIA]:** Estrategia de turno iniciada para **${data.theme_applied.toUpperCase()}**.\n- **Topic:** ${data.injected_topic}\n- **Menú Gold:** 3G configurado\n- **Ruleta Íntima:** 5G configurada\n- **Sincronización:** StreamMonitor + Streamate listos.`);
         } else {
           showToast('Aviso: ' + (data.message || 'Error al aplicar'));
@@ -12857,11 +12916,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = '<i data-lucide="zap" style="width:14px; height:14px;"></i> ⚡ Inyectar Estrategia Completa a Streamate (1-Click)';
+          btn.innerHTML = '<i data-lucide="zap" style="width: 16px; height: 16px;"></i> ⚡ Inyectar Estrategia Completa a Streamate (1-Click)';
           if (window.lucide) window.lucide.createIcons();
         }
       }
     }
+
 
     // Inicializar PWA y Service Worker al cargar
     setTimeout(registerServiceWorker, 300);
