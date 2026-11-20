@@ -214,40 +214,106 @@ def is_streammonitor_running() -> bool:
     except Exception:
         return False
 
+def focus_streammonitor_window() -> bool:
+    """Enfoca y restaura la ventana gráfica de StreamMonitor en primer plano en Windows."""
+    if sys.platform != "win32":
+        return False
+    try:
+        import ctypes
+        user32 = ctypes.windll.user32
+        
+        # 1. Obtener PIDs de streammonitor
+        cmd = 'tasklist /FI "IMAGENAME eq streammonitor.exe" /FO CSV /NH'
+        res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+        pids = []
+        for line in res.stdout.strip().splitlines():
+            parts = [p.strip(' "') for p in line.split('","')]
+            if len(parts) >= 2 and parts[1].isdigit():
+                pids.append(int(parts[1]))
+        
+        if not pids:
+            return False
+
+        found_hwnds = []
+        def enum_windows_callback(hwnd, extra):
+            pid = ctypes.c_ulong()
+            user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+            if pid.value in pids:
+                rect = (ctypes.c_long * 4)()
+                user32.GetWindowRect(hwnd, ctypes.byref(rect))
+                width = rect[2] - rect[0]
+                height = rect[3] - rect[1]
+                # La ventana principal de StreamMonitor mide > 300x200
+                if width > 300 and height > 200:
+                    found_hwnds.append((hwnd, width, height))
+            return True
+
+        WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, ctypes.c_void_p, ctypes.c_void_p)
+        cb = WNDENUMPROC(enum_windows_callback)
+        user32.EnumWindows(cb, 0)
+
+        found_hwnds.sort(key=lambda x: x[1] * x[2], reverse=True)
+
+        for hwnd, w, h in found_hwnds:
+            # SW_RESTORE (9) si está minimizada, luego traer al frente
+            user32.ShowWindow(hwnd, 9)
+            user32.SetForegroundWindow(hwnd)
+            user32.BringWindowToTop(hwnd)
+            return True
+        return False
+    except Exception:
+        return False
+
+
 def launch_streammonitor_desktop() -> Dict[str, Any]:
-    """Lanza la aplicación de escritorio StreamMonitor de forma desacoplada si está instalada."""
-    if not STREAMMONITOR_EXE.exists():
+    """Lanza y/o enfoca la ventana visual de StreamMonitor directamente en la pantalla de Windows."""
+    import time
+    desktop_lnk = Path(os.environ.get("USERPROFILE", "C:/Users/MI PC")) / "Desktop" / "StreamMonitor.lnk"
+    target = desktop_lnk if desktop_lnk.exists() else STREAMMONITOR_EXE
+
+    if not target.exists() and not STREAMMONITOR_EXE.exists():
         return {
             "success": False,
             "error": f"No se encontró StreamMonitor en: {STREAMMONITOR_EXE}"
         }
 
-    if is_streammonitor_running():
-        return {
-            "success": True,
-            "already_running": True,
-            "message": "StreamMonitor ya se encuentra en ejecución en tu equipo."
-        }
+    already_running = is_streammonitor_running()
 
     try:
-        DETACHED_PROCESS = 0x00000008
-        CREATE_NEW_PROCESS_GROUP = 0x00000200
-        p = subprocess.Popen(
-            [str(STREAMMONITOR_EXE)],
-            creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP,
-            close_fds=True
-        )
+        # En Windows, usar os.startfile abre a través del Shell de Windows en la sesión interactiva del usuario
+        if sys.platform == "win32":
+            os.startfile(str(target))
+        else:
+            subprocess.Popen([str(target)])
+        
+        # Breve pausa para que el proceso/ventana se inicialice o restaure
+        time.sleep(1.2)
+        focused = focus_streammonitor_window()
+        
         return {
             "success": True,
-            "already_running": False,
-            "pid": p.pid,
-            "message": f"StreamMonitor iniciado correctamente (PID {p.pid})."
+            "already_running": already_running,
+            "focused": focused,
+            "message": "StreamMonitor abierto y visible en pantalla en primer plano." if focused else "StreamMonitor iniciado en tu escritorio."
         }
     except Exception as e:
-        return {
-            "success": False,
-            "error": f"Error al ejecutar StreamMonitor: {e}"
-        }
+        try:
+            # Fallback con Popen en el directorio de la aplicación
+            p = subprocess.Popen([str(STREAMMONITOR_EXE)], cwd=str(STREAMMONITOR_EXE.parent))
+            time.sleep(1.2)
+            focused = focus_streammonitor_window()
+            return {
+                "success": True,
+                "already_running": already_running,
+                "focused": focused,
+                "pid": p.pid,
+                "message": "StreamMonitor lanzado en tu pantalla."
+            }
+        except Exception as e2:
+            return {
+                "success": False,
+                "error": f"Error al ejecutar StreamMonitor: {e2}"
+            }
 
 def inspect_streammonitor_status() -> Dict[str, Any]:
     """Inspecciona la instalación local, logs recientes y estado de sesión de StreamMonitor."""

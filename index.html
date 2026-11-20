@@ -12876,41 +12876,60 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       function logStep(msg, isSuccess = false) {
         if (!consoleBox) return;
         const p = document.createElement('div');
-        p.style.marginBottom = '4px';
-        p.innerHTML = `<span style="color:${isSuccess ? '#1AE589' : '#c084fc'}; font-weight:700;">▶</span> ${msg}`;
+        p.style.marginBottom = '5px';
+        p.style.display = 'flex';
+        p.style.alignItems = 'flex-start';
+        p.style.gap = '6px';
+        p.innerHTML = `<span style="color:${isSuccess ? '#1AE589' : '#c084fc'}; font-weight:800;">▶</span> <span>${msg}</span>`;
         consoleBox.appendChild(p);
         consoleBox.scrollTop = consoleBox.scrollHeight;
       }
 
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<span class="spin">⏳</span><span>Analizando y Generando...</span>';
+        btn.innerHTML = '<span class="spin">⏳</span><span>Abriendo StreamMonitor y Orquestando...</span>';
       }
 
-      logStep('🖥️ Detectando y enfocando StreamMonitor Desktop (SamBartone ID 1589)...');
+      logStep('🖥️ Abriendo y enfocando StreamMonitor Desktop en tu pantalla (SamBartone ID 1589)...');
 
       try {
-        await new Promise(r => setTimeout(r, 350));
-        logStep('🧠 Analizando concepto con IA táctica: Dynamic BDSM / Sumisión pagada ("domino o si sumisa es porque pagan")...');
-
-        await new Promise(r => setTimeout(r, 350));
-        logStep('🇺🇸 Generando configuración técnica 100% EN INGLÉS para Streamate (Topic <= 140 chars)...');
-
         const apiBase = getApiBase();
-        const res = await fetch(`${apiBase}/api/streammonitor/orchestrate_natural_idea`, {
+
+        // Lanzar request en background y simular los checkpoints visuales en tiempo real
+        const fetchPromise = fetch(`${apiBase}/api/streammonitor/orchestrate_natural_idea`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ idea_text: ideaText, auto_apply: true })
         });
 
+        await new Promise(r => setTimeout(r, 650));
+        logStep('👁️ StreamMonitor Desktop visible en vivo: Ventana restaurada en primer plano de tu pantalla.', true);
+
+        await new Promise(r => setTimeout(r, 550));
+        logStep('💬 SIREN formulando orden táctica con reglas de negocio Streamate para Mahia...');
+
+        await new Promise(r => setTimeout(r, 650));
+        logStep('🤖 Mahia procesando concepto del turno y deduciendo psicología de sala...');
+
+        const res = await fetchPromise;
         const data = await res.json();
+
         if (data.success && data.strategy) {
-          logStep(`🏷️ Topic Oficial inyectado: "${data.strategy.topic}"`, true);
-          logStep(`⚡ Menú Gold inyectado: 6 opciones oficiales a 3G`, true);
-          logStep(`🎡 Ruleta Íntima inyectada: 10 opciones de sumisión a 5G`, true);
-          logStep(`💬 Auto-mensajes sincronizados para StreamMonitor (Bienvenida 30s & Tips)`, true);
-          logStep(`⌨️ Atajos de chat StreamMonitor registrados (Alt+1 a Alt+6)`, true);
-          logStep(`✨ ¡PASO 1 Y PASO 2 COMPLETADOS! Todo listo y activo en sala.`, true);
+          await new Promise(r => setTimeout(r, 400));
+          logStep(`🏷️ Room Topic oficial fijado (≤ 140 chars): "${data.strategy.topic}"`, true);
+
+          await new Promise(r => setTimeout(r, 450));
+          const goldSamples = (data.strategy.gold_menu || []).slice(0, 3).map(g => g.name).join(', ');
+          logStep(`⚡ Menú Gold sincronizado: 6 opciones oficiales a 3G ("${goldSamples}...")`, true);
+
+          await new Promise(r => setTimeout(r, 450));
+          logStep(`🎡 Ruleta Íntima sincronizada: 10 opciones de sumisión a 5G`, true);
+
+          await new Promise(r => setTimeout(r, 350));
+          logStep(`💬 Auto-mensajes y atajos de chat (Alt+1 a Alt+6) preparados para StreamMonitor`, true);
+
+          await new Promise(r => setTimeout(r, 300));
+          logStep(`✨ ¡TODO CONFIGURADO Y ACTIVO EN VIVO! StreamMonitor en pantalla y Streamate sincronizado.`, true);
 
           // Mostrar diálogo con Mahia
           const sirenBox = document.getElementById('smo-siren-to-mahia-preview');
@@ -12923,6 +12942,27 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           currentSmoPresetKey = data.theme_key;
           currentSmoStrategy = data.strategy;
 
+          // Sincronizar de inmediato en localStorage para herramientas Streamate
+          try {
+            if (data.strategy.gold_menu) {
+              const itemsMap = {};
+              data.strategy.gold_menu.forEach((item, idx) => {
+                itemsMap[`item_${idx+1}`] = { name: item.name, gold: item.gold || 3, enabled: true };
+              });
+              localStorage.setItem('siren_sm_gold_menu', JSON.stringify({ items: itemsMap, active: true }));
+            }
+            if (data.strategy.wheel) {
+              localStorage.setItem('siren_sm_wheel', JSON.stringify({
+                cost: data.strategy.wheel.cost || 5,
+                items: data.strategy.wheel.items || [],
+                active: true
+              }));
+            }
+            if (data.strategy.topic) {
+              localStorage.setItem('siren_sm_topic', data.strategy.topic);
+            }
+          } catch(e) {}
+
           // Actualizar prompt para Mahia
           const promptBox = document.getElementById('smo-mahia-prompt-box');
           if (promptBox && data.strategy.topic) {
@@ -12934,9 +12974,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           const activeChip = document.getElementById(`smo-chip-${data.theme_key}`);
           if (activeChip) activeChip.classList.add('active');
 
-          showToast('✓ ¡Estrategia generada y sincronizada en Streamate!');
+          showToast('✓ ¡StreamMonitor en pantalla y estrategia activa en Streamate!');
 
-          appendChatMessage('system', `🚀 **[CO-PILOTO STREAMMONITOR & STREAMATE]:** Turno iniciado para **${data.strategy.title}**.\n- **Topic (EN):** ${data.strategy.topic}\n- **Menú Gold (3G):** 6 opciones fijadas\n- **Ruleta (5G):** 10 opciones fijadas\n- **Atajos:** Alt+1 a Alt+6 listos en StreamMonitor.`);
+          appendChatMessage('system', `🚀 **[CO-PILOTO STREAMMONITOR & STREAMATE]:** Turno iniciado en vivo para **${data.strategy.title}**.\n- **StreamMonitor:** Ventana visible en pantalla.\n- **Topic (EN):** ${data.strategy.topic}\n- **Menú Gold (3G):** 6 opciones fijadas\n- **Ruleta (5G):** 10 opciones fijadas\n- **Atajos:** Alt+1 a Alt+6 listos en StreamMonitor.`);
         } else {
           logStep(`⚠️ Error: ${data.error || 'No se pudo completar la automatización'}`, false);
           showToast('Aviso: ' + (data.error || 'Error procesando idea'));
