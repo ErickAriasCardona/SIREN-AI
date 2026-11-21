@@ -7876,17 +7876,64 @@ Cat Lover 🐱</div>
                 </div>
               </div>
 
-              <!-- 4. Atajos Rápidos de Chat Alt+1 a Alt+8 -->
-              <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(139,83,255,0.2); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-size: 11px; font-weight: 800; color: #c084fc; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+              <!-- 4. Seis Atajos Rápidos de Chat (Alt+1 a Alt+6) Deducidos de Mahia -->
+              <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-size: 11px; font-weight: 800; color: #c084fc; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
                   <span style="display: flex; align-items: center; gap: 6px;">
-                    <i data-lucide="zap" style="width: 13px; height: 13px;"></i>
-                    <span>⚡ 8 Atajos Rápidos (Alt+1 a Alt+8):</span>
+                    <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
+                    <span>⚡ 6 Atajos Rápidos (Alt + #) Segmentados [StreamMonitor]:</span>
                   </span>
-                  <span class="table-badge badge-purple" style="font-size: 8.5px; padding: 1px 6px;">StreamMonitor</span>
+                  <span class="table-badge badge-purple" style="font-size: 8.5px; padding: 1px 6px;">Deducidos de Mahia</span>
                 </div>
-                <div id="smo-quick-macros-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; max-height: 110px; overflow-y: auto; font-size: 10.5px;">
-                  <!-- Dinámico -->
+                
+                <div style="display: flex; flex-direction: column; gap: 6px;">
+                  <!-- Tier 1: Nuevos / Primera vez en sala (Alt+1 y Alt+2) -->
+                  <div style="background: rgba(26,229,139,0.06); border-left: 3px solid #1AE589; border-radius: 6px; padding: 6px 8px;">
+                    <div style="font-size: 9.5px; font-weight: 800; color: #1AE589; margin-bottom: 3px; display: flex; justify-content: space-between;">
+                      <span>🟢 PRIMERA VEZ EN LA SALA (Nuevos):</span>
+                      <span style="color: var(--text-dim); font-size: 8.5px;">Afín con Saludo 30s</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 10.5px;">
+                      <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid rgba(26,229,139,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong style="color: #1AE589;">Alt+1:</strong> <span id="smo-macro-1" style="color: #fff;" title="...">...</span>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid rgba(26,229,139,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong style="color: #1AE589;">Alt+2:</strong> <span id="smo-macro-2" style="color: #fff;" title="...">...</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tier 2: Ya han entrado antes (Retorno) (Alt+3 y Alt+4) -->
+                  <div style="background: rgba(59,130,246,0.06); border-left: 3px solid #60a5fa; border-radius: 6px; padding: 6px 8px;">
+                    <div style="font-size: 9.5px; font-weight: 800; color: #60a5fa; margin-bottom: 3px; display: flex; justify-content: space-between;">
+                      <span>🔵 YA HAN ENTRADO ANTES (Retorno):</span>
+                      <span style="color: var(--text-dim); font-size: 8.5px;">Re-enganche cálido</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 10.5px;">
+                      <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid rgba(59,130,246,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong style="color: #60a5fa;">Alt+3:</strong> <span id="smo-macro-3" style="color: #fff;" title="...">...</span>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid rgba(59,130,246,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong style="color: #60a5fa;">Alt+4:</strong> <span id="smo-macro-4" style="color: #fff;" title="...">...</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tier 3: Varias veces / Habituales / VIPs (Alt+5 y Alt+6) -->
+                  <div style="background: rgba(168,85,247,0.06); border-left: 3px solid #c084fc; border-radius: 6px; padding: 6px 8px;">
+                    <div style="font-size: 9.5px; font-weight: 800; color: #c084fc; margin-bottom: 3px; display: flex; justify-content: space-between;">
+                      <span>🟣 HAN ENTRADO VARIAS VECES (Habituales / VIPs):</span>
+                      <span style="color: var(--text-dim); font-size: 8.5px;">Fidelización & Privado</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 10.5px;">
+                      <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid rgba(168,85,247,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong style="color: #c084fc;">Alt+5:</strong> <span id="smo-macro-5" style="color: #fff;" title="...">...</span>
+                      </div>
+                      <div style="background: rgba(0,0,0,0.3); padding: 4px 6px; border-radius: 4px; border: 1px solid rgba(168,85,247,0.2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        <strong style="color: #c084fc;">Alt+6:</strong> <span id="smo-macro-6" style="color: #fff;" title="...">...</span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -12890,23 +12937,15 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       if (priv && strat.auto_messages) priv.textContent = strat.auto_messages.private_show || strat.auto_messages.privado || 'Configurado';
       if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.send_golds || strat.auto_messages.propina || 'Configurado';
 
-      // 4.1 Atajos de chat Alt+1 a Alt+8
-      const macrosGrid = document.getElementById('smo-quick-macros-grid');
-      if (macrosGrid) {
-        macrosGrid.innerHTML = '';
-        const qList = strat.quick_messages || [];
-        qList.slice(0, 8).forEach((qm, idx) => {
-          const div = document.createElement('div');
-          div.style.background = 'rgba(0,0,0,0.2)';
-          div.style.padding = '4px 6px';
-          div.style.borderRadius = '4px';
-          div.style.border = '1px solid rgba(255,255,255,0.05)';
-          div.style.whiteSpace = 'nowrap';
-          div.style.overflow = 'hidden';
-          div.style.textOverflow = 'ellipsis';
-          div.innerHTML = `<span style="color:#c084fc; font-weight:800;">Alt+${idx+1}:</span> <span style="color:var(--text-muted);" title="${qm}">${qm}</span>`;
-          macrosGrid.appendChild(div);
-        });
+      // 4.1 Los 6 Atajos de Chat Segmentados (Alt+1 a Alt+6)
+      const qList = strat.quick_messages || [];
+      for (let i = 1; i <= 6; i++) {
+        const el = document.getElementById(`smo-macro-${i}`);
+        if (el) {
+          const text = qList[i - 1] || 'Configurado';
+          el.textContent = text;
+          el.title = text;
+        }
       }
 
       // 5. SINCRONIZACIÓN INMEDIATA CON LAS OTRAS HERRAMIENTAS DE STREAMATE

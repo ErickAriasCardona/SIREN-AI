@@ -4,7 +4,7 @@ Inyecta directamente en la sección 'Mensajes' de StreamMonitor:
 1. Saludo a usuarios nuevos (Bienvenida 30s)
 2. Mensaje al entrar a privado
 3. Propina al recibir golds
-4. Mensajes rápidos (Alt+1 a Alt+8)
+4. Mensajes rápidos (Alt+1 a Alt+6) segmentados por tipo de fan
 5. Pulsa 'Guardar ajustes' en cada sección para persistir en StreamMonitor.
 """
 
@@ -86,24 +86,37 @@ async function main() {{
     ws.send(JSON.stringify({{ id: curId, method, params }}));
   }});
 
-  // Asegurar que la modal de Mensajes esté visible
-  const check = await send('Runtime.evaluate', {{
-    expression: '!!document.querySelector("textarea[placeholder*=\\"bienvenid@ a la sala\\"]")',
-    returnByValue: true
-  }});
-  if (!check?.result?.result?.value) {{
+  // 1. Asegurar que la modal de Mensajes esté visible y montada
+  let modalMounted = false;
+  for (let attempt = 0; attempt < 5; attempt++) {{
+    const chk = await send('Runtime.evaluate', {{
+      expression: 'Array.from(document.querySelectorAll("textarea")).some(t => (t.placeholder || "").includes("bienvenid"))',
+      returnByValue: true
+    }});
+    if (chk?.result?.result?.value) {{
+      modalMounted = true;
+      break;
+    }}
+    // Si no está montada, hacer clic en el botón Mensajes del sidebar
     await send('Runtime.evaluate', {{
       expression: '(() => {{ const b = document.querySelector("button[aria-label=\\"Mensajes\\"]"); if (b) b.click(); }})()'
     }});
-    await new Promise(r => setTimeout(r, 800));
+    await new Promise(r => setTimeout(r, 600));
   }}
 
-  // Inyectar y guardar
+  if (!modalMounted) {{
+    console.log(JSON.stringify({{ success: false, error: 'No se pudo abrir la modal de Mensajes en StreamMonitor' }}));
+    ws.close();
+    process.exit(1);
+  }}
+
+  // 2. Inyectar valores y guardar
   const evalRes = await send('Runtime.evaluate', {{
     expression: `(() => {{
-      const taWelcome = document.querySelector('textarea[placeholder*="bienvenid@ a la sala"]');
-      const taPrivate = document.querySelector('textarea[placeholder*="Bienvenid@ al privado"]');
-      const taTip = document.querySelector('textarea[placeholder*="Gracias por la propina"]');
+      const allTas = Array.from(document.querySelectorAll('textarea'));
+      const taWelcome = allTas.find(t => (t.placeholder || '').includes('bienvenid@ a la sala'));
+      const taPrivate = allTas.find(t => (t.placeholder || '').includes('Bienvenid@ al privado'));
+      const taTip = allTas.find(t => (t.placeholder || '').includes('Gracias por la propina'));
 
       const setVal = (ta, val) => {{
         if (!ta || !val) return false;
@@ -118,6 +131,7 @@ async function main() {{
       if (taPrivate) setVal(taPrivate, ${{JSON.stringify(privateText)}});
       if (taTip) setVal(taTip, ${{JSON.stringify(tipText)}});
 
+      // Guardar sección de Mensajes automáticos
       let saveAutoBtn = null;
       if (taTip) {{
         let p = taTip.parentElement;
@@ -131,16 +145,17 @@ async function main() {{
         saveAutoBtn.click();
       }}
 
-      // Rellenar mensajes rápidos (Alt+1 a Alt+8)
+      // Rellenar mensajes rápidos (Alt+1 a Alt+6) segmentados
       const qList = ${{JSON.stringify(quickList)}};
       let saveQuickBtn = null;
       if (qList && qList.length > 0) {{
-        for (let idx = 0; idx < Math.min(qList.length, 8); idx++) {{
-          const taQ = document.querySelector('textarea[placeholder*="Mensaje rápido ' + (idx + 1) + '"]');
+        for (let idx = 0; idx < Math.min(qList.length, 6); idx++) {{
+          const phNeed = 'Mensaje rápido ' + (idx + 1);
+          const taQ = allTas.find(t => (t.placeholder || '').includes(phNeed));
           if (taQ) setVal(taQ, qList[idx]);
         }}
 
-        const taQ1 = document.querySelector('textarea[placeholder*="Mensaje rápido 1"]');
+        const taQ1 = allTas.find(t => (t.placeholder || '').includes('Mensaje rápido 1'));
         if (taQ1) {{
           let pQ = taQ1.parentElement;
           for (let i = 0; i < 8 && pQ; i++) {{

@@ -69,12 +69,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "private_show": "Welcome to my private room... are you ready to take complete control of my ball gag?"
         },
         "quick_messages": [
-            "Tip 3G to put the ball gag in my mouth 🖤",
-            "Who wants to see heavy drool close-up? 🤤",
-            "I only submit if you pay... Gold Menu is 3G ⚡",
-            "Spin the Wheel (5G) to lock my collar 🎡",
-            "Mmm 4 hours wearing this... so much saliva today 💦",
-            "Take me to Private to command me completely 🗝️"
+            "Welcome in! First time? Paid submission today 🗝️",
+            "New here? Ball gag & collar on camera 😈",
+            "Hey, you're back! Ready to command me? 😏",
+            "Good to see you again! Tip 3G for gag orders 💋",
+            "My master is back! Take full control in private 🖤",
+            "Always back to discipline me ⚡ take me to private now 🗝️"
         ]
     },
     "ass_twerk": {
@@ -111,12 +111,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "private_show": "Welcome to my private room... what naughty fantasy are we doing today? 💋"
         },
         "quick_messages": [
-            "Tap the screen if you love this booty bouncing 🔥",
-            "Spin the intimate Wheel (5G) to pick my next treat 😉",
-            "Gold Menu only 3G today, treat yourself now ⚡",
-            "Take me to private for full uncensored action 🖤",
-            "Buzz my Lovense and watch me moan instantly ⚡",
-            "Cam2Cam ready in private, show me too 🎥"
+            "Welcome in! First time? Booty special today 😉",
+            "New here? Check my 3G Gold Menu now 🍑",
+            "Hey, you're back! Missed this booty bouncing? 😏",
+            "Good to see you again! Spin the wheel 5G 🎡",
+            "My favorite regular! Ready for private show? 💋",
+            "Back to spoil me again 🖤 let's go uncensored ⚡"
         ]
     },
     "tomboy_ukelele": {
@@ -153,12 +153,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "private_show": "We are completely alone now... Tell me your deepest secret 😉"
         },
         "quick_messages": [
-            "Ask me for a song on my ukelele in chat 🎶",
-            "Tips activate my toy to level 2 ⚡",
-            "Gold Menu at 3G for a limited time ✨",
-            "I love good vibes, stay with me a while 🖤",
-            "Want to hear something private just for your ears?",
-            "Spin the Wheel (5G) for an intimate treat 🎡"
+            "Welcome in! First time? Chill ukelele tunes today 🎶",
+            "New here? Request a song from my 3G menu ✨",
+            "Hey, you're back! Glad you came to vibe 🎸",
+            "Good to see you again! Spin the wheel 5G 🎡",
+            "My favorite regular! Want a private VIP song? 🖤",
+            "Always back to support me ✨ let's chat in private 💋"
         ]
     },
     "full_lovense": {
@@ -195,12 +195,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "private_show": "We are alone now... Take complete control, don't hold back 💋"
         },
         "quick_messages": [
-            "3 Golds = Medium buzz and a big smile guaranteed ⚡",
-            "Make me moan with a tip shower on cam! 🔥",
-            "Wheel at 5G with intimate surprises active now 🎡",
-            "Who is brave enough to take my Lovense to level 10?",
-            "Ready for an intense private show, take me now 🖤",
-            "Cam2Cam active to watch you enjoy 🎥"
+            "Welcome in! First time? Lovense control active ⚡",
+            "New here? Tip 3G to buzz my toy live 🔥",
+            "Hey, you're back! Ready to make me buzz? 😏",
+            "Good to see you again! Take my toy to max ⚡",
+            "My favorite controller is back! Level 10 ready 😈",
+            "Back to make me shake 🖤 take me to private now 💋"
         ]
     }
 }
@@ -362,7 +362,7 @@ def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dic
         f"   - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
         f"   - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
         f"   - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
-        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes cortos de chat (máximo 8 palabras) para activar mirones."
+        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes súper cortos en inglés, afines al saludo de sala:\n"f"   - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f"   - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f"   - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)"
     )
 
     return {
@@ -634,16 +634,50 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "private_show": "We are completely alone in private now... Take full control 💋"
     }
 
-    quick_messages = [
-        f"Gold Menu is only 3G today! {short_title} ⚡",
-        "Spin the Wheel (5G) to decide my next treat 🎡",
-        "Tip 3G to trigger my dynamic live 🔥",
-        "Take me to private for complete uncensored command 🗝️",
-        "Buzz my toy and watch me react instantly ⚡",
-        "Cam2Cam ready in private, show me too 🎥",
-        "Tap the screen and stay close to me 🖤",
-        "Loving this vibe, what action do you want next? 😉"
-    ]
+    # 4. Extraer los 6 Atajos Rápidos de Chat (Alt+1 a Alt+6) solicitados por Sam
+    # Alt+1 y Alt+2: Primera vez en la sala (afines al Saludo 30s)
+    # Alt+3 y Alt+4: Ya han entrado antes (retorno)
+    # Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)
+    extracted_macros = {}
+    in_macros_section = False
+    for line in mahia_text.splitlines():
+        line_low = line.lower().strip()
+        if any(k in line_low for k in ["macro", "alt+", "atajo", "mensaje rápido", "mensajes rápidos", "5."]):
+            in_macros_section = True
+        
+        if in_macros_section:
+            m = re.search(r'alt\s*\+\s*([1-6])\s*[:\-]\s*(.+)', line, re.IGNORECASE)
+            if m:
+                idx = int(m.group(1))
+                val = m.group(2).strip().strip('"\'')
+                if len(val) >= 4:
+                    extracted_macros[idx] = val
+
+    theme_keyword = "special show"
+    if any(w in norm_combined for w in ["ass", "twerk", "booty", "cola", "nalga"]):
+        theme_keyword = "twerk show"
+    elif any(w in norm_combined for w in ["ball", "gag", "sumision", "collar"]):
+        theme_keyword = "kinky session"
+    elif any(w in norm_combined for w in ["ukelele", "chill", "music"]):
+        theme_keyword = "chill session"
+    elif any(w in norm_combined for w in ["buzz", "lovense"]):
+        theme_keyword = "toy control"
+
+    macro_defaults = {
+        1: f"Welcome in! First time? Come enjoy my {theme_keyword} 😉",
+        2: "Hey new face! Check out my 3G Gold Menu today 🍑",
+        3: "Hey, you're back! Missed my show already? 😏",
+        4: "Good to see you again! Ready for some fun? 💋",
+        5: "My favorite regular is here! Come closer 😈",
+        6: "Look who's back to spoil me 🖤 always loving you ⚡"
+    }
+
+    quick_messages = [extracted_macros.get(i, macro_defaults[i]) for i in range(1, 7)]
+    quick_messages_by_tier = {
+        "new_users": [quick_messages[0], quick_messages[1]],
+        "returning_users": [quick_messages[2], quick_messages[3]],
+        "frequent_users": [quick_messages[4], quick_messages[5]]
+    }
 
     return {
         "title": short_title,
@@ -654,6 +688,7 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "wheel": {"cost": 5, "items": wheel_items},
         "auto_messages": auto_messages,
         "quick_messages": quick_messages,
+        "quick_messages_by_tier": quick_messages_by_tier,
         "mahia_raw_reply": mahia_text
     }
 
@@ -829,9 +864,18 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
 
     siren_to_mahia_prompt = (
         f"Mahia: Sam ha definido el foco para su turno: '{user_idea_spanish}'.\n"
-        f"Aplica las reglas de Streamate: Topic en inglés (máximo 140 chars con #hashtags), "
-        f"Menú Gold exactamente a 3G usando solo opciones oficiales de Streamate, "
-        f"y Ruleta Íntima a 5G usando solo opciones oficiales de Streamate.\n"
+        f"Aplica las reglas de Streamate y entrégame el plan en estos 5 puntos claros y bien enumerados:\n"
+        f"1. Room Topic (en inglés, máx 140 chars con #hashtags).\n"
+        f"2. GOLD Menu a 3G (exactamente 6 acciones oficiales del catálogo de Streamate).\n"
+        f"3. Ruleta Íntima a 5G (exactamente 10 acciones oficiales del catálogo de Streamate).\n"
+        f"4. Tres mensajes automáticos en inglés: Saludo 30s sala, Entrada a privado y Agradecimiento por propina gold.\n"
+        f"5. Seis mensajes rápidos de chat súper cortos en inglés para StreamMonitor (Alt+1 a Alt+6), afines al saludo de sala:\n"
+        f"   - Alt+1: Primera vez en la sala (usuario nuevo)\n"
+        f"   - Alt+2: Primera vez en la sala (usuario nuevo)\n"
+        f"   - Alt+3: Ya ha entrado antes (retorno)\n"
+        f"   - Alt+4: Ya ha entrado antes (retorno)\n"
+        f"   - Alt+5: Ha entrado varias veces (habitual / VIP)\n"
+        f"   - Alt+6: Ha entrado varias veces (habitual / VIP)\n"
         f"Devuélveme el plan estructurado para aplicarlo en vivo."
     )
 
@@ -851,17 +895,37 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
         strategy = deduce_strategy_from_mahia_text(mahia_response_text, user_idea_spanish)
         theme_key = "mahia_live_deduction" 
     else:
-        # Fallback estructurado oficial
+        # Fallback estructurado oficial bien enumerado y claro
+        qm = strategy.get('quick_messages', [])
+        m1 = qm[0] if len(qm) > 0 else "Welcome in! New to my room? 😉"
+        m2 = qm[1] if len(qm) > 1 else "First time here? Try my 3G menu 🍑"
+        m3 = qm[2] if len(qm) > 2 else "Hey, you're back! Missed me? 😏"
+        m4 = qm[3] if len(qm) > 3 else "Good to see you again! Ready? 💋"
+        m5 = qm[4] if len(qm) > 4 else "My favorite regular is here! Come closer 😈"
+        m6 = qm[5] if len(qm) > 5 else "Back again to spoil me? You're the best ⚡"
+
         mahia_response_text = (
-            f"Entendido Sam. Aquí tienes el plan optimizado para tu sala:\n\n"
-            f"TOPIC: {strategy['topic']}\n\n"
-            f"MENU GOLD (3G - Catálogo Oficial Streamate):\n" +
-            "\n".join([f"- {it['name']} (3 Gold)" for it in strategy['gold_menu']]) +
-            f"\n\nRULETA INTIMA (5G - Catálogo Oficial Streamate):\n" +
-            "\n".join([f"- {it}" for it in strategy['wheel']['items']]) +
-            f"\n\nAUTO-MENSAJES:\n"
-            f"- Entrada sala (30s): {strategy['auto_messages']['room_30s']}\n"
-            f"- Agradecimiento Tip: {strategy['auto_messages']['send_golds']}"
+            f"Entendido Sam. Aquí tienes el plan táctico completo para tu sala, estructurado en 5 puntos claros:\n\n"
+            f"1. ROOM TOPIC (en inglés, ≤ 140 chars con #hashtags):\n"
+            f"\"{strategy['topic']}\"\n\n"
+            f"2. GOLD MENU (6 opciones oficiales del catálogo de Streamate a 3G):\n" +
+            "\n".join([f"{idx+1}. {it['name']} - 3G" for idx, it in enumerate(strategy['gold_menu'])]) +
+            f"\n\n3. RULETA ÍNTIMA (10 opciones oficiales del catálogo de Streamate a 5G):\n" +
+            "\n".join([f"{idx+1}. {it}" for idx, it in enumerate(strategy['wheel']['items'])]) +
+            f"\n\n4. TRES MENSAJES AUTOMÁTICOS (StreamMonitor):\n"
+            f"- Saludo / Bienvenida (30s): \"{strategy['auto_messages']['room_30s']}\"\n"
+            f"- Mensaje al entrar a Privado: \"{strategy['auto_messages'].get('private_show', 'Welcome to private room 💋')}\"\n"
+            f"- Agradecimiento por Propina Gold: \"{strategy['auto_messages']['send_golds']}\"\n\n"
+            f"5. SEIS ATAJOS RÁPIDOS DE CHAT (Alt+1 a Alt+6 - Afines al Saludo de Sala):\n"
+            f"• Primera vez en la sala (Usuarios Nuevos):\n"
+            f"  - Alt+1: \"{m1}\"\n"
+            f"  - Alt+2: \"{m2}\"\n"
+            f"• Ya han entrado antes (Retorno / Segunda vez):\n"
+            f"  - Alt+3: \"{m3}\"\n"
+            f"  - Alt+4: \"{m4}\"\n"
+            f"• Han entrado varias veces (Habituales / VIPs):\n"
+            f"  - Alt+5: \"{m5}\"\n"
+            f"  - Alt+6: \"{m6}\""
         )
         live_chat_done = False
 
