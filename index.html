@@ -329,14 +329,14 @@
       font-weight: 800 !important;
     }
     body.light-theme .nav-btn.active {
-      background: #00A88F !important;
-      color: #ffffff !important;
-      box-shadow: 0 10px 24px rgba(0, 168, 143, 0.35) !important;
+      background: #ffffff !important;
+      color: #007A68 !important;
+      box-shadow: 0 10px 26px rgba(0, 168, 143, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
     }
     body.light-theme .nav-btn.active i,
     body.light-theme .nav-btn.active svg {
-      color: #ffffff !important;
-      stroke: #ffffff !important;
+      color: #00A88F !important;
+      stroke: #00A88F !important;
     }
 
     .nav-badge {
@@ -1300,7 +1300,7 @@
       position: relative;
       margin-bottom: 25px;
       background-image: radial-gradient(circle at 85% 15%, rgba(0, 229, 191, 0.15) 0%, transparent 60%),
-                        radial-gradient(circle at 15% 85%, rgba(147, 51, 234, 0.12) 0%, transparent 50%);
+                        radial-gradient(circle at 15% 85%, rgba(0, 229, 191, 0.12) 0%, transparent 50%);
     }
 
     body.light-theme .editorial-card {
@@ -1308,7 +1308,7 @@
       border-color: #cbd5e1;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       background-image: radial-gradient(circle at 85% 15%, rgba(0, 229, 191, 0.08) 0%, transparent 60%),
-                        radial-gradient(circle at 15% 85%, rgba(147, 51, 234, 0.06) 0%, transparent 50%);
+                        radial-gradient(circle at 15% 85%, rgba(0, 229, 191, 0.06) 0%, transparent 50%);
     }
 
     .editorial-hero-banner {
@@ -1489,7 +1489,7 @@
     }
 
     body.light-theme .act-title {
-      color: #7e22ce;
+      color: #00A88F;
     }
 
     .act-text {
@@ -1639,12 +1639,7 @@
       background: rgba(255, 255, 255, 0.04);
     }
 
-    .nav-btn.active {
-      color: #fff;
-      background: linear-gradient(90deg, rgba(147, 51, 234, 0.22) 0%, rgba(147, 51, 234, 0.06) 100%);
-      border-left: 3px solid var(--primary-light);
-      box-shadow: inset 0 0 12px rgba(147, 51, 234, 0.1);
-    }
+    /* Active pill defined globally in ALMA sidebar section */
 
     .nav-btn.active i {
       color: var(--primary-light);
@@ -1727,7 +1722,7 @@
       width: 100%;
       min-width: 0;
       box-sizing: border-box;
-      background: radial-gradient(circle at 85% 10%, rgba(147, 51, 234, 0.07) 0%, transparent 60%);
+      background: radial-gradient(circle at 85% 10%, rgba(0, 229, 191, 0.07) 0%, transparent 60%);
     }
 
     /* TOP BAR */
@@ -1780,14 +1775,25 @@
       background: var(--bg-card-hover);
       border-color: var(--border-accent);
     }
+    /* Primary action buttons in ALMA TECH palette */
     .action-btn.primary {
-      background: linear-gradient(135deg, #00A88F 0%, #7e22ce 100%);
-      border: 1px solid rgba(192, 132, 252, 0.4);
-      color: white;
-      box-shadow: 0 4px 14px rgba(147, 51, 234, 0.3);
+      background: linear-gradient(135deg, #00E5BF 0%, #00A88F 100%) !important;
+      border: 1px solid rgba(255, 255, 255, 0.4) !important;
+      color: #06342D !important;
+      font-weight: 800 !important;
+      box-shadow: 0 6px 20px rgba(0, 168, 143, 0.4) !important;
+    }
+    .action-btn.primary i, .action-btn.primary svg {
+      color: #06342D !important;
     }
     .action-btn.primary:hover {
-      box-shadow: 0 6px 20px rgba(147, 51, 234, 0.5);
+      background: linear-gradient(135deg, #1AE5BA 0%, #00B89D 100%) !important;
+      box-shadow: 0 8px 26px rgba(0, 229, 191, 0.55) !important;
+      color: #03201B !important;
+      transform: translateY(-1px);
+    }
+    .action-btn.primary:hover {
+      box-shadow: 0 6px 20px rgba(0, 229, 191, 0.5);
       transform: translateY(-1px);
     }
 
@@ -1816,48 +1822,71 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* SUB TABS HEADER */
+    
+    /* SUB TABS HEADER — ALMA TECH PALETTE */
     .subtabs-bar {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      border-bottom: 1px solid var(--border-color);
-      margin-bottom: 22px;
-      padding-bottom: 4px;
+      display: flex !important;
+      align-items: center !important;
+      gap: 10px !important;
+      border-bottom: 1px solid rgba(0, 229, 191, 0.15) !important;
+      margin-bottom: 22px !important;
+      padding-bottom: 12px !important;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    body.light-theme .subtabs-bar {
+      border-bottom-color: rgba(0, 168, 143, 0.15) !important;
     }
     .subtab-btn {
-      background: transparent;
-      border: none;
-      color: var(--text-muted);
-      font-family: var(--font-sans);
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      transition: all 0.2s;
-      position: relative;
+      background: rgba(0, 229, 191, 0.06) !important;
+      border: 1px solid rgba(0, 229, 191, 0.18) !important;
+      color: var(--text-muted) !important;
+      border-radius: 16px !important;
+      font-size: 13px !important;
+      font-weight: 600 !important;
+      padding: 9px 18px !important;
+      cursor: pointer !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      transition: all 0.22s ease !important;
+    }
+    .subtab-btn i, .subtab-btn svg {
+      color: #00A88F !important;
+      transition: transform 0.2s ease;
     }
     .subtab-btn:hover {
-      color: var(--text-main);
-      background: rgba(255,255,255,0.04);
+      background: rgba(0, 229, 191, 0.16) !important;
+      color: #00E5BF !important;
+      border-color: #00E5BF !important;
+      transform: translateY(-1px);
+    }
+    .subtab-btn:hover i, .subtab-btn:hover svg {
+      color: #00E5BF !important;
+      transform: scale(1.1);
     }
     .subtab-btn.active {
-      color: var(--primary-light);
-      background: rgba(147, 51, 234, 0.12);
+      background: linear-gradient(135deg, #00E5BF 0%, #00A88F 100%) !important;
+      color: #06342D !important;
+      border-color: #00E5BF !important;
+      font-weight: 800 !important;
+      box-shadow: 0 6px 18px rgba(0, 168, 143, 0.4) !important;
+    }
+    .subtab-btn.active i, .subtab-btn.active svg {
+      color: #06342D !important;
     }
     .subtab-btn.active::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 12px;
-      right: 12px;
-      height: 2px;
-      background: var(--primary-light);
-      border-radius: 2px;
+      display: none !important;
+    }
+    body.light-theme .subtab-btn {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 168, 143, 0.2) !important;
+      color: #43635C !important;
+    }
+    body.light-theme .subtab-btn.active {
+      background: linear-gradient(135deg, #00E5BF 0%, #00A88F 100%) !important;
+      color: #06342D !important;
+      border-color: #00A88F !important;
     }
 
     /* CARDS & GRIDS */
@@ -1969,9 +1998,9 @@
       font-weight: 700;
       padding: 3px 8px;
       border-radius: 6px;
-      background: rgba(147, 51, 234, 0.15);
+      background: rgba(0, 229, 191, 0.15);
       color: var(--primary-light);
-      border: 1px solid rgba(147, 51, 234, 0.3);
+      border: 1px solid rgba(0, 229, 191, 0.3);
       white-space: nowrap;
     }
 
@@ -2077,7 +2106,7 @@
       align-items: center;
       gap: 6px;
     }
-    .tag-loyalfans { background: rgba(147, 51, 234, 0.2); color: #00E5BF; border: 1px solid rgba(147, 51, 234, 0.4); }
+    .tag-loyalfans { background: rgba(0, 229, 191, 0.2); color: #00E5BF; border: 1px solid rgba(0, 229, 191, 0.4); }
     .tag-streamate { background: rgba(0, 229, 191, 0.15); color: #00A88F; border: 1px solid rgba(0, 229, 191, 0.35); }
     .tag-stripchat { background: rgba(0, 168, 143, 0.2); color: #00A88F; border: 1px solid rgba(0, 168, 143, 0.4); }
     .tag-flirt4free { background: rgba(26, 229, 139, 0.15); color: #1AE589; border: 1px solid rgba(26, 229, 139, 0.35); }
@@ -2251,8 +2280,8 @@
     }
     body.light-theme #streamateMessagesModal .rox-box-style {
       background: #fdf4ff !important;
-      border: 1px solid #d8b4fe !important;
-      color: #581c87 !important;
+      border: 1px solid #00E5BF !important;
+      color: #007A68 !important;
     }
     body.light-theme #streamateMessagesModal .sm-rationale-box {
       background: #f1f5f9 !important;
@@ -2675,7 +2704,7 @@
       border-top-right-radius: 2px;
     }
     .chat-msg.sam .chat-bubble {
-      background: rgba(147, 51, 234, 0.15);
+      background: rgba(0, 229, 191, 0.15);
       border: 1px solid rgba(0, 229, 191, 0.35);
       color: #f1f5f9;
       border-top-left-radius: 2px;
@@ -3071,7 +3100,7 @@
     body.light-theme .copy-msg-btn:hover {
       background: rgba(0, 229, 191, 0.12);
       border-color: #00E5BF;
-      color: #4c1d95;
+      color: #063E35;
     }
 
     .prompt-pills-wrap {
@@ -3103,7 +3132,7 @@
       box-sizing: border-box;
     }
     .prompt-pill:hover {
-      background: rgba(147, 51, 234, 0.15);
+      background: rgba(0, 229, 191, 0.15);
       border-color: var(--primary-light);
       color: #fff;
       transform: translateY(-1px);
@@ -3134,7 +3163,7 @@
       max-height: 100px;
     }
     .chat-send-btn {
-      background: linear-gradient(135deg, var(--primary), #7e22ce);
+      background: linear-gradient(135deg, var(--primary), #00A88F);
       border: none;
       color: white;
       border-radius: var(--radius-sm);
@@ -4313,6 +4342,39 @@
       box-shadow: 0 0 8px rgba(0, 229, 191, 0.4);
     }
   
+    
+    /* SIDEBAR ACTIVE PILL — REF IMAGEN 3 (PÍLDORA BLANCA SÓLIDA) */
+    .nav-btn.active {
+      background: #ffffff !important;
+      color: #007A68 !important;
+      font-weight: 800 !important;
+      border-radius: 24px !important;
+      box-shadow: 0 10px 26px rgba(0, 229, 191, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+      transform: translateX(4px) scale(1.02);
+    }
+    .nav-btn.active i, .nav-btn.active svg {
+      color: #00A88F !important;
+      stroke: #00A88F !important;
+    }
+    .nav-btn.active .nav-label {
+      color: #005E50 !important;
+      font-weight: 800 !important;
+    }
+    .nav-btn.active .nav-badge {
+      background: rgba(0, 168, 143, 0.16) !important;
+      color: #007A68 !important;
+      border-color: rgba(0, 168, 143, 0.25) !important;
+    }
+    .nav-btn:hover {
+      background: rgba(0, 229, 191, 0.14) !important;
+      color: #ffffff !important;
+      transform: translateX(4px);
+    }
+    .nav-btn:hover i, .nav-btn:hover svg {
+      color: #00E5BF !important;
+      stroke: #00E5BF !important;
+    }
+
     /* ========================================================================== */
     /* MASTER CONTENT CONTAINER — SECCIÓN UNIFICADA (BORDE VERDE REFERENCIA)     */
     /* ========================================================================== */
@@ -4862,7 +4924,7 @@
           <div class="editorial-card">
             <div class="editorial-hero-banner">
               <div style="display: flex; align-items: center; gap: 12px;">
-                <span class="editorial-badge" style="background: rgba(147, 51, 234, 0.15); color: #00E5BF; border: 1px solid rgba(147, 51, 234, 0.4);">
+                <span class="editorial-badge" style="background: rgba(0, 229, 191, 0.15); color: #00E5BF; border: 1px solid rgba(0, 229, 191, 0.4);">
                   <i data-lucide="gem" style="width:13px; height:13px;"></i> LOYALFANS • LIVE DOSSIER
                 </span>
                 <span class="table-badge badge-success"> 100% Creadora Directa (Top 23%)</span>
@@ -4882,7 +4944,7 @@
               <div class="editorial-left-col">
                 <!-- FOTO DE PERFIL OFICIAL LOYALFANS (CIRCULAR & COMPACTA) -->
                 <div class="editorial-portrait-circular-card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border-color); border-radius: 14px; padding: 20px 16px; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.35);">
-                  <div style="position: relative; width: 130px; height: 130px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #00E5BF, #00A88F); box-shadow: 0 0 24px rgba(192, 132, 252, 0.45);">
+                  <div style="position: relative; width: 130px; height: 130px; border-radius: 50%; padding: 4px; background: linear-gradient(135deg, #00E5BF, #00A88F); box-shadow: 0 0 24px rgba(0, 229, 191, 0.45);">
                     <img src="artifacts/sam_loyalfans_avatar.png" alt="Sam Barton Foto Oficial LoyalFans" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; border: 2px solid #0f1319;">
                     <span style="position: absolute; bottom: 2px; right: 8px; background: #00A88F; color: #fff; font-size: 9px; font-weight: 800; padding: 2px 6px; border-radius: 10px; border: 2px solid #0f1319; box-shadow: 0 2px 6px rgba(0,0,0,0.5);">TOP 23%</span>
                   </div>
@@ -5354,7 +5416,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <!-- 1. SUBTAB LOYALFANS FINANZAS -->
         <div id="sub-finanzas-loyalfans" class="sub-tab-content">
           <!-- Barra de Control de Sincronización en Tiempo Real -->
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(147, 51, 234, 0.08); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: 14px 20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; background: rgba(0, 229, 191, 0.08); border: 1px solid var(--border-accent); border-radius: var(--radius-md); padding: 14px 20px;">
           <div style="display: flex; align-items: center; gap: 12px;">
             <span class="status-dot" style="background: #10b981; box-shadow: 0 0 10px #10b981;"></span>
             <div>
@@ -5365,7 +5427,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             </div>
           </div>
           <div style="display: flex; gap: 10px; align-items: center;">
-            <button id="btn-sync-financials" class="action-btn" style="background: linear-gradient(135deg, #00A88F, #7e22ce); border: none; color: white; padding: 8px 16px; font-weight: 700; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" onclick="syncFinancialsNow()">
+            <button id="btn-sync-financials" class="action-btn" style="background: linear-gradient(135deg, #00A88F, #00A88F); border: none; color: white; padding: 8px 16px; font-weight: 700; font-size: 12px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" onclick="syncFinancialsNow()">
               <i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i> Actualizar Ahora
             </button>
           </div>
@@ -6037,7 +6099,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <!-- ============================================================== -->
         <!-- TARJETA EN TIEMPO REAL: POSICIONAMIENTO, RANKING & ESTADO DE VENTAS -->
         <!-- ============================================================== -->
-        <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.4); background: radial-gradient(circle at top right, rgba(147, 51, 234, 0.12), rgba(18, 14, 28, 0.95)); margin-bottom: 24px;">
+        <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.4); background: radial-gradient(circle at top right, rgba(0, 229, 191, 0.12), rgba(8, 25, 21, 0.95)); margin-bottom: 24px;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 16px;">
             <div>
               <div style="display: flex; align-items: center; gap: 8px;">
@@ -6058,7 +6120,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <option value="flirt4free"> Flirt4Free (VIP Private)</option>
                 <option value="streamate"> Streamate (Exclusive Gold)</option>
               </select>
-              <button id="btn-sync-positioning" class="action-btn" style="background: linear-gradient(135deg, #1AE5BA, #7e22ce); border: none; color: white; padding: 7px 14px; font-weight: 700; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" onclick="syncPositioningNow()">
+              <button id="btn-sync-positioning" class="action-btn" style="background: linear-gradient(135deg, #1AE5BA, #00A88F); border: none; color: white; padding: 7px 14px; font-weight: 700; font-size: 11px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;" onclick="syncPositioningNow()">
                 <i data-lucide="refresh-cw" style="width: 13px; height: 13px;"></i> Actualizar Ahora
               </button>
             </div>
@@ -6127,7 +6189,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 Lanzar Mass DM PPV a $9.99 USD a los 604 fans para ascender al Top 18%.
               </p>
               <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <span id="live-pos-handle" class="badge" style="background: rgba(147, 51, 234, 0.2); color: #d8b4fe;">Creadora: @SAMBARTONN23</span>
+                <span id="live-pos-handle" class="badge" style="background: rgba(0, 229, 191, 0.2); color: #00E5BF;">Creadora: @SAMBARTONN23</span>
                 <span id="live-pos-cooldown" class="badge" style="background: rgba(26, 229, 139, 0.15); color: #1AE589;">Cooldown: 3.5h - 4.0h</span>
               </div>
             </div>
@@ -6206,7 +6268,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 2. SUBTAB STREAMATE POSICIONAMIENTO (EPH REVENUE RADAR) -->
         <div id="sub-pos-streamate" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3); background: radial-gradient(circle at top right, rgba(0, 229, 191, 0.1), rgba(18, 14, 28, 0.95)); margin-bottom: 20px;">
+          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3); background: radial-gradient(circle at top right, rgba(0, 229, 191, 0.1), rgba(8, 25, 21, 0.95)); margin-bottom: 20px;">
             <div class="card-title">
               <span style="color:#00A88F;"> Streamate: Algoritmo Revenue-Driven (EPH - Earnings Per Hour)</span>
               <span class="table-badge badge-warning">Auditoría Estudio Centenario • Solo Consulta</span>
@@ -6239,7 +6301,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 3. SUBTAB STRIPCHAT POSICIONAMIENTO (VELOCITY & CONCURSOS) -->
         <div id="sub-pos-stripchat" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(0, 168, 143, 0.3); background: radial-gradient(circle at top right, rgba(0, 168, 143, 0.1), rgba(18, 14, 28, 0.95)); margin-bottom: 20px;">
+          <div class="card" style="border: 1px solid rgba(0, 168, 143, 0.3); background: radial-gradient(circle at top right, rgba(0, 168, 143, 0.1), rgba(8, 25, 21, 0.95)); margin-bottom: 20px;">
             <div class="card-title">
               <span style="color:#00A88F;"> Stripchat: Algoritmo Velocity-Driven (Velocidad de Tokens & Carrusel)</span>
               <span class="table-badge badge-info">Directo • Tokens & Lovense</span>
@@ -6419,7 +6481,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </p>
             </div>
 
-            <div style="background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.2); padding: 14px; border-radius: 8px;">
+            <div style="background: rgba(0, 229, 191, 0.08); border: 1px solid rgba(0, 229, 191, 0.2); padding: 14px; border-radius: 8px;">
               <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
                 <strong style="color: var(--primary-light); font-size:12px;"> Desbloqueo PPV</strong>
                 <span class="table-badge badge-purple">8x Peso</span>
@@ -6454,7 +6516,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 2. SUBTAB ALGORITMO STREAMATE (EPH & REVENUE-DRIVEN) -->
         <div id="sub-algo-streamate" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3); background: radial-gradient(circle at top right, rgba(0, 229, 191, 0.1), rgba(18, 14, 28, 0.95));">
+          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3); background: radial-gradient(circle at top right, rgba(0, 229, 191, 0.1), rgba(8, 25, 21, 0.95));">
             <div class="card-title">
               <span style="color: #00A88F;"> Algoritmo Streamate: EPH (Earnings Per Hour) & Auditoría Centenario</span>
               <span class="table-badge badge-warning">Modo Solo Consulta • Estudio Satélite</span>
@@ -6505,7 +6567,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 3. SUBTAB ALGORITMO LOYALFANS (EVENT-DRIVEN & TIPS WEIGHT) -->
         <div id="sub-algo-loyalfans" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(147, 51, 234, 0.3); background: radial-gradient(circle at top right, rgba(147, 51, 234, 0.1), rgba(18, 14, 28, 0.95));">
+          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3); background: radial-gradient(circle at top right, rgba(0, 229, 191, 0.1), rgba(8, 25, 21, 0.95));">
             <div class="card-title">
               <span style="color: var(--primary-light);"> Algoritmo LoyalFans: Cooldown 4 Horas & Multiplicador de Propinas</span>
               <span class="table-badge badge-purple">Directo • 80% Split Neto</span>
@@ -6536,7 +6598,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 4. SUBTAB ALGORITMO STRIPCHAT (TOKEN VELOCITY & CAROUSEL) -->
         <div id="sub-algo-stripchat" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(0, 168, 143, 0.3); background: radial-gradient(circle at top right, rgba(0, 168, 143, 0.1), rgba(18, 14, 28, 0.95));">
+          <div class="card" style="border: 1px solid rgba(0, 168, 143, 0.3); background: radial-gradient(circle at top right, rgba(0, 168, 143, 0.1), rgba(8, 25, 21, 0.95));">
             <div class="card-title">
               <span style="color: #00A88F;"> Algoritmo Stripchat: Token Velocity & Integración Lovense</span>
               <span class="table-badge badge-info">Directo • Tokens $0.05 USD</span>
@@ -6719,7 +6781,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 3. SUBTAB LOYALFANS ACTUALIZACIONES -->
         <div id="sub-act-loyalfans" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(147, 51, 234, 0.3);">
+          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3);">
             <div class="card-title">
               <span style="color: var(--primary-light);"> LoyalFans: Perfil Tomboy Verificado & En Producción</span>
               <span class="table-badge badge-success"> 100% Verificado</span>
@@ -6850,7 +6912,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Sam aplica su carácter Tomboy: quien es vulgar es expulsado; quien es inteligente, educado y anormal es invitado a su comunidad privada.
                 </div>
 
-                <div style="background: rgba(147, 51, 234, 0.1); border-left: 3px solid #00A88F; padding: 10px; border-radius: 4px;">
+                <div style="background: rgba(0, 229, 191, 0.1); border-left: 3px solid #00A88F; padding: 10px; border-radius: 4px;">
                   <strong style="color: #00E5BF;">Paso 3: Retención & Ingresos Pasivos en LoyalFans</strong><br>
                   Los clientes premium migran a LoyalFans donde pagan membresía mensual de $15, compran clips pregrabados y pagan por cada mensaje recibido (80% para Sam).
                 </div>
@@ -6895,7 +6957,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 3. SUBTAB FLUJO LOYALFANS -->
         <div id="sub-flujo-loyalfans" class="sub-tab-content" style="display:none;">
-          <div class="card" style="border: 1px solid rgba(147, 51, 234, 0.3);">
+          <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.3);">
             <div class="card-title">
               <span style="color:var(--primary-light);"> Flujo Operativo en LoyalFans: Máquina de Ingresos Pasivos</span>
               <span class="table-badge badge-purple">80% Neto Directo</span>
@@ -7258,7 +7320,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 1. SUBTAB LOYALFANS DATA SCIENCE -->
         <div id="sub-datascience-loyalfans" class="sub-tab-content">
-          <div style="background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+          <div style="background: rgba(0, 229, 191, 0.08); border: 1px solid rgba(0, 229, 191, 0.25); border-radius: var(--radius-md); padding: 14px 20px; margin-bottom: 20px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
             <div style="display:flex; align-items:center; gap:12px;">
               <span class="status-dot" style="background:#00E5BF; box-shadow:0 0 10px #00E5BF;"></span>
               <div>
@@ -8099,7 +8161,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   <button class="action-btn" onclick="clearCopilotChat()" style="padding: 5px 12px; font-size: 11px;">
                     <i data-lucide="trash-2" style="width:12px; height:12px;"></i> Limpiar
                   </button>
-                  <button id="btn-show-right-panel" class="action-btn" onclick="toggleRoxanneRightPanel()" style="display: none; padding: 5px 12px; font-size: 11px; border-color: rgba(147, 51, 234, 0.5); color: #d8b4fe;" title="Mostrar panel de herramientas y complementos">
+                  <button id="btn-show-right-panel" class="action-btn" onclick="toggleRoxanneRightPanel()" style="display: none; padding: 5px 12px; font-size: 11px; border-color: rgba(0, 229, 191, 0.5); color: #00E5BF;" title="Mostrar panel de herramientas y complementos">
                     <i data-lucide="panel-right-open" style="width:12px; height:12px;"></i> Complementos
                   </button>
                 </div>
@@ -8277,8 +8339,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </div>
 
               <!-- Tarjeta Informativa Roxanne -->
-              <div class="card" style="padding: 16px; background: rgba(147, 51, 234, 0.05); border-color: rgba(147, 51, 234, 0.3);">
-                <div style="font-size: 12px; font-weight: 800; color: #d8b4fe; margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
+              <div class="card" style="padding: 16px; background: rgba(0, 229, 191, 0.05); border-color: rgba(0, 229, 191, 0.3);">
+                <div style="font-size: 12px; font-weight: 800; color: #00E5BF; margin-bottom: 8px; display:flex; align-items:center; gap:6px;">
                   <i data-lucide="shield-check" style="width:14px; height:14px; color:#00E5BF;"></i>
                   Tu Asistente & Estratega Personal
                 </div>
@@ -8472,7 +8534,7 @@ Cat Lover </div>
                       <div class="hover-overlay"><span> 51</span></div>
                     </div>
                     <div class="insta-grid-thumb" onclick="previewInstaPost('neon_lounge')">
-                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #4c1d95, #00A88F); display:flex; align-items:center; justify-content:center; font-size:20px;"></div>
+                      <div style="width:100%; height:100%; background: linear-gradient(135deg, #063E35, #00A88F); display:flex; align-items:center; justify-content:center; font-size:20px;"></div>
                       <div class="hover-overlay"><span> 63</span></div>
                     </div>
                     <div class="insta-grid-thumb" onclick="previewInstaPost('tech_glasses')">
