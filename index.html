@@ -12899,7 +12899,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const fetchPromise = fetch(`${apiBase}/api/streammonitor/orchestrate_natural_idea`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idea_text: ideaText, auto_apply: true })
+          body: JSON.stringify({ idea_text: ideaText, auto_apply: false })
         });
 
         await new Promise(r => setTimeout(r, 700));

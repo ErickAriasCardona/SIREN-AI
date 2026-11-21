@@ -637,14 +637,16 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
             "wheel": {
                 "cost": 5,
                 "items": [
-                    f"Full {clean_name} special tease (5G)",
-                    "Intimate slow dance to mic (5G)",
-                    "Lovense max vibration spike (5G)",
-                    "Drop pants in private tease (5G)",
-                    "Sensual whispered fantasy (5G)",
-                    "Kneeling obedience pose tease (5G)",
-                    "Double wheel spin free (5G)",
-                    "1-minute exclusive preview (5G)"
+                    "Arrodillarse",
+                    "Agacharse",
+                    "Golpear culo con paleta",
+                    "5x azotes",
+                    "Pellizcar pezones",
+                    "Pinzas en pezones",
+                    "Escupir",
+                    "Caminar en cuatro patas",
+                    "Insultar",
+                    "Palabras sucias"
                 ]
             },
             "auto_messages": {
@@ -673,7 +675,7 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
 def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     """
     Ejecuta el flujo real solicitado por Sam:
-    1. SIREN abre y enfoca StreamMonitor Desktop en la pantalla del usuario (WinSta0\Default).
+    1. SIREN abre y enfoca StreamMonitor Desktop en la pantalla del usuario (WinSta0\\Default).
     2. SIREN interactúa en tiempo real con Mahia en StreamMonitor Desktop:
        - Navega automáticamente al chat de Mahia (/dashboard/chat)
        - Pega la orden táctica con reglas de negocio en el textarea
@@ -708,7 +710,7 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     live_mahia_res = {}
     try:
         from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop
-        live_mahia_res = send_prompt_to_mahia_desktop(siren_to_mahia_prompt, timeout_seconds=18)
+        live_mahia_res = send_prompt_to_mahia_desktop(siren_to_mahia_prompt, timeout_seconds=45)
     except Exception as e:
         live_mahia_res = {"success": False, "error": str(e)}
 
@@ -716,6 +718,13 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     if live_mahia_res.get("success") and live_mahia_res.get("mahia_response"):
         mahia_response_text = live_mahia_res["mahia_response"]
         live_chat_done = True
+
+        # Extraer topic sugerido por Mahia si viene con comillas
+        topic_match = re.search(r'(?:Principal|Alternativa|Topic|Opción A|Opcion A|Opción B|Opcion B)[:\s]*"([^"]+)"', mahia_response_text)
+        if topic_match:
+            cand = topic_match.group(1).strip()
+            if len(cand) <= 140:
+                strategy["topic"] = cand
     else:
         # Fallback estructurado oficial
         mahia_response_text = (

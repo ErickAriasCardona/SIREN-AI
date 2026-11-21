@@ -1,10 +1,12 @@
 """
 SIREN AI — Conector en Vivo con Mahia (StreamMonitor Desktop)
 Controla la interfaz de StreamMonitor vía Chrome DevTools Protocol (CDP):
-1. Navega automáticamente al Chat de Mahia (/dashboard/chat).
-2. Pega la orden táctica en el textarea de Mahia.
-3. Presiona el botón 'Enviar'.
-4. Espera a que Mahia termine de generar la respuesta y la extrae.
+1. Navega automáticamente al Chat de Mahia mediante el icono lateral: button[aria-label="Mahia"].
+2. Espera a que textarea.chakra-textarea esté montado y visible.
+3. Escribe la orden táctica usando el setter de valor de React y despacha eventos 'input' y 'change'.
+4. Presiona el botón 'Enviar' (button[aria-label="Enviar"]) o pulsa Enter.
+5. Monitorea la respuesta streaming de Mahia hasta su estabilización.
+6. Extrae y devuelve el texto completo generado por Mahia en vivo.
 """
 
 import os
@@ -32,7 +34,7 @@ def get_devtools_active_port() -> Optional[int]:
         pass
     return None
 
-def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 35) -> Dict[str, Any]:
+def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 40) -> Dict[str, Any]:
     """
     Envía un prompt a Mahia directamente en la ventana de StreamMonitor Desktop
     y retorna la respuesta recibida en tiempo real.
@@ -44,8 +46,8 @@ def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 35) ->
             "error": "StreamMonitor no tiene DevToolsActivePort activo. Abre StreamMonitor primero."
         }
 
-    js_code = """
-const http = require('http');
+    js_template = """const http = require('http');
+const fs = require('fs');
 
 async function run() {
   const port = PORT_PLACEHOLDER;
@@ -82,135 +84,139 @@ async function run() {
         const msg = JSON.parse(evt.data);
         if (msg.id === curId) {
           ws.removeEventListener('message', h);
-          resolve(msg.result);
+          resolve(msg);
         }
       };
       ws.addEventListener('message', h);
       ws.send(JSON.stringify({ id: curId, method, params }));
     });
 
-    // 1. Navegar o enfocar Mahia
-    await send('Runtime.evaluate', {
-      expression: `
-        (() => {
-          // Si estamos en otra pestaña, navegar al chat
-          if (!window.location.href.includes('/dashboard/chat')) {
-            const chatLink = Array.from(document.querySelectorAll('a, button')).find(el => (el.innerText || '').toLowerCase().includes('chat'));
-            if (chatLink) chatLink.click();
-          }
-          // Hacer clic en Mahia
-          const mahiaBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('Mahia'));
-          if (mahiaBtn) mahiaBtn.click();
-        })()
-      `
-    });
-
-    await new Promise(r => setTimeout(r, 600));
-
-    // 2. Contar burbujas actuales de Mahia
-    const countRes = await send('Runtime.evaluate', {
-      expression: 'document.querySelectorAll(\\'[class*="rounded-bl-md"]\\').length',
-      returnByValue: true
-    });
-    const initialCount = countRes?.result?.value || 0;
-
-    // 3. Pegar prompt en el textarea
-    const pasteRes = await send('Runtime.evaluate', {
-      expression: `
-        (() => {
-          const ta = document.querySelector('textarea[placeholder*="Pregúntame"]') || document.querySelector('textarea');
-          if (!ta) return { ok: false, error: 'Textarea no encontrado' };
-
-          const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-          setter.call(ta, ${JSON.stringify(promptText)});
-          ta.dispatchEvent(new Event('input', { bubbles: true }));
-          ta.dispatchEvent(new Event('change', { bubbles: true }));
-
-          // Dar foco
-          ta.focus();
-          return { ok: true };
-        })()
-      `,
+    // 1. Verificar si ya estamos en la vista de Mahia (textarea ya visible)
+    const checkAlready = await send('Runtime.evaluate', {
+      expression: `!!(document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea'))`,
       returnByValue: true
     });
 
-    if (!pasteRes?.result?.value?.ok) {
-      console.log(JSON.stringify({ success: false, error: 'No se pudo escribir en el chat de Mahia' }));
+    let textareaReady = !!checkAlready?.result?.result?.value;
+
+    if (!textareaReady) {
+      // Navegar a Mahia haciendo clic en el icono lateral (Paso 2 / Img 2)
+      await send('Runtime.evaluate', {
+        expression: `(() => {
+          const btn = document.querySelector('button[aria-label="Mahia"]');
+          if (btn) btn.click();
+        })()`
+      });
+
+      // Esperar a que el textarea esté montado en el DOM
+      for (let i = 0; i < 30; i++) {
+        await new Promise(r => setTimeout(r, 150));
+        const chk = await send('Runtime.evaluate', {
+          expression: `!!(document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea'))`,
+          returnByValue: true
+        });
+        if (chk?.result?.result?.value) {
+          textareaReady = true;
+          break;
+        }
+      }
+    }
+
+    if (!textareaReady) {
+      console.log(JSON.stringify({ success: false, error: 'Textarea de Mahia no apareció tras hacer clic' }));
       ws.close();
       process.exit(1);
     }
 
-    await new Promise(r => setTimeout(r, 400));
-
-    // 4. Hacer clic en Enviar
-    await send('Runtime.evaluate', {
-      expression: `
-        (() => {
-          const sendBtn = document.querySelector('button[aria-label="Enviar"]');
-          if (sendBtn) {
-            sendBtn.click();
-            return { clicked: true };
-          }
-          // Fallback disparar Enter en el textarea
-          const ta = document.querySelector('textarea');
-          if (ta) {
-            ta.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }));
-            return { enterSent: true };
-          }}
-          return { error: 'No se encontró botón enviar' };
-        })()
-      `
+    // 3. Escribir orden táctica en el textarea (Paso 3 / Img 3)
+    const pasteRes = await send('Runtime.evaluate', {
+      expression: `(() => {
+        const ta = document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
+        if (!ta) return false;
+        const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+        setter.call(ta, ${JSON.stringify(promptText)});
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+        ta.dispatchEvent(new Event('change', { bubbles: true }));
+        ta.focus();
+        return true;
+      })()`,
+      returnByValue: true
     });
 
-    // 5. Esperar respuesta de Mahia
-    let lastText = '';
+    await new Promise(r => setTimeout(r, 500));
+
+    // 4. Enviar prompt
+    await send('Runtime.evaluate', {
+      expression: `(() => {
+        const btn = document.querySelector('button[aria-label="Enviar"]');
+        if (btn && !btn.disabled) {
+          btn.click();
+          return true;
+        }
+        const ta = document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
+        if (ta) {
+          ta.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }));
+          return true;
+        }
+        return false;
+      })()`,
+      returnByValue: true
+    });
+
+    // 5. Esperar streaming de Mahia (Paso 4 / Img 4)
+    let lastSeenText = '';
     let stableCount = 0;
-    const maxWait = TIMEOUT_PLACEHOLDER * 2;
+    let finalMahiaText = '';
+    const maxTicks = TIMEOUT_PLACEHOLDER;
 
-    for (let step = 0; step < maxWait; step++) {
-      await new Promise(r => setTimeout(r, 500));
-
-      const pollRes = await send('Runtime.evaluate', {
-        expression: `
-          (() => {
-            const bubbles = Array.from(document.querySelectorAll('[class*="rounded-bl-md"]'));
-            if (bubbles.length > ${initialCount}) {
-              const latest = bubbles[bubbles.length - 1];
-              const txt = (latest.innerText || '').trim();
-              return { hasNew: true, text: txt };
-            }
-            return { hasNew: false };
-          })()
-        `,
+    for (let t = 0; t < maxTicks; t++) {
+      await new Promise(r => setTimeout(r, 1000));
+      const poll = await send('Runtime.evaluate', {
+        expression: `(() => {
+          const candidates = Array.from(document.querySelectorAll('div.css-1k66j02, div.css-1vunpsv, p.chakra-text'));
+          const valid = candidates.map(el => (el.innerText || '').trim())
+            .filter(txt => txt.length > 40 && !txt.includes('Modelo fuera de cámara') && !txt.includes('Sam ha definido el foco') && !txt.includes('Sam:'));
+          if (valid.length === 0) return { status: 'waiting' };
+          const latest = valid[valid.length - 1];
+          const thinking = latest.includes('Pensando') || latest === '...';
+          return { status: thinking ? 'thinking' : 'ready', text: latest, len: latest.length };
+        })()`,
         returnByValue: true
       });
 
-      const val = pollRes?.result?.value;
-      if (val && val.hasNew && val.text) {
-        if (val.text === lastText && val.text.length > 20) {
+      const pdata = poll?.result?.result?.value;
+      if (pdata && pdata.status === 'ready' && pdata.text && pdata.len > 80) {
+        if (pdata.text === lastSeenText) {
           stableCount++;
-          if (stableCount >= 3) {
-            // Respuesta terminada de streamear
-            console.log(JSON.stringify({ success: true, mahia_response: val.text, live_chat: true }));
-            ws.close();
-            process.exit(0);
+          if (stableCount >= 2) {
+            finalMahiaText = pdata.text;
+            break;
           }
         } else {
-          lastText = val.text;
+          lastSeenText = pdata.text;
           stableCount = 0;
         }
       }
     }
 
-    if (lastText && lastText.length > 20) {
-      console.log(JSON.stringify({ success: true, mahia_response: lastText, live_chat: true, partial: true }));
-      ws.close();
-      process.exit(0);
+    if (!finalMahiaText && lastSeenText && lastSeenText.length > 50) {
+      finalMahiaText = lastSeenText;
     }
 
-    console.log(JSON.stringify({ success: false, error: 'Tiempo de espera agotado esperando a Mahia' }));
-    ws.close();
-    process.exit(1);
+    if (finalMahiaText) {
+      console.log(JSON.stringify({
+        success: true,
+        mahia_response: finalMahiaText,
+        live_chat: true,
+        steps: ["Img 1 (Inicio)", "Img 2 (Vista Mahia)", "Img 3 (Envío & Pensando)", "Img 4 (Respuesta en Vivo)"]
+      }));
+      ws.close();
+      process.exit(0);
+    } else {
+      console.log(JSON.stringify({ success: false, error: 'Tiempo de espera agotado esperando a Mahia' }));
+      ws.close();
+      process.exit(1);
+    }
   });
 }
 
@@ -220,7 +226,7 @@ run().catch(err => {
 });
 """
 
-    js_code = js_code.replace("PORT_PLACEHOLDER", str(port))
+    js_code = js_template.replace("PORT_PLACEHOLDER", str(port))
     js_code = js_code.replace("PROMPT_PLACEHOLDER", json.dumps(prompt_text, ensure_ascii=False))
     js_code = js_code.replace("TIMEOUT_PLACEHOLDER", str(timeout_seconds))
 
@@ -230,8 +236,14 @@ run().catch(err => {
         f.write(js_code)
 
     try:
-        res = subprocess.run([NODE_PATH, str(temp_js)], capture_output=True, text=True, timeout=timeout_seconds + 5)
-        output = res.stdout.strip()
+        res = subprocess.run(
+            [NODE_PATH, str(temp_js)],
+            capture_output=True,
+            encoding="utf-8",
+            errors="replace",
+            timeout=timeout_seconds + 5
+        )
+        output = (res.stdout or "").strip()
         if output:
             try:
                 data = json.loads(output)

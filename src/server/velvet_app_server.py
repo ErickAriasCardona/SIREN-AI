@@ -1447,7 +1447,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             content_length = int(self.headers.get('Content-Length', 0))
             body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
             idea_text = body.get("idea_text", "")
-            auto_apply = body.get("auto_apply", True)
+            auto_apply = body.get("auto_apply", False)
 
             # 1. Ejecutar diálogo estructurado entre SIREN y Mahia (StreamMonitor)
             mahia_diag = execute_mahia_shift_dialogue(idea_text)
