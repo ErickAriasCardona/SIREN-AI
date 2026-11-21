@@ -51,16 +51,16 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "wheel": {
             "cost": 5,
             "items": [
-                "Arrodillarse",
-                "Asfixia / Choking",
                 "Pinzas en pezones",
                 "Pellizcar pezones",
                 "Escupir",
-                "Caminar en cuatro patas",
                 "Golpear culo con paleta",
                 "5x azotes",
                 "Insultar",
-                "Palabras sucias"
+                "Palabras sucias",
+                "Azotate",
+                "Agacharse",
+                "SPH"
             ]
         },
         "auto_messages": {
@@ -94,13 +94,13 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "cost": 5,
             "items": [
                 "Agita el trasero",
-                "Aplaude con el culo",
+                "Apretón de culo",
                 "Golpear culo con paleta",
                 "Muéstrame el culo",
                 "Posición de perrito",
                 "5x azotes",
-                "Baile erótico",
-                "Bailar sexy",
+                "Baile",
+                "Estriptís",
                 "Sentadillas",
                 "Agacharse"
             ]
@@ -125,7 +125,7 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "badge": "Scroll-Stopper USA/UK",
         "topic": "🎸 GOOD VIBES & UKELELE LIVE 🖤 Intimate chat • Gold Menu 3G ⚡ Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
         "gold_menu": [
-            {"name": "ASMR al oído", "gold": 3},
+            {"name": "ASMR", "gold": 3},
             {"name": "Sonrisa", "gold": 3},
             {"name": "Di mi nombre", "gold": 3},
             {"name": "Lanzar un beso", "gold": 3},
@@ -135,16 +135,16 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "wheel": {
             "cost": 5,
             "items": [
-                "Bésame",
+                "Lanzar un beso",
                 "Gemido",
                 "Gemir mi nombre",
-                "Caricia en el cuerpo",
-                "Beso",
+                "Provocame con todo el cuerpo",
                 "Quiño",
                 "Lamer labios",
-                "Audio sucio",
                 "Palabras sucias",
-                "Mostrar lengua"
+                "Mostrar lengua",
+                "Yoga sensual",
+                "Sarcasmo"
             ]
         },
         "auto_messages": {
@@ -167,12 +167,12 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "badge": "Ticket Alto de Propinas",
         "topic": "🔥 FULL LOVENSE TOY CONTROL 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Make Me Moan Live #Lovense #Buzz #Tomboy #Cam2Cam #Private",
         "gold_menu": [
-            {"name": "Lick toy on cam", "gold": 3},
-            {"name": "Deep moan close mic", "gold": 3},
-            {"name": "Pleasure face tease", "gold": 3},
-            {"name": "Moan your name loud", "gold": 3},
-            {"name": "Tight bra squeeze", "gold": 3},
-            {"name": "Boob bounce tease", "gold": 3}
+            {"name": "Lame vibrador", "gold": 3},
+            {"name": "Gemido", "gold": 3},
+            {"name": "Cara de placer", "gold": 3},
+            {"name": "Gemir mi nombre", "gold": 3},
+            {"name": "Apretón de senos", "gold": 3},
+            {"name": "Rebote de senos", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
@@ -180,11 +180,11 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
                 "Hazme acabar",
                 "Provocame con todo el cuerpo",
                 "Gemir mi nombre",
-                "Audio sucio",
+                "Palabras sucias",
                 "10x nalgadas",
                 "Rebote de senos",
                 "Posición de perrito",
-                "Bailar sexy",
+                "Baile",
                 "Desnuda con manos en los senos",
                 "Estriptís"
             ]
@@ -449,13 +449,34 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
             if clean_macro and len(result["quick_messages"]) < 8:
                 result["quick_messages"].append(clean_macro)
 
+    # Sanitizar estrictamente contra el catálogo oficial de 109 opciones de Streamate (cero opciones inventadas)
+    from src.platforms.streamate.stream_monitor_controller import DEFAULT_STREAMATE_OPTIONS, match_streamate_option
+
+    sanitized_gold = []
+    seen_gold = set()
+    for g in result["gold_menu"]:
+        opt_id = match_streamate_option(g.get("name", ""), DEFAULT_STREAMATE_OPTIONS)
+        if opt_id and opt_id in DEFAULT_STREAMATE_OPTIONS:
+            official_name = DEFAULT_STREAMATE_OPTIONS[opt_id]
+            if official_name not in seen_gold:
+                seen_gold.add(official_name)
+                sanitized_gold.append({"name": official_name, "gold": 3})
+    result["gold_menu"] = sanitized_gold if len(sanitized_gold) >= 3 else PRESET_SHIFT_THEMES["ass_twerk"]["gold_menu"]
+
+    sanitized_wheel = []
+    seen_wheel = set()
+    for w in result["wheel"]["items"]:
+        opt_id = match_streamate_option(w, DEFAULT_STREAMATE_OPTIONS)
+        if opt_id and opt_id in DEFAULT_STREAMATE_OPTIONS:
+            official_name = DEFAULT_STREAMATE_OPTIONS[opt_id]
+            if official_name not in seen_wheel:
+                seen_wheel.add(official_name)
+                sanitized_wheel.append(official_name)
+    result["wheel"]["items"] = sanitized_wheel if len(sanitized_wheel) >= 6 else PRESET_SHIFT_THEMES["ass_twerk"]["wheel"]["items"]
+
     # Defaults de seguridad si Mahia omitió algún campo
     if not result["topic"]:
         result["topic"] = "🔥 EN VIVO EN STREAMATE 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy #Tomboy #Lovense #Gold"
-    if len(result["gold_menu"]) < 3:
-        result["gold_menu"] = PRESET_SHIFT_THEMES["ass_twerk"]["gold_menu"]
-    if len(result["wheel"]["items"]) < 8:
-        result["wheel"]["items"] = PRESET_SHIFT_THEMES["ass_twerk"]["wheel"]["items"]
     if not result["auto_messages"]["room_30s"]:
         result["auto_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["auto_messages"]
     if len(result["quick_messages"]) < 4:
@@ -557,21 +578,21 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
             "wheel": {
                 "cost": 5,
                 "items": [
-                    "Arrodillarse",
                     "Agacharse",
                     "Golpear culo con paleta",
                     "5x azotes",
                     "Pellizcar pezones",
                     "Pinzas en pezones",
                     "Escupir",
-                    "Caminar en cuatro patas",
+                    "Azotate",
                     "Insultar",
-                    "Palabras sucias"
+                    "Palabras sucias",
+                    "Posición de perrito"
                 ]
             },
             "auto_messages": {
                 "room_30s": f"Hey handsome! Welcome to my room. Today is {clean_name} special 🖤 Gold: 3G | Wheel: 5G",
-                "send_golds": f"Thank you for that sweet gold {fan}! Loving this dynamic tonight ✨",
+                "send_golds": "Thank you for that sweet gold {fan}! Loving this dynamic tonight ✨",
                 "private_show": "We are totally private now... Tell me your dirtiest command 😉"
             },
             "quick_messages": [
