@@ -1,12 +1,6 @@
 """
-SIREN AI — Inyector en Vivo para Transmisión de Loyalfans dentro de StreamMonitor.
-Flujo de automatización completo y resiliente:
-1. Detecta la pestaña/webview de Loyalfans en StreamMonitor (puerto CDP).
-2. Si está en /profile o inicio, navega a la sala de transmisión en vivo (/broadcast).
-3. Cierra advertencias de adultos y popup de seguridad ("Mantente Seguro").
-4. Inyecta el Room Topic idéntico al de Streamate en los Ajustes de la sala y pulsa GUARDAR.
-5. Inyecta el Objetivo de Sala con los 3 niveles requeridos por Sam ($11, $22, $33) y pulsa CONFIRMAR.
-6. Deja la sala lista con el botón 'INICIAR TRANSMISIÓN' visible.
+SIREN AI — Inyector Ultra-Rápido en Vivo para Loyalfans dentro de StreamMonitor.
+Optimizado para ejecución en < 1.5 segundos con selectores directos y paralelismo.
 """
 
 import os
@@ -36,7 +30,6 @@ def inject_strategy_into_loyalfans(topic: str, goal_data: Optional[Dict[str, Any
     if not port:
         return {"success": False, "error": "StreamMonitor no tiene DevToolsActivePort activo."}
 
-    # Valores por defecto para el objetivo de Loyalfans
     goal = goal_data or {}
     l1_task = goal.get("level1", {}).get("task") or "truth or dare"
     l2_task = goal.get("level2", {}).get("task") or "CHALLENGE FOR 1 MINUTE"
@@ -61,35 +54,39 @@ function getTargets() {
   });
 }
 
-async function evalInTarget(wsUrl, expr) {
-  const ws = new WebSocket(wsUrl);
-  await new Promise(r => ws.on('open', r));
+async function evalInTarget(ws, expr) {
   return new Promise(resolve => {
+    const id = Math.floor(Math.random() * 1000000);
+    const handler = (m) => {
+      try {
+        const data = JSON.parse(m.toString());
+        if (data.id === id) {
+          ws.removeListener('message', handler);
+          resolve(data?.result?.result?.value);
+        }
+      } catch(e) {
+        ws.removeListener('message', handler);
+        resolve(null);
+      }
+    };
+    ws.on('message', handler);
     ws.send(JSON.stringify({
-      id: 1,
+      id,
       method: 'Runtime.evaluate',
       params: { expression: expr, returnByValue: true }
     }));
-    ws.on('message', m => {
-      try {
-        const data = JSON.parse(m.toString());
-        ws.close();
-        resolve(data?.result?.result?.value);
-      } catch(e) {
-        ws.close();
-        resolve(null);
-      }
-    });
   });
 }
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
 async function main() {
+  const startTime = Date.now();
   let targets = await getTargets();
   let lf = targets.find(t => t.url.includes('loyalfans.com'));
 
-  // Reintento si Loyalfans aún no ha montado
-  for (let i = 0; i < 5 && !lf; i++) {
-    await new Promise(r => setTimeout(r, 1000));
+  for (let i = 0; i < 3 && !lf; i++) {
+    await sleep(250);
     targets = await getTargets();
     lf = targets.find(t => t.url.includes('loyalfans.com'));
   }
@@ -99,80 +96,97 @@ async function main() {
     process.exit(1);
   }
 
-  const wsUrl = lf.webSocketDebuggerUrl;
+  const ws = new WebSocket(lf.webSocketDebuggerUrl);
+  await new Promise(r => ws.on('open', r));
 
-  // 1. Cerrar advertencias de cookies o contenido adulto si aparecen
-  await evalInTarget(wsUrl, `(() => {
-    const btn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('ACEPTA TODO') || (b.innerText || '').includes('ACEPTAR'));
-    if (btn) btn.click();
+  // 1. Limpieza rápida de advertencias de cookies o contenido adulto si aparecen
+  await evalInTarget(ws, `(() => {
+    const cookieBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('ACEPTA TODO'));
+    if (cookieBtn) cookieBtn.click();
+    const secBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'CONFIRMAR' && b.closest('.broadcast-alert, .modal, .dialog'));
+    if (secBtn) secBtn.click();
   })()`);
-  await new Promise(r => setTimeout(r, 400));
 
   // 2. Si no está en /broadcast, navegar directamente
-  const curUrl = await evalInTarget(wsUrl, 'window.location.href');
+  const curUrl = await evalInTarget(ws, 'window.location.href');
   if (!curUrl || !curUrl.includes('/broadcast')) {
-    await evalInTarget(wsUrl, 'window.location.href = "https://www.loyalfans.com/broadcast"');
-    await new Promise(r => setTimeout(r, 2500));
+    await evalInTarget(ws, 'window.location.href = "https://www.loyalfans.com/broadcast"');
+    await sleep(1200);
   }
 
-  // 3. Cerrar popup de seguridad si aparece
-  await evalInTarget(wsUrl, `(() => {
-    const btn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('CONFIRMAR'));
-    if (btn) btn.click();
-  })()`);
-  await new Promise(r => setTimeout(r, 500));
-
-  // 4. Inyectar Room Topic en Ajustes
-  await evalInTarget(wsUrl, `(() => {
+  // 3. INYECCIÓN DEL TEMA DE SALA (Room Topic)
+  await evalInTarget(ws, `(() => {
+    let inp = document.querySelector('input[placeholder="Tema de chat"]');
+    if (inp) return true;
+    const updBtn = document.querySelector('span.topic-btn[data-translateevent="updateTopic"]');
+    if (updBtn) { updBtn.click(); return true; }
     const gear = document.querySelector('i.lf-settings');
-    if (gear) {
-      gear.click();
-      if (gear.parentElement) gear.parentElement.click();
-    }
+    if (gear) { gear.click(); if (gear.parentElement) gear.parentElement.click(); return true; }
+    return false;
   })()`);
-  await new Promise(r => setTimeout(r, 600));
 
-  const saveTopicRes = await evalInTarget(wsUrl, `(() => {
+  // Esperar activamente que aparezca el input del tema (máx 1.2s)
+  for (let i = 0; i < 8; i++) {
+    const hasInp = await evalInTarget(ws, `!!document.querySelector('input[placeholder="Tema de chat"]')`);
+    if (hasInp) break;
+    await sleep(120);
+  }
+
+  // Escribir tema y guardar
+  const topicRes = await evalInTarget(ws, `(() => {
     const topicInp = document.querySelector('input[placeholder="Tema de chat"]');
-    if (topicInp) {
-      const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-      setter.call(topicInp, ${JSON.stringify(targetTopic)});
-      topicInp.dispatchEvent(new Event('input', { bubbles: true }));
-      topicInp.dispatchEvent(new Event('change', { bubbles: true }));
+    if (!topicInp) return { updated: false, error: 'Input de tema no encontrado' };
 
-      let p = topicInp.parentElement;
-      let saveBtn = null;
-      for (let i = 0; i < 4 && p; i++) {
-        saveBtn = Array.from(p.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'GUARDAR');
-        if (saveBtn) break;
-        p = p.parentElement;
-      }
-      if (saveBtn) {
-        saveBtn.click();
-      }
+    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    setter.call(topicInp, ${JSON.stringify(targetTopic)});
+    topicInp.dispatchEvent(new Event('input', { bubbles: true }));
+    topicInp.dispatchEvent(new Event('change', { bubbles: true }));
 
-      // Cerrar modal de ajustes tras guardar
-      setTimeout(() => {
-        const closeBtn = document.querySelector('.mat-mdc-dialog-container .lf-close, [mat-dialog-close], .close-button');
-        if (closeBtn) closeBtn.click();
-        const backdrop = document.querySelector('.cdk-overlay-backdrop');
-        if (backdrop) backdrop.click();
-      }, 300);
-
-      return { updated: true, saved: !!saveBtn };
+    // Buscar el botón GUARDAR correspondiente a este input
+    let p = topicInp.parentElement;
+    let saveBtn = null;
+    for (let i = 0; i < 5 && p; i++) {
+      saveBtn = Array.from(p.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'GUARDAR');
+      if (saveBtn) break;
+      p = p.parentElement;
     }
-    return { updated: false };
-  })()`);
-  await new Promise(r => setTimeout(r, 600));
+    if (!saveBtn) {
+      saveBtn = Array.from(document.querySelectorAll('.mat-mdc-dialog-container button, button')).find(b => (b.innerText || '').trim() === 'GUARDAR');
+    }
+    if (saveBtn) saveBtn.click();
 
-  // 5. Inyectar Objetivo 3 niveles ($11, $22, $33)
-  await evalInTarget(wsUrl, `(() => {
-    const btn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('EDITAR OBJETIVO'));
-    if (btn) btn.click();
-  })()`);
-  await new Promise(r => setTimeout(r, 800));
+    // Cerrar modal de ajustes tras guardar
+    setTimeout(() => {
+      const closeBtn = document.querySelector('.mat-mdc-dialog-container .lf-close, [mat-dialog-close], .close-button');
+      if (closeBtn) closeBtn.click();
+      const backdrop = document.querySelector('.cdk-overlay-backdrop');
+      if (backdrop) backdrop.click();
+    }, 150);
 
-  const saveGoalRes = await evalInTarget(wsUrl, `(() => {
+    return { updated: true, saved: !!saveBtn };
+  })()`);
+
+  // Esperar a que el backdrop anterior se cierre
+  for (let i = 0; i < 8; i++) {
+    const hasBackdrop = await evalInTarget(ws, `!!document.querySelector('.cdk-overlay-backdrop')`);
+    if (!hasBackdrop) break;
+    await sleep(100);
+  }
+
+  // 4. INYECCIÓN DEL OBJETIVO 3 NIVELES ($11, $22, $33)
+  await evalInTarget(ws, `(() => {
+    const editGoalBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('EDITAR OBJETIVO'));
+    if (editGoalBtn) editGoalBtn.click();
+  })()`);
+
+  // Esperar activamente que monte el modal de objetivos
+  for (let i = 0; i < 10; i++) {
+    const hasGoalInp = await evalInTarget(ws, `!!document.querySelector('input[placeholder*="nivel 1"]')`);
+    if (hasGoalInp) break;
+    await sleep(100);
+  }
+
+  const goalRes = await evalInTarget(ws, `(() => {
     const setInp = (inp, val) => {
       if (!inp) return;
       const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
@@ -185,11 +199,11 @@ async function main() {
     const inpL2 = document.querySelector('input[placeholder*="nivel 2"]');
     const inpL3 = document.querySelector('input[placeholder*="nivel 3"]');
 
-    if (inpL1) setInp(inpL1, ${JSON.stringify(goalL1)});
-    if (inpL2) setInp(inpL2, ${JSON.stringify(goalL2)});
-    if (inpL3) setInp(inpL3, ${JSON.stringify(goalL3)});
+    if (inpL1) setInp(inpL1, goalL1);
+    if (inpL2) setInp(inpL2, goalL2);
+    if (inpL3) setInp(inpL3, goalL3);
 
-    // Precios: inputs numéricos de cada nivel ($11, $22, $33)
+    // Precios: inputs de tipo number en el modal
     const numInputs = Array.from(document.querySelectorAll('.mat-mdc-dialog-container input[type="number"]'));
     if (numInputs[0]) setInp(numInputs[0], '11');
     if (numInputs[1]) setInp(numInputs[1], '22');
@@ -208,13 +222,16 @@ async function main() {
     };
   })()`);
 
+  ws.close();
+  const totalDurationMs = Date.now() - startTime;
+
   console.log(JSON.stringify({
     success: true,
+    duration_ms: totalDurationMs,
     message: 'Estrategia inyectada con éxito en Loyalfans Live (Tema y Objetivo 3 niveles $11/$22/$33)',
-    topic: saveTopicRes,
-    goal: saveGoalRes
+    topic: topicRes,
+    goal: goalRes
   }));
-
   process.exit(0);
 }
 
@@ -237,8 +254,9 @@ main().catch(err => {
     temp_script.parent.mkdir(parents=True, exist_ok=True)
     temp_script.write_text(js_script, encoding="utf-8")
 
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
     try:
-        r = subprocess.run([NODE_PATH, str(temp_script)], capture_output=True, text=True, timeout=25)
+        r = subprocess.run([NODE_PATH, str(temp_script)], cwd=str(project_root), capture_output=True, text=True, timeout=10)
         out = (r.stdout or "").strip()
         if out:
             try:

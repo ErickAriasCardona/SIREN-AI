@@ -825,52 +825,86 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
 
     reports = {}
 
-    # 1. Inyección de Auto-mensajes (3 disparadores) y Atajos Alt+1..Alt+8 en StreamMonitor Desktop
-    auto_msgs = shift_data.get("auto_messages") or {}
-    quick_msgs = shift_data.get("quick_messages") or []
-    try:
-        from src.platforms.streamate.streammonitor_messages_injector import inject_streammonitor_auto_and_quick_messages
-        msg_res = inject_streammonitor_auto_and_quick_messages(auto_msgs, quick_msgs)
-        if msg_res.get("success"):
-            reports["auto_messages"] = "Mensajes automáticos (Bienvenida 30s, Entrada a privado, Propina Gold) y Atajos Alt+1..Alt+8 inyectados y guardados en StreamMonitor"
-        else:
-            reports["auto_messages_warning"] = msg_res.get("error", "Aviso guardando mensajes automáticos")
-    except Exception as e:
-        reports["auto_messages_warning"] = f"Aviso auto-messages injector: {e}"
-
-    # 0. Asegurar Plataformas activas (Streamate + Loyalfans en split view)
-    try:
-        ensure_streammonitor_multistream_layout()
-    except Exception:
-        pass
-
-    # 2. Inyección directa instantánea en la transmisión embebida de StreamMonitor (SMConnect)
-    try:
-        from src.platforms.streamate.smconnect_live_injector import inject_strategy_into_smconnect
-        live_res = inject_strategy_into_smconnect(topic_str, gold_items, wheel_items)
-        if live_res.get("success"):
-            reports["transmission"] = "Inyectado directamente en la transmisión embebida de Streamate (SMConnect)"
-            reports["topic"] = f"Tema de sala: {topic_str}"
-            reports["gold_menu"] = f"Menú Gold: {len(gold_items)} items oficiales a 3G"
-            reports["wheel"] = f"Ruleta Íntima: {len(wheel_items)} items oficiales a 5G"
-    except Exception as e:
-        reports["live_warning"] = f"Aviso live injector: {e}"
-
-    # 3. Inyección directa en Loyalfans Live (Tema idéntico + Objetivo 3 niveles $11/$22/$33)
+    # 0. Datos del turno para Loyalfans y Mensajes
     lf_goal = shift_data.get("loyalfans_goal") or {
         "level1": {"price": 11, "task": "truth or dare"},
         "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
         "level3": {"price": 33, "task": "all or nothing"}
     }
-    try:
-        from src.platforms.loyalfans.loyalfans_live_injector import inject_strategy_into_loyalfans
-        lf_res = inject_strategy_into_loyalfans(topic_str, lf_goal)
-        if lf_res.get("success"):
-            reports["loyalfans"] = f"Inyectado en Loyalfans Live: Tema y Objetivo 3 niveles ($11: {lf_goal['level1']['task']}, $22: {lf_goal['level2']['task']}, $33: {lf_goal['level3']['task']})"
-        else:
-            reports["loyalfans_warning"] = lf_res.get("error", "Aviso Loyalfans Live")
-    except Exception as e:
-        reports["loyalfans_warning"] = f"Aviso Loyalfans injector: {e}"
+
+    # 1. Inyección PARALELA ultra-rápida (< 3 segundos) en Streamate, Loyalfans y StreamMonitor
+    auto_msgs = shift_data.get("auto_messages") or {}
+    quick_msgs = shift_data.get("quick_messages") or []
+    import concurrent.futures
+    import time
+    t_start = time.time()
+
+    def do_messages():
+        try:
+            from src.platforms.streamate.streammonitor_messages_injector import inject_streammonitor_auto_and_quick_messages
+            return inject_streammonitor_auto_and_quick_messages(auto_msgs, quick_msgs)
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def do_streamate():
+        try:
+            from src.platforms.streamate.smconnect_live_injector import inject_strategy_into_smconnect
+            return inject_strategy_into_smconnect(topic_str, gold_items, wheel_items)
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def do_loyalfans():
+        try:
+            from src.platforms.loyalfans.loyalfans_live_injector import inject_strategy_into_loyalfans
+            return inject_strategy_into_loyalfans(topic_str, lf_goal)
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        fut_lf = executor.submit(do_loyalfans)
+        fut_sm = executor.submit(do_streamate)
+        fut_msg = executor.submit(do_messages)
+
+        try:
+            ensure_streammonitor_multistream_layout()
+        except Exception:
+            pass
+
+        try:
+            lf_res = fut_lf.result(timeout=15)
+        except Exception as e:
+            lf_res = {"success": False, "error": str(e)}
+
+        try:
+            live_res = fut_sm.result(timeout=25)
+        except Exception as e:
+            live_res = {"success": False, "error": str(e)}
+
+        try:
+            msg_res = fut_msg.result(timeout=15)
+        except Exception as e:
+            msg_res = {"success": False, "error": str(e)}
+
+    dur = round(time.time() - t_start, 2)
+    reports["injection_speed"] = f"Ejecutado concurrentemente en {dur}s"
+
+    if msg_res.get("success"):
+        reports["auto_messages"] = "Mensajes automáticos (Bienvenida 30s, Entrada a privado, Propina Gold) y Atajos Alt+1..Alt+8 inyectados y guardados en StreamMonitor"
+    else:
+        reports["auto_messages_warning"] = msg_res.get("error", "Aviso guardando mensajes automáticos")
+
+    if live_res.get("success"):
+        reports["transmission"] = "Inyectado directamente en la transmisión embebida de Streamate (SMConnect)"
+        reports["topic"] = f"Tema de sala: {topic_str}"
+        reports["gold_menu"] = f"Menú Gold: {len(gold_items)} items oficiales a 3G"
+        reports["wheel"] = f"Ruleta Íntima: {len(wheel_items)} items oficiales a 5G"
+    else:
+        reports["live_warning"] = live_res.get("error", "Aviso live injector")
+
+    if lf_res.get("success"):
+        reports["loyalfans"] = f"Inyectado en Loyalfans Live: Tema y Objetivo 3 niveles ($11: {lf_goal['level1']['task']}, $22: {lf_goal['level2']['task']}, $33: {lf_goal['level3']['task']})"
+    else:
+        reports["loyalfans_warning"] = lf_res.get("error", "Aviso Loyalfans Live")
 
     # Guardar configuración persistida para StreamMonitor
     save_streamate_tools_config("active_orchestrated_shift", {

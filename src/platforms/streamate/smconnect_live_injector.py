@@ -236,7 +236,7 @@ async function run() {{
           const btn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').includes('Tema de sala'));
           if (btn) btn.click();
         }})()`);
-        await sleep(600);
+        await sleep(150);
 
         await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const ta = document.querySelector('textarea[placeholder*="Tema de sala"]') || document.querySelector('textarea');
@@ -249,7 +249,7 @@ async function run() {{
           const saveBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'Salvar');
           if (saveBtn) saveBtn.click();
         }})()`);
-        await sleep(600);
+        await sleep(150);
       }}
 
       // B. Inyectar Menú Gold en Ajustes
@@ -258,13 +258,13 @@ async function run() {{
           const ajustesBtn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').trim() === 'Ajustes');
           if (ajustesBtn) ajustesBtn.click();
         }})()`);
-        await sleep(600);
+        await sleep(150);
 
         await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const goldBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'GOLD Menu');
           if (goldBtn) goldBtn.click();
         }})()`);
-        await sleep(600);
+        await sleep(150);
 
         const itemIds = goldMenu.map(it => getOptionId(it.name || it));
         await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
@@ -285,7 +285,7 @@ async function run() {{
           const saveBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'Salvar');
           if (saveBtn) saveBtn.click();
         }})()`);
-        await sleep(600);
+        await sleep(150);
 
         await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const closeBtn = document.querySelector('button[aria-label="close"]');
