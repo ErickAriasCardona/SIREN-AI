@@ -6,6 +6,7 @@ Inyecta directamente en la sección 'Mensajes' de StreamMonitor:
 3. Propina al recibir golds
 4. Mensajes rápidos (Alt+1 a Alt+6) segmentados por tipo de fan
 5. Pulsa 'Guardar ajustes' en cada sección para persistir en StreamMonitor.
+6. Cierra la modal para regresar a la vista de transmisión en vivo.
 """
 
 import os
@@ -40,165 +41,186 @@ def inject_streammonitor_auto_and_quick_messages(auto_messages: Dict[str, str], 
     tip_msg = auto_messages.get("send_golds") or auto_messages.get("tip") or ""
     q_msgs = quick_messages or []
 
-    js_script = f"""
+    # Construimos el script de Node.js
+    js_template = """
 const http = require('http');
 const WebSocket = require('ws');
 
-const port = {port};
-const welcomeText = {json.dumps(welcome_msg, ensure_ascii=False)};
-const privateText = {json.dumps(private_msg, ensure_ascii=False)};
-const tipText = {json.dumps(tip_msg, ensure_ascii=False)};
-const quickList = {json.dumps(q_msgs, ensure_ascii=False)};
+const port = PORT_PLACEHOLDER;
+const welcomeText = WELCOME_PLACEHOLDER;
+const privateText = PRIVATE_PLACEHOLDER;
+const tipText = TIP_PLACEHOLDER;
+const quickList = QUICK_PLACEHOLDER;
 
-function getTargets() {{
-  return new Promise((resolve, reject) => {{
-    http.get('http://127.0.0.1:' + port + '/json', res => {{
+function getTargets() {
+  return new Promise((resolve, reject) => {
+    http.get('http://127.0.0.1:' + port + '/json', res => {
       let d = ''; res.on('data', c => d += c);
-      res.on('end', () => {{ try {{ resolve(JSON.parse(d)); }} catch(e) {{ reject(e); }} }});
-    }}).on('error', reject);
-  }});
-}}
+      res.on('end', () => { try { resolve(JSON.parse(d)); } catch(e) { reject(e); } });
+    }).on('error', reject);
+  });
+}
 
-async function main() {{
+async function main() {
   const targets = await getTargets();
   const page = targets.find(t => t.url.includes('renderer/index.html')) || targets[0];
-  if (!page) {{
-    console.log(JSON.stringify({{ success: false, error: 'No se encontró la página principal de StreamMonitor' }}));
+  if (!page) {
+    console.log(JSON.stringify({ success: false, error: 'No se encontró la página principal de StreamMonitor' }));
     process.exit(1);
-  }}
+  }
 
   const ws = new WebSocket(page.webSocketDebuggerUrl);
   await new Promise(r => ws.on('open', r));
 
   let msgId = 1;
-  const send = (method, params = {{}}) => new Promise(resolve => {{
+  const send = (method, params = {}) => new Promise(resolve => {
     const curId = msgId++;
-    const h = (buf) => {{
-      try {{
+    const h = (buf) => {
+      try {
         const msg = JSON.parse(buf.toString());
-        if (msg.id === curId) {{
+        if (msg.id === curId) {
           ws.removeListener('message', h);
           resolve(msg);
-        }}
-      }} catch (e) {{}}
-    }};
+        }
+      } catch (e) {}
+    };
     ws.on('message', h);
-    ws.send(JSON.stringify({{ id: curId, method, params }}));
-  }});
+    ws.send(JSON.stringify({ id: curId, method, params }));
+  });
 
-  // 1. Asegurar que la modal de Mensajes esté visible y montada
-  let modalMounted = false;
-  for (let attempt = 0; attempt < 5; attempt++) {{
-    const chk = await send('Runtime.evaluate', {{
-      expression: 'Array.from(document.querySelectorAll("textarea")).some(t => (t.placeholder || "").includes("bienvenid"))',
-      returnByValue: true
-    }});
-    if (chk?.result?.result?.value) {{
-      modalMounted = true;
-      break;
-    }}
-    // Si no está montada, hacer clic en el botón Mensajes del sidebar
-    await send('Runtime.evaluate', {{
-      expression: '(() => {{ const b = document.querySelector("button[aria-label=\\"Mensajes\\"]"); if (b) b.click(); }})()'
-    }});
-    await new Promise(r => setTimeout(r, 600));
-  }}
+  // 1. Comprobar si los textareas de Mensajes ya están montados
+  const checkInitial = await send('Runtime.evaluate', {
+    expression: 'document.querySelectorAll("textarea").length >= 3',
+    returnByValue: true
+  });
 
-  if (!modalMounted) {{
-    console.log(JSON.stringify({{ success: false, error: 'No se pudo abrir la modal de Mensajes en StreamMonitor' }}));
-    ws.close();
-    process.exit(1);
-  }}
+  if (!checkInitial?.result?.result?.value) {
+    // Abrir haciendo clic en Mensajes UNA sola vez
+    await send('Runtime.evaluate', {
+      expression: '(() => { const b = document.querySelector("button[aria-label=Mensajes]"); if (b) b.click(); })()'
+    });
+    // Esperar a que se monte
+    for (let i = 0; i < 12; i++) {
+      await new Promise(r => setTimeout(r, 350));
+      const chk = await send('Runtime.evaluate', {
+        expression: 'document.querySelectorAll("textarea").length >= 3',
+        returnByValue: true
+      });
+      if (chk?.result?.result?.value) break;
+    }
+  }
 
   // 2. Inyectar valores y guardar
-  const evalRes = await send('Runtime.evaluate', {{
-    expression: `(() => {{
+  const evalRes = await send('Runtime.evaluate', {
+    expression: `(() => {
       const allTas = Array.from(document.querySelectorAll('textarea'));
-      const taWelcome = allTas.find(t => (t.placeholder || '').includes('bienvenid@ a la sala'));
-      const taPrivate = allTas.find(t => (t.placeholder || '').includes('Bienvenid@ al privado'));
-      const taTip = allTas.find(t => (t.placeholder || '').includes('Gracias por la propina'));
+      const norm = s => (s || '').toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+      const taWelcome = allTas.find(t => norm(t.placeholder).includes('bienvenid') && norm(t.placeholder).includes('sala'));
+      const taPrivate = allTas.find(t => norm(t.placeholder).includes('privado'));
+      const taTip = allTas.find(t => norm(t.placeholder).includes('propina'));
 
-      const setVal = (ta, val) => {{
+      const setVal = (ta, val) => {
         if (!ta || !val) return false;
         const s = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, 'value').set;
         s.call(ta, val);
-        ta.dispatchEvent(new Event('input', {{ bubbles: true }}));
-        ta.dispatchEvent(new Event('change', {{ bubbles: true }}));
+        ta.dispatchEvent(new Event('input', { bubbles: true }));
+        ta.dispatchEvent(new Event('change', { bubbles: true }));
         return true;
-      }};
+      };
 
-      if (taWelcome) setVal(taWelcome, ${{JSON.stringify(welcomeText)}});
-      if (taPrivate) setVal(taPrivate, ${{JSON.stringify(privateText)}});
-      if (taTip) setVal(taTip, ${{JSON.stringify(tipText)}});
+      if (taWelcome) setVal(taWelcome, ${JSON.stringify(welcomeText)});
+      if (taPrivate) setVal(taPrivate, ${JSON.stringify(privateText)});
+      if (taTip) setVal(taTip, ${JSON.stringify(tipText)});
 
       // Guardar sección de Mensajes automáticos
       let saveAutoBtn = null;
-      if (taTip) {{
+      if (taTip) {
         let p = taTip.parentElement;
-        for (let i = 0; i < 8 && p; i++) {{
+        for (let i = 0; i < 8 && p; i++) {
           const b = Array.from(p.querySelectorAll('button')).find(btn => (btn.innerText || '').includes('Guardar ajustes'));
-          if (b) {{ saveAutoBtn = b; break; }}
+          if (b) { saveAutoBtn = b; break; }
           p = p.parentElement;
-        }}
-      }}
-      if (saveAutoBtn) {{
+        }
+      }
+      if (saveAutoBtn) {
         saveAutoBtn.click();
-      }}
+      }
 
       // Rellenar mensajes rápidos (Alt+1 a Alt+6) segmentados
-      const qList = ${{JSON.stringify(quickList)}};
+      const qList = ${JSON.stringify(quickList)};
       let saveQuickBtn = null;
-      if (qList && qList.length > 0) {{
-        for (let idx = 0; idx < Math.min(qList.length, 6); idx++) {{
-          const phNeed = 'Mensaje rápido ' + (idx + 1);
-          const taQ = allTas.find(t => (t.placeholder || '').includes(phNeed));
+      if (qList && qList.length > 0) {
+        for (let idx = 0; idx < Math.min(qList.length, 6); idx++) {
+          const numStr = String(idx + 1);
+          const taQ = allTas.find(t => norm(t.placeholder).includes('rapido ' + numStr));
           if (taQ) setVal(taQ, qList[idx]);
-        }}
+        }
 
-        const taQ1 = allTas.find(t => (t.placeholder || '').includes('Mensaje rápido 1'));
-        if (taQ1) {{
+        const taQ1 = allTas.find(t => norm(t.placeholder).includes('rapido 1'));
+        if (taQ1) {
           let pQ = taQ1.parentElement;
-          for (let i = 0; i < 8 && pQ; i++) {{
+          for (let i = 0; i < 8 && pQ; i++) {
             const bQ = Array.from(pQ.querySelectorAll('button')).find(btn => (btn.innerText || '').includes('Guardar ajustes'));
-            if (bQ) {{ saveQuickBtn = bQ; break; }}
+            if (bQ) { saveQuickBtn = bQ; break; }
             pQ = pQ.parentElement;
-          }}
-        }}
-        if (saveQuickBtn) {{
+          }
+        }
+        if (saveQuickBtn) {
           saveQuickBtn.click();
-        }}
-      }}
+        }
+      }
 
-      return {{
+      return {
         success: true,
         welcomeUpdated: !!taWelcome,
         privateUpdated: !!taPrivate,
         tipUpdated: !!taTip,
         autoSaved: !!saveAutoBtn,
         quickSaved: !!saveQuickBtn
-      }};
-    }})()`,
+      };
+    })()`,
     returnByValue: true
-  }});
+  });
 
-  const res = evalRes?.result?.result?.value || {{ success: false }};
+  const res = evalRes?.result?.result?.value || { success: false };
+
+  // 3. Esperar 500ms y cerrar la modal para que se vea la transmisión de Streamate
+  await new Promise(r => setTimeout(r, 500));
+  await send('Runtime.evaluate', {
+    expression: `(() => {
+      const closeBtn = document.querySelector('button[aria-label=Cerrar]');
+      if (closeBtn) closeBtn.click();
+      const tabStreamate = document.querySelector('button[aria-label=Streamate]');
+      if (tabStreamate) tabStreamate.click();
+    })()`
+  });
+  await new Promise(r => setTimeout(r, 400));
+
   console.log(JSON.stringify(res));
   ws.close();
   process.exit(0);
-}}
+}
 
-main().catch(err => {{
-  console.log(JSON.stringify({{ success: false, error: err.message }}));
+main().catch(err => {
+  console.log(JSON.stringify({ success: false, error: err.message }));
   process.exit(1);
-}});
+});
 """
+    js_script = (
+        js_template
+        .replace("PORT_PLACEHOLDER", str(port))
+        .replace("WELCOME_PLACEHOLDER", json.dumps(welcome_msg, ensure_ascii=False))
+        .replace("PRIVATE_PLACEHOLDER", json.dumps(private_msg, ensure_ascii=False))
+        .replace("TIP_PLACEHOLDER", json.dumps(tip_msg, ensure_ascii=False))
+        .replace("QUICK_PLACEHOLDER", json.dumps(q_msgs, ensure_ascii=False))
+    )
 
     temp_script = Path(__file__).resolve().parent.parent.parent.parent / "scratch" / "run_inject_messages.js"
     temp_script.parent.mkdir(parents=True, exist_ok=True)
     temp_script.write_text(js_script, encoding="utf-8")
 
     try:
-        r = subprocess.run([NODE_PATH, str(temp_script)], capture_output=True, encoding="utf-8", errors="replace", timeout=15)
+        r = subprocess.run([NODE_PATH, str(temp_script)], capture_output=True, text=True, timeout=20)
         out = (r.stdout or "").strip()
         if out:
             try:

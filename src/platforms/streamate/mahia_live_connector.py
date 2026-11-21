@@ -2,12 +2,12 @@
 SIREN AI — Conector en Vivo con Mahia (StreamMonitor Desktop)
 Controla la interfaz de StreamMonitor vía Chrome DevTools Protocol (CDP):
 1. Cierra modales superpuestas (como Mensajes) si están abiertas.
-2. Navega automáticamente al Chat de Mahia mediante el icono lateral: button[aria-label="Mahia"].
-3. Pulsa 'Nuevo chat' (button[aria-label="Nuevo chat"]) para iniciar una conversación limpia y descartar residuos anteriores.
-4. Escribe la orden táctica usando el setter de valor de React y despacha eventos 'input' y 'change'.
-5. Presiona el botón 'Enviar' (button[aria-label="Enviar"]).
-6. Monitorea la respuesta streaming de Mahia buscando el botón 'Copiar respuesta' y esperando a que la longitud del texto se estabilice.
-7. Extrae y devuelve el texto completo generado por Mahia en vivo.
+2. Navega al Chat de Mahia mediante el icono lateral: button[aria-label="Mahia"].
+3. PRESERVA SIEMPRE EL HISTORIAL EXISTENTE (NO abre chat nuevo).
+4. Cuenta los mensajes previos para detectar con precisión la nueva respuesta generada en el mismo hilo.
+5. Escribe la orden táctica usando el setter de React y despacha eventos 'input' y 'change'.
+6. Presiona el botón 'Enviar' (button[aria-label="Enviar"]).
+7. Monitorea la nueva respuesta streaming hasta su estabilización y la retorna.
 """
 
 import os
@@ -37,7 +37,7 @@ def get_devtools_active_port() -> Optional[int]:
 
 def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 50) -> Dict[str, Any]:
     """
-    Envía un prompt a Mahia directamente en la ventana de StreamMonitor Desktop
+    Envía un prompt a Mahia directamente en el chat con historial continuo en StreamMonitor Desktop
     y retorna la respuesta recibida en tiempo real.
     """
     port = get_devtools_active_port()
@@ -101,7 +101,7 @@ async function run() {
     ws.send(JSON.stringify({ id: curId, method, params }));
   });
 
-  // 1. Si hay alguna modal abierta (como Mensajes), cerrarla
+  // 1. Si hay alguna modal abierta (como Mensajes), cerrarla para despejar la vista
   await send('Runtime.evaluate', {
     expression: `(() => {
       const closeBtns = Array.from(document.querySelectorAll('button')).filter(b => (b.innerText || '').trim() === '✕');
@@ -123,21 +123,16 @@ async function run() {
   });
   await sleep(700);
 
-  // 3. Pulsar botón 'Nuevo chat' si existe para iniciar una conversación 100% limpia
-  await send('Runtime.evaluate', {
+  // 3. PRESERVAR HISTORIAL: Contar cuántas respuestas previas existen en el hilo ANTES de enviar el nuevo mensaje
+  const prevCountRes = await send('Runtime.evaluate', {
     expression: `(() => {
-      const newChatBtn = document.querySelector('button[aria-label="Nuevo chat"]');
-      if (newChatBtn) {
-        newChatBtn.click();
-        return true;
-      }
-      return false;
+      return document.querySelectorAll('button[aria-label="Copiar respuesta"]').length;
     })()`,
     returnByValue: true
   });
-  await sleep(600);
+  const prevCount = prevCountRes?.result?.result?.value || 0;
 
-  // 4. Pegar prompt en el textarea específico de Mahia
+  // 4. Pegar prompt en el textarea específico de Mahia (sin abrir chat nuevo)
   const pasteRes = await send('Runtime.evaluate', {
     expression: `(() => {
       const ta = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
@@ -172,7 +167,7 @@ async function run() {
     returnByValue: true
   });
 
-  // 6. Monitorear streaming hasta que aparezca la respuesta completa y se estabilice
+  // 6. Monitorear streaming buscando la NUEVA respuesta generada en el historial
   let latestText = '';
   let stableCount = 0;
   let finalResponse = null;
@@ -182,10 +177,15 @@ async function run() {
     const poll = await send('Runtime.evaluate', {
       expression: `(() => {
         const copyBtns = Array.from(document.querySelectorAll('button[aria-label="Copiar respuesta"]'));
-        if (copyBtns.length === 0) {
+        const targetCount = ${prevCount};
+
+        // Si aún no se ha montado una nueva respuesta más allá de las que ya existían en el historial
+        if (copyBtns.length <= targetCount) {
           const thinking = Array.from(document.querySelectorAll('*')).some(el => (el.innerText || '').includes('Pensando'));
           return { status: thinking ? 'thinking' : 'waiting' };
         }
+
+        // El último botón de copiar respuesta corresponde exactamente a la NUEVA respuesta en el hilo
         const lastBtn = copyBtns[copyBtns.length - 1];
         let parent = lastBtn.parentElement;
         while (parent && parent.innerText.length < 50) {
@@ -226,12 +226,13 @@ async function run() {
       success: true,
       mahia_response: finalResponse,
       live_chat: true,
-      steps: ["Nuevo chat iniciado", "Prompt entregado", "Streaming monitoreado", "Respuesta final estabilizada"]
+      preserved_history: true,
+      steps: ["Historial preservado", "Prompt entregado en hilo continuo", "Streaming monitoreado", "Respuesta final estabilizada"]
     }));
     ws.close();
     process.exit(0);
   } else {
-    console.log(JSON.stringify({ success: false, error: 'Tiempo de espera agotado esperando respuesta de Mahia' }));
+    console.log(JSON.stringify({ success: false, error: 'Tiempo de espera agotado esperando nueva respuesta de Mahia en el historial' }));
     ws.close();
     process.exit(1);
   }

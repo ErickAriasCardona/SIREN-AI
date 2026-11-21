@@ -145,12 +145,12 @@ async function evalInPage(wsUrl, expr) {{
 async function clickEntrarAStreamateIfPresent(rendererTarget) {{
   if (!rendererTarget) return;
   await evalInPage(rendererTarget.webSocketDebuggerUrl, `(() => {{
-    const tabBtn = document.querySelector('button[aria-label="Streamate"]');
+    const closeBtn = document.querySelector('button[aria-label=Cerrar]');
+    if (closeBtn) closeBtn.click();
+    const tabBtn = document.querySelector('button[aria-label=Streamate]');
     if (tabBtn) tabBtn.click();
-    setTimeout(() => {{
-      const enterBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('Entrar a Streamate'));
-      if (enterBtn) enterBtn.click();
-    }}, 300);
+    const enterBtn = Array.from(document.querySelectorAll('button, a, div[role=button]')).find(b => (b.innerText || '').includes('Entrar a Streamate'));
+    if (enterBtn) enterBtn.click();
   }})()`);
 }}
 
@@ -167,7 +167,7 @@ async function run() {{
 
   while (Date.now() - startTime < MAX_WAIT_MS) {{
     targets = await getTargets();
-    const smTarget = targets.find(t => t.url.includes('performerclient') || t.url.includes('streamatemodels.com') || t.title.includes('SMConnect'));
+    const smTarget = targets.find(t => t.url.includes('performerclient') || t.url.includes('streamatemodels.com') || t.url.includes('streamatelinx') || t.title.includes('SMConnect'));
 
     if (!smTarget) {{
       if (mainTarget) await clickEntrarAStreamateIfPresent(mainTarget);
@@ -202,9 +202,12 @@ async function run() {{
     }}
 
     // CASO 2: Dashboard Creator (pulsar botón Stream)
-    if (curUrl.includes('dashboard-creator') || (curUrl.includes('streamatemodels.com') && !curUrl.includes('performerclient'))) {{
+    if (curUrl.includes('dashboard-creator') || curUrl.includes('streamatelinx') || (curUrl.includes('streamatemodels.com') && !curUrl.includes('performerclient'))) {{
       const clicked = await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
-        const btn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').trim().toLowerCase() === 'stream');
+        const btn = Array.from(document.querySelectorAll('button, a')).find(b => {{
+          const t = (b.innerText || '').trim().toLowerCase();
+          return t === 'stream' || t.startsWith('stream');
+        }});
         if (btn) {{
           btn.click();
           return true;
