@@ -1,14 +1,13 @@
 {
   "id": "/?source=pwa",
-  "name": "SIREN AI - Sam Barton Command",
-  "short_name": "SIREN AI",
+  "name": "ALMA TECH - Sam Barton Command",
+  "short_name": "ALMA TECH",
   "description": "Plataforma Central de Inteligencia Multi-Agente y Control para Sam Barton",
   "start_url": "./",
-  "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#1E2432",
-  "theme_color": "#8B53FF",
+  "background_color": "#081311",
+  "theme_color": "#00A88F",
   "categories": ["productivity", "utilities", "business"],
   "icons": [
     {

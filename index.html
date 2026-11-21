@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>SIREN AI — Command & Intelligence Center | Sam Barton</title>
+  <title>ALMA TECH — Command & Intelligence Center | Sam Barton</title>
   <!-- PWA & Mobile Capabilities -->
-  <meta name="theme-color" content="#8B53FF">
+  <meta name="theme-color" content="#00A88F">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="SIREN AI">
+  <meta name="apple-mobile-web-app-title" content="ALMA TECH">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192x192.png">
   <link rel="apple-touch-icon" href="icons/icon-192x192.png">
@@ -17,39 +17,1083 @@
   <!-- Google Fonts & Lucide Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
   <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 
   <style>
+    
+    /* ========================================================================== */
+    /* 🌿 ALMA TECH DESIGN SYSTEM — PALETA OFICIAL & EFECTO AGUA ESMERALDA       */
+    /* ========================================================================== */
     :root {
-      /* SIREN_AI Centralized Palette (from lib/paleta colores/theme.tsx) */
-      --primary: #8B53FF;           /* HEX 8B53FF (RGB 139, 83, 255) */
-      --primary-light: #A77BFF;
-      --primary-dark: #1E2432;      /* HEX 1E2432 (RGB 30, 36, 50) */
-      --secondary: #1AE589;         /* HEX 1AE589 (RGB 26, 229, 139) */
-      --accent-green: #1AE589;
-      --accent: #1AE589;
-      --success: #1AE589;
-      --warning: #8B53FF;
-      --bg-dark: #1E2432;           /* Fondo noche profundo */
-      --bg-surface: #181D29;
-      --bg-card: #262D3D;
-      --bg-card-hover: #2E364A;
-      --border-color: rgba(242, 242, 242, 0.08);
-      --border-accent: rgba(139, 83, 255, 0.35);
-      --text-main: #F2F2F2;          /* HEX F2F2F2 (RGB 242, 242, 242) */
-      --text-muted: #9BA4B5;
-      --text-dim: #737E94;
-      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      /* ALMA Official Emerald / Aqua Palette */
+      --primary: #00A88F;           /* Verde esmeralda oficial del logo ALMA */
+      --primary-light: #00E5BF;     /* Brillo de agua esmeralda / Aqua Luminous */
+      --primary-dark: #063E35;      /* Sombra de jade profundo */
+      --primary-glow: rgba(0, 229, 191, 0.4);
+      --secondary: #1AE5BA;         /* Menta acuática vibrante */
+      --accent-cyan: #00D2B4;
+      --accent-green: #10B981;
+      --accent: #00E5BF;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+
+      /* Dark Theme: ALMA Deep Obsidian Water Glass */
+      --bg-dark: #081311;           /* Fondo noche obsidiana con matiz esmeralda profundo */
+      --bg-surface: rgba(13, 28, 25, 0.88);
+      --bg-card: rgba(18, 40, 36, 0.72);
+      --bg-card-hover: rgba(24, 52, 46, 0.9);
+      --border-color: rgba(0, 229, 191, 0.15);
+      --border-accent: rgba(0, 229, 191, 0.38);
+      --text-main: #F4FAF8;
+      --text-muted: #8FAEA7;
+      --text-dim: #5C7B74;
+      --font-sans: 'Poppins', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-      --shadow-glow: 0 0 25px rgba(139, 83, 255, 0.25);
-      --shadow-card: 0 8px 32px rgba(30, 36, 50, 0.45);
+      --radius-sm: 10px;
+      --radius-md: 18px;
+      --radius-lg: 26px;
+      --radius-pill: 9999px;
+      --shadow-glow: 0 0 32px rgba(0, 229, 191, 0.32);
+      --shadow-card: 0 16px 40px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.08);
+      --shadow-clay: 0 12px 28px rgba(0, 0, 0, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.14), inset 0 -2px 4px rgba(0, 0, 0, 0.25);
+      --shadow-water: 0 14px 36px rgba(0, 168, 143, 0.3);
     }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-dark);
+      background-image: 
+        radial-gradient(circle at 10% 15%, rgba(0, 229, 191, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 90% 85%, rgba(0, 168, 143, 0.07) 0%, transparent 45%);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+      letter-spacing: -0.15px;
+    }
+
+    /* ☀️ MODO CLARO (LIGHT THEME) — ALMA TECH SOFT CLOUD */
+    body.light-theme {
+      --bg-dark: #EDF5F3;
+      --bg-surface: rgba(255, 255, 255, 0.94);
+      --bg-card: rgba(255, 255, 255, 0.96);
+      --bg-card-hover: #F2FAF8;
+      --border-color: rgba(0, 168, 143, 0.15);
+      --border-accent: rgba(0, 168, 143, 0.38);
+      --text-main: #0B2520;
+      --text-muted: #43635C;
+      --text-dim: #6F8E87;
+      --shadow-card: 0 12px 32px rgba(0, 168, 143, 0.08), 0 2px 6px rgba(0, 0, 0, 0.03);
+      --shadow-clay: 0 10px 24px rgba(0, 168, 143, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 2px rgba(0, 168, 143, 0.06);
+    }
+    body.light-theme #sidebar {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(235, 248, 245, 0.95) 100%);
+      border: 1px solid rgba(0, 168, 143, 0.18);
+      box-shadow: 0 16px 40px rgba(0, 168, 143, 0.09);
+    }
+    body.light-theme .top-bar {
+      background: rgba(255, 255, 255, 0.88);
+      border-bottom: 1px solid rgba(0, 168, 143, 0.14);
+    }
+    body.light-theme .card,
+    body.light-theme .kpi-card,
+    body.light-theme .editorial-card,
+    body.light-theme .platform-profile-card {
+      background: #ffffff;
+      border: 1px solid rgba(0, 168, 143, 0.14);
+      box-shadow: 0 10px 28px rgba(0, 168, 143, 0.06), inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    /* ========================================================================== */
+    /* 🌊 SIDEBAR CÁPSULA FLOTANTE DE CRISTAL (REF. IMAGEN 3)                     */
+    /* ========================================================================== */
+    #sidebar {
+      width: 295px;
+      min-width: 295px;
+      margin: 14px 0 14px 14px;
+      height: calc(100vh - 28px);
+      border-radius: 30px;
+      background: linear-gradient(180deg, rgba(0, 168, 143, 0.25) 0%, rgba(6, 32, 28, 0.92) 100%);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(0, 229, 191, 0.22);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.45), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+      z-index: 100;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+    }
+
+    /* Brillo de agua vertical en el sidebar */
+    #sidebar::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 140px;
+      border-radius: 30px 30px 0 0;
+      background: linear-gradient(180deg, rgba(0, 229, 191, 0.15) 0%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .sidebar-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid rgba(0, 229, 191, 0.12);
+      position: relative;
+      z-index: 2;
+    }
+    .sidebar-logo-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+    }
+
+    /* BRANDING OFICIAL ALMA TECH */
+    .alma-brand-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .alma-brand-container:hover {
+      transform: translateY(-1px);
+      filter: drop-shadow(0 0 14px rgba(0, 229, 191, 0.5));
+    }
+    .alma-avatar-glow-ring {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #00E5BF 0%, #00A88F 100%);
+      box-shadow: 0 0 20px rgba(0, 229, 191, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      position: relative;
+    }
+    .alma-logo-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ffffff;
+      border: 1.5px solid rgba(8, 19, 17, 0.9);
+      display: block;
+    }
+    .alma-brand-text-col {
+      display: flex;
+      flex-direction: column;
+      line-height: 1;
+    }
+    .alma-brand-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      background: linear-gradient(135deg, #ffffff 25%, #00E5BF 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+    body.light-theme .alma-brand-title {
+      background: linear-gradient(135deg, #063C34 20%, #00A88F 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .alma-brand-tech-badge {
+      font-family: 'Poppins', sans-serif;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 5px;
+      color: #00E5BF;
+      text-transform: uppercase;
+      margin-top: 3px;
+      opacity: 0.95;
+    }
+    body.light-theme .alma-brand-tech-badge {
+      color: #008B7A;
+    }
+
+    .sidebar-header-btn {
+      background: rgba(0, 229, 191, 0.08);
+      border: 1px solid rgba(0, 229, 191, 0.18);
+      color: var(--text-muted);
+      border-radius: 12px;
+      width: 34px;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
+    .sidebar-header-btn:hover {
+      background: rgba(0, 229, 191, 0.22);
+      border-color: var(--primary-light);
+      color: #ffffff;
+      transform: scale(1.06);
+    }
+
+    /* NAV MENU & ÍTEM ACTIVO PÍLDORA BLANCA (REF. IMAGEN 3) */
+    .sidebar-nav {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      position: relative;
+      z-index: 2;
+    }
+    .nav-section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--text-dim);
+      text-transform: uppercase;
+      padding: 12px 12px 6px;
+    }
+    .nav-btn {
+      width: 100%;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 11px 16px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      text-align: left;
+    }
+    .nav-btn:hover {
+      background: rgba(0, 229, 191, 0.12);
+      color: #ffffff;
+      transform: translateX(4px);
+    }
+    .nav-btn i, .nav-btn svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      stroke-width: 2.2;
+      transition: transform 0.2s ease;
+    }
+    .nav-btn:hover i, .nav-btn:hover svg {
+      transform: scale(1.12);
+      color: var(--primary-light);
+    }
+
+    /* ÍTEM ACTIVO: PÍLDORA BLANCA SÓLIDA QUE SOBRESALE (REF. IMAGEN 3) */
+    .nav-btn.active {
+      background: #ffffff !important;
+      color: #007A68 !important;
+      font-weight: 700 !important;
+      border-radius: 24px !important;
+      box-shadow: 0 10px 26px rgba(0, 229, 191, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.95) !important;
+      transform: translateX(2px) scale(1.02);
+    }
+    .nav-btn.active i, .nav-btn.active svg {
+      color: #00A88F !important;
+      stroke: #00A88F !important;
+    }
+    .nav-btn.active .nav-badge {
+      background: rgba(0, 168, 143, 0.16) !important;
+      color: #007A68 !important;
+      border-color: rgba(0, 168, 143, 0.25) !important;
+      font-weight: 800 !important;
+    }
+    body.light-theme .nav-btn.active {
+      background: #00A88F !important;
+      color: #ffffff !important;
+      box-shadow: 0 10px 24px rgba(0, 168, 143, 0.35) !important;
+    }
+    body.light-theme .nav-btn.active i,
+    body.light-theme .nav-btn.active svg {
+      color: #ffffff !important;
+      stroke: #ffffff !important;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 12px;
+      background: rgba(0, 229, 191, 0.12);
+      color: var(--primary-light);
+      border: 1px solid rgba(0, 229, 191, 0.2);
+    }
+
+    .sidebar-footer {
+      padding: 14px 18px;
+      border-top: 1px solid rgba(0, 229, 191, 0.12);
+      position: relative;
+      z-index: 2;
+    }
+    .sidebar-version-pill {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 14px;
+      background: rgba(0, 229, 191, 0.08);
+      border: 1px solid rgba(0, 229, 191, 0.18);
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+
+    /* ========================================================================== */
+    /* 📱 TOP BAR MODERNA TRASLÚCIDA (DESKTOP & MOBILE)                           */
+    /* ========================================================================== */
+    #main-wrapper {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      padding: 14px 14px 14px 0;
+    }
+    .top-bar {
+      height: 70px;
+      background: rgba(13, 28, 25, 0.85);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(0, 229, 191, 0.16);
+      border-radius: 24px;
+      padding: 0 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+    .top-left h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-left h2 i, .top-left h2 svg {
+      color: var(--primary-light);
+    }
+    .top-left p {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* BOTONES DE ACCIÓN SOFT-CLAY */
+    .action-btn {
+      background: rgba(0, 229, 191, 0.08);
+      border: 1px solid rgba(0, 229, 191, 0.2);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 9px 16px;
+      border-radius: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .action-btn:hover {
+      background: rgba(0, 229, 191, 0.18);
+      border-color: var(--primary-light);
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(0, 229, 191, 0.25);
+    }
+    .action-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+    .action-btn.primary {
+      background: linear-gradient(135deg, #00A88F 0%, #00E5BF 100%);
+      color: #06342D;
+      border: none;
+      font-weight: 800;
+      box-shadow: 0 6px 20px rgba(0, 229, 191, 0.4);
+    }
+    .action-btn.primary:hover {
+      background: linear-gradient(135deg, #00B89D 0%, #33FFD6 100%);
+      box-shadow: 0 8px 26px rgba(0, 229, 191, 0.55);
+      color: #03201B;
+    }
+
+    /* ========================================================================== */
+    /* 🤖 HUB FLOTANTE DE ASISTENTES IA (UBICUO Y ARRASTRABLE)                   */
+    /* ========================================================================== */
+    .alma-ai-hub-container {
+      position: fixed;
+      bottom: 26px;
+      right: 26px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 12px;
+      pointer-events: none;
+    }
+    .alma-ai-hub-container > * {
+      pointer-events: auto;
+    }
+
+    /* BOTÓN FLOTANTE PRINCIPAL (FAB) */
+    .alma-ai-hub-btn {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00A88F 0%, #00E5BF 100%);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      box-shadow: 0 12px 36px rgba(0, 168, 143, 0.55), 0 0 24px rgba(0, 229, 191, 0.45);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .alma-ai-hub-btn:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 16px 44px rgba(0, 168, 143, 0.7), 0 0 32px rgba(0, 229, 191, 0.6);
+    }
+    .alma-ai-hub-btn:active {
+      transform: scale(0.95);
+    }
+    .hub-avatar-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.5px solid #ffffff;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    .hub-avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #ffffff;
+    }
+    .hub-btn-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 9px;
+      font-weight: 800;
+      color: #06342D;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-top: 1px;
+    }
+    .hub-badge-pulse {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 2px solid #ffffff;
+      box-shadow: 0 0 10px #10B981;
+      animation: hubPulse 2s infinite;
+    }
+    @keyframes hubPulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    /* DOCK EMERGENTE DE ASISTENTES */
+    .alma-ai-dock {
+      width: 320px;
+      background: rgba(10, 25, 22, 0.94);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(0, 229, 191, 0.28);
+      border-radius: 26px;
+      padding: 16px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      animation: dockSlideUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    @keyframes dockSlideUp {
+      from { opacity: 0; transform: translateY(16px) scale(0.95); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .dock-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(0, 229, 191, 0.15);
+    }
+    .dock-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dock-status-badge {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--primary-light);
+      background: rgba(0, 229, 191, 0.12);
+      padding: 2px 8px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 229, 191, 0.22);
+    }
+    .dock-agents-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .dock-agent-card {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(0, 229, 191, 0.12);
+      border-radius: 18px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      text-align: left;
+    }
+    .dock-agent-card:hover {
+      background: rgba(0, 229, 191, 0.15);
+      border-color: var(--primary-light);
+      transform: translateX(4px);
+    }
+    .dock-agent-avatar-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: #ffffff;
+      position: relative;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+    .dock-agent-avatar-wrap.roxanne-gradient { background: linear-gradient(135deg, #8B53FF, #A77BFF); }
+    .dock-agent-avatar-wrap.mahia-gradient { background: linear-gradient(135deg, #00A88F, #00E5BF); }
+    .dock-agent-avatar-wrap.chloe-gradient { background: linear-gradient(135deg, #EC4899, #F43F5E); }
+    .dock-agent-avatar-wrap.alma-gradient { background: linear-gradient(135deg, #00E5BF, #007A68); }
+    .dock-agent-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #ffffff;
+    }
+    .dock-online-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 2px solid #081311;
+    }
+    .dock-agent-info {
+      flex: 1;
+      overflow: hidden;
+    }
+    .dock-agent-name {
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .dock-agent-role {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin-top: 1px;
+    }
+    .dock-agent-arrow {
+      width: 16px;
+      height: 16px;
+      color: var(--text-dim);
+      transition: transform 0.2s ease;
+    }
+    .dock-agent-card:hover .dock-agent-arrow {
+      transform: translateX(3px);
+      color: var(--primary-light);
+    }
+
+    /* ========================================================================== */
+    /* 🪟 VENTANA FLOTANTE Y ARRASTRABLE DE CHAT IA                               */
+    /* ========================================================================== */
+    .alma-floating-chat {
+      position: fixed;
+      bottom: 100px;
+      right: 28px;
+      width: 440px;
+      max-width: calc(100vw - 36px);
+      height: 620px;
+      max-height: calc(100vh - 120px);
+      background: rgba(10, 24, 21, 0.94);
+      backdrop-filter: blur(32px) saturate(190%);
+      -webkit-backdrop-filter: blur(32px) saturate(190%);
+      border: 1px solid rgba(0, 229, 191, 0.3);
+      border-radius: 28px;
+      box-shadow: 0 28px 70px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.22);
+      display: flex;
+      flex-direction: column;
+      z-index: 10000;
+      overflow: hidden;
+      transition: box-shadow 0.2s ease;
+    }
+    .alma-floating-chat.minimized {
+      height: 60px !important;
+      overflow: hidden;
+    }
+    .alma-floating-chat.maximized {
+      width: min(850px, calc(100vw - 40px)) !important;
+      height: calc(100vh - 100px) !important;
+      bottom: 50px !important;
+      right: 20px !important;
+    }
+
+    /* MANIJA DE ARRASTRE (DRAG HANDLE ACCESIBLE CON POINTER CAPTURE) */
+    .floating-chat-header.drag-handle {
+      padding: 14px 18px;
+      background: linear-gradient(180deg, rgba(0, 229, 191, 0.16) 0%, rgba(0, 168, 143, 0.04) 100%);
+      border-bottom: 1px solid rgba(0, 229, 191, 0.18);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: grab;
+      touch-action: none;
+      -webkit-user-select: none;
+      user-select: none;
+      position: relative;
+    }
+    .floating-chat-header.drag-handle.dragging {
+      cursor: grabbing;
+      background: linear-gradient(180deg, rgba(0, 229, 191, 0.25) 0%, rgba(0, 168, 143, 0.08) 100%);
+    }
+    .floating-drag-grip {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      padding: 2px;
+    }
+    .floating-chat-agent-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      overflow: hidden;
+    }
+    .floating-agent-avatar {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00A88F, #00E5BF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 13px;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 229, 191, 0.35);
+    }
+    .floating-agent-meta {
+      flex: 1;
+      overflow: hidden;
+    }
+    .floating-agent-name-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .floating-agent-name-row strong {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+    }
+    .floating-live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #10B981;
+      box-shadow: 0 0 8px #10B981;
+    }
+    .floating-agent-select {
+      background: rgba(0, 229, 191, 0.12);
+      border: 1px solid rgba(0, 229, 191, 0.25);
+      color: var(--primary-light);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      border-radius: 12px;
+      padding: 2px 6px;
+      cursor: pointer;
+      outline: none;
+    }
+    .floating-agent-select option {
+      background: #081311;
+      color: #ffffff;
+    }
+    .floating-agent-status {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      display: block;
+      margin-top: 1px;
+    }
+
+    .floating-chat-actions {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .floating-ctrl-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .floating-ctrl-btn:hover {
+      background: rgba(0, 229, 191, 0.18);
+      border-color: var(--primary-light);
+      color: #ffffff;
+    }
+    .floating-ctrl-btn.close-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      border-color: #EF4444;
+      color: #EF4444;
+    }
+    .floating-ctrl-btn svg {
+      width: 14px;
+      height: 14px;
+    }
+
+    /* QUICK PILLS DENTRO DEL CHAT */
+    .floating-quick-pills {
+      padding: 8px 14px;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      border-bottom: 1px solid rgba(0, 229, 191, 0.1);
+      background: rgba(0, 0, 0, 0.15);
+      scrollbar-width: none;
+    }
+    .floating-quick-pills::-webkit-scrollbar { display: none; }
+    .float-pill {
+      white-space: nowrap;
+      background: rgba(0, 229, 191, 0.08);
+      border: 1px solid rgba(0, 229, 191, 0.2);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 11px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .float-pill:hover {
+      background: rgba(0, 229, 191, 0.22);
+      border-color: var(--primary-light);
+      transform: translateY(-1px);
+    }
+
+    /* BODY DE MENSAJES */
+    .floating-chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scroll-behavior: smooth;
+    }
+    .floating-chat-msg {
+      display: flex;
+      gap: 10px;
+      max-width: 90%;
+      animation: floatMsgIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    @keyframes floatMsgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .floating-chat-msg.user {
+      align-self: flex-end;
+      flex-direction: row-reverse;
+    }
+    .floating-chat-msg.assistant {
+      align-self: flex-start;
+    }
+    .floating-msg-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00A88F, #00E5BF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: #ffffff;
+      flex-shrink: 0;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .floating-chat-msg.user .floating-msg-avatar {
+      background: linear-gradient(135deg, #3B82F6, #60A5FA);
+    }
+    .floating-msg-bubble {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 229, 191, 0.15);
+      border-radius: 18px;
+      padding: 10px 14px;
+      font-size: 12.5px;
+      line-height: 1.5;
+      color: var(--text-main);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+    }
+    .floating-chat-msg.user .floating-msg-bubble {
+      background: linear-gradient(135deg, #00A88F 0%, #008B7A 100%);
+      color: #ffffff;
+      border: none;
+      box-shadow: 0 6px 18px rgba(0, 168, 143, 0.35);
+    }
+
+    /* TYPING INDICATOR */
+    .floating-typing-indicator {
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--primary-light);
+    }
+    .typing-wave {
+      display: flex;
+      gap: 4px;
+    }
+    .typing-wave span {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      animation: typingPulse 1.4s infinite ease-in-out both;
+    }
+    .typing-wave span:nth-child(1) { animation-delay: -0.32s; }
+    .typing-wave span:nth-child(2) { animation-delay: -0.16s; }
+    @keyframes typingPulse {
+      0%, 80%, 100% { transform: scale(0); opacity: 0.3; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* INPUT BAR */
+    .floating-chat-input-bar {
+      padding: 12px 14px;
+      background: rgba(6, 18, 15, 0.95);
+      border-top: 1px solid rgba(0, 229, 191, 0.18);
+      display: flex;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .floating-chat-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(0, 229, 191, 0.2);
+      border-radius: 18px;
+      padding: 10px 14px;
+      font-family: var(--font-sans);
+      font-size: 12.5px;
+      color: #ffffff;
+      outline: none;
+      resize: none;
+      max-height: 100px;
+      transition: all 0.2s ease;
+    }
+    .floating-chat-input:focus {
+      border-color: var(--primary-light);
+      background: rgba(0, 229, 191, 0.08);
+      box-shadow: 0 0 16px rgba(0, 229, 191, 0.25);
+    }
+    .floating-chat-send-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00A88F, #00E5BF);
+      border: none;
+      color: #06342D;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 229, 191, 0.4);
+    }
+    .floating-chat-send-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 18px rgba(0, 229, 191, 0.6);
+    }
+    .floating-chat-send-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke-width: 2.4;
+    }
+
+    /* ========================================================================== */
+    /* 📱 BARRA DE NAVEGACIÓN MÓVIL/TABLET TÁCTIL (BOTTOM CAPSULE BAR)             */
+    /* ========================================================================== */
+    .mobile-bottom-capsule-bar {
+      display: none;
+      position: fixed;
+      bottom: 12px;
+      left: 14px;
+      right: 14px;
+      height: 64px;
+      background: rgba(8, 24, 21, 0.92);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(0, 229, 191, 0.28);
+      border-radius: 32px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+      z-index: 9990;
+      align-items: center;
+      justify-content: space-around;
+      padding: 0 8px;
+    }
+    .mobile-nav-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+      font-family: var(--font-sans);
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 20px;
+      transition: all 0.2s ease;
+    }
+    .mobile-nav-btn i, .mobile-nav-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2.2;
+    }
+    .mobile-nav-btn.active {
+      color: #00E5BF;
+      background: rgba(0, 229, 191, 0.14);
+    }
+    .mobile-nav-btn.primary-pulse {
+      color: #ffffff;
+    }
+    .mobile-nav-btn.primary-pulse .pulse-icon-wrap {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00A88F, #00E5BF);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(0, 229, 191, 0.5);
+      margin-top: -12px;
+      color: #06342D;
+    }
+
+    /* MEDIA QUERIES RESPONSIVE TABLET & MOBILE */
+    @media (max-width: 1024px) {
+      #sidebar {
+        position: fixed;
+        left: -320px;
+        top: 0;
+        bottom: 0;
+        margin: 0;
+        height: 100vh;
+        border-radius: 0 30px 30px 0;
+        z-index: 10001;
+      }
+      #sidebar.open {
+        left: 0;
+      }
+      #main-wrapper {
+        padding: 12px;
+      }
+      .mobile-bottom-capsule-bar {
+        display: flex;
+      }
+      .content-area {
+        padding-bottom: 80px;
+      }
+      .alma-ai-hub-container {
+        bottom: 86px;
+        right: 18px;
+      }
+      .alma-floating-chat {
+        bottom: 90px;
+        right: 12px;
+        left: 12px;
+        width: auto;
+        max-width: none;
+      }
+    }
+    
 
     * {
       box-sizing: border-box;
@@ -3164,29 +4208,16 @@
   <aside id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo-bar">
-        <div id="siren-header-logo-wrap" class="siren-header-logo-wrap" onclick="openLogoSelectorModal()" title="Personalizar logotipo de SIREN (Haz clic para cargar uno nuevo)">
-          <!-- Logo SIREN SVG Oficial: Opción 2 Cyber Pulse Aegis (Hexagonal Prism) -->
-          <svg width="150" height="38" viewBox="0 0 150 38" fill="none" xmlns="http://www.w3.org/2000/svg" class="siren-logo-svg">
-            <defs>
-              <linearGradient id="sGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#8B53FF"/>
-                <stop offset="100%" stop-color="#1AE589"/>
-              </linearGradient>
-              <filter id="sGlow2" x="-20%" y="-20%" width="140%" height="140%">
-                <feDropShadow dx="0" dy="0" stdDeviation="1.5" flood-color="#8B53FF" flood-opacity="0.5"/>
-              </filter>
-            </defs>
-            <g transform="translate(1, 2)">
-              <polygon points="16,2 29,9.5 29,24.5 16,32 3,24.5 3,9.5" stroke="url(#sGrad2)" stroke-width="2.6" fill="rgba(139, 83, 255, 0.12)" stroke-linejoin="round" filter="url(#sGlow2)"/>
-              <line x1="16" y1="8" x2="16" y2="26" stroke="#1AE589" stroke-width="3" stroke-linecap="round"/>
-              <line x1="10" y1="12" x2="10" y2="22" stroke="#8B53FF" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
-              <line x1="22" y1="12" x2="22" y2="22" stroke="#8B53FF" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
-            </g>
-            <text x="38" y="25" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-weight="900" font-size="20" letter-spacing="3.5" fill="currentColor" class="siren-text-title">SIREN</text>
-            <rect x="132" y="12" width="4.5" height="4.5" rx="2" fill="#8B53FF"/>
-          </svg>
+        <div class="alma-brand-container" onclick="openLogoSelectorModal()" title="ALMA TECH — Centro de Inteligencia y Estrategia">
+          <div class="alma-avatar-glow-ring">
+            <img src="assets/alma_logo.jpg" alt="Logo ALMA" class="alma-logo-avatar-img">
+          </div>
+          <div class="alma-brand-text-col">
+            <div class="alma-brand-title">ALMA</div>
+            <div class="alma-brand-tech-badge">TECH</div>
+          </div>
         </div>
-        <button id="btn-collapse-sidebar" class="sidebar-header-btn" onclick="toggleSidebar()" title="Ocultar barra lateral">
+        <button id="btn-collapse-sidebar"  class="sidebar-header-btn" onclick="toggleSidebar()" title="Ocultar barra lateral">
           <i data-lucide="panel-left-close"></i>
         </button>
       </div>
@@ -13224,5 +14255,176 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     setTimeout(() => fetchStreamateMessagesLive(false), 800);
 
   </script>
+
+  <!-- ========================================================================== -->
+  <!-- 🤖 ALMA TECH — HUB FLOTANTE DE ASISTENTES IA & CHAT ARRASTRABLE (UBICUO)   -->
+  <!-- ========================================================================== -->
+  <div id="alma-ai-hub-container" class="alma-ai-hub-container">
+    <!-- DOCK FLOTANTE DE ASISTENTES -->
+    <div id="alma-ai-dock" class="alma-ai-dock" style="display: none;">
+      <div class="dock-header">
+        <div class="dock-title">
+          <i data-lucide="sparkles" style="width: 14px; height: 14px; color: var(--primary-light);"></i>
+          <span>Asistentes IA ALMA TECH</span>
+        </div>
+        <span class="dock-status-badge">4 Agentes Activos</span>
+      </div>
+      <div class="dock-agents-grid">
+        <!-- 1. ROXANNE -->
+        <button class="dock-agent-card active" onclick="openFloatingChatWithAssistant('roxanne')">
+          <div class="dock-agent-avatar-wrap roxanne-gradient">
+            <span>RX</span>
+            <span class="dock-online-dot"></span>
+          </div>
+          <div class="dock-agent-info">
+            <div class="dock-agent-name">ROXANNE</div>
+            <div class="dock-agent-role">Directora Financiera & Estratega</div>
+          </div>
+          <i data-lucide="chevron-right" class="dock-agent-arrow"></i>
+        </button>
+
+        <!-- 2. MAHIA -->
+        <button class="dock-agent-card" onclick="openFloatingChatWithAssistant('mahia')">
+          <div class="dock-agent-avatar-wrap mahia-gradient">
+            <span>MH</span>
+            <span class="dock-online-dot"></span>
+          </div>
+          <div class="dock-agent-info">
+            <div class="dock-agent-name">MAHIA</div>
+            <div class="dock-agent-role">Co-piloto StreamMonitor & Live 1-Click</div>
+          </div>
+          <i data-lucide="chevron-right" class="dock-agent-arrow"></i>
+        </button>
+
+        <!-- 3. CHLOE -->
+        <button class="dock-agent-card" onclick="openFloatingChatWithAssistant('chloe')">
+          <div class="dock-agent-avatar-wrap chloe-gradient">
+            <span>CH</span>
+            <span class="dock-online-dot"></span>
+          </div>
+          <div class="dock-agent-info">
+            <div class="dock-agent-name">CHLOE</div>
+            <div class="dock-agent-role">Directora Instagram & Social Funnel</div>
+          </div>
+          <i data-lucide="chevron-right" class="dock-agent-arrow"></i>
+        </button>
+
+        <!-- 4. ALMA CORE -->
+        <button class="dock-agent-card" onclick="openFloatingChatWithAssistant('alma')">
+          <div class="dock-agent-avatar-wrap alma-gradient">
+            <img src="assets/alma_logo.jpg" alt="Alma" class="dock-agent-img">
+            <span class="dock-online-dot"></span>
+          </div>
+          <div class="dock-agent-info">
+            <div class="dock-agent-name">ALMA TECH</div>
+            <div class="dock-agent-role">Supervisora Central & Consultora Global</div>
+          </div>
+          <i data-lucide="chevron-right" class="dock-agent-arrow"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- BOTÓN FLOTANTE PRINCIPAL (FAB) -->
+    <button id="alma-ai-hub-btn" class="alma-ai-hub-btn" onclick="toggleAlmaAiDock()" title="Abrir Asistentes IA Flotantes">
+      <div class="hub-avatar-wrap">
+        <img src="assets/alma_logo.jpg" alt="Asistentes ALMA" class="hub-avatar-img">
+      </div>
+      <span class="hub-btn-label">AI Hub</span>
+      <span class="hub-badge-pulse"></span>
+    </button>
+  </div>
+
+  <!-- VENTANA FLOTANTE Y ARRASTRABLE DE CHAT IA -->
+  <div id="alma-floating-chat" class="alma-floating-chat" style="display: none;">
+    <!-- HEADER CON DRAG HANDLE ACCESIBLE (POINTER CAPTURE) -->
+    <div id="floating-chat-header" class="floating-chat-header drag-handle">
+      <div class="floating-drag-grip" title="Arrastra para mover el chat">
+        <i data-lucide="grip-vertical"></i>
+      </div>
+      
+      <div class="floating-chat-agent-info">
+        <div id="floating-agent-avatar" class="floating-agent-avatar">RX</div>
+        <div class="floating-agent-meta">
+          <div class="floating-agent-name-row">
+            <strong id="floating-agent-name">ROXANNE</strong>
+            <span class="floating-live-dot" title="En línea"></span>
+            <select id="floating-agent-select" onchange="switchFloatingAgent(this.value)" class="floating-agent-select" title="Cambiar de asistente">
+              <option value="roxanne">🐺 Roxanne (Finanzas)</option>
+              <option value="mahia">👑 Mahia (StreamMonitor)</option>
+              <option value="chloe">📸 Chloe (Instagram)</option>
+              <option value="alma">🐱 Alma Core (Global)</option>
+            </select>
+          </div>
+          <span id="floating-agent-status" class="floating-agent-status">Estratega activa • Ollama en línea</span>
+        </div>
+      </div>
+
+      <div class="floating-chat-actions">
+        <button class="floating-ctrl-btn" onclick="minimizeFloatingChat()" title="Minimizar">
+          <i data-lucide="minus"></i>
+        </button>
+        <button class="floating-ctrl-btn" onclick="toggleMaximizeFloatingChat()" title="Maximizar / Restaurar">
+          <i data-lucide="maximize-2" id="floating-max-icon"></i>
+        </button>
+        <button class="floating-ctrl-btn close-btn" onclick="closeFloatingChat()" title="Cerrar">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- QUICK ACTION PILLS (Chips Rápidos) -->
+    <div id="floating-quick-pills" class="floating-quick-pills">
+      <button class="float-pill" onclick="sendQuickPromptFromFloat('Planificar turno de hoy')">⚡ Turno de hoy</button>
+      <button class="float-pill" onclick="sendQuickPromptFromFloat('Revisar metas de Streamate & Loyalfans')">💰 Metas del día</button>
+      <button class="float-pill" onclick="sendQuickPromptFromFloat('Crear pack de historias para Instagram')">📸 Historias IG</button>
+      <button class="float-pill" onclick="sendQuickPromptFromFloat('Inyectar estrategia a StreamMonitor')">🚀 Inyectar 1-Click</button>
+    </div>
+
+    <!-- BODY: HISTORIAL DE MENSAJES -->
+    <div id="floating-chat-messages" class="floating-chat-messages">
+      <!-- Mensajes sincronizados en tiempo real -->
+    </div>
+
+    <!-- TYPING INDICATOR -->
+    <div id="floating-typing-indicator" class="floating-typing-indicator" style="display: none;">
+      <div class="typing-wave">
+        <span></span><span></span><span></span>
+      </div>
+      <span id="floating-typing-text">Pensando la mejor estrategia...</span>
+    </div>
+
+    <!-- INPUT BAR -->
+    <div class="floating-chat-input-bar">
+      <textarea id="floating-chat-input" class="floating-chat-input" placeholder="Pregunta a tu asistente o dicta una orden..." rows="1" onkeydown="handleFloatingInputKey(event)"></textarea>
+      <button id="floating-chat-send-btn" class="floating-chat-send-btn" onclick="sendFloatingChatMessage()" title="Enviar mensaje">
+        <i data-lucide="send"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- BARRA DE NAVEGACIÓN MÓVIL TÁCTIL (BOTTOM CAPSULE BAR) -->
+  <nav class="mobile-bottom-capsule-bar" id="mobile-bottom-bar">
+    <button class="mobile-nav-btn active" onclick="switchMainTab('tab-perfiles')">
+      <i data-lucide="user-check"></i>
+      <span>Perfiles</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="switchMainTab('tab-finanzas')">
+      <i data-lucide="wallet"></i>
+      <span>Finanzas</span>
+    </button>
+    <button class="mobile-nav-btn primary-pulse" onclick="openStreamMonitorOrchestratorModal()">
+      <div class="pulse-icon-wrap"><i data-lucide="zap"></i></div>
+      <span>Turno</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="switchMainTab('tab-asistentes')">
+      <i data-lucide="bot"></i>
+      <span>Asistentes</span>
+    </button>
+    <button class="mobile-nav-btn" onclick="toggleSidebar()">
+      <i data-lucide="menu"></i>
+      <span>Menú</span>
+    </button>
+  </nav>
+
 </body>
 </html>

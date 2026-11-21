@@ -1,11 +1,12 @@
 // ==============================================================================
-// SIREN AI — Service Worker Oficial (PWA, Cache Shell & Web Push en Tiempo Real)
+// ALMA TECH — Service Worker Oficial (PWA, Cache Shell & Web Push en Tiempo Real)
 // ==============================================================================
-const CACHE_NAME = 'siren-ai-v1.3.0';
+const CACHE_NAME = 'alma-tech-v2.0.0';
 const SHELL_ASSETS = [
   './',
   './index.html',
   './manifest.json',
+  './assets/alma_logo.jpg',
   './icons/icon-192x192.png',
   './icons/icon-512x512.png',
   './icons/icon-512x512-maskable.png',
