@@ -1,10 +1,14 @@
 // ==============================================================================
 // ALMA TECH — Service Worker Oficial (PWA, Cache Shell & Web Push en Tiempo Real)
 // ==============================================================================
-const CACHE_NAME = 'alma-tech-v2.7.0';
+const CACHE_NAME = 'alma-tech-v2.8.0';
 const SHELL_ASSETS = [
   './',
   './index.html',
+  './favicon.ico',
+  './icons/favicon-16x16.png',
+  './icons/favicon-32x32.png',
+  './icons/favicon-48x48.png',
   './manifest.json',
   './assets/alma_logo.jpg',
   './icons/icon-192x192.png',
