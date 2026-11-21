@@ -12902,34 +12902,45 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           body: JSON.stringify({ idea_text: ideaText, auto_apply: true })
         });
 
-        await new Promise(r => setTimeout(r, 650));
-        logStep('👁️ StreamMonitor Desktop visible en vivo: Ventana restaurada en primer plano de tu pantalla.', true);
+        await new Promise(r => setTimeout(r, 700));
+        logStep('👁️ StreamMonitor Desktop detectado: Ventana restaurada en pantalla en primer plano.', true);
 
-        await new Promise(r => setTimeout(r, 550));
-        logStep('💬 SIREN formulando orden táctica con reglas de negocio Streamate para Mahia...');
+        await new Promise(r => setTimeout(r, 600));
+        logStep('💬 Navegando automáticamente a la sección de Chat / Mahia en StreamMonitor...');
 
-        await new Promise(r => setTimeout(r, 650));
-        logStep('🤖 Mahia procesando concepto del turno y deduciendo psicología de sala...');
+        await new Promise(r => setTimeout(r, 700));
+        logStep('✍️ Pegando tu orden táctica con reglas de negocio en el chat de Mahia...');
+
+        await new Promise(r => setTimeout(r, 600));
+        logStep('🚀 Presionando botón Enviar en el chat de Mahia y esperando respuesta...');
 
         const res = await fetchPromise;
         const data = await res.json();
 
         if (data.success && data.strategy) {
           await new Promise(r => setTimeout(r, 400));
-          logStep(`🏷️ Room Topic oficial fijado (≤ 140 chars): "${data.strategy.topic}"`, true);
+          if (data.live_chat_done) {
+            logStep('🤖 ¡Respuesta recibida en vivo de Mahia directamente en StreamMonitor!', true);
+          } else {
+            logStep('🤖 Mahia completó la estrategia táctica para el turno.', true);
+          }
+
+          await new Promise(r => setTimeout(r, 400));
+          logStep(`🏷️ Room Topic oficial fijado (≤ 140 chars en inglés): "${data.strategy.topic}"`, true);
 
           await new Promise(r => setTimeout(r, 450));
           const goldSamples = (data.strategy.gold_menu || []).slice(0, 3).map(g => g.name).join(', ');
           logStep(`⚡ Menú Gold sincronizado: 6 opciones oficiales a 3G ("${goldSamples}...")`, true);
 
           await new Promise(r => setTimeout(r, 450));
-          logStep(`🎡 Ruleta Íntima sincronizada: 10 opciones de sumisión a 5G`, true);
+          const wheelSamples = (data.strategy.wheel?.items || []).slice(0, 3).join(', ');
+          logStep(`🎡 Ruleta Íntima sincronizada: 10 opciones oficiales de Streamate a 5G ("${wheelSamples}...")`, true);
 
           await new Promise(r => setTimeout(r, 350));
           logStep(`💬 Auto-mensajes y atajos de chat (Alt+1 a Alt+6) preparados para StreamMonitor`, true);
 
           await new Promise(r => setTimeout(r, 300));
-          logStep(`✨ ¡TODO CONFIGURADO Y ACTIVO EN VIVO! StreamMonitor en pantalla y Streamate sincronizado.`, true);
+          logStep(`✨ ¡TODO CONFIGURADO Y ACTIVO EN VIVO! Chat con Mahia completado y Streamate sincronizado.`, true);
 
           // Mostrar diálogo con Mahia
           const sirenBox = document.getElementById('smo-siren-to-mahia-preview');

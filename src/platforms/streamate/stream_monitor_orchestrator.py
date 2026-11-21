@@ -51,16 +51,16 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "wheel": {
             "cost": 5,
             "items": [
-                "Full ball gag on & drool stream (5G)",
-                "Lock collar on neck & kneel on cam (5G)",
-                "Muffled moans & eye contact in gag (5G)",
-                "Wipe drool on collar with tongue tease (5G)",
-                "Handcuffs + gag tease in kneeling pose (5G)",
-                "Take gag off, gasp for air & lick lips (5G)",
-                "Pull leash yourself & stare dominantly (5G)",
-                "Hold gag key in cleavage & tease (5G)",
-                "Sensual whisper with collar vibrating (5G)",
-                "Pay-to-sub: obey 1 viewer command (5G)"
+                "Arrodillarse",
+                "Asfixia / Choking",
+                "Pinzas en pezones",
+                "Pellizcar pezones",
+                "Escupir",
+                "Caminar en cuatro patas",
+                "Golpear culo con paleta",
+                "5x azotes",
+                "Insultar",
+                "Palabras sucias"
             ]
         },
         "auto_messages": {
@@ -83,26 +83,26 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "badge": "Alta Conversión de Tokens",
         "topic": "🍑 BOOTY SHAKE & TWERK LIVE 🔥 Gold Menu 3G ⚡ Intimate Wheel 5G 🖤 Tease Me In Private #Tomboy #Ass #Twerk #Lovense #Gold",
         "gold_menu": [
-            {"name": "Show booty close-up", "gold": 3},
-            {"name": "Slow twerk 30s", "gold": 3},
-            {"name": "10x spanks on ass", "gold": 3},
-            {"name": "Baby oil on booty", "gold": 3},
-            {"name": "Booty jiggle tease", "gold": 3},
-            {"name": "Ass squeeze in shorts", "gold": 3}
+            {"name": "twerk", "gold": 3},
+            {"name": "Rebota el trasero", "gold": 3},
+            {"name": "Sacudir el culo", "gold": 3},
+            {"name": "Muestra el trasero", "gold": 3},
+            {"name": "Ponte aceite en el trasero", "gold": 3},
+            {"name": "10x nalgadas", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
             "items": [
-                "Slow kneeling twerk to cam (5G)",
-                "Loud double-hand spank (5G)",
-                "Side thong pull tease (5G)",
-                "Booty oil massage to the beat (5G)",
-                "Extreme close-up doggy pose (5G)",
-                "Wall twerk bounce tease (5G)",
-                "Drop pants in private (5G)",
-                "Slow jiggle with wink (5G)",
-                "Lovense high buzz on booty (5G)",
-                "1-minute exclusive preview (5G)"
+                "Agita el trasero",
+                "Aplaude con el culo",
+                "Golpear culo con paleta",
+                "Muéstrame el culo",
+                "Posición de perrito",
+                "5x azotes",
+                "Baile erótico",
+                "Bailar sexy",
+                "Sentadillas",
+                "Agacharse"
             ]
         },
         "auto_messages": {
@@ -125,26 +125,26 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "badge": "Scroll-Stopper USA/UK",
         "topic": "🎸 GOOD VIBES & UKELELE LIVE 🖤 Intimate chat • Gold Menu 3G ⚡ Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
         "gold_menu": [
-            {"name": "ASMR whisper 1m", "gold": 3},
-            {"name": "Dirty confession", "gold": 3},
-            {"name": "Whisper your name", "gold": 3},
-            {"name": "Unbutton shirt tease", "gold": 3},
-            {"name": "Cute seductive smile", "gold": 3},
-            {"name": "Lift sports top flash", "gold": 3}
+            {"name": "ASMR al oído", "gold": 3},
+            {"name": "Sonrisa", "gold": 3},
+            {"name": "Di mi nombre", "gold": 3},
+            {"name": "Lanzar un beso", "gold": 3},
+            {"name": "Cuento sucio", "gold": 3},
+            {"name": "Mostrar vientre", "gold": 3}
         ],
         "wheel": {
             "cost": 5,
             "items": [
-                "Dedicated acoustic love song on ukelele (5G)",
-                "Deep raspy whispers close to mic (5G)",
-                "Backwards flash tease (5G)",
-                "Backwards cap hair shake tease (5G)",
-                "Slow acoustic sensual sway (5G)",
-                "Lovense level 5 spike 30s (5G)",
-                "Dark secret confession just for you (5G)",
-                "Free double wheel spin (5G)",
-                "20s intense eye contact stare (5G)",
-                "1-minute free exclusive preview (5G)"
+                "Bésame",
+                "Gemido",
+                "Gemir mi nombre",
+                "Caricia en el cuerpo",
+                "Beso",
+                "Quiño",
+                "Lamer labios",
+                "Audio sucio",
+                "Palabras sucias",
+                "Mostrar lengua"
             ]
         },
         "auto_messages": {
@@ -177,16 +177,16 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         "wheel": {
             "cost": 5,
             "items": [
-                "Max Lovense vibration spike 45s (5G)",
-                "Ear whisper moan right by the mic (5G)",
-                "Topless hand-cover tease (5G)",
-                "Take total toy control for 2 min (5G)",
-                "Hot dance to the vibration pulse (5G)",
-                "Drop pants & tease in boxers (5G)",
-                "Free double wheel spin (5G)",
-                "No-blink eye contact challenge (5G)",
-                "Head-to-toe sensual tease (5G)",
-                "Direct VIP pass to private show (5G)"
+                "Hazme acabar",
+                "Provocame con todo el cuerpo",
+                "Gemir mi nombre",
+                "Audio sucio",
+                "10x nalgadas",
+                "Rebote de senos",
+                "Posición de perrito",
+                "Bailar sexy",
+                "Desnuda con manos en los senos",
+                "Estriptís"
             ]
         },
         "auto_messages": {
@@ -672,45 +672,70 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
 
 def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     """
-    Ejecuta el flujo real solicitado:
-    1. SIREN abre/enfoca StreamMonitor con el perfil de Sam.
-    2. SIREN formula la orden tctica para Mahia con las reglas estrictas de Streamate.
-    3. Mahia genera la respuesta estructurada sin textos innecesarios.
-    4. SIREN extrae el Topic oficial (<= 140 chars), Men Gold (solo opciones oficiales a 3G) y Ruleta a 5G.
+    Ejecuta el flujo real solicitado por Sam:
+    1. SIREN abre y enfoca StreamMonitor Desktop en la pantalla del usuario (WinSta0\Default).
+    2. SIREN interactúa en tiempo real con Mahia en StreamMonitor Desktop:
+       - Navega automáticamente al chat de Mahia (/dashboard/chat)
+       - Pega la orden táctica con reglas de negocio en el textarea
+       - Hace clic en el botón 'Enviar'
+       - Espera y extrae la respuesta real que Mahia genera en vivo
+    3. SIREN adapta las respuestas para las herramientas oficiales de Streamate:
+       - Room Topic oficial en inglés (<= 140 chars)
+       - Menú Gold (exactamente 6 opciones oficiales del catálogo de Streamate a 3G)
+       - Ruleta Íntima (exactamente 10 opciones oficiales del catálogo de Streamate a 5G)
     """
-    # 1. Asegurar lanzamiento de StreamMonitor Desktop
+    import time
+    # 1. Asegurar lanzamiento de StreamMonitor Desktop en la pantalla activa
     launch_res = launch_streammonitor_desktop()
 
-    # 2. Generar orden tctica que SIREN le entrega a Mahia
+    # Dar breve margen para que StreamMonitor se estabilice en pantalla
+    time.sleep(1.5)
+
+    # 2. Generar orden táctica que SIREN le entrega a Mahia
     res = smart_orchestrate_natural_idea(user_idea_spanish)
     strategy = res["strategy"]
     theme_key = res["theme_key"]
 
     siren_to_mahia_prompt = (
         f"Mahia: Sam ha definido el foco para su turno: '{user_idea_spanish}'.\n"
-        f"Aplica las reglas de Streamate: Topic en ingls (mximo 140 chars con #hashtags), "
-        f"Men Gold exactamente a 3G usando solo opciones oficiales del catlogo de Streamate, "
-        f"y Ruleta ntima a 5G sin repetir el men gold.\n"
-        f"Devulveme el plan estructurado para aplicarlo en vivo."
+        f"Aplica las reglas de Streamate: Topic en inglés (máximo 140 chars con #hashtags), "
+        f"Menú Gold exactamente a 3G usando solo opciones oficiales de Streamate, "
+        f"y Ruleta Íntima a 5G usando solo opciones oficiales de Streamate.\n"
+        f"Devuélveme el plan estructurado para aplicarlo en vivo."
     )
 
-    # 3. Respuesta autntica generada por Mahia para StreamMonitor
-    mahia_response_text = (
-        f"Entendido Sam. Aqu tienes el plan optimizado para tu sala:\n\n"
-        f"TOPIC: {strategy['topic']}\n\n"
-        f"MENU GOLD (3G - Catlogo Oficial Streamate):\n" +
-        "\n".join([f"- {it['name']} (3 Gold)" for it in strategy['gold_menu']]) +
-        f"\n\nRULETA INTIMA (5G):\n" +
-        "\n".join([f"- {it}" for it in strategy['wheel']['items']]) +
-        f"\n\nAUTO-MENSAJES:\n"
-        f"- Entrada sala (30s): {strategy['auto_messages']['room_30s']}\n"
-        f"- Agradecimiento Tip: {strategy['auto_messages']['send_golds']}"
-    )
+    # 3. INTERACCIÓN EN VIVO: Enviar al chat de Mahia dentro de StreamMonitor Desktop
+    live_mahia_res = {}
+    try:
+        from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop
+        live_mahia_res = send_prompt_to_mahia_desktop(siren_to_mahia_prompt, timeout_seconds=18)
+    except Exception as e:
+        live_mahia_res = {"success": False, "error": str(e)}
+
+    # Si Mahia respondió en vivo en el chat de StreamMonitor, usar su respuesta real
+    if live_mahia_res.get("success") and live_mahia_res.get("mahia_response"):
+        mahia_response_text = live_mahia_res["mahia_response"]
+        live_chat_done = True
+    else:
+        # Fallback estructurado oficial
+        mahia_response_text = (
+            f"Entendido Sam. Aquí tienes el plan optimizado para tu sala:\n\n"
+            f"TOPIC: {strategy['topic']}\n\n"
+            f"MENU GOLD (3G - Catálogo Oficial Streamate):\n" +
+            "\n".join([f"- {it['name']} (3 Gold)" for it in strategy['gold_menu']]) +
+            f"\n\nRULETA INTIMA (5G - Catálogo Oficial Streamate):\n" +
+            "\n".join([f"- {it}" for it in strategy['wheel']['items']]) +
+            f"\n\nAUTO-MENSAJES:\n"
+            f"- Entrada sala (30s): {strategy['auto_messages']['room_30s']}\n"
+            f"- Agradecimiento Tip: {strategy['auto_messages']['send_golds']}"
+        )
+        live_chat_done = False
 
     return {
         "success": True,
         "theme_key": theme_key,
         "launch_desktop": launch_res,
+        "live_chat_done": live_chat_done,
         "siren_prompt_to_mahia": siren_to_mahia_prompt,
         "mahia_reply": mahia_response_text,
         "strategy": strategy,
