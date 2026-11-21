@@ -7778,7 +7778,7 @@ Cat Lover 🐱</div>
                     📋 Copiar Texto
                   </button>
                 </div>
-                <div id="smo-mahia-reply-preview" style="font-size: 11.5px; color: #f1f5f9; line-height: 1.55; white-space: pre-wrap; word-break: break-word; max-height: 280px; overflow-y: auto; font-family: var(--font-sans);">
+                <div id="smo-mahia-reply-preview" style="font-size: 11.5px; color: #f1f5f9; line-height: 1.55; white-space: pre-wrap; word-break: break-word; min-height: 260px; max-height: 480px; overflow-y: auto; font-family: var(--font-sans);">
                   Mahia responderá aquí con sus sugerencias de Topic en inglés, Menú Gold oficial a 3G y Ruleta a 5G...
                 </div>
               </div>
@@ -7851,21 +7851,42 @@ Cat Lover 🐱</div>
                 </div>
               </div>
 
-              <!-- 3. Auto-Mensajes de Sala -->
+              <!-- 3. Los 3 Mensajes Automáticos de StreamMonitor (Deducidos de Mahia) -->
               <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px;">
-                <div style="font-size: 11px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                  <i data-lucide="message-square" style="width: 13px; height: 13px; color: #1AE589;"></i>
-                  <span>💬 Mensajes de Chat Deducidos (StreamMonitor):</span>
+                <div style="font-size: 11px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="message-square" style="width: 13px; height: 13px; color: #1AE589;"></i>
+                    <span>💬 3 Disparadores Automáticos (StreamMonitor):</span>
+                  </span>
+                  <span class="table-badge badge-success" style="font-size: 8.5px; padding: 1px 6px;">Auto-Sync</span>
                 </div>
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11px;">
-                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
-                    <strong style="color: #1AE589; display: block; font-size: 10.5px; margin-bottom: 2px;">Bienvenida (30s):</strong>
-                    <span id="smo-auto-welcome" style="color: var(--text-muted); line-height: 1.35;">...</span>
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; font-size: 10.5px;">
+                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 7px 9px; border: 1px solid rgba(26,229,139,0.2);">
+                    <strong style="color: #1AE589; display: block; font-size: 10px; margin-bottom: 2px;">🟣 Saludo / 30s:</strong>
+                    <span id="smo-auto-welcome" style="color: var(--text-muted); line-height: 1.35; display: block;">...</span>
                   </div>
-                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
-                    <strong style="color: #c084fc; display: block; font-size: 10.5px; margin-bottom: 2px;">Agradecimiento Tip:</strong>
-                    <span id="smo-auto-tip" style="color: var(--text-muted); line-height: 1.35;">...</span>
+                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 7px 9px; border: 1px solid rgba(59,130,246,0.2);">
+                    <strong style="color: #60a5fa; display: block; font-size: 10px; margin-bottom: 2px;">🔵 Entrar a Privado:</strong>
+                    <span id="smo-auto-private" style="color: var(--text-muted); line-height: 1.35; display: block;">...</span>
                   </div>
+                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 7px 9px; border: 1px solid rgba(234,179,8,0.2);">
+                    <strong style="color: #facc15; display: block; font-size: 10px; margin-bottom: 2px;">🟡 Propina Gold:</strong>
+                    <span id="smo-auto-tip" style="color: var(--text-muted); line-height: 1.35; display: block;">...</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. Atajos Rápidos de Chat Alt+1 a Alt+8 -->
+              <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(139,83,255,0.2); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-size: 11px; font-weight: 800; color: #c084fc; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="zap" style="width: 13px; height: 13px;"></i>
+                    <span>⚡ 8 Atajos Rápidos (Alt+1 a Alt+8):</span>
+                  </span>
+                  <span class="table-badge badge-purple" style="font-size: 8.5px; padding: 1px 6px;">StreamMonitor</span>
+                </div>
+                <div id="smo-quick-macros-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; max-height: 110px; overflow-y: auto; font-size: 10.5px;">
+                  <!-- Dinámico -->
                 </div>
               </div>
 
@@ -12861,11 +12882,32 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         });
       }
 
-      // 4. Auto-messages
+      // 4. Auto-messages (Los 3 disparadores de StreamMonitor)
       const welcome = document.getElementById('smo-auto-welcome');
+      const priv = document.getElementById('smo-auto-private');
       const tip = document.getElementById('smo-auto-tip');
       if (welcome && strat.auto_messages) welcome.textContent = strat.auto_messages.room_30s || strat.auto_messages.bienvenida || 'Configurado';
-      if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.send_golds || strat.auto_messages.agradecimiento_tip || 'Configurado';
+      if (priv && strat.auto_messages) priv.textContent = strat.auto_messages.private_show || strat.auto_messages.privado || 'Configurado';
+      if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.send_golds || strat.auto_messages.propina || 'Configurado';
+
+      // 4.1 Atajos de chat Alt+1 a Alt+8
+      const macrosGrid = document.getElementById('smo-quick-macros-grid');
+      if (macrosGrid) {
+        macrosGrid.innerHTML = '';
+        const qList = strat.quick_messages || [];
+        qList.slice(0, 8).forEach((qm, idx) => {
+          const div = document.createElement('div');
+          div.style.background = 'rgba(0,0,0,0.2)';
+          div.style.padding = '4px 6px';
+          div.style.borderRadius = '4px';
+          div.style.border = '1px solid rgba(255,255,255,0.05)';
+          div.style.whiteSpace = 'nowrap';
+          div.style.overflow = 'hidden';
+          div.style.textOverflow = 'ellipsis';
+          div.innerHTML = `<span style="color:#c084fc; font-weight:800;">Alt+${idx+1}:</span> <span style="color:var(--text-muted);" title="${qm}">${qm}</span>`;
+          macrosGrid.appendChild(div);
+        });
+      }
 
       // 5. SINCRONIZACIÓN INMEDIATA CON LAS OTRAS HERRAMIENTAS DE STREAMATE
       if (strat.topic) {

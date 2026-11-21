@@ -639,7 +639,10 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "Spin the Wheel (5G) to decide my next treat 🎡",
         "Tip 3G to trigger my dynamic live 🔥",
         "Take me to private for complete uncensored command 🗝️",
-        "Tap the screen and stay close to me 🖤"
+        "Buzz my toy and watch me react instantly ⚡",
+        "Cam2Cam ready in private, show me too 🎥",
+        "Tap the screen and stay close to me 🖤",
+        "Loving this vibe, what action do you want next? 😉"
     ]
 
     return {
@@ -680,7 +683,20 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
 
     reports = {}
 
-    # Inyección directa instantánea en la transmisión embebida de StreamMonitor (SMConnect)
+    # 1. Inyección de Auto-mensajes (3 disparadores) y Atajos Alt+1..Alt+8 en StreamMonitor Desktop
+    auto_msgs = shift_data.get("auto_messages") or {}
+    quick_msgs = shift_data.get("quick_messages") or []
+    try:
+        from src.platforms.streamate.streammonitor_messages_injector import inject_streammonitor_auto_and_quick_messages
+        msg_res = inject_streammonitor_auto_and_quick_messages(auto_msgs, quick_msgs)
+        if msg_res.get("success"):
+            reports["auto_messages"] = "Mensajes automáticos (Bienvenida 30s, Entrada a privado, Propina Gold) y Atajos Alt+1..Alt+8 inyectados y guardados en StreamMonitor"
+        else:
+            reports["auto_messages_warning"] = msg_res.get("error", "Aviso guardando mensajes automáticos")
+    except Exception as e:
+        reports["auto_messages_warning"] = f"Aviso auto-messages injector: {e}"
+
+    # 2. Inyección directa instantánea en la transmisión embebida de StreamMonitor (SMConnect)
     try:
         from src.platforms.streamate.smconnect_live_injector import inject_strategy_into_smconnect
         live_res = inject_strategy_into_smconnect(topic_str, gold_items, wheel_items)

@@ -1,12 +1,13 @@
 """
 SIREN AI — Conector en Vivo con Mahia (StreamMonitor Desktop)
 Controla la interfaz de StreamMonitor vía Chrome DevTools Protocol (CDP):
-1. Navega automáticamente al Chat de Mahia mediante el icono lateral: button[aria-label="Mahia"].
-2. Espera a que textarea.chakra-textarea esté montado y visible.
-3. Escribe la orden táctica usando el setter de valor de React y despacha eventos 'input' y 'change'.
-4. Presiona el botón 'Enviar' (button[aria-label="Enviar"]) o pulsa Enter.
-5. Monitorea la respuesta streaming de Mahia hasta su estabilización.
-6. Extrae y devuelve el texto completo generado por Mahia en vivo.
+1. Cierra modales superpuestas (como Mensajes) si están abiertas.
+2. Navega automáticamente al Chat de Mahia mediante el icono lateral: button[aria-label="Mahia"].
+3. Pulsa 'Nuevo chat' (button[aria-label="Nuevo chat"]) para iniciar una conversación limpia y descartar residuos anteriores.
+4. Escribe la orden táctica usando el setter de valor de React y despacha eventos 'input' y 'change'.
+5. Presiona el botón 'Enviar' (button[aria-label="Enviar"]).
+6. Monitorea la respuesta streaming de Mahia buscando el botón 'Copiar respuesta' y esperando a que la longitud del texto se estabilice.
+7. Extrae y devuelve el texto completo generado por Mahia en vivo.
 """
 
 import os
@@ -34,7 +35,7 @@ def get_devtools_active_port() -> Optional[int]:
         pass
     return None
 
-def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 40) -> Dict[str, Any]:
+def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 50) -> Dict[str, Any]:
     """
     Envía un prompt a Mahia directamente en la ventana de StreamMonitor Desktop
     y retorna la respuesta recibida en tiempo real.
@@ -47,22 +48,29 @@ def send_prompt_to_mahia_desktop(prompt_text: str, timeout_seconds: int = 40) ->
         }
 
     js_template = """const http = require('http');
-const fs = require('fs');
+const WebSocket = require('ws');
+
+const port = PORT_PLACEHOLDER;
+const promptText = PROMPT_PLACEHOLDER;
+const maxSeconds = TIMEOUT_PLACEHOLDER;
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function getTargets() {
+  return new Promise((resolve, reject) => {
+    http.get('http://127.0.0.1:' + port + '/json', (res) => {
+      let d = ''; res.on('data', c => d += c);
+      res.on('end', () => {
+        try { resolve(JSON.parse(d)); } catch(e) { reject(e); }
+      });
+    }).on('error', reject);
+  });
+}
 
 async function run() {
-  const port = PORT_PLACEHOLDER;
-  const promptText = PROMPT_PLACEHOLDER;
-
   let targets = [];
   try {
-    targets = await new Promise((resolve, reject) => {
-      http.get('http://127.0.0.1:' + port + '/json', (res) => {
-        let d = ''; res.on('data', c => d += c);
-        res.on('end', () => {
-          try { resolve(JSON.parse(d)); } catch(e) { reject(e); }
-        });
-      }).on('error', reject);
-    });
+    targets = await getTargets();
   } catch(e) {
     console.log(JSON.stringify({ success: false, error: 'No se pudo conectar a CDP: ' + e.message }));
     process.exit(1);
@@ -75,149 +83,158 @@ async function run() {
   }
 
   const ws = new WebSocket(page.webSocketDebuggerUrl);
+  await new Promise(r => ws.on('open', r));
 
-  ws.addEventListener('open', async () => {
-    let msgId = 1;
-    const send = (method, params = {}) => new Promise((resolve) => {
-      const curId = msgId++;
-      const h = (evt) => {
-        const msg = JSON.parse(evt.data);
+  let msgId = 1;
+  const send = (method, params = {}) => new Promise((resolve) => {
+    const curId = msgId++;
+    const h = (data) => {
+      try {
+        const msg = JSON.parse(data.toString());
         if (msg.id === curId) {
-          ws.removeEventListener('message', h);
+          ws.removeListener('message', h);
           resolve(msg);
         }
-      };
-      ws.addEventListener('message', h);
-      ws.send(JSON.stringify({ id: curId, method, params }));
-    });
+      } catch(e) {}
+    };
+    ws.on('message', h);
+    ws.send(JSON.stringify({ id: curId, method, params }));
+  });
 
-    // 1. Verificar si ya estamos en la vista de Mahia (textarea ya visible)
-    const checkAlready = await send('Runtime.evaluate', {
-      expression: `!!(document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea'))`,
+  // 1. Si hay alguna modal abierta (como Mensajes), cerrarla
+  await send('Runtime.evaluate', {
+    expression: `(() => {
+      const closeBtns = Array.from(document.querySelectorAll('button')).filter(b => (b.innerText || '').trim() === '✕');
+      closeBtns.forEach(b => b.click());
+    })()`
+  });
+  await sleep(400);
+
+  // 2. Asegurar vista de Mahia pulsando el icono lateral si no está ya montado su textarea
+  await send('Runtime.evaluate', {
+    expression: `(() => {
+      const ta = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea');
+      const sendBtn = document.querySelector('button[aria-label="Enviar"]');
+      if (!ta || !sendBtn) {
+        const btn = document.querySelector('button[aria-label="Mahia"]');
+        if (btn) btn.click();
+      }
+    })()`
+  });
+  await sleep(700);
+
+  // 3. Pulsar botón 'Nuevo chat' si existe para iniciar una conversación 100% limpia
+  await send('Runtime.evaluate', {
+    expression: `(() => {
+      const newChatBtn = document.querySelector('button[aria-label="Nuevo chat"]');
+      if (newChatBtn) {
+        newChatBtn.click();
+        return true;
+      }
+      return false;
+    })()`,
+    returnByValue: true
+  });
+  await sleep(600);
+
+  // 4. Pegar prompt en el textarea específico de Mahia
+  const pasteRes = await send('Runtime.evaluate', {
+    expression: `(() => {
+      const ta = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
+      if (!ta) return false;
+      const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+      setter.call(ta, ${JSON.stringify(promptText)});
+      ta.dispatchEvent(new Event('input', { bubbles: true }));
+      ta.dispatchEvent(new Event('change', { bubbles: true }));
+      ta.focus();
+      return true;
+    })()`,
+    returnByValue: true
+  });
+
+  await sleep(500);
+
+  // 5. Pulsar botón 'Enviar'
+  await send('Runtime.evaluate', {
+    expression: `(() => {
+      const btn = document.querySelector('button[aria-label="Enviar"]');
+      if (btn && !btn.disabled) {
+        btn.click();
+        return 'btn_clicked';
+      }
+      const ta = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea');
+      if (ta) {
+        ta.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }));
+        return 'enter_dispatched';
+      }
+      return false;
+    })()`,
+    returnByValue: true
+  });
+
+  // 6. Monitorear streaming hasta que aparezca la respuesta completa y se estabilice
+  let latestText = '';
+  let stableCount = 0;
+  let finalResponse = null;
+
+  for (let t = 0; t < maxSeconds; t++) {
+    await sleep(1000);
+    const poll = await send('Runtime.evaluate', {
+      expression: `(() => {
+        const copyBtns = Array.from(document.querySelectorAll('button[aria-label="Copiar respuesta"]'));
+        if (copyBtns.length === 0) {
+          const thinking = Array.from(document.querySelectorAll('*')).some(el => (el.innerText || '').includes('Pensando'));
+          return { status: thinking ? 'thinking' : 'waiting' };
+        }
+        const lastBtn = copyBtns[copyBtns.length - 1];
+        let parent = lastBtn.parentElement;
+        while (parent && parent.innerText.length < 50) {
+          parent = parent.parentElement;
+        }
+        const txt = parent ? parent.innerText.replace(/Leer en voz alta|Copiar respuesta/g, '').trim() : '';
+        const isThinking = txt.includes('Pensando') || txt.endsWith('...');
+        return {
+          status: isThinking ? 'thinking' : 'ready',
+          text: txt,
+          length: txt.length
+        };
+      })()`,
       returnByValue: true
     });
 
-    let textareaReady = !!checkAlready?.result?.result?.value;
-
-    if (!textareaReady) {
-      // Navegar a Mahia haciendo clic en el icono lateral (Paso 2 / Img 2)
-      await send('Runtime.evaluate', {
-        expression: `(() => {
-          const btn = document.querySelector('button[aria-label="Mahia"]');
-          if (btn) btn.click();
-        })()`
-      });
-
-      // Esperar a que el textarea esté montado en el DOM
-      for (let i = 0; i < 30; i++) {
-        await new Promise(r => setTimeout(r, 150));
-        const chk = await send('Runtime.evaluate', {
-          expression: `!!(document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea'))`,
-          returnByValue: true
-        });
-        if (chk?.result?.result?.value) {
-          textareaReady = true;
+    const st = poll?.result?.result?.value;
+    if (st && st.status === 'ready' && st.text && st.length > 80) {
+      if (st.text === latestText) {
+        stableCount++;
+        if (stableCount >= 2) {
+          finalResponse = st.text;
           break;
         }
+      } else {
+        latestText = st.text;
+        stableCount = 0;
       }
     }
+  }
 
-    if (!textareaReady) {
-      console.log(JSON.stringify({ success: false, error: 'Textarea de Mahia no apareció tras hacer clic' }));
-      ws.close();
-      process.exit(1);
-    }
+  if (!finalResponse && latestText && latestText.length > 60) {
+    finalResponse = latestText;
+  }
 
-    // 3. Escribir orden táctica en el textarea (Paso 3 / Img 3)
-    const pasteRes = await send('Runtime.evaluate', {
-      expression: `(() => {
-        const ta = document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
-        if (!ta) return false;
-        const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-        setter.call(ta, ${JSON.stringify(promptText)});
-        ta.dispatchEvent(new Event('input', { bubbles: true }));
-        ta.dispatchEvent(new Event('change', { bubbles: true }));
-        ta.focus();
-        return true;
-      })()`,
-      returnByValue: true
-    });
-
-    await new Promise(r => setTimeout(r, 500));
-
-    // 4. Enviar prompt
-    await send('Runtime.evaluate', {
-      expression: `(() => {
-        const btn = document.querySelector('button[aria-label="Enviar"]');
-        if (btn && !btn.disabled) {
-          btn.click();
-          return true;
-        }
-        const ta = document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
-        if (ta) {
-          ta.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', code: 'Enter', keyCode: 13, which: 13, bubbles: true }));
-          return true;
-        }
-        return false;
-      })()`,
-      returnByValue: true
-    });
-
-    // 5. Esperar streaming de Mahia (Paso 4 / Img 4)
-    let lastSeenText = '';
-    let stableCount = 0;
-    let finalMahiaText = '';
-    const maxTicks = TIMEOUT_PLACEHOLDER;
-
-    for (let t = 0; t < maxTicks; t++) {
-      await new Promise(r => setTimeout(r, 1000));
-      const poll = await send('Runtime.evaluate', {
-        expression: `(() => {
-          const candidates = Array.from(document.querySelectorAll('div.css-1k66j02, div.css-1vunpsv, p.chakra-text'));
-          const valid = candidates.map(el => (el.innerText || '').trim())
-            .filter(txt => txt.length > 40 && !txt.includes('Modelo fuera de cámara') && !txt.includes('Sam ha definido el foco') && !txt.includes('Sam:'));
-          if (valid.length === 0) return { status: 'waiting' };
-          const latest = valid[valid.length - 1];
-          const thinking = latest.includes('Pensando') || latest === '...';
-          return { status: thinking ? 'thinking' : 'ready', text: latest, len: latest.length };
-        })()`,
-        returnByValue: true
-      });
-
-      const pdata = poll?.result?.result?.value;
-      if (pdata && pdata.status === 'ready' && pdata.text && pdata.len > 80) {
-        if (pdata.text === lastSeenText) {
-          stableCount++;
-          if (stableCount >= 2) {
-            finalMahiaText = pdata.text;
-            break;
-          }
-        } else {
-          lastSeenText = pdata.text;
-          stableCount = 0;
-        }
-      }
-    }
-
-    if (!finalMahiaText && lastSeenText && lastSeenText.length > 50) {
-      finalMahiaText = lastSeenText;
-    }
-
-    if (finalMahiaText) {
-      console.log(JSON.stringify({
-        success: true,
-        mahia_response: finalMahiaText,
-        live_chat: true,
-        steps: ["Img 1 (Inicio)", "Img 2 (Vista Mahia)", "Img 3 (Envío & Pensando)", "Img 4 (Respuesta en Vivo)"]
-      }));
-      ws.close();
-      process.exit(0);
-    } else {
-      console.log(JSON.stringify({ success: false, error: 'Tiempo de espera agotado esperando a Mahia' }));
-      ws.close();
-      process.exit(1);
-    }
-  });
+  if (finalResponse) {
+    console.log(JSON.stringify({
+      success: true,
+      mahia_response: finalResponse,
+      live_chat: true,
+      steps: ["Nuevo chat iniciado", "Prompt entregado", "Streaming monitoreado", "Respuesta final estabilizada"]
+    }));
+    ws.close();
+    process.exit(0);
+  } else {
+    console.log(JSON.stringify({ success: false, error: 'Tiempo de espera agotado esperando respuesta de Mahia' }));
+    ws.close();
+    process.exit(1);
+  }
 }
 
 run().catch(err => {
@@ -232,8 +249,7 @@ run().catch(err => {
 
     temp_js = Path(__file__).resolve().parent.parent.parent.parent / "scratch" / "run_mahia_exchange.js"
     temp_js.parent.mkdir(parents=True, exist_ok=True)
-    with open(temp_js, "w", encoding="utf-8") as f:
-        f.write(js_code)
+    temp_js.write_text(js_code, encoding="utf-8")
 
     try:
         res = subprocess.run(
@@ -241,7 +257,7 @@ run().catch(err => {
             capture_output=True,
             encoding="utf-8",
             errors="replace",
-            timeout=timeout_seconds + 5
+            timeout=timeout_seconds + 10
         )
         output = (res.stdout or "").strip()
         if output:
