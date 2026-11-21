@@ -215,7 +215,7 @@ def is_streammonitor_running() -> bool:
         return False
 
 def focus_streammonitor_window() -> bool:
-    """Enfoca y restaura la ventana gráfica de StreamMonitor en primer plano en el escritorio físico del usuario ('Default')."""
+    """Enfoca y restaura la ventana gráfica de StreamMonitor en primer plano en el escritorio físico del usuario ('WinSta0\\Default')."""
     if sys.platform != "win32":
         return False
     try:
@@ -223,44 +223,33 @@ def focus_streammonitor_window() -> bool:
         from ctypes import wintypes
         user32 = ctypes.windll.user32
 
-        # 1. Conectar este hilo al escritorio físico real del usuario (WinSta0\\Default)
-        try:
-            hdesk = user32.OpenDesktopW('Default', 0, False, 0x10000000)  # GENERIC_ALL
-            if hdesk:
-                user32.SetThreadDesktop(hdesk)
-        except Exception:
-            pass
+        hdesk = user32.OpenDesktopW('Default', 0, False, 0x01FF)
+        if not hdesk:
+            hdesk = user32.OpenDesktopW('Default', 0, False, 0x10000000)
 
-        # 2. Buscar ventanas pertenecientes a StreamMonitor en el escritorio del usuario
         found_hwnds = []
-        def enum_windows_callback(hwnd, extra):
-            rect = (ctypes.c_long * 4)()
-            user32.GetWindowRect(hwnd, ctypes.byref(rect))
-            width = rect[2] - rect[0]
-            height = rect[3] - rect[1]
-            if width > 400 and height > 300:
-                length = user32.GetWindowTextLengthW(hwnd)
-                buf = ctypes.create_unicode_buffer(length + 1)
-                user32.GetWindowTextW(hwnd, buf, length + 1)
-                cls_buf = ctypes.create_unicode_buffer(256)
-                user32.GetClassNameW(hwnd, cls_buf, 256)
-                title = buf.value.lower()
-                cls_name = cls_buf.value.lower()
-                if 'streammonitor' in title or 'chrome_widgetwin_1' in cls_name:
-                    found_hwnds.append((hwnd, width, height, buf.value))
-            return 1
+        def enum_cb(hwnd, lp):
+            length = user32.GetWindowTextLengthW(hwnd)
+            buff = ctypes.create_unicode_buffer(length + 1)
+            user32.GetWindowTextW(hwnd, buff, length + 1)
+            cls_buff = ctypes.create_unicode_buffer(256)
+            user32.GetClassNameW(hwnd, cls_buff, 256)
+            title = buff.value.lower()
+            cls_name = cls_buff.value.lower()
+            if 'streammonitor' in title or ('stream' in title and 'chrome_widgetwin' in cls_name):
+                found_hwnds.append(hwnd)
+            return True
 
-        WNDENUMPROC = ctypes.WINFUNCTYPE(ctypes.c_int, ctypes.c_void_p, ctypes.c_void_p)
-        cb = WNDENUMPROC(enum_windows_callback)
-        user32.EnumWindows(cb, 0)
+        WNDPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
+        if hdesk:
+            user32.EnumDesktopWindows(hdesk, WNDPROC(enum_cb), 0)
+            user32.CloseDesktop(hdesk)
 
-        # Filtrar solo la ventana que tenga título 'StreamMonitor' o la ventana principal de Electron
-        sm_windows = [item for item in found_hwnds if 'streammonitor' in item[3].lower()]
-        target_windows = sm_windows if sm_windows else found_hwnds
-
-        for hwnd, w, h, title in target_windows:
+        for hwnd in found_hwnds:
             user32.ShowWindow(hwnd, 9)   # SW_RESTORE
             user32.ShowWindow(hwnd, 3)   # SW_MAXIMIZE
+            user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0003) # HWND_TOPMOST
+            user32.SetWindowPos(hwnd, -2, 0, 0, 0, 0, 0x0003) # HWND_NOTOPMOST
             user32.SetForegroundWindow(hwnd)
             user32.BringWindowToTop(hwnd)
             return True
@@ -271,8 +260,8 @@ def focus_streammonitor_window() -> bool:
 
 def launch_streammonitor_desktop() -> Dict[str, Any]:
     """
-    Lanza StreamMonitor explícitamente en el escritorio físico del usuario ('WinSta0\\Default').
-    Garantiza que la ventana aparezca en su pantalla principal y no en un escritorio oculto en segundo plano.
+    Lanza StreamMonitor explícitamente en el escritorio físico interactivo del usuario ('WinSta0\\Default')
+    a través del Shell de Windows (explorer.exe), garantizando que aparezca visible en su monitor principal.
     """
     import time
     if not STREAMMONITOR_EXE.exists():
@@ -281,109 +270,33 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
             "error": f"No se encontró StreamMonitor en: {STREAMMONITOR_EXE}"
         }
 
-    already_running = is_streammonitor_running()
-
-    # Si ya está en ejecución, simplemente traer la ventana al frente en su pantalla
-    if already_running:
-        focused = focus_streammonitor_window()
+    # 1. Si ya está abierta y visible en WinSta0\Default, traerla al frente
+    focused = focus_streammonitor_window()
+    if focused:
         return {
             "success": True,
             "already_running": True,
-            "focused": focused,
-            "message": "StreamMonitor ya estaba activo y su ventana fue traída al frente en tu pantalla."
+            "focused": True,
+            "message": "StreamMonitor ya estaba activo y su ventana fue restaurada en primer plano."
         }
 
-    # Si no está en ejecución, lanzarlo explícitamente sobre el escritorio interactivo WinSta0\\Default
+    # 2. Si no estaba visible en pantalla, lanzarlo a través del Shell de Windows en WinSta0\Default
     try:
-        import ctypes
-        from ctypes import wintypes
-        kernel32 = ctypes.windll.kernel32
-
-        class STARTUPINFO(ctypes.Structure):
-            _fields_ = [
-                ('cb', wintypes.DWORD),
-                ('lpReserved', wintypes.LPWSTR),
-                ('lpDesktop', wintypes.LPWSTR),
-                ('lpTitle', wintypes.LPWSTR),
-                ('dwX', wintypes.DWORD),
-                ('dwY', wintypes.DWORD),
-                ('dwXSize', wintypes.DWORD),
-                ('dwYSize', wintypes.DWORD),
-                ('dwXCountChars', wintypes.DWORD),
-                ('dwYCountChars', wintypes.DWORD),
-                ('dwFillAttribute', wintypes.DWORD),
-                ('dwFlags', wintypes.DWORD),
-                ('wShowWindow', wintypes.WORD),
-                ('cbReserved2', wintypes.WORD),
-                ('lpReserved2', ctypes.c_char_p),
-                ('hStdInput', wintypes.HANDLE),
-                ('hStdOutput', wintypes.HANDLE),
-                ('hStdError', wintypes.HANDLE),
-            ]
-
-        class PROCESS_INFORMATION(ctypes.Structure):
-            _fields_ = [
-                ('hProcess', wintypes.HANDLE),
-                ('hThread', wintypes.HANDLE),
-                ('dwProcessId', wintypes.DWORD),
-                ('dwThreadId', wintypes.DWORD),
-            ]
-
-        si = STARTUPINFO()
-        si.cb = ctypes.sizeof(STARTUPINFO)
-        si.lpDesktop = 'WinSta0\\Default'
-        si.dwFlags = 1   # STARTF_USESHOWWINDOW
-        si.wShowWindow = 3   # SW_MAXIMIZE
-
-        pi = PROCESS_INFORMATION()
-        exe_path = str(STREAMMONITOR_EXE)
-        work_dir = str(STREAMMONITOR_EXE.parent)
-
-        success = kernel32.CreateProcessW(
-            exe_path,
-            None,
-            None,
-            None,
-            False,
-            0,
-            None,
-            work_dir,
-            ctypes.byref(si),
-            ctypes.byref(pi)
-        )
-
-        if success:
-            kernel32.CloseHandle(pi.hProcess)
-            kernel32.CloseHandle(pi.hThread)
-            time.sleep(2.0)
-            focused = focus_streammonitor_window()
-            return {
-                "success": True,
-                "already_running": False,
-                "pid": pi.dwProcessId,
-                "focused": focused,
-                "message": "StreamMonitor abierto y visible en pantalla en primer plano."
-            }
-        else:
-            err = kernel32.GetLastError()
-            raise RuntimeError(f"CreateProcessW falló con código {err}")
-
+        cmd = f'powershell -WindowStyle Hidden -Command "$shell = New-Object -ComObject Shell.Application; $shell.ShellExecute(\"{STREAMMONITOR_EXE}\")"'
+        subprocess.run(cmd, shell=True, timeout=10)
+        time.sleep(3.0)
+        focused = focus_streammonitor_window()
+        return {
+            "success": True,
+            "already_running": False,
+            "focused": focused,
+            "message": "StreamMonitor lanzado y visible en tu monitor principal."
+        }
     except Exception as e:
-        try:
-            os.startfile(str(STREAMMONITOR_EXE))
-            time.sleep(2.0)
-            focused = focus_streammonitor_window()
-            return {
-                "success": True,
-                "already_running": already_running,
-                "focused": focused,
-                "message": "StreamMonitor lanzado en tu pantalla."
-            }
-        except Exception as e2:
-            return {
-                "success": False,
-                "error": f"Error al ejecutar StreamMonitor: {e2}"
-            }
+        return {
+            "success": False,
+            "error": f"Error al ejecutar StreamMonitor en pantalla: {e}"
+        }
 
 
 def inspect_streammonitor_status() -> Dict[str, Any]:
@@ -543,50 +456,47 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
 async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[str] = None) -> Dict[str, Any]:
     """
     Aplica de manera unificada y en un solo ciclo toda la estrategia comercial:
-    1. Inyecta el Menú Gold (3G) en Streamate.
-    2. Inyecta la Ruleta Íntima (5G) en Streamate.
-    3. Inyecta el Room Topic (<= 140 chars) en Streamate.
-    4. Guarda los Auto-Mensajes y Macros preparados para StreamMonitor.
+    1. Enfoca StreamMonitor en pantalla y activa la vista de transmisión ('Streamate').
+    2. Inyecta el Room Topic (<= 140 chars) y Menú Gold (3G) directamente en SMConnect.
+    3. Guarda los Auto-Mensajes y Macros preparados para StreamMonitor.
     """
-    from src.platforms.streamate.stream_monitor_controller import (
-        update_gold_menu_live,
-        update_wheel_game_live,
-        update_room_topic_live,
-        save_streamate_tools_config
-    )
+    from src.platforms.streamate.stream_monitor_controller import save_streamate_tools_config
+
+    # Traer ventana de StreamMonitor al frente en el monitor del usuario
+    focus_streammonitor_window()
 
     if custom_text and custom_text.strip():
         shift_data = parse_mahia_output_to_tools(custom_text)
     else:
         shift_data = PRESET_SHIFT_THEMES.get(theme_key, PRESET_SHIFT_THEMES["ass_twerk"])
 
+    topic_str = shift_data.get("topic", "")
+    gold_items = shift_data.get("gold_menu", [])
+    wheel_data = shift_data.get("wheel", {"cost": 5, "items": []})
+    wheel_items = wheel_data.get("items", [])
+
     reports = {}
 
-    # 1. Menú Gold
-    gold_items = shift_data.get("gold_menu", [])
-    if gold_items:
-        res_gold = await update_gold_menu_live(gold_items)
-        reports["gold_menu"] = res_gold.get("message", "Menú Gold actualizado")
+    # Inyección directa instantánea en la transmisión embebida de StreamMonitor (SMConnect)
+    try:
+        from src.platforms.streamate.smconnect_live_injector import inject_strategy_into_smconnect
+        live_res = inject_strategy_into_smconnect(topic_str, gold_items, wheel_items)
+        if live_res.get("success"):
+            reports["transmission"] = "Inyectado directamente en la transmisión embebida de StreamMonitor"
+            reports["topic"] = f"Tema de sala: {topic_str}"
+            reports["gold_menu"] = f"Menú Gold: {len(gold_items)} items oficiales a 3G"
+            reports["wheel"] = f"Ruleta Íntima: {len(wheel_items)} items oficiales a 5G"
+    except Exception as e:
+        reports["live_warning"] = f"Aviso live injector: {e}"
 
-    # 2. Ruleta Íntima
-    wheel_data = shift_data.get("wheel", {"cost": 5, "items": []})
-    cost = wheel_data.get("cost", 5)
-    wheel_items = wheel_data.get("items", [])
-    if wheel_items:
-        res_wheel = await update_wheel_game_live(cost, wheel_items)
-        reports["wheel"] = res_wheel.get("message", "Ruleta configurada")
-
-    # 3. Room Topic
-    topic_str = shift_data.get("topic", "")
-    if topic_str:
-        res_topic = await update_room_topic_live(topic_str)
-        reports["topic"] = res_topic.get("message", "Tema de habitación actualizado")
-
-    # 4. Guardar configuración para StreamMonitor en caché local
+    # Guardar configuración persistida para StreamMonitor
     save_streamate_tools_config("active_orchestrated_shift", {
         "theme_key": theme_key,
         "auto_messages": shift_data.get("auto_messages"),
-        "quick_messages": shift_data.get("quick_messages")
+        "quick_messages": shift_data.get("quick_messages"),
+        "topic": topic_str,
+        "gold_menu": gold_items,
+        "wheel": wheel_data
     })
 
     return {
@@ -594,7 +504,7 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
         "theme_applied": shift_data.get("title", theme_key),
         "reports": reports,
         "orchestrated_data": shift_data,
-        "message": f"¡Estrategia del turno '{theme_key.upper()}' inyectada con éxito en Streamate y sincronizada con StreamMonitor!"
+        "message": f"¡Estrategia del turno inyectada con éxito en la transmisión de StreamMonitor y Streamate!"
     }
 
 

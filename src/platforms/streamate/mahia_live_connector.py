@@ -68,7 +68,7 @@ async function run() {
     process.exit(1);
   }
 
-  const page = targets.find(t => t.type === 'page');
+  const page = targets.find(t => t.type === 'page' && t.url.includes('renderer/index.html')) || targets.find(t => t.type === 'page');
   if (!page) {
     console.log(JSON.stringify({ success: false, error: 'No se encontró la página de StreamMonitor en CDP' }));
     process.exit(1);
