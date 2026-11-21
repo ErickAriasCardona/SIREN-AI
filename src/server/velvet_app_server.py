@@ -1466,6 +1466,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "siren_prompt_to_mahia": mahia_diag["siren_prompt_to_mahia"],
                 "mahia_reply": mahia_diag["mahia_reply"],
                 "launch_desktop": mahia_diag["launch_desktop"],
+                "live_chat_done": mahia_diag.get("live_chat_done", False),
                 "apply_result": apply_res,
                 "message": f"¡Mahia entregó la estrategia y fue sincronizada en Streamate!"
             }
