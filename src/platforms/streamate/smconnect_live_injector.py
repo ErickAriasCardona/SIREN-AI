@@ -1,11 +1,13 @@
 """
 SIREN AI — Inyector y Autenticador en Vivo para la Transmisión de Streamate dentro de StreamMonitor.
-Flujo de automatización completo:
+Flujo de automatización completo y resiliente:
 1. Activa la pestaña 'Streamate' en StreamMonitor.
 2. Si aparece el botón 'Entrar a Streamate' (Listo para transmitir), le hace clic automáticamente.
-3. Si requiere inicio de sesión (/login), ingresa las credenciales guardadas (EFAC05@YOPMAIL.COM / Centenario123@) y envía.
-4. Si está en dashboard-creator, pulsa el botón 'Stream' para abrir la consola de transmisión.
-5. Inyecta el Room Topic (<= 140 chars) y Menú Gold (3G) directamente en SMConnect.
+3. Máquina de estados con polling (hasta 45s):
+   - Si está en /login: llena credenciales (EFAC05@YOPMAIL.COM / Centenario123@) y envía.
+   - Si está en dashboard-creator: pulsa el botón 'Stream' para abrir la consola de transmisión.
+   - Si llega a performerclient (SMConnect): inyecta Room Topic y Menú Gold (3G), salvando ambos.
+4. Deja la vista de transmisión activa y lista para transmitir en pantalla física.
 """
 
 import os
@@ -98,7 +100,7 @@ const DEFAULT_OPTIONS = {{
 }};
 
 function getOptionId(name) {{
-  const norm = (s) => s.toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
+  const norm = (s) => (s || '').toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").trim();
   const target = norm(name);
   for (const [id, val] of Object.entries(DEFAULT_OPTIONS)) {{
     if (norm(val) === target || target.includes(norm(val)) || norm(val).includes(target)) {{
@@ -108,118 +110,132 @@ function getOptionId(name) {{
   return "0";
 }}
 
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+const getTargets = () => new Promise((res, rej) => http.get('http://127.0.0.1:' + port + '/json', r => {{
+  let d = ''; r.on('data', c => d += c); r.on('end', () => {{ try {{ res(JSON.parse(d)); }} catch(e) {{ rej(e); }} }});
+}}).on('error', rej));
+
+async function sendCDP(wsUrl, method, params = {{}}) {{
+  return new Promise((res, rej) => {{
+    const ws = new WebSocket(wsUrl);
+    ws.addEventListener('open', () => {{
+      ws.send(JSON.stringify({{ id: 1, method, params }}));
+    }});
+    ws.addEventListener('message', m => {{
+      try {{
+        const data = JSON.parse(m.data);
+        ws.close();
+        res(data.result);
+      }} catch(e) {{ ws.close(); rej(e); }}
+    }});
+    ws.addEventListener('error', err => {{ ws.close(); rej(err); }});
+  }});
+}}
+
+async function evalInPage(wsUrl, expr) {{
+  try {{
+    const r = await sendCDP(wsUrl, 'Runtime.evaluate', {{ expression: expr, returnByValue: true }});
+    return r?.result?.value;
+  }} catch(e) {{
+    return null;
+  }}
+}}
+
+async function clickEntrarAStreamateIfPresent(rendererTarget) {{
+  if (!rendererTarget) return;
+  await evalInPage(rendererTarget.webSocketDebuggerUrl, `(() => {{
+    const tabBtn = document.querySelector('button[aria-label="Streamate"]');
+    if (tabBtn) tabBtn.click();
+    setTimeout(() => {{
+      const enterBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('Entrar a Streamate'));
+      if (enterBtn) enterBtn.click();
+    }}, 300);
+  }})()`);
+}}
+
 async function run() {{
-  const getTargets = () => new Promise((res, rej) => http.get('http://127.0.0.1:' + port + '/json', r => {{
-    let d = ''; r.on('data', c => d += c); r.on('end', () => {{ try {{ res(JSON.parse(d)); }} catch(e) {{ rej(e); }} }});
-  }}).on('error', rej));
-
   let targets = await getTargets();
-
-  // 1. Activar pestaña Streamate y pulsar 'Entrar a Streamate' si aparece
   const mainTarget = targets.find(t => t.type === 'page' && t.url.includes('renderer/index.html'));
   if (mainTarget) {{
-    const wsMain = new WebSocket(mainTarget.webSocketDebuggerUrl);
-    await new Promise(res => {{
-      wsMain.addEventListener('open', async () => {{
-        let msgId = 1;
-        const send = (m, p = {{}}) => new Promise(r => {{
-          const id = msgId++;
-          const h = (evt) => {{ const msg = JSON.parse(evt.data); if (msg.id === id) {{ wsMain.removeEventListener('message', h); r(msg); }} }};
-          wsMain.addEventListener('message', h);
-          wsMain.send(JSON.stringify({{ id, method: m, params: p }}));
-        }});
-
-        await send('Runtime.evaluate', {{
-          expression: `(() => {{
-            const btn = document.querySelector('button[aria-label="Streamate"]');
-            if (btn) btn.click();
-          }})()`
-        }});
-        await new Promise(r => setTimeout(r, 400));
-
-        await send('Runtime.evaluate', {{
-          expression: `(() => {{
-            const btn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('Entrar a Streamate'));
-            if (btn) btn.click();
-          }})()`
-        }});
-
-        wsMain.close();
-        res();
-      }});
-    }});
-    await new Promise(r => setTimeout(r, 1500));
+    await clickEntrarAStreamateIfPresent(mainTarget);
+    await sleep(1500);
   }}
 
-  // 2. Conectar a la vista de Streamate
-  targets = await getTargets();
-  const smTarget = targets.find(t => t.url.includes('streamatemodels.com') || t.title.includes('SMConnect'));
-  if (!smTarget) {{
-    console.log(JSON.stringify({{ success: false, error: 'No se encontró la vista de Streamate en StreamMonitor' }}));
-    process.exit(1);
-  }}
+  const startTime = Date.now();
+  const MAX_WAIT_MS = 45000;
 
-  const ws = new WebSocket(smTarget.webSocketDebuggerUrl);
-  ws.addEventListener('open', async () => {{
-    let msgId = 1;
-    const send = (m, p = {{}}) => new Promise(r => {{
-      const id = msgId++;
-      const h = (evt) => {{ const msg = JSON.parse(evt.data); if (msg.id === id) {{ ws.removeEventListener('message', h); r(msg); }} }};
-      ws.addEventListener('message', h);
-      ws.send(JSON.stringify({{ id, method: m, params: p }}));
-    }});
+  while (Date.now() - startTime < MAX_WAIT_MS) {{
+    targets = await getTargets();
+    const smTarget = targets.find(t => t.url.includes('performerclient') || t.url.includes('streamatemodels.com') || t.title.includes('SMConnect'));
 
-    // A. Si está en /login, llenar credenciales
-    const info = await send('Runtime.evaluate', {{ expression: `window.location.href`, returnByValue: true }});
-    const curUrl = info?.result?.result?.value || '';
-
-    if (curUrl.includes('/login')) {{
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
-          const userInp = document.querySelector('input[name="username"], input[name="email"], input[type="email"], #username');
-          const passInp = document.querySelector('input[name="password"], input[type="password"], #password');
-          if (userInp) {{
-            const s1 = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-            s1.call(userInp, ${{JSON.stringify(USERNAME)}});
-            userInp.dispatchEvent(new Event('input', {{ bubbles: true }}));
-            userInp.dispatchEvent(new Event('change', {{ bubbles: true }}));
-          }}
-          if (passInp) {{
-            const s2 = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-            s2.call(passInp, ${{JSON.stringify(PASSWORD)}});
-            passInp.dispatchEvent(new Event('input', {{ bubbles: true }}));
-            passInp.dispatchEvent(new Event('change', {{ bubbles: true }}));
-          }}
-          const submitBtn = document.querySelector('button[type="submit"], input[type="submit"]') || Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').toLowerCase().includes('login') || (b.innerText || '').toLowerCase().includes('entrar'));
-          if (submitBtn) submitBtn.click();
-        }})()`
-      }});
-      await new Promise(r => setTimeout(r, 3500));
+    if (!smTarget) {{
+      if (mainTarget) await clickEntrarAStreamateIfPresent(mainTarget);
+      await sleep(1200);
+      continue;
     }}
 
-    // B. Si está en dashboard-creator, hacer clic en 'Stream'
-    await send('Runtime.evaluate', {{
-      expression: `(() => {{
-        if (window.location.href.includes('dashboard-creator')) {{
-          const streamBtn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').trim().toLowerCase() === 'stream');
-          if (streamBtn) streamBtn.click();
-        }}
-      }})()`
-    }});
-    await new Promise(r => setTimeout(r, 2000));
+    const curUrl = await evalInPage(smTarget.webSocketDebuggerUrl, `window.location.href`) || smTarget.url;
 
-    // C. Inyectar Topic en SMConnect
-    if (topic) {{
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
+    // CASO 1: Pantalla de Login (/login)
+    if (curUrl.includes('/login') || curUrl.includes('/signin')) {{
+      await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
+        const userInp = document.querySelector('input[name="username"], input[name="email"], input[type="email"], #username, #email');
+        const passInp = document.querySelector('input[name="password"], input[type="password"], #password');
+        if (userInp) {{
+          const s1 = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+          s1.call(userInp, ${{JSON.stringify(USERNAME)}});
+          userInp.dispatchEvent(new Event('input', {{ bubbles: true }}));
+          userInp.dispatchEvent(new Event('change', {{ bubbles: true }}));
+        }}
+        if (passInp) {{
+          const s2 = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+          s2.call(passInp, ${{JSON.stringify(PASSWORD)}});
+          passInp.dispatchEvent(new Event('input', {{ bubbles: true }}));
+          passInp.dispatchEvent(new Event('change', {{ bubbles: true }}));
+        }}
+        const submitBtn = document.querySelector('button[type="submit"], input[type="submit"]') || Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').toLowerCase().includes('login') || (b.innerText || '').toLowerCase().includes('entrar'));
+        if (submitBtn) submitBtn.click();
+      }})()`);
+      await sleep(2500);
+      continue;
+    }}
+
+    // CASO 2: Dashboard Creator (pulsar botón Stream)
+    if (curUrl.includes('dashboard-creator') || (curUrl.includes('streamatemodels.com') && !curUrl.includes('performerclient'))) {{
+      const clicked = await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
+        const btn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').trim().toLowerCase() === 'stream');
+        if (btn) {{
+          btn.click();
+          return true;
+        }}
+        return false;
+      }})()`);
+      await sleep(2500);
+      continue;
+    }}
+
+    // CASO 3: Consola de Transmisión en Vivo (performerclient.streamatemodels.com/client)
+    if (curUrl.includes('performerclient') || smTarget.title.includes('SMConnect')) {{
+      // Verificar si los botones principales ya se renderizaron
+      const isReady = await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
+        return Array.from(document.querySelectorAll('button')).some(b => (b.innerText || '').includes('Tema de sala') || (b.innerText || '').includes('Ajustes'));
+      }})()`);
+
+      if (!isReady) {{
+        await sleep(1000);
+        continue;
+      }}
+
+      // A. Inyectar Room Topic
+      if (topic) {{
+        await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const btn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').includes('Tema de sala'));
           if (btn) btn.click();
-        }})()`
-      }});
-      await new Promise(r => setTimeout(r, 600));
+        }})()`);
+        await sleep(600);
 
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
+        await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const ta = document.querySelector('textarea[placeholder*="Tema de sala"]') || document.querySelector('textarea');
           if (ta) {{
             const setter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
@@ -229,32 +245,26 @@ async function run() {{
           }}
           const saveBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'Salvar');
           if (saveBtn) saveBtn.click();
-        }})()`
-      }});
-      await new Promise(r => setTimeout(r, 600));
-    }}
+        }})()`);
+        await sleep(600);
+      }}
 
-    // D. Inyectar Menú Gold en Ajustes
-    if (goldMenu && goldMenu.length > 0) {{
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
+      // B. Inyectar Menú Gold en Ajustes
+      if (goldMenu && goldMenu.length > 0) {{
+        await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const ajustesBtn = Array.from(document.querySelectorAll('button, a')).find(b => (b.innerText || '').trim() === 'Ajustes');
           if (ajustesBtn) ajustesBtn.click();
-        }})()`
-      }});
-      await new Promise(r => setTimeout(r, 600));
+        }})()`);
+        await sleep(600);
 
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
+        await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const goldBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'GOLD Menu');
           if (goldBtn) goldBtn.click();
-        }})()`
-      }});
-      await new Promise(r => setTimeout(r, 600));
+        }})()`);
+        await sleep(600);
 
-      const itemIds = goldMenu.map(it => getOptionId(it.name || it));
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
+        const itemIds = goldMenu.map(it => getOptionId(it.name || it));
+        await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const selects = Array.from(document.querySelectorAll('select'));
           const targetIds = ${{JSON.stringify(itemIds)}};
           targetIds.forEach((tid, idx) => {{
@@ -271,22 +281,24 @@ async function run() {{
           }});
           const saveBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'Salvar');
           if (saveBtn) saveBtn.click();
-        }})()`
-      }});
-      await new Promise(r => setTimeout(r, 800));
+        }})()`);
+        await sleep(600);
 
-      await send('Runtime.evaluate', {{
-        expression: `(() => {{
+        await evalInPage(smTarget.webSocketDebuggerUrl, `(() => {{
           const closeBtn = document.querySelector('button[aria-label="close"]');
           if (closeBtn) closeBtn.click();
-        }})()`
-      }});
+        }})()`);
+      }}
+
+      console.log(JSON.stringify({{ success: true, message: '¡Listo para transmitir! Sesión en vivo configurada en SMConnect.' }}));
+      process.exit(0);
     }}
 
-    console.log(JSON.stringify({{ success: true, message: '¡Sesión iniciada y estrategia inyectada en la transmisión de StreamMonitor!' }}));
-    ws.close();
-    process.exit(0);
-  }});
+    await sleep(1000);
+  }}
+
+  console.log(JSON.stringify({{ success: false, error: 'Tiempo de espera agotado navegando a la consola de transmisión' }}));
+  process.exit(1);
 }}
 
 run().catch(err => {{
@@ -301,7 +313,7 @@ run().catch(err => {{
         f.write(js_runner)
 
     try:
-        res = subprocess.run([NODE_PATH, str(temp_runner)], capture_output=True, encoding="utf-8", errors="replace", timeout=20)
+        res = subprocess.run([NODE_PATH, str(temp_runner)], capture_output=True, encoding="utf-8", errors="replace", timeout=50)
         out = (res.stdout or "").strip()
         if out:
             try:
