@@ -469,28 +469,38 @@
       pointer-events: auto;
     }
 
-    /* BOTÓN FLOTANTE PRINCIPAL (FAB) */
+    /* BOTÓN FLOTANTE PRINCIPAL (FAB) - SOLO ICONO */
     .alma-ai-hub-btn {
-      width: 64px;
-      height: 64px;
+      width: 58px;
+      height: 58px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #00A88F 0%, #00E5BF 100%);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      box-shadow: 0 12px 36px rgba(0, 168, 143, 0.55), 0 0 24px rgba(0, 229, 191, 0.45);
+      background: linear-gradient(135deg, #00E5BF 0%, #00A88F 100%);
+      border: 2px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 10px 30px rgba(0, 168, 143, 0.55), 0 0 24px rgba(0, 229, 191, 0.4);
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       cursor: pointer;
       position: relative;
       transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+      color: #06342D;
+    }
+    .alma-ai-hub-btn i, .alma-ai-hub-btn svg {
+      width: 28px;
+      height: 28px;
+      color: #06342D;
+      stroke-width: 2.2px;
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .alma-ai-hub-btn:hover {
-      transform: scale(1.08) translateY(-2px);
-      box-shadow: 0 16px 44px rgba(0, 168, 143, 0.7), 0 0 32px rgba(0, 229, 191, 0.6);
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 14px 40px rgba(0, 168, 143, 0.7), 0 0 32px rgba(0, 229, 191, 0.6);
+    }
+    .alma-ai-hub-btn:hover i, .alma-ai-hub-btn:hover svg {
+      transform: scale(1.12);
     }
     .alma-ai-hub-btn:active {
-      transform: scale(0.95);
+      transform: scale(0.92);
     }
     .hub-avatar-wrap {
       width: 36px;
@@ -14473,12 +14483,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       </div>
     </div>
 
-    <!-- BOTÓN FLOTANTE PRINCIPAL (FAB) -->
-    <button id="alma-ai-hub-btn" class="alma-ai-hub-btn" onclick="toggleAlmaAiDock(event)" title="Abrir Asistentes IA Flotantes">
-      <div class="hub-avatar-wrap">
-        <img src="assets/alma_avatar_face.png" alt="Asistentes ALMA" class="hub-avatar-img">
-      </div>
-      <span class="hub-btn-label">AI Hub</span>
+    <!-- BOTÓN FLOTANTE PRINCIPAL (FAB) - SOLO ICONO -->
+    <button id="alma-ai-hub-btn" class="alma-ai-hub-btn" onclick="toggleAlmaAiDock(event)" title="Asistentes">
+      <i data-lucide="bot"></i>
       <span class="hub-badge-pulse"></span>
     </button>
   </div>
@@ -14928,8 +14935,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     // Inicializar listeners al cargar DOM
     document.addEventListener('DOMContentLoaded', () => {
       initFloatingChatDrag();
+      if (window.lucide) window.lucide.createIcons();
     });
-    setTimeout(initFloatingChatDrag, 500);
+    setTimeout(() => {
+      initFloatingChatDrag();
+      if (window.lucide) window.lucide.createIcons();
+    }, 400);
   </script>
 
 </body>
