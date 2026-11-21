@@ -298,11 +298,6 @@
       position: relative;
       text-align: left;
     }
-    .nav-btn:hover {
-      background: rgba(0, 229, 191, 0.12);
-      color: #ffffff;
-      transform: translateX(4px);
-    }
     .nav-btn i, .nav-btn svg {
       width: 18px;
       height: 18px;
@@ -310,9 +305,49 @@
       stroke-width: 2.2;
       transition: transform 0.2s ease;
     }
-    .nav-btn:hover i, .nav-btn:hover svg {
+    /* MODO OSCURO: Hover de barra lateral con texto blanco nítido */
+    body:not(.light-theme) .nav-btn:not(.active):hover {
+      background: rgba(0, 229, 191, 0.18) !important;
+      color: #ffffff !important;
+      transform: translateX(4px);
+    }
+    body:not(.light-theme) .nav-btn:not(.active):hover .nav-label {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+    body:not(.light-theme) .nav-btn:not(.active):hover i,
+    body:not(.light-theme) .nav-btn:not(.active):hover svg {
+      color: #00E5BF !important;
+      stroke: #00E5BF !important;
       transform: scale(1.12);
-      color: var(--primary-light);
+    }
+    body:not(.light-theme) .nav-btn:not(.active):hover .nav-badge {
+      background: rgba(0, 229, 191, 0.28) !important;
+      color: #00E5BF !important;
+      border-color: rgba(0, 229, 191, 0.45) !important;
+    }
+
+    /* MODO CLARO: Hover de barra lateral con texto verde bosque profundo ultra legible */
+    body.light-theme .nav-btn:not(.active):hover {
+      background: rgba(0, 168, 143, 0.14) !important;
+      color: #06342D !important;
+      transform: translateX(4px);
+    }
+    body.light-theme .nav-btn:not(.active):hover .nav-label {
+      color: #06342D !important;
+      font-weight: 700 !important;
+    }
+    body.light-theme .nav-btn:not(.active):hover i,
+    body.light-theme .nav-btn:not(.active):hover svg {
+      color: #007A68 !important;
+      stroke: #007A68 !important;
+      transform: scale(1.12);
+    }
+    body.light-theme .nav-btn:not(.active):hover .nav-badge {
+      background: rgba(0, 168, 143, 0.2) !important;
+      color: #06342D !important;
+      border-color: rgba(0, 168, 143, 0.35) !important;
+      font-weight: 800 !important;
     }
 
     /* ÍTEM ACTIVO: PÍLDORA BLANCA SÓLIDA QUE SOBRESALE (REF. IMAGEN 3) */
@@ -4561,14 +4596,34 @@
       color: #007A68 !important;
       border-color: rgba(0, 168, 143, 0.25) !important;
     }
-    .nav-btn:hover {
-      background: rgba(0, 229, 191, 0.14) !important;
+    /* SIDEBAR HOVER EXPLICIT OVERRIDES */
+    body:not(.light-theme) .nav-btn:not(.active):hover {
+      background: rgba(0, 229, 191, 0.18) !important;
       color: #ffffff !important;
       transform: translateX(4px);
     }
-    .nav-btn:hover i, .nav-btn:hover svg {
+    body:not(.light-theme) .nav-btn:not(.active):hover .nav-label {
+      color: #ffffff !important;
+      font-weight: 600 !important;
+    }
+    body:not(.light-theme) .nav-btn:not(.active):hover i,
+    body:not(.light-theme) .nav-btn:not(.active):hover svg {
       color: #00E5BF !important;
       stroke: #00E5BF !important;
+    }
+    body.light-theme .nav-btn:not(.active):hover {
+      background: rgba(0, 168, 143, 0.15) !important;
+      color: #06342D !important;
+      transform: translateX(4px);
+    }
+    body.light-theme .nav-btn:not(.active):hover .nav-label {
+      color: #06342D !important;
+      font-weight: 700 !important;
+    }
+    body.light-theme .nav-btn:not(.active):hover i,
+    body.light-theme .nav-btn:not(.active):hover svg {
+      color: #007A68 !important;
+      stroke: #007A68 !important;
     }
 
     /* ========================================================================== */
