@@ -7986,7 +7986,7 @@ Cat Lover 🐱</div>
           </button>
           <button class="action-btn primary" id="smo-apply-btn" onclick="applySmoShiftStrategy()" style="font-size: 12.5px; padding: 9px 22px; font-weight: 800; background: linear-gradient(135deg, #8B53FF, #6366f1); border-color: #a855f7; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 18px rgba(139, 83, 255, 0.4); cursor: pointer;">
             <i data-lucide="zap" style="width: 16px; height: 16px;"></i>
-            <span>⚡ Inyectar Estrategia Completa a Streamate (1-Click)</span>
+            <span>⚡ Inyectar Estrategia Completa a Streamate & Loyalfans (1-Click)</span>
           </button>
         </div>
       </div>
@@ -12948,6 +12948,27 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         }
       }
 
+      // 4.2 Objetivo Loyalfans (3 Niveles: $11, $22, $33)
+      const lfGoal = strat.loyalfans_goal || {};
+      const elL1 = document.getElementById('smo-lf-l1');
+      const elL2 = document.getElementById('smo-lf-l2');
+      const elL3 = document.getElementById('smo-lf-l3');
+      if (elL1) {
+        const t1 = (lfGoal.level1 && lfGoal.level1.task) ? lfGoal.level1.task : 'truth or dare';
+        elL1.textContent = t1;
+        elL1.title = t1;
+      }
+      if (elL2) {
+        const t2 = (lfGoal.level2 && lfGoal.level2.task) ? lfGoal.level2.task : 'CHALLENGE FOR 1 MINUTE';
+        elL2.textContent = t2;
+        elL2.title = t2;
+      }
+      if (elL3) {
+        const t3 = (lfGoal.level3 && lfGoal.level3.task) ? lfGoal.level3.task : 'all or nothing';
+        elL3.textContent = t3;
+        elL3.title = t3;
+      }
+
       // 5. SINCRONIZACIÓN INMEDIATA CON LAS OTRAS HERRAMIENTAS DE STREAMATE
       if (strat.topic) {
         localStorage.setItem('siren_sm_topic', strat.topic);
@@ -13167,7 +13188,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
 
       try {
-        showToast('⚡ Inyectando Topic, Menú Gold (3G) y Ruleta (5G) a Streamate...');
+        showToast('⚡ Inyectando Topic y Menú a Streamate, y Tema + Objetivo 3 Niveles a Loyalfans...');
         const apiBase = getApiBase();
         const res = await fetch(`${apiBase}/api/streammonitor/apply_shift`, {
           method: 'POST',
@@ -13190,7 +13211,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       } finally {
         if (btn) {
           btn.disabled = false;
-          btn.innerHTML = '<i data-lucide="zap" style="width: 16px; height: 16px;"></i> ⚡ Inyectar Estrategia Completa a Streamate (1-Click)';
+          btn.innerHTML = '<i data-lucide="zap" style="width: 16px; height: 16px;"></i> ⚡ Inyectar Estrategia Completa a Streamate & Loyalfans (1-Click)';
           if (window.lucide) window.lucide.createIcons();
         }
       }

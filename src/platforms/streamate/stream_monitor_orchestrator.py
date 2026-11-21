@@ -37,6 +37,11 @@ STREAMMONITOR_LOGS = Path(os.environ.get("APPDATA", "C:/Users/MI PC/AppData/Roam
 PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
     "ball_gag_sub_dom": {
         "id": "ball_gag_sub_dom",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "drool & tease"},
+            "level2": {"price": 22, "task": "GAG FOR 1 MINUTE"},
+            "level3": {"price": 33, "task": "total submission finale"}
+        },
         "title": "🖤 Ball Gag, Collar & Pay-To-Sub Tease",
         "badge": "Dominación & Sumisión Pagada",
         "topic": "🖤 COLLAR & GAG TEASE! Pay To Control Me Or I Dominate ⚡ Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
@@ -79,6 +84,11 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
     },
     "ass_twerk": {
         "id": "ass_twerk",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "truth or dare"},
+            "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
+            "level3": {"price": 33, "task": "all or nothing"}
+        },
         "title": "🍑 Especial ASS & Twerk Trasero",
         "badge": "Alta Conversión de Tokens",
         "topic": "🍑 BOOTY SHAKE & TWERK LIVE 🔥 Gold Menu 3G ⚡ Intimate Wheel 5G 🖤 Tease Me In Private #Tomboy #Ass #Twerk #Lovense #Gold",
@@ -121,6 +131,11 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
     },
     "tomboy_ukelele": {
         "id": "tomboy_ukelele",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "song request"},
+            "level2": {"price": 22, "task": "SING WITHOUT TOP"},
+            "level3": {"price": 33, "task": "private acoustic climax"}
+        },
         "title": "🎸 Tomboy Chill & Ukelele VIP",
         "badge": "Scroll-Stopper USA/UK",
         "topic": "🎸 GOOD VIBES & UKELELE LIVE 🖤 Intimate chat • Gold Menu 3G ⚡ Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
@@ -163,6 +178,11 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
     },
     "full_lovense": {
         "id": "full_lovense",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "buzz test 30s"},
+            "level2": {"price": 22, "task": "MAX VIBE 1 MINUTE"},
+            "level3": {"price": 33, "task": "orgasm on camera"}
+        },
         "title": "⚡ Full Lovense Buzz & Dominación",
         "badge": "Ticket Alto de Propinas",
         "topic": "🔥 FULL LOVENSE TOY CONTROL 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Make Me Moan Live #Lovense #Buzz #Tomboy #Cam2Cam #Private",
@@ -211,6 +231,58 @@ def is_streammonitor_running() -> bool:
         cmd = 'tasklist /FI "IMAGENAME eq streammonitor.exe" /NH'
         res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
         return "streammonitor.exe" in res.stdout.lower()
+    except Exception:
+        return False
+
+
+def ensure_streammonitor_multistream_layout() -> bool:
+    """
+    Asegura que StreamMonitor tenga configuradas activas Streamate y Loyalfans
+    en vista dividida de dos paneles (split multi-streaming).
+    """
+    from src.platforms.streamate.streammonitor_messages_injector import get_devtools_active_port
+    port = get_devtools_active_port()
+    if not port:
+        return False
+    try:
+        import urllib.request
+        import json
+        req = urllib.request.urlopen(f"http://127.0.0.1:{port}/json")
+        targets = json.loads(req.read().decode())
+        renderer = next((t for t in targets if "renderer" in t.get("url", "")), None)
+        if not renderer:
+            return False
+
+        import subprocess
+        node_script = f"""
+        const WebSocket = require('ws');
+        const ws = new WebSocket({json.dumps(renderer['webSocketDebuggerUrl'])});
+        ws.on('open', () => {{
+            ws.send(JSON.stringify({{
+                id: 1,
+                method: 'Runtime.evaluate',
+                params: {{
+                    expression: `(() => {{
+                        const profileId = "1589";
+                        localStorage.setItem("sm.platformSession." + profileId, JSON.stringify(["streamate", "loyalfans"]));
+                        localStorage.setItem("sm.platformLayout." + profileId, JSON.stringify({{
+                            layout: "command",
+                            order: ["streamate", "loyalfans"],
+                            ratio: 0.5,
+                            dockHidden: false
+                        }}));
+                        const platBtn = document.querySelector('button[aria-label="Plataformas"]');
+                        if (platBtn) platBtn.click();
+                        return true;
+                    }})()`,
+                    returnByValue: true
+                }}
+            }}));
+            setTimeout(() => {{ ws.close(); process.exit(0); }}, 300);
+        }});
+        """
+        subprocess.run(["node", "-e", node_script], capture_output=True, timeout=5)
+        return True
     except Exception:
         return False
 
@@ -362,7 +434,11 @@ def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dic
         f"   - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
         f"   - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
         f"   - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
-        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes súper cortos en inglés, afines al saludo de sala:\n"f"   - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f"   - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f"   - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)"
+        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes súper cortos en inglés, afines al saludo de sala:\n"f"   - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f"   - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f"   - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n\n"
+        f"6. OBJETIVO DE SALA LOYALFANS (3 niveles de meta en inglés con precios fijos):\n"
+        f"   - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
+        f"   - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
+        f"   - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars)."
     )
 
     return {
@@ -679,6 +755,36 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "frequent_users": [quick_messages[4], quick_messages[5]]
     }
 
+    # 5. Extraer Objetivo de Sala para Loyalfans (3 Niveles: $11, $22, $33)
+    l1_goal = ""
+    l2_goal = ""
+    l3_goal = ""
+    for line in mahia_text.splitlines():
+        line_s = line.strip()
+        m1 = re.search(r'(?:nivel\s*1|level\s*1)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m1 and not l1_goal:
+            l1_goal = re.sub(r'\(\$?\d+\)', '', m1.group(1)).strip().strip('"\'')
+        m2 = re.search(r'(?:nivel\s*2|level\s*2)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m2 and not l2_goal:
+            l2_goal = re.sub(r'\(\$?\d+\)', '', m2.group(1)).strip().strip('"\'')
+        m3 = re.search(r'(?:nivel\s*3|level\s*3)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m3 and not l3_goal:
+            l3_goal = re.sub(r'\(\$?\d+\)', '', m3.group(1)).strip().strip('"\'')
+
+    # Defaults temáticos inteligentes si Mahia no los nombró
+    if not l1_goal:
+        l1_goal = "truth or dare" if any(w in norm_combined for w in ["ass", "twerk", "booty"]) else "teaser action"
+    if not l2_goal:
+        l2_goal = "CHALLENGE FOR 1 MINUTE" if any(w in norm_combined for w in ["ass", "twerk", "booty"]) else "spicy dare 1 min"
+    if not l3_goal:
+        l3_goal = "all or nothing" if any(w in norm_combined for w in ["ass", "twerk", "booty"]) else "climax finale"
+
+    loyalfans_goal = {
+        "level1": {"price": 11, "task": l1_goal[:35]},
+        "level2": {"price": 22, "task": l2_goal[:35]},
+        "level3": {"price": 33, "task": l3_goal[:35]}
+    }
+
     return {
         "title": short_title,
         "topic": main_topic,
@@ -689,6 +795,7 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "auto_messages": auto_messages,
         "quick_messages": quick_messages,
         "quick_messages_by_tier": quick_messages_by_tier,
+        "loyalfans_goal": loyalfans_goal,
         "mahia_raw_reply": mahia_text
     }
 
@@ -731,17 +838,39 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
     except Exception as e:
         reports["auto_messages_warning"] = f"Aviso auto-messages injector: {e}"
 
+    # 0. Asegurar Plataformas activas (Streamate + Loyalfans en split view)
+    try:
+        ensure_streammonitor_multistream_layout()
+    except Exception:
+        pass
+
     # 2. Inyección directa instantánea en la transmisión embebida de StreamMonitor (SMConnect)
     try:
         from src.platforms.streamate.smconnect_live_injector import inject_strategy_into_smconnect
         live_res = inject_strategy_into_smconnect(topic_str, gold_items, wheel_items)
         if live_res.get("success"):
-            reports["transmission"] = "Inyectado directamente en la transmisión embebida de StreamMonitor"
+            reports["transmission"] = "Inyectado directamente en la transmisión embebida de Streamate (SMConnect)"
             reports["topic"] = f"Tema de sala: {topic_str}"
             reports["gold_menu"] = f"Menú Gold: {len(gold_items)} items oficiales a 3G"
             reports["wheel"] = f"Ruleta Íntima: {len(wheel_items)} items oficiales a 5G"
     except Exception as e:
         reports["live_warning"] = f"Aviso live injector: {e}"
+
+    # 3. Inyección directa en Loyalfans Live (Tema idéntico + Objetivo 3 niveles $11/$22/$33)
+    lf_goal = shift_data.get("loyalfans_goal") or {
+        "level1": {"price": 11, "task": "truth or dare"},
+        "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
+        "level3": {"price": 33, "task": "all or nothing"}
+    }
+    try:
+        from src.platforms.loyalfans.loyalfans_live_injector import inject_strategy_into_loyalfans
+        lf_res = inject_strategy_into_loyalfans(topic_str, lf_goal)
+        if lf_res.get("success"):
+            reports["loyalfans"] = f"Inyectado en Loyalfans Live: Tema y Objetivo 3 niveles ($11: {lf_goal['level1']['task']}, $22: {lf_goal['level2']['task']}, $33: {lf_goal['level3']['task']})"
+        else:
+            reports["loyalfans_warning"] = lf_res.get("error", "Aviso Loyalfans Live")
+    except Exception as e:
+        reports["loyalfans_warning"] = f"Aviso Loyalfans injector: {e}"
 
     # Guardar configuración persistida para StreamMonitor
     save_streamate_tools_config("active_orchestrated_shift", {
@@ -876,6 +1005,10 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
         f"   - Alt+4: Ya ha entrado antes (retorno)\n"
         f"   - Alt+5: Ha entrado varias veces (habitual / VIP)\n"
         f"   - Alt+6: Ha entrado varias veces (habitual / VIP)\n"
+        f"6. Objetivo de Sala para Loyalfans (3 niveles escalonados en inglés con precios fijos):\n"
+        f"   - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
+        f"   - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
+        f"   - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars).\n"
         f"Devuélveme el plan estructurado para aplicarlo en vivo."
     )
 
