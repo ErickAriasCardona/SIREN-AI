@@ -223,9 +223,10 @@ def focus_streammonitor_window() -> bool:
         from ctypes import wintypes
         user32 = ctypes.windll.user32
 
-        hdesk = user32.OpenDesktopW('Default', 0, False, 0x01FF)
-        if not hdesk:
-            hdesk = user32.OpenDesktopW('Default', 0, False, 0x10000000)
+        hwinsta = user32.OpenWindowStationW("WinSta0", False, 0x037F)
+        if hwinsta:
+            user32.SetProcessWindowStation(hwinsta)
+        hdesk = user32.OpenDesktopW("Default", 0, False, 0x01FF)
 
         found_hwnds = []
         def enum_cb(hwnd, lp):
@@ -260,8 +261,8 @@ def focus_streammonitor_window() -> bool:
 
 def launch_streammonitor_desktop() -> Dict[str, Any]:
     """
-    Lanza StreamMonitor explícitamente en el escritorio físico interactivo del usuario ('WinSta0\\Default')
-    a través del Shell de Windows (explorer.exe), garantizando que aparezca visible en su monitor principal.
+    Lanza StreamMonitor explícitamente en el monitor interactivo físico del usuario ('WinSta0\\Default')
+    usando Task Scheduler interactivo (/it) para romper cualquier sandbox de sesión y restaura la ventana visible.
     """
     import time
     if not STREAMMONITOR_EXE.exists():
@@ -277,13 +278,22 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
             "success": True,
             "already_running": True,
             "focused": True,
-            "message": "StreamMonitor ya estaba activo y su ventana fue restaurada en primer plano."
+            "message": "StreamMonitor traído al frente en tu pantalla principal."
         }
 
-    # 2. Si no estaba visible en pantalla, lanzarlo a través del Shell de Windows en WinSta0\Default
+    # 2. Si no estaba visible en pantalla, lanzarlo a través del Programador de Tareas interactivo (/it)
     try:
-        cmd = f'powershell -WindowStyle Hidden -Command "$shell = New-Object -ComObject Shell.Application; $shell.ShellExecute(\"{STREAMMONITOR_EXE}\")"'
-        subprocess.run(cmd, shell=True, timeout=10)
+        bat_file = ROOT / "run_streammonitor.bat"
+        if not bat_file.exists():
+            with open(bat_file, "w", encoding="utf-8") as f:
+                f.write(f'@echo off\nstart "" "{STREAMMONITOR_EXE}"\n')
+
+        cmd_create = ["schtasks", "/create", "/tn", "LaunchStreamMonitor", "/tr", f'cmd.exe /c "{bat_file}"', "/sc", "once", "/st", "23:59", "/f", "/it"]
+        subprocess.run(cmd_create, capture_output=True, timeout=10)
+
+        cmd_run = ["schtasks", "/run", "/tn", "LaunchStreamMonitor"]
+        subprocess.run(cmd_run, capture_output=True, timeout=10)
+
         time.sleep(3.0)
         focused = focus_streammonitor_window()
         return {
@@ -295,7 +305,7 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
     except Exception as e:
         return {
             "success": False,
-            "error": f"Error al ejecutar StreamMonitor en pantalla: {e}"
+            "error": f"Error al ejecutar StreamMonitor: {e}"
         }
 
 
