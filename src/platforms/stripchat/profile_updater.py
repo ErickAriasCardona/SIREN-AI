@@ -34,18 +34,18 @@ PROFILES_DIR = DATA_DIR / "browser_profiles"
 
 DEFAULT_STRIPCHAT_PROFILE = {
     "display_name": "Sam Barton",
-    "status_topic": "Cute Tomboy Gamer ⚡ Lovense ON • Goal: December Car 🚗💨",
+    "status_topic": "Cute Tomboy Gamer  Lovense ON • Goal: December Car ",
     "bio_text": (
-        "🐺 Sam Barton | Cute Tomboy Gamer ⚡ Lovense Interactive 🏍️\n\n"
+        " Sam Barton | Cute Tomboy Gamer  Lovense Interactive \n\n"
         "Software & AI Architect by day, gaming tomboy & teasing companion by night.\n"
-        "Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats 🐾.\n"
-        "InuYasha devotee 🍙, indie music lover & ukulele player 🎶.\n\n"
-        "Obsessed with neon in the dark, skulls, and Halloween vibes 💀✨.\n"
-        "Working hard every single day to buy my used car in December 🚗 and escape to Cancun 🌴!\n\n"
-        "💖 LOVENSE SYNCED:\n"
+        "Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats .\n"
+        "InuYasha devotee , indie music lover & ukulele player .\n\n"
+        "Obsessed with neon in the dark, skulls, and Halloween vibes .\n"
+        "Working hard every single day to buy my used car in December  and escape to Cancun !\n\n"
+        " LOVENSE SYNCED:\n"
         "My toys are active and connect directly to every tip! "
-        "Send tokens to make me buzz, trigger reactions, or take me into Private / Exclusive for full control 😈🖤.\n\n"
-        "Be respectful, abnormal, and have fun. Tip to play 💋"
+        "Send tokens to make me buzz, trigger reactions, or take me into Private / Exclusive for full control .\n\n"
+        "Be respectful, abnormal, and have fun. Tip to play "
     ),
     "tags": ["tomboy", "gamer", "lovense", "athletic", "sensual", "biker"]
 }
@@ -147,7 +147,7 @@ async def update_stripchat_profile(
                         btn = page.locator(sel).first
                         if await btn.is_visible(timeout=1000):
                             await btn.click()
-                            log("✓ Formulario enviado. Esperando verificación de sesión...")
+                            log(" Formulario enviado. Esperando verificación de sesión...")
                             break
                     except Exception:
                         pass
@@ -179,7 +179,7 @@ async def update_stripchat_profile(
                     await area.click()
                     await area.fill(bio_val)
                     bio_updated = True
-                    log("✓ Biografía oficial inyectada.")
+                    log(" Biografía oficial inyectada.")
                     break
             except Exception:
                 continue
@@ -191,7 +191,7 @@ async def update_stripchat_profile(
                     save_el = page.locator(s_btn).first
                     if await save_el.is_visible(timeout=1000):
                         await save_el.click()
-                        log("✓ Clic en guardar cambios.")
+                        log(" Clic en guardar cambios.")
                         await page.wait_for_timeout(1500)
                         break
                 except Exception:
@@ -203,11 +203,11 @@ async def update_stripchat_profile(
         ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
         try:
             await page.screenshot(path=str(screenshot_path), full_page=False)
-            log(f"📸 Captura de verificación guardada en: {screenshot_path.name}")
+            log(f" Captura de verificación guardada en: {screenshot_path.name}")
         except Exception:
             pass
 
-        log("🎉 ¡Proceso de perfil Stripchat finalizado con éxito! El navegador permanecerá abierto para tu show.")
+        log(" ¡Proceso de perfil Stripchat finalizado con éxito! El navegador permanecerá abierto para tu show.")
         return {
             "success": True,
             "platform": "stripchat",

@@ -93,20 +93,20 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "| Día | Formato | Temática Tomboy | Objetivo de Interacción | Llamado a la Acción (CTA) |\n"
                 "|---|---|---|---|---|\n"
                 "| **Lunes** | Historia + Encuesta | Ukelele acústico & café de mañana | Reactivar visualizaciones tempranas | *'¿Qué canción acústica quieren hoy?'* |\n"
-                "| **Martes** | Reel / Post Feed | Outfit Tomboy deportivo casual | Gancho de atracción estética | *'Vibra relajada. Link en bio para charlar conmigo 🖤'* |\n"
+                "| **Martes** | Reel / Post Feed | Outfit Tomboy deportivo casual | Gancho de atracción estética | *'Vibra relajada. Link en bio para charlar conmigo '* |\n"
                 "| **Miércoles** | 3 Historias con Stickers | Detrás de cámaras en setup de luces | Preguntas de fans de USA | Cajita de preguntas en inglés |\n"
                 "| **Jueves** | Post Foto + Caption EN | Mirada directa y look biker | Posicionamiento internacional | *'Late night session starting soon...'* |\n"
                 "| **Viernes** | Countdown Story | Teaser de turno de fin de semana | Embudo hacia Streamate / LoyalFans | Recordatorio para conectar en directo |\n"
                 "| **Sábado** | Reel Dinámico | Acústico corto en vivo | Tráfico directo de fin de semana | *'Full acoustic session on my private link'* |\n"
                 "| **Domingo** | Carrusel Lifestyle | Rutina de descanso & ukelele | Fidelización de comunidad | Interacción relajada en comentarios |\n\n"
-                "💡 **Consejo Anti-Shadowban**: Recuerda usar siempre enlaces puente en tu biografía y evitar términos explícitos en stories."
+                " **Consejo Anti-Shadowban**: Recuerda usar siempre enlaces puente en tu biografía y evitar términos explícitos en stories."
             )
         elif any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
             return (
                 "Para tus historias de hoy con vibra tomboy:\n"
                 "1. **Mañana**: Boomerang casual afinando el ukelele o preparando café con texto: *'Modo enfoque activado... ¿quién anda por acá?'* + sticker de encuesta.\n"
-                "2. **Tarde**: Foto en cabina/set con luz tenue: *'Segunda mitad del día, lista para lo bueno 🖤'*.\n"
-                "3. **Cierre**: Gancho a LoyalFans/Streamate: *'Los detalles exclusivos están en el link de mi bio 🔥'*."
+                "2. **Tarde**: Foto en cabina/set con luz tenue: *'Segunda mitad del día, lista para lo bueno '*.\n"
+                "3. **Cierre**: Gancho a LoyalFans/Streamate: *'Los detalles exclusivos están en el link de mi bio '*."
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
@@ -128,7 +128,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "| **LoyalFans Pay-per-msg** | $1.00 / msg | 20% plataforma | **80% ($0.80 / msg)** | $16.00 USD (20 chats) |\n"
                 "| **LoyalFans Venta Clip VIP** | $15.00 USD | 20% plataforma | **80% ($12.00 neto)** | $12.00 USD por venta |\n"
                 "| **Stripchat Tip Goal Lovense** | 25 tokens ($1.25) | 50% modelo | **50% ($0.62 neto)** | $6.25 USD (10 tips) |\n\n"
-                "💡 **Regla de Rentabilidad**: En Streamate tu ticket más eficiente es el Exclusivo a **$3.99/min** ($0.70 neto/min). En LoyalFans tu umbral mínimo de cobro es **$50 USD** con 80% directo a tu favor."
+                " **Regla de Rentabilidad**: En Streamate tu ticket más eficiente es el Exclusivo a **$3.99/min** ($0.70 neto/min). En LoyalFans tu umbral mínimo de cobro es **$50 USD** con 80% directo a tu favor."
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
@@ -148,7 +148,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "| **Streamate** | Retención Free Chat (<30s) | 8:00 PM - 12:00 AM (Prime US) | Charla verbal de bienvenida al segundo 3 | Sube a Página 1 en categoría Tomboy |\n"
                 "| **Stripchat** | Tip Goals Lovense tempranos | Primeros 15 min de transmisión | Activar meta de 50 tokens de bienvenida | Activa badge *'Trending Now'* en sala |\n"
                 "| **Instagram** | Historias con Sticker Interactivo | 1:00 PM y 7:30 PM | Encuesta o cajita de preguntas | Reactiva la cuenta antes de iniciar transmisión |\n\n"
-                "💡 **Clave de Tráfico**: Los primeros 30 segundos de free chat en Streamate determinan el 70% de las conversiones hacia privado."
+                " **Clave de Tráfico**: Los primeros 30 segundos de free chat en Streamate determinan el 70% de las conversiones hacia privado."
             )
         elif any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
             return (
@@ -169,7 +169,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
         if any(w in msg_low for w in ["menu", "menú", "gold", "ruleta", "rueda", "wheel", "topic", "tema", "sala", "buzz"]):
             return (
                 "¡Entendido, Sam! Aquí tienes tu configuración completa para hoy enfocada en **Golds & Buzz Lovense**, con precios accesibles (3G y 5G), opciones de ruleta más íntimas (distintas al menú) y el topic con hashtags optimizado a 110 caracteres (límite 140):\n\n"
-                "### ⚡ 1. Menú GOLD (Todos a 3 Gold)\n"
+                "###  1. Menú GOLD (Todos a 3 Gold)\n"
                 "*(Estructura lista para copiar en la herramienta Menú GOLD)*\n"
                 "```text\n"
                 "Buzz Lovense Nivel 1 (15 seg) - 3\n"
@@ -179,7 +179,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "Desabotonar Camisa Tomboy - 3\n"
                 "Susurro Erótico al Micrófono - 3\n"
                 "```\n\n"
-                "### 🎡 2. Ruleta Íntima (Costo: 5 Gold por giro)\n"
+                "###  2. Ruleta Íntima (Costo: 5 Gold por giro)\n"
                 "*(Opciones más íntimas y exclusivas, 100% diferentes al menú Gold)*\n"
                 "```text\n"
                 "Costo: 5\n"
@@ -194,11 +194,11 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "Audio Erótico Susurrado al Oído\n"
                 "1 Minuto de Pre-Privado Exclusivo\n"
                 "```\n\n"
-                "### 🏷️ 3. Tema de la Sala (110 caracteres / Máx 140)\n"
+                "###  3. Tema de la Sala (110 caracteres / Máx 140)\n"
                 "```text\n"
-                "🔥 BUZZ LOVENSE ACTIVO 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy en Vivo #Tomboy #Lovense #Gold #Cam2Cam\n"
+                " BUZZ LOVENSE ACTIVO  Menu Gold 3G  Ruleta Íntima 5G  Tease Tomboy en Vivo #Tomboy #Lovense #Gold #Cam2Cam\n"
                 "```\n\n"
-                "💡 *Ya actualicé y dejé guardados estos valores en tu configuración local. Al abrir cualquiera de los botones de Stream Monitor en la barra lateral derecha, ya los encontrarás precargados para aplicar.*"
+                " *Ya actualicé y dejé guardados estos valores en tu configuración local. Al abrir cualquiera de los botones de Stream Monitor en la barra lateral derecha, ya los encontrarás precargados para aplicar.*"
             )
         elif is_table_query:
             return (
@@ -211,7 +211,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "| **Gold Menu: Nivel 1** | **3 Gold (Económico)** | Buzz Lovense o subida de top | Gancho de volumen y microtips rápidos |\n"
                 "| **Ruleta de Turno** | **5 Gold por giro** | Dinámicas íntimas (Twerk, Tease, Control) | Retención y juego continuo en sala |\n"
                 "| **Gold Menu: Clímax** | **50 Gold ($8.75 neto)** | Dinámica Lovense nivel máximo | Conexión directa y salto a exclusivo |\n\n"
-                "💡 **Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
+                " **Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
             )
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
@@ -222,12 +222,12 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "Sam, he auditado tu bandeja de entrada de **Streamate Messenger** consultando tus 5 mensajes pendientes:\n\n"
                 "| Fan / Usuario | Tiempo sin Responder | Último Mensaje Recibido | Sugerencia Streamate (Oficial) | Sugerencia Roxanne (Tomboy & Monetización) | Elección IA |\n"
                 "|---|---|---|---|---|---|\n"
-                "| **thedude911** (✓) | **Hoy (Hace 2h 5m)** 🔴 | *\"Of course, if you want, today I can connect around 6 PM...\"* | *\"Awesome! I'd love to connect today. What time works best for you?\"* | *\"¡Perfecto! A las 6 PM te espero en mi sala. Dime si quieres sesión acústica con ukelele o pasamos directo a lo exclusivo 😉🖤\"* | ⭐ **Roxanne** (Gancho a Exclusivo) |\n"
-                "| **shyman2012** (✓) | **5 nov (Hace 18h)** 🔴 | *\"Im here nowwww\"* | *\"Hey there! So glad you're here. Let's chat!\"* | *\"¡Hey mister! Qué puntual 😉 ¿Te quedas a hacerme compañía o nos vamos directo a privado a jugar?\"* | ⭐ **Roxanne** (Conversión Rápida) |\n"
-                "| **Bigandveiny** | **5 nov (Hace 23h)** 🟡 | *\"Hey there, I'm back. I was a little busy with work...\"* | *\"Welcome back! I missed seeing you around here.\"* | *\"¡Miren quién volvió! Ya me preguntaba dónde andabas 🔥 Cuéntame qué hiciste hoy y te quito el estrés en privado.\"* | ⭐ **Roxanne** (Complicidad & Desestrés) |\n"
-                "| **Dedlock** (✓) | **4 nov (Hace 2 días)** 🟡 | *\"Danger has never had such a seductive look, loved your preview photo\"* | *\"Thanks for your message! Looking forward to having fun with you.\"* | *\"El peligro siempre es más divertido cuando estás conmigo 💋 ¿Listo para tu próxima dosis de adrenalina en vivo?\"* | ⭐ **Roxanne** (Venta de Show en Vivo) |\n"
-                "| **Rome** | **30 oct (Hace 7 días)** 🟢 | *\"I would love to see it in action\"* | *\"I can definitely show you in a private show whenever you're ready!\"* | *\"Verlo en acción es mil veces mejor que imaginarlo 😉 Avísame cuando entres y te armo un show exclusivo que no vas a olvidar.\"* | ⭐ **Streamate** (Respuesta Directa) |\n\n"
-                "💡 **Piloto Automático Disponible**: Tienes la opción de activar el **Auto-Responder** en la barra derecha de Herramientas de Streamate para responder a todos automáticamente con delays humanos y selección inteligente."
+                "| **thedude911** () | **Hoy (Hace 2h 5m)**  | *\"Of course, if you want, today I can connect around 6 PM...\"* | *\"Awesome! I'd love to connect today. What time works best for you?\"* | *\"¡Perfecto! A las 6 PM te espero en mi sala. Dime si quieres sesión acústica con ukelele o pasamos directo a lo exclusivo \"* |  **Roxanne** (Gancho a Exclusivo) |\n"
+                "| **shyman2012** () | **5 nov (Hace 18h)**  | *\"Im here nowwww\"* | *\"Hey there! So glad you're here. Let's chat!\"* | *\"¡Hey mister! Qué puntual  ¿Te quedas a hacerme compañía o nos vamos directo a privado a jugar?\"* |  **Roxanne** (Conversión Rápida) |\n"
+                "| **Bigandveiny** | **5 nov (Hace 23h)**  | *\"Hey there, I'm back. I was a little busy with work...\"* | *\"Welcome back! I missed seeing you around here.\"* | *\"¡Miren quién volvió! Ya me preguntaba dónde andabas  Cuéntame qué hiciste hoy y te quito el estrés en privado.\"* |  **Roxanne** (Complicidad & Desestrés) |\n"
+                "| **Dedlock** () | **4 nov (Hace 2 días)**  | *\"Danger has never had such a seductive look, loved your preview photo\"* | *\"Thanks for your message! Looking forward to having fun with you.\"* | *\"El peligro siempre es más divertido cuando estás conmigo  ¿Listo para tu próxima dosis de adrenalina en vivo?\"* |  **Roxanne** (Venta de Show en Vivo) |\n"
+                "| **Rome** | **30 oct (Hace 7 días)**  | *\"I would love to see it in action\"* | *\"I can definitely show you in a private show whenever you're ready!\"* | *\"Verlo en acción es mil veces mejor que imaginarlo  Avísame cuando entres y te armo un show exclusivo que no vas a olvidar.\"* |  **Streamate** (Respuesta Directa) |\n\n"
+                " **Piloto Automático Disponible**: Tienes la opción de activar el **Auto-Responder** en la barra derecha de Herramientas de Streamate para responder a todos automáticamente con delays humanos y selección inteligente."
             )
         elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
             return (
@@ -464,7 +464,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "status": "launched",
                 "platform": platform,
                 "script": target_script,
-                "message": f"🚀 Despliegue de {platform.upper()} puesto en marcha en ventana visible."
+                "message": f" Despliegue de {platform.upper()} puesto en marcha en ventana visible."
             }
         except Exception as e:
             resp = {"success": False, "error": str(e)}
@@ -806,7 +806,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 
             res = {
                 "success": True,
-                "message": "✓ Datos de Streamate, LoyalFans y Stripchat sincronizados en tiempo real",
+                "message": " Datos de Streamate, LoyalFans y Stripchat sincronizados en tiempo real",
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "streamate": sm_data,
                 "financials": lf_fin,
@@ -989,10 +989,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "name": "Streamate",
                     "model_handle": "SamBartone",
                     "performer_id": "144675665",
-                    "rating": "4.0 ★ (Verificado)",
+                    "rating": "4.0  (Verificado)",
                     "status": "Verified (Activa)",
-                    "sync_status": "✓ Actualizado & Sincronizado en Vivo",
-                    "payout_status": "✓ Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)",
+                    "sync_status": " Actualizado & Sincronizado en Vivo",
+                    "payout_status": " Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)",
                     "account_type": "Cuenta Estudio Satélite (Centenario Studio)",
                     "login_url": "https://streamatemodels.com/login",
                     "public_url": "https://sambartone.cammodels.com",
@@ -1030,7 +1030,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                         "message_media": "$0.50 / foto",
                         "fan_club": "$10.00 / mes"
                     },
-                    "headline": "Software & AI Architect ⚡ Versatile Tomboy 🏍️",
+                    "headline": "Software & AI Architect  Versatile Tomboy ",
                     "bio": "Smart by day, driven about my goals, and teasingly wicked by night. Software & AI Architect by trade, but my real sanctuary is motorcycles, speed, and my beloved pack...",
                     "tags": ["Tomboy", "Biker", "Tech"],
                     "geoblock": "Sin bloqueo territorial"
@@ -1053,7 +1053,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                         "private_show": "60 tokens / min",
                         "interactive_lovense": "Activo"
                     },
-                    "headline": "Cute Tomboy Gamer • Lovense Interactive 🎮",
+                    "headline": "Cute Tomboy Gamer • Lovense Interactive ",
                     "bio": "Software & AI Architect by day, gaming tomboy & teasing companion by night. Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats...",
                     "tags": ["tomboy", "gamer", "lovense", "athletic", "sensual", "biker"],
                     "geoblock": "Sin bloqueo territorial"
@@ -1534,7 +1534,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "followers": "78",
                 "following": "104",
                 "posts": "24",
-                "bio": "Software Architect | AI Engineer 🤓 💻\nCat Lover 🐱",
+                "bio": "Software Architect | AI Engineer  \nCat Lover ",
                 "avatar_url": "/artifacts/instagram/sambartonn23_avatar.png",
                 "feed_screenshot": "/artifacts/instagram/sambartonn23_feed_live.png",
                 "status": "Sincronizado en Vivo",
@@ -1765,8 +1765,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 def run_server():
     server_address = ("", PORT)
     httpd = ThreadingHTTPServer(server_address, VelvetRequestHandler)
-    print(f"🚀 SIREN AI Command & Server activo en http://localhost:{PORT}")
-    print(f"📡 API de Chat ROXANNE conectada a Ollama en http://localhost:11434")
+    print(f" SIREN AI Command & Server activo en http://localhost:{PORT}")
+    print(f" API de Chat ROXANNE conectada a Ollama en http://localhost:11434")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

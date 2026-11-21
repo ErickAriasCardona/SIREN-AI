@@ -30,7 +30,7 @@ from src.automation.platform_auth import (
 async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
     platform_key = platform_key.lower().strip()
     if platform_key not in PLATFORM_CONFIG:
-        print(f"❌ Plataforma desconocida: '{platform_key}'. Opciones: {list(PLATFORM_CONFIG.keys())}")
+        print(f" Plataforma desconocida: '{platform_key}'. Opciones: {list(PLATFORM_CONFIG.keys())}")
         return False
 
     cfg = PLATFORM_CONFIG[platform_key]
@@ -39,11 +39,11 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
     clean_profile_crash_state(user_data_dir)
 
     print("\n" + "="*70)
-    print(f"  🔐 VELVET AI — INICIO DE SESIÓN ASISTIDO & RESOLUCIÓN CLOUDFLARE")
-    print(f"  🌐 Plataforma: {cfg['name']}")
-    print(f"  📁 Perfil persistente: {user_data_dir}")
+    print(f"   VELVET AI — INICIO DE SESIÓN ASISTIDO & RESOLUCIÓN CLOUDFLARE")
+    print(f"   Plataforma: {cfg['name']}")
+    print(f"   Perfil persistente: {user_data_dir}")
     print("="*70)
-    print("👉 Pasos a seguir:")
+    print(" Pasos a seguir:")
     print(" 1. Se abrirá una ventana de Chrome con protección anti-detección.")
     print(" 2. Si aparece la casilla de Cloudflare Turnstile ('Verifica que eres humano'), márcala.")
     print(" 3. Ingresa tu usuario y contraseña (o código 2FA si aplica).")
@@ -92,7 +92,7 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
 
     # Verificar si ya está logueado
     if await is_user_logged_in(page, cfg):
-        print(f"\n🎉 ¡SESIÓN PREVIAMENTE ACTIVA DETECTADA EN {cfg['name'].upper()}!")
+        print(f"\n ¡SESIÓN PREVIAMENTE ACTIVA DETECTADA EN {cfg['name'].upper()}!")
         print("Tu perfil ya tiene las cookies y credenciales vigentes.")
     else:
         print("\n⏳ Esperando a que completes el inicio de sesión en el navegador...")
@@ -103,7 +103,7 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
             await asyncio.sleep(2)
             try:
                 if page.is_closed():
-                    print("⚠️ Ventana cerrada por el usuario.")
+                    print(" Ventana cerrada por el usuario.")
                     break
                 
                 # Manejar Cloudflare si salta durante el login
@@ -117,12 +117,12 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
 
         if logged_in:
             print("\n" + "*"*70)
-            print(f"  ✨ ¡ACCESO CONFIRMADO EXITOSAMENTE EN {cfg['name'].upper()}!")
-            print(f"  💾 Todas las cookies de autorización y 'cf_clearance' han sido guardadas.")
-            print(f"  🚀 A partir de ahora, VELVET AI podrá operar automáticamente sin bloqueos.")
+            print(f"   ¡ACCESO CONFIRMADO EXITOSAMENTE EN {cfg['name'].upper()}!")
+            print(f"   Todas las cookies de autorización y 'cf_clearance' han sido guardadas.")
+            print(f"   A partir de ahora, VELVET AI podrá operar automáticamente sin bloqueos.")
             print("*"*70 + "\n")
         else:
-            print("\n⚠️ No se confirmó el login en el tiempo límite, pero los datos introducidos se preservan en el perfil.")
+            print("\n No se confirmó el login en el tiempo límite, pero los datos introducidos se preservan en el perfil.")
 
     # Redirección automática al destino seleccionado si está logueado
     if (await is_user_logged_in(page, cfg)) and redirect_target and redirect_target.lower() != "home":
@@ -130,10 +130,10 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
         dest_url = PLATFORM_DESTINATIONS.get(platform_key, {}).get(target_key)
         if dest_url:
             target_label = "Muro / Feed" if target_key == "feed" else ("Transmisión en Vivo" if target_key == "live" else target_key)
-            print(f"🎯 Redireccionando automáticamente a [{target_label.upper()}]: {dest_url}...")
+            print(f" Redireccionando automáticamente a [{target_label.upper()}]: {dest_url}...")
             try:
                 await page.goto(dest_url, wait_until="domcontentloaded", timeout=30000)
-                print(f"✨ ¡Redirección completada! Ahora estás en tu {target_label}.")
+                print(f" ¡Redirección completada! Ahora estás en tu {target_label}.")
 
                 # Si el destino es la Transmisión en Vivo, configurar OBS, micrófono Logitech, meta del día y tema @SAMBARTONN23
                 if target_key == "live":
@@ -147,14 +147,14 @@ async def run_assisted_login(platform_key: str, redirect_target: str = "feed"):
     storage_file.parent.mkdir(parents=True, exist_ok=True)
     try:
         await context.storage_state(path=str(storage_file))
-        print(f"💾 Snapshot de sesión exportado en: {storage_file.name}")
+        print(f" Snapshot de sesión exportado en: {storage_file.name}")
     except Exception as e:
         print(f"Nota en guardado de snapshot: {e}")
 
     input("\nPresiona ENTER cuando desees cerrar el navegador asistido...")
     await context.close()
     await playwright.stop()
-    print("✓ Navegador cerrado. Perfil listo para su uso en VELVET AI.")
+    print(" Navegador cerrado. Perfil listo para su uso en VELVET AI.")
     return True
 
 def main():

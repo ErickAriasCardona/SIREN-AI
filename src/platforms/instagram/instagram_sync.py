@@ -18,7 +18,7 @@ SCREENSHOT_FEED = ARTIFACTS_DIR / "sambartonn23_feed_live.png"
 AVATAR_FILE = ARTIFACTS_DIR / "sambartonn23_avatar.png"
 
 def sync_instagram(username="sambartonn23", password="Sambartone2026.", headless=True):
-    print(f"🚀 Iniciando sincronización en vivo de Instagram para @{username}...")
+    print(f" Iniciando sincronización en vivo de Instagram para @{username}...")
     
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=headless)
@@ -34,7 +34,7 @@ def sync_instagram(username="sambartonn23", password="Sambartone2026.", headless
         if STATE_FILE.exists():
             try:
                 context_kwargs["storage_state"] = str(STATE_FILE)
-                print("  ✓ Cargando sesión previa...")
+                print("   Cargando sesión previa...")
             except Exception as e:
                 print(f"  Nota al cargar estado: {e}")
                 
@@ -91,7 +91,7 @@ def sync_instagram(username="sambartonn23", password="Sambartone2026.", headless
         page.wait_for_timeout(1000)
 
         # 2. Extraer datos en vivo
-        print("  📊 Extrayendo métricas reales de la cuenta...")
+        print("   Extrayendo métricas reales de la cuenta...")
         profile_data = page.evaluate('''(username) => {
             const textContent = document.body.innerText;
             
@@ -138,8 +138,8 @@ def sync_instagram(username="sambartonn23", password="Sambartone2026.", headless
             
             return {
                 username: username,
-                fullName: "Sam Barton ⚡",
-                bio: "Software Architect | AI Engineer 💻 • Tomboy vibes & acoustic chords 🎸 • VIP access below",
+                fullName: "Sam Barton ",
+                bio: "Software Architect | AI Engineer  • Tomboy vibes & acoustic chords  • VIP access below",
                 followers: followers,
                 following: following,
                 posts: posts,
@@ -151,21 +151,21 @@ def sync_instagram(username="sambartonn23", password="Sambartone2026.", headless
         
         # Guardar captura completa de la vista móvil
         page.screenshot(path=str(SCREENSHOT_FEED), full_page=False)
-        print(f"  ✓ Captura de feed en vivo guardada en: {SCREENSHOT_FEED}")
+        print(f"   Captura de feed en vivo guardada en: {SCREENSHOT_FEED}")
         
         # Guardar avatar si pudimos capturarlo
         try:
             avatar_el = page.locator(f"img[alt*='{username}'], img[alt*='profile picture'], header img").first
             if avatar_el.is_visible():
                 avatar_el.screenshot(path=str(AVATAR_FILE))
-                print(f"  ✓ Avatar real capturado en: {AVATAR_FILE}")
+                print(f"   Avatar real capturado en: {AVATAR_FILE}")
         except Exception:
             pass
             
         # Guardar json de datos
         with open(DATA_FILE, "w", encoding="utf-8") as f:
             json.dump(profile_data, f, indent=2, ensure_ascii=False)
-        print(f"  ✓ Datos de perfil sincronizados: {profile_data['followers']} seguidores, {profile_data['following']} seguidos, {profile_data['posts']} posts.")
+        print(f"   Datos de perfil sincronizados: {profile_data['followers']} seguidores, {profile_data['following']} seguidos, {profile_data['posts']} posts.")
         
         browser.close()
         return profile_data

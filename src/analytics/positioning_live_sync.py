@@ -77,19 +77,19 @@ def calculate_loyalfans_positioning(fin: Dict[str, Any]) -> Dict[str, Any]:
     # < $5 -> Top 45% (oculto) | $5 - $15 -> Top 23% | $15 - $35 -> Top 18% | $35+ -> Top 10%
     if rolling_30d >= 35.0:
         percentile = "Top 10%"
-        status_label = "🔥 MÁXIMO RENDIMIENTO (TOP 10% GLOBAL)"
+        status_label = " MÁXIMO RENDIMIENTO (TOP 10% GLOBAL)"
         gap_usd = 0.0
     elif rolling_30d >= 15.0:
         percentile = "Top 18%"
-        status_label = "🟢 ALTA VELOCIDAD (TOP 18% ACTIVO)"
+        status_label = " ALTA VELOCIDAD (TOP 18% ACTIVO)"
         gap_usd = round(35.0 - rolling_30d, 2)
     elif rolling_30d >= 5.0:
         percentile = "Top 23%"
-        status_label = "🟢 VENTANA MÓVIL SALUDABLE (TOP 23% CONFIRMADO)"
+        status_label = " VENTANA MÓVIL SALUDABLE (TOP 23% CONFIRMADO)"
         gap_usd = round(15.0 - rolling_30d, 2)
     else:
         percentile = "Top 35% (Requiere Bump)"
-        status_label = "⚠️ VOLUMEN BAJO (FUERA DE NOTIFICACIÓN VISIBLE)"
+        status_label = " VOLUMEN BAJO (FUERA DE NOTIFICACIÓN VISIBLE)"
         gap_usd = round(5.0 - rolling_30d, 2)
 
     return {
@@ -130,7 +130,7 @@ def calculate_stripchat_positioning() -> Dict[str, Any]:
         "rank_feed": "Cam Score: 3,420 pts | Página 1 en tags dominantes",
         "rank_live": "Top #5 en Categoría #tomboy & #athletic",
         "percentile": "Top 15% en Modelos Nuevas / Verificadas",
-        "sales_status": "🟢 LISTO PARA TRANSMITIR (STREAM MASTER ACTIVO)",
+        "sales_status": " LISTO PARA TRANSMITIR (STREAM MASTER ACTIVO)",
         "rolling_30d_usd": 0.0,
         "rolling_30d_formatted": "Tokens en Vivo",
         "active_balance_usd": 0.0,
@@ -160,7 +160,7 @@ def calculate_flirt4free_positioning() -> Dict[str, Any]:
         "rank_feed": "Showcase VIP | Clasificación Glamour & Dominación",
         "rank_live": "Sala Privada Disponible",
         "percentile": "Top 25% Creadoras Internacionales",
-        "sales_status": "🔵 EN ESPERA DE SHOW PRIVADO",
+        "sales_status": " EN ESPERA DE SHOW PRIVADO",
         "rolling_30d_usd": 0.0,
         "rolling_30d_formatted": "Créditos VIP",
         "active_balance_usd": 0.0,
@@ -189,7 +189,7 @@ def calculate_streamate_positioning() -> Dict[str, Any]:
         "rank_feed": "Exclusive Chat & Gold Shows",
         "rank_live": "Transmisión en espera",
         "percentile": "Top 20% Creadoras Verificadas",
-        "sales_status": "🔵 PERFIL VERIFICADO LISTO",
+        "sales_status": " PERFIL VERIFICADO LISTO",
         "rolling_30d_usd": 0.0,
         "rolling_30d_formatted": "Dólares SM",
         "active_balance_usd": 0.0,

@@ -214,21 +214,21 @@ async def wait_for_cloudflare_resolution(page, log_func, timeout_seconds: int = 
 
             if has_cf_title or has_cf_element:
                 if not notified:
-                    log_func("🛡️ [CLOUDFLARE TURNSTILE DETECTADO] La plataforma está validando la conexión de tu navegador.")
-                    log_func("👉 Por favor: Si ves una casilla ('Verifica que eres humano' / 'Verify you are human'), márcala directamente en la ventana de Chrome.")
+                    log_func(" [CLOUDFLARE TURNSTILE DETECTADO] La plataforma está validando la conexión de tu navegador.")
+                    log_func(" Por favor: Si ves una casilla ('Verifica que eres humano' / 'Verify you are human'), márcala directamente en la ventana de Chrome.")
                     log_func("⏳ VELVET esperará pacientemente a que se complete la verificación...")
                     notified = True
                 await asyncio.sleep(1.5)
             else:
                 if notified:
-                    log_func("✅ [CLOUDFLARE SUPERADO] Verificación de seguridad aprobada con éxito. Continuando...")
+                    log_func(" [CLOUDFLARE SUPERADO] Verificación de seguridad aprobada con éxito. Continuando...")
                     await asyncio.sleep(1)
                 return True
         except Exception:
             await asyncio.sleep(1)
 
     if notified:
-        log_func("⚠️ Tiempo de espera de Cloudflare agotado. Intentando continuar...")
+        log_func(" Tiempo de espera de Cloudflare agotado. Intentando continuar...")
     return False
 
 async def handle_cookies_and_age_dialogs(page, log_func):
@@ -424,7 +424,7 @@ async def launch_and_login_platform(
     key = platform_key.lower().strip()
     if key not in PLATFORM_CONFIG:
         msg = f"Plataforma '{platform_key}' no soportada."
-        if status_callback: status_callback(f"❌ {msg}")
+        if status_callback: status_callback(f" {msg}")
         return {"success": False, "error": msg}
 
     cfg = PLATFORM_CONFIG[key]
@@ -502,7 +502,7 @@ async def launch_and_login_platform(
         # 3. Verificar si de verdad está logueado comprobando elementos de cuenta
         logged_in = await is_user_logged_in(page, cfg)
         if logged_in:
-            log(f"✨ ¡Sesión activa verificada! Ya estás dentro de tu cuenta en {cfg['name']}.")
+            log(f" ¡Sesión activa verificada! Ya estás dentro de tu cuenta en {cfg['name']}.")
         else:
             log("No hay sesión activa. Preparando ingreso de credenciales...")
             
@@ -522,7 +522,7 @@ async def launch_and_login_platform(
                 await asyncio.sleep(1)
 
             if not has_user_input:
-                log("⚠️ Los campos de usuario no son visibles aún. Si hay un captcha o reto en pantalla, resuélvelo en el navegador.")
+                log(" Los campos de usuario no son visibles aún. Si hay un captcha o reto en pantalla, resuélvelo en el navegador.")
 
             # Rellenar campo de usuario/correo con escritura humana
             log("Rellenando usuario o correo...")
@@ -536,13 +536,13 @@ async def launch_and_login_platform(
                         await el.fill("")
                         await el.type(username_or_email, delay=35)
                         user_filled = True
-                        log(f"✓ Usuario/correo ingresado ({username_or_email}).")
+                        log(f" Usuario/correo ingresado ({username_or_email}).")
                         break
                 except Exception:
                     continue
 
             if not user_filled:
-                log("⚠️ No se encontró el campo de usuario automáticamente. Puedes escribirlo en la ventana.")
+                log(" No se encontró el campo de usuario automáticamente. Puedes escribirlo en la ventana.")
 
             # Rellenar campo de contraseña
             log("Rellenando contraseña...")
@@ -556,13 +556,13 @@ async def launch_and_login_platform(
                         await el.fill("")
                         await el.type(password, delay=30)
                         pass_filled = True
-                        log("✓ Contraseña ingresada.")
+                        log(" Contraseña ingresada.")
                         break
                 except Exception:
                     continue
 
             if not pass_filled:
-                log("⚠️ No se encontró el campo de contraseña automáticamente.")
+                log(" No se encontró el campo de contraseña automáticamente.")
 
             # Clic en botón de Iniciar Sesión
             if user_filled and pass_filled:
@@ -574,14 +574,14 @@ async def launch_and_login_platform(
                         if await btn.is_visible(timeout=2000):
                             await btn.click()
                             submitted = True
-                            log("✓ Clic en botón de iniciar sesión.")
+                            log(" Clic en botón de iniciar sesión.")
                             break
                     except Exception:
                         continue
 
                 if not submitted:
                     await page.keyboard.press("Enter")
-                    log("✓ Enviado con tecla Enter.")
+                    log(" Enviado con tecla Enter.")
 
             log("Esperando validación de seguridad y confirmación de sesión...")
             await page.wait_for_timeout(2000)
@@ -594,12 +594,12 @@ async def launch_and_login_platform(
             for _ in range(25):
                 if await is_user_logged_in(page, cfg):
                     confirmed = True
-                    log(f"✨ ¡Inicio de sesión confirmado exitosamente en {cfg['name']}!")
+                    log(f" ¡Inicio de sesión confirmado exitosamente en {cfg['name']}!")
                     break
                 await asyncio.sleep(1)
 
             if not confirmed:
-                log("ℹ️ Si la plataforma requiere código 2FA o confirmación adicional, complétala en la ventana de Chrome.")
+                log("ℹ Si la plataforma requiere código 2FA o confirmación adicional, complétala en la ventana de Chrome.")
 
         # Registrar sesión activa para actualizaciones en vivo
         ACTIVE_SESSION["page"] = page
@@ -613,7 +613,7 @@ async def launch_and_login_platform(
         # 4. Auditoría profunda y psicología de modelo con DIANA (en el mismo loop de Playwright)
         try:
             from src.automation.profile_deep_audit import audit_account_history
-            log("🕵️‍♀️ DIANA auditando cuenta, lenguaje y arquetipo de modelo...")
+            log(" DIANA auditando cuenta, lenguaje y arquetipo de modelo...")
             diana_summary = await audit_account_history(page, key, log)
             ACTIVE_SESSION["diana_summary"] = diana_summary
             if diana_callback:
@@ -627,10 +627,10 @@ async def launch_and_login_platform(
             dest_url = PLATFORM_DESTINATIONS.get(key, {}).get(target_key)
             if dest_url:
                 target_label = "Muro / Feed" if target_key == "feed" else ("Transmisión en Vivo" if target_key == "live" else target_key)
-                log(f"🎯 Redireccionando automáticamente a [{target_label.upper()}]: {dest_url}...")
+                log(f" Redireccionando automáticamente a [{target_label.upper()}]: {dest_url}...")
                 try:
                     await page.goto(dest_url, wait_until="domcontentloaded", timeout=30000)
-                    log(f"✨ ¡Redirección completada! Ahora estás en tu {target_label}.")
+                    log(f" ¡Redirección completada! Ahora estás en tu {target_label}.")
 
                     # Si el destino es la Transmisión en Vivo, configurar OBS, micrófono Logitech, meta del día y tema @SAMBARTONN23
                     if target_key == "live":
@@ -639,13 +639,13 @@ async def launch_and_login_platform(
                 except Exception as e:
                     log(f"Nota en redirección / setup de transmisión: {e}")
 
-        log(f"📊 Resumen obtenido: Creadora @{metrics['username']} | Ganancias: {metrics['earnings']} | Msg: {metrics['unread_messages']} | Alertas: {metrics['alerts']}")
-        log("🎉 ¡Listo! El navegador permanecerá abierto para que transmitas o gestiones tu contenido.")
+        log(f" Resumen obtenido: Creadora @{metrics['username']} | Ganancias: {metrics['earnings']} | Msg: {metrics['unread_messages']} | Alertas: {metrics['alerts']}")
+        log(" ¡Listo! El navegador permanecerá abierto para que transmitas o gestiones tu contenido.")
 
         # Mantener el navegador abierto indefinidamente
         try:
             await page.wait_for_event("close", timeout=0)
-            log("ℹ️ Ventana del navegador cerrada por el usuario.")
+            log("ℹ Ventana del navegador cerrada por el usuario.")
         except Exception:
             pass
 
@@ -653,7 +653,7 @@ async def launch_and_login_platform(
 
     except Exception as e:
         err = f"Error: {str(e)}"
-        log(f"❌ {err}")
+        log(f" {err}")
         return {"success": False, "error": err}
 
 def run_login_sync(

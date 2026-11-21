@@ -15,7 +15,7 @@ async def audit_account_history(page, platform_key: str, log_func) -> Dict[str, 
     - Filtra la información basura y conserva métricas de conversión comercial.
     """
     platform_key = platform_key.lower().strip()
-    log_func(f"🕵️‍♀️ DIANA iniciando auditoría profunda de la cuenta en [{platform_key.upper()}]...")
+    log_func(f" DIANA iniciando auditoría profunda de la cuenta en [{platform_key.upper()}]...")
 
     raw_data = {
         "platform": platform_key,
@@ -93,7 +93,7 @@ async def audit_account_history(page, platform_key: str, log_func) -> Dict[str, 
         with open(audit_file, "w", encoding="utf-8") as f:
             json.dump({"raw": raw_data, "analysis": audit_summary}, f, ensure_ascii=False, indent=2)
 
-        log_func("✨ Auditoría y Dossier de DIANA completados con éxito.")
+        log_func(" Auditoría y Dossier de DIANA completados con éxito.")
         return audit_summary
 
     except Exception as e:
@@ -110,7 +110,7 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
     chat_str = ", ".join(chat_users[:8])
 
     arquetipo = (
-        "💻 ARQUETIPO: 'Versatile Tomboy & Software/AI Architect' (Inteligente, Motera, Tierna & Traviesa). "
+        " ARQUETIPO: 'Versatile Tomboy & Software/AI Architect' (Inteligente, Motera, Tierna & Traviesa). "
         "Arquitecta de Software e Inteligencia Artificial de profesión, apasionada por las motos y la velocidad, "
         "fanática absoluta de su serie favorita InuYasha. Mamá entregada de su manada: sus perras y sus 2 gatas son su mayor bendición. "
         "Toca el ukelele con pasión, canta de corazón y vibra con la estética neón, calaveras y misterio de octubre. "
@@ -119,7 +119,7 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
     )
 
     estilo_lenguaje = (
-        "🗣️ ESTILO DE LENGUAJE & VOZ DE SAM BARTON:\n"
+        " ESTILO DE LENGUAJE & VOZ DE SAM BARTON:\n"
         "• Tono: Natural, brillante, desafiante y pícaro. No finge ser sumisa tonta; habla de software, IA, motos, anime o gym de igual a igual.\n"
         "• Cadencia: Conversaciones fluidas sobre música (Billie Eilish, Radiohead, Lana del Rey, Mägo de Oz, Gorillaz, Rels B), motos y su anime amado InuYasha.\n"
         "• Dinámica de Control: Si el fan es respetuoso, amable y detallista (cartas, flores, chocolates o comida), Sam baja la guardia y se vuelve tierna y cómplice.\n"
@@ -127,7 +127,7 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
     )
 
     perfil_comercial = (
-        "📊 DIAGNÓSTICO FORENSE & EMBUDO EMOCIONAL:\n"
+        " DIAGNÓSTICO FORENSE & EMBUDO EMOCIONAL:\n"
         "• Comunidad: 604 Fans en base de datos sin monetizar.\n"
         "• Perfil Magnético Único: La combinación de 'Arquitecta de Software/AI + Biker Tomboy + Ukelele' atrae a hombres de alto poder adquisitivo (ingenieros, techies, profesionales) fascinados con su mente y sensualidad.\n"
         "• Palanca Emocional Genuina: Su carro usado de diciembre y Cancún. Los compradores se vuelven suscriptores leales al apoyar el sueño de una mujer trabajadora e inteligente.\n"
@@ -135,7 +135,7 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
     )
 
     fetiches_compatibles = (
-        "🏍️ FETICHES & UNIVERSO ESTÉTICO COMPATIBLE:\n"
+        " FETICHES & UNIVERSO ESTÉTICO COMPATIBLE:\n"
         "• Biker & Tomboy Chic: Chaquetas de cuero, cascos, tops deportivos, gorras, ropa de gym ajustada y contrastes con lencería oscura.\n"
         "• Tech & Dark Neón: Teclados iluminados, código en pantallas, neón púrpura/cian, calaveras, ambientación de Halloween/octubre permanente.\n"
         "• Ukelele & Acústico: Clips de voz y música personalizada tocando canciones indie/rock/anime.\n"
@@ -144,25 +144,25 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
 
     dossier_text = (
         "======================================================================\n"
-        "   🕵️‍♀️ RADIOGRAFÍA DE IDENTIDAD, LENGUAJE Y PERFIL — DIANA (AUDIT)   \n"
+        "    RADIOGRAFÍA DE IDENTIDAD, LENGUAJE Y PERFIL — DIANA (AUDIT)   \n"
         "======================================================================\n\n"
-        f"👤 CREADORA AUDITADA: Sam Barton ({raw_data.get('creator_handle', '@sambarton23')})\n"
-        f"🌐 PLATAFORMA: {plat.upper()} | FANS REGISTRADOS: 604 | SALDO: $7.19 USD\n"
-        f"💼 PROFESIÓN: Arquitecta de Software & AI | PASIÓN: Motos & Velocidad\n"
+        f" CREADORA AUDITADA: Sam Barton ({raw_data.get('creator_handle', '@sambarton23')})\n"
+        f" PLATAFORMA: {plat.upper()} | FANS REGISTRADOS: 604 | SALDO: $7.19 USD\n"
+        f" PROFESIÓN: Arquitecta de Software & AI | PASIÓN: Motos & Velocidad\n"
         "──────────────────────────────────────────────────────────────────────\n"
-        f"1. 🎭 ¿QUÉ TIPO DE MODELO ES SAM BARTON?\n{arquetipo}\n\n"
+        f"1.  ¿QUÉ TIPO DE MODELO ES SAM BARTON?\n{arquetipo}\n\n"
         "──────────────────────────────────────────────────────────────────────\n"
-        f"2. 🗣️ ESTILO DE LENGUAJE Y PATRONES DE CONVERSACIÓN:\n{estilo_lenguaje}\n\n"
+        f"2.  ESTILO DE LENGUAJE Y PATRONES DE CONVERSACIÓN:\n{estilo_lenguaje}\n\n"
         "──────────────────────────────────────────────────────────────────────\n"
-        f"3. 📈 PERFIL COMERCIAL Y METAS DE VIDA:\n{perfil_comercial}\n\n"
+        f"3.  PERFIL COMERCIAL Y METAS DE VIDA:\n{perfil_comercial}\n\n"
         "──────────────────────────────────────────────────────────────────────\n"
-        f"4. 🏍️ ESTÉTICA, PASIONES Y FORMATOS GANADORES:\n{fetiches_compatibles}\n\n"
+        f"4.  ESTÉTICA, PASIONES Y FORMATOS GANADORES:\n{fetiches_compatibles}\n\n"
         "──────────────────────────────────────────────────────────────────────\n"
-        "5. 👥 COMPRADORES IDENTIFICADOS EN MENSAJERÍA:\n"
+        "5.  COMPRADORES IDENTIFICADOS EN MENSAJERÍA:\n"
         f"• Fans calientes en espera: {chat_str}...\n"
         "• Acción inmediata: Enviar Mass DM PPV temático de su meta de diciembre a $9.99 USD.\n"
         "──────────────────────────────────────────────────────────────────────\n"
-        "6. 📊 ALGORITMO DE LOYALFANS & EXPLICACIÓN DEL RANKING (TOP X%):\n"
+        "6.  ALGORITMO DE LOYALFANS & EXPLICACIÓN DEL RANKING (TOP X%):\n"
         "• ¿Por qué sale 'Top 23%'?: Tu facturación reciente superó al 77% de todas las creadoras activas.\n"
         "• ¿Por qué NO sale siempre?: LoyalFans utiliza una VENTANA MÓVIL DE 30 DÍAS (Rolling 30-Day Window).\n"
         "  Si pasan días sin nuevas ventas, los ingresos antiguos salen del cálculo y el badge se oculta\n"
@@ -193,12 +193,12 @@ def synthesize_diana_findings(raw_data: Dict[str, Any]) -> Dict[str, Any]:
             "doc_reference": "docs/ALGORITMO_LOYALFANS_RANKING_PERCENTILES.md"
         },
         "tooltip_text": (
-            "💻 Sam Barton: Software & AI Architect / Biker Tomboy 🏍️\n"
-            "🍙 Pasiones: InuYasha (fav), perras & 2 gatas, ukelele, motos, neón/calaveras\n"
-            "🚗 Meta: Su carro usado en diciembre y viaje a Cancún\n"
-            "📊 Algoritmo: Ranking en ventana móvil de 30 días (Top 23% activo con ventas)\n"
-            "👑 Regla: 'Sé anormal, diferente y respetuoso si quieres el control'\n"
-            "👉 (Clic derecho en este botón para ver el Dossier Completo)"
+            " Sam Barton: Software & AI Architect / Biker Tomboy \n"
+            " Pasiones: InuYasha (fav), perras & 2 gatas, ukelele, motos, neón/calaveras\n"
+            " Meta: Su carro usado en diciembre y viaje a Cancún\n"
+            " Algoritmo: Ranking en ventana móvil de 30 días (Top 23% activo con ventas)\n"
+            " Regla: 'Sé anormal, diferente y respetuoso si quieres el control'\n"
+            " (Clic derecho en este botón para ver el Dossier Completo)"
         ),
         "dossier_text": dossier_text
     }

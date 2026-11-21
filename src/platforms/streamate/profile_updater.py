@@ -27,13 +27,13 @@ PROFILES_DIR = DATA_DIR / "browser_profiles"
 
 DEFAULT_STREAMATE_PROFILE = {
     "display_name": "Sam Barton",
-    "headline": "Fit Tomboy • Adrenaline & Fast PVTs ⚡",
+    "headline": "Fit Tomboy • Adrenaline & Fast PVTs ",
     "bio_text": (
-        "🐺 Sam Barton | Fit Tomboy • High Energy & Fast PVTs 🏍️\n\n"
+        " Sam Barton | Fit Tomboy • High Energy & Fast PVTs \n\n"
         "Software Architect by trade, adrenaline & fitness addict by passion.\n"
-        "Soccer player, motorcycle lover, dog & cat mom 🐾, InuYasha fan 🍙.\n\n"
+        "Soccer player, motorcycle lover, dog & cat mom , InuYasha fan .\n\n"
         "I don't waste your time in Free Chat. Step into Private or Exclusive "
-        "if you want real chemistry, teasing banter, and full personal attention. 😈💋"
+        "if you want real chemistry, teasing banter, and full personal attention. "
     )
 }
 

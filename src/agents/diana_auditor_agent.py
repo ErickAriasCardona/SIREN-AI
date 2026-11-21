@@ -51,26 +51,26 @@ def create_diana_agent(api_key: str = None) -> Agent:
 
 def mostrar_menu_diana():
     print("\n" + "=" * 70)
-    print("🔬 DIANA — Auditora de Identidad, Perfil y Minería de Cuentas")
+    print(" DIANA — Auditora de Identidad, Perfil y Minería de Cuentas")
     print("=" * 70)
     print("Acciones disponibles:")
-    print("  [1] 🎭 Radiografía Completa de SAM BARTON (Arquetipo, Lenguaje y Perfil)")
-    print("  [2] 🗣️ Análisis de Tono de Voz y Fórmulas de Conversación")
-    print("  [3] 👠 Fetiches Compatibles y Formatos Ganadores")
-    print("  [4] 👥 Contactos VIP y Audiencia en Espera en LoyalFans")
-    print("  [5] 💬 Chat Libre con DIANA (Modo Inteligente)")
-    print("  [0] 🚪 Salir")
+    print("  [1]  Radiografía Completa de SAM BARTON (Arquetipo, Lenguaje y Perfil)")
+    print("  [2]  Análisis de Tono de Voz y Fórmulas de Conversación")
+    print("  [3]  Fetiches Compatibles y Formatos Ganadores")
+    print("  [4]  Contactos VIP y Audiencia en Espera en LoyalFans")
+    print("  [5]  Chat Libre con DIANA (Modo Inteligente)")
+    print("  [0]  Salir")
     print("=" * 70)
 
 async def modo_chat_libre_diana():
     key = GEMINI_API_KEY or os.getenv("GEMINI_API_KEY", "")
     if not key:
-        print("\n⚠️ AVISO: No se detectó GEMINI_API_KEY en variables de entorno.")
+        print("\n AVISO: No se detectó GEMINI_API_KEY en variables de entorno.")
         print("Para conversar con el LLM en lenguaje natural, configura tu API key en .env.")
         print("Las opciones [1] a [4] funcionan de inmediato con la auditoría forense local.\n")
         return
 
-    print("\n💬 [Modo Chat con DIANA activado]. Escribe 'menu' para volver.\n")
+    print("\n [Modo Chat con DIANA activado]. Escribe 'menu' para volver.\n")
     agent_instance = create_diana_agent(key)
     async with agent_instance as agent:
         while True:
@@ -111,20 +111,20 @@ async def main():
         elif opcion == "3":
             data = synthesize_diana_findings({"creator_handle": "@sambarton23"})
             print("\n" + data.get("fetiches_compatibles", ""))
-            print(f"💰 Formato Óptimo: {data.get('best_content', '')}")
+            print(f" Formato Óptimo: {data.get('best_content', '')}")
 
         elif opcion == "4":
             data = synthesize_diana_findings({"creator_handle": "@sambarton23"})
             users = ", ".join(data.get("chat_users", []))
-            print(f"\n👥 Fans detectados en base: 604 seguidores.")
-            print(f"📩 Contactos activos en mensajería: {users}")
-            print(f"🎯 Oportunidad Clave: {data.get('key_opportunity', '')}")
+            print(f"\n Fans detectados en base: 604 seguidores.")
+            print(f" Contactos activos en mensajería: {users}")
+            print(f" Oportunidad Clave: {data.get('key_opportunity', '')}")
 
         elif opcion == "5":
             await modo_chat_libre_diana()
 
         else:
-            print("❌ Opción inválida. Elige un número del 0 al 5.")
+            print(" Opción inválida. Elige un número del 0 al 5.")
 
         input("\n[Presiona Enter para continuar...]")
 

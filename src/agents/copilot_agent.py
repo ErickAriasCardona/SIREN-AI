@@ -31,7 +31,7 @@ def create_copilot_agent(api_key: str = None) -> Agent:
 
 if __name__ == "__main__":
     async def main():
-        print("💋 Subagente Copiloto de Chat listo.")
+        print(" Subagente Copiloto de Chat listo.")
         agent_instance = create_copilot_agent()
         async with agent_instance as agent:
             resp = await agent.chat("Un usuario llamado 'Mark_UK' me acaba de escribir: 'can you stand up and show me your outfit?'. ¿Qué le respondo para que dé propina?")

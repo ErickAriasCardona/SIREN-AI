@@ -22,20 +22,20 @@ PROFILES_DIR = ROOT_DIR / "data" / "browser_profiles"
 # Perfil oficial de Sam Barton v1.1.0 (en inglés para la plataforma)
 DEFAULT_ENGLISH_PROFILE = {
     "display_name": "Sam Barton",
-    "artist_type": "Software & AI Architect ⚡ Versatile Tomboy 🏍️",
+    "artist_type": "Software & AI Architect  Versatile Tomboy ",
     "bio_text": (
-        "🐺 Sam Barton | Software & AI Architect ⚡ Versatile Tomboy 🏍️\n\n"
+        " Sam Barton | Software & AI Architect  Versatile Tomboy \n\n"
         "Smart by day, driven about my goals, and teasingly wicked by night.\n\n"
         "Software & AI Architect by trade, but my real sanctuary is motorcycles, speed, and my beloved pack: "
-        "my dogs and my 2 cats are my greatest blessings in this world 🐾🐈. "
-        "Gym addict, soccer player, late-night sketcher, and an absolute InuYasha devotee 🍙. "
+        "my dogs and my 2 cats are my greatest blessings in this world . "
+        "Gym addict, soccer player, late-night sketcher, and an absolute InuYasha devotee . "
         "I also play the ukulele and sing straight from the heart (Billie Eilish, Radiohead, Lana Del Rey, Gorillaz, Mägo de Oz, Rels B... my playlist is a whole journey).\n\n"
-        "Obsessed with neon in the dark, skulls, and eerie October vibes 💀✨. "
-        "Working hard every single day to buy my used car in December 🚗 and escape to Cancun 🌴.\n\n"
+        "Obsessed with neon in the dark, skulls, and eerie October vibes . "
+        "Working hard every single day to buy my used car in December  and escape to Cancun .\n\n"
         "Want my attention? Be respectful, intelligent, different, and abnormal. Generic, boring guys bore me to death. "
         "Treat me right, be thoughtful with genuine acts of service (flowers, letters, chocolates, good food), "
-        "and maybe—just maybe—I’ll grant you the privilege to take control 😈🖤.\n\n"
-        "Unlock my exclusive world below or slide into my DMs. I’m reading you 💋"
+        "and maybe—just maybe—I’ll grant you the privilege to take control .\n\n"
+        "Unlock my exclusive world below or slide into my DMs. I’m reading you "
     ),
     "desired_tags": [
         "Tomboy",
@@ -144,7 +144,7 @@ async def update_loyalfans_profile(
                 await name_input.press_sequentially(name_val, delay=5)
                 await name_input.dispatch_event("input")
                 await name_input.dispatch_event("change")
-                log(f"✓ Nombre para mostrar actualizado: '{name_val}'")
+                log(f" Nombre para mostrar actualizado: '{name_val}'")
 
             # 2. Actualizar Tipo de Creador (Artist Type)
             type_input = page.locator("input#type, input[name='artist_type']").first
@@ -156,7 +156,7 @@ async def update_loyalfans_profile(
                 await type_input.press_sequentially(type_val, delay=5)
                 await type_input.dispatch_event("input")
                 await type_input.dispatch_event("change")
-                log(f"✓ Tipo de creador actualizado: '{type_val}'")
+                log(f" Tipo de creador actualizado: '{type_val}'")
 
             # 3. Actualizar Biografía en Quill Editor
             editor = page.locator(".ql-editor[contenteditable='true']").first
@@ -168,7 +168,7 @@ async def update_loyalfans_profile(
                 await page.wait_for_timeout(400)
                 await page.keyboard.insert_text(bio_val)
                 await editor.dispatch_event("input")
-                log("✓ Biografía completa en inglés inyectada en editor Quill.")
+                log(" Biografía completa en inglés inyectada en editor Quill.")
 
             # 4. Actualizar Palabras Claves (Tags)
             for old_tag in ["femdom", "findom"]:
@@ -201,14 +201,14 @@ async def update_loyalfans_profile(
             if await save_button.is_visible():
                 await save_button.scroll_into_view_if_needed()
                 await page.wait_for_timeout(600)
-                log("💾 Guardando cambios en LoyalFans...")
+                log(" Guardando cambios en LoyalFans...")
                 await save_button.click(force=True)
                 await page.wait_for_timeout(4000)
-                log("✓ ¡Perfil guardado y persistido con éxito en la plataforma!")
+                log(" ¡Perfil guardado y persistido con éxito en la plataforma!")
 
             # 6. Captura de evidencia en ajustes
             await page.screenshot(path=str(screenshot_path), full_page=False)
-            log(f"📸 Captura de evidencia guardada: {screenshot_path.name}")
+            log(f" Captura de evidencia guardada: {screenshot_path.name}")
 
             # 7. Verificación en perfil público
             log("Navegando a perfil público para verificación visual...")
@@ -218,7 +218,7 @@ async def update_loyalfans_profile(
                 document.querySelectorAll('.chat-box, [class*="chat"], .conversation-floating').forEach(el => el.remove());
             }""")
             await page.screenshot(path=str(public_screenshot_path), full_page=False)
-            log(f"📸 Verificación pública guardada: {public_screenshot_path.name}")
+            log(f" Verificación pública guardada: {public_screenshot_path.name}")
 
             return {
                 "success": True,
@@ -231,7 +231,7 @@ async def update_loyalfans_profile(
 
         except Exception as e:
             err = f"Error al actualizar perfil de LoyalFans: {str(e)}"
-            log(f"❌ {err}")
+            log(f" {err}")
             return {"success": False, "error": err}
         finally:
             await context.close()

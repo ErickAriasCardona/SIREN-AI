@@ -54,7 +54,7 @@ class CTkHoverTooltip:
 
         header = ctk.CTkLabel(
             card,
-            text="🔬 RADIOGRAFÍA ESTRATÉGICA (DIANA)",
+            text=" RADIOGRAFÍA ESTRATÉGICA (DIANA)",
             font=ctk.CTkFont(family="Segoe UI", size=13, weight="bold"),
             text_color="#ffd166"
         )
@@ -102,7 +102,7 @@ class VelvetControlCenter(ctk.CTk):
 
         title_label = ctk.CTkLabel(
             header_frame,
-            text="🌌 VELVET AI",
+            text=" VELVET AI",
             font=ctk.CTkFont(family="Segoe UI", size=26, weight="bold"),
             text_color=self.ACCENT_COLOR
         )
@@ -122,7 +122,7 @@ class VelvetControlCenter(ctk.CTk):
 
         card_title = ctk.CTkLabel(
             card,
-            text="🔐 Acceso Automatizado a Plataforma",
+            text=" Acceso Automatizado a Plataforma",
             font=ctk.CTkFont(family="Segoe UI", size=15, weight="bold"),
             text_color="#ffffff"
         )
@@ -194,7 +194,7 @@ class VelvetControlCenter(ctk.CTk):
 
         redir_lbl = ctk.CTkLabel(
             redir_top,
-            text="🎯 Redirección Automática tras Iniciar Sesión:",
+            text=" Redirección Automática tras Iniciar Sesión:",
             font=ctk.CTkFont(size=12, weight="bold"),
             text_color="#ffd166"
         )
@@ -202,7 +202,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.btn_live_setup = ctk.CTkButton(
             redir_top,
-            text="🎛️ Ajustes En Vivo (OBS / Logitech / Metas)",
+            text=" Ajustes En Vivo (OBS / Logitech / Metas)",
             font=ctk.CTkFont(size=11, weight="bold"),
             fg_color="#4a154b",
             hover_color="#702072",
@@ -219,7 +219,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.rb_feed = ctk.CTkRadioButton(
             redir_opts,
-            text="📰 Feed / Muro Principal",
+            text=" Feed / Muro Principal",
             variable=self.redirect_target_var,
             value="feed",
             font=ctk.CTkFont(size=12, weight="bold"),
@@ -230,7 +230,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.rb_live = ctk.CTkRadioButton(
             redir_opts,
-            text="📹 Transmisión en Vivo (Broadcast)",
+            text=" Transmisión en Vivo (Broadcast)",
             variable=self.redirect_target_var,
             value="live",
             font=ctk.CTkFont(size=12, weight="bold"),
@@ -241,7 +241,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.rb_home = ctk.CTkRadioButton(
             redir_opts,
-            text="🏠 Panel General (Home)",
+            text=" Panel General (Home)",
             variable=self.redirect_target_var,
             value="home",
             font=ctk.CTkFont(size=12),
@@ -257,7 +257,7 @@ class VelvetControlCenter(ctk.CTk):
         self.save_creds_var = ctk.BooleanVar(value=True)
         self.save_creds_checkbox = ctk.CTkCheckBox(
             opts_frame,
-            text="💾 Recordar credenciales para esta plataforma",
+            text=" Recordar credenciales para esta plataforma",
             variable=self.save_creds_var,
             fg_color=self.ACCENT_COLOR,
             hover_color=self.HOVER_COLOR,
@@ -267,7 +267,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.login_button = ctk.CTkButton(
             opts_frame,
-            text="🚀 INICIAR SESIÓN Y ABRIR PLATAFORMA",
+            text=" INICIAR SESIÓN Y ABRIR PLATAFORMA",
             font=ctk.CTkFont(size=14, weight="bold"),
             fg_color=self.ACCENT_COLOR,
             hover_color=self.HOVER_COLOR,
@@ -279,7 +279,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.assisted_button = ctk.CTkButton(
             opts_frame,
-            text="🛡️ MODO ASISTIDO (CLOUDFLARE / 2FA)",
+            text=" MODO ASISTIDO (CLOUDFLARE / 2FA)",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#312244",
             hover_color="#4d194d",
@@ -289,7 +289,7 @@ class VelvetControlCenter(ctk.CTk):
         )
         self.assisted_button.pack(side="right", padx=(10, 0))
 
-        # 3. 📊 PANEL DE RESUMEN DE LA CREADORA (MÉTRICAS EN VIVO)
+        # 3.  PANEL DE RESUMEN DE LA CREADORA (MÉTRICAS EN VIVO)
         self.metrics_card = ctk.CTkFrame(self, fg_color="#181324", corner_radius=15, border_width=1, border_color="#533c77")
         self.metrics_card.pack(fill="x", padx=30, pady=6)
 
@@ -298,7 +298,7 @@ class VelvetControlCenter(ctk.CTk):
 
         m_header = ctk.CTkLabel(
             m_top_row,
-            text="📊 Resumen de tu Perfil en Vivo (Post-Login)",
+            text=" Resumen de tu Perfil en Vivo (Post-Login)",
             font=ctk.CTkFont(family="Segoe UI", size=14, weight="bold"),
             text_color="#ffffff"
         )
@@ -307,7 +307,7 @@ class VelvetControlCenter(ctk.CTk):
         # Botón con Tooltip y Clic Derecho para DIANA (Auditora de Perfil)
         self.btn_diana = ctk.CTkButton(
             m_top_row,
-            text="🔬 Estrategia DIANA ⓘ",
+            text=" Estrategia DIANA ⓘ",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#6a1b9a",
             hover_color="#8e24aa",
@@ -321,7 +321,7 @@ class VelvetControlCenter(ctk.CTk):
         # Botón para Lovense Stream Master
         self.btn_lovense = ctk.CTkButton(
             m_top_row,
-            text="💖 Lovense Master",
+            text=" Lovense Master",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#ad1457",
             hover_color="#d81b60",
@@ -343,7 +343,7 @@ class VelvetControlCenter(ctk.CTk):
 
         self.btn_refresh = ctk.CTkButton(
             m_top_row,
-            text="🔄 Actualizar",
+            text=" Actualizar",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#3c2a55",
             hover_color="#5c3f82",
@@ -358,13 +358,13 @@ class VelvetControlCenter(ctk.CTk):
         stats_grid.pack(fill="x", padx=15, pady=(0, 12))
 
         # Tarjetas de estadísticas
-        self.stat_user = self._create_stat_badge(stats_grid, "👤 Creadora", "No conectada", "#d0cbdc")
-        self.stat_earn = self._create_stat_badge(stats_grid, "💰 Ganancias", "$0.00", self.GOLD_COLOR)
-        self.stat_foll = self._create_stat_badge(stats_grid, "👥 Seguidores", "--", "#a8dadc")
-        self.stat_msgs = self._create_stat_badge(stats_grid, "✉️ Mensajes", "0 nuevos", "#ff70a6")
-        self.stat_alrt = self._create_stat_badge(stats_grid, "🔔 Alertas", "0", "#ffd166")
+        self.stat_user = self._create_stat_badge(stats_grid, " Creadora", "No conectada", "#d0cbdc")
+        self.stat_earn = self._create_stat_badge(stats_grid, " Ganancias", "$0.00", self.GOLD_COLOR)
+        self.stat_foll = self._create_stat_badge(stats_grid, " Seguidores", "--", "#a8dadc")
+        self.stat_msgs = self._create_stat_badge(stats_grid, " Mensajes", "0 nuevos", "#ff70a6")
+        self.stat_alrt = self._create_stat_badge(stats_grid, " Alertas", "0", "#ffd166")
 
-        # 3.1 🎯 PANEL DE POSICIONAMIENTO EN VIVO & RANKING REAL POR PÁGINA
+        # 3.1  PANEL DE POSICIONAMIENTO EN VIVO & RANKING REAL POR PÁGINA
         self.pos_card = ctk.CTkFrame(self, fg_color="#181324", corner_radius=15, border_width=1, border_color="#533c77")
         self.pos_card.pack(fill="x", padx=30, pady=(0, 6))
 
@@ -373,7 +373,7 @@ class VelvetControlCenter(ctk.CTk):
 
         pos_header = ctk.CTkLabel(
             pos_top_row,
-            text="🎯 Posicionamiento en Vivo & Estado Algorítmico (Ranking Real)",
+            text=" Posicionamiento en Vivo & Estado Algorítmico (Ranking Real)",
             font=ctk.CTkFont(family="Segoe UI", size=14, weight="bold"),
             text_color="#ffd166"
         )
@@ -382,7 +382,7 @@ class VelvetControlCenter(ctk.CTk):
         # Botón refrescar posicionamiento
         self.btn_refresh_pos = ctk.CTkButton(
             pos_top_row,
-            text="🔄 Actualizar Posición",
+            text=" Actualizar Posición",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#3c2a55",
             hover_color="#5c3f82",
@@ -411,14 +411,14 @@ class VelvetControlCenter(ctk.CTk):
         pos_grid = ctk.CTkFrame(self.pos_card, fg_color="transparent")
         pos_grid.pack(fill="x", padx=15, pady=(0, 6))
 
-        self.stat_pos_pct = self._create_stat_badge(pos_grid, "🏆 Percentil Global", "Top 23%", "#ff2a85")
-        self.stat_pos_status = self._create_stat_badge(pos_grid, "🟢 Estado de Ventas", "Saludable (3 PPV)", "#34d399")
-        self.stat_pos_rolling = self._create_stat_badge(pos_grid, "📅 Ventana 30 Días", "$8.40 USD", "#38bdf8")
-        self.stat_pos_gap = self._create_stat_badge(pos_grid, "🎯 Brecha Siguiente Nivel", "+$6.60 (Top 18%)", self.GOLD_COLOR)
+        self.stat_pos_pct = self._create_stat_badge(pos_grid, " Percentil Global", "Top 23%", "#ff2a85")
+        self.stat_pos_status = self._create_stat_badge(pos_grid, " Estado de Ventas", "Saludable (3 PPV)", "#34d399")
+        self.stat_pos_rolling = self._create_stat_badge(pos_grid, " Ventana 30 Días", "$8.40 USD", "#38bdf8")
+        self.stat_pos_gap = self._create_stat_badge(pos_grid, " Brecha Siguiente Nivel", "+$6.60 (Top 18%)", self.GOLD_COLOR)
 
         self.pos_rec_label = ctk.CTkLabel(
             self.pos_card,
-            text="💡 Señal Algorítmica: Ventas recientes de @guyeeeo009 ($0.40 c/u) sostienen el Top 23%. Lanzar Mass DM para ascender al Top 18%.",
+            text=" Señal Algorítmica: Ventas recientes de @guyeeeo009 ($0.40 c/u) sostienen el Top 23%. Lanzar Mass DM para ascender al Top 18%.",
             font=ctk.CTkFont(size=11),
             text_color="#a09cb0"
         )
@@ -430,7 +430,7 @@ class VelvetControlCenter(ctk.CTk):
 
         log_title = ctk.CTkLabel(
             log_frame,
-            text="📡 Registro en Vivo de Playwright (Cookies, Auth, Scrape & Auditoría)",
+            text=" Registro en Vivo de Playwright (Cookies, Auth, Scrape & Auditoría)",
             font=ctk.CTkFont(size=12, weight="bold"),
             text_color="#c8c2d8"
         )
@@ -479,7 +479,7 @@ class VelvetControlCenter(ctk.CTk):
             self.pass_entry.insert(0, saved_pwd)
 
         if saved_user and saved_pwd:
-            self._log(f"💾 Credenciales autocompletadas para [{platform_name}].")
+            self._log(f" Credenciales autocompletadas para [{platform_name}].")
 
     def _log(self, message: str):
         self.after(0, lambda: self._append_log(message))
@@ -496,7 +496,7 @@ class VelvetControlCenter(ctk.CTk):
             self.stat_foll.configure(text=metrics.get("followers", "--"))
             self.stat_msgs.configure(text=f"{metrics.get('unread_messages', '0')} nuevos")
             self.stat_alrt.configure(text=str(metrics.get("alerts", "0")))
-            self._log("✨ Panel de estadísticas actualizado con los datos de tu cuenta.")
+            self._log(" Panel de estadísticas actualizado con los datos de tu cuenta.")
         self.after(0, apply)
 
     def _update_diana_ui(self, diana_data: dict):
@@ -507,7 +507,7 @@ class VelvetControlCenter(ctk.CTk):
                 self.diana_tooltip.set_text(tip_text)
             if dossier_text:
                 self.current_diana_dossier = dossier_text
-            self._log("💡 DIANA actualizó la radiografía estratégica. Pasa el cursor (hover) o haz CLIC DERECHO para ver el Dossier Completo.")
+            self._log(" DIANA actualizó la radiografía estratégica. Pasa el cursor (hover) o haz CLIC DERECHO para ver el Dossier Completo.")
         self.after(0, apply)
 
     def _open_diana_dossier_window(self, event=None):
@@ -522,7 +522,7 @@ class VelvetControlCenter(ctk.CTk):
         header = ctk.CTkFrame(dossier_win, fg_color="transparent")
         header.pack(fill="x", padx=25, pady=(18, 8))
 
-        t = ctk.CTkLabel(header, text="🔬 ESTUDIO FORENSE & BIOGRAFÍA COMERCIAL", font=ctk.CTkFont(family="Segoe UI", size=18, weight="bold"), text_color="#ffd166")
+        t = ctk.CTkLabel(header, text=" ESTUDIO FORENSE & BIOGRAFÍA COMERCIAL", font=ctk.CTkFont(family="Segoe UI", size=18, weight="bold"), text_color="#ffd166")
         t.pack(anchor="w")
 
         sub = ctk.CTkLabel(header, text="Auditoría de Perfil, Fans en Chat y Factores de Monetización (+18)", font=ctk.CTkFont(size=12), text_color="#a09cb0")
@@ -568,7 +568,7 @@ class VelvetControlCenter(ctk.CTk):
         header = ctk.CTkFrame(live_win, fg_color="transparent")
         header.pack(fill="x", padx=25, pady=(18, 6))
 
-        t = ctk.CTkLabel(header, text="🎛️ CONFIGURACIÓN DE SALA EN VIVO", font=ctk.CTkFont(family="Segoe UI", size=18, weight="bold"), text_color="#ff2a85")
+        t = ctk.CTkLabel(header, text=" CONFIGURACIÓN DE SALA EN VIVO", font=ctk.CTkFont(family="Segoe UI", size=18, weight="bold"), text_color="#ff2a85")
         t.pack(anchor="w")
 
         sub = ctk.CTkLabel(header, text="Cámara OBS, Micrófono Logitech, Tema con @SAMBARTONN23 y Metas de 3 Niveles", font=ctk.CTkFont(size=12), text_color="#a09cb0")
@@ -584,14 +584,14 @@ class VelvetControlCenter(ctk.CTk):
         # Badge Cámara
         cam_box = ctk.CTkFrame(hw_grid, fg_color="#221b33", corner_radius=8, border_width=1, border_color="#533c77")
         cam_box.pack(side="left", fill="both", expand=True, padx=(0, 6))
-        ctk.CTkLabel(cam_box, text="🎥 Cámara Seleccionada", font=ctk.CTkFont(size=11), text_color="#b5b0c4").pack(pady=(6, 2))
-        ctk.CTkLabel(cam_box, text="🟢 OBS Virtual Camera", font=ctk.CTkFont(size=13, weight="bold"), text_color="#48e5c2").pack(pady=(0, 6))
+        ctk.CTkLabel(cam_box, text=" Cámara Seleccionada", font=ctk.CTkFont(size=11), text_color="#b5b0c4").pack(pady=(6, 2))
+        ctk.CTkLabel(cam_box, text=" OBS Virtual Camera", font=ctk.CTkFont(size=13, weight="bold"), text_color="#48e5c2").pack(pady=(0, 6))
 
         # Badge Micrófono
         mic_box = ctk.CTkFrame(hw_grid, fg_color="#221b33", corner_radius=8, border_width=1, border_color="#533c77")
         mic_box.pack(side="left", fill="both", expand=True, padx=(6, 0))
-        ctk.CTkLabel(mic_box, text="🎙️ Micrófono de Entrada", font=ctk.CTkFont(size=11), text_color="#b5b0c4").pack(pady=(6, 2))
-        ctk.CTkLabel(mic_box, text="🟢 Micrófono (Logitech BRIO)", font=ctk.CTkFont(size=13, weight="bold"), text_color="#ffd166").pack(pady=(0, 6))
+        ctk.CTkLabel(mic_box, text=" Micrófono de Entrada", font=ctk.CTkFont(size=11), text_color="#b5b0c4").pack(pady=(6, 2))
+        ctk.CTkLabel(mic_box, text=" Micrófono (Logitech BRIO)", font=ctk.CTkFont(size=13, weight="bold"), text_color="#ffd166").pack(pady=(0, 6))
 
         # Sección de Tema de la Sala
         topic_card = ctk.CTkFrame(live_win, fg_color="#181326", corner_radius=10, border_width=1, border_color="#3e3056")
@@ -599,7 +599,7 @@ class VelvetControlCenter(ctk.CTk):
 
         topic_top = ctk.CTkFrame(topic_card, fg_color="transparent")
         topic_top.pack(fill="x", padx=15, pady=(10, 4))
-        ctk.CTkLabel(topic_top, text="🏷️ Tema / Título de la Sala (Siempre contiene @SAMBARTONN23):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffffff").pack(side="left")
+        ctk.CTkLabel(topic_top, text=" Tema / Título de la Sala (Siempre contiene @SAMBARTONN23):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffffff").pack(side="left")
 
         # Selector de presets
         presets = cfg.get("topic_presets", [])
@@ -636,7 +636,7 @@ class VelvetControlCenter(ctk.CTk):
         goals_card = ctk.CTkFrame(live_win, fg_color="#181326", corner_radius=10, border_width=1, border_color="#3e3056")
         goals_card.pack(fill="both", expand=True, padx=25, pady=8)
 
-        g_title = ctk.CTkLabel(goals_card, text="🎯 Objetivo del Día — Configuración de 3 Niveles (Tokens / USD):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffd166")
+        g_title = ctk.CTkLabel(goals_card, text=" Objetivo del Día — Configuración de 3 Niveles (Tokens / USD):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffd166")
         g_title.pack(anchor="w", padx=15, pady=(10, 6))
 
         goals_data = cfg.get("goals", {})
@@ -674,9 +674,9 @@ class VelvetControlCenter(ctk.CTk):
 
             return tk_entry, usd_entry, desc_entry
 
-        e_g1_tk, e_g1_usd, e_g1_desc = create_goal_row(goals_card, "🔥 Nivel 1: Calentamiento & Conexión", g1.get("tokens", 250), g1.get("usd", 25.0), g1.get("desc", ""), "#48e5c2")
-        e_g2_tk, e_g2_usd, e_g2_desc = create_goal_row(goals_card, "⚡ Nivel 2: Intensidad & Sensualidad", g2.get("tokens", 750), g2.get("usd", 75.0), g2.get("desc", ""), "#ffd166")
-        e_g3_tk, e_g3_usd, e_g3_desc = create_goal_row(goals_card, "😈 Nivel 3: Clímax & Dominación Total", g3.get("tokens", 1500), g3.get("usd", 150.0), g3.get("desc", ""), "#ff2a85")
+        e_g1_tk, e_g1_usd, e_g1_desc = create_goal_row(goals_card, " Nivel 1: Calentamiento & Conexión", g1.get("tokens", 250), g1.get("usd", 25.0), g1.get("desc", ""), "#48e5c2")
+        e_g2_tk, e_g2_usd, e_g2_desc = create_goal_row(goals_card, " Nivel 2: Intensidad & Sensualidad", g2.get("tokens", 750), g2.get("usd", 75.0), g2.get("desc", ""), "#ffd166")
+        e_g3_tk, e_g3_usd, e_g3_desc = create_goal_row(goals_card, " Nivel 3: Clímax & Dominación Total", g3.get("tokens", 1500), g3.get("usd", 150.0), g3.get("desc", ""), "#ff2a85")
 
         # Botones inferiores
         b_frame = ctk.CTkFrame(live_win, fg_color="transparent")
@@ -713,7 +713,7 @@ class VelvetControlCenter(ctk.CTk):
             cfg["goals"]["level_3"]["desc"] = e_g3_desc.get().strip()
 
             save_broadcast_config(cfg)
-            self._log(f"💾 Ajustes de transmisión guardados: Tema \"{raw_topic}\" | Metas de 3 niveles actualizadas.")
+            self._log(f" Ajustes de transmisión guardados: Tema \"{raw_topic}\" | Metas de 3 niveles actualizadas.")
             live_win.destroy()
 
         def copy_goals_summary():
@@ -721,20 +721,20 @@ class VelvetControlCenter(ctk.CTk):
             if "@SAMBARTONN23" not in raw_topic.upper():
                 raw_topic = f"{raw_topic} @SAMBARTONN23".strip()
             summary = (
-                f"🖤 {raw_topic}\n"
-                f"🎯 METAS DEL DÍA — SAM BARTON:\n"
-                f"1️⃣ {e_g1_tk.get()} TK (${e_g1_usd.get()}) ➔ {e_g1_desc.get()}\n"
-                f"2️⃣ {e_g2_tk.get()} TK (${e_g2_usd.get()}) ➔ {e_g2_desc.get()}\n"
-                f"3️⃣ {e_g3_tk.get()} TK (${e_g3_usd.get()}) ➔ {e_g3_desc.get()}\n"
-                f"✨ ¡Lovense activo en sala! Tips activan vibración inmediata 🔥"
+                f" {raw_topic}\n"
+                f" METAS DEL DÍA — SAM BARTON:\n"
+                f"1⃣ {e_g1_tk.get()} TK (${e_g1_usd.get()})  {e_g1_desc.get()}\n"
+                f"2⃣ {e_g2_tk.get()} TK (${e_g2_usd.get()})  {e_g2_desc.get()}\n"
+                f"3⃣ {e_g3_tk.get()} TK (${e_g3_usd.get()})  {e_g3_desc.get()}\n"
+                f" ¡Lovense activo en sala! Tips activan vibración inmediata "
             )
             self.clipboard_clear()
             self.clipboard_append(summary)
-            self._log("📋 ¡Metas y tema copiados al portapapeles! Listo para pegar en el chat de tu sala.")
+            self._log(" ¡Metas y tema copiados al portapapeles! Listo para pegar en el chat de tu sala.")
 
         btn_copy = ctk.CTkButton(
             b_frame,
-            text="📋 COPIAR METAS PARA CHAT",
+            text=" COPIAR METAS PARA CHAT",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#3c2a55",
             hover_color="#5c3f82",
@@ -746,7 +746,7 @@ class VelvetControlCenter(ctk.CTk):
 
         btn_save = ctk.CTkButton(
             b_frame,
-            text="💾 GUARDAR AJUSTES DE SALA",
+            text=" GUARDAR AJUSTES DE SALA",
             font=ctk.CTkFont(size=12, weight="bold"),
             fg_color="#6a1b9a",
             hover_color="#8e24aa",
@@ -768,7 +768,7 @@ class VelvetControlCenter(ctk.CTk):
             except Exception as e:
                 self._log(f"Error en auditoría de Diana: {e}")
             finally:
-                self.after(0, lambda: self.btn_diana.configure(state="normal", text="🔬 Estrategia DIANA ⓘ"))
+                self.after(0, lambda: self.btn_diana.configure(state="normal", text=" Estrategia DIANA ⓘ"))
 
         threading.Thread(target=worker, daemon=True).start()
 
@@ -799,7 +799,7 @@ class VelvetControlCenter(ctk.CTk):
             except Exception as e:
                 self._log(f"Nota al refrescar: {e}")
             finally:
-                self.after(0, lambda: self.btn_refresh.configure(state="normal", text="🔄 Actualizar"))
+                self.after(0, lambda: self.btn_refresh.configure(state="normal", text=" Actualizar"))
 
         threading.Thread(target=worker, daemon=True).start()
 
@@ -811,12 +811,12 @@ class VelvetControlCenter(ctk.CTk):
         redirect_target = self.redirect_target_var.get()
 
         if not user or not pwd:
-            self._log("⚠️ Advertencia: Por favor ingresa el correo/usuario y la contraseña.")
+            self._log(" Advertencia: Por favor ingresa el correo/usuario y la contraseña.")
             return
 
         if save_creds:
             save_platform_credentials(platform, user, pwd)
-            self._log(f"💾 Credenciales guardadas localmente para [{platform.upper()}].")
+            self._log(f" Credenciales guardadas localmente para [{platform.upper()}].")
 
         target_name = "Feed / Muro" if redirect_target == "feed" else ("Transmisión en Vivo" if redirect_target == "live" else "Panel General")
         self.login_button.configure(state="disabled", text="⏳ CONECTANDO...")
@@ -824,15 +824,15 @@ class VelvetControlCenter(ctk.CTk):
 
         if redirect_target == "live":
             b_cfg = load_broadcast_config()
-            self._log("🎥 [EN VIVO] Cámara priorizada: OBS Virtual Camera")
-            self._log("🎙️ [EN VIVO] Micrófono confirmado: Micrófono (Logitech BRIO)")
-            self._log(f"🏷️ [EN VIVO] Tema configurado: \"{b_cfg.get('room_topic')}\"")
+            self._log(" [EN VIVO] Cámara priorizada: OBS Virtual Camera")
+            self._log(" [EN VIVO] Micrófono confirmado: Micrófono (Logitech BRIO)")
+            self._log(f" [EN VIVO] Tema configurado: \"{b_cfg.get('room_topic')}\"")
             g = b_cfg.get("goals", {})
-            self._log(f"🎯 [EN VIVO] Metas 3 niveles: N1 ({g.get('level_1', {}).get('tokens', 250)} TK / ${g.get('level_1', {}).get('usd', 25)}) | N2 ({g.get('level_2', {}).get('tokens', 750)} TK / ${g.get('level_2', {}).get('usd', 75)}) | N3 ({g.get('level_3', {}).get('tokens', 1500)} TK / ${g.get('level_3', {}).get('usd', 150)})")
+            self._log(f" [EN VIVO] Metas 3 niveles: N1 ({g.get('level_1', {}).get('tokens', 250)} TK / ${g.get('level_1', {}).get('usd', 25)}) | N2 ({g.get('level_2', {}).get('tokens', 750)} TK / ${g.get('level_2', {}).get('usd', 75)}) | N3 ({g.get('level_3', {}).get('tokens', 1500)} TK / ${g.get('level_3', {}).get('usd', 150)})")
 
         def worker():
             try:
-                self.after(2500, lambda: self.login_button.configure(text="🟢 SESIÓN EN CURSO (ABIERTA)"))
+                self.after(2500, lambda: self.login_button.configure(text=" SESIÓN EN CURSO (ABIERTA)"))
                 run_login_sync(
                     platform_key=platform,
                     username_or_email=user,
@@ -846,7 +846,7 @@ class VelvetControlCenter(ctk.CTk):
             except Exception as e:
                 self._log(f"Error inesperado: {str(e)}")
             finally:
-                self.after(0, lambda: self.login_button.configure(state="normal", text="🚀 INICIAR SESIÓN Y ABRIR PLATAFORMA"))
+                self.after(0, lambda: self.login_button.configure(state="normal", text=" INICIAR SESIÓN Y ABRIR PLATAFORMA"))
 
         threading.Thread(target=worker, daemon=True).start()
 
@@ -854,13 +854,13 @@ class VelvetControlCenter(ctk.CTk):
         platform = self.platform_var.get().lower()
         redirect_target = self.redirect_target_var.get()
         target_name = "Feed / Muro" if redirect_target == "feed" else ("Transmisión en Vivo" if redirect_target == "live" else "Panel General")
-        self._log(f"🛡️ [MODO ASISTIDO] Abriendo navegador para [{platform.upper()}] (Destino: {target_name}).")
+        self._log(f" [MODO ASISTIDO] Abriendo navegador para [{platform.upper()}] (Destino: {target_name}).")
         if redirect_target == "live":
             b_cfg = load_broadcast_config()
-            self._log("🎥 [EN VIVO] Cámara priorizada: OBS Virtual Camera")
-            self._log("🎙️ [EN VIVO] Micrófono confirmado: Micrófono (Logitech BRIO)")
-            self._log(f"🏷️ [EN VIVO] Tema: \"{b_cfg.get('room_topic')}\"")
-        self._log("👉 Resuelve el reto de Cloudflare ('Verifica que eres humano') o 2FA en la ventana de Chrome.")
+            self._log(" [EN VIVO] Cámara priorizada: OBS Virtual Camera")
+            self._log(" [EN VIVO] Micrófono confirmado: Micrófono (Logitech BRIO)")
+            self._log(f" [EN VIVO] Tema: \"{b_cfg.get('room_topic')}\"")
+        self._log(" Resuelve el reto de Cloudflare ('Verifica que eres humano') o 2FA en la ventana de Chrome.")
         self.assisted_button.configure(state="disabled", text="⏳ ASISTIDO ACTIVO...")
 
         def worker():
@@ -868,16 +868,16 @@ class VelvetControlCenter(ctk.CTk):
                 from src.automation.manual_login_booster import run_assisted_login
                 import asyncio
                 asyncio.run(run_assisted_login(platform, redirect_target=redirect_target))
-                self._log(f"✨ Modo asistido finalizado para [{platform.upper()}]. Las cookies y sesión quedaron guardadas.")
+                self._log(f" Modo asistido finalizado para [{platform.upper()}]. Las cookies y sesión quedaron guardadas.")
             except Exception as e:
                 self._log(f"Nota en modo asistido: {e}")
             finally:
-                self.after(0, lambda: self.assisted_button.configure(state="normal", text="🛡️ MODO ASISTIDO (CLOUDFLARE / 2FA)"))
+                self.after(0, lambda: self.assisted_button.configure(state="normal", text=" MODO ASISTIDO (CLOUDFLARE / 2FA)"))
 
         threading.Thread(target=worker, daemon=True).start()
 
     def _launch_lovense_thread(self):
-        self._log("💖 [LOVENSE] Iniciando Lovense Stream Master...")
+        self._log(" [LOVENSE] Iniciando Lovense Stream Master...")
         self.btn_lovense.configure(state="disabled", text="⏳ Iniciando...")
 
         def worker():
@@ -885,20 +885,20 @@ class VelvetControlCenter(ctk.CTk):
                 from src.integrations.lovense_manager import launch_stream_master, check_local_lovense_api
                 res = launch_stream_master()
                 if res.get("success"):
-                    self._log("✨ Lovense Stream Master se ha iniciado correctamente en segundo plano.")
-                    self._log("💡 Tip: Vincula tus juguetes en Stream Master vía dongle USB o Lovense Connect.")
+                    self._log(" Lovense Stream Master se ha iniciado correctamente en segundo plano.")
+                    self._log(" Tip: Vincula tus juguetes en Stream Master vía dongle USB o Lovense Connect.")
                     # Comprobar si la API local responde
                     api = check_local_lovense_api()
                     if api.get("online"):
-                        self._log(f"🟢 Juguetes Lovense detectados en red local (Puerto {api.get('port')}).")
+                        self._log(f" Juguetes Lovense detectados en red local (Puerto {api.get('port')}).")
                     else:
-                        self._log("ℹ️ Abre la aplicación Lovense Connect o enciende tu dongle Bluetooth si vas a transmitir.")
+                        self._log("ℹ Abre la aplicación Lovense Connect o enciende tu dongle Bluetooth si vas a transmitir.")
                 else:
-                    self._log(f"⚠️ Nota al abrir Stream Master: {res.get('error')}")
+                    self._log(f" Nota al abrir Stream Master: {res.get('error')}")
             except Exception as e:
                 self._log(f"Error al iniciar Lovense: {e}")
             finally:
-                self.after(0, lambda: self.btn_lovense.configure(state="normal", text="💖 Lovense Master"))
+                self.after(0, lambda: self.btn_lovense.configure(state="normal", text=" Lovense Master"))
 
         threading.Thread(target=worker, daemon=True).start()
 
@@ -907,12 +907,12 @@ class VelvetControlCenter(ctk.CTk):
         data = get_realtime_positioning(platform_key)
         self.stat_pos_pct.configure(text=data.get("percentile", "Top 23%"))
         is_healthy = "SALUDABLE" in data.get("sales_status", "")
-        self.stat_pos_status.configure(text="🟢 Saludable" if is_healthy else "🔵 Activo")
+        self.stat_pos_status.configure(text=" Saludable" if is_healthy else " Activo")
         self.stat_pos_rolling.configure(text=data.get("rolling_30d_formatted", "$8.40 USD"))
         self.stat_pos_gap.configure(text=data.get("next_tier_gap_formatted", "+$6.60 USD"))
         rec = data.get("action_recommendation", "")
-        self.pos_rec_label.configure(text=f"💡 Recomendación [{data.get('platform_name')}]: {rec}")
-        self._log(f"🧭 Posicionamiento cargado para [{data.get('platform_name')}]: {data.get('percentile')} | {data.get('sales_status')}")
+        self.pos_rec_label.configure(text=f" Recomendación [{data.get('platform_name')}]: {rec}")
+        self._log(f" Posicionamiento cargado para [{data.get('platform_name')}]: {data.get('percentile')} | {data.get('sales_status')}")
 
     def _refresh_positioning_ui(self):
         """Consulta en vivo el estado del algoritmo y actualiza la card de posicionamiento."""
@@ -924,11 +924,11 @@ class VelvetControlCenter(ctk.CTk):
             try:
                 data = refresh_positioning_live(plat)
                 self.after(0, lambda: self._update_positioning_for_platform(plat))
-                self._log(f"✨ Posicionamiento actualizado para [{data.get('platform_name')}]: {data.get('percentile')}")
+                self._log(f" Posicionamiento actualizado para [{data.get('platform_name')}]: {data.get('percentile')}")
             except Exception as e:
                 self._log(f"Nota en posicionamiento: {e}")
             finally:
-                self.after(0, lambda: self.btn_refresh_pos.configure(state="normal", text="🔄 Actualizar Posición"))
+                self.after(0, lambda: self.btn_refresh_pos.configure(state="normal", text=" Actualizar Posición"))
 
         threading.Thread(target=worker, daemon=True).start()
 

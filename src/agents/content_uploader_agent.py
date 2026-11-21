@@ -36,7 +36,7 @@ def create_content_uploader_agent(api_key: str = None) -> Agent:
 
 if __name__ == "__main__":
     async def main():
-        print("📤 Subagente Content Uploader & Profile Manager listo.")
+        print(" Subagente Content Uploader & Profile Manager listo.")
         agent_instance = create_content_uploader_agent()
         async with agent_instance as agent:
             resp = await agent.chat("Tengo un nuevo set de fotos en lencería de encaje negra para LoyalFans. ¿Cómo me recomiendas publicarlo y a qué precio?")

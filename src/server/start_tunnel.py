@@ -37,7 +37,7 @@ def is_server_running() -> bool:
 def start_local_server_thread():
     """Inicia el servidor SIREN si no está activo."""
     if not is_server_running():
-        print("⚡ Servidor local no detectado en el puerto 8888. Iniciando servidor en segundo plano...", flush=True)
+        print(" Servidor local no detectado en el puerto 8888. Iniciando servidor en segundo plano...", flush=True)
         from src.server.velvet_app_server import run_server
         server_thread = threading.Thread(target=run_server, daemon=True)
         server_thread.start()
@@ -45,10 +45,10 @@ def start_local_server_thread():
         for _ in range(15):
             time.sleep(0.3)
             if is_server_running():
-                print("✓ Servidor local en línea en http://localhost:8888", flush=True)
+                print(" Servidor local en línea en http://localhost:8888", flush=True)
                 break
     else:
-        print("✓ Servidor local ya está activo en http://localhost:8888", flush=True)
+        print(" Servidor local ya está activo en http://localhost:8888", flush=True)
 
 def copy_to_clipboard(text: str):
     """Copia el enlace al portapapeles de Windows."""
@@ -61,12 +61,12 @@ def copy_to_clipboard(text: str):
 
 def run_tunnel():
     if not BIN_PATH.exists():
-        print(f"❌ Error: No se encontró el binario en {BIN_PATH}", flush=True)
+        print(f" Error: No se encontró el binario en {BIN_PATH}", flush=True)
         sys.exit(1)
 
     start_local_server_thread()
 
-    print("\n🌐 Conectando Túnel Seguro con Cloudflare...", flush=True)
+    print("\n Conectando Túnel Seguro con Cloudflare...", flush=True)
     cmd = [str(BIN_PATH), "tunnel", "--url", f"http://localhost:{PORT}"]
 
     proc = subprocess.Popen(
@@ -94,11 +94,11 @@ def run_tunnel():
             tunnel_url = m.group(0)
             break
         if time.time() - start_time > 25:
-            print("⚠️ Tiempo de espera agotado buscando la URL del túnel.", flush=True)
+            print(" Tiempo de espera agotado buscando la URL del túnel.", flush=True)
             break
 
     if not tunnel_url:
-        print("❌ No se pudo obtener la URL pública de Cloudflare.", flush=True)
+        print(" No se pudo obtener la URL pública de Cloudflare.", flush=True)
         proc.terminate()
         sys.exit(1)
 
@@ -118,7 +118,7 @@ def run_tunnel():
                 subprocess.run('git add tunnel_config.json', shell=True, cwd=str(ROOT), capture_output=True, timeout=10)
                 subprocess.run(f'git commit -m "chore: auto-sync live tunnel {new_url}"', shell=True, cwd=str(ROOT), capture_output=True, timeout=15)
                 subprocess.run('git push origin develop && git push origin develop:gh-pages', shell=True, cwd=str(ROOT), capture_output=True, timeout=30)
-                print("✓ Enlace seguro sincronizado automáticamente con la PWA permanente de GitHub Pages", flush=True)
+                print(" Enlace seguro sincronizado automáticamente con la PWA permanente de GitHub Pages", flush=True)
             except Exception as ge:
                 print(f"[PWA Auto-Sync Info]: {ge}", flush=True)
 
@@ -129,14 +129,14 @@ def run_tunnel():
     copy_to_clipboard(tunnel_url.strip())
 
     print("\n" + "=" * 76, flush=True)
-    print("✨ SIREN AI — CONEXIÓN REMOTA ACTIVA PARA EL ESTUDIO", flush=True)
+    print(" SIREN AI — CONEXIÓN REMOTA ACTIVA PARA EL ESTUDIO", flush=True)
     print("=" * 76, flush=True)
-    print(f"\n🔗 TU ENLACE PÚBLICO SEGURO:", flush=True)
-    print(f"   👉  {tunnel_url}\n", flush=True)
-    print(f"📋 ¡El enlace ha sido COPIADO a tu portapapeles automáticamente!", flush=True)
-    print(f"📁 También quedó guardado en el archivo del escritorio / carpeta:", flush=True)
+    print(f"\n TU ENLACE PÚBLICO SEGURO:", flush=True)
+    print(f"     {tunnel_url}\n", flush=True)
+    print(f" ¡El enlace ha sido COPIADO a tu portapapeles automáticamente!", flush=True)
+    print(f" También quedó guardado en el archivo del escritorio / carpeta:", flush=True)
     print(f"   {TXT_OUT.name}\n", flush=True)
-    print("💡 INSTRUCCIONES PARA TU TURNO EN EL ESTUDIO:", flush=True)
+    print(" INSTRUCCIONES PARA TU TURNO EN EL ESTUDIO:", flush=True)
     print("   1. Deja este PC de casa ENCENDIDO con esta ventana abierta.", flush=True)
     print("   2. En el estudio (o desde tu celular), entra a ese enlace en Google Chrome.", flush=True)
     print("   3. Tendrás acceso total a Roxanne, la IA Qwen 2.5 y las herramientas de Streamate.", flush=True)
@@ -150,7 +150,7 @@ def run_tunnel():
         print("\nCerrando túnel seguro...", flush=True)
         proc.terminate()
         proc.wait(timeout=3)
-        print("✓ Túnel cerrado correctamente.", flush=True)
+        print(" Túnel cerrado correctamente.", flush=True)
 
 if __name__ == "__main__":
     run_tunnel()

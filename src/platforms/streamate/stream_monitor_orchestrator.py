@@ -42,9 +42,9 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "level2": {"price": 22, "task": "GAG FOR 1 MINUTE"},
             "level3": {"price": 33, "task": "total submission finale"}
         },
-        "title": "🖤 Ball Gag, Collar & Pay-To-Sub Tease",
+        "title": " Ball Gag, Collar & Pay-To-Sub Tease",
         "badge": "Dominación & Sumisión Pagada",
-        "topic": "🖤 COLLAR & GAG TEASE! Pay To Control Me Or I Dominate ⚡ Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
+        "topic": " COLLAR & GAG TEASE! Pay To Control Me Or I Dominate Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
         "gold_menu": [
             {"name": "Mordaza", "gold": 3},
             {"name": "Hazme babear", "gold": 3},
@@ -69,17 +69,17 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Hey... see this collar and ball gag around my neck? Pay to control me or I stay in charge 🖤 Gold: 3G | Wheel: 5G",
-            "send_golds": "Mmm thank you for feeding my collar {fan}... want me gagged and drooling for you? 😉",
+            "room_30s": "Hey... see this collar and ball gag around my neck? Pay to control me or I stay in charge Gold: 3G | Wheel: 5G",
+            "send_golds": "Mmm thank you for feeding my collar {fan}... want me gagged and drooling for you? ",
             "private_show": "Welcome to my private room... are you ready to take complete control of my ball gag?"
         },
         "quick_messages": [
-            "Welcome in! First time? Paid submission today 🗝️",
-            "New here? Ball gag & collar on camera 😈",
-            "Hey, you're back! Ready to command me? 😏",
-            "Good to see you again! Tip 3G for gag orders 💋",
-            "My master is back! Take full control in private 🖤",
-            "Always back to discipline me ⚡ take me to private now 🗝️"
+            "Welcome in! First time? Paid submission today ",
+            "New here? Ball gag & collar on camera ",
+            "Hey, you're back! Ready to command me? ",
+            "Good to see you again! Tip 3G for gag orders ",
+            "My master is back! Take full control in private ",
+            "Always back to discipline me take me to private now "
         ]
     },
     "ass_twerk": {
@@ -89,9 +89,9 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
             "level3": {"price": 33, "task": "all or nothing"}
         },
-        "title": "🍑 Especial ASS & Twerk Trasero",
+        "title": " Especial ASS & Twerk Trasero",
         "badge": "Alta Conversión de Tokens",
-        "topic": "🍑 BOOTY SHAKE & TWERK LIVE 🔥 Gold Menu 3G ⚡ Intimate Wheel 5G 🖤 Tease Me In Private #Tomboy #Ass #Twerk #Lovense #Gold",
+        "topic": " BOOTY SHAKE & TWERK LIVE Gold Menu 3G Intimate Wheel 5G Tease Me In Private #Tomboy #Ass #Twerk #Lovense #Gold",
         "gold_menu": [
             {"name": "twerk", "gold": 3},
             {"name": "Rebota el trasero", "gold": 3},
@@ -116,17 +116,17 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Hey love! Welcome in. Booty & twerk special today. Make yourself comfortable 😉",
-            "send_golds": "Mmm thank you for that gold {fan}! Check out my 3G Gold Menu 🔥",
-            "private_show": "Welcome to my private room... what naughty fantasy are we doing today? 💋"
+            "room_30s": "Hey love! Welcome in. Booty & twerk special today. Make yourself comfortable ",
+            "send_golds": "Mmm thank you for that gold {fan}! Check out my 3G Gold Menu ",
+            "private_show": "Welcome to my private room... what naughty fantasy are we doing today? "
         },
         "quick_messages": [
-            "Welcome in! First time? Booty special today 😉",
-            "New here? Check my 3G Gold Menu now 🍑",
-            "Hey, you're back! Missed this booty bouncing? 😏",
-            "Good to see you again! Spin the wheel 5G 🎡",
-            "My favorite regular! Ready for private show? 💋",
-            "Back to spoil me again 🖤 let's go uncensored ⚡"
+            "Welcome in! First time? Booty special today ",
+            "New here? Check my 3G Gold Menu now ",
+            "Hey, you're back! Missed this booty bouncing? ",
+            "Good to see you again! Spin the wheel 5G ",
+            "My favorite regular! Ready for private show? ",
+            "Back to spoil me again let's go uncensored "
         ]
     },
     "tomboy_ukelele": {
@@ -136,9 +136,9 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "level2": {"price": 22, "task": "SING WITHOUT TOP"},
             "level3": {"price": 33, "task": "private acoustic climax"}
         },
-        "title": "🎸 Tomboy Chill & Ukelele VIP",
+        "title": " Tomboy Chill & Ukelele VIP",
         "badge": "Scroll-Stopper USA/UK",
-        "topic": "🎸 GOOD VIBES & UKELELE LIVE 🖤 Intimate chat • Gold Menu 3G ⚡ Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
+        "topic": " GOOD VIBES & UKELELE LIVE Intimate chat • Gold Menu 3G Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
         "gold_menu": [
             {"name": "ASMR", "gold": 3},
             {"name": "Sonrisa", "gold": 3},
@@ -163,17 +163,17 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Hey mister! So nice to have you. Come chat with me while I play something sweet 🖤",
-            "send_golds": "Thank you for the gold sweetheart! You inspire me so much ✨",
-            "private_show": "We are completely alone now... Tell me your deepest secret 😉"
+            "room_30s": "Hey mister! So nice to have you. Come chat with me while I play something sweet ",
+            "send_golds": "Thank you for the gold sweetheart! You inspire me so much ",
+            "private_show": "We are completely alone now... Tell me your deepest secret "
         },
         "quick_messages": [
-            "Welcome in! First time? Chill ukelele tunes today 🎶",
-            "New here? Request a song from my 3G menu ✨",
-            "Hey, you're back! Glad you came to vibe 🎸",
-            "Good to see you again! Spin the wheel 5G 🎡",
-            "My favorite regular! Want a private VIP song? 🖤",
-            "Always back to support me ✨ let's chat in private 💋"
+            "Welcome in! First time? Chill ukelele tunes today ",
+            "New here? Request a song from my 3G menu ",
+            "Hey, you're back! Glad you came to vibe ",
+            "Good to see you again! Spin the wheel 5G ",
+            "My favorite regular! Want a private VIP song? ",
+            "Always back to support me let's chat in private "
         ]
     },
     "full_lovense": {
@@ -183,9 +183,9 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             "level2": {"price": 22, "task": "MAX VIBE 1 MINUTE"},
             "level3": {"price": 33, "task": "orgasm on camera"}
         },
-        "title": "⚡ Full Lovense Buzz & Dominación",
+        "title": " Full Lovense Buzz & Dominación",
         "badge": "Ticket Alto de Propinas",
-        "topic": "🔥 FULL LOVENSE TOY CONTROL 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Make Me Moan Live #Lovense #Buzz #Tomboy #Cam2Cam #Private",
+        "topic": " FULL LOVENSE TOY CONTROL Menu Gold 3G Wheel 5G Make Me Moan Live #Lovense #Buzz #Tomboy #Cam2Cam #Private",
         "gold_menu": [
             {"name": "Lame vibrador", "gold": 3},
             {"name": "Gemido", "gold": 3},
@@ -210,17 +210,17 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Welcome! My toy is synced and waiting for your tips. Dare to control it? ⚡",
-            "send_golds": "Ahhh thank you for that buzz! Felt every single second, you are amazing 🔥",
-            "private_show": "We are alone now... Take complete control, don't hold back 💋"
+            "room_30s": "Welcome! My toy is synced and waiting for your tips. Dare to control it? ",
+            "send_golds": "Ahhh thank you for that buzz! Felt every single second, you are amazing ",
+            "private_show": "We are alone now... Take complete control, don't hold back "
         },
         "quick_messages": [
-            "Welcome in! First time? Lovense control active ⚡",
-            "New here? Tip 3G to buzz my toy live 🔥",
-            "Hey, you're back! Ready to make me buzz? 😏",
-            "Good to see you again! Take my toy to max ⚡",
-            "My favorite controller is back! Level 10 ready 😈",
-            "Back to make me shake 🖤 take me to private now 💋"
+            "Welcome in! First time? Lovense control active ",
+            "New here? Tip 3G to buzz my toy live ",
+            "Hey, you're back! Ready to make me buzz? ",
+            "Good to see you again! Take my toy to max ",
+            "My favorite controller is back! Level 10 ready ",
+            "Back to make me shake take me to private now "
         ]
     }
 }
@@ -319,8 +319,8 @@ def focus_streammonitor_window() -> bool:
             user32.CloseDesktop(hdesk)
 
         for hwnd in found_hwnds:
-            user32.ShowWindow(hwnd, 9)   # SW_RESTORE
-            user32.ShowWindow(hwnd, 3)   # SW_MAXIMIZE
+            user32.ShowWindow(hwnd, 9) # SW_RESTORE
+            user32.ShowWindow(hwnd, 3) # SW_MAXIMIZE
             user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0003) # HWND_TOPMOST
             user32.SetWindowPos(hwnd, -2, 0, 0, 0, 0, 0x0003) # HWND_NOTOPMOST
             user32.SetForegroundWindow(hwnd)
@@ -426,19 +426,19 @@ def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dic
 
     prompt_text = (
         f"Mahia: Nuestro objetivo comercial de sala para este turno es: '{target_name}'.\n"
-        f"Por favor entrégame el plan táctico directo, sin introducciones ni despedidas, respetando estrictamente estos 4 bloques:\n\n"
+        f"REGLA ESTRICTA: NO USES NINGUN EMOJI (cero emojis en todo el texto, topic, menú o mensajes). Solo texto limpio en inglés y hashtags.\nPor favor entrégame el plan táctico directo, sin introducciones ni despedidas, respetando estrictamente estos 4 bloques:\n\n"
         f"1. TOPIC: 1 línea de máximo 130 caracteres con hashtags de impacto (#Tomboy #Lovense #Gold).\n"
         f"2. MENU GOLD (Todos a 3 Gold): Exactamente 6 opciones breves en formato: Nombre - 3\n"
         f"3. RULETA INTIMA (Costo 5 Gold): Exactamente 10 opciones provocativas en formato: Opción\n"
         f"4. AUTO-MENSAJES:\n"
-        f"   - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
-        f"   - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
-        f"   - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
-        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes súper cortos en inglés, afines al saludo de sala:\n"f"   - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f"   - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f"   - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n\n"
+        f" - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
+        f" - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
+        f" - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
+        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes súper cortos en inglés, afines al saludo de sala:\n"f" - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f" - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f" - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n\n"
         f"6. OBJETIVO DE SALA LOYALFANS (3 niveles de meta en inglés con precios fijos):\n"
-        f"   - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
-        f"   - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
-        f"   - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars)."
+        f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
+        f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
+        f" - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars)."
     )
 
     return {
@@ -552,7 +552,7 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
 
     # Defaults de seguridad si Mahia omitió algún campo
     if not result["topic"]:
-        result["topic"] = "🔥 EN VIVO EN STREAMATE 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy #Tomboy #Lovense #Gold"
+        result["topic"] = " EN VIVO EN STREAMATE Menu Gold 3G Ruleta Íntima 5G Tease Tomboy #Tomboy #Lovense #Gold"
     if not result["auto_messages"]["room_30s"]:
         result["auto_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["auto_messages"]
     if len(result["quick_messages"]) < 4:
@@ -662,7 +662,7 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         if q_clean not in quoted_topics and any(w in q_clean.lower() for w in ["gold", "wheel", "show", "special", "tease", "live", "3g", "5g", "#"]):
             quoted_topics.append(q_clean)
 
-    main_topic = quoted_topics[0] if quoted_topics else "🔥 LIVE IN STREAMATE 🔥 Gold Menu 3G ⚡ Wheel 5G 🖤 Tease Me In Private #Tomboy #Lovense #Gold"
+    main_topic = quoted_topics[0] if quoted_topics else " LIVE IN STREAMATE Gold Menu 3G Wheel 5G Tease Me In Private #Tomboy #Lovense #Gold"
     alt_topic = quoted_topics[1] if len(quoted_topics) > 1 else ""
 
     # 2. Extraer acciones del catálogo oficial recomendadas por Mahia o el usuario
@@ -705,9 +705,9 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
 
     short_title = main_topic.split("#")[0].strip().strip("-•|")[:40]
     auto_messages = {
-        "room_30s": f"Hey! Welcome in. {short_title} today. Gold Menu is 3G, treat yourself 😉",
-        "send_golds": "Mmm thank you for that gold {fan}! Loving this dynamic tonight 🔥",
-        "private_show": "We are completely alone in private now... Take full control 💋"
+        "room_30s": f"Hey! Welcome in. {short_title} today. Gold Menu is 3G, treat yourself ",
+        "send_golds": "Mmm thank you for that gold {fan}! Loving this dynamic tonight ",
+        "private_show": "We are completely alone in private now... Take full control "
     }
 
     # 4. Extraer los 6 Atajos Rápidos de Chat (Alt+1 a Alt+6) solicitados por Sam
@@ -740,12 +740,12 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         theme_keyword = "toy control"
 
     macro_defaults = {
-        1: f"Welcome in! First time? Come enjoy my {theme_keyword} 😉",
-        2: "Hey new face! Check out my 3G Gold Menu today 🍑",
-        3: "Hey, you're back! Missed my show already? 😏",
-        4: "Good to see you again! Ready for some fun? 💋",
-        5: "My favorite regular is here! Come closer 😈",
-        6: "Look who's back to spoil me 🖤 always loving you ⚡"
+        1: f"Welcome in! First time? Come enjoy my {theme_keyword} ",
+        2: "Hey new face! Check out my 3G Gold Menu today ",
+        3: "Hey, you're back! Missed my show already? ",
+        4: "Good to see you again! Ready for some fun? ",
+        5: "My favorite regular is here! Come closer ",
+        6: "Look who's back to spoil me always loving you "
     }
 
     quick_messages = [extracted_macros.get(i, macro_defaults[i]) for i in range(1, 7)]
@@ -950,9 +950,9 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
         clean_name = re.sub(r'[^a-zA-Z0-9 ]', '', idea_text)[:40].strip() or "Special Shift"
         preset = {
             "id": "custom_shift",
-            "title": f"🎯 Meta: {clean_name}",
+            "title": f" Meta: {clean_name}",
             "badge": "Estrategia Dinámica en Inglés",
-            "topic": f"🔥 {clean_name.upper()} LIVE 🔥 Menu Gold 3G ⚡ Wheel 5G 🖤 Tease Me In Private #Tomboy #Lovense #Gold #Private"[:135],
+            "topic": f" {clean_name.upper()} LIVE Menu Gold 3G Wheel 5G Tease Me In Private #Tomboy #Lovense #Gold #Private"[:135],
             "gold_menu": [
                 {"name": "Muestra el trasero", "gold": 3},
                 {"name": "10x nalgadas", "gold": 3},
@@ -977,15 +977,15 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
                 ]
             },
             "auto_messages": {
-                "room_30s": f"Hey handsome! Welcome to my room. Today is {clean_name} special 🖤 Gold: 3G | Wheel: 5G",
-                "send_golds": "Thank you for that sweet gold {fan}! Loving this dynamic tonight ✨",
-                "private_show": "We are totally private now... Tell me your dirtiest command 😉"
+                "room_30s": f"Hey handsome! Welcome to my room. Today is {clean_name} special Gold: 3G | Wheel: 5G",
+                "send_golds": "Thank you for that sweet gold {fan}! Loving this dynamic tonight ",
+                "private_show": "We are totally private now... Tell me your dirtiest command "
             },
             "quick_messages": [
-                f"Gold Menu is only 3G today! Check out {clean_name} ⚡",
-                "Spin the intimate Wheel (5G) to decide my treat 🎡",
-                "Tips make me tease you faster 🖤",
-                "Take me to private for complete control 🗝️"
+                f"Gold Menu is only 3G today! Check out {clean_name} ",
+                "Spin the intimate Wheel (5G) to decide my treat ",
+                "Tips make me tease you faster ",
+                "Take me to private for complete control "
             ]
         }
         theme_key = "custom_shift"
@@ -1028,21 +1028,21 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     siren_to_mahia_prompt = (
         f"Mahia: Sam ha definido el foco para su turno: '{user_idea_spanish}'.\n"
         f"Aplica las reglas de Streamate y entrégame el plan en estos 5 puntos claros y bien enumerados:\n"
-        f"1. Room Topic (en inglés, máx 140 chars con #hashtags).\n"
+        f"REGLA OBLIGATORIA: CERO EMOJIS (estrictamente prohibido usar emojis en cualquier parte).\n1. Room Topic (en inglés, máx 140 chars con #hashtags).\n"
         f"2. GOLD Menu a 3G (exactamente 6 acciones oficiales del catálogo de Streamate).\n"
         f"3. Ruleta Íntima a 5G (exactamente 10 acciones oficiales del catálogo de Streamate).\n"
         f"4. Tres mensajes automáticos en inglés: Saludo 30s sala, Entrada a privado y Agradecimiento por propina gold.\n"
         f"5. Seis mensajes rápidos de chat súper cortos en inglés para StreamMonitor (Alt+1 a Alt+6), afines al saludo de sala:\n"
-        f"   - Alt+1: Primera vez en la sala (usuario nuevo)\n"
-        f"   - Alt+2: Primera vez en la sala (usuario nuevo)\n"
-        f"   - Alt+3: Ya ha entrado antes (retorno)\n"
-        f"   - Alt+4: Ya ha entrado antes (retorno)\n"
-        f"   - Alt+5: Ha entrado varias veces (habitual / VIP)\n"
-        f"   - Alt+6: Ha entrado varias veces (habitual / VIP)\n"
+        f" - Alt+1: Primera vez en la sala (usuario nuevo)\n"
+        f" - Alt+2: Primera vez en la sala (usuario nuevo)\n"
+        f" - Alt+3: Ya ha entrado antes (retorno)\n"
+        f" - Alt+4: Ya ha entrado antes (retorno)\n"
+        f" - Alt+5: Ha entrado varias veces (habitual / VIP)\n"
+        f" - Alt+6: Ha entrado varias veces (habitual / VIP)\n"
         f"6. Objetivo de Sala para Loyalfans (3 niveles escalonados en inglés con precios fijos):\n"
-        f"   - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
-        f"   - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
-        f"   - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars).\n"
+        f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
+        f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
+        f" - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars).\n"
         f"Devuélveme el plan estructurado para aplicarlo en vivo."
     )
 
@@ -1064,12 +1064,12 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     else:
         # Fallback estructurado oficial bien enumerado y claro
         qm = strategy.get('quick_messages', [])
-        m1 = qm[0] if len(qm) > 0 else "Welcome in! New to my room? 😉"
-        m2 = qm[1] if len(qm) > 1 else "First time here? Try my 3G menu 🍑"
-        m3 = qm[2] if len(qm) > 2 else "Hey, you're back! Missed me? 😏"
-        m4 = qm[3] if len(qm) > 3 else "Good to see you again! Ready? 💋"
-        m5 = qm[4] if len(qm) > 4 else "My favorite regular is here! Come closer 😈"
-        m6 = qm[5] if len(qm) > 5 else "Back again to spoil me? You're the best ⚡"
+        m1 = qm[0] if len(qm) > 0 else "Welcome in! New to my room? "
+        m2 = qm[1] if len(qm) > 1 else "First time here? Try my 3G menu "
+        m3 = qm[2] if len(qm) > 2 else "Hey, you're back! Missed me? "
+        m4 = qm[3] if len(qm) > 3 else "Good to see you again! Ready? "
+        m5 = qm[4] if len(qm) > 4 else "My favorite regular is here! Come closer "
+        m6 = qm[5] if len(qm) > 5 else "Back again to spoil me? You're the best "
 
         mahia_response_text = (
             f"Entendido Sam. Aquí tienes el plan táctico completo para tu sala, estructurado en 5 puntos claros:\n\n"
@@ -1081,18 +1081,18 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
             "\n".join([f"{idx+1}. {it}" for idx, it in enumerate(strategy['wheel']['items'])]) +
             f"\n\n4. TRES MENSAJES AUTOMÁTICOS (StreamMonitor):\n"
             f"- Saludo / Bienvenida (30s): \"{strategy['auto_messages']['room_30s']}\"\n"
-            f"- Mensaje al entrar a Privado: \"{strategy['auto_messages'].get('private_show', 'Welcome to private room 💋')}\"\n"
+            f"- Mensaje al entrar a Privado: \"{strategy['auto_messages'].get('private_show', 'Welcome to private room ')}\"\n"
             f"- Agradecimiento por Propina Gold: \"{strategy['auto_messages']['send_golds']}\"\n\n"
             f"5. SEIS ATAJOS RÁPIDOS DE CHAT (Alt+1 a Alt+6 - Afines al Saludo de Sala):\n"
             f"• Primera vez en la sala (Usuarios Nuevos):\n"
-            f"  - Alt+1: \"{m1}\"\n"
-            f"  - Alt+2: \"{m2}\"\n"
+            f" - Alt+1: \"{m1}\"\n"
+            f" - Alt+2: \"{m2}\"\n"
             f"• Ya han entrado antes (Retorno / Segunda vez):\n"
-            f"  - Alt+3: \"{m3}\"\n"
-            f"  - Alt+4: \"{m4}\"\n"
+            f" - Alt+3: \"{m3}\"\n"
+            f" - Alt+4: \"{m4}\"\n"
             f"• Han entrado varias veces (Habituales / VIPs):\n"
-            f"  - Alt+5: \"{m5}\"\n"
-            f"  - Alt+6: \"{m6}\""
+            f" - Alt+5: \"{m5}\"\n"
+            f" - Alt+6: \"{m6}\""
         )
         live_chat_done = False
 

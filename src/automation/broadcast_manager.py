@@ -19,13 +19,13 @@ DEFAULT_BROADCAST_CONFIG = {
     "preferred_camera": "OBS Virtual Camera",
     "preferred_microphone": "Logitech",
     "creator_tag": "@SAMBARTONN23",
-    "room_topic": "🖤 @SAMBARTONN23 | Dominante & Analítica 😈 Goal 3 Niveles Activo | Haz vibrar mi Lovense 🔥",
+    "room_topic": " @SAMBARTONN23 | Dominante & Analítica  Goal 3 Niveles Activo | Haz vibrar mi Lovense ",
     "topic_presets": [
-        "🖤 @SAMBARTONN23 | Dominante & Analítica 😈 Goal 3 Niveles Activo | Haz vibrar mi Lovense 🔥",
-        "⚽ Athletic & Sensual @SAMBARTONN23 | Desafíame si puedes... Nivel 3 sin censura 💥",
-        "💻 Dev de día, tu tentación de noche 🖤 @SAMBARTONN23 | Cumpliendo metas paso a paso 😈",
-        "🔥 Sala VIP @SAMBARTONN23 | 3 Niveles de Intensidad + Lovense Conectado 🫦 ¿Listo para obedecer?",
-        "✨ Atardecer íntimo con @SAMBARTONN23 | Ukelele, lencería y control total 🖤"
+        " @SAMBARTONN23 | Dominante & Analítica  Goal 3 Niveles Activo | Haz vibrar mi Lovense ",
+        " Athletic & Sensual @SAMBARTONN23 | Desafíame si puedes... Nivel 3 sin censura ",
+        " Dev de día, tu tentación de noche  @SAMBARTONN23 | Cumpliendo metas paso a paso ",
+        " Sala VIP @SAMBARTONN23 | 3 Niveles de Intensidad + Lovense Conectado  ¿Listo para obedecer?",
+        " Atardecer íntimo con @SAMBARTONN23 | Ukelele, lencería y control total "
     ],
     "goals": {
         "level_1": {
@@ -196,7 +196,7 @@ async def setup_live_broadcast_room(page, platform_key: str, log_func=None) -> D
     }
 
     log("\n" + "="*65)
-    log("  📹 CONFIGURANDO SALA DE TRANSMISIÓN EN VIVO (LIVE ROOM)")
+    log("   CONFIGURANDO SALA DE TRANSMISIÓN EN VIVO (LIVE ROOM)")
     log("="*65)
 
     # 1. Detectar dispositivos en el contexto del navegador
@@ -221,17 +221,17 @@ async def setup_live_broadcast_room(page, platform_key: str, log_func=None) -> D
         if obs_cam:
             res["camera_confirmed"] = True
             res["camera_name"] = obs_cam.get("label", "OBS Virtual Camera")
-            log(f"🎥 Cámara confirmada y asignada: [{res['camera_name']}]")
+            log(f" Cámara confirmada y asignada: [{res['camera_name']}]")
         else:
-            log("⚠️ 'OBS Virtual Camera' no fue detectada directamente en la lista. Si OBS está abierto, inicia 'Iniciar Cámara Virtual'.")
+            log(" 'OBS Virtual Camera' no fue detectada directamente en la lista. Si OBS está abierto, inicia 'Iniciar Cámara Virtual'.")
 
         if logi_mic:
             res["mic_confirmed"] = True
             res["mic_name"] = logi_mic.get("label", "Micrófono Logitech")
-            log(f"🎙️ Micrófono verificado: [{res['mic_name']}]")
+            log(f" Micrófono verificado: [{res['mic_name']}]")
         else:
             first_mic = audio_devs[0].get("label") if audio_devs else "Predeterminado"
-            log(f"ℹ️ Micrófono de entrada activo: [{first_mic}]. Asegura que la cámara Logitech esté conectada.")
+            log(f"ℹ Micrófono de entrada activo: [{first_mic}]. Asegura que la cámara Logitech esté conectada.")
 
     except Exception as e:
         log(f"Nota comprobando dispositivos WebRTC: {e}")
@@ -263,9 +263,9 @@ async def setup_live_broadcast_room(page, platform_key: str, log_func=None) -> D
         """
         dom_sel = await page.evaluate(select_script)
         if dom_sel.get("camChanged"):
-            log("✓ Selector de cámara en la página fijado en OBS Virtual Camera.")
+            log(" Selector de cámara en la página fijado en OBS Virtual Camera.")
         if dom_sel.get("micChanged"):
-            log("✓ Selector de micrófono en la página fijado en Logitech.")
+            log(" Selector de micrófono en la página fijado en Logitech.")
     except Exception:
         pass
 
@@ -295,18 +295,18 @@ async def setup_live_broadcast_room(page, platform_key: str, log_func=None) -> D
                 if await loc.is_visible(timeout=1000):
                     await loc.fill(topic)
                     topic_filled = True
-                    log(f"📝 Tema de la sala autocompletado en el formulario: \"{topic}\"")
+                    log(f" Tema de la sala autocompletado en el formulario: \"{topic}\"")
                     break
             except Exception:
                 continue
 
         if not topic_filled:
-            log(f"🏷️ Tema sugerido para tu transmisión (incluye @SAMBARTONN23):")
+            log(f" Tema sugerido para tu transmisión (incluye @SAMBARTONN23):")
             log(f"   \"{topic}\"")
             # Copiar al portapapeles de la página para que la modelo pueda pegarlo con Ctrl+V si lo desea
             try:
                 await page.evaluate(f"navigator.clipboard.writeText({json.dumps(topic)})")
-                log("📋 ¡Tema copiado al portapapeles del navegador para pegar rápidamente con Ctrl+V!")
+                log(" ¡Tema copiado al portapapeles del navegador para pegar rápidamente con Ctrl+V!")
             except Exception:
                 pass
         res["topic_set"] = True
@@ -321,11 +321,11 @@ async def setup_live_broadcast_room(page, platform_key: str, log_func=None) -> D
     g3 = goals.get("level_3", {})
 
     log("─────────────────────────────────────────────────────────────────")
-    log("🎯 OBJETIVO DEL DÍA (3 NIVELES ACTIVOS PARA SAM BARTON):")
-    log(f"  • {g1.get('name')}: {g1.get('tokens', 250)} TK (${g1.get('usd', 25)} USD) ➔ {g1.get('desc')}")
-    log(f"  • {g2.get('name')}: {g2.get('tokens', 750)} TK (${g2.get('usd', 75)} USD) ➔ {g2.get('desc')}")
-    log(f"  • {g3.get('name')}: {g3.get('tokens', 1500)} TK (${g3.get('usd', 150)} USD) ➔ {g3.get('desc')}")
+    log(" OBJETIVO DEL DÍA (3 NIVELES ACTIVOS PARA SAM BARTON):")
+    log(f"  • {g1.get('name')}: {g1.get('tokens', 250)} TK (${g1.get('usd', 25)} USD)  {g1.get('desc')}")
+    log(f"  • {g2.get('name')}: {g2.get('tokens', 750)} TK (${g2.get('usd', 75)} USD)  {g2.get('desc')}")
+    log(f"  • {g3.get('name')}: {g3.get('tokens', 1500)} TK (${g3.get('usd', 150)} USD)  {g3.get('desc')}")
     log("─────────────────────────────────────────────────────────────────")
-    log("✨ ¡Sala de transmisión lista y configurada con OBS, Logitech y @SAMBARTONN23!")
+    log(" ¡Sala de transmisión lista y configurada con OBS, Logitech y @SAMBARTONN23!")
 
     return res

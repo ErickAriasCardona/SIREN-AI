@@ -104,7 +104,7 @@ async function run() {
   // 1. Si hay alguna modal abierta (como Mensajes), cerrarla para despejar la vista
   await send('Runtime.evaluate', {
     expression: `(() => {
-      const closeBtns = Array.from(document.querySelectorAll('button')).filter(b => (b.innerText || '').trim() === '✕');
+      const closeBtns = Array.from(document.querySelectorAll('button')).filter(b => (b.innerText || '').trim() === '');
       closeBtns.forEach(b => b.click());
     })()`
   });

@@ -309,15 +309,15 @@ def get_streamate_dashboard_data(start_date: str = None, end_date: str = None, f
         "account_info": {
             "performer_name": "SamBartone",
             "performer_id": "144675665",
-            "rating_official": f"{avg_rating_val} ★" if avg_rating_val > 0 else "4.0 ★ (Verificado)",
+            "rating_official": f"{avg_rating_val} " if avg_rating_val > 0 else "4.0  (Verificado)",
             "account_type": "Cuenta Estudio Satélite (Centenario Studio)",
-            "status": "✓ Activa y Verificada en Vivo",
+            "status": " Activa y Verificada en Vivo",
             "rates": {
                 "private": "$2.99 / min",
                 "exclusive": "$3.99 / min",
                 "dynamic_range": "$2.99 - $6.99"
             },
-            "payout_status": "✓ Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)"
+            "payout_status": " Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)"
         },
         "kpis": {
             "total_hours_week": round(total_hours_accum, 1),

@@ -549,7 +549,7 @@ async def update_room_topic_live(topic_text: str) -> Dict[str, Any]:
         }
 
 # ==============================================================================
-# 💬 GESTIÓN DE MENSAJES STREAMATE MODELS (MESSENGER & AUTO-RESPONDER IA)
+#  GESTIÓN DE MENSAJES STREAMATE MODELS (MESSENGER & AUTO-RESPONDER IA)
 # ==============================================================================
 MESSAGES_FILE = ROOT / "data" / "streamate_messages.json"
 
