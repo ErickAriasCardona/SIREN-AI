@@ -7642,7 +7642,7 @@ Cat Lover 🐱</div>
   <!-- MODAL: ORQUESTADOR STREAMMONITOR & MAHIA (PASO A PASO EN VIVO) -->
   <!-- ============================================================== -->
   <div id="streamMonitorOrchestratorModal" class="modal-overlay">
-    <div class="modal-card" style="max-width: 1050px; width: 95%; max-height: 94vh; display: flex; flex-direction: column; padding: 22px;">
+    <div class="modal-card" style="max-width: 1260px; width: 95%; max-height: 94vh; display: flex; flex-direction: column; padding: 22px;">
       
       <!-- Encabezado del Modal -->
       <div class="modal-header" style="padding-bottom: 12px; border-bottom: 1px solid var(--border-color); margin-bottom: 14px;">
@@ -7734,128 +7734,148 @@ Cat Lover 🐱</div>
         </div>
 
         
-        <!-- ========================================== -->
-        <!-- PASO 2: CONVERSACIÓN EN VIVO CON MAHIA -->
-        <!-- ========================================== -->
-        <div class="smo-card" id="smo-mahia-dialogue-box" style="border-left: 4px solid #c084fc; background: rgba(139,83,255,0.03);">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div style="font-size: 13px; font-weight: 800; color: #c084fc; display: flex; align-items: center; gap: 7px;">
-              <span style="background: #8B53FF; color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">2</span>
-              <span>Interacción en Vivo con Mahia (Asistente StreamMonitor):</span>
-            </div>
-            <span class="table-badge badge-info" style="font-size: 9px; padding: 2px 7px;">Reglas de Negocio Streamate</span>
-          </div>
+        <!-- ============================================================ -->
+        <!-- PASO 2 REDISEÑADO: RESPUESTA EN VIVO DE MAHIA (IZQ) vs ESTRATEGIA DEDUCIDA POR SIREN (DER) -->
+        <!-- ============================================================ -->
+        <div style="display: grid; grid-template-columns: 1.05fr 1fr; gap: 16px; align-items: stretch; margin-top: 4px;">
 
-          <div style="display: flex; flex-direction: column; gap: 8px;">
-            <!-- Lo que SIREN entrega a Mahia -->
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(26,229,139,0.25); border-radius: 8px; padding: 8px 12px;">
-              <div style="font-size: 10.5px; font-weight: 800; color: #1AE589; margin-bottom: 3px; display: flex; align-items: center; gap: 5px;">
-                <i data-lucide="send" style="width: 12px; height: 12px;"></i> SIREN entrega a Mahia en StreamMonitor:
+          <!-- ========================================== -->
+          <!-- COLUMNA IZQUIERDA: RESPUESTA EN TIEMPO REAL DE MAHIA -->
+          <!-- ========================================== -->
+          <div class="smo-card" style="border-left: 4px solid #c084fc; background: rgba(139,83,255,0.04); display: flex; flex-direction: column; padding: 16px; border-radius: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(139,83,255,0.25);">
+              <div style="font-size: 13.5px; font-weight: 800; color: #c084fc; display: flex; align-items: center; gap: 8px;">
+                <span style="background: #8B53FF; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">2A</span>
+                <span>💬 Respuesta en Tiempo Real de Mahia</span>
               </div>
-              <div id="smo-siren-to-mahia-preview" style="font-size: 11px; color: var(--text-main); font-family: var(--font-mono); line-height: 1.4;">
-                Esperando envío de tu idea...
-              </div>
+              <span id="smo-mahia-live-badge" class="table-badge badge-purple" style="font-size: 9.5px; padding: 3px 8px; font-weight: 700;">StreamMonitor Desktop</span>
             </div>
 
-            <!-- Lo que Mahia responde -->
-            <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 8px 12px;">
-              <div style="font-size: 10.5px; font-weight: 800; color: #c084fc; margin-bottom: 3px; display: flex; align-items: center; gap: 5px;">
-                <i data-lucide="bot" style="width: 12px; height: 12px;"></i> Respuesta estructurada de Mahia:
+            <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 10px; line-height: 1.4;">
+              Diálogo capturado en vivo directamente del chat de Mahia en tu pantalla:
+            </div>
+
+            <!-- Contenedor Grande de Conversación con Mahia -->
+            <div style="flex: 1; min-height: 420px; max-height: 520px; overflow-y: auto; background: #07090e; border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 14px; display: flex; flex-direction: column; gap: 12px;">
+              
+              <!-- Orden que SIREN envió a Mahia -->
+              <div style="background: rgba(26, 229, 139, 0.08); border-left: 3px solid #1AE589; border-radius: 6px; padding: 10px 12px;">
+                <div style="font-size: 10.5px; font-weight: 800; color: #1AE589; margin-bottom: 4px; display: flex; align-items: center; gap: 6px;">
+                  <i data-lucide="send" style="width: 12px; height: 12px;"></i> SIREN entregó a Mahia en StreamMonitor:
+                </div>
+                <div id="smo-siren-to-mahia-preview" style="font-size: 11px; color: var(--text-main); font-family: var(--font-mono); line-height: 1.45; word-break: break-word;">
+                  Esperando envío de tu idea...
+                </div>
               </div>
-              <div id="smo-mahia-reply-preview" style="font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); line-height: 1.45; max-height: 120px; overflow-y: auto; white-space: pre-line;">
-                Mahia responderá con el Topic en inglés, Menú Gold oficial a 3G y Ruleta a 5G.
+
+              <!-- Respuesta Textual Completa de Mahia -->
+              <div style="background: rgba(139, 83, 255, 0.08); border-left: 3px solid #c084fc; border-radius: 6px; padding: 12px 14px; flex: 1; display: flex; flex-direction: column;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <div style="font-size: 11px; font-weight: 800; color: #c084fc; display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="bot" style="width: 13px; height: 13px;"></i> Respuesta textual de Mahia:
+                  </div>
+                  <button class="action-btn" onclick="copySmoMahiaReplyText()" style="font-size: 9.5px; padding: 2px 8px; border-color: rgba(139,83,255,0.4); color: #c084fc; cursor: pointer;">
+                    📋 Copiar Texto
+                  </button>
+                </div>
+                <div id="smo-mahia-reply-preview" style="font-size: 11.5px; color: #f1f5f9; line-height: 1.55; white-space: pre-wrap; word-break: break-word; max-height: 280px; overflow-y: auto; font-family: var(--font-sans);">
+                  Mahia responderá aquí con sus sugerencias de Topic en inglés, Menú Gold oficial a 3G y Ruleta a 5G...
+                </div>
               </div>
+
+              <!-- Tópicos Sugeridos por Mahia (Chips Interactivos) -->
+              <div id="smo-mahia-topics-selector" style="display: none; padding-top: 8px; border-top: 1px dashed rgba(139,83,255,0.3);">
+                <div style="font-size: 10.5px; font-weight: 800; color: #c084fc; margin-bottom: 6px;">
+                  💡 Tópicos detectados en la respuesta de Mahia (Haz clic para usar en tu sala):
+                </div>
+                <div id="smo-mahia-topics-chips" style="display: flex; flex-direction: column; gap: 6px;">
+                </div>
+              </div>
+
             </div>
           </div>
+
+          <!-- ========================================== -->
+          <!-- COLUMNA DERECHA: CONFIGURACIÓN DEDUCIDA POR SIREN (NO DATA QUEMADA) -->
+          <!-- ========================================== -->
+          <div class="smo-card" style="border-left: 4px solid #1AE589; background: rgba(26,229,139,0.03); display: flex; flex-direction: column; padding: 16px; border-radius: 10px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(26,229,139,0.25);">
+              <div style="font-size: 13.5px; font-weight: 800; color: #1AE589; display: flex; align-items: center; gap: 8px;">
+                <span style="background: #1AE589; color: #000; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">2B</span>
+                <span>⚡ Opciones Deducidas por SIREN (Streamate)</span>
+              </div>
+              <span class="table-badge badge-success" style="font-size: 9.5px; padding: 3px 8px; font-weight: 700;">100% Catálogo Oficial</span>
+            </div>
+
+            <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 10px; line-height: 1.4;">
+              Opciones deducidas en vivo según las sugerencias de Mahia (cero datos quemados):
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 12px; flex: 1;">
+              
+              <!-- 1. Topic de Sala Deducido -->
+              <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(26,229,139,0.35); border-radius: 8px; padding: 10px 12px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                  <span style="font-size: 11px; font-weight: 800; color: #1AE589;">
+                    🏷️ Topic Oficial Deducido de Mahia:
+                  </span>
+                  <span style="font-size: 11px; font-weight: 800; color: #1AE589;">
+                    <span id="smo-topic-counter">0/140</span> chars (&le; 140)
+                  </span>
+                </div>
+                <input type="text" id="smo-topic-input" maxlength="140" oninput="updateSmoTopicCounter()" style="width: 100%; font-size: 12px; padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(26,229,139,0.5); background: rgba(0,0,0,0.45); color: #fff; font-weight: 600; outline: none;">
+              </div>
+
+              <!-- 2. Grids de Menú Gold (3G) y Ruleta (5G) -->
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <!-- Menú Gold 3G -->
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 10px 12px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 11px; font-weight: 800; color: #c084fc;">⚡ Menú GOLD (3G)</span>
+                    <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">6 Ítems</span>
+                  </div>
+                  <div id="smo-gold-list" style="display: flex; flex-direction: column; gap: 5px; max-height: 165px; overflow-y: auto;">
+                    <!-- Dinámico -->
+                  </div>
+                </div>
+
+                <!-- Ruleta Íntima 5G -->
+                <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(168,85,247,0.25); border-radius: 8px; padding: 10px 12px;">
+                  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                    <span style="font-size: 11px; font-weight: 800; color: #a855f7;">🎡 Ruleta Íntima (5G)</span>
+                    <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">10 Ítems</span>
+                  </div>
+                  <div id="smo-wheel-list" style="display: flex; flex-direction: column; gap: 5px; max-height: 165px; overflow-y: auto;">
+                    <!-- Dinámico -->
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. Auto-Mensajes de Sala -->
+              <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px;">
+                <div style="font-size: 11px; font-weight: 800; color: var(--text-main); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <i data-lucide="message-square" style="width: 13px; height: 13px; color: #1AE589;"></i>
+                  <span>💬 Mensajes de Chat Deducidos (StreamMonitor):</span>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11px;">
+                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
+                    <strong style="color: #1AE589; display: block; font-size: 10.5px; margin-bottom: 2px;">Bienvenida (30s):</strong>
+                    <span id="smo-auto-welcome" style="color: var(--text-muted); line-height: 1.35;">...</span>
+                  </div>
+                  <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
+                    <strong style="color: #c084fc; display: block; font-size: 10.5px; margin-bottom: 2px;">Agradecimiento Tip:</strong>
+                    <span id="smo-auto-tip" style="color: var(--text-muted); line-height: 1.35;">...</span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
         <!-- ========================================== -->
-        <!-- PASO 2: ESTRATEGIA RESULTANTE (ORGANIZADA) -->
-        <!-- ========================================== -->
-        <div class="smo-card" style="border-left: 4px solid #8B53FF;">
-          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-            <div style="font-size: 13px; font-weight: 800; color: #c084fc; display: flex; align-items: center; gap: 7px;">
-              <span style="background: #8B53FF; color: #fff; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900;">2</span>
-              <span>Revisión de Estrategia Generada (Configuración para Streamate):</span>
-            </div>
-            <span class="table-badge badge-warning" style="font-size: 9px; padding: 2px 7px;">Listo para Transmisión</span>
-          </div>
-
-          <!-- 1. Topic de Sala -->
-          <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px; margin-bottom: 12px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-              <div style="display: flex; align-items: center; gap: 8px;">
-                <span style="font-size: 11px; font-weight: 700; color: var(--text-main);">
-                  🏷️ Tema de Sala (Topic en Inglés):
-                </span>
-                <button class="action-btn" onclick="openSmModal('topic')" style="font-size: 9.5px; padding: 2px 7px; border-color: rgba(26,229,139,0.4); color: #1AE589;">
-                  Ver en Herramienta Tema ↗
-                </button>
-              </div>
-              <span style="font-size: 11px; font-weight: 800; color: #1AE589;">
-                Largo: <span id="smo-topic-counter">125/140</span> chars (Permitido &le; 140)
-              </span>
-            </div>
-            <input type="text" id="smo-topic-input" maxlength="140" oninput="updateSmoTopicCounter()" style="width: 100%; font-size: 12px; padding: 8px 10px; border-radius: 6px; border: 1px solid rgba(26,229,139,0.4); background: rgba(0,0,0,0.3); color: #1AE589; font-weight: 600; outline: none;">
-          </div>
-
-          <!-- 2. Grids de Menú Gold (3G) y Ruleta (5G) -->
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-            <!-- Menú Gold 3G -->
-            <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(139,83,255,0.25); border-radius: 8px; padding: 10px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                  <span style="font-size: 11.5px; font-weight: 700; color: #c084fc;">⚡ Menú GOLD (Oficial Streamate)</span>
-                  <button class="action-btn" onclick="openSmModal('gold')" style="font-size: 9.5px; padding: 1px 6px; border-color: rgba(139,83,255,0.4); color: #c084fc;">
-                    Ver en Herramienta GOLD ↗
-                  </button>
-                </div>
-                <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Precio Fijo 3G</span>
-              </div>
-              <div id="smo-gold-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
-                <!-- Dinámico -->
-              </div>
-            </div>
-
-            <!-- Ruleta Íntima 5G -->
-            <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(168,85,247,0.25); border-radius: 8px; padding: 10px 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <div style="display: flex; align-items: center; gap: 6px;">
-                  <span style="font-size: 11.5px; font-weight: 700; color: #a855f7;">🎡 Ruleta Íntima Diferenciada</span>
-                  <button class="action-btn" onclick="openSmModal('wheel')" style="font-size: 9.5px; padding: 1px 6px; border-color: rgba(168,85,247,0.4); color: #a855f7;">
-                    Ver en Herramienta Ruleta ↗
-                  </button>
-                </div>
-                <span class="table-badge badge-warning" style="font-size: 9px; padding: 1px 6px;">Precio Fijo 5G</span>
-              </div>
-              <div id="smo-wheel-list" style="display: flex; flex-direction: column; gap: 6px; max-height: 180px; overflow-y: auto;">
-                <!-- Dinámico -->
-              </div>
-            </div>
-          </div>
-
-          <!-- 3. Auto-Mensajes y Atajos de StreamMonitor -->
-          <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px 12px;">
-            <div style="font-size: 11.5px; font-weight: 700; color: var(--text-main); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-              <i data-lucide="message-square" style="width: 14px; height: 14px; color: #1AE589;"></i>
-              <span>💬 Mensajes Automáticos de StreamMonitor (Inglés):</span>
-            </div>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11px;">
-              <div style="background: rgba(0,0,0,0.2); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
-                <strong style="color: #1AE589; display: block; margin-bottom: 3px;">Bienvenida al entrar (30s):</strong>
-                <span id="smo-auto-welcome" style="color: var(--text-muted); line-height: 1.4;">...</span>
-              </div>
-              <div style="background: rgba(0,0,0,0.2); border-radius: 6px; padding: 8px 10px; border: 1px solid rgba(255,255,255,0.06);">
-                <strong style="color: #c084fc; display: block; margin-bottom: 3px;">Agradecimiento por Tip:</strong>
-                <span id="smo-auto-tip" style="color: var(--text-muted); line-height: 1.4;">...</span>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ========================================== -->
-        <!-- SECCIÓN PLEGABLE EDUCATIVA: ORDEN PARA MAHIA -->
+        <!-- SECCIÓNÓN PLEGABLE EDUCATIVA: ORDEN PARA MAHIA -->
         <!-- ========================================== -->
         <div class="smo-card" style="border: 1px dashed rgba(139,83,255,0.3); background: rgba(139,83,255,0.02);">
           <div style="display: flex; justify-content: space-between; align-items: center; cursor: pointer;" onclick="toggleMahiaSection()">
@@ -12786,6 +12806,33 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         updateSmoTopicCounter();
       }
 
+      // 1.1 Renderizar chips interactivos de tópicos propuestos por Mahia
+      const topicsSelector = document.getElementById('smo-mahia-topics-selector');
+      const topicsChips = document.getElementById('smo-mahia-topics-chips');
+      if (topicsSelector && topicsChips) {
+        const altTopics = strat.alternative_topics || [];
+        if (altTopics.length > 0) {
+          topicsSelector.style.display = 'block';
+          topicsChips.innerHTML = '';
+          altTopics.forEach((t, idx) => {
+            const btn = document.createElement('button');
+            btn.className = 'action-btn';
+            btn.style.fontSize = '10px';
+            btn.style.textAlign = 'left';
+            btn.style.padding = '4px 8px';
+            btn.style.whiteSpace = 'normal';
+            btn.style.wordBreak = 'break-word';
+            btn.style.borderColor = idx === 0 ? 'rgba(26,229,139,0.5)' : 'rgba(139,83,255,0.4)';
+            btn.style.color = idx === 0 ? '#1AE589' : '#c084fc';
+            btn.innerHTML = `<strong>${idx === 0 ? 'Principal' : 'Alternativa'}:</strong> "${t}"`;
+            btn.onclick = () => selectSmoTopic(t);
+            topicsChips.appendChild(btn);
+          });
+        } else {
+          topicsSelector.style.display = 'none';
+        }
+      }
+
       // 2. Gold Menu List (3G)
       const goldList = document.getElementById('smo-gold-list');
       if (goldList) {
@@ -12842,6 +12889,30 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const len = topicInput.value.length;
         counter.textContent = `${len}/140`;
         counter.style.color = len > 140 ? '#ef4444' : (len > 120 ? '#f59e0b' : '#1AE589');
+      }
+    }
+
+    
+    function copySmoMahiaReplyText() {
+      const mahiaBox = document.getElementById('smo-mahia-reply-preview');
+      if (mahiaBox && mahiaBox.innerText) {
+        navigator.clipboard.writeText(mahiaBox.innerText).then(() => {
+          showToast('✓ Respuesta de Mahia copiada al portapapeles');
+        }).catch(() => {
+          showToast('Selecciona el texto para copiarlo');
+        });
+      }
+    }
+
+    function selectSmoTopic(topicText) {
+      const topicInput = document.getElementById('smo-topic-input');
+      if (topicInput && topicText) {
+        topicInput.value = topicText;
+        updateSmoTopicCounter();
+        if (currentSmoStrategy) {
+          currentSmoStrategy.topic = topicText;
+        }
+        showToast('✓ Topic actualizado con la opción de Mahia');
       }
     }
 

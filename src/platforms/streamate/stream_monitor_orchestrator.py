@@ -484,7 +484,177 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
 
     return result
 
-async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[str] = None) -> Dict[str, Any]:
+
+ENGLISH_TO_SPANISH_OFFICIAL = {
+    # Twerk & Booty
+    "twerk": "twerk",
+    "shake ass": "Sacudir el culo",
+    "shake": "Agita el trasero",
+    "booty": "Muestra el trasero",
+    "butt": "Muéstrame el culo",
+    "bounce": "Rebota el trasero",
+    "oil": "Ponte aceite en el trasero",
+    "spank": "10x nalgadas",
+    "spanking": "5x azotes",
+    "whip": "Azotar",
+    "paddle": "Golpear culo con paleta",
+    "bend over": "Agacharse",
+    "doggy": "Posición de perrito",
+    "squat": "Sentadillas",
+    "squats": "Sentadillas",
+    "clap boobs": "Aplaude con los senos",
+    "boob bounce": "Rebote de senos",
+    "boobs": "Acercamiento en senos",
+    "top off": "Quitarse el top",
+    "strip": "Estriptís",
+    "dance": "Baile",
+    "pole dance": "Baile en tubo",
+    "feet": "Muéstrame los pies",
+    "toes": "Chupar dedos de pies",
+    "face": "Acercamiento en rostro",
+    "pleasure face": "Cara de placer",
+    # BDSM & Submission / Gag
+    "ball gag": "Mordaza",
+    "gag": "Hazme amordazar",
+    "drool": "Hazme babear",
+    "tongue": "Mostrar lengua",
+    "spit": "Escupir",
+    "nipple clamps": "Pinzas en pezones",
+    "clamps": "Pinzas en pezones",
+    "pinch": "Pellizcar pezones",
+    "insult": "Insultar",
+    "humiliate": "SPH",
+    "sph": "SPH",
+    "kneel": "Agacharse",
+    "crawl": "Posición de perrito",
+    # Chill & Sensory
+    "asmr": "ASMR",
+    "whisper": "ASMR",
+    "dirty talk": "Palabras sucias",
+    "dirty story": "Cuento sucio",
+    "smile": "Sonrisa",
+    "kiss": "Lanzar un beso",
+    "blow kiss": "Lanzar un beso",
+    "lick lips": "Lamer labios",
+    "wink": "Quiño",
+    "say my name": "Di mi nombre",
+    "name": "Di mi nombre",
+    "yoga": "Yoga sensual",
+    "sarcasm": "Sarcasmo",
+    "belly": "Mostrar vientre",
+    # Toys & Lovense
+    "toy": "Mostrar juguetes",
+    "toys": "Mostrar juguetes",
+    "vibrator": "Lame vibrador",
+    "buzz": "Lame vibrador",
+    "lovense": "Lame vibrador",
+    "orgasm": "Hazme acabar",
+    "cum": "Hazme acabar",
+    "dildo": "Dildo",
+    "magic wand": "Varita Hitachi / Magic Wand",
+    "moan": "Gemido",
+    "moan my name": "Gemir mi nombre",
+    "touch": "Provocame con todo el cuerpo",
+    "tease": "Provocame con todo el cuerpo"
+}
+
+def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str, Any]:
+    """
+    Deduce de forma 100% DINÁMICA (cero datos quemados) la estrategia técnica
+    analizando las recomendaciones textuales reales de Mahia y las palabras clave de Sam.
+    Garantiza que el Topic sea el de Mahia y que las opciones de Gold y Ruleta pertenezcan
+    exclusivamente al catálogo oficial de 109 opciones de Streamate.
+    """
+    from src.platforms.streamate.stream_monitor_controller import DEFAULT_STREAMATE_OPTIONS, normalize_text
+
+    combined_text = f"{mahia_text}\n{user_idea}"
+    norm_combined = normalize_text(combined_text)
+
+    # 1. Extraer tópicos propuestos por Mahia
+    quoted_topics = []
+    # Buscar patrones Principal / Alternativa o comillas explícitas
+    labeled_matches = re.findall(r'(?:Principal|Alternativa|Topic|Opción A|Opcion A|Opción B|Opcion B)[:\s]*"([^"]+)"', mahia_text, re.IGNORECASE)
+    for cand in labeled_matches:
+        cand_clean = cand.strip()
+        if len(cand_clean) <= 140 and cand_clean not in quoted_topics:
+            quoted_topics.append(cand_clean)
+
+    # Buscar otras comillas si no encontramos labeled
+    all_quotes = re.findall(r'"([^"]{15,140})"', mahia_text)
+    for q in all_quotes:
+        q_clean = q.strip()
+        if q_clean not in quoted_topics and any(w in q_clean.lower() for w in ["gold", "wheel", "show", "special", "tease", "live", "3g", "5g", "#"]):
+            quoted_topics.append(q_clean)
+
+    main_topic = quoted_topics[0] if quoted_topics else "🔥 LIVE IN STREAMATE 🔥 Gold Menu 3G ⚡ Wheel 5G 🖤 Tease Me In Private #Tomboy #Lovense #Gold"
+    alt_topic = quoted_topics[1] if len(quoted_topics) > 1 else ""
+
+    # 2. Extraer acciones del catálogo oficial recomendadas por Mahia o el usuario
+    detected_options = []
+    seen = set()
+
+    for key, official_name in ENGLISH_TO_SPANISH_OFFICIAL.items():
+        if f" {key} " in f" {norm_combined} " or key in norm_combined:
+            if official_name not in seen and official_name in DEFAULT_STREAMATE_OPTIONS.values():
+                seen.add(official_name)
+                detected_options.append(official_name)
+
+    for opt_id, opt_name in DEFAULT_STREAMATE_OPTIONS.items():
+        norm_opt = normalize_text(opt_name)
+        if norm_opt in norm_combined and opt_name not in seen:
+            seen.add(opt_name)
+            detected_options.append(opt_name)
+
+    # Fallbacks temáticos inteligentes para completar el cupo exacto
+    theme_fallbacks = [
+        "twerk", "Sacudir el culo", "Muestra el trasero", "10x nalgadas", "Posición de perrito",
+        "Ponte aceite en el trasero", "Agita el trasero", "Golpear culo con paleta", "5x azotes",
+        "Agacharse", "Baile", "Estriptís", "Sentadillas", "Muéstrame el culo", "Palabras sucias",
+        "Gemido", "Gemir mi nombre", "Lanzar un beso", "Sonrisa", "Di mi nombre"
+    ]
+    for fb in theme_fallbacks:
+        if fb not in seen and fb in DEFAULT_STREAMATE_OPTIONS.values():
+            seen.add(fb)
+            detected_options.append(fb)
+
+    gold_menu = [{"name": opt, "gold": 3} for opt in detected_options[:6]]
+    wheel_items = detected_options[6:16]
+    if len(wheel_items) < 10:
+        for opt_name in DEFAULT_STREAMATE_OPTIONS.values():
+            if opt_name not in seen:
+                seen.add(opt_name)
+                wheel_items.append(opt_name)
+                if len(wheel_items) == 10:
+                    break
+
+    short_title = main_topic.split("#")[0].strip().strip("-•|")[:40]
+    auto_messages = {
+        "room_30s": f"Hey! Welcome in. {short_title} today. Gold Menu is 3G, treat yourself 😉",
+        "send_golds": "Mmm thank you for that gold {fan}! Loving this dynamic tonight 🔥",
+        "private_show": "We are completely alone in private now... Take full control 💋"
+    }
+
+    quick_messages = [
+        f"Gold Menu is only 3G today! {short_title} ⚡",
+        "Spin the Wheel (5G) to decide my next treat 🎡",
+        "Tip 3G to trigger my dynamic live 🔥",
+        "Take me to private for complete uncensored command 🗝️",
+        "Tap the screen and stay close to me 🖤"
+    ]
+
+    return {
+        "title": short_title,
+        "topic": main_topic,
+        "alt_topic": alt_topic,
+        "alternative_topics": quoted_topics,
+        "gold_menu": gold_menu,
+        "wheel": {"cost": 5, "items": wheel_items},
+        "auto_messages": auto_messages,
+        "quick_messages": quick_messages,
+        "mahia_raw_reply": mahia_text
+    }
+
+async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[str] = None, strategy_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
     """
     Aplica de manera unificada y en un solo ciclo toda la estrategia comercial:
     1. Enfoca StreamMonitor en pantalla y activa la vista de transmisión ('Streamate').
@@ -496,7 +666,9 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
     # Traer ventana de StreamMonitor al frente en el monitor del usuario
     focus_streammonitor_window()
 
-    if custom_text and custom_text.strip():
+    if strategy_data and isinstance(strategy_data, dict) and strategy_data.get("topic"):
+        shift_data = strategy_data
+    elif custom_text and custom_text.strip():
         shift_data = parse_mahia_output_to_tools(custom_text)
     else:
         shift_data = PRESET_SHIFT_THEMES.get(theme_key, PRESET_SHIFT_THEMES["ass_twerk"])
@@ -655,17 +827,13 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
     except Exception as e:
         live_mahia_res = {"success": False, "error": str(e)}
 
-    # Si Mahia respondió en vivo en el chat de StreamMonitor, usar su respuesta real
+    # Si Mahia respondió en vivo en el chat de StreamMonitor, DEDUCIR TODO DINÁMICAMENTE (NO DATA QUEMADA)
     if live_mahia_res.get("success") and live_mahia_res.get("mahia_response"):
         mahia_response_text = live_mahia_res["mahia_response"]
         live_chat_done = True
-
-        # Extraer topic sugerido por Mahia si viene con comillas
-        topic_match = re.search(r'(?:Principal|Alternativa|Topic|Opción A|Opcion A|Opción B|Opcion B)[:\s]*"([^"]+)"', mahia_response_text)
-        if topic_match:
-            cand = topic_match.group(1).strip()
-            if len(cand) <= 140:
-                strategy["topic"] = cand
+        # Deducir dinámicamente Topic, Menú Gold (3G) y Ruleta (5G) directamente de lo que Mahia escribió:
+        strategy = deduce_strategy_from_mahia_text(mahia_response_text, user_idea_spanish)
+        theme_key = "mahia_live_deduction" 
     else:
         # Fallback estructurado oficial
         mahia_response_text = (

@@ -1427,7 +1427,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
             theme_key = body.get("theme_key") or body.get("theme", "ass_twerk")
             custom_text = body.get("custom_text", None)
-            res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text))
+            strategy_data = body.get("strategy", None)
+            res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text, strategy_data))
             if isinstance(res, dict):
                 res["injected_topic"] = res.get("orchestrated_data", {}).get("topic", "")
             self.send_response(200)
