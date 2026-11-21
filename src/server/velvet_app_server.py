@@ -76,6 +76,17 @@ Especialista en splits de Streamate (50% neto del 35% del estudio), pagos de Loy
 Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad.
 FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de splits, proyecciones o balances, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con cifras exactas, comisiones y netos desglosados."""
 
+
+MAHIA_CPU_SYSTEM_PROMPT = """Eres MAHIA, co-piloto táctica para transmisiones en vivo de Sam Barton (@sambartonn23) en StreamMonitor y Streamate.
+Especialista en preparar Topics de sala optimizados en inglés (máximo 130 caracteres con hashtags estratégicos como #tomboy #petite #versatile), menús Gold de 3G a 10G, juegos de ruleta a 5G y mensajes automáticos de sala (Alt+1 a Alt+6).
+Responde a Sam de forma concisa, rápida y táctica para aplicar directamente en sus transmisiones.
+FORMATO OBLIGATORIO: Cuando Sam te pida temas, metas o configuraciones, preséntalos en listas limpias o formato de tabla Markdown listo para copiar y pegar."""
+
+ALMA_CPU_SYSTEM_PROMPT = """Eres ALMA TECH, la inteligencia central y consultora global de marca de Sam Barton (@sambartonn23).
+Coordinas la visión integral de las plataformas (Streamate, LoyalFans, Stripchat e Instagram), supervisando a las especialistas Roxanne, Mahia, Chloe, Diana y Electra.
+Ofreces asesoramiento de alto nivel, visión estratégica de carrera, balance de ingresos pasivos vs streaming en vivo y toma de decisiones tácticas.
+FORMATO OBLIGATORIO: Estructura tus respuestas con claridad profesional, viñetas analíticas y tablas Markdown cuando se comparen datos o metas."""
+
 ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartonn23).
 Especialista en SEO de streaming, ciclo de bump cada 3.5h en LoyalFans, retención de los primeros 30 segundos en Streamate y tags clave (#Tomboy, #Versatile).
 Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos.
@@ -1656,7 +1667,25 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     print("[Topic Update Error]:", te)
 
             # Seleccionar Prompt de Sistema según Asistente (optimizado para CPU)
-            if assistant_id == "chloe":
+            if assistant_id == "mahia":
+                # Intentar primero conexión directa con StreamMonitor si está abierto
+                try:
+                    from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop, get_devtools_active_port
+                    if get_devtools_active_port():
+                        mahia_res = send_prompt_to_mahia_desktop(message, timeout_seconds=35)
+                        if mahia_res.get("success") and mahia_res.get("response"):
+                            reply = mahia_res["response"]
+                            self.send_response(200)
+                            self.send_header("Content-Type", "application/json; charset=utf-8")
+                            self.end_headers()
+                            self.wfile.write(json.dumps({"reply": reply, "source": "streammonitor_cdp"}).encode("utf-8"))
+                            return
+                except Exception as cdp_err:
+                    print(f"[Mahia CDP Bridge Info]: {cdp_err}")
+                active_system_prompt = MAHIA_CPU_SYSTEM_PROMPT
+            elif assistant_id == "alma":
+                active_system_prompt = ALMA_CPU_SYSTEM_PROMPT
+            elif assistant_id == "chloe":
                 active_system_prompt = CHLOE_CPU_SYSTEM_PROMPT
             elif assistant_id == "diana":
                 active_system_prompt = DIANA_CPU_SYSTEM_PROMPT
