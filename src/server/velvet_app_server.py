@@ -274,8 +274,34 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             "Buenas tardes. Como Capitán de Servicio de El Solar, te sugiero iniciar con nuestras tapas de la casa y maridar los cortes a la parrilla con nuestra selección de vinos y cócteles de autor. ¿En qué puedo asistirte en mesa hoy?"
         )
     elif asst in ["solar_chef", "solar_kitchen"]:
+        if any(w in msg_low for w in ["acompañamiento", "acompañamientos", "guarnicion", "guarniciones", "bandeja", "campestre", "papas", "platano", "ensalada"]):
+            return (
+                "Para la **Bandeja Solar Campestre**, los acompañamientos tradicionales recomendados son:\n\n"
+                "1. **Papas Rústicas al Romero y Sal Marina**: Doradas en la parrilla con mantequilla de ajo suave.\n"
+                "2. **Plátano Maduro Asado con Queso Campesino**: Dulzor natural que contrasta con el ahumado de la carne.\n"
+                "3. **Mazorca Dulce Grillada**: Bañada en chimichurri de la casa.\n"
+                "4. **Ensalada Fresca Campestre**: Con mix de hojas verdes, tomate cherry y vinagreta cítrica para limpiar el paladar.\n\n"
+                "¿Deseas agregar alguna porción extra de chorizo artesanal o arepa de choclo?"
+            )
+        elif any(w in msg_low for w in ["corte", "cortes", "carne", "carnes", "recomienda", "recomiendas", "probar", "plato", "pedir"]):
+            return (
+                "Te recomiendo especialmente:\n\n"
+                "- **Bife de Chorizo Madurado (350g)**: En término 3/4 para asegurar máxima jugosidad y textura tierna.\n"
+                "- **Picanha / Punta de Anca a la Leña**: Sellada a fuego vivo con capa crocante de grasa dorada.\n"
+                "- **Costillas BBQ Ahumadas en Madera de Manzano**: Cocción lenta de 6 horas que se deshace al tacto.\n\n"
+                "¿Tienes preferencia por algún término de cocción específico?"
+            )
+        elif any(w in msg_low for w in ["termino", "terminos", "coccion", "puntos"]):
+            return (
+                "En nuestros fogones manejamos 4 términos principales:\n\n"
+                "- **Término Medio (55°C)**: Centro rojo tibio y máxima jugosidad.\n"
+                "- **Término 3/4 (62°C)**: Centro rosado, el punto ideal recomendado para cortes con buen marmoleo.\n"
+                "- **Bien Cocido (70°C)**: Centro totalmente cocido pero sellado a alta temperatura para no perder humedad."
+            )
         return (
-            "¡Saludos desde los fogones de El Solar! La parrilla de leña está encendida. Para cortes madurados recomendamos término 3/4 para conservar jugosidad. ¿Qué corte o preparación de la carta deseas calibrar?"
+            "¡Saludos desde los fogones de El Solar! La parrilla de leña de quebracho está lista. "
+            "Preparamos cortes madurados, tapas al carbón y la tradicional Bandeja Solar Campestre. "
+            "¿Deseas recomendaciones sobre cortes de carne, términos de cocción o acompañamientos?"
         )
     elif asst in ["solar_admin"]:
         return (
@@ -2135,7 +2161,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "messages": messages,
                 "stream": False,
                 "options": {
-                    "num_thread": 10,
+                    "num_thread": 6,
                     "num_ctx": ctx_tokens,
                     "num_predict": predict_tokens,
                     "temperature": 0.6,
@@ -2160,7 +2186,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 }
 
             try:
-                response = urllib.request.urlopen(req, timeout=12)
+                response = urllib.request.urlopen(req, timeout=60)
                 with ACTIVE_CHAT_LOCK:
                     if session_key in ACTIVE_CHAT_SESSIONS:
                         ACTIVE_CHAT_SESSIONS[session_key]["response_obj"] = response
@@ -2225,9 +2251,9 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             except Exception as dbe:
                 print("[Chat Persist Error]:", dbe)
 
-            # Disparar notificación Web Push en tiempo real para el asistente que respondió
+            # Disparar notificación Web Push en segundo plano (asíncrono y no bloqueante)
             try:
-                push_service.notify_assistant_response(assistant_id, reply)
+                threading.Thread(target=push_service.notify_assistant_response, args=(assistant_id, reply), daemon=True).start()
             except Exception as pe:
                 print("[Push Trigger Warning]:", pe)
 
