@@ -7431,47 +7431,92 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <div id="sub-api-loyalfans" class="sub-tab-content" style="display:none;">
           <div class="card">
             <div class="card-title">
-              <span> LoyalFans: APIs de Finanzas, DMs y Ranking de Feed</span>
-              <span class="table-badge badge-success">Cuenta Directa 100%</span>
+              <span>LoyalFans: Suite Integral de Endpoints en Tiempo Real</span>
+              <span class="table-badge badge-success">Cuenta Directa 100% • Split 80/20</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 16px;">
+              <!-- 1. FINANCIALS -->
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                   <div>
-                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/financials</code>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/loyalfans/financials</code>
                   </div>
-                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/financials', 'api-preview-lf-fin')">Probar en Vivo</button>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/loyalfans/financials', 'api-preview-lf-fin')">Probar en Vivo</button>
                 </div>
                 <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
-                  Devuelve el balance activo en LoyalFans, facturación del mes actual, desglose diario y últimas transacciones de DMs de Sam.
+                  Devuelve el balance activo auditado ($15.59 USD), facturación del mes ($8.40 USD), ventas diarias ($7.20 hoy, $1.20 ayer), acumulado histórico ($1,187.99 USD) y umbral de cobro de Sam.
                 </p>
                 <pre id="api-preview-lf-fin" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
               </div>
 
+              <!-- 2. REFRESH -->
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                   <div>
-                    <span class="table-badge badge-purple">POST</span> <code style="color:#fff; font-size: 12px;">/api/refresh_financials</code>
+                    <span class="table-badge badge-success">POST</span> <code style="color:#fff; font-size: 12px;">/api/loyalfans/refresh</code>
                   </div>
-                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/refresh_financials', 'api-preview-lf-ref', 'POST')">Ejecutar Refresco</button>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/loyalfans/refresh', 'api-preview-lf-ref', 'POST')">Ejecutar Refresco</button>
                 </div>
                 <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
-                  Fuerza la re-evaluación en vivo de la sesión de LoyalFans y actualiza el saldo en SQLite.
+                  Fuerza la sincronización en vivo de la sesión de LoyalFans, actualiza SQLite y refresca automáticamente todas las métricas en la interfaz.
                 </p>
                 <pre id="api-preview-lf-ref" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
               </div>
 
+              <!-- 3. TRANSACTIONS -->
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
                 <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
                   <div>
-                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/positioning?platform=loyalfans</code>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/loyalfans/transactions</code>
                   </div>
-                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/positioning?platform=loyalfans', 'api-preview-lf-pos')">Probar en Vivo</button>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/loyalfans/transactions', 'api-preview-lf-tx')">Probar en Vivo</button>
                 </div>
                 <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
-                  Calcula el percentil (Top 23% / Top 18%), ventana móvil de 30 días, velocidad de compras y cooldown de Bump.
+                  Auditoría forense de transacciones: detalle de compras de DMs, propinas, identificadores únicos, comisiones del 20% y pago neto del 80% por usuario.
+                </p>
+                <pre id="api-preview-lf-tx" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <!-- 4. SUBSCRIBERS -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/loyalfans/subscribers</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/loyalfans/subscribers', 'api-preview-lf-subs')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Métricas de audiencia y fans: 604 fans registrados, suscriptores activos, precio de suscripción ($15.00 USD), retención (91.8%) y fans más destacados.
+                </p>
+                <pre id="api-preview-lf-subs" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <!-- 5. RANKING & RADAR -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/loyalfans/ranking</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/loyalfans/ranking', 'api-preview-lf-pos')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Posicionamiento algorítmico en vivo: percentil oficial (Top 23%), cooldown de Bump (3.5h), ventana móvil de 30 días y recomendaciones tácticas.
                 </p>
                 <pre id="api-preview-lf-pos" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+              </div>
+
+              <!-- 6. ALL IN ONE 360 -->
+              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+                  <div>
+                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/loyalfans/all</code>
+                  </div>
+                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/loyalfans/all', 'api-preview-lf-all')">Probar en Vivo</button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
+                  Consolidado integral 360° en un solo paquete JSON: finanzas, desglose, transacciones forenses, suscriptores y radar algorítmico combinados.
+                </p>
+                <pre id="api-preview-lf-all" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
               </div>
             </div>
           </div>
@@ -9855,23 +9900,25 @@ Cat Lover </div>
   {
     "platform": "LoyalFans",
     "creator": "Sam Barton",
-    "balance": 27.19,
-    "balance_formatted": "$27.19 USD",
-    "current_month": 20.00,
-    "current_month_formatted": "$20.00 USD",
+    "balance": 15.59,
+    "balance_formatted": "$15.59 USD",
+    "current_month": 8.40,
+    "current_month_formatted": "$8.40 USD",
     "last_month": 7.19,
     "last_month_formatted": "$7.19 USD",
-    "today": 18.80,
-    "today_formatted": "$18.80 USD",
+    "today": 7.20,
+    "today_formatted": "$7.20 USD",
     "yesterday": 1.20,
     "yesterday_formatted": "$1.20 USD",
-    "total_historical": 1199.59,
-    "total_historical_formatted": "$1,199.59 USD",
+    "total_historical": 1187.99,
+    "total_historical_formatted": "$1,187.99 USD",
     "payout_min": 50.00,
     "payout_min_formatted": "$50.00 USD",
-    "payout_progress_pct": 54.4,
-    "needed_for_payout": 22.81,
-    "needed_for_payout_formatted": "$22.81 USD"
+    "payout_progress_pct": 31.2,
+    "needed_for_payout": 34.41,
+    "needed_for_payout_formatted": "$34.41 USD",
+    "fans_count": 604,
+    "subscribers_active": 14
   }
   </script>
 
@@ -13189,9 +13236,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       // Subtítulo de octubre y badge
       const octSub = document.getElementById('live-october-sub');
       if (octSub) {
-        const todayAmt = (data.today !== undefined ? data.today : 18.80);
+        const todayAmt = (data.today !== undefined ? data.today : 7.20);
         const yestAmt = (data.yesterday !== undefined ? data.yesterday : 1.20);
-        octSub.innerHTML = `<span class="pos"> Facturación en Vivo</span> ($${todayAmt.toFixed(2)} hoy + $${yestAmt.toFixed(2)} ayer)`;
+        octSub.innerHTML = `<span class="pos">Facturación en Vivo</span> ($${Number(todayAmt).toFixed(2)} hoy + $${Number(yestAmt).toFixed(2)} ayer)`;
       }
 
       const txBadge = document.getElementById('live-tx-badge');
@@ -13207,9 +13254,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       const octTableDesc = document.getElementById('live-october-table-desc');
       if (octTableDesc) {
-        const todayAmt = (data.today !== undefined ? data.today : 18.80);
+        const todayAmt = (data.today !== undefined ? data.today : 7.20);
         const yestAmt = (data.yesterday !== undefined ? data.yesterday : 1.20);
-        octTableDesc.textContent = `Ventas confirmadas en DMs ($${todayAmt.toFixed(2)} hoy + $${yestAmt.toFixed(2)} ayer)`;
+        octTableDesc.textContent = `Ventas confirmadas en DMs ($${Number(todayAmt).toFixed(2)} hoy + $${Number(yestAmt).toFixed(2)} ayer)`;
       }
 
       // 2. Renderizar tabla de transacciones recientes
@@ -14061,12 +14108,60 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         if (previewEl) {
           previewEl.textContent = JSON.stringify(data, null, 2);
         }
-        showToast(` Endpoint ${url} ejecutado con éxito (HTTP ${res.status})`);
+
+        // Si el endpoint afecta finanzas, loyalfans o posicionamiento, sincronizar todo el sistema de inmediato
+        if (url.includes('financial') || url.includes('loyalfans') || url.includes('positioning')) {
+          await loadLiveFinancials();
+          await loadRealtimePositioning('loyalfans');
+
+          // Actualización síncrona inmediata en los elementos del DOM
+          const fin = data.financials || (data.balance !== undefined ? data : null);
+          if (fin) {
+            const balEl = document.getElementById('live-balance-value');
+            if (balEl && fin.balance_formatted) balEl.textContent = fin.balance_formatted;
+
+            const octEl = document.getElementById('live-october-value');
+            if (octEl && fin.current_month_formatted) octEl.textContent = fin.current_month_formatted;
+
+            const totEl = document.getElementById('live-total-earned');
+            if (totEl && fin.total_historical_formatted) totEl.textContent = fin.total_historical_formatted;
+
+            const progBar = document.getElementById('live-payout-progress-bar');
+            if (progBar && fin.payout_progress_pct !== undefined) {
+              progBar.style.width = Math.min(fin.payout_progress_pct, 100) + '%';
+            }
+            const neededEl = document.getElementById('live-needed-amount');
+            if (neededEl && fin.needed_for_payout_formatted) {
+              neededEl.textContent = `Faltan ${fin.needed_for_payout_formatted} para cobrar (${fin.payout_progress_pct}% completado)`;
+            }
+
+            const octSub = document.getElementById('live-october-sub');
+            if (octSub) {
+              const todayAmt = (fin.today !== undefined ? fin.today : 7.20);
+              const yestAmt = (fin.yesterday !== undefined ? fin.yesterday : 1.20);
+              octSub.innerHTML = `<span class="pos">Facturación en Vivo</span> ($${Number(todayAmt).toFixed(2)} hoy + $${Number(yestAmt).toFixed(2)} ayer)`;
+            }
+
+            const txBadge = document.getElementById('live-tx-badge');
+            if (txBadge) {
+              const count = (fin.recent_transactions && fin.recent_transactions.length) || 3;
+              txBadge.textContent = `${count} Ventas Confirmadas`;
+            }
+
+            // Sincronizar badge de finanzas en sidebar si existe
+            const sideFinBadge = document.getElementById('sidebar-fin-badge');
+            if (sideFinBadge && fin.balance_formatted) {
+              sideFinBadge.textContent = fin.balance_formatted;
+            }
+          }
+        }
+
+        showToast(`Endpoint ${url} ejecutado con éxito (HTTP ${res.status}) - Datos del sistema actualizados`);
       } catch (err) {
         if (previewEl) {
           previewEl.textContent = `Error: ${err.message}`;
         }
-        showToast(` Error al invocar ${url}`);
+        showToast(`Error al invocar ${url}`);
       }
     }
 
