@@ -418,7 +418,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
     # 5. DEFAULT GENERAL NEUTRAL (NO CROSS-TALK)
     else:
         return (
-            f"Como asistente de ALMA TECH, he recibido tu consulta: '{message}'. "
+            f"Como asistente de SIREN AI, he recibido tu consulta: '{message}'. "
             "Todos los sistemas y agentes del ecosistema están activos y sincronizados. ¿Deseas coordinar alguna tarea específica?"
         )
 
@@ -1884,7 +1884,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     # =========================================================================
-    # ALMA TECH — AUTENTICACIÓN CORPORATIVA & GOBERNANZA
+    # SIREN AI — AUTENTICACIÓN & GOBERNANZA
     # =========================================================================
     def handle_api_auth_login(self):
         try:
@@ -2140,7 +2140,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get(assistant_id, ROXANNE_CPU_SYSTEM_PROMPT)
             else:
                 active_system_prompt = (
-                    "Eres un asistente virtual profesional y analítico del ecosistema ALMA TECH. "
+                    "Eres un asistente virtual profesional y analítico de la suite SIREN AI. "
                     "Responde con precisión, calidez y enfoque operativo a la consulta del usuario."
                 )
 

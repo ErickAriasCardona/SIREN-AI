@@ -13,13 +13,13 @@
 </script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-  <title>ALMA TECH — Command & Intelligence Center | Sam Barton</title>
+  <title>SIREN AI — Intelligence & Command Suite | Sam Barton</title>
   <!-- PWA & Mobile Capabilities -->
   <meta name="theme-color" content="#00A88F">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="ALMA TECH">
+  <meta name="apple-mobile-web-app-title" content="SIREN AI">
   <link rel="manifest" href="manifest.json">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
@@ -7038,15 +7038,15 @@
       <div class="gate-header">
         <div class="gate-brand-row">
           <div class="gate-avatar-ring">
-            <img src="assets/alma_avatar_face.png" alt="ALMA TECH">
+            <img src="artifacts/streamate_audit/sam_barton_avatar.png" alt="SIREN AI" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
           </div>
           <div>
-            <div class="gate-title">ALMA TECH</div>
-            <div class="gate-badge">Gobernanza Corporativa</div>
+            <div class="gate-title">SIREN AI</div>
+            <div class="gate-badge">Suite de Inteligencia Operativa</div>
           </div>
         </div>
         <div class="gate-desc">
-          Puerta de enlace segura central. Acceso exclusivo para el Master Superadmin del holding tecnológico.
+          Acceso seguro exclusivo a la suite de streaming, análisis de plataformas, co-pilotos tácticos y radar en vivo de Sam Barton.
         </div>
       </div>
 
@@ -7098,14 +7098,14 @@
 
         <button type="submit" class="gate-submit-btn" id="gate-btn-submit">
           <i data-lucide="shield-check"></i>
-          <span>Autenticar en ALMA TECH</span>
+          <span>Autenticar en SIREN AI</span>
         </button>
       </form>
 
       <!-- MODAL DE RECUPERACIÓN / RESTABLECIMIENTO -->
       <div id="gate-recovery-box" style="display: none; flex-direction: column; gap: 12px; padding: 14px; border-radius: 16px; background: rgba(0,0,0,0.3); border: 1px solid rgba(0,229,191,0.2);">
         <div style="font-size: 12px; font-weight: 800; color: #00E5BF; display: flex; justify-content: space-between;">
-          <span>Restablecimiento de Contraseña Maestra</span>
+          <span>Restablecimiento de Contraseña SIREN AI</span>
           <button type="button" onclick="closeGateRecoveryBox()" style="background: none; border: none; color: var(--text-dim); cursor: pointer;">✕</button>
         </div>
         <p style="font-size: 11px; color: var(--text-muted); line-height: 1.35;">
@@ -7117,7 +7117,7 @@
           </button>
         </div>
         <div id="recovery-step-2" style="display: none; flex-direction: column; gap: 10px;">
-          <input type="text" id="recovery-pin-input" class="gate-input" placeholder="Ingresa PIN (ej. ALMA-123456)" style="padding-left: 14px;">
+          <input type="text" id="recovery-pin-input" class="gate-input" placeholder="Ingresa PIN (ej. SRN-123456)" style="padding-left: 14px;">
           <input type="password" id="recovery-newpwd-input" class="gate-input" placeholder="Nueva Contraseña (mínimo 12 caracteres)..." style="padding-left: 14px;">
           <button type="button" class="gate-submit-btn" onclick="submitGatePasswordReset()" style="font-size: 11.5px; padding: 10px;">
             <span>Actualizar y Bloquear Sesiones</span>
@@ -7134,13 +7134,13 @@
   <aside id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo-bar">
-        <div class="alma-brand-container" id="sidebar-brand-container" onclick="handleBrandClick(event)" title="Ecosistema ALMA TECH — Clic para alternar proyecto">
+        <div class="alma-brand-container" id="sidebar-brand-container" onclick="handleBrandClick(event)" title="SIREN AI Suite — Clic para alternar proyecto">
           <div class="alma-avatar-glow-ring" id="sidebar-brand-avatar-ring">
-            <img src="assets/alma_avatar_face.png" alt="Logo ALMA TECH" class="alma-logo-avatar-img" id="sidebar-brand-avatar-img">
+            <img src="artifacts/streamate_audit/sam_barton_avatar.png" alt="Sam Barton" class="alma-logo-avatar-img" id="sidebar-brand-avatar-img" style="object-fit:cover; border-radius:50%;">
           </div>
           <div class="alma-brand-text-col">
             <div class="alma-brand-title" id="sidebar-brand-title">SIREN</div>
-            <div class="alma-brand-tech-badge" id="sidebar-brand-badge">by ALMA TECH</div>
+            <div class="alma-brand-tech-badge" id="sidebar-brand-badge">AI STUDIO</div>
           </div>
         </div>
       </div>
@@ -7210,13 +7210,13 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div class="sidebar-version-pill" title="Versión Oficial ALMA TECH">
+      <div class="sidebar-version-pill" title="Versión Oficial SIREN AI">
         <span class="version-dot"></span>
         <span class="version-text">v1.0</span>
       </div>
-      <button class="sidebar-logout-pill" onclick="handleMasterLogout()" title="Cerrar Sesión">
-        <i data-lucide="log-out"></i>
-        <span class="logout-label">Salir</span>
+      <button type="button" class="sidebar-logout-pill" onclick="handleMasterLogout()" title="Cerrar Sesión Segura" style="display: inline-flex; align-items: center; gap: 5px; padding: 4px 10px; border-radius: 8px; font-size: 11px; font-weight: 700; color: #EF4444; background: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.28); cursor: pointer; transition: all 0.2s;">
+        <i data-lucide="log-out" style="width: 12px; height: 12px;"></i>
+        <span class="logout-label">Cerrar Sesión</span>
       </button>
     </div>
   </aside>
@@ -7240,13 +7240,13 @@
               <span class="project-dot" id="project-active-dot"></span>
               <span class="project-active-name" id="project-active-name">SIREN</span>
             </div>
-            <span class="project-parent-tag">by ALMA TECH</span>
+            <span class="project-parent-tag">AI SUITE</span>
             <i data-lucide="chevron-down" class="switcher-chevron" id="project-switcher-chevron"></i>
           </button>
           
           <div id="project-switcher-menu" class="project-switcher-menu">
             <div class="project-menu-header">
-              <span>ECOSISTEMA ALMA TECH</span>
+              <span>ECOSISTEMA DE PROYECTOS</span>
               <span class="badge-tech">4 Proyectos</span>
             </div>
             <div class="project-menu-list">
@@ -7259,14 +7259,14 @@
                 </div>
                 <i data-lucide="check" class="project-item-check"></i>
               </div>
-              <!-- ALMA -->
-              <div class="project-menu-item" id="pitem-alma" onclick="selectEcosystemProject('alma')">
-                <div class="project-item-icon alma-icon"><i data-lucide="camera"></i></div>
+              <!-- ALMA TECH (MATRIZ CENTRAL) -->
+              <div class="project-menu-item" id="pitem-alma" onclick="goToAlmaTech()">
+                <div class="project-item-icon alma-icon" style="background: linear-gradient(135deg, #00A88F, #00E5BF); color: #081311;"><i data-lucide="shield"></i></div>
                 <div class="project-item-info">
-                  <div class="project-item-title">ALMA <span class="project-item-pill">Vision & Gestures</span></div>
-                  <div class="project-item-desc">Puntero por Cámara, MediaPipe Gestos & Red de Agentes</div>
+                  <div class="project-item-title">ALMA TECH <span class="project-item-pill" style="background: rgba(0, 229, 191, 0.2); color: #00E5BF; font-weight: 800;">Matriz Central</span></div>
+                  <div class="project-item-desc">Portal Central, Holding Tecnológico, Gestos & Red Multi-Agente</div>
                 </div>
-                <i data-lucide="check" class="project-item-check"></i>
+                <i data-lucide="external-link" class="project-item-check"></i>
               </div>
               <!-- EL SOLAR -->
               <div class="project-menu-item" id="pitem-el_solar" onclick="selectEcosystemProject('el_solar')">
@@ -7303,6 +7303,9 @@
         </button>
         <button class="top-icon-btn primary" onclick="openUpdateModal('global')" title="Desplegar Actualización">
           <i data-lucide="play"></i>
+        </button>
+        <button id="btn-top-logout" class="top-icon-btn topbar-logout-btn" onclick="handleMasterLogout()" title="Cerrar Sesión Segura" style="color: #EF4444; border-color: rgba(239, 68, 68, 0.35); background: rgba(239, 68, 68, 0.08);">
+          <i data-lucide="log-out"></i>
         </button>
       </div>
     </header>
@@ -10696,7 +10699,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 </div>
               </div>
             </div>
-            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Base de Datos: velvet_analytics.db</span>
+            <span class="badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">Base de Datos: siren_analytics.db</span>
           </div>
 
           <div class="grid-4" style="margin-bottom: 20px;">
@@ -11595,7 +11598,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
               <div style="font-size: 11px; color: var(--text-dim); display:flex; flex-wrap: wrap; justify-content: space-between; align-items:center; gap: 6px;">
                 <span> <strong>Regla Inviolable:</strong> Si el fan escribe en español, Sam responde en español. De lo contrario, 100% inglés.</span>
-                <span> Base de datos: <code>velvet_analytics.db</code></span>
+                <span> Base de datos: <code>siren_analytics.db</code></span>
               </div>
             </div>
           </div>
@@ -12324,7 +12327,7 @@ Cat Lover </div>
             <div style="font-size: 10px; font-family: var(--font-mono); color: var(--text-muted);">• 00_Alma.md • 01_Mufasa.md • 03_Nemesis.md</div>
           </div>
           <div class="card">
-            <div style="font-size: 13px; font-weight: 800; color: #00E5BF; margin-bottom: 4px;">05_VELVET_PLATAFORMAS</div>
+            <div style="font-size: 13px; font-weight: 800; color: #00E5BF; margin-bottom: 4px;">05_SIREN_PLATAFORMAS</div>
             <div style="font-size: 11px; color: var(--text-dim); margin-bottom: 8px;">Dossiers de Streamate, Loyalfans y Sam Barton.</div>
             <div style="font-size: 10px; font-family: var(--font-mono); color: var(--text-muted);">• SAM_BARTON_Manual_Maestro.md</div>
           </div>
@@ -15340,7 +15343,7 @@ Cat Lover </div>
     }
 
     function initThemeFromStorage() {
-      const saved = (localStorage.getItem('siren_theme') || localStorage.getItem('velvet_theme'));
+      const saved = (localStorage.getItem('siren_theme') || localStorage.getItem('siren_theme'));
       if (saved === 'dark') {
         document.body.classList.remove('light-theme');
         updateThemeButtonUI(false);
@@ -18886,7 +18889,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     function renderSirenStatusEndpointVisual(data, el) {
       if (!el) return;
       const d = data || {};
-      const server = d.server || 'VELVET AI Daemon';
+      const server = d.server || 'SIREN AI Daemon';
       const port = d.port || 8888;
       const ollama = d.ollama_online ? 'En Línea (Ollama)' : 'En Línea (CPU Fallback)';
       const model = d.active_default || 'qwen2.5:7b-instruct';
@@ -20552,7 +20555,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         if (indicator) indicator.style.display = 'none';
         restoreSendBtn();
-        appendFloatingBubble(targetFloatingAgent, `No se pudo contactar al servidor (${err.message}). Verifica que el servidor de ALMA TECH esté activo.`, 'Ahora', false);
+        appendFloatingBubble(targetFloatingAgent, `No se pudo contactar al servidor (${err.message}). Verifica que el servidor de SIREN AI esté activo.`, 'Ahora', false);
       }
     }
 
@@ -20671,7 +20674,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       siren: {
         id: 'siren',
         name: 'SIREN',
-        tagline: 'by ALMA TECH',
+        tagline: 'AI Studio & Streaming',
         badge: 'Live Models',
         dotColor: '#00E5BF',
         logoImg: 'assets/siren_logo.png',
@@ -20713,7 +20716,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       cipote: {
         id: 'cipote',
         name: 'CIPOTE CEVICHERIA',
-        tagline: 'by ALMA TECH',
+        tagline: 'AI Studio & Streaming',
         badge: 'Despliegue Vercel',
         dotColor: '#38BDF8',
         logoImg: 'assets/cipote_logo.jpeg',
@@ -20736,7 +20739,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       el_solar: {
         id: 'el_solar',
         name: 'EL SOLAR',
-        tagline: 'by ALMA TECH',
+        tagline: 'AI Studio & Streaming',
         badge: 'Gastro-Bar',
         dotColor: '#F59E0B',
         logoImg: 'assets/el_solar_logo.png',
@@ -20759,7 +20762,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       alma: {
         id: 'alma',
         name: 'ALMA MULTI-AGENT',
-        tagline: 'by ALMA TECH',
+        tagline: 'AI Studio & Streaming',
         badge: 'Bóvedas OpenClaw',
         dotColor: '#3B82F6',
         logoImg: 'assets/alma_avatar_face.png',
@@ -20897,6 +20900,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
     function selectEcosystemProject(projectId) {
+      if (projectId === 'alma') {
+        goToAlmaTech();
+        return;
+      }
       if (!ALMA_ECOSYSTEM_DATA[projectId]) return;
       currentEcosystemProject = projectId;
       localStorage.setItem('alma_tech_active_project', projectId);
@@ -21318,6 +21325,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
+        function goToAlmaTech() {
+      const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+      const targetUrl = isLocal ? 'http://localhost:8900' : window.location.origin.replace(':8888', ':8900');
+      window.location.href = targetUrl;
+    }
+
     async function handleGateLoginSubmit(e) {
       if (e) e.preventDefault();
       const email = document.getElementById('gate-email-input')?.value;
@@ -21356,14 +21369,14 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           localStorage.setItem('alma_tech_user', JSON.stringify(data.user));
           unlockMasterGate(data.user);
         } else {
-          showGateError(data.error || 'Credenciales no autorizadas en ALMA TECH.');
+          showGateError(data.error || 'Credenciales no autorizadas en SIREN AI.');
         }
       } catch (err) {
-        showGateError('Error de conexión con el servidor de autenticación de ALMA TECH.');
+        showGateError('Error de conexión con el servidor de autenticación de SIREN AI.');
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
-          submitBtn.innerHTML = '<i data-lucide="shield-check"></i> Autenticar en ALMA TECH';
+          submitBtn.innerHTML = '<i data-lucide="shield-check"></i> Autenticar en SIREN AI';
           if (window.lucide) window.lucide.createIcons();
         }
       }

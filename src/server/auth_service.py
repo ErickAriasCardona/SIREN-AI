@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-ALMA TECH — Enterprise Authentication & Security Service
-Gobernanza de acceso seguro para el Holding ALMA TECH.
+SIREN AI — Enterprise Authentication & Security Service
+Gobernanza de acceso seguro para el SIREN AI Suite.
 """
 
 import os
@@ -58,7 +58,7 @@ def verify_login(email: str, password: str, turnstile_verified: bool = True) -> 
         _record_failed_attempt(clean_email, policy)
         return {
             "success": False,
-            "error": "Credenciales inválidas. Usuario no autorizado en el ecosistema ALMA TECH."
+            "error": "Credenciales inválidas. Usuario no autorizado en el ecosistema SIREN AI."
         }
 
     # 5. Validar Contraseña con Salt PBKDF2
@@ -102,7 +102,7 @@ def verify_login(email: str, password: str, turnstile_verified: bool = True) -> 
             "role": master.get("role", "Master Superadmin")
         },
         "expires_at": expires_at,
-        "message": "Autenticación corporativa exitosa. Bienvenido a ALMA TECH."
+        "message": "Autenticación corporativa exitosa. Bienvenido a SIREN AI."
     }
 
 def _record_failed_attempt(email: str, policy: dict) -> None:
@@ -148,7 +148,7 @@ def request_recovery(email: str) -> Dict[str, Any]:
         }
 
     # Generar código PIN de 6 dígitos con prefijo ALMA
-    pin = f"ALMA-{secrets.randbelow(900000) + 100000}"
+    pin = f"SRN-{secrets.randbelow(900000) + 100000}"
     recovery_token = secrets.token_urlsafe(24)
     expires_at = time.time() + 900 # 15 minutos
 

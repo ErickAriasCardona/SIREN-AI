@@ -1,8 +1,8 @@
 {
   "id": "/?source=pwa",
-  "name": "ALMA TECH - Sam Barton Command",
-  "short_name": "ALMA TECH",
-  "description": "Plataforma Central de Inteligencia Multi-Agente y Control para Sam Barton",
+  "name": "SIREN AI - Sam Barton Suite",
+  "short_name": "SIREN AI",
+  "description": "Suite de Inteligencia y Operación para Sam Barton",
   "start_url": "./",
   "display": "standalone",
   "orientation": "portrait-primary",

@@ -1,9 +1,9 @@
 @echo off
-title SIREN AI - Server & Control Center (by ALMA TECH)
+title SIREN AI - Server & Control Center
 cd /d "%~dp0"
 echo ========================================================
 echo   SIREN AI - Centro de Inteligencia y Co-Piloto Táctico
-echo   Powered by ALMA TECH Ecosistema
+echo   SIREN AI Intelligence Suite
 echo ========================================================
 echo.
 echo Iniciando servidor backend en http://localhost:8888 ...

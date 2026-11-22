@@ -8,12 +8,12 @@
 
 ## 🧭 ¿Qué es SIREN AI?
 
-**SIREN AI** es la plataforma de copiloto táctico e inteligencia operativa en vivo desarrollada por **ALMA TECH**. Su objetivo es maximizar la facturación por hora, retener usuarios de alto ticket (VIPs), automatizar la sala de transmisión en menos de 3 segundos con **1-Click Injection** y mantener el ranking #1 en el feed algorítmico sin distracciones en cámara.
+**SIREN AI** es la plataforma de copiloto táctico e inteligencia operativa en vivo para Sam Barton. Su objetivo es maximizar la facturación por hora, retener usuarios de alto ticket (VIPs), automatizar la sala de transmisión en menos de 3 segundos con **1-Click Injection** y mantener el ranking #1 en el feed algorítmico sin distracciones en cámara.
 
 ### 🌟 Módulos y Capacidades Clave:
 
 1. **Centro de Comando en Vivo (`index.html`):**
-   - Interfaz web ultra-fluida con diseño Glassmorphism Esmeralda de ALMA TECH.
+   - Interfaz web ultra-fluida con diseño Glassmorphism Esmeralda.
    - Selector de perfil y plataformas (Streamate, LoyalFans, Stripchat, Flirt4Free).
    - Finanzas & Pagos con cálculo de split 100% y conciliación de cortes.
    - Posicionamiento & Radar Algorítmico (detección de cooldown y bump).
