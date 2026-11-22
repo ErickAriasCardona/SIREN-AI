@@ -173,6 +173,13 @@
       position: relative;
       z-index: 2;
     }
+    #btn-collapse-sidebar,
+    .sidebar-header-btn,
+    .sidebar-header button.top-icon-btn {
+      display: none !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+    }
     .sidebar-logo-bar {
       display: flex;
       align-items: center;
@@ -928,6 +935,10 @@
       align-items: center;
       gap: 6px;
     }
+    .floating-agent-select {
+      display: none !important;
+    }
+
     .floating-ctrl-btn {
       width: 28px;
       height: 28px;
@@ -17536,7 +17547,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           <div class="floating-agent-name-row">
             <strong id="floating-agent-name">ROXANNE</strong>
             <span class="floating-live-dot" title="En línea"></span>
-            <select id="floating-agent-select" onchange="switchFloatingAgent(this.value)" class="floating-agent-select" title="Cambiar de asistente">
+            <select id="floating-agent-select" onchange="switchFloatingAgent(this.value)" class="floating-agent-select" title="Cambiar de asistente" style="display: none !important;">
               <option value="roxanne">Roxanne (Shows & Webcam)</option>
               <option value="mahia">Mahia (StreamMonitor Live)</option>
               <option value="chloe">Chloe (Instagram & Funnels)</option>
@@ -17967,6 +17978,17 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         if (isLocal) {
           try {
             const agentMeta = ASSISTANTS_DATA[currentFloatingAgent] || {};
+            let sysInstruction = `Eres ${agentMeta.name || currentFloatingAgent}, ${agentMeta.desc || 'asistente'}. Responde con alta precisión y enfoque profesional.`;
+            if (currentFloatingAgent.startsWith('cipote_')) {
+              sysInstruction = `Eres ${agentMeta.name || 'Don Cipote'}, Chef y especialista de Cipote Cevichería. Responde exclusivamente sobre ceviches costeños, porciones de 150g, mermas, leche de tigre y servicio del restaurante.`;
+            } else if (currentFloatingAgent.startsWith('solar_')) {
+              sysInstruction = `Eres ${agentMeta.name || 'Asistente El Solar'}, asistente de Restaurante Campestre El Solar de las Flores. Responde sobre mesas, parrilla, reservas campestres y hospitalidad.`;
+            } else if (['alma', 'mufasa', 'vera', 'nemesis', 'kali', 'bruce', 'atlas'].includes(currentFloatingAgent)) {
+              sysInstruction = `Eres ${agentMeta.name || 'Agente ALMA'}, agente autónomo del ecosistema ALMA Multi-Agent con acceso a bóvedas OpenClaw.`;
+            } else if (['mahia', 'roxanne', 'chloe', 'diana', 'electra'].includes(currentFloatingAgent)) {
+              sysInstruction = `Eres ${agentMeta.name || 'Co-piloto SIREN'}, co-piloto táctico de SIREN AI.`;
+            }
+
             const direct = await fetch('http://localhost:11434/api/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
@@ -17974,7 +17996,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               body: JSON.stringify({
                 model: 'qwen2.5:7b-instruct',
                 messages: [
-                  { role: 'system', content: `Eres ${agentMeta.name || currentFloatingAgent}, ${agentMeta.desc || 'asistente'}. Responde a Sam Barton (@sambartonn23) con precisión y tono profesional.` },
+                  { role: 'system', content: sysInstruction },
                   ...hist,
                   { role: 'user', content: text }
                 ],
@@ -18165,7 +18187,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             items: [
               { id: 'tab-ecosystem-embed', label: 'App en Vivo (Vercel)', icon: 'globe', badge: 'En Línea', url: 'https://cipote-ceviche-cocteles.vercel.app' },
               { id: 'tab-ecosystem-embed', label: 'POS Glassmorphism', icon: 'shopping-cart', badge: 'POS', url: '/cipote/pos' },
-              { id: 'tab-ecosystem-embed', label: 'Landing & Carta Digital', icon: 'sparkle', badge: 'Menú', url: '/cipote/landing' }
+              { id: 'tab-ecosystem-embed', label: 'Landing & Carta Digital', icon: 'sparkle', badge: 'Menú', url: '/cipote/landing' },
+              { id: 'tab-asistentes', label: 'Asistentes IA (Chat)', icon: 'bot', badge: 'Cipote IA', teal: true }
             ]
           }
         ]
@@ -18187,7 +18210,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             items: [
               { id: 'tab-ecosystem-embed', label: 'Plataforma & Reservas', icon: 'utensils', badge: 'Operativo', url: '/el_solar/' },
               { id: 'tab-ecosystem-embed', label: 'Manual de Usuario', icon: 'book-open', badge: 'Guía', url: '/el_solar/manual' },
-              { id: 'tab-ecosystem-embed', label: 'Propuesta Tecnológica', icon: 'file-text', badge: 'Holding', url: '/el_solar/propuesta' }
+              { id: 'tab-ecosystem-embed', label: 'Propuesta Tecnológica', icon: 'file-text', badge: 'Holding', url: '/el_solar/propuesta' },
+              { id: 'tab-asistentes', label: 'Asistentes IA (Chat)', icon: 'bot', badge: 'Solar IA', teal: true }
             ]
           }
         ]
@@ -18210,6 +18234,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               { id: 'tab-ecosystem-embed', label: 'Interfaz Multi-Agente (5173)', icon: 'bot', badge: 'En Vivo', url: 'http://localhost:5173' },
               { id: 'tab-ecosystem-embed', label: 'Bóvedas OpenClaw', icon: 'book-open', badge: 'Contexto', url: 'http://localhost:5173/#/vaults' },
               { id: 'tab-ecosystem-embed', label: 'Consola Supabase & Migraciones', icon: 'database', badge: 'DevOps', url: 'http://localhost:5173/#/supabase' },
+              { id: 'tab-asistentes', label: 'Asistentes IA (Chat)', icon: 'bot', badge: 'ALMA Core', teal: true },
               { id: 'tab-ecosystem-embed', label: 'Patrones de Calidad GAP-X', icon: 'file-text', badge: 'GAP-X', url: 'http://localhost:5173/#/patterns' }
             ]
           }
@@ -18425,8 +18450,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           if (item.green) badgeStyle = 'background: rgba(16, 185, 129, 0.2); color: #34d399;';
           if (item.teal) badgeStyle = 'background: rgba(0, 229, 191, 0.25); color: #00A88F;';
 
+          const clickAction = (item.id === 'tab-ecosystem-embed' && item.url)
+            ? `loadEcosystemEmbed('${item.url}', '${item.label}', '${item.badge}')`
+            : `switchMainTab('${item.id}')`;
+
           html += `
-          <button class="nav-btn" onclick="switchMainTab('${item.id}')" data-tooltip="${item.label}" title="${item.label}">
+          <button class="nav-btn" onclick="${clickAction}" data-tooltip="${item.label}" title="${item.label}">
             <i data-lucide="${item.icon}"></i> <span class="nav-label">${item.label}</span>
             <span class="${badgeClass}" style="${badgeStyle}">${item.badge}</span>
           </button>`;

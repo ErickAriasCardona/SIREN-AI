@@ -103,12 +103,181 @@ Especialista en SEO de streaming, ciclo de bump cada 3.5h en LoyalFans, retenci�
 Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos.
 FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de algoritmos, horarios o tags, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) estructurados por horario, plataforma y métrica."""
 
+SYSTEM_PROMPTS_BY_AGENT = {
+    # CIPOTE CEVICHERIA
+    "cipote_chef": (
+        "Eres Don Cipote, Chef Ejecutivo y Maestro Cevichero de Cipote Cevicheria en el Caribe colombiano. "
+        "Tu especialidad absoluta son los ceviches costeños auténticos, pescados frescos (corvina, róbalo, camarón), "
+        "la leche de tigre perfecta (limón pajarito recién exprimido, cebolla morada, cilantro, ají dulce y fondo de pescado concentrado), "
+        "y el control estricto de mermas y gramajes por porción (150g de proteína neta por ceviche estándar). "
+        "Hablas con calidez caribeña profesional, sazón y conocimiento culinario de alto nivel. "
+        "Recomiendas platos de la carta: Ceviche Clásico ($18.000), Ceviche Mixto ($24.000), Cóctel de Camarón ($22.000) y Granizado 16oz ($12.000). "
+        "Responde siempre con precisión sobre recetas, tiempos de marinado (máximo 3 a 5 minutos), mariscos y control de mermas. "
+        "NUNCA menciones temas de modelos webcam, transmisiones ni ukelele; tu único dominio es la cocina, cevichería y gastronomía caribeña."
+    ),
+    "cipote_bar": (
+        "Eres el Barman Líder y Coctelero de Cipote Cevicheria. "
+        "Tu especialidad es el maridaje caribeño, cócteles de autor con rones y licores del Caribe, micheladas especiales y granizados frappé de 16oz ($12.000) de corozo, maracuyá y limón. "
+        "Asesoras sobre bebidas que limpian el paladar y complementan la frescura y el picante de los ceviches. "
+        "Responde con tono hospitalario y profesional sobre recetas de bar, licores y servicio de barra."
+    ),
+    "cipote_pos": (
+        "Eres el Cajero Líder y Administrador de Punto de Venta de Cipote Cevicheria. "
+        "Tu responsabilidad es el control riguroso de comandas, turnos de caja, arqueos y el conteo crítico de vasos plásticos (12oz, 16oz y 24oz). "
+        "Cada vaso plástico equivale exactamente a una porción vendida y no debe existir ninguna discrepancia con la facturación del POS. "
+        "Orientas sobre apertura y cierre de turno, cuadre de caja (efectivo, transferencias, Nequi), anulación de comandas y control de inventario de vasos."
+    ),
+    "cipote_delivery": (
+        "Eres el Coordinador de Logística y Despacho Rápido de Cipote Cevicheria. "
+        "Garantizas empaques antiderrame (sellado hermético de leche de tigre por separado para verter al consumir) "
+        "y entregas en menos de 15 a 20 minutos preservando la cadena de frío y frescura del ceviche."
+    ),
+
+    # EL SOLAR GASTRO-BAR
+    "solar_solecito": (
+        "Eres Solecito, el anfitrión virtual de reservas de El Solar Gastro-Bar. "
+        "Gestionas asignación de mesas, reservas para cenas, cumpleaños, eventos corporativos, control de aforo y horarios de atención. "
+        "Respondes con amabilidad, elegancia y rapidez sobre la experiencia gastronómica."
+    ),
+    "solar_reservas": (
+        "Eres el Coordinador de Reservas de El Solar Gastro-Bar. Gestionas mesas, confirmación de asistencia, aforo y eventos especiales."
+    ),
+    "solar_maitre": (
+        "Eres el Capitán de Servicio y Maître de El Solar Gastro-Bar. "
+        "Especialista en atención al comensal, maridajes de la carta, cortes de carne, tapas y servicio de salón."
+    ),
+    "solar_waiter": (
+        "Eres el Capitán de Servicio de El Solar Gastro-Bar. Especialista en menú, atención en mesa y tiempos de servicio."
+    ),
+    "solar_chef": (
+        "Eres el Chef Ejecutivo de El Solar Gastro-Bar. Especialista en parrilla, tapas de autor, cocción lenta, recetas y tiempos de despacho en cocina."
+    ),
+    "solar_kitchen": (
+        "Eres el Jefe de Cocina de El Solar Gastro-Bar. Controlas recetas, mise en place, despacho de comandas y estándares de higiene."
+    ),
+    "solar_admin": (
+        "Eres el Administrador de El Solar Gastro-Bar. Controlas finanzas, compras, proveedores, cuadre de caja y métricas operativas."
+    ),
+
+    # ALMA AUTONOMOUS MULTI-AGENT & BÓVEDAS OPENCLAW
+    "alma": ALMA_CPU_SYSTEM_PROMPT,
+    "mufasa": (
+        "Eres Mufasa, Director de Operaciones del Sistema Autónomo Multi-Agente ALMA y Bóvedas OpenClaw. "
+        "Gestionas la orquestación de flujos de trabajo autónomos, ejecución de pipelines y gobernanza operativa."
+    ),
+    "vera": (
+        "Eres Vera, Auditora de Inteligencia, Seguridad y Cumplimiento del Sistema Autónomo ALMA. "
+        "Auditas la integridad de datos, cumplimiento de estándares GAP-X y consistencia lógica de los agentes."
+    ),
+    "nemesis": (
+        "Eres Nemesis, Agente de Estrategia de Ciberseguridad y Pruebas de Penetración de ALMA TECH. "
+        "Proteges la infraestructura, gestionas hardening de servidores, puertos y seguridad de autenticación."
+    ),
+    "kali": (
+        "Eres Kali, Especialista en Automatización, Pipelines CI/CD y DevOps de ALMA TECH. "
+        "Controlas despliegues continuos, scripts y tareas en segundo plano."
+    ),
+    "bruce": (
+        "Eres Bruce, Arquitecto de Infraestructura, Redes y Conectividad de ALMA TECH. "
+        "Monitoreas puertos (8900, 8888, 5173), túneles Cloudflare/LocalTunnel y rendimiento de servidores."
+    ),
+    "atlas": (
+        "Eres Atlas, Cartógrafo de Datos y Grafos de Conocimiento de ALMA TECH. "
+        "Mapeas relaciones entre entidades, bóvedas Obsidian y bases de conocimiento vectorial."
+    ),
+
+    # SIREN AI (Sam Barton)
+    "roxanne": ROXANNE_CPU_SYSTEM_PROMPT,
+    "mahia": MAHIA_CPU_SYSTEM_PROMPT,
+    "chloe": CHLOE_CPU_SYSTEM_PROMPT,
+    "diana": DIANA_CPU_SYSTEM_PROMPT,
+    "electra": ELECTRA_CPU_SYSTEM_PROMPT,
+}
+
 def generate_contextual_fallback(assistant_id: str, message: str) -> str:
-    """Genera una respuesta contextual inteligente con soporte completo de Markdown y Matrices/Tablas."""
+    """Genera una respuesta contextual inteligente con soporte completo de Markdown y Matrices/Tablas por dominio."""
     msg_low = message.lower()
     is_table_query = any(w in msg_low for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
 
-    if assistant_id == "chloe":
+    # 1. CIPOTE CEVICHERIA (DON CIPOTE & EQUIPO)
+    if assistant_id == "cipote_chef":
+        if any(w in msg_low for w in ["recomienda", "recomiendas", "probar", "hoy", "plato", "comer", "sugerencia"]):
+            return (
+                "¡Ajá! Te recomiendo sin duda empezar con nuestro **Ceviche Mixto ($24.000)** con camarón tierno y pescado blanco del día, bañado en nuestra leche de tigre tradicional con limón pajarito recién exprimido y maíz tostado crocante. Y para acompañar con este calor, un **Granizado 16oz ($12.000)** de corozo bien frío.\n\n"
+                "¿Prefieres ceviche tradicional costeño bien cítrico o te gusta con un toque picante de ají dulce?"
+            )
+        elif is_table_query or any(w in msg_low for w in ["carta", "menu", "menú", "precios", "precio", "gramaje"]):
+            return (
+                "Aquí tienes la matriz oficial de la carta y gramajes estándar de **Cipote Cevicheria**:\n\n"
+                "| Plato / Producto | Precio | Proteína Neta | Base Cítrica | Acompañamiento |\n"
+                "|---|---|---|---|---|\n"
+                "| **Ceviche Clásico** | $18.000 | 150g Pescado Blanco | Leche de tigre tradicional | Maíz tostado + Cebolla morada |\n"
+                "| **Ceviche Mixto** | $24.000 | 100g Pescado + 60g Camarón | Leche de tigre especial | Maíz crocante + Chips de plátano |\n"
+                "| **Cóctel de Camarón** | $22.000 | 120g Camarón cocido | Salsa golf marinera caribeña | Galletas de soda + Limón |\n"
+                "| **Granizado 16oz** | $12.000 | N/A | Pulpa corozo / maracuyá | Vaso escarchado con sal y limón |\n\n"
+                "**Regla de Oro en Cocina:** Cada porción de ceviche lleva exactamente **150g netos** de proteína pesada tras limpieza, manteniendo el costo de merma por debajo del 12%."
+            )
+        elif any(w in msg_low for w in ["leche de tigre", "receta", "marinado", "limon", "limón", "pescado"]):
+            return (
+                "Para la leche de tigre perfecta en Cipote Cevicheria:\n"
+                "1. **Extracción suave:** Exprime el limón pajarito al 70% sin apretar la cáscara para no transferir aceites amargos.\n"
+                "2. **Base concentrada:** Mezcla el jugo con caldo concentrado de pescado bien frío, cebolla morada fina, ají dulce costeño picado, tallos de cilantro y ajo machacado.\n"
+                "3. **Tiempo crítico de marinado:** Máximo de **3 a 5 minutos**. El pescado debe curarse en el plato y llegar a la mesa firme, fresco y jugoso."
+            )
+        elif any(w in msg_low for w in ["merma", "mermas", "porciones", "costo"]):
+            return (
+                "En Cipote controlamos las mermas mediante pesaje en crudo antes y después de eviscerar y filetear. El rendimiento del pescado blanco entero debe ser mínimo del 48-52% en filete limpio. Cada ceviche lleva 150 gramos pesados en balanza digital antes de montar la comanda."
+            )
+        else:
+            return (
+                "¡Saludos! Soy Don Cipote, tu Chef Ejecutivo. Conmigo estandarizas la leche de tigre, controlas gramajes exactos por porción y garantizas la máxima frescura del marisco. ¿Qué receta, gramaje o plato de la carta revisamos hoy?"
+            )
+
+    elif assistant_id == "cipote_bar":
+        return (
+            "¡A la orden! Como Barman de Cipote, te recomiendo acompañar los ceviches con un **Granizado 16oz ($12.000)** de corozo o maracuyá bien frío, o una michelada con sal marina y limón que corta el picante y limpia el paladar a la perfección."
+        )
+
+    elif assistant_id == "cipote_pos":
+        return (
+            "Terminal POS & Turno de Caja listo. Para este turno: base inicial confirmada, cruce estricto 1:1 de vasos plásticos (12oz, 16oz y 24oz) contra comandas facturadas, y arqueo listo para consolidar efectivo, Nequi y transferencias."
+        )
+
+    elif assistant_id == "cipote_delivery":
+        return (
+            "Despacho Rápido activo. Nuestro protocolo exige empacar la leche de tigre en contenedor hermético sellado independiente, garantizando que el cliente la vierta al comer y evitando derrames en ruta de moto en menos de 20 minutos."
+        )
+
+    # 2. EL SOLAR GASTRO-BAR
+    elif assistant_id in ["solar_solecito", "solar_reservas"]:
+        return (
+            "¡Hola! Te damos la bienvenida a **El Solar Gastro-Bar**. Estoy listo para gestionar tu reserva de mesa para hoy o el fin de semana. Indícame para cuántas personas es la mesa, la hora preferida y si celebran alguna ocasión especial."
+        )
+    elif assistant_id in ["solar_maitre", "solar_waiter"]:
+        return (
+            "Buenas tardes. Como Capitán de Servicio de El Solar, te sugiero iniciar con nuestras tapas de la casa y maridar los cortes a la parrilla con nuestra selección de vinos y cócteles de autor. ¿En qué puedo asistirte en mesa hoy?"
+        )
+    elif assistant_id in ["solar_chef", "solar_kitchen"]:
+        return (
+            "Cocina de El Solar en marcha. Controlamos tiempos de comanda menores a 18 minutos en mesa, mise en place de parrilla al día y estándar de calidad en cada término de carne."
+        )
+    elif assistant_id == "solar_admin":
+        return (
+            "Administración de El Solar Gastro-Bar conectada: reportes de ventas por turno, facturación electrónica y control de insumos con proveedores al día."
+        )
+
+    # 3. ALMA TECH & AUTONOMOUS MULTI-AGENT
+    elif assistant_id == "alma":
+        return (
+            "Ecosistema ALMA TECH conectado y operativo. Monitoreando en paralelo: SIREN (8888), ALMA Autonomous Multi-Agent (5173), Cipote Cevicheria y El Solar Gastro-Bar. ¿Qué aspecto estratégico u operativo deseas coordinar?"
+        )
+    elif assistant_id in ["mufasa", "vera", "nemesis", "kali", "bruce", "atlas"]:
+        return (
+            f"Agente autónomo **{assistant_id.upper()}** de ALMA Multi-Agent activo. Estado de conexión con el núcleo de gobernanza y bóvedas OpenClaw verificado. Listo para ejecutar instrucciones operativas."
+        )
+
+    # 4. SIREN AI (SAM BARTON)
+    elif assistant_id == "chloe":
         if is_table_query:
             return (
                 "Sam, aquí tienes tu matriz estratégica de publicaciones para la semana en **@sambartonn23**:\n\n"
@@ -187,7 +356,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             return (
                 f"Sam, sobre tu consulta: para elevar el score en los rankings de streaming, cambia el tema de sala cada 90 minutos y estimula las propinas rápidas en los primeros minutos de transmisión."
             )
-    else: # Roxanne
+    else: # Roxanne (Default para SIREN)
         if any(w in msg_low for w in ["menu", "menú", "gold", "ruleta", "rueda", "wheel", "topic", "tema", "sala", "buzz"]):
             return (
                 "¡Entendido, Sam! Aquí tienes tu configuración completa para hoy enfocada en **Golds & Buzz Lovense**, con precios accesibles (3G y 5G), opciones de ruleta más íntimas (distintas al menú) y el topic con hashtags optimizado a 110 caracteres (límite 140):\n\n"
@@ -238,22 +407,6 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
         elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
             return (
                 "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, una matriz de tarifas o preparemos las dinámicas de cámara."
-            )
-        elif any(w in msg_low for w in ["mensaje", "mensajes", "messenger", "pendiente", "pendientes", "responder", "inbox"]):
-            return (
-                "Sam, he auditado tu bandeja de entrada de **Streamate Messenger** consultando tus 5 mensajes pendientes:\n\n"
-                "| Fan / Usuario | Tiempo sin Responder | Último Mensaje Recibido | Sugerencia Streamate (Oficial) | Sugerencia Roxanne (Tomboy & Monetización) | Elección IA |\n"
-                "|---|---|---|---|---|---|\n"
-                "| **thedude911** () | **Hoy (Hace 2h 5m)**  | *\"Of course, if you want, today I can connect around 6 PM...\"* | *\"Awesome! I'd love to connect today. What time works best for you?\"* | *\"¡Perfecto! A las 6 PM te espero en mi sala. Dime si quieres sesión acústica con ukelele o pasamos directo a lo exclusivo \"* |  **Roxanne** (Gancho a Exclusivo) |\n"
-                "| **shyman2012** () | **5 nov (Hace 18h)**  | *\"Im here nowwww\"* | *\"Hey there! So glad you're here. Let's chat!\"* | *\"¡Hey mister! Qué puntual  ¿Te quedas a hacerme compañía o nos vamos directo a privado a jugar?\"* |  **Roxanne** (Conversión Rápida) |\n"
-                "| **Bigandveiny** | **5 nov (Hace 23h)**  | *\"Hey there, I'm back. I was a little busy with work...\"* | *\"Welcome back! I missed seeing you around here.\"* | *\"¡Miren quién volvió! Ya me preguntaba dónde andabas  Cuéntame qué hiciste hoy y te quito el estrés en privado.\"* |  **Roxanne** (Complicidad & Desestrés) |\n"
-                "| **Dedlock** () | **4 nov (Hace 2 días)**  | *\"Danger has never had such a seductive look, loved your preview photo\"* | *\"Thanks for your message! Looking forward to having fun with you.\"* | *\"El peligro siempre es más divertido cuando estás conmigo  ¿Listo para tu próxima dosis de adrenalina en vivo?\"* |  **Roxanne** (Venta de Show en Vivo) |\n"
-                "| **Rome** | **30 oct (Hace 7 días)**  | *\"I would love to see it in action\"* | *\"I can definitely show you in a private show whenever you're ready!\"* | *\"Verlo en acción es mil veces mejor que imaginarlo  Avísame cuando entres y te armo un show exclusivo que no vas a olvidar.\"* |  **Streamate** (Respuesta Directa) |\n\n"
-                " **Piloto Automático Disponible**: Tienes la opción de activar el **Auto-Responder** en la barra derecha de Herramientas de Streamate para responder a todos automáticamente con delays humanos y selección inteligente."
-            )
-        elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
-            return (
-                "Pégame el mensaje que te envió el fan y te preparo 2 opciones de respuesta de inmediato: una coqueta y directa con tu vibra tomboy, y otra para monetizar con fotos o propinas."
             )
         else:
             return (
@@ -1938,14 +2091,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 except Exception as cdp_err:
                     print(f"[Mahia CDP Bridge Error]: {cdp_err}")
                 active_system_prompt = MAHIA_CPU_SYSTEM_PROMPT
-            elif assistant_id == "alma":
-                active_system_prompt = ALMA_CPU_SYSTEM_PROMPT
-            elif assistant_id == "chloe":
-                active_system_prompt = CHLOE_CPU_SYSTEM_PROMPT
-            elif assistant_id == "diana":
-                active_system_prompt = DIANA_CPU_SYSTEM_PROMPT
-            elif assistant_id == "electra":
-                active_system_prompt = ELECTRA_CPU_SYSTEM_PROMPT
+            elif assistant_id in SYSTEM_PROMPTS_BY_AGENT:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT[assistant_id]
             else:
                 active_system_prompt = ROXANNE_CPU_SYSTEM_PROMPT
 
@@ -1955,10 +2102,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             messages.extend(recent_history)
             messages.append({"role": "user", "content": message})
 
-            # Detectar si Sam pide una tabla, matriz o comparativa para dar más contexto y predicción
+            # Detectar si se pide una tabla o esquema
             is_table_query = any(w in msg_lower for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
-            predict_tokens = 750 if is_table_query else 280
-            ctx_tokens = 2048 if is_table_query else 1024
+            predict_tokens = 220 if is_table_query else 90
+            ctx_tokens = 1024 if is_table_query else 512
 
             # Inferencia vía Ollama con paralelismo multihilo de CPU
             ollama_payload = {
@@ -1969,7 +2116,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "num_thread": 10,
                     "num_ctx": ctx_tokens,
                     "num_predict": predict_tokens,
-                    "temperature": 0.7,
+                    "temperature": 0.6,
                     "top_p": 0.9
                 }
             }
@@ -1991,7 +2138,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 }
 
             try:
-                response = urllib.request.urlopen(req, timeout=50)
+                response = urllib.request.urlopen(req, timeout=12)
                 with ACTIVE_CHAT_LOCK:
                     if session_key in ACTIVE_CHAT_SESSIONS:
                         ACTIVE_CHAT_SESSIONS[session_key]["response_obj"] = response
