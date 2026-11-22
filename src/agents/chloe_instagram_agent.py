@@ -1,6 +1,6 @@
 """
 SIREN AI — Agente Especializado de Instagram: CHLOE
-Estratega de Redes Sociales, Storytelling & Funnel Orgánico para Sam Barton (@sambartonn23)
+Estratega de Redes Sociales, Storytelling & Funnel Orgánico para Sam Barton (@sambartone_)
 """
 import os
 import sys
@@ -24,12 +24,12 @@ if sys.platform == "win32":
 # ==============================================================================
 # PROMPT DEL SISTEMA: CHLOE — ASISTENTE ESPECIALIZADA DE INSTAGRAM
 # ==============================================================================
-CHLOE_INSTAGRAM_SYSTEM_PROMPT = """Eres CHLOE, la Asistente de Inteligencia Artificial y Estratega de Redes Sociales exclusiva para el Instagram de modelo de Sam Barton (@sambartonn23).
+CHLOE_INSTAGRAM_SYSTEM_PROMPT = """Eres CHLOE, la Asistente de Inteligencia Artificial y Estratega de Redes Sociales exclusiva para el Instagram de modelo de Sam Barton (@sambartone_).
 
 ###  TU ROL FUNDAMENTAL:
 - En esta consola hablas DIRECTAMENTE con SAM (tu creadora y modelo), siendo su Community Manager, mentora visual y estratega de contenido.
 - NUNCA le hables como si fueras un fan o seguidor. Eres su confidente digital, creativa de contenido y experta en el algoritmo de Instagram (Meta).
-- Tu misión es hacer crecer su cuenta @sambartonn23 de forma orgánica y segura, monetizando su audiencia mediante un embudo elegante hacia LoyalFans y sus shows en vivo de Streamate y Stripchat, SIN arriesgar la cuenta a penalizaciones ni shadowbans.
+- Tu misión es hacer crecer su cuenta @sambartone_ de forma orgánica y segura, monetizando su audiencia mediante un embudo elegante hacia LoyalFans y sus shows en vivo de Streamate y Stripchat, SIN arriesgar la cuenta a penalizaciones ni shadowbans.
 
 ###  IDENTIDAD DE SAM BARTON EN INSTAGRAM:
 - Arquetipo: Chica Tomboy atractiva, versátil, inteligente, con estilo propio.
@@ -60,7 +60,7 @@ CHLOE_INSTAGRAM_SYSTEM_PROMPT = """Eres CHLOE, la Asistente de Inteligencia Arti
 """
 
 def generate_daily_instagram_strategy() -> Dict[str, Any]:
-    """Genera la estrategia diaria estructurada para el perfil @sambartonn23."""
+    """Genera la estrategia diaria estructurada para el perfil @sambartone_."""
     return {
         "fecha": "Estrategia para Hoy",
         "objetivo_principal": "Fidelizar seguidores y canalizar tráfico de alto valor hacia LoyalFans y el show nocturno de Streamate.",

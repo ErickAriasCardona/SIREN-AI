@@ -71,34 +71,34 @@ ACTIVE_CHAT_LOCK = threading.Lock()
 # ==============================================================================
 # PROMPTS DEL SISTEMA OPTIMIZADOS PARA CPU (AGILIDAD 7-15s EN OLLAMA)
 # ==============================================================================
-ROXANNE_CPU_SYSTEM_PROMPT = """Eres ROXANNE, Co-Piloto Estratégica y mentora personal de la modelo y creadora Sam Barton (@sambartonn23).
+ROXANNE_CPU_SYSTEM_PROMPT = """Eres ROXANNE, Co-Piloto Estratégica y mentora personal de la modelo y creadora Sam Barton (@sambartone_).
 Sam es modelo tomboy versátil en LoyalFans, Stripchat y Streamate (cuenta estudio, 50% split, rating 4.0).
 Asistes a Sam directamente en español con respuestas a fans, metas de sala, dinámicas Lovense y tácticas de monetización.
 Sé concisa, práctica, directa y estratégica. Responde con calidez y profesionalismo.
 FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices, comparativas o resúmenes, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con encabezados concisos y datos ordenados fila por fila. Usa subtítulos y listas con viñetas cuando corresponda."""
 
-CHLOE_CPU_SYSTEM_PROMPT = """Eres CHLOE, estratega de Instagram de Sam Barton (@sambartonn23).
+CHLOE_CPU_SYSTEM_PROMPT = """Eres CHLOE, estratega de Instagram de Sam Barton (@sambartone_).
 Creas ideas de historias, ganchos visuales y textos con estilo tomboy para reactivar el algoritmo y dirigir tráfico a LoyalFans y Streamate.
 Sé creativa, concisa, moderna y enfocada en interacción.
 FORMATO OBLIGATORIO: Cuando Sam te pida tablas, cronogramas, matrices de contenido o comparativas, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con datos ordenados y claros."""
 
-DIANA_CPU_SYSTEM_PROMPT = """Eres DIANA, auditora financiera y especialista de pagos de Sam Barton (@sambartonn23).
+DIANA_CPU_SYSTEM_PROMPT = """Eres DIANA, auditora financiera y especialista de pagos de Sam Barton (@sambartone_).
 Especialista en splits de Streamate (50% neto del 35% del estudio), pagos de LoyalFans (80% creador, retiro mínimo $50) y Stripchat.
 Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad.
 FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de splits, proyecciones o balances, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con cifras exactas, comisiones y netos desglosados."""
 
 
-MAHIA_CPU_SYSTEM_PROMPT = """Eres MAHIA, co-piloto táctica para transmisiones en vivo de Sam Barton (@sambartonn23) en StreamMonitor y Streamate.
+MAHIA_CPU_SYSTEM_PROMPT = """Eres MAHIA, co-piloto táctica para transmisiones en vivo de Sam Barton (@sambartone_) en StreamMonitor y Streamate.
 Especialista en preparar Topics de sala optimizados en inglés (máximo 130 caracteres con hashtags estratégicos como #tomboy #petite #versatile), menús Gold de 3G a 10G, juegos de ruleta a 5G y mensajes automáticos de sala (Alt+1 a Alt+6).
 Responde a Sam de forma concisa, rápida y táctica para aplicar directamente en sus transmisiones.
 FORMATO OBLIGATORIO: Cuando Sam te pida temas, metas o configuraciones, preséntalos en listas limpias o formato de tabla Markdown listo para copiar y pegar."""
 
-ALMA_CPU_SYSTEM_PROMPT = """Eres ALMA TECH, la inteligencia central y consultora global de marca de Sam Barton (@sambartonn23).
+ALMA_CPU_SYSTEM_PROMPT = """Eres ALMA TECH, la inteligencia central y consultora global de marca de Sam Barton (@sambartone_).
 Coordinas la visión integral de las plataformas (Streamate, LoyalFans, Stripchat e Instagram), supervisando a las especialistas Roxanne, Mahia, Chloe, Diana y Electra.
 Ofreces asesoramiento de alto nivel, visión estratégica de carrera, balance de ingresos pasivos vs streaming en vivo y toma de decisiones tácticas.
 FORMATO OBLIGATORIO: Estructura tus respuestas con claridad profesional, viñetas analíticas y tablas Markdown cuando se comparen datos o metas."""
 
-ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartonn23).
+ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartone_).
 Especialista en SEO de streaming, ciclo de bump cada 3.5h en LoyalFans, retención de los primeros 30 segundos en Streamate y tags clave (#Tomboy, #Versatile).
 Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos.
 FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de algoritmos, horarios o tags, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) estructurados por horario, plataforma y métrica."""
@@ -353,7 +353,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
             )
         else:
             return (
-                "Chloe activa. Estrategia de Instagram @sambartonn23 orientada a conversión SFW hacia LoyalFans y Streamate. ¿Generamos historias o analizamos el engagement del último post?"
+                "Chloe activa. Estrategia de Instagram @sambartone_ orientada a conversión SFW hacia LoyalFans y Streamate. ¿Generamos historias o analizamos el engagement del último post?"
             )
     elif asst == "diana":
         return (
@@ -1301,7 +1301,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "login_url": "https://loyalfans.com/login",
                     "public_url": "https://loyalfans.com/samm_bartonn",
                     "avatar_url": "/artifacts/test_public_profile_verified.png",
-                    "username": creds.get("loyalfans", {}).get("username", "sambartonn23@gmail.com"),
+                    "username": creds.get("loyalfans", {}).get("username", "sambartone_@gmail.com"),
                     "password": creds.get("loyalfans", {}).get("password", "Kjc20009*"),
                     "rates": {
                         "message_text": "$0.50 / msg",
@@ -1324,7 +1324,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "login_url": "https://stripchat.com/login",
                     "public_url": "https://stripchat.com/sam_barton",
                     "avatar_url": "/artifacts/stripchat_profile_updated_20261014_211003.png",
-                    "username": creds.get("stripchat", {}).get("username", "sambartonn23@gmail.com"),
+                    "username": creds.get("stripchat", {}).get("username", "sambartone_@gmail.com"),
                     "password": creds.get("stripchat", {}).get("password", "6L!3K3RUnEdPKPt"),
                     "rates": {
                         "token_price": "$0.05 / token",
@@ -1347,7 +1347,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "login_url": "https://streamate.lovense.com",
                     "public_url": "",
                     "avatar_url": "/artifacts/smconnect_tab_juguetes_interactivos.png",
-                    "username": creds.get("lovense", {}).get("username", "sambartonn23@gmail.com"),
+                    "username": creds.get("lovense", {}).get("username", "sambartone_@gmail.com"),
                     "password": creds.get("lovense", {}).get("password", "6L!3K3RUnEdPKPt"),
                     "rates": {
                         "niveles": "5 niveles de vibracion configurados"
@@ -1760,7 +1760,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     def handle_api_instagram_daily_strategy(self):
-        """Genera la estrategia diaria estructurada para @sambartonn23."""
+        """Genera la estrategia diaria estructurada para @sambartone_."""
         try:
             strategy = generate_daily_instagram_strategy()
             self.send_response(200)
@@ -1788,7 +1788,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     def handle_api_instagram_sync_live(self):
-        """Devuelve o refresca los datos y capturas en vivo de la cuenta @sambartonn23."""
+        """Devuelve o refresca los datos y capturas en vivo de la cuenta @sambartone_."""
         try:
             from urllib.parse import urlparse, parse_qs
             import subprocess
@@ -1796,7 +1796,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             qs = parse_qs(urlparse(self.path).query)
             refresh = qs.get("refresh", ["false"])[0].lower() in ["1", "true", "yes"]
 
-            artifacts_live_json = ROOT / "artifacts" / "instagram" / "sambartonn23_live.json"
+            artifacts_live_json = ROOT / "artifacts" / "instagram" / "sambartone__live.json"
 
             if refresh or not artifacts_live_json.exists():
                 sync_script = ROOT / "src" / "platforms" / "instagram" / "instagram_sync.py"
@@ -1807,14 +1807,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 
             # Cargar datos si existen
             live_data = {
-                "username": "sambartonn23",
+                "username": "sambartone_",
                 "fullName": "Sam Bartonn",
                 "followers": "78",
                 "following": "104",
                 "posts": "24",
                 "bio": "Software Architect | AI Engineer  \nCat Lover ",
-                "avatar_url": "/artifacts/instagram/sambartonn23_avatar.png",
-                "feed_screenshot": "/artifacts/instagram/sambartonn23_feed_live.png",
+                "avatar_url": "/artifacts/instagram/sambartone__avatar.png",
+                "feed_screenshot": "/artifacts/instagram/sambartone__feed_live.png",
                 "status": "Sincronizado en Vivo",
                 "verified": True,
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1825,8 +1825,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     with open(artifacts_live_json, "r", encoding="utf-8") as f:
                         saved = json.load(f)
                         live_data.update(saved)
-                        live_data["avatar_url"] = "/artifacts/instagram/sambartonn23_avatar.png"
-                        live_data["feed_screenshot"] = "/artifacts/instagram/sambartonn23_feed_live.png"
+                        live_data["avatar_url"] = "/artifacts/instagram/sambartone__avatar.png"
+                        live_data["feed_screenshot"] = "/artifacts/instagram/sambartone__feed_live.png"
                 except Exception:
                     pass
 

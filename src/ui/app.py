@@ -559,7 +559,7 @@ class VelvetControlCenter(ctk.CTk):
         cfg = load_broadcast_config()
 
         live_win = ctk.CTkToplevel(self)
-        live_win.title("Transmisión en Vivo — OBS, Logitech & @SAMBARTONN23")
+        live_win.title("Transmisión en Vivo — OBS, Logitech & @SAMBARTONE_")
         live_win.geometry("680x720")
         live_win.minsize(620, 640)
         live_win.configure(fg_color="#0f0c15")
@@ -571,7 +571,7 @@ class VelvetControlCenter(ctk.CTk):
         t = ctk.CTkLabel(header, text=" CONFIGURACIÓN DE SALA EN VIVO", font=ctk.CTkFont(family="Segoe UI", size=18, weight="bold"), text_color="#ff2a85")
         t.pack(anchor="w")
 
-        sub = ctk.CTkLabel(header, text="Cámara OBS, Micrófono Logitech, Tema con @SAMBARTONN23 y Metas de 3 Niveles", font=ctk.CTkFont(size=12), text_color="#a09cb0")
+        sub = ctk.CTkLabel(header, text="Cámara OBS, Micrófono Logitech, Tema con @SAMBARTONE_ y Metas de 3 Niveles", font=ctk.CTkFont(size=12), text_color="#a09cb0")
         sub.pack(anchor="w")
 
         # Tarjetas de estado de Hardware
@@ -599,7 +599,7 @@ class VelvetControlCenter(ctk.CTk):
 
         topic_top = ctk.CTkFrame(topic_card, fg_color="transparent")
         topic_top.pack(fill="x", padx=15, pady=(10, 4))
-        ctk.CTkLabel(topic_top, text=" Tema / Título de la Sala (Siempre contiene @SAMBARTONN23):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffffff").pack(side="left")
+        ctk.CTkLabel(topic_top, text=" Tema / Título de la Sala (Siempre contiene @SAMBARTONE_):", font=ctk.CTkFont(size=12, weight="bold"), text_color="#ffffff").pack(side="left")
 
         # Selector de presets
         presets = cfg.get("topic_presets", [])
@@ -684,8 +684,8 @@ class VelvetControlCenter(ctk.CTk):
 
         def save_and_close():
             raw_topic = topic_entry.get().strip()
-            if "@SAMBARTONN23" not in raw_topic.upper():
-                raw_topic = f"{raw_topic} @SAMBARTONN23".strip()
+            if "@SAMBARTONE_" not in raw_topic.upper():
+                raw_topic = f"{raw_topic} @SAMBARTONE_".strip()
 
             cfg["room_topic"] = raw_topic
             try:
@@ -718,8 +718,8 @@ class VelvetControlCenter(ctk.CTk):
 
         def copy_goals_summary():
             raw_topic = topic_entry.get().strip()
-            if "@SAMBARTONN23" not in raw_topic.upper():
-                raw_topic = f"{raw_topic} @SAMBARTONN23".strip()
+            if "@SAMBARTONE_" not in raw_topic.upper():
+                raw_topic = f"{raw_topic} @SAMBARTONE_".strip()
             summary = (
                 f" {raw_topic}\n"
                 f" METAS DEL DÍA — SAM BARTON:\n"

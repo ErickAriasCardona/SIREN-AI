@@ -13,11 +13,11 @@ ARTIFACTS_DIR = ROOT / "artifacts" / "instagram"
 ARTIFACTS_DIR.mkdir(parents=True, exist_ok=True)
 
 STATE_FILE = ARTIFACTS_DIR / "instagram_storage_state.json"
-DATA_FILE = ARTIFACTS_DIR / "sambartonn23_live.json"
-SCREENSHOT_FEED = ARTIFACTS_DIR / "sambartonn23_feed_live.png"
-AVATAR_FILE = ARTIFACTS_DIR / "sambartonn23_avatar.png"
+DATA_FILE = ARTIFACTS_DIR / "sambartone__live.json"
+SCREENSHOT_FEED = ARTIFACTS_DIR / "sambartone__feed_live.png"
+AVATAR_FILE = ARTIFACTS_DIR / "sambartone__avatar.png"
 
-def sync_instagram(username="sambartonn23", password="Sambartone2026.", headless=True):
+def sync_instagram(username="sambartone_", password="Sambartone2026.", headless=True):
     print(f" Iniciando sincronización en vivo de Instagram para @{username}...")
     
     with sync_playwright() as p:

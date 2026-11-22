@@ -32,6 +32,22 @@
       "created_at": "2026-11-22T06:39:38Z",
       "expires_at": "2026-11-29T06:39:38Z",
       "expires_ts": 1795934378.0255103
+    },
+    "4Gxxu4_CjOt-L2nkKPlyHYrFVdA1uG5y4iLp7btjsms": {
+      "email": "ariaserick481@gmail.com",
+      "name": "Erick Arias",
+      "role": "Master Superadmin",
+      "created_at": "2026-11-22T07:08:49Z",
+      "expires_at": "2026-11-29T07:08:49Z",
+      "expires_ts": 1795936129.831694
+    },
+    "HN8pddOsevekZUUZRS5DJ1pvddu6FyUXQX6GLe4tcDc": {
+      "email": "ariaserick481@gmail.com",
+      "name": "Erick Arias",
+      "role": "Master Superadmin",
+      "created_at": "2026-11-22T18:16:42Z",
+      "expires_at": "2026-11-29T18:16:42Z",
+      "expires_ts": 1795976202.637685
     }
   },
   "recovery_tokens": {

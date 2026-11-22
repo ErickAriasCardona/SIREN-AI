@@ -95,7 +95,7 @@ def calculate_loyalfans_positioning(fin: Dict[str, Any]) -> Dict[str, Any]:
     return {
         "platform_key": "loyalfans",
         "platform_name": "LoyalFans",
-        "creator_handle": "@SAMBARTONN23",
+        "creator_handle": "@SAMBARTONE_",
         "creator_slug": "sambarton23",
         "rank_feed": "Posición #1 en 'Recently Updated' al publicar post",
         "rank_live": "Top #3 en Live Stream (con Lovense activo)",
@@ -145,7 +145,7 @@ def calculate_stripchat_positioning() -> Dict[str, Any]:
             "Hardware fijado: OBS Virtual Camera + Micrófono Logitech BRIO",
             "Juguetes Lovense sincronizados vía Lovense Stream Master",
             "Cloudflare Turnstile superado con perfil persistente anti-detección",
-            "Tema obligatorio activo con @SAMBARTONN23"
+            "Tema obligatorio activo con @SAMBARTONE_"
         ],
         "action_recommendation": "Iniciar emisión pública con objetivo de 3 niveles (250, 750, 1500 TK)."
     }
