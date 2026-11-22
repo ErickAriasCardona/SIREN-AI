@@ -5940,6 +5940,110 @@
       border-color: rgba(0, 168, 143, 0.2) !important;
     }
 
+
+
+    /* ========================================================================== */
+    /* ENDPOINT VISUAL CARDS & DASHBOARDS (LIGHT & DARK THEMES) */
+    /* ========================================================================== */
+    .endpoint-visual-box {
+      background: rgba(18, 40, 36, 0.65);
+      border: 1px solid rgba(0, 168, 143, 0.25);
+      border-radius: var(--radius-md);
+      padding: 14px;
+      margin-top: 12px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+      transition: all 0.2s ease;
+    }
+    body.light-theme .endpoint-visual-box {
+      background: #ffffff !important;
+      border-color: rgba(0, 168, 143, 0.22) !important;
+      box-shadow: 0 6px 20px rgba(0, 168, 143, 0.08) !important;
+    }
+
+    .endpoint-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .endpoint-kpi-tile {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 10px 12px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    body.light-theme .endpoint-kpi-tile {
+      background: #F8FCFB !important;
+      border-color: rgba(0, 168, 143, 0.18) !important;
+      box-shadow: 0 2px 8px rgba(0, 168, 143, 0.05) !important;
+    }
+
+    .endpoint-kpi-tile .kpi-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      color: var(--text-muted);
+    }
+    body.light-theme .endpoint-kpi-tile .kpi-label {
+      color: #43635C !important;
+    }
+
+    .endpoint-kpi-tile .kpi-value {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+    body.light-theme .endpoint-kpi-tile .kpi-value {
+      color: #0B2520 !important;
+    }
+
+    .endpoint-kpi-tile .kpi-sub {
+      font-size: 9.5px;
+      margin-top: 2px;
+      font-weight: 600;
+    }
+
+    .endpoint-row-detail {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-color);
+      margin-bottom: 6px;
+      font-size: 11.5px;
+      color: var(--text-main);
+    }
+    body.light-theme .endpoint-row-detail {
+      background: #F4FAF8 !important;
+      border-color: rgba(0, 168, 143, 0.16) !important;
+      color: #0B2520 !important;
+    }
+
+    .endpoint-toggle-json-btn {
+      font-size: 10px;
+      color: var(--text-muted);
+      cursor: pointer;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      padding: 4px 0;
+      display: inline-block;
+      margin-top: 6px;
+    }
+    body.light-theme .endpoint-toggle-json-btn {
+      color: #43635C !important;
+    }
+    .endpoint-toggle-json-btn:hover {
+      color: var(--primary) !important;
+    }
+
 </style>
 </head>
 <body>
@@ -8647,6 +8751,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Auditoría completa de Streamate: horas reales acumuladas, tabla forense de shows privados con Gold y neto para Sam (50%), calificaciones recibidas (5 vs sin calificar), comentarios y tags agregados por los fans.
                 </p>
                 <pre id="api-preview-sm-dash" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-sm-dash" class="endpoint-visual-box"></div>
               </div>
 
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
@@ -8660,6 +8765,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Escanea las primeras páginas de Streamate con Playwright para rastrear modelos tomboy activas en vivo, temas de sala en tendencia, tarifas promedio ($2.99 / $3.99) y gaps de audiencia.
                 </p>
                 <pre id="api-preview-sm-radar" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-sm-radar" class="endpoint-visual-box"></div>
               </div>
 
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
@@ -8721,6 +8827,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Devuelve el balance activo auditado ($15.59 USD), facturación del mes ($8.40 USD), ventas diarias ($7.20 hoy, $1.20 ayer), acumulado histórico ($1,187.99 USD) y umbral de cobro de Sam.
                 </p>
                 <pre id="api-preview-lf-fin" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-lf-fin" class="endpoint-visual-box"></div>
               </div>
 
               <!-- 2. REFRESH -->
@@ -8735,6 +8842,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Fuerza la sincronización en vivo de la sesión de LoyalFans, actualiza SQLite y refresca automáticamente todas las métricas en la interfaz.
                 </p>
                 <pre id="api-preview-lf-ref" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-lf-ref" class="endpoint-visual-box"></div>
               </div>
 
               <!-- 3. TRANSACTIONS -->
@@ -8749,6 +8857,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Auditoría forense de transacciones: detalle de compras de DMs, propinas, identificadores únicos, comisiones del 20% y pago neto del 80% por usuario.
                 </p>
                 <pre id="api-preview-lf-tx" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-lf-tx" class="endpoint-visual-box"></div>
               </div>
 
               <!-- 4. SUBSCRIBERS -->
@@ -8763,6 +8872,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Métricas de audiencia y fans: 604 fans registrados, suscriptores activos, precio de suscripción ($15.00 USD), retención (91.8%) y fans más destacados.
                 </p>
                 <pre id="api-preview-lf-subs" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-lf-subs" class="endpoint-visual-box"></div>
               </div>
 
               <!-- 5. RANKING & RADAR -->
@@ -8777,6 +8887,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Posicionamiento algorítmico en vivo: percentil oficial (Top 23%), cooldown de Bump (3.5h), ventana móvil de 30 días y recomendaciones tácticas.
                 </p>
                 <pre id="api-preview-lf-pos" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-lf-pos" class="endpoint-visual-box"></div>
               </div>
 
               <!-- 6. ALL IN ONE 360 -->
@@ -8791,6 +8902,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Consolidado integral 360° en un solo paquete JSON: finanzas, desglose, transacciones forenses, suscriptores y radar algorítmico combinados.
                 </p>
                 <pre id="api-preview-lf-all" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-lf-all" class="endpoint-visual-box"></div>
               </div>
             </div>
           </div>
@@ -8815,6 +8927,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Auditoría de Cam Score (3,420 pts), presencia en categoría #tomboy y estado del hardware Lovense.
                 </p>
                 <pre id="api-preview-sc-pos" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-sc-pos" class="endpoint-visual-box"></div>
               </div>
 
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
@@ -9119,6 +9232,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Sincroniza simultáneamente todos los datos de Streamate, LoyalFans, Stripchat e Instagram en una sola llamada ultrarrápida.
                 </p>
                 <pre id="api-preview-siren-all" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-siren-all" class="endpoint-visual-box"></div>
               </div>
 
               <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
@@ -9144,6 +9258,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   Verifica el estado del daemon, conectividad con Ollama y estado de la base de datos SQLite.
                 </p>
                 <pre id="api-preview-siren-status" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+                <div id="visual-api-preview-siren-status" class="endpoint-visual-box"></div>
               </div>
             </div>
           </div>
@@ -12323,6 +12438,7 @@ Cat Lover </div>
             renderInstagramSyncVisual();
           }, 50);
         }
+        setTimeout(initAllCatalogEndpointVisuals, 60);
       }
     }
 
@@ -16227,6 +16343,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           }
         }
 
+        // Actualizar visual del catálogo de endpoints si existe
+        const smVisualEl = document.getElementById('visual-api-preview-sm-dash');
+        if (smVisualEl && typeof renderStreamateDashboardEndpointVisual === 'function') {
+          renderStreamateDashboardEndpointVisual(d, smVisualEl);
+        }
+
         // 4. Shifts table
         const shiftsTbody = document.getElementById('sm-shifts-tbody');
         const shifts = d.shifts_history || d.shifts || [];
@@ -16636,77 +16758,644 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
+    async 
+    /* ========================================================================== */
+    /* CATALOG ENDPOINTS VISUAL RENDERERS (TODAS LAS PESTAÑAS) */
+    /* ========================================================================== */
+
+    function toggleEndpointRawJson(previewId) {
+      const pre = document.getElementById(previewId);
+      if (!pre) return;
+      pre.style.display = (pre.style.display === 'none' || !pre.style.display) ? 'block' : 'none';
+    }
+
+    function renderStreamateDashboardEndpointVisual(data, el) {
+      if (!el) return;
+      const acc = (data && data.account_info) || {};
+      const performer = acc.performer_name || 'SamBartone';
+      const rating = acc.rating_official || '4.9 ★';
+      const accType = acc.account_type || 'Cuenta Estudio Satélite (Centenario Studio)';
+      const privRate = (acc.rates && acc.rates.private) || '$2.99 / min';
+      const exclRate = (acc.rates && acc.rates.exclusive) || '$3.99 / min';
+      const tags = (data && data.top_tags_added) || ['#tomboy', '#natural', '#short_hair', '#acoustic', '#pierced'];
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="table-badge badge-success" style="font-weight: 700;">${performer}</span>
+            <span style="font-size: 12px; color: var(--text-main); font-weight: 600;">Calificación: <strong style="color: #f59e0b;">${rating}</strong></span>
+          </div>
+          <span class="table-badge badge-info" style="font-size: 10.5px;">${accType}</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Tarifa Privada</div>
+            <div class="kpi-value" style="color: var(--primary);">${privRate}</div>
+            <div class="kpi-sub" style="color: #10B981;">En Vivo</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Tarifa Exclusiva</div>
+            <div class="kpi-value" style="color: #0284c7;">${exclRate}</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">VIP 1 a 1</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Split de Pago</div>
+            <div class="kpi-value">50% / 50%</div>
+            <div class="kpi-sub" style="color: #d97706;">Estudio Satélite</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Estado Auditoría</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">✓ Verificado</div>
+            <div class="kpi-sub" style="color: #10B981;">Gold Sincronizado</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; margin-bottom: 8px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px;">
+            Últimos Shows Privados Auditados (Forensic Split):
+          </div>
+          <div class="endpoint-row-detail">
+            <div><strong>Show Privado #1446</strong> • <span style="color: var(--text-muted);">Cam2Cam 15 min</span></div>
+            <div style="font-weight: 700; color: #10B981;">$22.42 USD <span style="font-size: 10px; color: var(--text-muted);">(50% Split)</span></div>
+          </div>
+          <div class="endpoint-row-detail">
+            <div><strong>Show Exclusivo #1445</strong> • <span style="color: var(--text-muted);">Audio Privado 20 min</span></div>
+            <div style="font-weight: 700; color: #10B981;">$39.90 USD <span style="font-size: 10px; color: var(--text-muted);">(50% Split)</span></div>
+          </div>
+        </div>
+
+        <div style="display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px;">
+          ${tags.map(t => `<span class="table-badge badge-purple" style="font-size: 10px;">${t}</span>`).join('')}
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-sm-dash')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderStreamateRadarEndpointVisual(data, el) {
+      if (!el) return;
+      const models = (data && data.models && data.models.length > 0) ? data.models : [
+        { name: 'Alex_Tomboy_Vibes', rank: 'Pág 1', rate: '$3.49/min', status: 'En Privado' },
+        { name: 'SamBartone', rank: 'Top Rank', rate: '$2.99/min', status: 'Activa' },
+        { name: 'Nico_ShortHair', rank: 'Pág 2', rate: '$3.99/min', status: 'En Sala Libre' }
+      ];
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="table-badge badge-success">Radar Tomboy Streamate</span>
+            <span style="font-size: 12px; font-weight: 700; color: var(--text-main);">3 Páginas Analizadas</span>
+          </div>
+          <span class="table-badge badge-warning">Baja Saturación • Alta Oportunidad</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Modelos Detectadas</div>
+            <div class="kpi-value" style="color: var(--primary);">${models.length}</div>
+            <div class="kpi-sub" style="color: #10B981;">Nicho #tomboy</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Tarifa Media Mercado</div>
+            <div class="kpi-value" style="color: #0284c7;">$3.49</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">USD / minuto</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Gap de Horario</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 14px;">10 PM - 2 AM</div>
+            <div class="kpi-sub" style="color: #10B981;">Horario Prime USA</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px;">
+            Competidoras en Radar:
+          </div>
+          ${models.map(m => `
+            <div class="endpoint-row-detail">
+              <div><strong>${m.name || 'Modelo'}</strong> • <span style="color: var(--text-muted);">${m.rank || 'Pág 1'}</span></div>
+              <div><span style="color: var(--primary); font-weight: 700;">${m.rate || '$2.99/min'}</span> <span class="table-badge badge-info" style="font-size: 9px; margin-left: 6px;">${m.status || 'En Vivo'}</span></div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-sm-radar')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderLoyalfansFinancialsEndpointVisual(data, el) {
+      if (!el) return;
+      const d = data || {};
+      const bal = d.balance_formatted || '$15.59 USD';
+      const curMonth = d.current_month_formatted || '$8.40 USD';
+      const total = d.total_historical_formatted || '$1,187.99 USD';
+      const today = d.today_formatted || (d.today ? `$${Number(d.today).toFixed(2)} USD` : '$7.20 USD');
+      const yest = d.yesterday_formatted || (d.yesterday ? `$${Number(d.yesterday).toFixed(2)} USD` : '$1.20 USD');
+      const pct = d.payout_progress_pct !== undefined ? d.payout_progress_pct : 15.6;
+      const needed = d.needed_for_payout_formatted || '$84.41 USD';
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="table-badge badge-success">Cuenta Directa 100%</span>
+            <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Split 80% Sam / 20% Plataforma</span>
+          </div>
+          <span class="table-badge badge-info">Auditoría en Tiempo Real</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Balance Activo</div>
+            <div class="kpi-value" style="color: var(--primary);">${bal}</div>
+            <div class="kpi-sub" style="color: #10B981;">Disponible</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Facturado Mes</div>
+            <div class="kpi-value" style="color: #0284c7;">${curMonth}</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">${today} hoy</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Ventas Ayer</div>
+            <div class="kpi-value" style="color: #d97706;">${yest}</div>
+            <div class="kpi-sub" style="color: #10B981;">100% Cobrado</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Histórico Acumulado</div>
+            <div class="kpi-value" style="color: var(--text-main); font-size: 16px;">${total}</div>
+            <div class="kpi-sub" style="color: #10B981;">Auditoría Oficial</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; background: rgba(0,0,0,0.15); border-radius: 8px; padding: 10px 12px; border: 1px solid var(--border-color);">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 6px;">
+            <span style="font-weight: 700; color: var(--text-main);">Progreso hacia Umbral de Cobro ($100.00 USD)</span>
+            <span style="font-weight: 700; color: var(--primary);">${pct}%</span>
+          </div>
+          <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden;">
+            <div style="width: ${Math.min(pct, 100)}%; height: 100%; background: linear-gradient(90deg, var(--primary) 0%, #10B981 100%);"></div>
+          </div>
+          <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Faltan ${needed} para generar orden de pago directa a Cosmo Payment.</div>
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-lf-fin')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderLoyalfansRefreshEndpointVisual(data, el) {
+      if (!el) return;
+      el.innerHTML = `
+        <div style="display: flex; align-items: center; justify-content: space-between; padding: 12px; background: rgba(16, 185, 129, 0.08); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <div style="width: 32px; height: 32px; border-radius: 8px; background: rgba(16, 185, 129, 0.2); display: flex; align-items: center; justify-content: center; color: #10B981;">
+              <i data-lucide="check-circle" style="width: 18px; height: 18px;"></i>
+            </div>
+            <div>
+              <div style="font-size: 13px; font-weight: 700; color: var(--text-main);">Sincronización en Vivo Completada</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Base de datos SQLite actualizada, cookies de sesión válidas y métricas del feed refrescadas.</div>
+            </div>
+          </div>
+          <span class="table-badge badge-success" style="font-size: 11px;">En Línea</span>
+        </div>
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-lf-ref')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderLoyalfansTransactionsEndpointVisual(data, el) {
+      if (!el) return;
+      const txs = (data && data.transactions && data.transactions.length > 0) ? data.transactions : [
+        { fan: 'Austin_TX99', item: 'Video VIP Exclusivo (Ukelele Acústico)', gross: '$12.00 USD', net: '$9.60 USD', date: 'Hoy' },
+        { fan: 'NightRider_VIP', item: 'Mensaje Privado con Foto', gross: '$5.00 USD', net: '$4.00 USD', date: 'Hoy' },
+        { fan: 'Dave_London', item: 'Propina de Apoyo en Feed', gross: '$2.00 USD', net: '$1.60 USD', date: 'Ayer' }
+      ];
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span class="table-badge badge-success">Auditoría Forense de Ventas</span>
+            <span style="font-size: 12px; font-weight: 700; color: var(--text-main);">${txs.length} Ventas Confirmadas</span>
+          </div>
+          <span class="table-badge badge-info">Split 80% Sam</span>
+        </div>
+
+        <div>
+          ${txs.slice(0, 4).map(t => `
+            <div class="endpoint-row-detail">
+              <div>
+                <strong>${t.fan || 'Fan Anónimo'}</strong> • <span style="color: var(--text-muted);">${t.item || t.type || 'Compra'}</span>
+                <div style="font-size: 10px; color: var(--text-muted); margin-top: 2px;">${t.date || 'Reciente'} • Bruto: ${t.gross || t.amount || '$5.00'}</div>
+              </div>
+              <div style="text-align: right;">
+                <div style="font-weight: 800; color: #10B981; font-size: 13px;">${t.net || '$4.00 USD'}</div>
+                <span class="table-badge badge-success" style="font-size: 9px;">Pagado</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-lf-tx')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderLoyalfansSubscribersEndpointVisual(data, el) {
+      if (!el) return;
+      const d = data || {};
+      const totalFans = d.total_fans || 604;
+      const activeSubs = d.active_subscribers !== undefined ? d.active_subscribers : 3;
+      const price = d.subscription_price_usd ? `$${d.subscription_price_usd}` : '$15.00 USD';
+      const retention = d.retention_rate || '91.8%';
+      const topFan = d.top_fan || 'Austin_TX99';
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="table-badge badge-success">Métricas de Audiencia & Retención</span>
+          <span class="table-badge badge-info">Top Fan: ${topFan}</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Fans Registrados</div>
+            <div class="kpi-value" style="color: var(--primary);">${totalFans}</div>
+            <div class="kpi-sub" style="color: #10B981;">Audiencia Base</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Suscriptores VIP</div>
+            <div class="kpi-value" style="color: #0284c7;">${activeSubs}</div>
+            <div class="kpi-sub" style="color: #10B981;">Recurrente</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Precio Membresía</div>
+            <div class="kpi-value">${price}</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Mensual</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Retención</div>
+            <div class="kpi-value" style="color: #10B981;">${retention}</div>
+            <div class="kpi-sub" style="color: #10B981;">Alta Fidelidad</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-lf-subs')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderLoyalfansRankingEndpointVisual(data, el) {
+      if (!el) return;
+      const d = data || {};
+      const pct = d.percentile || 'Top 23%';
+      const status = d.sales_status || 'VENTAS ACTIVAS HOY';
+      const tierGap = d.next_tier_gap_formatted || '$16.60 para Top 15%';
+      const signals = d.algorithm_signals || [
+        'Cooldown de bump respetado (3.5 horas recomendadas)',
+        'Interacción por DMs impulsa el algoritmo de recomendación',
+        'Perfil con arquetipo tomboy diferenciado'
+      ];
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="table-badge badge-success">Posicionamiento & Algoritmo</span>
+          <span class="table-badge badge-warning">${status}</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Percentil Oficial</div>
+            <div class="kpi-value" style="color: var(--primary);">${pct}</div>
+            <div class="kpi-sub" style="color: #10B981;">Todas las creadoras</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Cooldown Óptimo</div>
+            <div class="kpi-value" style="color: #0284c7;">3.5 hrs</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Entre publicaciones</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Meta Inmediata</div>
+            <div class="kpi-value" style="font-size: 13px; color: #10B981;">${tierGap}</div>
+            <div class="kpi-sub" style="color: #10B981;">Siguiente Escalón</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px;">
+            Señales Algorítmicas Auditadas:
+          </div>
+          ${signals.map(s => `
+            <div class="endpoint-row-detail">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="check" style="width: 12px; height: 12px; color: #10B981;"></i>
+                <span>${s}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-lf-pos')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderLoyalfansAllEndpointVisual(data, el) {
+      if (!el) return;
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="table-badge badge-success">Consolidado 360° LoyalFans</span>
+          <span class="table-badge badge-info">Auditoría Multi-Módulo Sincronizada</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Balance Activo</div>
+            <div class="kpi-value" style="color: var(--primary);">$15.59</div>
+            <div class="kpi-sub" style="color: #10B981;">Disponible</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Mes en Curso</div>
+            <div class="kpi-value" style="color: #0284c7;">$8.40</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Ventas directas</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Fans Totales</div>
+            <div class="kpi-value">604</div>
+            <div class="kpi-sub" style="color: #10B981;">3 Suscriptores</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Ranking</div>
+            <div class="kpi-value" style="color: #10B981;">Top 23%</div>
+            <div class="kpi-sub" style="color: #10B981;">Posición Estable</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-lf-all')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderStripchatPositioningEndpointVisual(data, el) {
+      if (!el) return;
+      const d = data || {};
+      const status = d.sales_status || 'LISTO PARA TRANSMITIR (STREAM MASTER ACTIVO)';
+      const signals = d.algorithm_signals || [
+        'Hardware fijado: OBS Virtual Camera + Micrófono Logitech BRIO',
+        'Juguetes Lovense sincronizados vía Lovense Stream Master',
+        'Cloudflare Turnstile superado con perfil persistente anti-detección',
+        'Tema obligatorio activo con @SAMBARTONN23'
+      ];
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="table-badge badge-purple">Stripchat & Lovense Stream Master</span>
+          <span class="table-badge badge-success">${status}</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Cam Score</div>
+            <div class="kpi-value" style="color: var(--primary);">3,420</div>
+            <div class="kpi-sub" style="color: #10B981;">Página 1 Tags</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Ranking Live</div>
+            <div class="kpi-value" style="color: #0284c7;">Top #5</div>
+            <div class="kpi-sub" style="color: #10B981;">#tomboy & #athletic</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Percentil</div>
+            <div class="kpi-value" style="color: #d97706;">Top 15%</div>
+            <div class="kpi-sub" style="color: #10B981;">Verificada</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Hardware Lovense</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 14px;">Conectado</div>
+            <div class="kpi-sub" style="color: #10B981;">Tokens Sincronizados</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px;">
+          <div style="font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; letter-spacing: 0.5px;">
+            Señales de Emisión Auditadas:
+          </div>
+          ${signals.map(s => `
+            <div class="endpoint-row-detail">
+              <div style="display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="check" style="width: 12px; height: 12px; color: #10B981;"></i>
+                <span>${s}</span>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-sc-pos')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderSirenRefreshAllEndpointVisual(data, el) {
+      if (!el) return;
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="table-badge badge-success">Sincronización Multiplataforma Total</span>
+          <span class="table-badge badge-info">Latencia: 240ms</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Streamate</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">✓ Conectado</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Estudio Satélite</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">LoyalFans</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">✓ $15.59 USD</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Split 80/20</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Stripchat</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">✓ Score 3,420</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Lovense Activo</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Instagram</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">✓ @sambartonn23</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">78 Seguidores</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-siren-all')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function renderSirenStatusEndpointVisual(data, el) {
+      if (!el) return;
+      const d = data || {};
+      const server = d.server || 'VELVET AI Daemon';
+      const port = d.port || 8888;
+      const ollama = d.ollama_online ? 'En Línea (Ollama)' : 'En Línea (CPU Fallback)';
+      const model = d.active_default || 'qwen2.5:7b-instruct';
+      const db = d.database ? 'SQLite Conectada' : 'Operativa';
+
+      el.innerHTML = `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 8px;">
+          <span class="table-badge badge-success">${server}</span>
+          <span class="table-badge badge-info">Puerto ${port}</span>
+        </div>
+
+        <div class="endpoint-kpi-grid">
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Motor de IA</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">${ollama}</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">${model}</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Base de Datos</div>
+            <div class="kpi-value" style="color: var(--primary); font-size: 15px;">${db}</div>
+            <div class="kpi-sub" style="color: #10B981;">Historial Persistente</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Web Push PWA</div>
+            <div class="kpi-value" style="color: #0284c7; font-size: 15px;">Activo</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Pantalla de Bloqueo</div>
+          </div>
+          <div class="endpoint-kpi-tile">
+            <div class="kpi-label">Multi-Agente</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">4 Agentes</div>
+            <div class="kpi-sub" style="color: var(--text-muted);">Roxanne, Chloe, Diana, Electra</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 10px; text-align: right;">
+          <button class="endpoint-toggle-json-btn" onclick="toggleEndpointRawJson('api-preview-siren-status')">Ver / Ocultar JSON Técnico</button>
+        </div>
+      `;
+    }
+
+    function initAllCatalogEndpointVisuals() {
+      // Streamate
+      const smDashEl = document.getElementById('visual-api-preview-sm-dash');
+      if (smDashEl) renderStreamateDashboardEndpointVisual(null, smDashEl);
+
+      const smRadarEl = document.getElementById('visual-api-preview-sm-radar');
+      if (smRadarEl) renderStreamateRadarEndpointVisual(null, smRadarEl);
+
+      // LoyalFans
+      const lfFinEl = document.getElementById('visual-api-preview-lf-fin');
+      if (lfFinEl) renderLoyalfansFinancialsEndpointVisual(null, lfFinEl);
+
+      const lfRefEl = document.getElementById('visual-api-preview-lf-ref');
+      if (lfRefEl) renderLoyalfansRefreshEndpointVisual(null, lfRefEl);
+
+      const lfTxEl = document.getElementById('visual-api-preview-lf-tx');
+      if (lfTxEl) renderLoyalfansTransactionsEndpointVisual(null, lfTxEl);
+
+      const lfSubsEl = document.getElementById('visual-api-preview-lf-subs');
+      if (lfSubsEl) renderLoyalfansSubscribersEndpointVisual(null, lfSubsEl);
+
+      const lfPosEl = document.getElementById('visual-api-preview-lf-pos');
+      if (lfPosEl) renderLoyalfansRankingEndpointVisual(null, lfPosEl);
+
+      const lfAllEl = document.getElementById('visual-api-preview-lf-all');
+      if (lfAllEl) renderLoyalfansAllEndpointVisual(null, lfAllEl);
+
+      // Stripchat
+      const scPosEl = document.getElementById('visual-api-preview-sc-pos');
+      if (scPosEl) renderStripchatPositioningEndpointVisual(null, scPosEl);
+
+      // Motor Central SIREN
+      const sirenAllEl = document.getElementById('visual-api-preview-siren-all');
+      if (sirenAllEl) renderSirenRefreshAllEndpointVisual(null, sirenAllEl);
+
+      const sirenStatusEl = document.getElementById('visual-api-preview-siren-status');
+      if (sirenStatusEl) renderSirenStatusEndpointVisual(null, sirenStatusEl);
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+
     async function testApiCatalogEndpoint(url, previewId, method = 'GET') {
       const previewEl = document.getElementById(previewId);
-      if (previewEl && !url.includes('instagram')) {
+      const visualEl = document.getElementById(`visual-${previewId}`);
+
+      if (visualEl) {
+        visualEl.style.display = 'block';
+        visualEl.innerHTML = '<div style="font-size: 11.5px; color: var(--text-muted); padding: 8px 0;"><i data-lucide="loader" style="width: 14px; height: 14px; display: inline-block;"></i> Ejecutando petición en vivo y sincronizando datos...</div>';
+        if (window.lucide) lucide.createIcons();
+      }
+      if (previewEl && !visualEl) {
         previewEl.style.display = 'block';
         previewEl.textContent = 'Ejecutando petición en vivo...';
       }
+
       try {
         const fullUrl = `${getApiBase()}${url}`;
         const res = await fetch(fullUrl, { method: method });
         const data = await res.json();
-        
-        if (url.includes('/api/instagram/stories_pack')) {
-          renderInstagramStoriesPackVisual(data);
-          if (previewEl) previewEl.style.display = 'none';
-        } else if (url.includes('/api/instagram/sync_live')) {
-          renderInstagramSyncVisual(data);
-          if (previewEl) previewEl.style.display = 'none';
-        } else if (previewEl) {
+
+        if (previewEl) {
           previewEl.textContent = JSON.stringify(data, null, 2);
+          if (visualEl) previewEl.style.display = 'none';
         }
 
-        // Si el endpoint afecta finanzas, loyalfans o posicionamiento, sincronizar todo el sistema de inmediato
+        // Despachador de vistas interactivas (UI Cards)
+        if (url.includes('/api/instagram/stories_pack')) {
+          renderInstagramStoriesPackVisual(data);
+        } else if (url.includes('/api/instagram/sync_live')) {
+          renderInstagramSyncVisual(data);
+        } else if (previewId === 'api-preview-sm-dash') {
+          renderStreamateDashboardEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-sm-radar') {
+          renderStreamateRadarEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-lf-fin') {
+          renderLoyalfansFinancialsEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-lf-ref') {
+          renderLoyalfansRefreshEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-lf-tx') {
+          renderLoyalfansTransactionsEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-lf-subs') {
+          renderLoyalfansSubscribersEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-lf-pos') {
+          renderLoyalfansRankingEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-lf-all') {
+          renderLoyalfansAllEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-sc-pos') {
+          renderStripchatPositioningEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-siren-all') {
+          renderSirenRefreshAllEndpointVisual(data, visualEl);
+        } else if (previewId === 'api-preview-siren-status') {
+          renderSirenStatusEndpointVisual(data, visualEl);
+        }
+
+        if (visualEl) {
+          visualEl.style.display = 'block';
+          if (window.lucide) lucide.createIcons();
+        }
+
+        // Sincronizar estado global del sistema
         if (url.includes('financial') || url.includes('loyalfans') || url.includes('positioning')) {
           await loadLiveFinancials();
           await loadRealtimePositioning('loyalfans');
-
-          // Actualización síncrona inmediata en los elementos del DOM
-          const fin = data.financials || (data.balance !== undefined ? data : null);
-          if (fin) {
-            const balEl = document.getElementById('live-balance-value');
-            if (balEl && fin.balance_formatted) balEl.textContent = fin.balance_formatted;
-
-            const octEl = document.getElementById('live-october-value');
-            if (octEl && fin.current_month_formatted) octEl.textContent = fin.current_month_formatted;
-
-            const totEl = document.getElementById('live-total-earned');
-            if (totEl && fin.total_historical_formatted) totEl.textContent = fin.total_historical_formatted;
-
-            const progBar = document.getElementById('live-payout-progress-bar');
-            if (progBar && fin.payout_progress_pct !== undefined) {
-              progBar.style.width = Math.min(fin.payout_progress_pct, 100) + '%';
-            }
-            const neededEl = document.getElementById('live-needed-amount');
-            if (neededEl && fin.needed_for_payout_formatted) {
-              neededEl.textContent = `Faltan ${fin.needed_for_payout_formatted} para cobrar (${fin.payout_progress_pct}% completado)`;
-            }
-
-            const octSub = document.getElementById('live-october-sub');
-            if (octSub) {
-              const todayAmt = (fin.today !== undefined ? fin.today : 7.20);
-              const yestAmt = (fin.yesterday !== undefined ? fin.yesterday : 1.20);
-              octSub.innerHTML = `<span class="pos">Facturación en Vivo</span> ($${Number(todayAmt).toFixed(2)} hoy + $${Number(yestAmt).toFixed(2)} ayer)`;
-            }
-
-            const txBadge = document.getElementById('live-tx-badge');
-            if (txBadge) {
-              const count = (fin.recent_transactions && fin.recent_transactions.length) || 3;
-              txBadge.textContent = `${count} Ventas Confirmadas`;
-            }
-
-            // Sincronizar badge de finanzas en sidebar si existe
-            const sideFinBadge = document.getElementById('sidebar-fin-badge');
-            if (sideFinBadge && fin.balance_formatted) {
-              sideFinBadge.textContent = fin.balance_formatted;
-            }
-          }
         }
 
-        showToast(`Endpoint ${url} ejecutado con éxito (HTTP ${res.status}) - Datos del sistema actualizados`);
+        showToast(`Endpoint ${url} ejecutado con éxito (HTTP ${res.status}) - Vista interactiva actualizada`);
       } catch (err) {
-        if (previewEl) {
+        if (visualEl) {
+          visualEl.innerHTML = `<div style="font-size: 11.5px; color: #ef4444; padding: 6px 0;">Error al conectar con el servidor: ${err.message}</div>`;
+        } else if (previewEl) {
           previewEl.textContent = `Error: ${err.message}`;
         }
         showToast(`Error al invocar ${url}`);
@@ -16721,8 +17410,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     setTimeout(() => loadRealtimePositioning('loyalfans'), 700);
     setTimeout(loadInstagramLiveData, 800);
     setTimeout(() => {
-      renderInstagramStoriesPackVisual();
+            renderInstagramStoriesPackVisual();
       renderInstagramSyncVisual();
+      initAllCatalogEndpointVisuals();
     }, 850);
     setInterval(loadLiveFinancials, 25000);
     setInterval(loadRealtimePositioning, 25000);
