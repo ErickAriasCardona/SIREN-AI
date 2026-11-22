@@ -9862,12 +9862,12 @@ Cat Lover </div>
                 </div>
               </div>
 
-              <!-- 4. Seis Atajos Rápidos de Chat (Alt+1 a Alt+6) Deducidos de Mahia -->
+              <!-- 4. Ocho Atajos Rápidos de Chat (Alt+1 a Alt+8) Deducidos de Mahia -->
               <div class="smo-subcard">
                 <div style="font-size: 11px; font-weight: 800; color: var(--primary); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
                   <span style="display: flex; align-items: center; gap: 6px;">
                     <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
-                    <span> 6 Atajos Rápidos (Alt + #) Segmentados [StreamMonitor]:</span>
+                    <span> 8 Atajos Rápidos (Alt + #) Segmentados [StreamMonitor]:</span>
                   </span>
                   <span class="table-badge badge-success" style="font-size: 8.5px; padding: 1px 6px;">Deducidos de Mahia</span>
                 </div>
@@ -9917,6 +9917,22 @@ Cat Lover </div>
                       </div>
                       <div class="smo-macro-item">
                         <strong style="color: var(--primary);">Alt+6:</strong> <span id="smo-macro-6" class="smo-macro-text" title="...">...</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Tier 4: Llamado a la Acción & Privado (Alt+7 y Alt+8) -->
+                  <div class="smo-tier-block">
+                    <div style="font-size: 9.5px; font-weight: 800; color: var(--primary); margin-bottom: 3px; display: flex; justify-content: space-between;">
+                      <span> LLAMADO A LA ACCIÓN & PRIVADO:</span>
+                      <span style="color: var(--text-dim); font-size: 8.5px;">Clímax & Conversión</span>
+                    </div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 5px; font-size: 10.5px;">
+                      <div class="smo-macro-item">
+                        <strong style="color: var(--primary);">Alt+7:</strong> <span id="smo-macro-7" class="smo-macro-text" title="...">...</span>
+                      </div>
+                      <div class="smo-macro-item">
+                        <strong style="color: var(--primary);">Alt+8:</strong> <span id="smo-macro-8" class="smo-macro-text" title="...">...</span>
                       </div>
                     </div>
                   </div>
@@ -12262,13 +12278,13 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         gradient: 'linear-gradient(135deg, #00A88F, #00E5BF)',
         badge: 'Co-piloto StreamMonitor & Live 1-Click',
         badgeClass: 'badge-info',
-        desc: 'Especialista en Automatizaciones en Vivo • Streamate SMConnect, Loyalfans (Topic + 3 Niveles $11, $22, $33), Mensajes Auto Alt+1 a Alt+6',
+        desc: 'Especialista en Automatizaciones en Vivo • Streamate SMConnect, Loyalfans (Topic + 3 Niveles $11, $22, $33), Mensajes Auto Alt+1 a Alt+8',
         placeholder: 'Pide a Mahia preparar temas de sala, mensajes automáticos o inyectar estrategia en 1-Click...',
         rightHeader: 'Centro de Comando StreamMonitor Live',
-        welcome: '¡Hola Sam! Soy Mahia, tu co-piloto táctica para transmisiones en vivo. Estoy lista para generar el topic perfecto en inglés, tus 3 niveles de metas para Loyalfans ($11, $22, $33) y tus 6 mensajes automáticos Alt+1 a Alt+6. Todo listo para inyectar con 1-Click en menos de 3 segundos. ¿Qué preparamos para hoy? ',
+        welcome: '¡Hola Sam! Soy Mahia, tu co-piloto táctica para transmisiones en vivo. Estoy lista para generar el topic perfecto en inglés, tus 3 niveles de metas para Loyalfans ($11, $22, $33) y tus 8 mensajes automáticos Alt+1 a Alt+8. Todo listo para inyectar con 1-Click en menos de 3 segundos. ¿Qué preparamos para hoy?',
         pills: [
           { label: 'Mejores Horas', prompt: '¿Cuáles son mis mejores horas para transmitir y qué franjas me pagan más por hora?' },
-          { label: 'Estrategia de Turno', prompt: 'Mahia, genera la estrategia táctica completa para el turno de hoy en inglés: Topic para Streamate y Loyalfans, Objetivos de 3 niveles ($11, $22, $33), y los 6 mensajes automáticos Alt+1 a Alt+6.' },
+          { label: 'Estrategia de Turno', prompt: 'Mahia, genera la estrategia táctica completa para el turno de hoy en inglés: Topic para Streamate y Loyalfans, Objetivos de 3 niveles ($11, $22, $33), y los 8 mensajes automáticos Alt+1 a Alt+8.' },
           { label: 'Metas Loyalfans', prompt: 'Mahia, sugiere los 3 niveles de meta para Loyalfans: Nivel 1 ($11), Nivel 2 ($22), Nivel 3 ($33) acordes al tema de hoy.' },
           { label: 'Inyectar 1-Click', prompt: 'Mahia, valida que Streamate y Loyalfans estén sincronizados y listos para inyección inmediata.' }
         ]
@@ -15131,9 +15147,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       if (priv && strat.auto_messages) priv.textContent = strat.auto_messages.private_show || strat.auto_messages.privado || 'Configurado';
       if (tip && strat.auto_messages) tip.textContent = strat.auto_messages.send_golds || strat.auto_messages.propina || 'Configurado';
 
-      // 4.1 Los 6 Atajos de Chat Segmentados (Alt+1 a Alt+6)
+      // 4.1 Los 8 Atajos de Chat Segmentados (Alt+1 a Alt+8)
       const qList = strat.quick_messages || [];
-      for (let i = 1; i <= 6; i++) {
+      for (let i = 1; i <= 8; i++) {
         const el = document.getElementById(`smo-macro-${i}`);
         if (el) {
           const text = qList[i - 1] || 'Configurado';

@@ -70,16 +70,18 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
         },
         "auto_messages": {
             "room_30s": "Hey... see this collar and ball gag around my neck? Pay to control me or I stay in charge Gold: 3G | Wheel: 5G",
-            "send_golds": "Mmm thank you for feeding my collar {fan}... want me gagged and drooling for you? ",
+            "send_golds": "Mmm thank you for feeding my collar {fan}... want me gagged and drooling for you?",
             "private_show": "Welcome to my private room... are you ready to take complete control of my ball gag?"
         },
         "quick_messages": [
-            "Welcome in! First time? Paid submission today ",
-            "New here? Ball gag & collar on camera ",
-            "Hey, you're back! Ready to command me? ",
-            "Good to see you again! Tip 3G for gag orders ",
-            "My master is back! Take full control in private ",
-            "Always back to discipline me take me to private now "
+            "Welcome in! First time? Paid submission today",
+            "New here? Ball gag and collar on camera",
+            "Hey, you are back! Ready to command me?",
+            "Good to see you again! Tip 3G for gag orders",
+            "My master is back! Take full control in private",
+            "Always back to discipline me take me to private now",
+            "Tap the screen or tip 3G to tighten the gag",
+            "Ready for complete control? Take me to private now"
         ]
     },
     "ass_twerk": {
@@ -116,17 +118,19 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Hey love! Welcome in. Booty & twerk special today. Make yourself comfortable ",
-            "send_golds": "Mmm thank you for that gold {fan}! Check out my 3G Gold Menu ",
-            "private_show": "Welcome to my private room... what naughty fantasy are we doing today? "
+            "room_30s": "Hey love! Welcome in. Booty & twerk special today. Make yourself comfortable",
+            "send_golds": "Mmm thank you for that gold {fan}! Check out my 3G Gold Menu",
+            "private_show": "Welcome to my private room... what naughty fantasy are we doing today?"
         },
         "quick_messages": [
-            "Welcome in! First time? Booty special today ",
-            "New here? Check my 3G Gold Menu now ",
-            "Hey, you're back! Missed this booty bouncing? ",
-            "Good to see you again! Spin the wheel 5G ",
-            "My favorite regular! Ready for private show? ",
-            "Back to spoil me again let's go uncensored "
+            "Welcome in! First time? Booty special today",
+            "New here? Check my 3G Gold Menu now",
+            "Hey, you are back! Missed this booty bouncing?",
+            "Good to see you again! Spin the wheel 5G",
+            "My favorite regular! Ready for private show?",
+            "Back to spoil me again let us go uncensored",
+            "Tap screen or tip 3G to trigger the next shake",
+            "Ready for no limits? Take me to private now"
         ]
     },
     "tomboy_ukelele": {
@@ -163,17 +167,19 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Hey mister! So nice to have you. Come chat with me while I play something sweet ",
-            "send_golds": "Thank you for the gold sweetheart! You inspire me so much ",
-            "private_show": "We are completely alone now... Tell me your deepest secret "
+            "room_30s": "Hey mister! So nice to have you. Come chat with me while I play something sweet",
+            "send_golds": "Thank you for the gold sweetheart! You inspire me so much",
+            "private_show": "We are completely alone now... Tell me your deepest secret"
         },
         "quick_messages": [
-            "Welcome in! First time? Chill ukelele tunes today ",
-            "New here? Request a song from my 3G menu ",
-            "Hey, you're back! Glad you came to vibe ",
-            "Good to see you again! Spin the wheel 5G ",
-            "My favorite regular! Want a private VIP song? ",
-            "Always back to support me let's chat in private "
+            "Welcome in! First time? Chill ukelele tunes today",
+            "New here? Request a song from my 3G menu",
+            "Hey, you are back! Glad you came to vibe",
+            "Good to see you again! Spin the wheel 5G",
+            "My favorite regular! Want a private VIP song?",
+            "Always back to support me let us chat in private",
+            "Tap screen to vibe or pick from the 3G song menu",
+            "Let us take this acoustic session to private now"
         ]
     },
     "full_lovense": {
@@ -210,17 +216,19 @@ PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
             ]
         },
         "auto_messages": {
-            "room_30s": "Welcome! My toy is synced and waiting for your tips. Dare to control it? ",
-            "send_golds": "Ahhh thank you for that buzz! Felt every single second, you are amazing ",
-            "private_show": "We are alone now... Take complete control, don't hold back "
+            "room_30s": "Welcome! My toy is synced and waiting for your tips. Dare to control it?",
+            "send_golds": "Ahhh thank you for that buzz! Felt every single second, you are amazing",
+            "private_show": "We are alone now... Take complete control, don't hold back"
         },
         "quick_messages": [
-            "Welcome in! First time? Lovense control active ",
-            "New here? Tip 3G to buzz my toy live ",
-            "Hey, you're back! Ready to make me buzz? ",
-            "Good to see you again! Take my toy to max ",
-            "My favorite controller is back! Level 10 ready ",
-            "Back to make me shake take me to private now "
+            "Welcome in! First time? Lovense control active",
+            "New here? Tip 3G to buzz my toy live",
+            "Hey, you are back! Ready to make me buzz?",
+            "Good to see you again! Take my toy to max",
+            "My favorite controller is back! Level 10 ready",
+            "Back to make me shake take me to private now",
+            "Tap screen or tip 3G to keep the toy buzzing",
+            "Ready for full control? Take me to private now"
         ]
     }
 }
@@ -437,7 +445,7 @@ def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dic
         f" - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
         f" - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
         f" - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
-        f"5. MACROS DE CHAT (Alt+1 a Alt+6): 6 mensajes súper cortos en inglés, afines al saludo de sala:\n"f" - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f" - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f" - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n\n"
+        f"5. MACROS DE CHAT (Alt+1 a Alt+8): Exactamente 8 mensajes súper cortos en inglés, afines al saludo de sala:\n"f" - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f" - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f" - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n"f" - Alt+7 y Alt+8: Llamados a la acción (menú/ruleta y pase a privado)\n\n"
         f"6. OBJETIVO DE SALA LOYALFANS (3 niveles de meta en inglés con precios fijos):\n"
         f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
         f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
@@ -743,19 +751,22 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         theme_keyword = "toy control"
 
     macro_defaults = {
-        1: f"Welcome in! First time? Come enjoy my {theme_keyword} ",
-        2: "Hey new face! Check out my 3G Gold Menu today ",
-        3: "Hey, you're back! Missed my show already? ",
-        4: "Good to see you again! Ready for some fun? ",
-        5: "My favorite regular is here! Come closer ",
-        6: "Look who's back to spoil me always loving you "
+        1: f"Welcome in! First time? Come enjoy my {theme_keyword}",
+        2: "Hey new face! Check out my 3G Gold Menu today",
+        3: "Hey, you are back! Missed my show already?",
+        4: "Good to see you again! Ready for some fun?",
+        5: "My favorite regular is here! Come closer",
+        6: "Look who is back to spoil me always loving you",
+        7: "Tap screen or tip 3G to trigger the next action",
+        8: "Ready for complete control? Take me to private now"
     }
 
-    quick_messages = [extracted_macros.get(i, macro_defaults[i]) for i in range(1, 7)]
+    quick_messages = [extracted_macros.get(i, macro_defaults[i]) for i in range(1, 9)]
     quick_messages_by_tier = {
         "new_users": [quick_messages[0], quick_messages[1]],
         "returning_users": [quick_messages[2], quick_messages[3]],
-        "frequent_users": [quick_messages[4], quick_messages[5]]
+        "frequent_users": [quick_messages[4], quick_messages[5]],
+        "call_to_action": [quick_messages[6], quick_messages[7]]
     }
 
     # 5. Extraer Objetivo de Sala para Loyalfans (3 Niveles: $11, $22, $33)

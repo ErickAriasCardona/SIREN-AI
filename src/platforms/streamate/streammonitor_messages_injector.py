@@ -42,7 +42,7 @@ def inject_streammonitor_auto_and_quick_messages(auto_messages: Dict[str, str], 
     q_msgs = quick_messages or []
 
     # Construimos el script de Node.js
-    js_template = """
+    js_template = r"""
 const http = require('http');
 const WebSocket = require('ws');
 
@@ -132,42 +132,54 @@ async function main() {
       if (taPrivate) setVal(taPrivate, ${JSON.stringify(privateText)});
       if (taTip) setVal(taTip, ${JSON.stringify(tipText)});
 
-      // Guardar sección de Mensajes automáticos
-      let saveAutoBtn = null;
-      if (taTip) {
-        let p = taTip.parentElement;
-        for (let i = 0; i < 8 && p; i++) {
-          const b = Array.from(p.querySelectorAll('button')).find(btn => (btn.innerText || '').includes('Guardar ajustes'));
-          if (b) { saveAutoBtn = b; break; }
-          p = p.parentElement;
-        }
-      }
-      if (saveAutoBtn) {
-        saveAutoBtn.click();
-      }
-
-      // Rellenar mensajes rápidos (Alt+1 a Alt+6) segmentados
+      // Rellenar mensajes rápidos (Alt+1 a Alt+8) segmentados sin emojis
       const qList = ${JSON.stringify(quickList)};
-      let saveQuickBtn = null;
+      let quickUpdatedCount = 0;
       if (qList && qList.length > 0) {
-        for (let idx = 0; idx < Math.min(qList.length, 6); idx++) {
+        for (let idx = 0; idx < Math.min(qList.length, 8); idx++) {
           const numStr = String(idx + 1);
-          const taQ = allTas.find(t => norm(t.placeholder).includes('rapido ' + numStr));
-          if (taQ) setVal(taQ, qList[idx]);
-        }
-
-        const taQ1 = allTas.find(t => norm(t.placeholder).includes('rapido 1'));
-        if (taQ1) {
-          let pQ = taQ1.parentElement;
-          for (let i = 0; i < 8 && pQ; i++) {
-            const bQ = Array.from(pQ.querySelectorAll('button')).find(btn => (btn.innerText || '').includes('Guardar ajustes'));
-            if (bQ) { saveQuickBtn = bQ; break; }
-            pQ = pQ.parentElement;
+          let taQ = allTas.find(t => norm(t.placeholder).includes('rapido ' + numStr));
+          if (!taQ && allTas[idx]) taQ = allTas[idx];
+          if (taQ) {
+            setVal(taQ, qList[idx]);
+            quickUpdatedCount++;
           }
         }
-        if (saveQuickBtn) {
-          saveQuickBtn.click();
+      }
+
+      // Localizar botones de 'Guardar ajustes' en cada sección
+      const allBtns = Array.from(document.querySelectorAll('button'));
+      const saveBtns = allBtns.filter(b => (b.innerText || '').includes('Guardar ajustes'));
+
+      let quickSaved = false;
+      let autoSaved = false;
+      let customSaved = false;
+
+      // saveBtns[0]: Guardar Mensajes Rápidos (Alt+1 a Alt+8)
+      if (saveBtns[0]) {
+        saveBtns[0].click();
+        quickSaved = true;
+      }
+
+      // saveBtns[1]: Guardar Mensajes Automáticos (Saludo 30s, Privado, Propina)
+      if (saveBtns[1]) {
+        saveBtns[1].click();
+        autoSaved = true;
+      }
+
+      // Limpiar emojis de mensajes personalizados periódicos si existen (textareas 11+)
+      for (let idx = 11; idx < allTas.length; idx++) {
+        const taCustom = allTas[idx];
+        if (taCustom && taCustom.value) {
+          const cleanText = taCustom.value.replace(/[\u{1F300}-\u{1F9FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{1F1E0}-\u{1F1FF}]/gu, '').trim();
+          if (cleanText !== taCustom.value) {
+            setVal(taCustom, cleanText);
+          }
         }
+      }
+      if (saveBtns[2]) {
+        saveBtns[2].click();
+        customSaved = true;
       }
 
       return {
@@ -175,8 +187,10 @@ async function main() {
         welcomeUpdated: !!taWelcome,
         privateUpdated: !!taPrivate,
         tipUpdated: !!taTip,
-        autoSaved: !!saveAutoBtn,
-        quickSaved: !!saveQuickBtn
+        quickUpdatedCount,
+        autoSaved,
+        quickSaved,
+        customSaved
       };
     })()`,
     returnByValue: true
