@@ -10504,73 +10504,42 @@ Cat Lover </div>
       <!-- ========================================================================== -->
       <!-- PROYECTO 4: CIPOTE CEVICHERIA — POS, CAJA & CONTROL DE VASOS -->
       <!-- ========================================================================== -->
-      <section id="tab-cipote-pos" class="tab-view">
-        <div class="card" style="margin-bottom: 16px;">
+      
+      <!-- ========================================================================== -->
+      <!-- VIEWPORT EMBEBIDO REAL PARA PROYECTOS EXTERNOS (VERCEL, NETLIFY, LOCAL) -->
+      <!-- ========================================================================== -->
+      <section id="tab-ecosystem-embed" class="tab-view">
+        <div class="card" style="margin-bottom: 12px; padding: 12px 18px; border: 1px solid rgba(0, 229, 191, 0.25);">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-            <div>
-              <div style="font-size: 16px; font-weight: 800; color: #38BDF8; display: flex; align-items: center; gap: 8px;">
-                <i data-lucide="shopping-cart"></i>
-                <span>CIPOTE CEVICHERIA — Terminal POS & Turno de Caja</span>
+            <div style="display: flex; align-items: center; gap: 12px;">
+              <div style="font-size: 15px; font-weight: 800; color: #00E5BF; display: flex; align-items: center; gap: 8px;">
+                <i data-lucide="globe" id="embed-header-icon" style="width: 17px; height: 17px;"></i>
+                <span id="embed-project-title">CIPOTE CEVICHERIA — Despliegue en Vivo</span>
               </div>
-              <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 3px;">
-                Punto de venta táctil, recetas de cebiches y control estricto de inventario por conteo de vasos.
+              <div class="view-url-pill" style="display: flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.4); border: 1px solid rgba(0,229,191,0.2); border-radius: 8px; padding: 3px 10px; font-family: var(--font-mono, monospace); font-size: 11px; color: #94A3B8;">
+                <i data-lucide="link" style="width: 11px; height: 11px; color: #00E5BF;"></i>
+                <span id="embed-url-display">https://cipote-ceviche-cocteles.vercel.app</span>
               </div>
             </div>
-            <span class="table-badge badge-info">Turno #1 Abierto</span>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button class="action-btn" onclick="reloadEcosystemEmbed()" title="Recargar aplicación" style="font-size: 11px; padding: 6px 12px;">
+                <i data-lucide="rotate-cw" style="width: 12px; height: 12px;"></i>
+                <span>Recargar</span>
+              </button>
+              <a id="embed-external-link" href="https://cipote-ceviche-cocteles.vercel.app" target="_blank" class="action-btn" title="Abrir directamente en navegador" style="text-decoration: none; font-size: 11px; padding: 6px 12px; background: rgba(0, 229, 191, 0.15); border-color: #00E5BF; color: #00E5BF;">
+                <i data-lucide="external-link" style="width: 12px; height: 12px;"></i>
+                <span>Abrir en Navegador</span>
+              </a>
+            </div>
           </div>
         </div>
 
-        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 16px;">
-          <!-- CATÁLOGO POS -->
-          <div class="card">
-            <div style="font-size: 13px; font-weight: 800; color: #38BDF8; margin-bottom: 10px;">Catálogo de Ceviches & Cócteles</div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px;">
-              <div class="card" style="padding: 10px; cursor: pointer; text-align: center;" onclick="alert('Producto agregado al pedido')">
-                <div style="font-size: 20px;">🦐</div>
-                <div style="font-weight: 800; font-size: 12px; margin-top: 4px;">Ceviche Clásico</div>
-                <div style="color: #38BDF8; font-weight: 800; font-size: 11px;">$18.000</div>
-              </div>
-              <div class="card" style="padding: 10px; cursor: pointer; text-align: center;" onclick="alert('Producto agregado al pedido')">
-                <div style="font-size: 20px;">🐙</div>
-                <div style="font-weight: 800; font-size: 12px; margin-top: 4px;">Ceviche Mixto</div>
-                <div style="color: #38BDF8; font-weight: 800; font-size: 11px;">$24.000</div>
-              </div>
-              <div class="card" style="padding: 10px; cursor: pointer; text-align: center;" onclick="alert('Producto agregado al pedido')">
-                <div style="font-size: 20px;">🍹</div>
-                <div style="font-weight: 800; font-size: 12px; margin-top: 4px;">Cóctel Camarón</div>
-                <div style="color: #38BDF8; font-weight: 800; font-size: 11px;">$22.000</div>
-              </div>
-              <div class="card" style="padding: 10px; cursor: pointer; text-align: center;" onclick="alert('Producto agregado al pedido')">
-                <div style="font-size: 20px;">🍧</div>
-                <div style="font-weight: 800; font-size: 12px; margin-top: 4px;">Granizado 16oz</div>
-                <div style="color: #38BDF8; font-weight: 800; font-size: 11px;">$12.000</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ARQUEO & CONTEO DE VASOS -->
-          <div class="card">
-            <div style="font-size: 13px; font-weight: 800; color: #38BDF8; margin-bottom: 10px;">Control Crítico de Vasos</div>
-            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 11.5px;">
-              <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-                <span>Vasos 12oz (Apertura / Stock):</span>
-                <strong style="color: #38BDF8;">45 / 100</strong>
-              </div>
-              <div style="display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.06);">
-                <span>Vasos 16oz (Apertura / Stock):</span>
-                <strong style="color: #38BDF8;">68 / 150</strong>
-              </div>
-              <div style="display: flex; justify-content: space-between; padding: 6px 0;">
-                <span>Vasos 24oz (Apertura / Stock):</span>
-                <strong style="color: #38BDF8;">32 / 80</strong>
-              </div>
-            </div>
-            <button class="action-btn" style="width: 100%; margin-top: 12px; justify-content: center; border-color: #38BDF8; color: #38BDF8;">
-              <i data-lucide="check-circle-2"></i> Cerrar Turno & Cuadre
-            </button>
-          </div>
+        <!-- CONTENEDOR IFRAME EMBEBIDO INTERACTIVO -->
+        <div style="position: relative; width: 100%; height: calc(100vh - 190px); border-radius: 18px; overflow: hidden; border: 1px solid rgba(0, 229, 191, 0.25); box-shadow: 0 10px 30px rgba(0,0,0,0.6); background: #000000;">
+          <iframe id="ecosystem-live-frame" src="about:blank" style="width: 100%; height: 100%; border: none; background: #000000;" allow="camera; microphone; display-capture; autoplay; clipboard-write; clipboard-read;"></iframe>
         </div>
       </section>
+    
     
     </div>
   </main>
@@ -17625,34 +17594,24 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           }
         ]
       },
-      alma: {
-        id: 'alma',
-        name: 'ALMA',
+      cipote: {
+        id: 'cipote',
+        name: 'CIPOTE CEVICHERIA',
         tagline: 'by ALMA TECH',
-        badge: 'Vision & Gestures',
-        dotColor: '#00A88F',
-        logoImg: 'assets/alma_avatar_face.png',
-        firstTab: 'tab-alma-gestures',
-        agents: ['alma_vision', 'alma_neural', 'alma_core', 'alma'],
+        badge: 'Despliegue Vercel',
+        dotColor: '#38BDF8',
+        logoImg: 'assets/cipote_logo.jpeg',
+        firstTab: 'tab-ecosystem-embed',
+        embedUrl: 'https://cipote-ceviche-cocteles.vercel.app',
+        embedTitle: 'CIPOTE CEVICHERIA — Despliegue Oficial en Vercel',
+        agents: ['cipote_chef', 'cipote_bar', 'cipote_pos', 'cipote_delivery', 'alma'],
         sections: [
           {
-            title: 'Control por Gestos & Visión',
+            title: 'Despliegue & Punto de Venta',
             items: [
-              { id: 'tab-alma-gestures', label: 'Puntero por Gestos (Cámara)', icon: 'camera', badge: 'MediaPipe AI' },
-              { id: 'tab-alma-gestures', label: 'HUD de Visión en Vivo', icon: 'eye', badge: '60 FPS' }
-            ]
-          },
-          {
-            title: 'Núcleo de Agentes Autónomos',
-            items: [
-              { id: 'tab-alma-agents', label: 'Red de Agentes & Mapeo', icon: 'network', badge: '4 Agentes' },
-              { id: 'tab-asistentes', label: 'Chat Multi-Agente', icon: 'bot', badge: 'Co-Pilotos' }
-            ]
-          },
-          {
-            title: 'Bóveda de Conocimiento',
-            items: [
-              { id: 'tab-alma-vaultbrain', label: 'Vaultbrain Obsidian', icon: 'book-open', badge: '6 Bóvedas' }
+              { id: 'tab-ecosystem-embed', label: 'App en Vivo (Vercel)', icon: 'globe', badge: 'En Línea', url: 'https://cipote-ceviche-cocteles.vercel.app' },
+              { id: 'tab-ecosystem-embed', label: 'POS Glassmorphism', icon: 'shopping-cart', badge: 'POS', url: '/cipote/pos' },
+              { id: 'tab-ecosystem-embed', label: 'Landing & Carta Digital', icon: 'sparkle', badge: 'Menú', url: '/cipote/landing' }
             ]
           }
         ]
@@ -17664,38 +17623,37 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         badge: 'Gastro-Bar',
         dotColor: '#F59E0B',
         logoImg: 'assets/el_solar_logo.png',
-        firstTab: 'tab-solar-reservas',
+        firstTab: 'tab-ecosystem-embed',
+        embedUrl: '/el_solar/',
+        embedTitle: 'EL SOLAR — Plataforma Operativa & Reservas',
         agents: ['solar_solecito', 'solar_maitre', 'solar_chef', 'solar_admin', 'alma'],
         sections: [
           {
             title: 'Operaciones Gastro-Bar',
             items: [
-              { id: 'tab-solar-reservas', label: 'Mesa de Control & Reservas', icon: 'utensils', badge: 'Ocupación 88%' }
-            ]
-          },
-          {
-            title: 'Atención Automatizada',
-            items: [
-              { id: 'tab-solar-reservas', label: 'WhatsApp Bot IA (Twilio)', icon: 'message-square', badge: 'En Línea' }
+              { id: 'tab-ecosystem-embed', label: 'Plataforma & Reservas', icon: 'utensils', badge: 'Operativo', url: '/el_solar/' },
+              { id: 'tab-ecosystem-embed', label: 'Manual de Usuario', icon: 'book-open', badge: 'Guía', url: '/el_solar/manual' },
+              { id: 'tab-ecosystem-embed', label: 'Propuesta Tecnológica', icon: 'file-text', badge: 'Holding', url: '/el_solar/propuesta' }
             ]
           }
         ]
       },
-      cipote: {
-        id: 'cipote',
-        name: 'CIPOTE CEVICHERIA',
+      alma: {
+        id: 'alma',
+        name: 'ALMA',
         tagline: 'by ALMA TECH',
-        badge: 'POS & Stock',
-        dotColor: '#38BDF8',
-        logoImg: 'assets/cipote_logo.jpeg',
-        firstTab: 'tab-cipote-pos',
-        agents: ['cipote_chef', 'cipote_bar', 'cipote_pos', 'cipote_delivery', 'alma'],
+        badge: 'Vision & Gestures',
+        dotColor: '#00A88F',
+        logoImg: 'assets/alma_avatar_face.png',
+        firstTab: 'tab-ecosystem-embed',
+        embedUrl: '/alma/',
+        embedTitle: 'ALMA Core — Puntero Gestual con Cámara',
+        agents: ['alma_vision', 'alma_neural', 'alma_core', 'alma'],
         sections: [
           {
-            title: 'Punto de Venta & Caja',
+            title: 'Control por Gestos & Visión',
             items: [
-              { id: 'tab-cipote-pos', label: 'Terminal POS & Mesas', icon: 'shopping-cart', badge: 'Turno Abierto' },
-              { id: 'tab-cipote-pos', label: 'Conteo Crítico de Vasos', icon: 'glass-water', badge: '3 Tamaños' }
+              { id: 'tab-ecosystem-embed', label: 'Puntero Gestual (Cámara)', icon: 'camera', badge: 'WASM 60FPS', url: '/alma/' }
             ]
           }
         ]
@@ -17822,13 +17780,44 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       renderEcosystemAssistants(data);
 
       // 5. Activar pestaña principal del proyecto
-      switchMainTab(data.firstTab);
+      if (data.embedUrl) {
+        loadEcosystemEmbed(data.embedUrl, data.embedTitle, data.badge);
+      } else {
+        switchMainTab(data.firstTab);
+      }
 
       // Cerrar dropdown
       const sw = document.getElementById('project-ecosystem-switcher');
       if (sw) sw.classList.remove('open');
 
       if (window.lucide) window.lucide.createIcons();
+    }
+    
+    
+    function loadEcosystemEmbed(url, title, badge) {
+      const frame = document.getElementById('ecosystem-live-frame');
+      const titleEl = document.getElementById('embed-project-title');
+      const urlEl = document.getElementById('embed-url-display');
+      const linkEl = document.getElementById('embed-external-link');
+
+      if (titleEl && title) titleEl.textContent = title;
+      if (urlEl && url) urlEl.textContent = url;
+      if (linkEl && url) linkEl.href = url;
+
+      if (frame && url) {
+        if (frame.src !== url) {
+          frame.src = url;
+        }
+      }
+
+      switchMainTab('tab-ecosystem-embed');
+    }
+
+    function reloadEcosystemEmbed() {
+      const frame = document.getElementById('ecosystem-live-frame');
+      if (frame && frame.src !== 'about:blank') {
+        frame.src = frame.src;
+      }
     }
     
     function renderEcosystemSidebar(projectData) {
