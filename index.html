@@ -13635,7 +13635,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           { label: ' "Auditoría de textos contra shadowban algorítmico"', prompt: 'Revisa si mis últimos textos o descripciones tienen algún término que los algoritmos de Streamate o Stripchat penalicen en el ranking.' },
           { label: ' "Top palabras clave para Bio en Streamate"', prompt: 'Electra, dame las palabras clave de alto volumen de búsqueda en Streamate para posicionar mi perfil Tomboy Biker.' }
         ]
-      }
+      },
     
       // --- AGENTES DE CIPOTE CEVICHERÍA ---
       cipote_chef: {
@@ -17709,6 +17709,40 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           `;
         });
         dockGrid.innerHTML = gridHtml;
+      }
+
+      // 2b. Re-renderizar deck-grid en tab-asistentes (si existe en DOM)
+      const deckGrid = document.querySelector('.assistants-deck-grid');
+      if (deckGrid) {
+        let deckHtml = '';
+        projectData.agents.forEach((agentId) => {
+          const agent = ASSISTANTS_DATA[agentId];
+          if (!agent) return;
+          const isAct = (typeof activeAssistant !== 'undefined' && agentId === activeAssistant);
+          const avatarContent = agent.isImageAvatar
+            ? `<div class="card-avatar" style="background: transparent; padding: 0;"><img src="${agent.avatarImg}" alt="${agent.name}" style="width:100%; height:100%; border-radius:50%; object-fit:contain; background:#fff; border: 2px solid #00E5BF;"></div>`
+            : `<div class="card-avatar" style="background: ${agent.gradient};">${agent.avatarText}</div>`;
+
+          deckHtml += `
+          <div id="card-assistant-${agent.id}" class="assistant-card ${isAct ? 'active' : ''}" onclick="selectAssistant('${agent.id}')">
+            ${avatarContent}
+            <div class="card-info">
+              <div class="card-name">
+                <span>${agent.name}</span>
+                <span class="table-badge ${agent.badgeClass || 'badge-info'}" style="font-size: 8px; padding: 1px 5px;">${(agent.badge || 'IA').split('&')[0].trim()}</span>
+              </div>
+              <div class="card-role">${agent.badge || ''}</div>
+              <span class="card-pill" style="background: rgba(0, 229, 191, 0.15); color: #00A88F;">${agent.desc ? agent.desc.split('•')[0].trim() : 'Asistente'}</span>
+            </div>
+          </div>`;
+        });
+        deckGrid.innerHTML = deckHtml;
+      }
+
+      if (typeof activeAssistant !== 'undefined' && !projectData.agents.includes(activeAssistant) && projectData.agents.length > 0) {
+        if (typeof selectAssistant === 'function') {
+          selectAssistant(projectData.agents[0]);
+        }
       }
 
       // 3. Re-poblar select del chat flotante
