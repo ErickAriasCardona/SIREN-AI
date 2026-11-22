@@ -6788,6 +6788,244 @@
       color: #43635C !important;
     }
 
+
+    /* ============================================================================== */
+    /* SISTEMA DE NOTIFICACIONES BURBUJA FLOTANTE EN MAREA BAJA & CONTADORES PENDIENTES */
+    /* ============================================================================== */
+    .assistant-card {
+      position: relative;
+    }
+    .assistant-unread-counter {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 800;
+      padding: 2px 7px;
+      border-radius: 12px;
+      border: 2px solid #081412;
+      box-shadow: 0 0 12px rgba(239, 68, 68, 0.7), 0 2px 6px rgba(0,0,0,0.4);
+      z-index: 10;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulseUnreadBadge 2s ease-in-out infinite;
+    }
+    body.light-theme .assistant-unread-counter {
+      border-color: #ffffff;
+      box-shadow: 0 0 10px rgba(239, 68, 68, 0.5), 0 2px 6px rgba(0,0,0,0.15);
+    }
+    @keyframes pulseUnreadBadge {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); box-shadow: 0 0 18px rgba(239, 68, 68, 0.9); }
+    }
+
+    .dock-agent-card {
+      position: relative;
+    }
+    .dock-unread-counter {
+      position: absolute;
+      top: 2px;
+      right: 6px;
+      background: #EF4444;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 1px 6px;
+      border-radius: 10px;
+      border: 1.5px solid #0f1319;
+      box-shadow: 0 0 8px #EF4444;
+      z-index: 5;
+    }
+
+    /* CONTENEDOR DE BURBUJAS FLOTANTES (OLAS DE MAR) */
+    #ocean-wave-notifications-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 999999;
+      overflow: hidden;
+    }
+
+    /* BURBUJA FLOTANTE ESTILO AGUA CRISTALINA / OLAS EN MAREA BAJA */
+    @keyframes oceanWaveSlowMotion {
+      0% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg);
+      }
+      20% {
+        transform: translate3d(24px, -22px, 0px) rotate(1.4deg);
+      }
+      45% {
+        transform: translate3d(-18px, -32px, 0px) rotate(-1.5deg);
+      }
+      70% {
+        transform: translate3d(-28px, 16px, 0px) rotate(1deg);
+      }
+      85% {
+        transform: translate3d(16px, 24px, 0px) rotate(-0.8deg);
+      }
+      100% {
+        transform: translate3d(0px, 0px, 0px) rotate(0deg);
+      }
+    }
+    @keyframes bubbleFadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.6) translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+    @keyframes bubbleDismiss {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.4) translateY(-30px);
+      }
+    }
+
+    .ocean-wave-bubble {
+      position: absolute;
+      pointer-events: auto;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px 10px 10px;
+      border-radius: 40px;
+      cursor: pointer;
+      user-select: none;
+      max-width: 340px;
+      background: rgba(10, 26, 23, 0.92);
+      border: 1.5px solid rgba(0, 229, 191, 0.45);
+      box-shadow: 0 16px 38px rgba(0, 0, 0, 0.55), 0 0 24px rgba(0, 229, 191, 0.28), inset 0 0 14px rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(18px);
+      transition: box-shadow 0.3s ease, border-color 0.3s ease;
+      animation: oceanWaveSlowMotion 16s ease-in-out infinite alternate, bubbleFadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .ocean-wave-bubble:hover {
+      animation-play-state: paused;
+      border-color: #00E5BF;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, 0.65), 0 0 35px rgba(0, 229, 191, 0.5);
+    }
+    .ocean-bubble-avatar-wrap {
+      position: relative;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      padding: 2px;
+      background: linear-gradient(135deg, #00A88F, #00E5BF);
+      box-shadow: 0 0 14px rgba(0, 229, 191, 0.5);
+      flex-shrink: 0;
+    }
+    .ocean-bubble-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background: #081412;
+    }
+    .ocean-bubble-pulse-dot {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #10B981;
+      border: 2px solid #081412;
+      box-shadow: 0 0 8px #10B981;
+    }
+    .ocean-bubble-text-col {
+      flex: 1;
+      min-width: 0;
+    }
+    .ocean-bubble-top-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 2px;
+    }
+    .ocean-bubble-name {
+      font-size: 13px;
+      font-weight: 800;
+      color: #F8FAFC;
+      letter-spacing: -0.2px;
+    }
+    .ocean-bubble-tag {
+      font-size: 9.5px;
+      font-weight: 800;
+      color: #00E5BF;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      background: rgba(0, 229, 191, 0.15);
+      padding: 1px 6px;
+      border-radius: 8px;
+    }
+    .ocean-bubble-snippet {
+      font-size: 11.5px;
+      color: #94A3B8;
+      line-height: 1.35;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 210px;
+    }
+    .ocean-bubble-close-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: none;
+      color: #94A3B8;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      flex-shrink: 0;
+    }
+    .ocean-bubble-close-btn:hover {
+      background: rgba(239, 68, 68, 0.25);
+      color: #EF4444;
+    }
+
+    /* MODO CLARO - WATER GLASS HIGH CONTRAST */
+    body.light-theme .ocean-wave-bubble {
+      background: rgba(255, 255, 255, 0.94) !important;
+      border: 1.5px solid rgba(0, 168, 143, 0.45) !important;
+      box-shadow: 0 16px 38px rgba(0, 168, 143, 0.22), 0 0 24px rgba(0, 229, 191, 0.2) !important;
+    }
+    body.light-theme .ocean-wave-bubble:hover {
+      border-color: #00A88F !important;
+      box-shadow: 0 22px 50px rgba(0, 168, 143, 0.32), 0 0 35px rgba(0, 168, 143, 0.3) !important;
+    }
+    body.light-theme .ocean-bubble-name {
+      color: #06342D !important;
+    }
+    body.light-theme .ocean-bubble-tag {
+      background: #E6F8F5 !important;
+      color: #007A68 !important;
+    }
+    body.light-theme .ocean-bubble-snippet {
+      color: #43635C !important;
+    }
+    body.light-theme .ocean-bubble-close-btn {
+      background: rgba(0, 0, 0, 0.06) !important;
+      color: #43635C !important;
+    }
+    body.light-theme .ocean-bubble-close-btn:hover {
+      background: rgba(239, 68, 68, 0.15) !important;
+      color: #DC2626 !important;
+    }
+
 </style>
 </head>
 <body>
@@ -15716,7 +15954,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         loadInstagramLiveData();
       }
 
-      lucide.createIcons();
+      // Limpiar badges no leidos y descartar burbujas de este asistente
+      if (typeof clearAssistantUnread === 'function') {
+        clearAssistantUnread(assistantId);
+      }
+
+      if (window.lucide) lucide.createIcons();
     }
 
     function updatePromptPills(assistantId) {
@@ -16416,12 +16659,212 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       showToast('Agente pausado con éxito');
     }
 
-    async function sendCopilotMessage() {
+    async 
+    // ==============================================================================
+    // GESTIÓN DE NOTIFICACIONES DE AGENTES, BURBUJAS FLOTANTES & CONTADORES
+    // ==============================================================================
+    const unreadAssistantMessages = {};
+
+    function incrementAssistantUnread(assistantId) {
+      if (!assistantId) return;
+      unreadAssistantMessages[assistantId] = (unreadAssistantMessages[assistantId] || 0) + 1;
+      updateUnreadBadgesInUI(assistantId);
+    }
+
+    function clearAssistantUnread(assistantId) {
+      if (!assistantId) return;
+      unreadAssistantMessages[assistantId] = 0;
+      updateUnreadBadgesInUI(assistantId);
+      dismissBubblesForAssistant(assistantId);
+    }
+
+    function updateUnreadBadgesInUI(assistantId) {
+      const count = unreadAssistantMessages[assistantId] || 0;
+      
+      // 1. Tarjeta en tab-asistentes
+      const card = document.getElementById(`card-assistant-${assistantId}`);
+      if (card) {
+        let badge = card.querySelector('.assistant-unread-counter');
+        if (count > 0) {
+          if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'assistant-unread-counter';
+            card.appendChild(badge);
+          }
+          badge.textContent = count > 9 ? '+9' : count;
+          badge.style.display = 'inline-flex';
+        } else if (badge) {
+          badge.style.display = 'none';
+        }
+      }
+
+      // 2. Tarjeta en el dock flotante
+      const dockBtn = document.querySelector(`.dock-agent-card[onclick*="'${assistantId}'"]`);
+      if (dockBtn) {
+        let badge = dockBtn.querySelector('.dock-unread-counter');
+        if (count > 0) {
+          if (!badge) {
+            badge = document.createElement('span');
+            badge.className = 'dock-unread-counter';
+            dockBtn.appendChild(badge);
+          }
+          badge.textContent = count > 9 ? '+9' : count;
+          badge.style.display = 'inline-flex';
+        } else if (badge) {
+          badge.style.display = 'none';
+        }
+      }
+    }
+
+    function spawnOceanWaveNotificationBubble(assistantId, replyText) {
+      const agent = ASSISTANTS_DATA[assistantId] || { name: assistantId, badge: 'Agente IA' };
+      
+      let container = document.getElementById('ocean-wave-notifications-container');
+      if (!container) {
+        container = document.createElement('div');
+        container.id = 'ocean-wave-notifications-container';
+        document.body.appendChild(container);
+      }
+
+      // Descartar burbuja previa del mismo agente
+      dismissBubblesForAssistant(assistantId);
+
+      const bubble = document.createElement('div');
+      bubble.className = 'ocean-wave-bubble';
+      bubble.dataset.assistantId = assistantId;
+
+      // Coordenadas aleatorias seguras dentro del viewport
+      const marginX = 50;
+      const marginY = 90;
+      const maxX = Math.max(80, window.innerWidth - 360);
+      const maxY = Math.max(100, window.innerHeight - 200);
+      const randomX = Math.floor(Math.random() * (maxX - marginX)) + marginX;
+      const randomY = Math.floor(Math.random() * (maxY - marginY)) + marginY;
+
+      bubble.style.left = `${randomX}px`;
+      bubble.style.top = `${randomY}px`;
+
+      // Variación de 14s a 20s para movimiento fluido orgánico como olas en marea baja
+      const waveDuration = (14 + Math.random() * 6).toFixed(1);
+      bubble.style.animationDuration = `${waveDuration}s, 0.6s`;
+
+      const snippet = (replyText || '').replace(/[#*`_\[\]()]/g, '').trim().substring(0, 75) + '...';
+
+      const avatarContent = agent.isImageAvatar && agent.avatarImg
+        ? `<img src="${agent.avatarImg}" alt="${agent.name}" class="ocean-bubble-avatar-img">`
+        : `<div class="ocean-bubble-avatar-img" style="display:flex;align-items:center;justify-content:center;color:#fff;font-weight:bold;font-size:12px;">${agent.avatarText || 'IA'}</div>`;
+
+      bubble.innerHTML = `
+        <div class="ocean-bubble-avatar-wrap">
+          ${avatarContent}
+          <span class="ocean-bubble-pulse-dot"></span>
+        </div>
+        <div class="ocean-bubble-text-col">
+          <div class="ocean-bubble-top-row">
+            <span class="ocean-bubble-name">${agent.name}</span>
+            <span class="ocean-bubble-tag">Nuevo Mensaje</span>
+          </div>
+          <div class="ocean-bubble-snippet">${snippet}</div>
+        </div>
+        <button class="ocean-bubble-close-btn" title="Cerrar notificación" onclick="event.stopPropagation(); dismissBubble(this.closest('.ocean-wave-bubble'))">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      `;
+
+      bubble.onclick = function(e) {
+        if (e.target.closest('.ocean-bubble-close-btn')) return;
+        
+        selectAssistant(assistantId);
+
+        const asstTab = document.getElementById('tab-asistentes');
+        if (asstTab && !asstTab.classList.contains('active')) {
+          switchMainTab('tab-asistentes');
+        }
+
+        dismissBubble(bubble);
+        clearAssistantUnread(assistantId);
+        scrollAssistantChatToBottom(false);
+      };
+
+      container.appendChild(bubble);
+
+      setTimeout(() => {
+        if (document.body.contains(bubble)) {
+          dismissBubble(bubble);
+        }
+      }, 45000);
+    }
+
+    function dismissBubble(bubbleEl) {
+      if (!bubbleEl) return;
+      bubbleEl.style.animation = 'bubbleDismiss 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards';
+      setTimeout(() => {
+        if (bubbleEl.parentNode) bubbleEl.parentNode.removeChild(bubbleEl);
+      }, 400);
+    }
+
+    function dismissBubblesForAssistant(assistantId) {
+      const container = document.getElementById('ocean-wave-notifications-container');
+      if (!container) return;
+      const bubbles = container.querySelectorAll(`.ocean-wave-bubble[data-assistant-id="${assistantId}"]`);
+      bubbles.forEach(b => dismissBubble(b));
+    }
+
+    function handleIncomingAssistantResponse(targetAssistantId, replyText, lang = 'es', model = '') {
+      if (!targetAssistantId) return;
+
+      // 1. Guardar SIEMPRE en el historial del agente que generó la respuesta
+      if (!assistantChatHistories[targetAssistantId]) {
+        assistantChatHistories[targetAssistantId] = [];
+      }
+      const timestamp = new Date().toISOString();
+      assistantChatHistories[targetAssistantId].push({
+        sender: targetAssistantId,
+        message: replyText,
+        lang: lang,
+        model: model,
+        timestamp: timestamp
+      });
+      try {
+        localStorage.setItem('siren_assistant_histories', JSON.stringify(assistantChatHistories));
+      } catch (_) {}
+
+      // 2. Verificar si el usuario está visualizando activamente el chat de ESTE asistente
+      const asstTab = document.getElementById('tab-asistentes');
+      const isViewingAsstTab = asstTab && asstTab.classList.contains('active');
+      const isCurrentActive = activeAssistant === targetAssistantId;
+
+      if (isViewingAsstTab && isCurrentActive) {
+        appendChatMessage(targetAssistantId, replyText, lang, model, timestamp, false);
+      } else {
+        // El usuario está en otro asistente o en otra vista:
+        // No mezclar mensajes en chats ajenos. Incrementar contador y lanzar burbuja en marea baja
+        incrementAssistantUnread(targetAssistantId);
+        spawnOceanWaveNotificationBubble(targetAssistantId, replyText);
+      }
+
+      // 3. Sincronización en chat flotante si está abierto en este agente
+      const floatingModal = document.getElementById('alma-floating-chat-modal');
+      const isFloatingOpen = floatingModal && floatingModal.style.display !== 'none' && !floatingModal.classList.contains('minimized');
+      if (isFloatingOpen && currentFloatingAgent === targetAssistantId) {
+        appendFloatingBubble(targetAssistantId, replyText, 'Ahora', false);
+      }
+
+      // Alerta sonora y háptica
+      playAssistantChime();
+      if (navigator.vibrate) {
+        try { navigator.vibrate([120, 60, 120]); } catch (_) {}
+      }
+    }
+
+
+    function sendCopilotMessage() {
       const inputEl = document.getElementById('copilot-input');
       if (!inputEl) return;
       const text = inputEl.value.trim();
       if (!text) return;
 
+      const targetAssistant = activeAssistant; // Captura inmutable del asistente objetivo
       const modelSelect = document.getElementById('chat-model-select');
       const model = modelSelect ? modelSelect.value : 'qwen2.5:7b-instruct';
 
@@ -16437,7 +16880,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           if (activeAssistant === 'mahia') {
             txt.textContent = 'MAHIA está consultando tus métricas en vivo en StreamMonitor...';
           } else {
-            const agName = (ASSISTANTS_DATA[activeAssistant] && ASSISTANTS_DATA[activeAssistant].name) || 'El agente';
+            const agName = (ASSISTANTS_DATA[activeAssistant] && ASSISTANTS_DATA[targetAssistant].name) || 'El agente';
             txt.textContent = `${agName} está pensando la mejor estrategia con Qwen 2.5...`;
           }
         }
@@ -16465,7 +16908,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
 
       // Armar historial para backend (últimos 6 mensajes para agilidad máxima)
-      const historyPayload = (assistantChatHistories[activeAssistant] || []).slice(-6).map(item => ({
+      const historyPayload = (assistantChatHistories[targetAssistant] || []).slice(-6).map(item => ({
         role: item.sender === 'sam' ? 'user' : 'assistant',
         content: item.message
       }));
@@ -16479,7 +16922,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             message: text,
             model: model,
             history: historyPayload,
-            assistant: activeAssistant
+            assistant: targetAssistant
           })
         });
 
@@ -16489,9 +16932,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         restoreSendBtn();
 
         if (data.stopped) {
-          appendChatMessage(activeAssistant, data.reply || '[Proceso pausado por el usuario]', 'es', data.model);
+          handleIncomingAssistantResponse(targetAssistant, data.reply || '[Proceso pausado por el usuario]', 'es', data.model);
         } else {
-          appendChatMessage(activeAssistant, data.reply, data.detected_lang, data.model);
+          handleIncomingAssistantResponse(targetAssistant, data.reply, data.detected_lang, data.model);
         }
       } catch (err) {
         if (err.name === 'AbortError') {
@@ -16510,7 +16953,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               body: JSON.stringify({
                 model: model,
                 messages: [
-                  { role: 'system', content: `Eres ${ASSISTANTS_DATA[activeAssistant].name}, ${ASSISTANTS_DATA[activeAssistant].desc}. Le hablas directamente a Sam Barton (@sambartone_) en español con respeto, calidez y precisión profesional.` },
+                  { role: 'system', content: `Eres ${ASSISTANTS_DATA[activeAssistant].name}, ${ASSISTANTS_DATA[targetAssistant].desc}. Le hablas directamente a Sam Barton (@sambartone_) en español con respeto, calidez y precisión profesional.` },
                   ...historyPayload,
                   { role: 'user', content: text }
                 ],
@@ -16521,7 +16964,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             if (indicator) indicator.style.display = 'none';
             restoreSendBtn();
             const reply = odata.message?.content || 'Sin respuesta';
-            appendChatMessage(activeAssistant, reply, 'es', 'Direct Ollama');
+            handleIncomingAssistantResponse(targetAssistant, reply, 'es', 'Direct Ollama');
             return;
           } catch (ollamaErr) {
             if (ollamaErr.name === 'AbortError') {
@@ -19837,6 +20280,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       renderFloatingChatHistory();
       renderFloatingQuickPills();
+
+      if (typeof clearAssistantUnread === 'function') {
+        clearAssistantUnread(currentFloatingAgent);
+      }
     }
 
     function renderFloatingQuickPills() {
@@ -19981,6 +20428,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const text = input.value.trim();
       if (!text) return;
 
+      const targetFloatingAgent = currentFloatingAgent;
+
       appendFloatingBubble('sam', text, 'Ahora', true);
       input.value = '';
 
@@ -20037,7 +20486,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             message: text,
             model: 'qwen2.5:7b-instruct',
             history: hist,
-            assistant: currentFloatingAgent
+            assistant: targetFloatingAgent
           })
         });
 
@@ -20048,9 +20497,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         restoreSendBtn();
 
         if (data.stopped) {
-          appendFloatingBubble(currentFloatingAgent, data.reply || '[Proceso pausado por el usuario]', 'Ahora', true);
+          handleIncomingAssistantResponse(targetFloatingAgent, data.reply || '[Proceso pausado por el usuario]', 'es', data.model);
         } else {
-          appendFloatingBubble(currentFloatingAgent, data.reply || data.response || 'Sin respuesta', 'Ahora', true);
+          handleIncomingAssistantResponse(targetFloatingAgent, data.reply || data.response || 'Sin respuesta', 'es', data.model);
         }
       } catch (err) {
         if (err.name === 'AbortError') {
@@ -20091,7 +20540,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             const odata = await direct.json();
             if (indicator) indicator.style.display = 'none';
             restoreSendBtn();
-            appendFloatingBubble(currentFloatingAgent, odata.message?.content || 'Sin respuesta', 'Ahora', true);
+            handleIncomingAssistantResponse(targetFloatingAgent, odata.message?.content || 'Sin respuesta', 'es', 'Direct Ollama');
             return;
           } catch (ollamaErr) {
             if (ollamaErr.name === 'AbortError') {
@@ -20103,7 +20552,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         if (indicator) indicator.style.display = 'none';
         restoreSendBtn();
-        appendFloatingBubble(currentFloatingAgent, `No se pudo contactar al servidor (${err.message}). Verifica que el servidor de ALMA TECH esté activo.`, 'Ahora', false);
+        appendFloatingBubble(targetFloatingAgent, `No se pudo contactar al servidor (${err.message}). Verifica que el servidor de ALMA TECH esté activo.`, 'Ahora', false);
       }
     }
 
@@ -20373,6 +20822,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
           gridHtml += `
           <button class="dock-agent-card ${isAct ? 'active' : ''}" onclick="openFloatingChatWithAssistant('${agent.id}')">
+            ${unreadAssistantMessages[agent.id] > 0 ? `<span class="dock-unread-counter">${unreadAssistantMessages[agent.id] > 9 ? '+9' : unreadAssistantMessages[agent.id]}</span>` : ''}
             <div class="dock-agent-avatar-wrap" style="background: ${agent.gradient}">
               ${avatarContent}
               <span class="dock-online-dot"></span>
@@ -20402,6 +20852,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
           deckHtml += `
           <div id="card-assistant-${agent.id}" class="assistant-card ${isAct ? 'active' : ''}" onclick="selectAssistant('${agent.id}')">
+            ${unreadAssistantMessages[agent.id] > 0 ? `<span class="assistant-unread-counter">${unreadAssistantMessages[agent.id] > 9 ? '+9' : unreadAssistantMessages[agent.id]}</span>` : ''}
             ${avatarContent}
             <div class="card-info">
               <div class="card-name">
