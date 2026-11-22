@@ -5798,6 +5798,148 @@
       color: #ef4444;
     }
     
+
+
+    /* ========================================================================== */
+    /* INSTAGRAM HUB — ESTILOS VISUALES ADAPTATIVOS (MODO OSCURO & CLARO) */
+    /* ========================================================================== */
+    .ig-header-banner {
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, rgba(225, 48, 108, 0.12) 0%, rgba(131, 58, 180, 0.08) 50%, rgba(13, 28, 25, 0.9) 100%);
+      border: 1px solid rgba(225, 48, 108, 0.35);
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    body.light-theme .ig-header-banner {
+      background: linear-gradient(135deg, rgba(255, 238, 244, 0.95) 0%, rgba(248, 240, 255, 0.92) 50%, #ffffff 100%) !important;
+      border: 1px solid rgba(225, 48, 108, 0.25) !important;
+      box-shadow: 0 8px 24px rgba(225, 48, 108, 0.08) !important;
+    }
+    .ig-header-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    body.light-theme .ig-header-title {
+      color: #0B2520 !important;
+    }
+    .ig-header-sub {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+    body.light-theme .ig-header-sub {
+      color: #43635C !important;
+    }
+    .ig-sync-btn {
+      font-size: 11.5px;
+      padding: 6px 14px;
+      border: 1px solid rgba(0, 168, 143, 0.35);
+      color: var(--text-main);
+      background: rgba(0, 168, 143, 0.08);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .ig-sync-btn:hover {
+      background: rgba(0, 168, 143, 0.2);
+      border-color: var(--primary);
+      transform: scale(1.02);
+    }
+    body.light-theme .ig-sync-btn {
+      background: #ffffff !important;
+      color: #064e43 !important;
+      border-color: rgba(0, 168, 143, 0.35) !important;
+      box-shadow: 0 2px 8px rgba(0, 168, 143, 0.08) !important;
+    }
+
+    .ig-story-card {
+      background: rgba(18, 40, 36, 0.65);
+      border-radius: 12px;
+      padding: 14px;
+      transition: all 0.2s ease;
+      margin-bottom: 6px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    body.light-theme .ig-story-card {
+      background: #ffffff !important;
+      box-shadow: 0 6px 20px rgba(0, 168, 143, 0.08) !important;
+    }
+    .ig-visual-box {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      border: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.25);
+    }
+    body.light-theme .ig-visual-box {
+      background: #F4FAF8 !important;
+      border-color: rgba(0, 168, 143, 0.2) !important;
+    }
+    .ig-copy-box {
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+      border: 1px dashed rgba(0, 168, 143, 0.45);
+      background: rgba(0, 229, 191, 0.05);
+    }
+    body.light-theme .ig-copy-box {
+      background: rgba(0, 168, 143, 0.06) !important;
+      border-color: rgba(0, 168, 143, 0.4) !important;
+    }
+    .ig-meta-tag {
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 6px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    body.light-theme .ig-meta-tag {
+      background: #F8FCFB !important;
+      border-color: rgba(0, 168, 143, 0.16) !important;
+      color: #334E48 !important;
+    }
+
+    .ig-kpi-tile {
+      border-radius: 10px;
+      padding: 12px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      background: rgba(255, 255, 255, 0.03);
+    }
+    body.light-theme .ig-kpi-tile {
+      background: #ffffff !important;
+      border-color: rgba(0, 168, 143, 0.18) !important;
+      box-shadow: 0 4px 12px rgba(0, 168, 143, 0.06) !important;
+    }
+    .ig-account-summary-row {
+      border-radius: 10px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border: 1px solid var(--border-color);
+      background: rgba(0, 0, 0, 0.25);
+    }
+    body.light-theme .ig-account-summary-row {
+      background: #F4FAF8 !important;
+      border-color: rgba(0, 168, 143, 0.2) !important;
+    }
+
 </style>
 </head>
 <body>
@@ -8693,24 +8835,24 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         <!-- 4. SUBTAB INSTAGRAM ENDPOINTS -->
         <div id="sub-api-instagram" class="sub-tab-content" style="display:none;">
           <!-- Header Banner de Instagram & Estado -->
-          <div class="card" style="margin-bottom: 18px; background: linear-gradient(135deg, rgba(225, 48, 108, 0.08) 0%, rgba(131, 58, 180, 0.05) 50%, rgba(11, 15, 23, 0.95) 100%); border: 1px solid rgba(225, 48, 108, 0.25);">
+          <div class="card ig-header-banner">
             <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
               <div style="display: flex; align-items: center; gap: 12px;">
                 <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(225, 48, 108, 0.35);">
                   <i data-lucide="instagram" style="width: 22px; height: 22px; color: #fff;"></i>
                 </div>
                 <div>
-                  <div style="font-size: 15px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
-                    Instagram Hub (@sambartonn23)
+                  <div class="ig-header-title">
+                    <span>Instagram Hub (@sambartonn23)</span>
                     <span class="table-badge badge-success" style="font-size: 10px; padding: 2px 8px;">Sesión Activa & Verificada</span>
                   </div>
-                  <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">
+                  <div class="ig-header-sub">
                     Generador Estratégico de Historias Anti-Shadowban, Métricas en Vivo y Visor Embebido Interactivo
                   </div>
                 </div>
               </div>
               <div style="display: flex; align-items: center; gap: 8px;">
-                <button class="action-btn" onclick="fetchInstagramSyncVisual()" id="btn-sync-subtab-ig" style="font-size: 11.5px; padding: 6px 14px; border-color: rgba(225, 48, 108, 0.4); color: #fff;">
+                <button class="ig-sync-btn" onclick="fetchInstagramSyncVisual()" id="btn-sync-subtab-ig">
                   <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i>
                   <span>Sincronizar Métricas</span>
                 </button>
@@ -8735,7 +8877,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <div class="card-title" style="margin-bottom: 12px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #00E5BF;"></i>
-                    <span style="font-weight: 700; color: #fff;">Pack de Historias del Día (Algoritmo Anti-Shadowban)</span>
+                    <span style="font-weight: 700; color: var(--text-main);">Pack de Historias del Día (Algoritmo Anti-Shadowban)</span>
                   </div>
                   <button class="action-btn primary" onclick="generateStoriesPackVisual()" id="btn-gen-stories-visual" style="font-size: 11.5px; padding: 5px 12px; display: inline-flex; align-items: center; gap: 6px;">
                     <i data-lucide="sparkles" style="width: 12px; height: 12px;"></i>
@@ -8758,7 +8900,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <div class="card-title" style="margin-bottom: 12px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
                     <i data-lucide="activity" style="width: 16px; height: 16px; color: #38BDF8;"></i>
-                    <span style="font-weight: 700; color: #fff;">Métricas de Cuenta & Estado en Vivo</span>
+                    <span style="font-weight: 700; color: var(--text-main);">Métricas de Cuenta & Estado en Vivo</span>
                   </div>
                   <button class="action-btn" onclick="fetchInstagramSyncVisual()" id="btn-sync-account-visual" style="font-size: 11px; padding: 4px 10px;">
                     <i data-lucide="rotate-cw" style="width: 11px; height: 11px;"></i>
@@ -15241,53 +15383,53 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       currentInstagramStoriesData = stories;
 
       const timeBadges = [
-        { label: 'Mañana SFW • 09:30 AM', color: '#10B981', border: 'rgba(16, 185, 129, 0.3)', bg: 'rgba(16, 185, 129, 0.08)' },
-        { label: 'Tarde Tomboy • 02:45 PM', color: '#38BDF8', border: 'rgba(56, 189, 248, 0.3)', bg: 'rgba(56, 189, 248, 0.08)' },
-        { label: 'Cierre Embudo VIP • 08:30 PM', color: '#F59E0B', border: 'rgba(245, 158, 11, 0.3)', bg: 'rgba(245, 158, 11, 0.08)' }
+        { label: 'Mañana SFW • 09:30 AM', color: '#10B981', border: 'rgba(16, 185, 129, 0.4)', bg: 'rgba(16, 185, 129, 0.1)' },
+        { label: 'Tarde Tomboy • 02:45 PM', color: '#0284c7', border: 'rgba(2, 132, 199, 0.4)', bg: 'rgba(2, 132, 199, 0.1)' },
+        { label: 'Cierre Embudo VIP • 08:30 PM', color: '#d97706', border: 'rgba(217, 119, 6, 0.4)', bg: 'rgba(217, 119, 6, 0.1)' }
       ];
 
       let html = '';
       stories.forEach((st, idx) => {
-        const badge = timeBadges[idx] || { label: `Historia ${idx + 1}`, color: '#00E5BF', border: 'rgba(0, 229, 191, 0.3)', bg: 'rgba(0, 229, 191, 0.08)' };
+        const badge = timeBadges[idx] || { label: `Historia ${idx + 1}`, color: '#00A88F', border: 'rgba(0, 168, 143, 0.4)', bg: 'rgba(0, 168, 143, 0.1)' };
         html += `
-          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid ${badge.border}; border-radius: 12px; padding: 14px; transition: all 0.2s ease;">
+          <div class="ig-story-card" style="border: 1px solid ${badge.border};">
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
               <span style="font-size: 11px; font-weight: 700; color: ${badge.color}; background: ${badge.bg}; padding: 3px 10px; border-radius: 6px; border: 1px solid ${badge.border};">
                 ${badge.label}
               </span>
-              <span style="font-size: 12.5px; font-weight: 700; color: #fff;">${st.titulo || ('Historia ' + (idx + 1))}</span>
+              <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">${st.titulo || ('Historia ' + (idx + 1))}</span>
             </div>
 
-            <div style="display: flex; gap: 10px; align-items: flex-start; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);">
-              <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(0, 229, 191, 0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #00E5BF;">
+            <div class="ig-visual-box">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(0, 168, 143, 0.15); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--primary);">
                 <i data-lucide="video" style="width: 14px; height: 14px;"></i>
               </div>
-              <div style="font-size: 11.5px; color: #cbd5e1; line-height: 1.45;">
-                <strong style="color: #fff; font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 2px;">Qué Grabar:</strong>
+              <div style="font-size: 11.5px; color: var(--text-main); line-height: 1.5;">
+                <strong style="color: var(--primary); font-size: 10.5px; text-transform: uppercase; display: block; margin-bottom: 3px; letter-spacing: 0.5px;">Qué Grabar:</strong>
                 ${st.visual || ''}
               </div>
             </div>
 
-            <div style="background: rgba(0, 229, 191, 0.04); border: 1px dashed rgba(0, 229, 191, 0.25); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
-                <span style="font-size: 10px; text-transform: uppercase; font-weight: 700; color: #00E5BF;">Texto para la Historia (Copy)</span>
-                <button class="action-btn" onclick="copyStoryIndex(${idx}, this)" style="font-size: 10px; padding: 3px 8px; background: rgba(0, 229, 191, 0.15); border-color: #00E5BF; color: #00E5BF;">
-                  <i data-lucide="copy" style="width: 10px; height: 10px;"></i>
+            <div class="ig-copy-box">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                <span style="font-size: 10.5px; text-transform: uppercase; font-weight: 700; color: var(--primary); letter-spacing: 0.4px;">Texto para la Historia (Copy)</span>
+                <button class="action-btn" onclick="copyStoryIndex(${idx}, this)" style="font-size: 10.5px; padding: 3px 10px; background: rgba(0, 168, 143, 0.12); border-color: var(--primary); color: var(--primary); font-weight: 600;">
+                  <i data-lucide="copy" style="width: 11px; height: 11px;"></i>
                   <span>Copiar Texto</span>
                 </button>
               </div>
-              <div style="font-size: 12px; color: #fff; font-style: italic; line-height: 1.45;">
+              <div style="font-size: 12.5px; color: var(--text-main); font-weight: 500; font-style: italic; line-height: 1.5; padding: 4px 0;">
                 "${st.copy || ''}"
               </div>
             </div>
 
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <div style="font-size: 10.5px; background: rgba(255,255,255,0.05); padding: 4px 9px; border-radius: 6px; color: #94A3B8; display: flex; align-items: center; gap: 5px;">
-                <i data-lucide="sparkles" style="width: 11px; height: 11px; color: #ec4899;"></i>
+              <div class="ig-meta-tag">
+                <i data-lucide="sparkles" style="width: 12px; height: 12px; color: #ec4899;"></i>
                 <span><strong>Sticker:</strong> ${st.sticker || 'Reacción'}</span>
               </div>
-              <div style="font-size: 10.5px; background: rgba(255,255,255,0.05); padding: 4px 9px; border-radius: 6px; color: #94A3B8; display: flex; align-items: center; gap: 5px;">
-                <i data-lucide="target" style="width: 11px; height: 11px; color: #38bdf8;"></i>
+              <div class="ig-meta-tag">
+                <i data-lucide="target" style="width: 12px; height: 12px; color: #0284c7;"></i>
                 <span><strong>Objetivo:</strong> ${st.proposito || 'Interacción'}</span>
               </div>
             </div>
@@ -15312,7 +15454,6 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         fullName: 'Sam Barton'
       });
 
-      // Actualizar también los elementos del visor móvil en Columna 2
       const colPosts = document.getElementById('col2-stat-posts');
       const colFollowers = document.getElementById('col2-stat-followers');
       const colFollowing = document.getElementById('col2-stat-following');
@@ -15331,29 +15472,29 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       container.innerHTML = `
         <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px;">
-          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; text-align: center;">
-            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Publicaciones</div>
-            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px;">${d.posts || '24'}</div>
-            <div style="font-size: 9.5px; color: #10B981; margin-top: 2px;">Feed Activo</div>
+          <div class="ig-kpi-tile">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px;">Publicaciones</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--text-main); margin-top: 2px;">${d.posts || '24'}</div>
+            <div style="font-size: 9.5px; color: #10B981; margin-top: 2px; font-weight: 600;">Feed Activo</div>
           </div>
-          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; text-align: center;">
-            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Seguidores</div>
-            <div style="font-size: 20px; font-weight: 800; color: #00E5BF; margin-top: 2px;">${d.followers || '78'}</div>
-            <div style="font-size: 9.5px; color: #38bdf8; margin-top: 2px;">Audiencia Orgánica</div>
+          <div class="ig-kpi-tile">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px;">Seguidores</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--primary); margin-top: 2px;">${d.followers || '78'}</div>
+            <div style="font-size: 9.5px; color: #0284c7; margin-top: 2px; font-weight: 600;">Audiencia Orgánica</div>
           </div>
-          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; text-align: center;">
-            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Siguiendo</div>
-            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px;">${d.following || '104'}</div>
-            <div style="font-size: 9.5px; color: #94A3B8; margin-top: 2px;">Cuentas Referencia</div>
+          <div class="ig-kpi-tile">
+            <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px;">Siguiendo</div>
+            <div style="font-size: 20px; font-weight: 800; color: var(--text-main); margin-top: 2px;">${d.following || '104'}</div>
+            <div style="font-size: 9.5px; color: var(--text-dim); margin-top: 2px; font-weight: 600;">Cuentas Referencia</div>
           </div>
         </div>
 
-        <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+        <div class="ig-account-summary-row">
           <div style="display: flex; align-items: center; gap: 10px;">
-            <img src="${d.avatar_url ? (d.avatar_url + '?t=' + Date.now()) : './artifacts/instagram/sambartonn23_avatar.png'}" alt="Avatar" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #00E5BF;" onerror="this.src='./artifacts/instagram/sambartonn23_avatar.png'">
+            <img src="${d.avatar_url ? (d.avatar_url + '?t=' + Date.now()) : './artifacts/instagram/sambartonn23_avatar.png'}" alt="Avatar" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary);" onerror="this.onerror=null; this.src='./artifacts/instagram/sambartonn23_avatar.png'">
             <div>
-              <div style="font-size: 12px; font-weight: 700; color: #fff;">@${d.username || 'sambartonn23'} • ${d.fullName || 'Sam Barton'}</div>
-              <div style="font-size: 10.5px; color: #94A3B8; margin-top: 1px;">${d.bio || 'tomboy vibe • acoustic & uncensored'}</div>
+              <div style="font-size: 12.5px; font-weight: 700; color: var(--text-main);">@${d.username || 'sambartonn23'} • ${d.fullName || 'Sam Barton'}</div>
+              <div style="font-size: 11px; color: var(--text-muted); margin-top: 1px;">${d.bio || 'tomboy vibe • acoustic & uncensored'}</div>
             </div>
           </div>
           <span class="table-badge badge-success" style="font-size: 10px; padding: 3px 8px; flex-shrink: 0;">Sincronizado</span>
