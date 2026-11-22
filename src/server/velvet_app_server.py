@@ -401,7 +401,17 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             super().do_GET()
 
     def do_POST(self):
-        if self.path == "/api/chat":
+        if self.path == "/api/auth/login":
+            self.handle_api_auth_login()
+        elif self.path == "/api/auth/verify":
+            self.handle_api_auth_verify()
+        elif self.path == "/api/auth/recovery-request":
+            self.handle_api_auth_recovery_request()
+        elif self.path == "/api/auth/reset-password":
+            self.handle_api_auth_reset_password()
+        elif self.path == "/api/auth/logout":
+            self.handle_api_auth_logout()
+        elif self.path == "/api/chat":
             self.handle_api_chat()
         elif self.path == "/api/chat/stop" or self.path == "/api/chat_stop":
             self.handle_api_chat_stop()
@@ -1691,6 +1701,102 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "stopped_sessions": stopped_count,
                 "message": "Proceso del agente detenido inmediatamente"
             }).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    # =========================================================================
+    # ALMA TECH — AUTENTICACIÓN CORPORATIVA & GOBERNANZA
+    # =========================================================================
+    def handle_api_auth_login(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import verify_login
+            res = verify_login(
+                email=data.get("email"),
+                password=data.get("password"),
+                turnstile_verified=data.get("turnstile_verified", True)
+            )
+            self.send_response(200 if res.get("success") else 401)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_verify(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import verify_session
+            res = verify_session(data.get("token"))
+            self.send_response(200 if res.get("valid") else 401)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"valid": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_recovery_request(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import request_recovery
+            res = request_recovery(data.get("email"))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_reset_password(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import reset_password
+            res = reset_password(
+                recovery_token=data.get("recovery_token"),
+                pin=data.get("pin"),
+                new_password=data.get("new_password")
+            )
+            self.send_response(200 if res.get("success") else 400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_logout(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import logout
+            logout(data.get("token"))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
         except Exception as e:
             self.send_response(500)
             self.send_header("Content-Type", "application/json; charset=utf-8")

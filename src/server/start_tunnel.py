@@ -112,17 +112,16 @@ def run_tunnel():
             "updated_at": datetime.datetime.now().isoformat()
         }, indent=2), encoding="utf-8")
 
-        # Sincronización automática con GitHub Pages en segundo plano (para enlace permanente PWA)
-        def _sync_to_github(new_url):
+        # Sincronización local segura (sin push automático, respetando directiva estricta del usuario)
+        def _sync_local(new_url):
             try:
                 subprocess.run('git add tunnel_config.json', shell=True, cwd=str(ROOT), capture_output=True, timeout=10)
                 subprocess.run(f'git commit -m "chore: auto-sync live tunnel {new_url}"', shell=True, cwd=str(ROOT), capture_output=True, timeout=15)
-                subprocess.run('git push origin develop && git push origin develop:gh-pages', shell=True, cwd=str(ROOT), capture_output=True, timeout=30)
-                print(" Enlace seguro sincronizado automáticamente con la PWA permanente de GitHub Pages", flush=True)
+                # NO git push: Cumplimiento de regla estricta de control
             except Exception as ge:
-                print(f"[PWA Auto-Sync Info]: {ge}", flush=True)
+                pass
 
-        threading.Thread(target=_sync_to_github, args=(tunnel_url.strip(),), daemon=True).start()
+        threading.Thread(target=_sync_local, args=(tunnel_url.strip(),), daemon=True).start()
     except Exception as e:
         print(f"Nota guardando TXT/JSON: {e}", flush=True)
 

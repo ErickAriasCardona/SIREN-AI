@@ -1,0 +1,45 @@
+{
+  "master_user": {
+    "email": "ariaserick481@gmail.com",
+    "name": "Erick Arias",
+    "role": "Master Superadmin",
+    "salt": "d80bb9cdd33fabfae107d2807081c4eb",
+    "password_hash": "2fd6d472432aec234aba4a98e60afcb9a3da667a201d1a0c7d80a0cecddb66ea",
+    "iterations": 100000,
+    "algorithm": "pbkdf2_hmac_sha256",
+    "created_at": "2026-11-22T01:30:00Z",
+    "status": "active"
+  },
+  "security_policy": {
+    "max_failed_attempts": 5,
+    "lockout_minutes": 15,
+    "session_duration_hours": 168,
+    "require_cloudflare_turnstile": true
+  },
+  "active_sessions": {
+    "o2kE5SRLCBy10sqyUbL2gSRzBpaAauxDmfUg8hX4Ugw": {
+      "email": "ariaserick481@gmail.com",
+      "name": "Erick Arias",
+      "role": "Master Superadmin",
+      "created_at": "2026-11-22T06:34:00Z",
+      "expires_at": "2026-11-29T06:34:00Z",
+      "expires_ts": 1795934040.3922472
+    },
+    "aF3jxAG2JXYS-jG-3GXVPZjizGz986ppas_b8ixoAFY": {
+      "email": "ariaserick481@gmail.com",
+      "name": "Erick Arias",
+      "role": "Master Superadmin",
+      "created_at": "2026-11-22T06:39:38Z",
+      "expires_at": "2026-11-29T06:39:38Z",
+      "expires_ts": 1795934378.0255103
+    }
+  },
+  "recovery_tokens": {
+    "NfuH-Yom5ytsbvDq5YYSb3iAMm4xAolx": {
+      "email": "ariaserick481@gmail.com",
+      "pin": "ALMA-916784",
+      "expires_ts": 1795330140.4210482,
+      "created_at": "2026-11-22T06:34:00Z"
+    }
+  }
+}
