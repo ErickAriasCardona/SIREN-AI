@@ -1788,20 +1788,30 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 
             # Seleccionar Prompt de Sistema según Asistente (optimizado para CPU)
             if assistant_id == "mahia":
-                # Intentar primero conexión directa con StreamMonitor si está abierto
+                # Conexión directa en tiempo real con Mahia en StreamMonitor Desktop
                 try:
-                    from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop, get_devtools_active_port
-                    if get_devtools_active_port():
-                        mahia_res = send_prompt_to_mahia_desktop(message, timeout_seconds=35)
-                        if mahia_res.get("success") and mahia_res.get("response"):
-                            reply = mahia_res["response"]
+                    from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop, ensure_streammonitor_running
+                    port = ensure_streammonitor_running(max_wait_seconds=15)
+                    if port:
+                        mahia_res = send_prompt_to_mahia_desktop(message, timeout_seconds=45)
+                        reply = mahia_res.get("mahia_response") or mahia_res.get("response") or mahia_res.get("reply")
+                        if mahia_res.get("success") and reply:
+                            import re
+                            reply_clean = re.sub(r'[\U00010000-\U0010ffff]', '', reply).strip()
                             self.send_response(200)
                             self.send_header("Content-Type", "application/json; charset=utf-8")
                             self.end_headers()
-                            self.wfile.write(json.dumps({"reply": reply, "source": "streammonitor_cdp"}).encode("utf-8"))
+                            self.wfile.write(json.dumps({
+                                "reply": reply_clean,
+                                "response": reply_clean,
+                                "source": "streammonitor_cdp",
+                                "live_chat": True
+                            }).encode("utf-8"))
                             return
+                        else:
+                            print(f"[Mahia Live Warning]: Connector returned {mahia_res}")
                 except Exception as cdp_err:
-                    print(f"[Mahia CDP Bridge Info]: {cdp_err}")
+                    print(f"[Mahia CDP Bridge Error]: {cdp_err}")
                 active_system_prompt = MAHIA_CPU_SYSTEM_PROMPT
             elif assistant_id == "alma":
                 active_system_prompt = ALMA_CPU_SYSTEM_PROMPT

@@ -12063,10 +12063,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         rightHeader: 'Centro de Comando StreamMonitor Live',
         welcome: '¡Hola Sam! Soy Mahia, tu co-piloto táctica para transmisiones en vivo. Estoy lista para generar el topic perfecto en inglés, tus 3 niveles de metas para Loyalfans ($11, $22, $33) y tus 6 mensajes automáticos Alt+1 a Alt+6. Todo listo para inyectar con 1-Click en menos de 3 segundos. ¿Qué preparamos para hoy? ',
         pills: [
-          { label: ' "Estrategia Completa de Turno (1-Click)"', prompt: 'Mahia, genera la estrategia táctica completa para el turno de hoy en inglés: Topic para Streamate y Loyalfans, Objetivos de 3 niveles ($11, $22, $33), y los 6 mensajes automáticos Alt+1 a Alt+6.' },
-          { label: ' "Mensajes automáticos Alt+1 a Alt+6"', prompt: 'Mahia, redacta los 6 mensajes automáticos cortos y directos para Alt+1 y Alt+2 (usuarios nuevos), Alt+3 y Alt+4 (usuarios recurrentes), y Alt+5 y Alt+6 (clientes VIP).' },
-          { label: ' "Objetivos 3 niveles Loyalfans ($11, $22, $33)"', prompt: 'Mahia, sugiere los 3 niveles de meta para Loyalfans: Nivel 1 ($11), Nivel 2 ($22), Nivel 3 ($33) acordes al tema de hoy.' },
-          { label: ' "Inyectar configuración actual"', prompt: 'Mahia, valida que Streamate y Loyalfans estén sincronizados y listos para inyección inmediata.' }
+          { label: 'Mejores Horas', prompt: '¿Cuáles son mis mejores horas para transmitir y qué franjas me pagan más por hora?' },
+          { label: 'Estrategia de Turno', prompt: 'Mahia, genera la estrategia táctica completa para el turno de hoy en inglés: Topic para Streamate y Loyalfans, Objetivos de 3 niveles ($11, $22, $33), y los 6 mensajes automáticos Alt+1 a Alt+6.' },
+          { label: 'Metas Loyalfans', prompt: 'Mahia, sugiere los 3 niveles de meta para Loyalfans: Nivel 1 ($11), Nivel 2 ($22), Nivel 3 ($33) acordes al tema de hoy.' },
+          { label: 'Inyectar 1-Click', prompt: 'Mahia, valida que Streamate y Loyalfans estén sincronizados y listos para inyección inmediata.' }
         ]
       },
       alma: {
@@ -12974,7 +12974,18 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       
       const indicator = document.getElementById('chat-typing-indicator');
       const sendBtn = document.getElementById('copilot-send-btn');
-      if (indicator) indicator.style.display = 'flex';
+      if (indicator) {
+        indicator.style.display = 'flex';
+        const txt = document.getElementById('chat-typing-text');
+        if (txt) {
+          if (activeAssistant === 'mahia') {
+            txt.textContent = 'MAHIA está consultando tus métricas en vivo en StreamMonitor...';
+          } else {
+            const agName = (ASSISTANTS_DATA[activeAssistant] && ASSISTANTS_DATA[activeAssistant].name) || 'El agente';
+            txt.textContent = `${agName} está pensando la mejor estrategia con Qwen 2.5...`;
+          }
+        }
+      }
       
       activeCopilotChatAbort = new AbortController();
       if (sendBtn) {
@@ -15530,6 +15541,28 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
 
       renderFloatingChatHistory();
+      renderFloatingQuickPills();
+    }
+
+    function renderFloatingQuickPills() {
+      const container = document.getElementById('floating-quick-pills');
+      if (!container) return;
+      const data = ASSISTANTS_DATA[currentFloatingAgent];
+      if (!data || !data.pills || data.pills.length === 0) {
+        container.innerHTML = `
+          <button class="float-pill" onclick="sendQuickPromptFromFloat('¿Cuáles son mis mejores horas para transmitir?')">Mejores Horas</button>
+          <button class="float-pill" onclick="sendQuickPromptFromFloat('Planificar turno de hoy')">Turno de hoy</button>
+          <button class="float-pill" onclick="sendQuickPromptFromFloat('Revisar metas de Streamate & Loyalfans')">Metas del día</button>
+          <button class="float-pill" onclick="sendQuickPromptFromFloat('Inyectar estrategia a StreamMonitor')">Inyectar 1-Click</button>
+        `;
+        return;
+      }
+
+      container.innerHTML = data.pills.slice(0, 4).map(p => {
+        let shortLabel = p.label.replace(/["\]/g, '').trim();
+        if (shortLabel.length > 20) shortLabel = shortLabel.slice(0, 18) + '...';
+        return `<button class="float-pill" onclick="sendQuickPromptFromFloat(${JSON.stringify(p.prompt)})">${shortLabel}</button>`;
+      }).join('');
     }
 
     // Renderizar historial del agente activo en el chat flotante
@@ -15658,7 +15691,18 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       const indicator = document.getElementById('floating-typing-indicator');
       const sendBtn = document.getElementById('floating-chat-send-btn');
-      if (indicator) indicator.style.display = 'flex';
+      if (indicator) {
+        indicator.style.display = 'flex';
+        const txt = document.getElementById('floating-typing-text');
+        if (txt) {
+          if (currentFloatingAgent === 'mahia') {
+            txt.textContent = 'MAHIA está consultando tus métricas en vivo en StreamMonitor...';
+          } else {
+            const agName = (ASSISTANTS_DATA[currentFloatingAgent] && ASSISTANTS_DATA[currentFloatingAgent].name) || 'El agente';
+            txt.textContent = `${agName} está pensando la mejor estrategia...`;
+          }
+        }
+      }
 
       activeFloatingChatAbort = new AbortController();
       if (sendBtn) {
