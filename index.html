@@ -6044,6 +6044,73 @@
       color: var(--primary) !important;
     }
 
+
+
+    /* ========================================================================== */
+    /* PROTOCOLO DE CONVERSIÓN & ESTILOS SIN TONOS GRISES SUCIOS */
+    /* ========================================================================== */
+    .ig-protocol-card {
+      background: rgba(18, 40, 36, 0.65);
+      border: 1px solid rgba(0, 168, 143, 0.25);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    body.light-theme .ig-protocol-card {
+      background: #ffffff !important;
+      border: 1px solid rgba(0, 168, 143, 0.22) !important;
+      box-shadow: 0 6px 20px rgba(0, 168, 143, 0.08) !important;
+    }
+
+    .ig-schedule-tile {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 12px 14px;
+      transition: all 0.2s ease;
+    }
+    body.light-theme .ig-schedule-tile {
+      background: #F8FCFB !important;
+      border: 1px solid rgba(0, 168, 143, 0.2) !important;
+      box-shadow: 0 2px 10px rgba(0, 168, 143, 0.06) !important;
+    }
+
+    .ig-sched-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+    }
+    body.light-theme .ig-sched-label {
+      color: #43635C !important;
+    }
+
+    .ig-sched-value {
+      font-size: 15px;
+      font-weight: 800;
+      margin-top: 3px;
+    }
+    body.light-theme .ig-sched-value {
+      color: #064E43 !important;
+    }
+
+    .ig-sched-sub {
+      font-size: 11px;
+      color: var(--text-main);
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+    body.light-theme .ig-sched-sub {
+      color: #2D4A43 !important;
+    }
+
+    body.light-theme #sub-api-instagram .card {
+      background: #ffffff !important;
+      border-color: rgba(0, 168, 143, 0.22) !important;
+      box-shadow: 0 6px 20px rgba(0, 168, 143, 0.08) !important;
+    }
+
 </style>
 </head>
 <body>
@@ -9009,7 +9076,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <div class="card" style="border: 1px solid rgba(255, 255, 255, 0.08);">
                 <div class="card-title" style="margin-bottom: 12px;">
                   <div style="display: flex; align-items: center; gap: 8px;">
-                    <i data-lucide="activity" style="width: 16px; height: 16px; color: #38BDF8;"></i>
+                    <i data-lucide="activity" style="width: 16px; height: 16px; color: var(--primary);"></i>
                     <span style="font-weight: 700; color: var(--text-main);">Métricas de Cuenta & Estado en Vivo</span>
                   </div>
                   <button class="action-btn" onclick="fetchInstagramSyncVisual()" id="btn-sync-account-visual" style="font-size: 11px; padding: 4px 10px;">
@@ -9026,26 +9093,26 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               </div>
 
               <!-- CARD 3: ACCIONES RÁPIDAS DE CHLOE (DIRECTORA SOCIAL) -->
-              <div class="card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);">
-                <div class="card-title" style="margin-bottom: 10px;">
-                  <span style="font-size: 13px; font-weight: 700; color: #fff;">Protocolo Estratégico de Chloe</span>
-                  <span class="table-badge badge-purple" style="font-size: 10px;">Horarios & Conversión</span>
+              <div class="card ig-protocol-card">
+                <div class="card-title" style="margin-bottom: 12px;">
+                  <span style="font-size: 13px; font-weight: 700; color: var(--text-main);">Protocolo Estratégico de Chloe</span>
+                  <span class="table-badge badge-success" style="font-size: 10px; padding: 2px 8px;">Horarios & Conversión</span>
                 </div>
-                <div class="grid-3" style="gap: 10px;">
-                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px;">
-                    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Horario Pico 1</div>
-                    <div style="font-size: 14px; font-weight: 800; color: #00E5BF; margin-top: 2px;">12:30 PM (COT)</div>
-                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Máxima apertura de historias matutinas</div>
+                <div class="grid-3" style="gap: 12px;">
+                  <div class="ig-schedule-tile">
+                    <div class="ig-sched-label">Horario Pico 1</div>
+                    <div class="ig-sched-value" style="color: var(--primary);">12:30 PM (COT)</div>
+                    <div class="ig-sched-sub">Máxima apertura de historias matutinas</div>
                   </div>
-                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px;">
-                    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Horario Pico 2</div>
-                    <div style="font-size: 14px; font-weight: 800; color: #F59E0B; margin-top: 2px;">08:15 PM (COT)</div>
-                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Filtro de DMs antes de sesión en vivo</div>
+                  <div class="ig-schedule-tile">
+                    <div class="ig-sched-label">Horario Pico 2</div>
+                    <div class="ig-sched-value" style="color: #d97706;">08:15 PM (COT)</div>
+                    <div class="ig-sched-sub">Filtro de DMs antes de sesión en vivo</div>
                   </div>
-                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px;">
-                    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Regla Anti-Shadowban</div>
-                    <div style="font-size: 14px; font-weight: 800; color: #10B981; margin-top: 2px;">100% Protegido</div>
-                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Cero enlaces prohibidos en historias SFW</div>
+                  <div class="ig-schedule-tile">
+                    <div class="ig-sched-label">Regla Anti-Shadowban</div>
+                    <div class="ig-sched-value" style="color: #10B981;">100% Protegido</div>
+                    <div class="ig-sched-sub">Cero enlaces prohibidos en historias SFW</div>
                   </div>
                 </div>
               </div>
@@ -15488,7 +15555,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       const timeBadges = [
         { label: 'Mañana SFW • 09:30 AM', color: '#10B981', border: 'rgba(16, 185, 129, 0.4)', bg: 'rgba(16, 185, 129, 0.1)' },
-        { label: 'Tarde Tomboy • 02:45 PM', color: '#0284c7', border: 'rgba(2, 132, 199, 0.4)', bg: 'rgba(2, 132, 199, 0.1)' },
+        { label: 'Tarde Tomboy • 02:45 PM', color: '#00A88F', border: 'rgba(0, 168, 143, 0.4)', bg: 'rgba(0, 168, 143, 0.1)' },
         { label: 'Cierre Embudo VIP • 08:30 PM', color: '#d97706', border: 'rgba(217, 119, 6, 0.4)', bg: 'rgba(217, 119, 6, 0.1)' }
       ];
 
@@ -15533,7 +15600,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <span><strong>Sticker:</strong> ${st.sticker || 'Reacción'}</span>
               </div>
               <div class="ig-meta-tag">
-                <i data-lucide="target" style="width: 12px; height: 12px; color: #0284c7;"></i>
+                <i data-lucide="target" style="width: 12px; height: 12px; color: var(--primary);"></i>
                 <span><strong>Objetivo:</strong> ${st.proposito || 'Interacción'}</span>
               </div>
             </div>
@@ -15584,7 +15651,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           <div class="ig-kpi-tile">
             <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px;">Seguidores</div>
             <div style="font-size: 20px; font-weight: 800; color: var(--primary); margin-top: 2px;">${d.followers || '78'}</div>
-            <div style="font-size: 9.5px; color: #0284c7; margin-top: 2px; font-weight: 600;">Audiencia Orgánica</div>
+            <div style="font-size: 9.5px; color: #10B981; margin-top: 2px; font-weight: 600;">Audiencia Orgánica</div>
           </div>
           <div class="ig-kpi-tile">
             <div style="font-size: 10px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; letter-spacing: 0.4px;">Siguiendo</div>
@@ -16784,7 +16851,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Tarifa Exclusiva</div>
-            <div class="kpi-value" style="color: #0284c7;">${exclRate}</div>
+            <div class="kpi-value" style="color: var(--primary);">${exclRate}</div>
             <div class="kpi-sub" style="color: var(--text-muted);">VIP 1 a 1</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -16848,7 +16915,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Tarifa Media Mercado</div>
-            <div class="kpi-value" style="color: #0284c7;">$3.49</div>
+            <div class="kpi-value" style="color: var(--primary);">$3.49</div>
             <div class="kpi-sub" style="color: var(--text-muted);">USD / minuto</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -16904,7 +16971,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Facturado Mes</div>
-            <div class="kpi-value" style="color: #0284c7;">${curMonth}</div>
+            <div class="kpi-value" style="color: var(--primary);">${curMonth}</div>
             <div class="kpi-sub" style="color: var(--text-muted);">${today} hoy</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -17018,7 +17085,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Suscriptores VIP</div>
-            <div class="kpi-value" style="color: #0284c7;">${activeSubs}</div>
+            <div class="kpi-value" style="color: var(--primary);">${activeSubs}</div>
             <div class="kpi-sub" style="color: #10B981;">Recurrente</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -17065,7 +17132,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Cooldown Óptimo</div>
-            <div class="kpi-value" style="color: #0284c7;">3.5 hrs</div>
+            <div class="kpi-value" style="color: var(--primary);">${3.5} hrs</div>
             <div class="kpi-sub" style="color: var(--text-muted);">Entre publicaciones</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -17111,7 +17178,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Mes en Curso</div>
-            <div class="kpi-value" style="color: #0284c7;">$8.40</div>
+            <div class="kpi-value" style="color: var(--primary);">$8.40</div>
             <div class="kpi-sub" style="color: var(--text-muted);">Ventas directas</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -17157,7 +17224,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Ranking Live</div>
-            <div class="kpi-value" style="color: #0284c7;">Top #5</div>
+            <div class="kpi-value" style="color: var(--primary);">Top #5</div>
             <div class="kpi-sub" style="color: #10B981;">#tomboy & #athletic</div>
           </div>
           <div class="endpoint-kpi-tile">
@@ -17257,7 +17324,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           </div>
           <div class="endpoint-kpi-tile">
             <div class="kpi-label">Web Push PWA</div>
-            <div class="kpi-value" style="color: #0284c7; font-size: 15px;">Activo</div>
+            <div class="kpi-value" style="color: #10B981; font-size: 15px;">Activo</div>
             <div class="kpi-sub" style="color: var(--text-muted);">Pantalla de Bloqueo</div>
           </div>
           <div class="endpoint-kpi-tile">
