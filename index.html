@@ -12060,7 +12060,7 @@ Cat Lover </div>
     }
 
     // Main Tab Switching
-    function switchMainTab(tabId) {
+    function switchMainTab(tabId, btnEl) {
       // Auto-cerrar sidebar en móvil al seleccionar una pestaña
       if (window.innerWidth <= 920) {
         document.body.classList.remove('sidebar-mobile-open');
@@ -12074,8 +12074,12 @@ Cat Lover </div>
         (tabId === 'tab-roxanne-copilot' ? document.getElementById('tab-asistentes') : null);
       if (target) target.classList.add('active');
 
-      const clickedBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
-      if (clickedBtn) clickedBtn.classList.add('active');
+      if (btnEl) {
+        btnEl.classList.add('active');
+      } else {
+        const clickedBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.getAttribute('onclick')?.includes(tabId));
+        if (clickedBtn) clickedBtn.classList.add('active');
+      }
 
       // Update titles
       const titles = {
@@ -18231,11 +18235,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           {
             title: 'Ecosistema Multi-Agente & Bóvedas',
             items: [
-              { id: 'tab-ecosystem-embed', label: 'Interfaz Multi-Agente (5173)', icon: 'bot', badge: 'En Vivo', url: 'http://localhost:5173' },
+              { id: 'tab-ecosystem-embed', label: 'Interfaz Multi-Agente (5173)', icon: 'bot', badge: 'En Vivo', url: 'http://localhost:5173/#/overview' },
               { id: 'tab-ecosystem-embed', label: 'Bóvedas OpenClaw', icon: 'book-open', badge: 'Contexto', url: 'http://localhost:5173/#/vaults' },
-              { id: 'tab-ecosystem-embed', label: 'Consola Supabase & Migraciones', icon: 'database', badge: 'DevOps', url: 'http://localhost:5173/#/supabase' },
-              { id: 'tab-asistentes', label: 'Asistentes IA (Chat)', icon: 'bot', badge: 'ALMA Core', teal: true },
-              { id: 'tab-ecosystem-embed', label: 'Patrones de Calidad GAP-X', icon: 'file-text', badge: 'GAP-X', url: 'http://localhost:5173/#/patterns' }
+              { id: 'tab-ecosystem-embed', label: 'Consola Supabase & Migraciones', icon: 'database', badge: 'DevOps', url: 'http://localhost:5173/#/settings' },
+              { id: 'tab-ecosystem-embed', label: 'Patrones de Calidad GAP-X', icon: 'file-text', badge: 'GAP-X', url: 'http://localhost:5173/#/circuit' },
+              { id: 'tab-ecosystem-embed', label: 'Holo Fleet 3D & Galería', icon: 'sparkles', badge: 'Fleet', url: 'http://localhost:5173/#/fleet' },
+              { id: 'tab-asistentes', label: 'Asistentes IA (Chat)', icon: 'bot', badge: 'ALMA Core', teal: true }
             ]
           }
         ]
@@ -18410,7 +18415,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
     
     
-    function loadEcosystemEmbed(url, title, badge) {
+    function loadEcosystemEmbed(url, title, badge, btnEl) {
       const frame = document.getElementById('ecosystem-live-frame');
       const titleEl = document.getElementById('embed-project-title');
       const urlEl = document.getElementById('embed-url-display');
@@ -18421,12 +18426,42 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       if (linkEl && url) linkEl.href = url;
 
       if (frame && url) {
+        // Enviar evento postMessage al iframe de ALMA Multi-Agent para transicionar de pestaña sin fricción
+        try {
+          let targetTab = 'overview';
+          const uLower = url.toLowerCase();
+          if (uLower.includes('vault')) targetTab = 'vaultbrain';
+          else if (uLower.includes('supa') || uLower.includes('migrat') || uLower.includes('config') || uLower.includes('setting')) targetTab = 'settings';
+          else if (uLower.includes('pattern') || uLower.includes('gap') || uLower.includes('circuit') || uLower.includes('topo')) targetTab = 'circuit';
+          else if (uLower.includes('map') || uLower.includes('neural')) targetTab = 'map';
+          else if (uLower.includes('fleet')) targetTab = 'fleet';
+          else if (uLower.includes('assist') || uLower.includes('chat') || uLower.includes('stage')) targetTab = 'assistant';
+
+          if (frame.contentWindow) {
+            frame.contentWindow.postMessage({ type: 'ALMA_SWITCH_TAB', tab: targetTab }, '*');
+          }
+        } catch (e) {}
+
         if (frame.src !== url) {
           frame.src = url;
+        } else {
+          // Si la URL base es igual pero cambia el hash, sincronizar hash directamente
+          try {
+            const hash = url.split('#')[1] || '';
+            if (hash && frame.contentWindow) {
+              frame.contentWindow.location.hash = '#' + hash;
+            }
+          } catch (e) {}
         }
       }
 
       switchMainTab('tab-ecosystem-embed');
+
+      // Marcar botón activo en el menú lateral
+      if (btnEl) {
+        document.querySelectorAll('#sidebar-nav .nav-btn').forEach(b => b.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
     }
 
     function reloadEcosystemEmbed() {
@@ -18451,8 +18486,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           if (item.teal) badgeStyle = 'background: rgba(0, 229, 191, 0.25); color: #00A88F;';
 
           const clickAction = (item.id === 'tab-ecosystem-embed' && item.url)
-            ? `loadEcosystemEmbed('${item.url}', '${item.label}', '${item.badge}')`
-            : `switchMainTab('${item.id}')`;
+            ? `loadEcosystemEmbed('${item.url}', '${item.label}', '${item.badge}', this)`
+            : `switchMainTab('${item.id}', this)`;
 
           html += `
           <button class="nav-btn" onclick="${clickAction}" data-tooltip="${item.label}" title="${item.label}">
