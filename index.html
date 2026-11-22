@@ -15223,12 +15223,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     let activeAssistant = 'roxanne';
     let copilotChatHistory = [];
     const assistantChatHistories = {
-      roxanne: [],
-      mahia: [],
-      chloe: [],
-      diana: [],
-      electra: [],
-      alma: []
+      roxanne: [], mahia: [], chloe: [], diana: [], electra: [], alma: [],
+      cipote_chef: [], cipote_bar: [], cipote_pos: [], cipote_delivery: [],
+      solar_solecito: [], solar_maitre: [], solar_chef: [], solar_admin: [],
+      mufasa: [], vera: [], nemesis: [], kali: [], bruce: [], atlas: []
     };
 
         const ASSISTANTS_DATA = {
@@ -16183,7 +16181,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const localHist = localStorage.getItem('siren_assistant_histories');
         if (localHist) {
           const parsed = JSON.parse(localHist);
-          ['roxanne', 'mahia', 'chloe', 'diana', 'electra', 'alma'].forEach(asst => {
+          Object.keys(parsed).forEach(asst => {
             if (Array.isArray(parsed[asst])) {
               assistantChatHistories[asst] = parsed[asst];
             }
@@ -16214,16 +16212,17 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         if (res.ok) {
           const data = await res.json();
           if (data.history && Array.isArray(data.history) && data.history.length > 0) {
-            const backendByAsst = { roxanne: [], mahia: [], chloe: [], diana: [], electra: [], alma: [] };
+            const backendByAsst = {};
             data.history.forEach(item => {
               let asst = (item.assistant || '').toLowerCase();
-              if (!backendByAsst[asst]) {
-                if (['mahia', 'chloe', 'diana', 'electra', 'alma'].includes(item.sender)) {
-                  asst = item.sender;
+              if (!asst || asst === 'sam') {
+                if (item.sender && item.sender.toLowerCase() !== 'sam') {
+                  asst = item.sender.toLowerCase();
                 } else {
-                  asst = 'roxanne';
+                  asst = activeAssistant || 'roxanne';
                 }
               }
+              if (!backendByAsst[asst]) backendByAsst[asst] = [];
               backendByAsst[asst].push({
                 sender: item.sender,
                 message: item.message,
@@ -16233,8 +16232,8 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               });
             });
 
-            // Asignar el historial backend por asistente
-            ['roxanne', 'mahia', 'chloe', 'diana', 'electra', 'alma'].forEach(asst => {
+            // Asignar el historial backend por asistente para todos los agentes del ecosistema
+            Object.keys(backendByAsst).forEach(asst => {
               if (backendByAsst[asst].length > 0) {
                 assistantChatHistories[asst] = backendByAsst[asst];
               }

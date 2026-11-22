@@ -1198,7 +1198,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             for row in cursor.fetchall():
                 asst_val = row[4]
                 if not asst_val or asst_val == "sam":
-                    asst_val = row[1] if row[1] in ["roxanne", "mahia", "chloe", "diana", "electra", "alma"] else "roxanne"
+                    asst_val = row[1] if (row[1] and row[1].lower() != "sam") else (target_asst or "roxanne")
                 history.append({
                     "timestamp": row[0],
                     "sender": row[1],
