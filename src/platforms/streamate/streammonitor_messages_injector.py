@@ -6,7 +6,7 @@ Inyecta directamente en la sección 'Mensajes' de StreamMonitor:
 3. Propina al recibir golds
 4. Mensajes rápidos (Alt+1 a Alt+6) segmentados por tipo de fan
 5. Pulsa 'Guardar ajustes' en cada sección para persistir en StreamMonitor.
-6. Cierra la modal para regresar a la vista de transmisión en vivo.
+6. Regresa de inmediato a la vista de transmisión activa ('Plataformas') para ver Streamate y Loyalfans.
 """
 
 import os
@@ -63,7 +63,7 @@ function getTargets() {
 
 async function main() {
   const targets = await getTargets();
-  const page = targets.find(t => t.url.includes('renderer/index.html')) || targets[0];
+  const page = targets.find(t => t.url && t.url.includes('renderer/index.html')) || targets[0];
   if (!page) {
     console.log(JSON.stringify({ success: false, error: 'No se encontró la página principal de StreamMonitor' }));
     process.exit(1);
@@ -184,14 +184,15 @@ async function main() {
 
   const res = evalRes?.result?.result?.value || { success: false };
 
-  // 3. Esperar 500ms y cerrar la modal para que se vea la transmisión de Streamate
-  await new Promise(r => setTimeout(r, 500));
+  // 3. Regresar de inmediato a la vista de transmisión activa ('Plataformas' / split multi-streaming)
+  await new Promise(r => setTimeout(r, 600));
   await send('Runtime.evaluate', {
     expression: `(() => {
-      const closeBtn = document.querySelector('button[aria-label=Cerrar]');
-      if (closeBtn) closeBtn.click();
-      const tabStreamate = document.querySelector('button[aria-label=Streamate]');
-      if (tabStreamate) tabStreamate.click();
+      const platBtn = document.querySelector('button[aria-label="Plataformas"]');
+      if (platBtn) { platBtn.click(); return 'Switched to Plataformas'; }
+      const inicioBtn = document.querySelector('button[aria-label="Inicio"]');
+      if (inicioBtn) { inicioBtn.click(); return 'Switched to Inicio'; }
+      return 'None';
     })()`
   });
   await new Promise(r => setTimeout(r, 400));
@@ -219,8 +220,12 @@ main().catch(err => {
     temp_script.parent.mkdir(parents=True, exist_ok=True)
     temp_script.write_text(js_script, encoding="utf-8")
 
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    custom_env = dict(os.environ)
+    custom_env["NODE_PATH"] = str(project_root / "node_modules")
+
     try:
-        r = subprocess.run([NODE_PATH, str(temp_script)], capture_output=True, text=True, timeout=20)
+        r = subprocess.run([NODE_PATH, str(temp_script)], cwd=str(project_root), env=custom_env, capture_output=True, text=True, timeout=20)
         out = (r.stdout or "").strip()
         if out:
             try:

@@ -281,7 +281,10 @@ def ensure_streammonitor_multistream_layout() -> bool:
             setTimeout(() => {{ ws.close(); process.exit(0); }}, 300);
         }});
         """
-        subprocess.run(["node", "-e", node_script], capture_output=True, timeout=5)
+        project_root = Path(__file__).resolve().parent.parent.parent.parent
+        custom_env = dict(os.environ)
+        custom_env["NODE_PATH"] = str(project_root / "node_modules")
+        subprocess.run(["node", "-e", node_script], env=custom_env, capture_output=True, timeout=5)
         return True
     except Exception:
         return False
@@ -884,6 +887,13 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
             msg_res = fut_msg.result(timeout=15)
         except Exception as e:
             msg_res = {"success": False, "error": str(e)}
+
+    # Asegurar que StreamMonitor quede en la vista de transmisión activa con Streamate y Loyalfans
+    try:
+        ensure_streammonitor_multistream_layout()
+        focus_streammonitor_window()
+    except Exception:
+        pass
 
     dur = round(time.time() - t_start, 2)
     reports["injection_speed"] = f"Ejecutado concurrentemente en {dur}s"

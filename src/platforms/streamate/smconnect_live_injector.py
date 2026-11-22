@@ -315,8 +315,12 @@ run().catch(err => {{
     with open(temp_runner, "w", encoding="utf-8") as f:
         f.write(js_runner)
 
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    custom_env = dict(os.environ)
+    custom_env["NODE_PATH"] = str(project_root / "node_modules")
+
     try:
-        res = subprocess.run([NODE_PATH, str(temp_runner)], capture_output=True, encoding="utf-8", errors="replace", timeout=50)
+        res = subprocess.run([NODE_PATH, str(temp_runner)], cwd=str(project_root), env=custom_env, capture_output=True, encoding="utf-8", errors="replace", timeout=50)
         out = (res.stdout or "").strip()
         if out:
             try:

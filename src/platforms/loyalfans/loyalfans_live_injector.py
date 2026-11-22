@@ -1,6 +1,7 @@
 """
 SIREN AI — Inyector Ultra-Rápido en Vivo para Loyalfans dentro de StreamMonitor.
 Optimizado para ejecución en < 1.5 segundos con selectores directos y paralelismo.
+Inyecta Room Topic y Objetivo 3 Niveles ($11, $22, $33).
 """
 
 import os
@@ -83,12 +84,12 @@ const sleep = ms => new Promise(r => setTimeout(r, ms));
 async function main() {
   const startTime = Date.now();
   let targets = await getTargets();
-  let lf = targets.find(t => t.url.includes('loyalfans.com'));
+  let lf = targets.find(t => t.url && t.url.includes('loyalfans.com/broadcast')) || targets.find(t => t.title === 'Broadcast') || targets.find(t => t.url && t.url.includes('loyalfans.com'));
 
-  for (let i = 0; i < 3 && !lf; i++) {
+  for (let i = 0; i < 4 && !lf; i++) {
     await sleep(250);
     targets = await getTargets();
-    lf = targets.find(t => t.url.includes('loyalfans.com'));
+    lf = targets.find(t => t.url && t.url.includes('loyalfans.com/broadcast')) || targets.find(t => t.title === 'Broadcast') || targets.find(t => t.url && t.url.includes('loyalfans.com'));
   }
 
   if (!lf) {
@@ -99,26 +100,29 @@ async function main() {
   const ws = new WebSocket(lf.webSocketDebuggerUrl);
   await new Promise(r => ws.on('open', r));
 
-  // 1. Limpieza rápida de advertencias de cookies o contenido adulto si aparecen
+  // 1. Limpieza rápida de advertencias de cookies o seguridad si aparecen
   await evalInTarget(ws, `(() => {
     const cookieBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('ACEPTA TODO'));
     if (cookieBtn) cookieBtn.click();
-    const secBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'CONFIRMAR' && b.closest('.broadcast-alert, .modal, .dialog'));
-    if (secBtn) secBtn.click();
+    const secBtn = Array.from(document.querySelectorAll('.mat-mdc-dialog-container button, button')).find(b => (b.innerText || '').includes('NO MOSTRAR DE NUEVO') || (b.innerText || '').trim() === 'CONFIRMAR');
+    if (secBtn && document.querySelector('.mat-mdc-dialog-container')?.innerText.includes('Mantente Seguro')) {
+      secBtn.click();
+    }
   })()`);
+  await sleep(300);
 
   // 2. Si no está en /broadcast, navegar directamente
   const curUrl = await evalInTarget(ws, 'window.location.href');
   if (!curUrl || !curUrl.includes('/broadcast')) {
     await evalInTarget(ws, 'window.location.href = "https://www.loyalfans.com/broadcast"');
-    await sleep(1200);
+    await sleep(1000);
   }
 
   // 3. INYECCIÓN DEL TEMA DE SALA (Room Topic)
   await evalInTarget(ws, `(() => {
     let inp = document.querySelector('input[placeholder="Tema de chat"]');
     if (inp) return true;
-    const updBtn = document.querySelector('span.topic-btn[data-translateevent="updateTopic"]');
+    const updBtn = document.querySelector('span.topic-btn, [data-translateevent="updateTopic"]');
     if (updBtn) { updBtn.click(); return true; }
     const gear = document.querySelector('i.lf-settings');
     if (gear) { gear.click(); if (gear.parentElement) gear.parentElement.click(); return true; }
@@ -222,6 +226,9 @@ async function main() {
     };
   })()`);
 
+  // Esperar 500ms para confirmar guardado
+  await sleep(500);
+
   ws.close();
   const totalDurationMs = Date.now() - startTime;
 
@@ -255,8 +262,11 @@ main().catch(err => {
     temp_script.write_text(js_script, encoding="utf-8")
 
     project_root = Path(__file__).resolve().parent.parent.parent.parent
+    custom_env = dict(os.environ)
+    custom_env["NODE_PATH"] = str(project_root / "node_modules")
+
     try:
-        r = subprocess.run([NODE_PATH, str(temp_script)], cwd=str(project_root), capture_output=True, text=True, timeout=10)
+        r = subprocess.run([NODE_PATH, str(temp_script)], cwd=str(project_root), env=custom_env, capture_output=True, text=True, timeout=12)
         out = (r.stdout or "").strip()
         if out:
             try:
