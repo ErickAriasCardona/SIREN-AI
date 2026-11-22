@@ -8,8 +8,12 @@ import base64
 import threading
 import urllib.request
 import urllib.error
+import mimetypes
 from pathlib import Path
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+
+mimetypes.add_type('application/wasm', '.wasm')
+mimetypes.add_type('application/octet-stream', '.task')
 
 # Agregar raíz al sys.path
 ROOT = Path(__file__).resolve().parent.parent.parent
