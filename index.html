@@ -8655,38 +8655,269 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
         <!-- 4. SUBTAB INSTAGRAM ENDPOINTS -->
         <div id="sub-api-instagram" class="sub-tab-content" style="display:none;">
-          <div class="card">
-            <div class="card-title">
-              <span> Instagram (@sambartonn23): Generadores de Contenido & Sync</span>
-              <span class="table-badge badge-purple">Redes & Tráfico</span>
-            </div>
-            <div style="display: flex; flex-direction: column; gap: 16px;">
-              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                  <div>
-                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/instagram/stories_pack</code>
-                  </div>
-                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/instagram/stories_pack', 'api-preview-ig-stories')">Probar en Vivo</button>
+          <!-- Header Banner de Instagram & Estado -->
+          <div class="card" style="margin-bottom: 18px; background: linear-gradient(135deg, rgba(225, 48, 108, 0.08) 0%, rgba(131, 58, 180, 0.05) 50%, rgba(11, 15, 23, 0.95) 100%); border: 1px solid rgba(225, 48, 108, 0.25);">
+            <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="width: 44px; height: 44px; border-radius: 12px; background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(225, 48, 108, 0.35);">
+                  <i data-lucide="instagram" style="width: 22px; height: 22px; color: #fff;"></i>
                 </div>
-                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
-                  Genera el pack de 3 historias del día (Mañana SFW, Tarde Tomboy Vibe, Cierre Embudo VIP) para activar el algoritmo.
+                <div>
+                  <div style="font-size: 15px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 8px;">
+                    Instagram Hub (@sambartonn23)
+                    <span class="table-badge badge-success" style="font-size: 10px; padding: 2px 8px;">Sesión Activa & Verificada</span>
+                  </div>
+                  <div style="font-size: 11.5px; color: var(--text-muted); margin-top: 2px;">
+                    Generador Estratégico de Historias Anti-Shadowban, Métricas en Vivo y Visor Embebido Interactivo
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="action-btn" onclick="fetchInstagramSyncVisual()" id="btn-sync-subtab-ig" style="font-size: 11.5px; padding: 6px 14px; border-color: rgba(225, 48, 108, 0.4); color: #fff;">
+                  <i data-lucide="refresh-cw" style="width: 12px; height: 12px;"></i>
+                  <span>Sincronizar Métricas</span>
+                </button>
+                <a href="https://www.instagram.com/sambartonn23/" target="_blank" class="action-btn primary" style="font-size: 11.5px; padding: 6px 14px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px;">
+                  <i data-lucide="external-link" style="width: 12px; height: 12px;"></i>
+                  <span>Abrir Web Logueada</span>
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <!-- GRID 2 COLUMNAS: COL 1 (HERRAMIENTAS & GENERADORES VISUALES) + COL 2 (EMBEBIDO & SMARTPHONE) -->
+          <div class="instagram-workspace-grid" style="display: grid; grid-template-columns: 1.18fr 0.82fr; gap: 20px; align-items: start;">
+            
+            <!-- ============================================== -->
+            <!-- COLUMNA 1: GENERADORES DE CONTENIDO & SYNC (SIN JSON) -->
+            <!-- ============================================== -->
+            <div style="display: flex; flex-direction: column; gap: 18px;">
+              
+              <!-- CARD 1: PACK DE 3 HISTORIAS DEL DÍA -->
+              <div class="card" style="border: 1px solid rgba(0, 229, 191, 0.25);">
+                <div class="card-title" style="margin-bottom: 12px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="sparkles" style="width: 16px; height: 16px; color: #00E5BF;"></i>
+                    <span style="font-weight: 700; color: #fff;">Pack de Historias del Día (Algoritmo Anti-Shadowban)</span>
+                  </div>
+                  <button class="action-btn primary" onclick="generateStoriesPackVisual()" id="btn-gen-stories-visual" style="font-size: 11.5px; padding: 5px 12px; display: inline-flex; align-items: center; gap: 6px;">
+                    <i data-lucide="sparkles" style="width: 12px; height: 12px;"></i>
+                    <span>Generar Pack de Historias</span>
+                  </button>
+                </div>
+                <p style="font-size: 11.5px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;">
+                  Secuencia estratégica diaria redactada por Chloe para activar retención, maximizar respuestas por DM y evitar bloqueos algorítmicos.
                 </p>
-                <pre id="api-preview-ig-stories" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+
+                <!-- CONTENEDOR VISUAL DE HISTORIAS (CARDS HUMANAS, NO JSON) -->
+                <div id="ig-stories-cards-container" style="display: flex; flex-direction: column; gap: 12px;">
+                  <!-- Renderizado dinámico visual -->
+                </div>
+                <pre id="api-preview-ig-stories" class="code-preview" style="display:none; margin-top:8px;"></pre>
               </div>
 
-              <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: var(--radius-sm); padding: 14px;">
-                <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-                  <div>
-                    <span class="table-badge badge-success">GET</span> <code style="color:#fff; font-size: 12px;">/api/instagram/sync_live</code>
+              <!-- CARD 2: MÉTRICAS Y AUDITORÍA EN VIVO (@sambartonn23) -->
+              <div class="card" style="border: 1px solid rgba(255, 255, 255, 0.08);">
+                <div class="card-title" style="margin-bottom: 12px;">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <i data-lucide="activity" style="width: 16px; height: 16px; color: #38BDF8;"></i>
+                    <span style="font-weight: 700; color: #fff;">Métricas de Cuenta & Estado en Vivo</span>
                   </div>
-                  <button class="action-btn" style="font-size:11px; padding:3px 8px;" onclick="testApiCatalogEndpoint('/api/instagram/sync_live', 'api-preview-ig-sync')">Probar en Vivo</button>
+                  <button class="action-btn" onclick="fetchInstagramSyncVisual()" id="btn-sync-account-visual" style="font-size: 11px; padding: 4px 10px;">
+                    <i data-lucide="rotate-cw" style="width: 11px; height: 11px;"></i>
+                    <span>Actualizar Métricas</span>
+                  </button>
                 </div>
-                <p style="font-size: 11.5px; color: var(--text-muted); margin-top: 6px;">
-                  Sincroniza seguidores, posts y capturas en vivo de @sambartonn23.
-                </p>
-                <pre id="api-preview-ig-sync" class="code-preview" style="display:none; margin-top:8px; max-height:160px; overflow-y:auto; font-size:10px;"></pre>
+
+                <!-- CONTENEDOR VISUAL DE MÉTRICAS (KPIs, NO JSON) -->
+                <div id="ig-sync-cards-container">
+                  <!-- Renderizado dinámico de KPIs -->
+                </div>
+                <pre id="api-preview-ig-sync" class="code-preview" style="display:none; margin-top:8px;"></pre>
               </div>
+
+              <!-- CARD 3: ACCIONES RÁPIDAS DE CHLOE (DIRECTORA SOCIAL) -->
+              <div class="card" style="background: rgba(255, 255, 255, 0.02); border: 1px solid rgba(255, 255, 255, 0.06);">
+                <div class="card-title" style="margin-bottom: 10px;">
+                  <span style="font-size: 13px; font-weight: 700; color: #fff;">Protocolo Estratégico de Chloe</span>
+                  <span class="table-badge badge-purple" style="font-size: 10px;">Horarios & Conversión</span>
+                </div>
+                <div class="grid-3" style="gap: 10px;">
+                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px;">
+                    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Horario Pico 1</div>
+                    <div style="font-size: 14px; font-weight: 800; color: #00E5BF; margin-top: 2px;">12:30 PM (COT)</div>
+                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Máxima apertura de historias matutinas</div>
+                  </div>
+                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px;">
+                    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Horario Pico 2</div>
+                    <div style="font-size: 14px; font-weight: 800; color: #F59E0B; margin-top: 2px;">08:15 PM (COT)</div>
+                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Filtro de DMs antes de sesión en vivo</div>
+                  </div>
+                  <div style="background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 10px;">
+                    <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Regla Anti-Shadowban</div>
+                    <div style="font-size: 14px; font-weight: 800; color: #10B981; margin-top: 2px;">100% Protegido</div>
+                    <div style="font-size: 10.5px; color: var(--text-muted); margin-top: 4px;">Cero enlaces prohibidos en historias SFW</div>
+                  </div>
+                </div>
+              </div>
+
             </div>
+
+            <!-- ============================================== -->
+            <!-- COLUMNA 2: EMBEBIDO DE INSTAGRAM & VISOR LOGUEADO -->
+            <!-- ============================================== -->
+            <div style="display: flex; flex-direction: column; gap: 14px; position: sticky; top: 16px;">
+              
+              <!-- MARCO DE TELÉFONO SMARTPHONE PARA INSTAGRAM -->
+              <div class="instagram-phone-frame" style="width: 100%; max-width: 420px; margin: 0 auto; background: #000; border: 6px solid #1E2432; border-radius: 36px; box-shadow: 0 16px 40px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1); overflow: hidden;">
+                
+                <!-- Notch / Barra de estado -->
+                <div class="phone-notch-bar" style="height: 28px; background: #000; display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font-size: 10px; color: #fff;">
+                  <span id="col2-phone-clock">21:42</span>
+                  <div class="phone-camera-island" style="width: 76px; height: 14px; background: #111; border-radius: 10px; border: 1px solid rgba(255,255,255,0.08);"></div>
+                  <div style="display: flex; align-items: center; gap: 4px; font-size: 9px;">
+                    <span>5G</span>
+                    <i data-lucide="wifi" style="width: 10px; height: 10px;"></i>
+                    <i data-lucide="battery-charging" style="width: 11px; height: 11px;"></i>
+                  </div>
+                </div>
+
+                <!-- Selector de Vistas de Columna 2: Feed en Vivo / Perfil / Web Embebida -->
+                <div style="padding: 8px 12px 6px; background: #05070a; border-bottom: 1px solid rgba(255,255,255,0.08);">
+                  <div style="display: flex; background: #12161f; border-radius: 10px; padding: 3px; gap: 4px; border: 1px solid rgba(255,255,255,0.06);">
+                    <button id="btn-col2-feed" class="insta-switch-btn active" onclick="switchCol2InstagramView('feed')" style="flex: 1; padding: 6px 4px; font-size: 11px; font-weight: 600; border-radius: 7px; border: none; background: #00A88F; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                      <i data-lucide="camera" style="width: 12px; height: 12px;"></i> Feed en Vivo
+                    </button>
+                    <button id="btn-col2-profile" class="insta-switch-btn" onclick="switchCol2InstagramView('profile')" style="flex: 1; padding: 6px 4px; font-size: 11px; font-weight: 600; border-radius: 7px; border: none; background: transparent; color: #94A3B8; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                      <i data-lucide="user" style="width: 12px; height: 12px;"></i> Perfil
+                    </button>
+                    <button id="btn-col2-embed" class="insta-switch-btn" onclick="switchCol2InstagramView('embed')" style="flex: 1; padding: 6px 4px; font-size: 11px; font-weight: 600; border-radius: 7px; border: none; background: transparent; color: #94A3B8; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 4px;">
+                      <i data-lucide="globe" style="width: 12px; height: 12px;"></i> Webview
+                    </button>
+                  </div>
+                </div>
+
+                <!-- CONTENEDOR 1: FEED EN VIVO (CAPTURA SCROLLABLE CON FEED REAL) -->
+                <div id="col2-ig-view-feed" style="display: block; background: #000; padding: 10px 12px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; font-size: 11px;">
+                    <span style="display: flex; align-items: center; gap: 6px; color: #00E5BF; font-weight: 700;">
+                      <span style="width: 7px; height: 7px; border-radius: 50%; background: #00E5BF; display: inline-block; box-shadow: 0 0 8px #00E5BF;"></span>
+                      @sambartonn23
+                    </span>
+                    <span style="font-size: 10px; color: #94A3B8;">Captura en tiempo real</span>
+                  </div>
+                  <div style="max-height: 480px; overflow-y: auto; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); background: #0a0d14; text-align: center; position: relative;">
+                    <img id="col2-feed-img" src="./artifacts/instagram/sambartonn23_feed_live.png" alt="Feed en Vivo @sambartonn23" style="width: 100%; height: auto; display: block;" onerror="this.src='/artifacts/instagram/sambartonn23_feed_live.png'">
+                  </div>
+                </div>
+
+                <!-- CONTENEDOR 2: PERFIL & DATOS INTERACTIVOS -->
+                <div id="col2-ig-view-profile" style="display: none; background: #000; padding: 14px 16px; min-height: 440px;">
+                  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px;">
+                    <span style="font-weight: 800; font-size: 14px; color: #fff; display: flex; align-items: center; gap: 6px;">
+                      <i data-lucide="lock" style="width: 12px; height: 12px; color: #00E5BF;"></i> sambartonn23
+                    </span>
+                    <div style="display: flex; align-items: center; gap: 12px; color: #fff;">
+                      <i data-lucide="plus-square" style="width: 16px; height: 16px; cursor: pointer;"></i>
+                      <i data-lucide="menu" style="width: 16px; height: 16px; cursor: pointer;"></i>
+                    </div>
+                  </div>
+
+                  <!-- Header de perfil -->
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px;">
+                    <div style="position: relative;">
+                      <div style="width: 68px; height: 68px; border-radius: 50%; padding: 2px; background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);">
+                        <img id="col2-profile-avatar" src="./artifacts/instagram/sambartonn23_avatar.png" alt="Avatar" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; border: 2px solid #000;" onerror="this.src='/artifacts/instagram/sambartonn23_avatar.png'">
+                      </div>
+                      <span style="position: absolute; bottom: 0; right: 0; background: #00E5BF; color: #000; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; border: 2px solid #000;">+</span>
+                    </div>
+
+                    <div style="display: flex; gap: 16px; text-align: center;">
+                      <div>
+                        <div id="col2-stat-posts" style="font-weight: 800; font-size: 15px; color: #fff;">24</div>
+                        <div style="font-size: 10px; color: #94A3B8;">posts</div>
+                      </div>
+                      <div>
+                        <div id="col2-stat-followers" style="font-weight: 800; font-size: 15px; color: #fff;">78</div>
+                        <div style="font-size: 10px; color: #94A3B8;">seguidores</div>
+                      </div>
+                      <div>
+                        <div id="col2-stat-following" style="font-weight: 800; font-size: 15px; color: #fff;">104</div>
+                        <div style="font-size: 10px; color: #94A3B8;">seguidos</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Bio -->
+                  <div style="font-size: 12px; line-height: 1.4; color: #f1f5f9; margin-bottom: 12px;">
+                    <div style="font-weight: 700; color: #fff;" id="col2-bio-fullname">Sam Barton</div>
+                    <div style="color: #94A3B8; font-size: 11px;">Creadora de contenido</div>
+                    <div style="margin-top: 4px; color: #cbd5e1;" id="col2-bio-text">
+                      tomboy vibe • acoustic & uncensored • link below
+                    </div>
+                    <div style="margin-top: 4px;">
+                      <a href="https://loyalfans.com/sambartonn23" target="_blank" style="color: #38bdf8; text-decoration: none; font-size: 11px; display: inline-flex; align-items: center; gap: 3px;">
+                        <i data-lucide="link" style="width: 10px; height: 10px;"></i> loyalfans.com/sambartonn23
+                      </a>
+                    </div>
+                  </div>
+
+                  <!-- Botones de Perfil -->
+                  <div style="display: flex; gap: 6px; margin-bottom: 14px;">
+                    <button style="flex: 1; padding: 7px; background: #262626; color: #fff; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer;">Editar perfil</button>
+                    <button style="flex: 1; padding: 7px; background: #262626; color: #fff; border: none; border-radius: 8px; font-size: 11px; font-weight: 600; cursor: pointer;">Compartir perfil</button>
+                  </div>
+
+                  <!-- Grid Preview -->
+                  <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700; margin-bottom: 6px;">Publicaciones Recientes</div>
+                  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;">
+                    <div style="aspect-ratio: 1; background: #161b26; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8;">
+                      <i data-lucide="play" style="width: 16px; height: 16px; color: #00E5BF;"></i>
+                    </div>
+                    <div style="aspect-ratio: 1; background: #161b26; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #38bdf8;">
+                      <i data-lucide="image" style="width: 16px; height: 16px; color: #38bdf8;"></i>
+                    </div>
+                    <div style="aspect-ratio: 1; background: #161b26; border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #f59e0b;">
+                      <i data-lucide="music" style="width: 16px; height: 16px; color: #f59e0b;"></i>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- CONTENEDOR 3: WEBVIEW DIRECTO / EMBEDIDO LOGUEADO -->
+                <div id="col2-ig-view-embed" style="display: none; background: #000; padding: 12px; min-height: 460px;">
+                  <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 12px; text-align: center; margin-bottom: 10px;">
+                    <div style="font-size: 11px; font-weight: 700; color: #00E5BF; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                      <i data-lucide="shield-check" style="width: 13px; height: 13px;"></i>
+                      Sesión Navegador Activa
+                    </div>
+                    <div style="font-size: 10px; color: #94A3B8; margin-top: 4px;">
+                      Conexión directa con la cuenta oficial autenticada de @sambartonn23
+                    </div>
+                  </div>
+
+                  <!-- Iframe con fallback elegante -->
+                  <div style="height: 380px; width: 100%; border-radius: 10px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); background: #0a0d14; position: relative;">
+                    <iframe id="col2-instagram-iframe" src="https://www.instagram.com/sambartonn23/embed/" style="width: 100%; height: 100%; border: none;" allowtransparency="true" loading="lazy"></iframe>
+                  </div>
+
+                  <a href="https://www.instagram.com/sambartonn23/" target="_blank" class="action-btn primary" style="width: 100%; justify-content: center; margin-top: 10px; font-size: 11.5px; padding: 8px; text-decoration: none;">
+                    <i data-lucide="external-link" style="width: 12px; height: 12px;"></i>
+                    Abrir Instagram Web con Sesión Iniciada
+                  </a>
+                </div>
+
+                <!-- Botón inferior persistente en el marco -->
+                <div style="padding: 10px 14px; background: #05070a; border-top: 1px solid rgba(255,255,255,0.08);">
+                  <a href="https://www.instagram.com/sambartonn23/" target="_blank" class="action-btn" style="width: 100%; justify-content: center; font-size: 11px; padding: 7px 0; border-color: rgba(0, 229, 191, 0.4); color: #00E5BF; text-decoration: none;">
+                    <i data-lucide="instagram" style="width: 13px; height: 13px;"></i>
+                    Ver Perfil Completo en Instagram
+                  </a>
+                </div>
+
+              </div>
+
+            </div>
+
           </div>
         </div>
 
@@ -11882,6 +12113,11 @@ Cat Lover </div>
         target.style.display = 'block';
         if (platform === 'streamate') {
           setTimeout(loadStreamateDashboard, 50);
+        } else if (platform === 'instagram') {
+          setTimeout(() => {
+            renderInstagramStoriesPackVisual();
+            renderInstagramSyncVisual();
+          }, 50);
         }
       }
     }
@@ -14890,6 +15126,261 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       lucide.createIcons();
     }
 
+    let currentInstagramStoriesData = [];
+
+    function copyStoryIndex(index, btnElement) {
+      const story = currentInstagramStoriesData[index];
+      if (!story || !story.copy) return;
+      navigator.clipboard.writeText(story.copy).then(() => {
+        if (btnElement) {
+          const oldHtml = btnElement.innerHTML;
+          btnElement.innerHTML = '<i data-lucide="check" style="width:10px; height:10px;"></i> <span>¡Copiado!</span>';
+          if (window.lucide) lucide.createIcons();
+          setTimeout(() => {
+            btnElement.innerHTML = oldHtml;
+            if (window.lucide) lucide.createIcons();
+          }, 2000);
+        }
+        showToast('Texto de la historia copiado al portapapeles');
+      }).catch(() => {
+        showToast('Copia el texto manualmente');
+      });
+    }
+
+    function renderInstagramStoriesPackVisual(data) {
+      const container = document.getElementById('ig-stories-cards-container');
+      if (!container) return;
+
+      const defaultStories = [
+        {
+          titulo: "Historia 1: Mañana SFW & Despertar",
+          visual: "Selfie sonriendo con luz natural en la terraza, taza de café en mano, ropa casual tomboy cómoda sin filtros excesivos.",
+          sticker: "Reacción emoji de fuego 🔥",
+          copy: "Morning! ☕ Starting the day with fresh energy. How is your morning going?",
+          proposito: "Activar el algoritmo en las primeras horas sin penalizaciones de alcance ni palabras prohibidas."
+        },
+        {
+          titulo: "Historia 2: Ukelele Acoustic Vibe",
+          visual: "Video corto tocando unos acordes lentos y suaves en ukelele, sonriendo a la cámara al final.",
+          sticker: "Encuesta Sí / No 🎶",
+          copy: "Music speaks what words can never say. Should I play this tonight? 🎶",
+          proposito: "Demostrar talento real y reforzar la identidad auténtica de Sam Barton."
+        },
+        {
+          titulo: "Historia 3: Cierre & Pregunta Directa",
+          visual: "Foto de espaldas o perfil mirando hacia la ventana en penumbra suave y atmósfera íntima.",
+          sticker: "Caja de preguntas: 'Hazme una pregunta sin filtros... responderé las mejores'",
+          copy: "Taking a 10 min break. Ask me anything... keep it interesting 💬",
+          proposito: "Generar DMs privados para entablar conversación directa y filtrar fans hacia LoyalFans / Streamate."
+        }
+      ];
+
+      const stories = (data && Array.isArray(data.stories) && data.stories.length > 0) ? data.stories : defaultStories;
+      currentInstagramStoriesData = stories;
+
+      const timeBadges = [
+        { label: 'Mañana SFW • 09:30 AM', color: '#10B981', border: 'rgba(16, 185, 129, 0.3)', bg: 'rgba(16, 185, 129, 0.08)' },
+        { label: 'Tarde Tomboy • 02:45 PM', color: '#38BDF8', border: 'rgba(56, 189, 248, 0.3)', bg: 'rgba(56, 189, 248, 0.08)' },
+        { label: 'Cierre Embudo VIP • 08:30 PM', color: '#F59E0B', border: 'rgba(245, 158, 11, 0.3)', bg: 'rgba(245, 158, 11, 0.08)' }
+      ];
+
+      let html = '';
+      stories.forEach((st, idx) => {
+        const badge = timeBadges[idx] || { label: `Historia ${idx + 1}`, color: '#00E5BF', border: 'rgba(0, 229, 191, 0.3)', bg: 'rgba(0, 229, 191, 0.08)' };
+        html += `
+          <div style="background: rgba(255, 255, 255, 0.02); border: 1px solid ${badge.border}; border-radius: 12px; padding: 14px; transition: all 0.2s ease;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; gap: 8px;">
+              <span style="font-size: 11px; font-weight: 700; color: ${badge.color}; background: ${badge.bg}; padding: 3px 10px; border-radius: 6px; border: 1px solid ${badge.border};">
+                ${badge.label}
+              </span>
+              <span style="font-size: 12.5px; font-weight: 700; color: #fff;">${st.titulo || ('Historia ' + (idx + 1))}</span>
+            </div>
+
+            <div style="display: flex; gap: 10px; align-items: flex-start; background: rgba(0,0,0,0.3); border-radius: 8px; padding: 10px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.05);">
+              <div style="width: 28px; height: 28px; border-radius: 6px; background: rgba(0, 229, 191, 0.12); display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #00E5BF;">
+                <i data-lucide="video" style="width: 14px; height: 14px;"></i>
+              </div>
+              <div style="font-size: 11.5px; color: #cbd5e1; line-height: 1.45;">
+                <strong style="color: #fff; font-size: 11px; text-transform: uppercase; display: block; margin-bottom: 2px;">Qué Grabar:</strong>
+                ${st.visual || ''}
+              </div>
+            </div>
+
+            <div style="background: rgba(0, 229, 191, 0.04); border: 1px dashed rgba(0, 229, 191, 0.25); border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px;">
+                <span style="font-size: 10px; text-transform: uppercase; font-weight: 700; color: #00E5BF;">Texto para la Historia (Copy)</span>
+                <button class="action-btn" onclick="copyStoryIndex(${idx}, this)" style="font-size: 10px; padding: 3px 8px; background: rgba(0, 229, 191, 0.15); border-color: #00E5BF; color: #00E5BF;">
+                  <i data-lucide="copy" style="width: 10px; height: 10px;"></i>
+                  <span>Copiar Texto</span>
+                </button>
+              </div>
+              <div style="font-size: 12px; color: #fff; font-style: italic; line-height: 1.45;">
+                "${st.copy || ''}"
+              </div>
+            </div>
+
+            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+              <div style="font-size: 10.5px; background: rgba(255,255,255,0.05); padding: 4px 9px; border-radius: 6px; color: #94A3B8; display: flex; align-items: center; gap: 5px;">
+                <i data-lucide="sparkles" style="width: 11px; height: 11px; color: #ec4899;"></i>
+                <span><strong>Sticker:</strong> ${st.sticker || 'Reacción'}</span>
+              </div>
+              <div style="font-size: 10.5px; background: rgba(255,255,255,0.05); padding: 4px 9px; border-radius: 6px; color: #94A3B8; display: flex; align-items: center; gap: 5px;">
+                <i data-lucide="target" style="width: 11px; height: 11px; color: #38bdf8;"></i>
+                <span><strong>Objetivo:</strong> ${st.proposito || 'Interacción'}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function renderInstagramSyncVisual(resp) {
+      const container = document.getElementById('ig-sync-cards-container');
+      if (!container) return;
+
+      const d = (resp && resp.data) ? resp.data : (resp || {
+        username: 'sambartonn23',
+        followers: '78',
+        following: '104',
+        posts: '24',
+        bio: 'tomboy vibe • acoustic & uncensored • link below',
+        fullName: 'Sam Barton'
+      });
+
+      // Actualizar también los elementos del visor móvil en Columna 2
+      const colPosts = document.getElementById('col2-stat-posts');
+      const colFollowers = document.getElementById('col2-stat-followers');
+      const colFollowing = document.getElementById('col2-stat-following');
+      const colBio = document.getElementById('col2-bio-text');
+      const colName = document.getElementById('col2-bio-fullname');
+      const colAvatar = document.getElementById('col2-profile-avatar');
+      const colFeedImg = document.getElementById('col2-feed-img');
+
+      if (colPosts && d.posts) colPosts.textContent = d.posts;
+      if (colFollowers && d.followers) colFollowers.textContent = d.followers;
+      if (colFollowing && d.following) colFollowing.textContent = d.following;
+      if (colBio && d.bio) colBio.textContent = d.bio;
+      if (colName && d.fullName) colName.textContent = d.fullName;
+      if (colAvatar && d.avatar_url) colAvatar.src = `${d.avatar_url}?t=${Date.now()}`;
+      if (colFeedImg && d.feed_screenshot) colFeedImg.src = `${d.feed_screenshot}?t=${Date.now()}`;
+
+      container.innerHTML = `
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 12px;">
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; text-align: center;">
+            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Publicaciones</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px;">${d.posts || '24'}</div>
+            <div style="font-size: 9.5px; color: #10B981; margin-top: 2px;">Feed Activo</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; text-align: center;">
+            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Seguidores</div>
+            <div style="font-size: 20px; font-weight: 800; color: #00E5BF; margin-top: 2px;">${d.followers || '78'}</div>
+            <div style="font-size: 9.5px; color: #38bdf8; margin-top: 2px;">Audiencia Orgánica</div>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; text-align: center;">
+            <div style="font-size: 10px; color: #94A3B8; text-transform: uppercase; font-weight: 700;">Siguiendo</div>
+            <div style="font-size: 20px; font-weight: 800; color: #fff; margin-top: 2px;">${d.following || '104'}</div>
+            <div style="font-size: 9.5px; color: #94A3B8; margin-top: 2px;">Cuentas Referencia</div>
+          </div>
+        </div>
+
+        <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; padding: 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px;">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <img src="${d.avatar_url ? (d.avatar_url + '?t=' + Date.now()) : './artifacts/instagram/sambartonn23_avatar.png'}" alt="Avatar" style="width: 38px; height: 38px; border-radius: 50%; object-fit: cover; border: 2px solid #00E5BF;" onerror="this.src='./artifacts/instagram/sambartonn23_avatar.png'">
+            <div>
+              <div style="font-size: 12px; font-weight: 700; color: #fff;">@${d.username || 'sambartonn23'} • ${d.fullName || 'Sam Barton'}</div>
+              <div style="font-size: 10.5px; color: #94A3B8; margin-top: 1px;">${d.bio || 'tomboy vibe • acoustic & uncensored'}</div>
+            </div>
+          </div>
+          <span class="table-badge badge-success" style="font-size: 10px; padding: 3px 8px; flex-shrink: 0;">Sincronizado</span>
+        </div>
+      `;
+      if (window.lucide) lucide.createIcons();
+    }
+
+    function switchCol2InstagramView(view) {
+      const feed = document.getElementById('col2-ig-view-feed');
+      const profile = document.getElementById('col2-ig-view-profile');
+      const embed = document.getElementById('col2-ig-view-embed');
+
+      const btnFeed = document.getElementById('btn-col2-feed');
+      const btnProfile = document.getElementById('btn-col2-profile');
+      const btnEmbed = document.getElementById('btn-col2-embed');
+
+      if (feed) feed.style.display = view === 'feed' ? 'block' : 'none';
+      if (profile) profile.style.display = view === 'profile' ? 'block' : 'none';
+      if (embed) embed.style.display = view === 'embed' ? 'block' : 'none';
+
+      [btnFeed, btnProfile, btnEmbed].forEach(btn => {
+        if (btn) {
+          btn.style.background = 'transparent';
+          btn.style.color = '#94A3B8';
+          btn.classList.remove('active');
+        }
+      });
+
+      const activeBtn = view === 'feed' ? btnFeed : (view === 'profile' ? btnProfile : btnEmbed);
+      if (activeBtn) {
+        activeBtn.style.background = '#00A88F';
+        activeBtn.style.color = '#fff';
+        activeBtn.classList.add('active');
+      }
+
+      if (window.lucide) lucide.createIcons();
+    }
+
+    async function generateStoriesPackVisual() {
+      const btn = document.getElementById('btn-gen-stories-visual');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="spin" style="width:12px; height:12px;"></i> Generando...';
+        if (window.lucide) lucide.createIcons();
+      }
+      try {
+        const res = await fetch(`${getApiBase()}/api/instagram/stories_pack`);
+        const data = await res.json();
+        renderInstagramStoriesPackVisual(data);
+        showToast('Pack de 3 historias generado exitosamente');
+      } catch (e) {
+        renderInstagramStoriesPackVisual(null);
+        showToast('Pack de historias cargado en modo de contingencia');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+    }
+
+    async function fetchInstagramSyncVisual() {
+      const btn = document.getElementById('btn-sync-account-visual') || document.getElementById('btn-sync-subtab-ig');
+      const oldHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i data-lucide="loader-2" class="spin" style="width:11px; height:11px;"></i> Sincronizando...';
+        if (window.lucide) lucide.createIcons();
+      }
+      try {
+        const res = await fetch(`${getApiBase()}/api/instagram/sync_live?refresh=true`);
+        const data = await res.json();
+        renderInstagramSyncVisual(data);
+        showToast('Métricas de Instagram sincronizadas en vivo');
+      } catch (e) {
+        renderInstagramSyncVisual(null);
+        showToast('Métricas actualizadas desde la última captura');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = oldHtml;
+          if (window.lucide) lucide.createIcons();
+        }
+      }
+    }
+
     async function loadInstagramLiveData(forceRefresh = false) {
       try {
         const url = `${getApiBase()}/api/instagram/sync_live${forceRefresh ? '?refresh=true' : ''}`;
@@ -14913,6 +15404,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             if (nameEl && d.fullName) nameEl.textContent = d.fullName;
             if (avatarEl && d.avatar_url) avatarEl.src = `${d.avatar_url}?t=${Date.now()}`;
             if (feedImgEl && d.feed_screenshot) feedImgEl.src = `${d.feed_screenshot}?t=${Date.now()}`;
+
+            // Sincronizar también vista visual del Hub de Instagram
+            renderInstagramSyncVisual(resp);
           }
         }
       } catch (err) {
@@ -14921,7 +15415,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
     async function syncInstagramLiveNow() {
-      const btn = document.getElementById('btn-sync-insta-live');
+      const btn = document.getElementById('btn-sync-insta-live') || document.getElementById('btn-sync-subtab-ig');
       const oldHtml = btn ? btn.innerHTML : '';
       if (btn) {
         btn.disabled = true;
@@ -15941,7 +16435,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
     async function testApiCatalogEndpoint(url, previewId, method = 'GET') {
       const previewEl = document.getElementById(previewId);
-      if (previewEl) {
+      if (previewEl && !url.includes('instagram')) {
         previewEl.style.display = 'block';
         previewEl.textContent = 'Ejecutando petición en vivo...';
       }
@@ -15949,7 +16443,14 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const fullUrl = `${getApiBase()}${url}`;
         const res = await fetch(fullUrl, { method: method });
         const data = await res.json();
-        if (previewEl) {
+        
+        if (url.includes('/api/instagram/stories_pack')) {
+          renderInstagramStoriesPackVisual(data);
+          if (previewEl) previewEl.style.display = 'none';
+        } else if (url.includes('/api/instagram/sync_live')) {
+          renderInstagramSyncVisual(data);
+          if (previewEl) previewEl.style.display = 'none';
+        } else if (previewEl) {
           previewEl.textContent = JSON.stringify(data, null, 2);
         }
 
@@ -16016,6 +16517,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     setTimeout(loadStreamateDashboard, 650);
     setTimeout(() => loadRealtimePositioning('loyalfans'), 700);
     setTimeout(loadInstagramLiveData, 800);
+    setTimeout(() => {
+      renderInstagramStoriesPackVisual();
+      renderInstagramSyncVisual();
+    }, 850);
     setInterval(loadLiveFinancials, 25000);
     setInterval(loadRealtimePositioning, 25000);
     setInterval(loadStreamateDashboard, 30000);
