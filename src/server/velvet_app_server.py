@@ -5,6 +5,7 @@ import sqlite3
 import datetime
 import time
 import base64
+import threading
 import urllib.request
 import urllib.error
 from pathlib import Path
@@ -56,6 +57,12 @@ from src.agents.chloe_instagram_agent import (
     generate_stories_pack
 )
 from src.automation.push_notification_service import push_service
+
+# ==============================================================================
+# CONTROL GLOBAL DE SESIONES ACTIVAS DE CHAT PARA CANCELACIÓN Y PAUSA INMEDIATA
+# ==============================================================================
+ACTIVE_CHAT_SESSIONS = {}
+ACTIVE_CHAT_LOCK = threading.Lock()
 
 # ==============================================================================
 # PROMPTS DEL SISTEMA OPTIMIZADOS PARA CPU (AGILIDAD 7-15s EN OLLAMA)
@@ -322,6 +329,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_history()
         elif self.path.startswith("/api/chat_history"):
             self.handle_api_chat_history()
+        elif self.path.startswith("/api/chat/stop") or self.path.startswith("/api/chat_stop"):
+            self.handle_api_chat_stop()
         elif self.path == "/api/platforms_profiles":
             self.handle_api_platforms_profiles()
         elif self.path == "/api/financials" or self.path.startswith("/api/loyalfans/financials"):
@@ -390,6 +399,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def do_POST(self):
         if self.path == "/api/chat":
             self.handle_api_chat()
+        elif self.path == "/api/chat/stop" or self.path == "/api/chat_stop":
+            self.handle_api_chat_stop()
         elif self.path == "/api/upload_logo":
             self.handle_api_upload_logo()
         elif self.path == "/api/reset_logo":
@@ -1639,6 +1650,49 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
+    def handle_api_chat_stop(self):
+        """Cancela y detiene inmediatamente el proceso del agente y la inferencia en LLM/Ollama."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
+            data = json.loads(body) if body else {}
+            target_asst = data.get("assistant", "").lower()
+
+            stopped_count = 0
+            with ACTIVE_CHAT_LOCK:
+                sessions_to_stop = []
+                if target_asst and target_asst in ACTIVE_CHAT_SESSIONS:
+                    sessions_to_stop.append(ACTIVE_CHAT_SESSIONS[target_asst])
+                else:
+                    sessions_to_stop.extend(list(ACTIVE_CHAT_SESSIONS.values()))
+
+                for s in sessions_to_stop:
+                    s["stopped"] = True
+                    if "cancel_event" in s and s["cancel_event"]:
+                        s["cancel_event"].set()
+                    resp = s.get("response_obj")
+                    if resp:
+                        try:
+                            resp.close()
+                        except Exception:
+                            pass
+                    stopped_count += 1
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "success": True,
+                "stopped": True,
+                "stopped_sessions": stopped_count,
+                "message": "Proceso del agente detenido inmediatamente"
+            }).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
     def handle_api_chat(self):
         """Procesa una consulta de chat con ROXANNE o CHLOE y devuelve la respuesta del LLM."""
         try:
@@ -1791,15 +1845,50 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 headers={"Content-Type": "application/json"}
             )
 
+            cancel_event = threading.Event()
+            session_key = assistant_id
+            with ACTIVE_CHAT_LOCK:
+                ACTIVE_CHAT_SESSIONS[session_key] = {
+                    "cancel_event": cancel_event,
+                    "response_obj": None,
+                    "stopped": False,
+                    "time": time.time()
+                }
+
             try:
-                with urllib.request.urlopen(req, timeout=50) as response:
-                    res_json = json.loads(response.read().decode("utf-8"))
-                    reply = res_json.get("message", {}).get("content", "").strip()
-                    if not reply:
-                        reply = generate_contextual_fallback(assistant_id, message)
+                response = urllib.request.urlopen(req, timeout=50)
+                with ACTIVE_CHAT_LOCK:
+                    if session_key in ACTIVE_CHAT_SESSIONS:
+                        ACTIVE_CHAT_SESSIONS[session_key]["response_obj"] = response
+
+                res_json = json.loads(response.read().decode("utf-8"))
+                reply = res_json.get("message", {}).get("content", "").strip()
+                if not reply:
+                    reply = generate_contextual_fallback(assistant_id, message)
             except Exception as e:
+                # Verificar si fue cancelado / pausado explícitamente por el usuario
+                was_stopped = False
+                with ACTIVE_CHAT_LOCK:
+                    sess = ACTIVE_CHAT_SESSIONS.get(session_key)
+                    if sess and (sess.get("stopped") or sess.get("cancel_event", threading.Event()).is_set()):
+                        was_stopped = True
+
+                if was_stopped:
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/json; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write(json.dumps({
+                        "reply": "[Respuesta pausada por el usuario]",
+                        "stopped": True,
+                        "assistant": assistant_id
+                    }).encode("utf-8"))
+                    return
+
                 print(f"[Ollama Inference Fallback]: {e}")
                 reply = generate_contextual_fallback(assistant_id, message)
+            finally:
+                with ACTIVE_CHAT_LOCK:
+                    ACTIVE_CHAT_SESSIONS.pop(session_key, None)
 
 
             # Guardar en SQLite (Auditoría general y asistente persistente)

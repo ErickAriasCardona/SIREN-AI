@@ -1326,6 +1326,58 @@
       stroke-width: 2.4;
     }
 
+    /* BOTON DE PAUSAR / DETENER AGENTE */
+    .stop-thinking-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      border-radius: 14px;
+      background: rgba(0, 168, 143, 0.16);
+      border: 1px solid rgba(0, 229, 191, 0.45);
+      color: #00E5BF;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-family: var(--font-sans);
+      flex-shrink: 0;
+    }
+    .stop-thinking-btn:hover {
+      background: rgba(0, 229, 191, 0.35);
+      color: #ffffff;
+      border-color: #00E5BF;
+      box-shadow: 0 0 14px rgba(0, 229, 191, 0.5);
+      transform: scale(1.04);
+    }
+    body:not(.light-theme) .alma-floating-chat .stop-thinking-btn {
+      background: rgba(0, 168, 143, 0.12);
+      border-color: rgba(0, 168, 143, 0.4);
+      color: #06342D;
+    }
+    body:not(.light-theme) .alma-floating-chat .stop-thinking-btn:hover {
+      background: rgba(0, 168, 143, 0.22);
+      color: #004D40;
+    }
+    .floating-chat-send-btn.is-generating {
+      background: linear-gradient(135deg, #063E35, #00A88F) !important;
+      border: 1.5px solid #00E5BF !important;
+      box-shadow: 0 0 16px rgba(0, 229, 191, 0.5) !important;
+      animation: stopPulse 1.4s infinite alternate ease-in-out;
+      cursor: pointer !important;
+    }
+    .chat-send-btn.is-generating {
+      background: linear-gradient(135deg, #063E35, #00A88F) !important;
+      border: 1.5px solid #00E5BF !important;
+      box-shadow: 0 0 16px rgba(0, 229, 191, 0.5) !important;
+      animation: stopPulse 1.4s infinite alternate ease-in-out;
+      cursor: pointer !important;
+    }
+    @keyframes stopPulse {
+      0% { box-shadow: 0 0 6px rgba(0, 229, 191, 0.3); }
+      100% { box-shadow: 0 0 18px rgba(0, 229, 191, 0.8); }
+    }
+
     /* ========================================================================== */
     /* BARRA DE NAVEGACIÓN MÓVIL/TABLET TÁCTIL (BOTTOM CAPSULE BAR) */
     /* ========================================================================== */
@@ -8550,10 +8602,16 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 <!-- Se llena dinámicamente según el asistente activo -->
               </div>
 
-              <!-- Indicador de tipeo / pensando -->
-              <div id="chat-typing-indicator" style="display: none; font-size: 11px; color: var(--secondary); align-items: center; gap: 8px; padding-left: 10px;">
-                <i data-lucide="loader-2" class="spin" style="width: 14px; height: 14px;"></i>
-                <span id="chat-typing-text">ROXANNE está pensando la mejor estrategia con Qwen 2.5...</span>
+              <!-- Indicador de tipeo / pensando con botón de pausa inmediata -->
+              <div id="chat-typing-indicator" style="display: none; font-size: 11px; color: var(--secondary); align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; background: rgba(0, 168, 143, 0.08); border: 1px solid rgba(0, 229, 191, 0.25); border-radius: 16px;">
+                <div style="display: flex; align-items: center; gap: 8px;">
+                  <i data-lucide="loader-2" class="spin" style="width: 14px; height: 14px;"></i>
+                  <span id="chat-typing-text">ROXANNE está pensando la mejor estrategia con Qwen 2.5...</span>
+                </div>
+                <button type="button" class="stop-thinking-btn" onclick="stopCopilotAgentThinking()" title="Pausar agente y detener proceso">
+                  <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+                  <span>Pausar</span>
+                </button>
               </div>
 
               <!-- Pastillas de Prompts Rápidos Dinámicas -->
@@ -12864,6 +12922,41 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       showToast(`Historial de conversación con ${ASSISTANTS_DATA[currentAsst].name} reiniciado`);
     }
 
+    let activeCopilotChatAbort = null;
+    let activeFloatingChatAbort = null;
+
+    async function stopCopilotAgentThinking() {
+      if (activeCopilotChatAbort) {
+        try { activeCopilotChatAbort.abort(); } catch (_) {}
+        activeCopilotChatAbort = null;
+      }
+
+      try {
+        const apiBase = typeof getApiBase === 'function' ? getApiBase() : window.location.origin;
+        fetch(`${apiBase}/api/chat/stop`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assistant: activeAssistant })
+        }).catch(() => {});
+      } catch (_) {}
+
+      const indicator = document.getElementById('chat-typing-indicator');
+      if (indicator) indicator.style.display = 'none';
+
+      const sendBtn = document.getElementById('copilot-send-btn');
+      if (sendBtn) {
+        sendBtn.classList.remove('is-generating');
+        sendBtn.disabled = false;
+        sendBtn.title = 'Enviar mensaje';
+        sendBtn.innerHTML = '<i data-lucide="send" style="width:14px; height:14px;"></i> Enviar';
+        sendBtn.onclick = sendCopilotMessage;
+        if (window.lucide) lucide.createIcons();
+      }
+
+      appendChatMessage(activeAssistant, '[Proceso pausado por el usuario]', 'es', 'ALMA TECH');
+      showToast('Agente pausado con éxito');
+    }
+
     async function sendCopilotMessage() {
       const inputEl = document.getElementById('copilot-input');
       if (!inputEl) return;
@@ -12879,7 +12972,27 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const indicator = document.getElementById('chat-typing-indicator');
       const sendBtn = document.getElementById('copilot-send-btn');
       if (indicator) indicator.style.display = 'flex';
-      if (sendBtn) sendBtn.disabled = true;
+      
+      activeCopilotChatAbort = new AbortController();
+      if (sendBtn) {
+        sendBtn.classList.add('is-generating');
+        sendBtn.disabled = false;
+        sendBtn.title = 'Pausar agente y detener proceso';
+        sendBtn.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg> Pausar';
+        sendBtn.onclick = stopCopilotAgentThinking;
+      }
+
+      function restoreSendBtn() {
+        if (sendBtn) {
+          sendBtn.classList.remove('is-generating');
+          sendBtn.disabled = false;
+          sendBtn.title = 'Enviar mensaje';
+          sendBtn.innerHTML = '<i data-lucide="send" style="width:14px; height:14px;"></i> Enviar';
+          sendBtn.onclick = sendCopilotMessage;
+          if (window.lucide) lucide.createIcons();
+        }
+        activeCopilotChatAbort = null;
+      }
 
       // Armar historial para backend (últimos 6 mensajes para agilidad máxima)
       const historyPayload = (assistantChatHistories[activeAssistant] || []).slice(-6).map(item => ({
@@ -12891,6 +13004,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const res = await fetch(`${getApiBase()}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: activeCopilotChatAbort.signal,
           body: JSON.stringify({
             message: text,
             model: model,
@@ -12902,10 +13016,19 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         if (!res.ok) throw new Error('HTTP ' + res.status);
         const data = await res.json();
         if (indicator) indicator.style.display = 'none';
-        if (sendBtn) sendBtn.disabled = false;
+        restoreSendBtn();
 
-        appendChatMessage(activeAssistant, data.reply, data.detected_lang, data.model);
+        if (data.stopped) {
+          appendChatMessage(activeAssistant, data.reply || '[Proceso pausado por el usuario]', 'es', data.model);
+        } else {
+          appendChatMessage(activeAssistant, data.reply, data.detected_lang, data.model);
+        }
       } catch (err) {
+        if (err.name === 'AbortError') {
+          restoreSendBtn();
+          return;
+        }
+
         // Fallback a Ollama directo SOLO si estamos en localhost
         const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
         if (isLocalHost) {
@@ -12913,6 +13036,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             const directOllama = await fetch('http://localhost:11434/api/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
+              signal: activeCopilotChatAbort ? activeCopilotChatAbort.signal : undefined,
               body: JSON.stringify({
                 model: model,
                 messages: [
@@ -12925,15 +13049,20 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             });
             const odata = await directOllama.json();
             if (indicator) indicator.style.display = 'none';
-            if (sendBtn) sendBtn.disabled = false;
+            restoreSendBtn();
             const reply = odata.message?.content || 'Sin respuesta';
             appendChatMessage(activeAssistant, reply, 'es', 'Direct Ollama');
             return;
-          } catch (ollamaErr) {}
+          } catch (ollamaErr) {
+            if (ollamaErr.name === 'AbortError') {
+              restoreSendBtn();
+              return;
+            }
+          }
         }
 
         if (indicator) indicator.style.display = 'none';
-        if (sendBtn) sendBtn.disabled = false;
+        restoreSendBtn();
 
         // Auto-recuperación: verificar si el túnel en tu casa cambió
         try {
@@ -15233,12 +15362,18 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       <!-- Mensajes sincronizados en tiempo real -->
     </div>
 
-    <!-- TYPING INDICATOR -->
-    <div id="floating-typing-indicator" class="floating-typing-indicator" style="display: none;">
-      <div class="typing-wave">
-        <span></span><span></span><span></span>
+    <!-- TYPING INDICATOR CON BOTON DE PAUSA INMEDIATA -->
+    <div id="floating-typing-indicator" class="floating-typing-indicator" style="display: none; justify-content: space-between; align-items: center; width: 100%;">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <div class="typing-wave">
+          <span></span><span></span><span></span>
+        </div>
+        <span id="floating-typing-text">Pensando la mejor estrategia...</span>
       </div>
-      <span id="floating-typing-text">Pensando la mejor estrategia...</span>
+      <button type="button" class="stop-thinking-btn" onclick="stopFloatingAgentThinking()" title="Pausar agente y detener proceso">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>
+        <span>Pausar</span>
+      </button>
     </div>
 
     <!-- INPUT BAR -->
@@ -15476,6 +15611,38 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       msgBox.scrollTop = msgBox.scrollHeight + 500;
     }
 
+    async function stopFloatingAgentThinking() {
+      if (activeFloatingChatAbort) {
+        try { activeFloatingChatAbort.abort(); } catch (_) {}
+        activeFloatingChatAbort = null;
+      }
+
+      try {
+        const apiBase = typeof getApiBase === 'function' ? getApiBase() : window.location.origin;
+        fetch(`${apiBase}/api/chat/stop`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ assistant: currentFloatingAgent })
+        }).catch(() => {});
+      } catch (_) {}
+
+      const indicator = document.getElementById('floating-typing-indicator');
+      if (indicator) indicator.style.display = 'none';
+
+      const sendBtn = document.getElementById('floating-chat-send-btn');
+      if (sendBtn) {
+        sendBtn.classList.remove('is-generating');
+        sendBtn.disabled = false;
+        sendBtn.title = 'Enviar mensaje';
+        sendBtn.innerHTML = '<i data-lucide="send"></i>';
+        sendBtn.onclick = sendFloatingChatMessage;
+        if (window.lucide) lucide.createIcons();
+      }
+
+      appendFloatingBubble(currentFloatingAgent, '[Proceso pausado por el usuario]', 'Ahora', false);
+      showToast('Agente pausado con éxito');
+    }
+
     // Enviar mensaje en el chat flotante
     async function sendFloatingChatMessage() {
       const input = document.getElementById('floating-chat-input');
@@ -15489,7 +15656,27 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const indicator = document.getElementById('floating-typing-indicator');
       const sendBtn = document.getElementById('floating-chat-send-btn');
       if (indicator) indicator.style.display = 'flex';
-      if (sendBtn) sendBtn.disabled = true;
+
+      activeFloatingChatAbort = new AbortController();
+      if (sendBtn) {
+        sendBtn.classList.add('is-generating');
+        sendBtn.disabled = false;
+        sendBtn.title = 'Pausar agente y detener proceso';
+        sendBtn.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" stroke="none"><rect x="4" y="4" width="16" height="16" rx="2"></rect></svg>';
+        sendBtn.onclick = stopFloatingAgentThinking;
+      }
+
+      function restoreSendBtn() {
+        if (sendBtn) {
+          sendBtn.classList.remove('is-generating');
+          sendBtn.disabled = false;
+          sendBtn.title = 'Enviar mensaje';
+          sendBtn.innerHTML = '<i data-lucide="send"></i>';
+          sendBtn.onclick = sendFloatingChatMessage;
+          if (window.lucide) lucide.createIcons();
+        }
+        activeFloatingChatAbort = null;
+      }
 
       // Sincronizar últimos 6 mensajes de contexto
       const hist = (assistantChatHistories[currentFloatingAgent] || []).slice(-6).map(it => ({
@@ -15503,6 +15690,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const res = await fetch(`${apiBase}/api/chat`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
+          signal: activeFloatingChatAbort.signal,
           body: JSON.stringify({
             message: text,
             model: 'qwen2.5:7b-instruct',
@@ -15515,10 +15703,19 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const data = await res.json();
         
         if (indicator) indicator.style.display = 'none';
-        if (sendBtn) sendBtn.disabled = false;
+        restoreSendBtn();
 
-        appendFloatingBubble(currentFloatingAgent, data.reply || data.response || 'Sin respuesta', 'Ahora', true);
+        if (data.stopped) {
+          appendFloatingBubble(currentFloatingAgent, data.reply || '[Proceso pausado por el usuario]', 'Ahora', true);
+        } else {
+          appendFloatingBubble(currentFloatingAgent, data.reply || data.response || 'Sin respuesta', 'Ahora', true);
+        }
       } catch (err) {
+        if (err.name === 'AbortError') {
+          restoreSendBtn();
+          return;
+        }
+
         // Fallback a Ollama directo si estamos en localhost
         const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
         if (isLocal) {
@@ -15527,6 +15724,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             const direct = await fetch('http://localhost:11434/api/chat', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
+              signal: activeFloatingChatAbort ? activeFloatingChatAbort.signal : undefined,
               body: JSON.stringify({
                 model: 'qwen2.5:7b-instruct',
                 messages: [
@@ -15539,15 +15737,20 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             });
             const odata = await direct.json();
             if (indicator) indicator.style.display = 'none';
-            if (sendBtn) sendBtn.disabled = false;
+            restoreSendBtn();
             appendFloatingBubble(currentFloatingAgent, odata.message?.content || 'Sin respuesta', 'Ahora', true);
             return;
-          } catch (_) {}
+          } catch (ollamaErr) {
+            if (ollamaErr.name === 'AbortError') {
+              restoreSendBtn();
+              return;
+            }
+          }
         }
 
         if (indicator) indicator.style.display = 'none';
-        if (sendBtn) sendBtn.disabled = false;
-        appendFloatingBubble(currentFloatingAgent, ` No se pudo contactar al servidor (${err.message}). Verifica que el servidor de ALMA TECH esté activo.`, 'Ahora', false);
+        restoreSendBtn();
+        appendFloatingBubble(currentFloatingAgent, `No se pudo contactar al servidor (${err.message}). Verifica que el servidor de ALMA TECH esté activo.`, 'Ahora', false);
       }
     }
 
