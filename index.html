@@ -16861,7 +16861,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
 
-    function sendCopilotMessage() {
+    async function sendCopilotMessage() {
       const inputEl = document.getElementById('copilot-input');
       if (!inputEl) return;
       const text = inputEl.value.trim();
