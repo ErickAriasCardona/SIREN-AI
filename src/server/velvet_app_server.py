@@ -196,11 +196,27 @@ SYSTEM_PROMPTS_BY_AGENT = {
 
 def generate_contextual_fallback(assistant_id: str, message: str) -> str:
     """Genera una respuesta contextual inteligente con soporte completo de Markdown y Matrices/Tablas por dominio."""
+    asst = (assistant_id or "roxanne").lower().strip()
+    if asst in ["cipote", "don_cipote", "chef"]:
+        asst = "cipote_chef"
+    elif asst in ["barman", "bar"]:
+        asst = "cipote_bar"
+    elif asst in ["pos", "cajero"]:
+        asst = "cipote_pos"
+    elif asst in ["delivery", "despacho"]:
+        asst = "cipote_delivery"
+    elif asst in ["solecito", "solar", "reservas"]:
+        asst = "solar_solecito"
+    elif asst in ["maitre", "mesero", "salon"]:
+        asst = "solar_maitre"
+    elif asst in ["parrilla", "parrillero"]:
+        asst = "solar_chef"
+
     msg_low = message.lower()
     is_table_query = any(w in msg_low for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
 
     # 1. CIPOTE CEVICHERIA (DON CIPOTE & EQUIPO)
-    if assistant_id == "cipote_chef":
+    if asst == "cipote_chef" or (asst.startswith("cipote") and "chef" in asst) or (asst.startswith("cipote") and asst not in ["cipote_bar", "cipote_pos", "cipote_delivery"]):
         if any(w in msg_low for w in ["recomienda", "recomiendas", "probar", "hoy", "plato", "comer", "sugerencia"]):
             return (
                 "¡Ajá! Te recomiendo sin duda empezar con nuestro **Ceviche Mixto ($24.000)** con camarón tierno y pescado blanco del día, bañado en nuestra leche de tigre tradicional con limón pajarito recién exprimido y maíz tostado crocante. Y para acompañar con este calor, un **Granizado 16oz ($12.000)** de corozo bien frío.\n\n"
@@ -233,134 +249,99 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "¡Saludos! Soy Don Cipote, tu Chef Ejecutivo. Conmigo estandarizas la leche de tigre, controlas gramajes exactos por porción y garantizas la máxima frescura del marisco. ¿Qué receta, gramaje o plato de la carta revisamos hoy?"
             )
 
-    elif assistant_id == "cipote_bar":
+    elif asst == "cipote_bar":
         return (
             "¡A la orden! Como Barman de Cipote, te recomiendo acompañar los ceviches con un **Granizado 16oz ($12.000)** de corozo o maracuyá bien frío, o una michelada con sal marina y limón que corta el picante y limpia el paladar a la perfección."
         )
 
-    elif assistant_id == "cipote_pos":
+    elif asst == "cipote_pos":
         return (
             "Terminal POS & Turno de Caja listo. Para este turno: base inicial confirmada, cruce estricto 1:1 de vasos plásticos (12oz, 16oz y 24oz) contra comandas facturadas, y arqueo listo para consolidar efectivo, Nequi y transferencias."
         )
 
-    elif assistant_id == "cipote_delivery":
+    elif asst == "cipote_delivery":
         return (
             "Despacho Rápido activo. Nuestro protocolo exige empacar la leche de tigre en contenedor hermético sellado independiente, garantizando que el cliente la vierta al comer y evitando derrames en ruta de moto en menos de 20 minutos."
         )
 
     # 2. EL SOLAR GASTRO-BAR
-    elif assistant_id in ["solar_solecito", "solar_reservas"]:
+    elif asst in ["solar_solecito", "solar_reservas"] or (asst.startswith("solar") and asst not in ["solar_maitre", "solar_chef", "solar_admin"]):
         return (
             "¡Hola! Te damos la bienvenida a **El Solar Gastro-Bar**. Estoy listo para gestionar tu reserva de mesa para hoy o el fin de semana. Indícame para cuántas personas es la mesa, la hora preferida y si celebran alguna ocasión especial."
         )
-    elif assistant_id in ["solar_maitre", "solar_waiter"]:
+    elif asst in ["solar_maitre", "solar_waiter"]:
         return (
             "Buenas tardes. Como Capitán de Servicio de El Solar, te sugiero iniciar con nuestras tapas de la casa y maridar los cortes a la parrilla con nuestra selección de vinos y cócteles de autor. ¿En qué puedo asistirte en mesa hoy?"
         )
-    elif assistant_id in ["solar_chef", "solar_kitchen"]:
+    elif asst in ["solar_chef", "solar_kitchen"]:
         return (
-            "Cocina de El Solar en marcha. Controlamos tiempos de comanda menores a 18 minutos en mesa, mise en place de parrilla al día y estándar de calidad en cada término de carne."
+            "¡Saludos desde los fogones de El Solar! La parrilla de leña está encendida. Para cortes madurados recomendamos término 3/4 para conservar jugosidad. ¿Qué corte o preparación de la carta deseas calibrar?"
         )
-    elif assistant_id == "solar_admin":
+    elif asst in ["solar_admin"]:
         return (
-            "Administración de El Solar Gastro-Bar conectada: reportes de ventas por turno, facturación electrónica y control de insumos con proveedores al día."
+            "Panel Administrativo de El Solar Gastro-Bar activo. Inventarios de bebidas, insumos de cocina y costos operativos al día. ¿Qué reporte de turno o compras necesitas?"
         )
 
-    # 3. ALMA TECH & AUTONOMOUS MULTI-AGENT
-    elif assistant_id == "alma":
+    # 3. ALMA MULTI-AGENT & OPENCLAW VAULTS
+    elif asst == "mufasa":
+        return (
+            "Mufasa en línea. Bóvedas OpenClaw 00_GESTION a 04_HERRAMIENTAS indexadas. Sincronización de tareas y andamiaje de arquitectura de agentes lista para desplegar."
+        )
+    elif asst == "vera":
+        return (
+            "Vera lista. Estructura formal de 24 secciones disponible. Puedo analizar tus requisitos técnicos y separar estrictamente elementos confirmados de inferidos sin ambigüedades."
+        )
+    elif asst == "nemesis":
+        return (
+            "Némesis en guardia. Blindaje de calidad GAP-X y auditoría de regresión activa. Todos los endpoints y flujos verificados contra fallos y desvíos."
+        )
+    elif asst == "kali":
+        return (
+            "Kali conectada. Consola Supabase, migraciones PostgreSQL, Docker y túneles seguros listos. Infraestructura cloud y on-device sincronizada."
+        )
+    elif asst == "bruce":
+        return (
+            "Bruce activo en Ollama local. Inferencia 100% privada y on-device asegurada. Ningún dato sensible sale de la máquina local."
+        )
+    elif asst == "atlas":
+        return (
+            "Atlas preparado. Mesa de ayuda y continuidad operativa al 100%. Soporte técnico de primer nivel para usuarios y agentes."
+        )
+    elif asst == "alma":
         return (
             "Ecosistema ALMA TECH conectado y operativo. Monitoreando en paralelo: SIREN (8888), ALMA Autonomous Multi-Agent (5173), Cipote Cevicheria y El Solar Gastro-Bar. ¿Qué aspecto estratégico u operativo deseas coordinar?"
         )
-    elif assistant_id in ["mufasa", "vera", "nemesis", "kali", "bruce", "atlas"]:
-        return (
-            f"Agente autónomo **{assistant_id.upper()}** de ALMA Multi-Agent activo. Estado de conexión con el núcleo de gobernanza y bóvedas OpenClaw verificado. Listo para ejecutar instrucciones operativas."
-        )
 
-    # 4. SIREN AI (SAM BARTON)
-    elif assistant_id == "chloe":
-        if is_table_query:
-            return (
-                "Sam, aquí tienes tu matriz estratégica de publicaciones para la semana en **@sambartonn23**:\n\n"
-                "| Día | Formato | Temática Tomboy | Objetivo de Interacción | Llamado a la Acción (CTA) |\n"
-                "|---|---|---|---|---|\n"
-                "| **Lunes** | Historia + Encuesta | Ukelele acústico & café de mañana | Reactivar visualizaciones tempranas | *'¿Qué canción acústica quieren hoy?'* |\n"
-                "| **Martes** | Reel / Post Feed | Outfit Tomboy deportivo casual | Gancho de atracción estética | *'Vibra relajada. Link en bio para charlar conmigo '* |\n"
-                "| **Miércoles** | 3 Historias con Stickers | Detrás de cámaras en setup de luces | Preguntas de fans de USA | Cajita de preguntas en inglés |\n"
-                "| **Jueves** | Post Foto + Caption EN | Mirada directa y look biker | Posicionamiento internacional | *'Late night session starting soon...'* |\n"
-                "| **Viernes** | Countdown Story | Teaser de turno de fin de semana | Embudo hacia Streamate / LoyalFans | Recordatorio para conectar en directo |\n"
-                "| **Sábado** | Reel Dinámico | Acústico corto en vivo | Tráfico directo de fin de semana | *'Full acoustic session on my private link'* |\n"
-                "| **Domingo** | Carrusel Lifestyle | Rutina de descanso & ukelele | Fidelización de comunidad | Interacción relajada en comentarios |\n\n"
-                " **Consejo Anti-Shadowban**: Recuerda usar siempre enlaces puente en tu biografía y evitar términos explícitos en stories."
-            )
-        elif any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
+    # 4. SIREN COPILOTS (SAM BARTON)
+    elif asst == "mahia":
+        return (
+            "¡Sam! StreamMonitor y presets de sala listos. Puedes disparar las acciones tácticas con un clic desde el panel derecho o decirme qué dinámica prefieres activar en cámara."
+        )
+    elif asst == "chloe":
+        if any(w in msg_low for w in ["historia", "historias", "pack", "stories", "dia", "día"]):
             return (
                 "Para tus historias de hoy con vibra tomboy:\n"
-                "1. **Mañana**: Boomerang casual afinando el ukelele o preparando café con texto: *'Modo enfoque activado... ¿quién anda por acá?'* + sticker de encuesta.\n"
-                "2. **Tarde**: Foto en cabina/set con luz tenue: *'Segunda mitad del día, lista para lo bueno '*.\n"
-                "3. **Cierre**: Gancho a LoyalFans/Streamate: *'Los detalles exclusivos están en el link de mi bio '*."
-            )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "¡Hola Sam! Lista para mover el algoritmo de @sambartonn23 hoy. ¿Quieres que preparemos una matriz de contenido semanal, el pack de historias del día o un copy para tu próximo post?"
+                "1. **Mañana SFW**: Foto casual con café y ukelele al fondo. Copy: 'Unplugged morning. ¿Qué canción aprendo hoy?'\n"
+                "2. **Tarde Tomboy Vibe**: Video corto afinando el instrumento y sonriendo a cámara. Sticker de encuesta interactiva.\n"
+                "3. **Noche Embudo VIP**: Foto con luz tenue antes de entrar a privado. Copy: 'En vivo ahora, enlace en bio para charlar directo'."
             )
         else:
             return (
-                f"Sam, respecto a tu consulta: para mantener alta la retención en @sambartonn23, publica historias con stickers interactivos cada 3 horas y usa siempre un gancho claro al inicio."
+                "Chloe activa. Estrategia de Instagram @sambartonn23 orientada a conversión SFW hacia LoyalFans y Streamate. ¿Generamos historias o analizamos el engagement del último post?"
             )
-    elif assistant_id == "diana":
-        if is_table_query or any(w in msg_low for w in ["ganancia", "split", "cuanto", "precio", "privado", "exclusivo", "gold", "dolar", "balance"]):
-            return (
-                "Sam, aquí tienes la auditoría detallada y matriz comparativa de tus splits reales por plataforma:\n\n"
-                "| Plataforma / Modalidad | Tarifa Pública | Split Estudio / Fee | Neto Sam Barton | Neto Estimado por Sesión |\n"
-                "|---|---|---|---|---|\n"
-                "| **Streamate Privado** | $2.99 / min | 35% estudio | **17.5% ($0.52 / min)** | $5.23 USD (10 min priv) |\n"
-                "| **Streamate Exclusivo** | $3.99 / min | 35% estudio | **17.5% ($0.70 / min)** | $10.47 USD (15 min excl) |\n"
-                "| **Streamate Gold Menu (25G)** | $25.00 USD | 35% estudio | **$4.37 USD neto** | $4.37 USD por compra |\n"
-                "| **LoyalFans Pay-per-msg** | $1.00 / msg | 20% plataforma | **80% ($0.80 / msg)** | $16.00 USD (20 chats) |\n"
-                "| **LoyalFans Venta Clip VIP** | $15.00 USD | 20% plataforma | **80% ($12.00 neto)** | $12.00 USD por venta |\n"
-                "| **Stripchat Tip Goal Lovense** | 25 tokens ($1.25) | 50% modelo | **50% ($0.62 neto)** | $6.25 USD (10 tips) |\n\n"
-                " **Regla de Rentabilidad**: En Streamate tu ticket más eficiente es el Exclusivo a **$3.99/min** ($0.70 neto/min). En LoyalFans tu umbral mínimo de cobro es **$50 USD** con 80% directo a tu favor."
-            )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "¡Hola Sam! Aquí revisando tus balances y proyecciones. ¿Quieres que auditemos tus splits en una tabla matriz o revisemos el balance para el próximo corte?"
-            )
-        else:
-            return (
-                f"Sam, analizando tu consulta: recuerda siempre separar los ingresos directos (LoyalFans 80%) de los de cuenta estudio (Streamate 50% split) para calcular con exactitud tu flujo de caja neto."
-            )
-    elif assistant_id == "electra":
-        if is_table_query:
-            return (
-                "Sam, esta es tu matriz de posicionamiento y horarios de tráfico alto para dominar los feeds:\n\n"
-                "| Plataforma | Factor Algorítmico | Horario Óptimo (USA / Col) | Acción Inmediata | Impacto en Ranking |\n"
-                "|---|---|---|---|---|\n"
-                "| **LoyalFans** | Ciclo de Bump cada 3.5h | 11:00 AM, 2:30 PM, 6:00 PM, 9:30 PM | Ejecutar re-bump exacto | Devuelve tu perfil al Top 1 del feed |\n"
-                "| **Streamate** | Retención Free Chat (<30s) | 8:00 PM - 12:00 AM (Prime US) | Charla verbal de bienvenida al segundo 3 | Sube a Página 1 en categoría Tomboy |\n"
-                "| **Stripchat** | Tip Goals Lovense tempranos | Primeros 15 min de transmisión | Activar meta de 50 tokens de bienvenida | Activa badge *'Trending Now'* en sala |\n"
-                "| **Instagram** | Historias con Sticker Interactivo | 1:00 PM y 7:30 PM | Encuesta o cajita de preguntas | Reactiva la cuenta antes de iniciar transmisión |\n\n"
-                " **Clave de Tráfico**: Los primeros 30 segundos de free chat en Streamate determinan el 70% de las conversiones hacia privado."
-            )
-        elif any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
-            return (
-                "Sam, checklist del algoritmo:\n"
-                "1. **LoyalFans**: Ejecuta el bump cada 3.5 horas exactas. Esto te devuelve a la parte superior del feed orgánico.\n"
-                "2. **Streamate**: Los primeros 30 segundos de free chat definen tu multiplicador de visibilidad. Mantén la interacción verbal activa de inmediato.\n"
-                "3. **Tags clave**: Asegúrate de tener activos `#Tomboy`, `#Versatile`, `#Ukelele` y `#Cam2Cam`."
-            )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "¡Hola Sam! Monitores de tráfico al 100%. ¿Quieres revisar una matriz de horarios de tráfico o el cooldown de tu bump en LoyalFans?"
-            )
-        else:
-            return (
-                f"Sam, sobre tu consulta: para elevar el score en los rankings de streaming, cambia el tema de sala cada 90 minutos y estimula las propinas rápidas en los primeros minutos de transmisión."
-            )
-    else: # Roxanne (Default para SIREN)
+    elif asst == "diana":
+        return (
+            "Diana en finanzas. Split 100% verificado y conciliación de propinas en curso. Tus balances de LoyalFans y Streamate están auditados y listos para cobro."
+        )
+    elif asst == "electra":
+        return (
+            "Electra en tráfico algorítmico. Monitores de visibilidad al 100%. Te sugiero mantener el ciclo de bump en LoyalFans cada 3.5 horas y variar el topic cada 90 minutos en streaming."
+        )
+    elif asst in ["roxanne", "siren"]:
         if any(w in msg_low for w in ["menu", "menú", "gold", "ruleta", "rueda", "wheel", "topic", "tema", "sala", "buzz"]):
             return (
                 "¡Entendido, Sam! Aquí tienes tu configuración completa para hoy enfocada en **Golds & Buzz Lovense**, con precios accesibles (3G y 5G), opciones de ruleta más íntimas (distintas al menú) y el topic con hashtags optimizado a 110 caracteres (límite 140):\n\n"
-                "###  1. Menú GOLD (Todos a 3 Gold)\n"
+                "### 1. Menú GOLD (Todos a 3 Gold)\n"
                 "*(Estructura lista para copiar en la herramienta Menú GOLD)*\n"
                 "```text\n"
                 "Buzz Lovense Nivel 1 (15 seg) - 3\n"
@@ -370,7 +351,7 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "Desabotonar Camisa Tomboy - 3\n"
                 "Susurro Erótico al Micrófono - 3\n"
                 "```\n\n"
-                "###  2. Ruleta Íntima (Costo: 5 Gold por giro)\n"
+                "### 2. Ruleta Íntima (Costo: 5 Gold por giro)\n"
                 "*(Opciones más íntimas y exclusivas, 100% diferentes al menú Gold)*\n"
                 "```text\n"
                 "Costo: 5\n"
@@ -385,11 +366,10 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "Audio Erótico Susurrado al Oído\n"
                 "1 Minuto de Pre-Privado Exclusivo\n"
                 "```\n\n"
-                "###  3. Tema de la Sala (110 caracteres / Máx 140)\n"
+                "### 3. Tema de la Sala (110 caracteres / Máx 140)\n"
                 "```text\n"
-                " BUZZ LOVENSE ACTIVO  Menu Gold 3G  Ruleta Íntima 5G  Tease Tomboy en Vivo #Tomboy #Lovense #Gold #Cam2Cam\n"
-                "```\n\n"
-                " *Ya actualicé y dejé guardados estos valores en tu configuración local. Al abrir cualquiera de los botones de Stream Monitor en la barra lateral derecha, ya los encontrarás precargados para aplicar.*"
+                "BUZZ LOVENSE ACTIVO Menu Gold 3G Ruleta Íntima 5G Tease Tomboy en Vivo #Tomboy #Lovense #Gold #Cam2Cam\n"
+                "```"
             )
         elif is_table_query:
             return (
@@ -402,16 +382,19 @@ def generate_contextual_fallback(assistant_id: str, message: str) -> str:
                 "| **Gold Menu: Nivel 1** | **3 Gold (Económico)** | Buzz Lovense o subida de top | Gancho de volumen y microtips rápidos |\n"
                 "| **Ruleta de Turno** | **5 Gold por giro** | Dinámicas íntimas (Twerk, Tease, Control) | Retención y juego continuo en sala |\n"
                 "| **Gold Menu: Clímax** | **50 Gold ($8.75 neto)** | Dinámica Lovense nivel máximo | Conexión directa y salto a exclusivo |\n\n"
-                " **Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
-            )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, una matriz de tarifas o preparemos las dinámicas de cámara."
+                "**Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
             )
         else:
             return (
-                f"Sam, respecto a tu consulta: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
+                "Sam, respecto a tu consulta: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
             )
+
+    # 5. DEFAULT GENERAL NEUTRAL (NO CROSS-TALK)
+    else:
+        return (
+            f"Como asistente de ALMA TECH, he recibido tu consulta: '{message}'. "
+            "Todos los sistemas y agentes del ecosistema están activos y sincronizados. ¿Deseas coordinar alguna tarea específica?"
+        )
 
 DB_PATH = ROOT / "data" / "velvet_analytics.db"
 PORT = 8888
@@ -733,7 +716,21 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
             data = json.loads(body) if body else {}
-            assistant_id = data.get("assistant", "roxanne").lower()
+            assistant_id = data.get("assistant", "roxanne").lower().strip()
+            if assistant_id in ["cipote", "don_cipote", "chef"]:
+                assistant_id = "cipote_chef"
+            elif assistant_id in ["barman", "bar"]:
+                assistant_id = "cipote_bar"
+            elif assistant_id in ["pos", "cajero"]:
+                assistant_id = "cipote_pos"
+            elif assistant_id in ["delivery", "despacho"]:
+                assistant_id = "cipote_delivery"
+            elif assistant_id in ["solecito", "solar", "reservas"]:
+                assistant_id = "solar_solecito"
+            elif assistant_id in ["maitre", "mesero", "salon"]:
+                assistant_id = "solar_maitre"
+            elif assistant_id in ["parrilla", "parrillero"]:
+                assistant_id = "solar_chef"
             
             sample_messages = {
                 "roxanne": "¡Hola Sam! Notificación en tiempo real de Roxanne verificada con éxito en tu pantalla de bloqueo. Sistema operativo y listo.",
@@ -1966,7 +1963,21 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             message = data.get("message", "").strip()
             model_name = data.get("model", "qwen2.5:7b-instruct")
             chat_history = data.get("history", [])
-            assistant_id = data.get("assistant", "roxanne").lower()
+            assistant_id = data.get("assistant", "roxanne").lower().strip()
+            if assistant_id in ["cipote", "don_cipote", "chef"]:
+                assistant_id = "cipote_chef"
+            elif assistant_id in ["barman", "bar"]:
+                assistant_id = "cipote_bar"
+            elif assistant_id in ["pos", "cajero"]:
+                assistant_id = "cipote_pos"
+            elif assistant_id in ["delivery", "despacho"]:
+                assistant_id = "cipote_delivery"
+            elif assistant_id in ["solecito", "solar", "reservas"]:
+                assistant_id = "solar_solecito"
+            elif assistant_id in ["maitre", "mesero", "salon"]:
+                assistant_id = "solar_maitre"
+            elif assistant_id in ["parrilla", "parrillero"]:
+                assistant_id = "solar_chef"
 
             if not message:
                 self.send_response(400)
@@ -2093,8 +2104,19 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 active_system_prompt = MAHIA_CPU_SYSTEM_PROMPT
             elif assistant_id in SYSTEM_PROMPTS_BY_AGENT:
                 active_system_prompt = SYSTEM_PROMPTS_BY_AGENT[assistant_id]
+            elif assistant_id.startswith("cipote_") or "cipote" in assistant_id:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get("cipote_chef")
+            elif assistant_id.startswith("solar_") or "solar" in assistant_id:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get("solar_solecito")
+            elif assistant_id in ["alma", "mufasa", "vera", "nemesis", "kali", "bruce", "atlas"]:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get(assistant_id, SYSTEM_PROMPTS_BY_AGENT.get("alma"))
+            elif assistant_id in ["roxanne", "chloe", "diana", "electra"]:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get(assistant_id, ROXANNE_CPU_SYSTEM_PROMPT)
             else:
-                active_system_prompt = ROXANNE_CPU_SYSTEM_PROMPT
+                active_system_prompt = (
+                    "Eres un asistente virtual profesional y analítico del ecosistema ALMA TECH. "
+                    "Responde con precisión, calidez y enfoque operativo a la consulta del usuario."
+                )
 
             # Preparar mensajes para Ollama (limitar historial a últimos 6 mensajes = 3 turnos para máxima agilidad en CPU)
             recent_history = [h for h in chat_history if "role" in h and "content" in h][-6:]

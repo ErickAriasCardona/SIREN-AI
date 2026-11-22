@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+<meta charset="UTF-8">
+<script>
+(function() {
+  try {
+    if (localStorage.getItem('alma_tech_auth_token')) {
+      document.documentElement.classList.add('has-auth-token');
+    }
+  } catch (e) {}
+})();
+</script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
   <title>ALMA TECH — Command & Intelligence Center | Sam Barton</title>
@@ -5905,6 +5915,9 @@
             <div class="alma-brand-tech-badge" id="sidebar-brand-badge">by ALMA TECH</div>
           </div>
         </div>
+        <button id="btn-sidebar-toggle" class="sidebar-header-toggle-btn" onclick="toggleSidebar()" title="Colapsar / Expandir barra lateral">
+          <i data-lucide="panel-left-close" id="sidebar-toggle-icon"></i>
+        </button>
       </div>
     </div>
 
@@ -5969,6 +5982,10 @@
         <span class="version-dot"></span>
         <span class="version-text">v1.0</span>
       </div>
+      <button class="sidebar-logout-pill" onclick="handleMasterLogout()" title="Cerrar Sesión">
+        <i data-lucide="log-out"></i>
+        <span class="logout-label">Salir</span>
+      </button>
     </div>
   </aside>
 
@@ -12071,6 +12088,15 @@ Cat Lover </div>
         }
       }
 
+      // Sincronizar botón interno en el header del sidebar
+      const sidebarToggleBtn = document.getElementById('btn-sidebar-toggle');
+      if (sidebarToggleBtn) {
+        sidebarToggleBtn.innerHTML = isCollapsed ? 
+          '<i data-lucide="panel-left-open"></i>' : 
+          '<i data-lucide="panel-left-close"></i>';
+        sidebarToggleBtn.title = isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral';
+      }
+
       try {
         localStorage.setItem('siren_sidebar_collapsed', isCollapsed ? '1' : '0');
       } catch (e) {}
@@ -17572,7 +17598,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           <div class="floating-agent-name-row">
             <strong id="floating-agent-name">ROXANNE</strong>
             <span class="floating-live-dot" title="En línea"></span>
-            <select id="floating-agent-select" onchange="switchFloatingAgent(this.value)" class="floating-agent-select" title="Cambiar de asistente" style="display: none !important;">
+            <select id="floating-agent-select" onchange="switchFloatingAgent(this.value)" class="floating-agent-select" title="Cambiar de asistente" style="display:none !important;">
               <option value="roxanne">Roxanne (Shows & Webcam)</option>
               <option value="mahia">Mahia (StreamMonitor Live)</option>
               <option value="chloe">Chloe (Instagram & Funnels)</option>
@@ -18447,38 +18473,40 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       if (linkEl && url) linkEl.href = url;
 
       if (frame && url) {
-        // Enviar evento postMessage al iframe de ALMA Multi-Agent para transicionar de pestaña sin fricción
-        try {
-          let targetTab = 'overview';
-          const uLower = url.toLowerCase();
-          if (uLower.includes('vault')) targetTab = 'vaultbrain';
-          else if (uLower.includes('supa') || uLower.includes('migrat') || uLower.includes('config') || uLower.includes('setting')) targetTab = 'settings';
-          else if (uLower.includes('pattern') || uLower.includes('gap') || uLower.includes('circuit') || uLower.includes('topo')) targetTab = 'circuit';
-          else if (uLower.includes('map') || uLower.includes('neural')) targetTab = 'map';
-          else if (uLower.includes('fleet')) targetTab = 'fleet';
-          else if (uLower.includes('assist') || uLower.includes('chat') || uLower.includes('stage')) targetTab = 'assistant';
+        let targetTab = 'overview';
+        const uLower = url.toLowerCase();
+        if (uLower.includes('vault')) targetTab = 'vaultbrain';
+        else if (uLower.includes('supa') || uLower.includes('migrat') || uLower.includes('config') || uLower.includes('setting')) targetTab = 'settings';
+        else if (uLower.includes('pattern') || uLower.includes('gap') || uLower.includes('circuit') || uLower.includes('topo')) targetTab = 'circuit';
+        else if (uLower.includes('map') || uLower.includes('neural')) targetTab = 'map';
+        else if (uLower.includes('fleet')) targetTab = 'fleet';
+        else if (uLower.includes('assist') || uLower.includes('chat') || uLower.includes('stage')) targetTab = 'assistant';
 
-          if (frame.contentWindow) {
-            frame.contentWindow.postMessage({ type: 'ALMA_SWITCH_TAB', tab: targetTab }, '*');
-          }
-        } catch (e) {}
+        if (url.includes('5173')) {
+          const finalUrl = `http://localhost:5173/?tab=${targetTab}&t=${Date.now()}#/${targetTab}`;
+          frame.src = finalUrl;
+          if (urlEl) urlEl.textContent = `http://localhost:5173/#/${targetTab}`;
+          if (linkEl) linkEl.href = `http://localhost:5173/#/${targetTab}`;
 
-        if (frame.src !== url) {
-          frame.src = url;
+          const sendMsg = () => {
+            try {
+              if (frame.contentWindow) {
+                frame.contentWindow.postMessage({ type: 'ALMA_SWITCH_TAB', tab: targetTab }, '*');
+              }
+            } catch (_) {}
+          };
+          sendMsg();
+          setTimeout(sendMsg, 120);
+          setTimeout(sendMsg, 400);
         } else {
-          // Si la URL base es igual pero cambia el hash, sincronizar hash directamente
-          try {
-            const hash = url.split('#')[1] || '';
-            if (hash && frame.contentWindow) {
-              frame.contentWindow.location.hash = '#' + hash;
-            }
-          } catch (e) {}
+          if (frame.src !== url) {
+            frame.src = url;
+          }
         }
       }
 
       switchMainTab('tab-ecosystem-embed');
 
-      // Marcar botón activo en el menú lateral
       if (btnEl) {
         document.querySelectorAll('#sidebar-nav .nav-btn').forEach(b => b.classList.remove('active'));
         btnEl.classList.add('active');
@@ -18506,9 +18534,11 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           if (item.green) badgeStyle = 'background: rgba(16, 185, 129, 0.2); color: #34d399;';
           if (item.teal) badgeStyle = 'background: rgba(0, 229, 191, 0.25); color: #00A88F;';
 
-          const clickAction = (item.id === 'tab-ecosystem-embed' && item.url)
-            ? `loadEcosystemEmbed('${item.url}', '${item.label}', '${item.badge}', this)`
-            : `switchMainTab('${item.id}', this)`;
+          const clickAction = item.action
+            ? item.action
+            : ((item.id === 'tab-ecosystem-embed' && item.url)
+              ? `loadEcosystemEmbed('${item.url}', '${item.label}', '${item.badge}', this)`
+              : `switchMainTab('${item.id}', this)`);
 
           html += `
           <button class="nav-btn" onclick="${clickAction}" data-tooltip="${item.label}" title="${item.label}">
@@ -18856,6 +18886,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
     function unlockMasterGate(user) {
+      document.documentElement.classList.add('has-auth-token');
       const overlay = document.getElementById('alma-master-gate-overlay');
       if (overlay) {
         overlay.classList.add('authenticated');
@@ -18867,6 +18898,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     }
 
     function lockMasterGate() {
+      document.documentElement.classList.remove('has-auth-token');
       const overlay = document.getElementById('alma-master-gate-overlay');
       if (overlay) {
         overlay.classList.remove('authenticated');
@@ -18899,6 +18931,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
       localStorage.removeItem('alma_tech_auth_token');
       localStorage.removeItem('alma_tech_user');
+      document.documentElement.classList.remove('has-auth-token');
       lockMasterGate();
     }
 
