@@ -768,13 +768,34 @@
     }
     .alma-floating-chat.minimized .floating-drag-grip,
     .alma-floating-chat.minimized .floating-agent-status,
+    .alma-floating-chat.minimized #floating-agent-status,
     .alma-floating-chat.minimized .floating-agent-select,
+    .alma-floating-chat.minimized #floating-agent-select,
     .alma-floating-chat.minimized .floating-ctrl-btn:nth-child(1),
     .alma-floating-chat.minimized .floating-quick-pills,
+    .alma-floating-chat.minimized #floating-quick-pills,
     .alma-floating-chat.minimized .floating-chat-messages,
+    .alma-floating-chat.minimized #floating-chat-messages,
     .alma-floating-chat.minimized .floating-typing-indicator,
-    .alma-floating-chat.minimized .floating-chat-input-bar {
+    .alma-floating-chat.minimized #floating-typing-indicator,
+    .alma-floating-chat.minimized .floating-chat-input-bar,
+    .alma-floating-chat.minimized #floating-chat-input-bar {
       display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      height: 0 !important;
+      width: 0 !important;
+      overflow: hidden !important;
+      pointer-events: none !important;
+    }
+    .alma-floating-chat.minimized .floating-chat-agent-info {
+      gap: 8px !important;
+      max-width: calc(100% - 60px) !important;
+    }
+    .alma-floating-chat.minimized .floating-agent-meta {
+      overflow: hidden !important;
+      text-overflow: ellipsis !important;
+      white-space: nowrap !important;
     }
     .alma-floating-chat.minimized .floating-agent-avatar {
       width: 32px !important;
@@ -961,6 +982,35 @@
     .float-msg.assistant, .floating-chat-msg.assistant {
       align-self: flex-start;
     }
+        /* Posicionamiento card adaptive in Light Theme */
+    body.light-theme #tab-posicionamiento .card {
+      background: #ffffff !important;
+      border: 1.5px solid rgba(0, 168, 143, 0.25) !important;
+      box-shadow: 0 10px 30px rgba(0, 168, 143, 0.08) !important;
+    }
+    body.light-theme #tab-posicionamiento .card span[style*="color: #fff"] {
+      color: #06342D !important;
+    }
+    body.light-theme #tab-posicionamiento div[style*="background: rgba(0,0,0,0.25)"] {
+      background: rgba(0, 168, 143, 0.06) !important;
+      border-color: rgba(0, 168, 143, 0.2) !important;
+    }
+    body.light-theme #tab-posicionamiento div[style*="background: rgba(0,0,0,0.25)"] span[style*="color: #fff"] {
+      color: #06342D !important;
+    }
+    body.light-theme #tab-posicionamiento p[style*="color: #e2e8f0"] {
+      color: #43635C !important;
+    }
+    body.light-theme #positioning-platform-select {
+      background: #ffffff !important;
+      border: 1.5px solid rgba(0, 168, 143, 0.3) !important;
+      color: #06342D !important;
+    }
+    body.light-theme #positioning-platform-select option {
+      background: #ffffff !important;
+      color: #06342D !important;
+    }
+
     /* FLOATING CHAT: ALMA INVERTED HIGH-CONTRAST SYSTEM */
     /* Cuando la página está en modo oscuro: Chat es CLARO con LETRA OSCURA */
     body:not(.light-theme) .alma-floating-chat {
@@ -2708,7 +2758,7 @@
     body.light-theme #streamateRadarModal .sm-radar-link-btn.secondary {
       background: #f5f3ff !important;
       color: #6d28d9 !important;
-      border: 1px solid #a78bfa !important;
+      border: 1px solid #00E5BF !important;
     }
     body.light-theme #streamateRadarModal .sm-radar-link-btn.secondary:hover {
       background: #008B7A !important;
@@ -3071,7 +3121,7 @@
     .chat-bubble .chat-inline-code {
       background: rgba(0, 0, 0, 0.4);
       border: 1px solid rgba(255, 255, 255, 0.12);
-      color: #f472b6;
+      color: #00A88F;
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
       font-size: 11.5px;
       padding: 2px 6px;
@@ -4857,7 +4907,7 @@
     </nav>
 
     <div class="sidebar-footer">
-      <div class="sidebar-version-pill" title="Versión Oficial SIREN AI">
+      <div class="sidebar-version-pill" title="Versión Oficial ALMA TECH">
         <span class="version-dot"></span>
         <span class="version-text">v1.0</span>
       </div>
@@ -5896,7 +5946,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   </tr>
                   <tr>
                     <td><strong>Septiembre 2026</strong></td>
-                    <td><strong style="color: #a78bfa;">$7.19 USD</strong></td>
+                    <td><strong style="color: #00A88F;">$7.19 USD</strong></td>
                     <td><span class="table-badge badge-warning" style="background:rgba(239,68,68,0.15); color:#f87171;">Saldo Pendiente</span></td>
                     <td>Acumulado para retiro</td>
                   </tr>
@@ -6369,7 +6419,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <!-- Selector de Páginas / Plataformas para ver por página -->
             <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
               <label style="font-size: 12px; color: var(--text-dim); font-weight: 600;">Ver por Página:</label>
-              <select id="positioning-platform-select" onchange="onPositioningPlatformChange()" style="background: #181324; border: 1px solid #533c77; color: #fff; padding: 7px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">
+              <select id="positioning-platform-select" onchange="onPositioningPlatformChange()" style="background: rgba(0, 229, 191, 0.12); border: 1px solid rgba(0, 229, 191, 0.35); color: var(--text-main); padding: 7px 12px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer; outline: none;">
                 <option value="loyalfans"> LoyalFans (Principal)</option>
                 <option value="stripchat"> Stripchat (Cams & Tokens)</option>
                 <option value="flirt4free"> Flirt4Free (VIP Private)</option>
@@ -6383,12 +6433,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
           <!-- 4 KPIs Dinámicos de Posicionamiento -->
           <div class="grid-4" style="margin-bottom: 16px;">
-            <div class="kpi-card" style="border-left: 3px solid #ff2a85;">
+            <div class="kpi-card" style="border-left: 3px solid #00A88F;">
               <div class="kpi-header">
                 <span class="kpi-title">Percentil en Plataforma</span>
-                <div class="kpi-icon"><i data-lucide="award" style="color: #ff2a85;"></i></div>
+                <div class="kpi-icon"><i data-lucide="award" style="color: #00A88F;"></i></div>
               </div>
-              <div id="live-pos-percentile" class="kpi-value" style="color: #ff2a85;">Top 23%</div>
+              <div id="live-pos-percentile" class="kpi-value" style="color: #00A88F;">Top 23%</div>
               <div id="live-pos-feed-rank" class="kpi-sub">Posición #1 en 'Recently Updated' al publicar post</div>
             </div>
 
@@ -6410,12 +6460,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
               <div id="live-pos-balance" class="kpi-sub">Balance acumulado: $15.59 USD</div>
             </div>
 
-            <div class="kpi-card" style="border-left: 3px solid #ffd166;">
+            <div class="kpi-card" style="border-left: 3px solid #1AE589;">
               <div class="kpi-header">
                 <span class="kpi-title">Brecha Siguiente Nivel</span>
-                <div class="kpi-icon"><i data-lucide="target" style="color: #ffd166;"></i></div>
+                <div class="kpi-icon"><i data-lucide="target" style="color: #1AE589;"></i></div>
               </div>
-              <div id="live-pos-gap" class="kpi-value" style="color: #ffd166;">+$6.60 USD</div>
+              <div id="live-pos-gap" class="kpi-value" style="color: #1AE589;">+$6.60 USD</div>
               <div id="live-pos-fans" class="kpi-sub">Objetivo: Top 18% (604 fans activos)</div>
             </div>
           </div>
@@ -6438,7 +6488,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             <div style="background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 14px;">
               <div style="font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
                 <i data-lucide="compass" style="width: 14px; height: 14px; color: #1AE589;"></i>
-                <span>Acción Recomendada por SIREN AI</span>
+                <span>Acción Recomendada por ALMA TECH</span>
               </div>
               <p id="live-pos-action" style="font-size: 12px; color: #e2e8f0; line-height: 1.6; margin: 0 0 10px 0;">
                 Lanzar Mass DM PPV a $9.99 USD a los 604 fans para ascender al Top 18%.
@@ -8433,7 +8483,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                 </div>
                 <div style="display:flex; align-items:center; gap: 10px; flex-wrap: wrap;">
                   <span id="chat-engine-status" class="table-badge badge-success" onclick="openServerConfigModal()" style="font-size: 11px; padding: 4px 9px; cursor: pointer;" title="Clic para ver o configurar el enlace al servidor SIREN">
-                     Servidor SIREN Conectado en Vivo
+                     Servidor ALMA TECH Conectado en Vivo
                   </span>
                   <select id="chat-model-select" onchange="syncModelSelectWithRadio(this.value)" style="background: var(--bg-card); border: 1px solid var(--border-color); color: #fff; padding: 5px 10px; border-radius: 6px; font-size: 11px; outline: none; cursor: pointer;">
                     <option value="qwen2.5:7b-instruct" selected>qwen2.5:7b-instruct (Local Offline)</option>
@@ -8568,7 +8618,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
                   <div class="sub">100% GPU Activo</div>
                 </div>
                 <div class="roxanne-kpi-mini">
-                  <div class="title">Servidor SIREN</div>
+                  <div class="title">Servidor ALMA TECH</div>
                   <div class="val" id="server-kpi-status" style="color: #1AE589;">Puerto 8888</div>
                   <div class="sub">API Server Activo</div>
                 </div>
@@ -9017,7 +9067,7 @@ Cat Lover </div>
           <button id="sm-filter-all" class="sm-filter-pill active" onclick="setSmMessagesFilter('all', this)">
             Todos <strong id="kpi-sm-total-count" style="margin-left: 3px;">6</strong>
           </button>
-          <button id="sm-filter-pending" class="sm-filter-pill" onclick="setSmMessagesFilter('pending', this)" style="border-color: rgba(234, 179, 8, 0.4); color: #facc15;">
+          <button id="sm-filter-pending" class="sm-filter-pill" onclick="setSmMessagesFilter('pending', this)" style="border-color: rgba(234, 179, 8, 0.4); color: #1AE589;">
             Pendientes <strong id="kpi-sm-pending-count" style="margin-left: 3px;">5</strong>
           </button>
           <button id="sm-filter-urgent" class="sm-filter-pill" onclick="setSmMessagesFilter('urgent', this)" style="border-color: rgba(239, 68, 68, 0.4); color: #f87171;">
@@ -9206,7 +9256,7 @@ Cat Lover </div>
           <div style="color: #00E5BF;"><i data-lucide="sparkles" style="width: 18px; height: 18px;"></i></div>
           <div>
             <div style="font-size: 10px; color: var(--text-dim); text-transform: uppercase;">Exclusivo Promedio</div>
-            <div id="radar-kpi-avg-exclusive" style="font-size: 14px; font-weight: 700; color: #f472b6;">$4.49 / min</div>
+            <div id="radar-kpi-avg-exclusive" style="font-size: 14px; font-weight: 700; color: #00A88F;">$4.49 / min</div>
           </div>
         </div>
       </div>
@@ -9496,7 +9546,7 @@ Cat Lover </div>
                     <span id="smo-auto-private" style="color: var(--text-muted); line-height: 1.35; display: block;">...</span>
                   </div>
                   <div style="background: rgba(0,0,0,0.25); border-radius: 6px; padding: 7px 9px; border: 1px solid rgba(234,179,8,0.2);">
-                    <strong style="color: #facc15; display: block; font-size: 10px; margin-bottom: 2px;"> Propina Gold:</strong>
+                    <strong style="color: #1AE589; display: block; font-size: 10px; margin-bottom: 2px;"> Propina Gold:</strong>
                     <span id="smo-auto-tip" style="color: var(--text-muted); line-height: 1.35; display: block;">...</span>
                   </div>
                 </div>
@@ -9626,7 +9676,7 @@ Cat Lover </div>
       <div class="modal-header">
         <h3 style="display: flex; align-items: center; gap: 8px;">
           <i data-lucide="network" style="color: var(--primary);"></i>
-          Conexión con el Servidor SIREN (PC de Casa)
+          Conexión con el Servidor ALMA TECH (PC de Casa)
         </h3>
         <button class="close-modal" onclick="closeServerConfigModal()"></button>
       </div>
@@ -10139,7 +10189,7 @@ Cat Lover </div>
     // ==========================================
     // PALETA DE COLORES CENTRALIZADA (lib/paleta colores/theme.tsx)
     // ==========================================
-    const SIREN_AI = {
+    const ALMA_TECH = {
       primary: '#00A88F', // HEX 8B53FF (RGB 139, 83, 255) - Púrpura Neón
       primaryLight: '#00E5BF',
       primaryDark: '#1E2432', // HEX 1E2432 (RGB 30, 36, 50) - Azul Noche Profundo
@@ -10154,7 +10204,7 @@ Cat Lover </div>
       danger: '#00A88F',
       info: '#1AE589'
     };
-    window.SIREN_AI = SIREN_AI;
+    window.ALMA_TECH = ALMA_TECH;
 
     // ==========================================
     // RESPONSIVE SIDEBAR TOGGLE LOGIC
@@ -11718,7 +11768,7 @@ Cat Lover </div>
       } catch (err) {
         console.warn('Nota lanzando despliegue:', err);
         closeUpdateModal();
-        showToast(` Servidor SIREN no respondió. Asegúrate de que el servidor esté activo.`);
+        showToast(` Servidor ALMA TECH no respondió. Asegúrate de que el servidor esté activo.`);
       } finally {
         if (confirmBtn) {
           confirmBtn.disabled = false;
@@ -14056,7 +14106,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             statusBadge.style.color = '';
             statusBadge.style.border = '';
             statusBadge.title = `Conectado a ${apiBase || 'servidor local'}. Clic para ver configuración`;
-            statusBadge.innerHTML = ' Servidor SIREN Conectado en Vivo';
+            statusBadge.innerHTML = ' Servidor ALMA TECH Conectado en Vivo';
           }
           if (kpiStatus) {
             kpiStatus.textContent = 'En Línea';
