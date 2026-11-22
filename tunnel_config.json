@@ -1,4 +1,8 @@
 {
-  "tunnel_url": "https://bailey-domain-benefits-limits.trycloudflare.com",
-  "updated_at": "2026-11-22T02:16:47.396649"
+  "active": true,
+  "service": "ALMA TECH - SIREN",
+  "tunnel_url": "https://allocation-similarly-accessory-forming.trycloudflare.com",
+  "public_url": "https://allocation-similarly-accessory-forming.trycloudflare.com",
+  "local_port": 8888,
+  "updated_at": "2026-11-22 02:26:52"
 }
