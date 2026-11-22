@@ -208,7 +208,18 @@
       flex-shrink: 0;
       position: relative;
     }
+    
     .alma-logo-avatar-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover !important;
+      background: #0d1e1a;
+      padding: 1px;
+      display: block;
+      transition: all 0.3s ease;
+    }
+    
       width: 100%;
       height: 100%;
       border-radius: 50%;
@@ -13659,6 +13670,192 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           { label: ' "Top palabras clave para Bio en Streamate"', prompt: 'Electra, dame las palabras clave de alto volumen de búsqueda en Streamate para posicionar mi perfil Tomboy Biker.' }
         ]
       }
+    
+      // --- AGENTES DE CIPOTE CEVICHERÍA ---
+      cipote_chef: {
+        id: 'cipote_chef',
+        name: 'DON CIPOTE',
+        avatarText: 'CP',
+        gradient: 'linear-gradient(135deg, #EC4899, #BE185D)',
+        badge: 'Chef Ejecutivo & Ceviches Costeños',
+        badgeClass: 'badge-purple',
+        desc: 'Especialista en Ceviches Costeños, Pescados Frescos, Leche de Tigre y Control de Porciones',
+        placeholder: 'Consulta a Don Cipote sobre recetas de ceviche, gramaje o control de mermas...',
+        rightHeader: 'Cocina & Recetario Cipote',
+        welcome: '¡Hola! Soy Don Cipote, tu chef ejecutivo. Conmigo preparas los mejores ceviches costeños, controlas los gramajes por porción para evitar mermas y estandarizas la leche de tigre perfecta. ¿Qué plato preparamos hoy?',
+        pills: [
+          { label: 'Receta Ceviche Clásico', prompt: 'Don Cipote, dame la receta y gramaje estándar para el Ceviche Clásico ($18.000) por vaso.' },
+          { label: 'Leche de Tigre Concentrada', prompt: 'Don Cipote, ¿cuál es la fórmula de leche de tigre concentrada para 50 porciones sin que se oxide?' },
+          { label: 'Control de Mermas', prompt: '¿Cómo optimizamos el rendimiento del filete de corvina y camarón para mantener el margen sobre el 65%?' },
+          { label: 'Ceviche Mixto ($24.000)', prompt: 'Don Cipote, especifica la proporción de camarón, calamar y pescado para el Ceviche Mixto.' }
+        ]
+      },
+      cipote_bar: {
+        id: 'cipote_bar',
+        name: 'BARMAN CIPOTE',
+        avatarText: 'BM',
+        gradient: 'linear-gradient(135deg, #F43F5E, #FB7185)',
+        badge: 'Coctelería de Autor & Granizados',
+        badgeClass: 'badge-info',
+        desc: 'Especialista en Cocteles del Caribe, Granizados 16oz, Mezclas de Autor y Maridaje',
+        placeholder: 'Pide al Barman recetas de cócteles, preparaciones de granizados o sugerencias de barra...',
+        rightHeader: 'Barra & Coctelería',
+        welcome: '¡Qué tal! Soy tu Barman de Cipote. Aquí ajustamos los ratios de licor, preparamos granizados de 16oz refrescantes y sugerimos los mejores cócteles para acompañar cada ceviche. ¿Qué bebida servimos?',
+        pills: [
+          { label: 'Cóctel Camarón Especial', prompt: 'Barman, dame la receta de salsa golf marinera con toque caribeño para el Cóctel de Camarón ($22.000).' },
+          { label: 'Granizado 16oz ($12.000)', prompt: '¿Cuál es la proporción ideal de jarabe y hielo para el Granizado 16oz en máquina granizadora?' },
+          { label: 'Maridaje Caribeño', prompt: 'Sugiere 3 cócteles de autor con ron o ginebra que combinen con ceviches picantes.' }
+        ]
+      },
+      cipote_pos: {
+        id: 'cipote_pos',
+        name: 'CAJERO LÍDER',
+        avatarText: 'POS',
+        gradient: 'linear-gradient(135deg, #06B6D4, #0891B2)',
+        badge: 'Control de Comandas & Turnos',
+        badgeClass: 'badge-success',
+        desc: 'Supervisión del POS, Turnos de Caja, Conteo Crítico de Vasos (12oz, 16oz, 24oz) y Cierres',
+        placeholder: 'Consulta sobre cuadre de caja, conteo de vasos o anulación de comandas...',
+        rightHeader: 'Terminal de Caja',
+        welcome: '¡Hola! Soy el Cajero Líder de Cipote. Monitoreo las ventas por turno, el conteo estricto de vasos plásticos por tamaño y el cuadre exacto de caja para que ningún peso se pierda. ¿Qué revisamos?',
+        pills: [
+          { label: 'Apertura de Turno', prompt: 'Cajero Líder, guía los pasos de apertura de turno con base inicial de caja y conteo de vasos.' },
+          { label: 'Conteo Crítico de Vasos', prompt: '¿Cómo cruzo el inventario de vasos de 12oz, 16oz y 24oz contra los ceviches facturados?' },
+          { label: 'Cierre de Caja & Nequi', prompt: 'Genera el formato de balance para cierre de turno con pagos en efectivo, transferencias y Nequi.' }
+        ]
+      },
+      cipote_delivery: {
+        id: 'cipote_delivery',
+        name: 'DESPACHO RÁPIDO',
+        avatarText: 'DP',
+        gradient: 'linear-gradient(135deg, #10B981, #059669)',
+        badge: 'Logística & Domicilios',
+        badgeClass: 'badge-purple',
+        desc: 'Tiempos de Preparación, Control de Empaque Antiderrame y Coordinación de Domiciliarios',
+        placeholder: 'Consulta sobre despachos, rutas de entrega o empaques...',
+        rightHeader: 'Despacho & Domicilios',
+        welcome: '¡Listo para la ruta! Soy Despacho Rápido de Cipote. Me encargo de que los pedidos salgan fríos, bien sellados y en menos de 20 minutos desde la comanda hasta el cliente. ¿Qué pedido despachamos?',
+        pills: [
+          { label: 'Empaque Antiderrame', prompt: '¿Cuál es el protocolo de sellado para evitar derrames de leche de tigre en domicilios en moto?' },
+          { label: 'Tiempos de Entrega', prompt: '¿Cómo optimizamos el tiempo de preparación para mantener el despacho en menos de 15 minutos?' }
+        ]
+      },
+
+      // --- AGENTES DE EL SOLAR ---
+      solar_solecito: {
+        id: 'solar_solecito',
+        name: 'SOLECITO',
+        avatarText: 'SOL',
+        gradient: 'linear-gradient(135deg, #F59E0B, #D97706)',
+        badge: 'Asistente de Reservas WhatsApp',
+        badgeClass: 'badge-info',
+        desc: 'Atención 24/7 a Comensales, Reservas de Mesas Campestres y Menú del Día',
+        placeholder: 'Pide a Solecito redactar respuestas a clientes o gestionar reservas...',
+        rightHeader: 'Atención Comensales',
+        welcome: '¡Bienvenidos a El Solar! Soy Solecito, tu anfitrión digital. Respondo a familias que viajan por carretera, reservo sus mesas campestres favoritas y les cuento qué plato especial tenemos en leña. ¿Qué reserva atendemos?',
+        pills: [
+          { label: 'Confirmar Reserva Familiar', prompt: 'Solecito, redacta un mensaje de confirmación por WhatsApp para una reserva familiar de 8 personas el domingo a la 1:00 PM.' },
+          { label: 'Menú en Carretera', prompt: '¿Cuáles son las opciones de almuerzo campestre que ofrecemos para comensales en tránsito?' }
+        ]
+      },
+      solar_maitre: {
+        id: 'solar_maitre',
+        name: 'MAÎTRE SOLAR',
+        avatarText: 'MT',
+        gradient: 'linear-gradient(135deg, #EAB308, #CA8A04)',
+        badge: 'Salón & Asignación de Mesas',
+        badgeClass: 'badge-purple',
+        desc: 'Control de Salón, Ocupación de Mesas al 88%, Zonas Campestres y Rotación',
+        placeholder: 'Consulta sobre disponibilidad de mesas, eventos o distribución de salón...',
+        rightHeader: 'Protocolo de Salón',
+        welcome: 'Buenas tardes. Soy el Maître de El Solar. Coordino la asignación de mesas en las zonas campestres y terrazas, asegurando una rotación fluida y una experiencia memorable para cada comensal.',
+        pills: [
+          { label: 'Distribución de Mesas 88%', prompt: 'Maître, ¿cuál es la mejor distribución de comensales para una ocupación del 88% sin saturar meseros?' },
+          { label: 'Eventos Campestres', prompt: 'Protocolo de atención para cumpleaños o eventos campestres de más de 15 personas.' }
+        ]
+      },
+      solar_chef: {
+        id: 'solar_chef',
+        name: 'CHEF SOLAR',
+        avatarText: 'CF',
+        gradient: 'linear-gradient(135deg, #EF4444, #DC2626)',
+        badge: 'Parrilla & Cocina Típica',
+        badgeClass: 'badge-danger',
+        desc: 'Cortes de Carne, Asados a la Leña, Sopas Típicas y Tiempos de Salida',
+        placeholder: 'Consulta al Chef sobre asados, gramaje de carne o tiempos de preparación...',
+        rightHeader: 'Cocina de Leña',
+        welcome: '¡Fuego encendido! Soy el Chef de El Solar. Domino los asados a la leña, los cortes madurados y las sopas tradicionales que hacen famoso a nuestro restaurante campestre. ¿Qué orden cocinamos?',
+        pills: [
+          { label: 'Términos de Carne', prompt: 'Chef, tiempos de asado para término medio y tres cuartos en bife de chorizo de 400g.' },
+          { label: 'Platos Típicos Campestres', prompt: '¿Cuáles son los acompañamientos tradicionales recomendados para la bandeja solar campestre?' }
+        ]
+      },
+      solar_admin: {
+        id: 'solar_admin',
+        name: 'AUDITOR FINANCIERO',
+        avatarText: 'AD',
+        gradient: 'linear-gradient(135deg, #10B981, #047857)',
+        badge: 'Cierres de Caja & Costos',
+        badgeClass: 'badge-success',
+        desc: 'Cuadre Diario, Margen por Plato, Inventario de Bebidas y Facturación',
+        placeholder: 'Consulta sobre balance diario, costos de insumos o control de caja...',
+        rightHeader: 'Auditoría & Finanzas',
+        welcome: 'Hola. Soy el Auditor Financiero de El Solar. Verifico cada cuenta, controlo los costos de materia prima en cocina y garantizo cierres de caja transparentes y exactos.',
+        pills: [
+          { label: 'Cuadre Diario', prompt: 'Auditor, genera el resumen de ventas del día por medio de pago (efectivo, datáfono, transferencias).' },
+          { label: 'Food Cost de Parrillada', prompt: 'Calcula el food cost de la parrillada solar para mantener el margen sobre el 68%.' }
+        ]
+      },
+
+      // --- AGENTES DE ALMA CORE ---
+      alma_vision: {
+        id: 'alma_vision',
+        name: 'ALMA VISIÓN',
+        avatarText: 'VIS',
+        gradient: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+        badge: 'Control Gestual con Cámara',
+        badgeClass: 'badge-info',
+        desc: 'Detección de Manos MediaPipe WASM, Sensibilidad de Puntero y HUD en Vivo',
+        placeholder: 'Consulta sobre calibración de cámara, gestos de pinza o tracking...',
+        rightHeader: 'Visión Artificial',
+        welcome: '¡Sistema visual conectado! Soy ALMA Visión. Proceso en tiempo real las coordenadas de tu mano mediante la cámara web para que navegues y selecciones elementos por señas en el aire.',
+        pills: [
+          { label: 'Calibrar Cámara 60FPS', prompt: 'ALMA Visión, ¿cuál es la mejor distancia y ángulo de cámara para detectar los 21 puntos de la mano a 60 FPS?' },
+          { label: 'Gesto de Clic Virtual', prompt: 'Explica cómo funciona el gesto de pinza entre índice y pulgar para activar clics virtuales.' }
+        ]
+      },
+      alma_neural: {
+        id: 'alma_neural',
+        name: 'ALMA NEURAL',
+        avatarText: 'NEU',
+        gradient: 'linear-gradient(135deg, #6366F1, #4338CA)',
+        badge: 'Procesamiento Multimodal',
+        badgeClass: 'badge-purple',
+        desc: 'Inferencia de Lenguaje, Reconocimiento de Voz y Conexión con Bóvedas Obsidian',
+        placeholder: 'Consulta sobre modelos locales, embeddings o consultas en lenguaje natural...',
+        rightHeader: 'Inferencia Neural',
+        welcome: 'Hola. Soy ALMA Neural. Interpreto comandos complejos, organizo tus notas en la bóveda Vaultbrain y coordino la memoria a largo plazo de todo el holding tecnológico.',
+        pills: [
+          { label: 'Consultar Bóveda Vaultbrain', prompt: 'ALMA Neural, busca en las bóvedas de Obsidian los resúmenes estratégicos de Q4.' },
+          { label: 'Modo Multimodal Voz + Cámara', prompt: '¿Cómo combinas la entrada visual de cámara con comandos de voz simultáneos?' }
+        ]
+      },
+      alma_core: {
+        id: 'alma_core',
+        name: 'ALMA CORE',
+        avatarText: 'COR',
+        gradient: 'linear-gradient(135deg, #06B6D4, #0E7490)',
+        badge: 'Orquestadora de Automatizaciones',
+        badgeClass: 'badge-teal',
+        desc: 'Mapeo de Nodos, Automatizaciones Activas y Diagnóstico Integral del Sistema',
+        placeholder: 'Consulta sobre el estado de servicios, tareas en segundo plano o puertos...',
+        rightHeader: 'Núcleo Central',
+        welcome: 'Saludos. Soy ALMA Core, el motor orquestador del holding. Mantengo los enlaces activos, verifico que los puertos 8888, 8900 y los túneles Cloudflare operen sin latencia.',
+        pills: [
+          { label: 'Salud Operativa de Nodos', prompt: 'ALMA Core, verifica la salud operativa de los proyectos SIREN, ALMA, EL SOLAR y CIPOTE.' },
+          { label: 'Diagnóstico de Puertos & Túnel', prompt: 'Confirma si los puertos locales y los túneles HTTPS están respondiendo correctamente.' }
+        ]
+      },
     };
 
     function selectAssistant(assistantId) {
@@ -17398,7 +17595,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         tagline: 'by ALMA TECH',
         badge: 'Live Models',
         dotColor: '#00E5BF',
+        logoImg: 'assets/siren_logo.png',
         firstTab: 'tab-perfiles',
+        agents: ['mahia', 'roxanne', 'chloe', 'diana', 'electra', 'alma'],
         sections: [
           {
             title: 'Inteligencia de Plataformas',
@@ -17432,7 +17631,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         tagline: 'by ALMA TECH',
         badge: 'Vision & Gestures',
         dotColor: '#00A88F',
+        logoImg: 'assets/alma_avatar_face.png',
         firstTab: 'tab-alma-gestures',
+        agents: ['alma_vision', 'alma_neural', 'alma_core', 'alma'],
         sections: [
           {
             title: 'Control por Gestos & Visión',
@@ -17444,7 +17645,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           {
             title: 'Núcleo de Agentes Autónomos',
             items: [
-              { id: 'tab-alma-agents', label: 'Red de Agentes & Mapeo', icon: 'network', badge: '7 Agentes' },
+              { id: 'tab-alma-agents', label: 'Red de Agentes & Mapeo', icon: 'network', badge: '4 Agentes' },
               { id: 'tab-asistentes', label: 'Chat Multi-Agente', icon: 'bot', badge: 'Co-Pilotos' }
             ]
           },
@@ -17462,7 +17663,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         tagline: 'by ALMA TECH',
         badge: 'Gastro-Bar',
         dotColor: '#F59E0B',
+        logoImg: 'assets/el_solar_logo.png',
         firstTab: 'tab-solar-reservas',
+        agents: ['solar_solecito', 'solar_maitre', 'solar_chef', 'solar_admin', 'alma'],
         sections: [
           {
             title: 'Operaciones Gastro-Bar',
@@ -17484,7 +17687,9 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         tagline: 'by ALMA TECH',
         badge: 'POS & Stock',
         dotColor: '#38BDF8',
+        logoImg: 'assets/cipote_logo.jpeg',
         firstTab: 'tab-cipote-pos',
+        agents: ['cipote_chef', 'cipote_bar', 'cipote_pos', 'cipote_delivery', 'alma'],
         sections: [
           {
             title: 'Punto de Venta & Caja',
@@ -17512,6 +17717,68 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     });
 
+    
+    function renderEcosystemAssistants(projectData) {
+      if (!projectData || !projectData.agents) return;
+
+      // 1. Actualizar títulos del dock flotante
+      const dockTitle = document.querySelector('.alma-floating-dock .dock-title span');
+      const dockBadge = document.querySelector('.alma-floating-dock .dock-status-badge');
+      if (dockTitle) dockTitle.textContent = `Asistentes IA ${projectData.name}`;
+      if (dockBadge) dockBadge.textContent = `${projectData.agents.length} Agentes Activas`;
+
+      // 2. Re-renderizar dock-agents-grid
+      const dockGrid = document.querySelector('.dock-agents-grid');
+      if (dockGrid) {
+        let gridHtml = '';
+        projectData.agents.forEach(agentId => {
+          const agent = ASSISTANTS_DATA[agentId];
+          if (!agent) return;
+          const isAct = agentId === currentFloatingAgent;
+          const avatarContent = agent.isImageAvatar 
+            ? `<img src="${agent.avatarImg}" alt="${agent.name}" class="dock-agent-img">`
+            : `<span>${agent.avatarText}</span>`;
+
+          gridHtml += `
+          <button class="dock-agent-card ${isAct ? 'active' : ''}" onclick="openFloatingChatWithAssistant('${agent.id}')">
+            <div class="dock-agent-avatar-wrap" style="background: ${agent.gradient}">
+              ${avatarContent}
+              <span class="dock-online-dot"></span>
+            </div>
+            <div class="dock-agent-info">
+              <div class="dock-agent-name">${agent.name}</div>
+              <div class="dock-agent-role">${agent.badge}</div>
+            </div>
+            <i data-lucide="chevron-right" class="dock-agent-arrow"></i>
+          </button>
+          `;
+        });
+        dockGrid.innerHTML = gridHtml;
+      }
+
+      // 3. Re-poblar select del chat flotante
+      const agentSelect = document.getElementById('floating-agent-select');
+      if (agentSelect) {
+        agentSelect.innerHTML = '';
+        projectData.agents.forEach(agentId => {
+          const agent = ASSISTANTS_DATA[agentId];
+          if (!agent) return;
+          const opt = document.createElement('option');
+          opt.value = agent.id;
+          opt.textContent = `${agent.name} (${agent.badge})`;
+          agentSelect.appendChild(opt);
+        });
+        if (projectData.agents.includes(currentFloatingAgent)) {
+          agentSelect.value = currentFloatingAgent;
+        } else if (projectData.agents.length > 0) {
+          agentSelect.value = projectData.agents[0];
+          currentFloatingAgent = projectData.agents[0];
+        }
+      }
+
+      if (window.lucide) window.lucide.createIcons();
+    }
+
     function selectEcosystemProject(projectId) {
       if (!ALMA_ECOSYSTEM_DATA[projectId]) return;
       currentEcosystemProject = projectId;
@@ -17533,20 +17800,28 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const activeItem = document.getElementById(`pitem-${projectId}`);
       if (activeItem) activeItem.classList.add('active');
 
-      // 2. Actualizar Sidebar Header Brand
+      // 2. Actualizar Sidebar Header Brand Y LOGO OFICIAL
       const brandTitle = document.getElementById('sidebar-brand-title');
       const brandBadge = document.getElementById('sidebar-brand-badge');
       const avatarRing = document.getElementById('sidebar-brand-avatar-ring');
+      const avatarImg = document.getElementById('sidebar-brand-avatar-img') || document.querySelector('.alma-logo-avatar-img');
+
       if (brandTitle) brandTitle.textContent = data.name;
       if (brandBadge) brandBadge.textContent = data.tagline;
       if (avatarRing) {
         avatarRing.style.background = `linear-gradient(135deg, ${data.dotColor} 0%, #00A88F 100%)`;
       }
+      if (avatarImg && data.logoImg) {
+        avatarImg.src = data.logoImg;
+      }
 
       // 3. Renderizar items del Sidebar
       renderEcosystemSidebar(data);
 
-      // 4. Activar pestaña principal del proyecto
+      // 4. Renderizar Asistentes dinámicos para este proyecto
+      renderEcosystemAssistants(data);
+
+      // 5. Activar pestaña principal del proyecto
       switchMainTab(data.firstTab);
 
       // Cerrar dropdown
@@ -17555,7 +17830,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       if (window.lucide) window.lucide.createIcons();
     }
-
+    
     function renderEcosystemSidebar(projectData) {
       const navContainer = document.getElementById('sidebar-nav');
       if (!navContainer) return;
