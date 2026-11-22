@@ -4456,29 +4456,38 @@
         display: none !important;
       }
       body.sidebar-collapsed #btn-open-sidebar {
-        display: none !important;
+        display: inline-flex !important;
       }
     }
 
-    /* Botón de apertura en Top Bar */
+    /* Botón de control de la barra lateral en Top Bar (siempre accesible para abrir/cerrar) */
+    #btn-open-sidebar,
     .topbar-sidebar-btn {
-      display: none;
+      display: inline-flex !important;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      padding: 6px 10px;
-      border-color: rgba(0, 229, 191, 0.35);
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: rgba(10, 28, 24, 0.85);
+      border: 1px solid rgba(0, 229, 191, 0.25);
       color: var(--primary-light);
-      margin-right: 8px;
+      margin-right: 6px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
       flex-shrink: 0;
     }
+    #btn-open-sidebar:hover,
     .topbar-sidebar-btn:hover {
-      background: rgba(0, 229, 191, 0.12);
+      background: rgba(0, 229, 191, 0.18);
       border-color: var(--primary);
+      transform: scale(1.05);
     }
+    body.light-theme #btn-open-sidebar,
     body.light-theme .topbar-sidebar-btn {
-      color: var(--primary);
-      border-color: rgba(0, 229, 191, 0.3);
+      background: #ffffff;
+      border-color: #cbd5e1;
+      color: #007A68;
     }
 
     /* Backdrop para pantalla móvil */
@@ -5887,7 +5896,7 @@
   <aside id="sidebar">
     <div class="sidebar-header">
       <div class="sidebar-logo-bar">
-        <div class="alma-brand-container" id="sidebar-brand-container" onclick="toggleProjectDropdown()" title="Ecosistema ALMA TECH — Clic para alternar proyecto">
+        <div class="alma-brand-container" id="sidebar-brand-container" onclick="handleBrandClick(event)" title="Ecosistema ALMA TECH — Clic para alternar proyecto">
           <div class="alma-avatar-glow-ring" id="sidebar-brand-avatar-ring">
             <img src="assets/alma_avatar_face.png" alt="Logo ALMA TECH" class="alma-logo-avatar-img" id="sidebar-brand-avatar-img">
           </div>
@@ -12018,9 +12027,12 @@ Cat Lover </div>
     // RESPONSIVE SIDEBAR TOGGLE LOGIC
     // ==========================================
     
-    function handleBrandClick() {
+    function handleBrandClick(event) {
       if (document.body.classList.contains('sidebar-collapsed')) {
+        if (event) event.stopPropagation();
         toggleSidebar();
+      } else {
+        toggleProjectDropdown();
       }
     }
 
@@ -12040,14 +12052,23 @@ Cat Lover </div>
         }
       }
 
-      // Sincronizar icono y tooltip del botón de colapso en el rail
       const isCollapsed = document.body.classList.contains('sidebar-collapsed');
-      const collapseBtn = document.getElementById('btn-collapse-sidebar');
-      if (collapseBtn) {
-        collapseBtn.innerHTML = isCollapsed ? 
-          '<i data-lucide="panel-left-open"></i>' : 
-          '<i data-lucide="panel-left-close"></i>';
-        collapseBtn.title = isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral';
+      const isMobileOpen = document.body.classList.contains('sidebar-mobile-open');
+
+      // Sincronizar icono y tooltip de #btn-open-sidebar en la barra superior
+      const openBtn = document.getElementById('btn-open-sidebar');
+      if (openBtn) {
+        if (isMobile) {
+          openBtn.innerHTML = isMobileOpen ? 
+            '<i data-lucide="panel-left-close"></i>' : 
+            '<i data-lucide="panel-left-open"></i>';
+          openBtn.title = isMobileOpen ? 'Ocultar menú lateral' : 'Abrir menú lateral';
+        } else {
+          openBtn.innerHTML = isCollapsed ? 
+            '<i data-lucide="panel-left-open"></i>' : 
+            '<i data-lucide="panel-left-close"></i>';
+          openBtn.title = isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral';
+        }
       }
 
       try {
