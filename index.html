@@ -12726,7 +12726,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         const localHist = localStorage.getItem('siren_assistant_histories');
         if (localHist) {
           const parsed = JSON.parse(localHist);
-          ['roxanne', 'chloe', 'diana', 'electra'].forEach(asst => {
+          ['roxanne', 'mahia', 'chloe', 'diana', 'electra', 'alma'].forEach(asst => {
             if (Array.isArray(parsed[asst])) {
               assistantChatHistories[asst] = parsed[asst];
             }
@@ -12757,11 +12757,11 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         if (res.ok) {
           const data = await res.json();
           if (data.history && Array.isArray(data.history) && data.history.length > 0) {
-            const backendByAsst = { roxanne: [], chloe: [], diana: [], electra: [] };
+            const backendByAsst = { roxanne: [], mahia: [], chloe: [], diana: [], electra: [], alma: [] };
             data.history.forEach(item => {
               let asst = (item.assistant || '').toLowerCase();
               if (!backendByAsst[asst]) {
-                if (['chloe', 'diana', 'electra'].includes(item.sender)) {
+                if (['mahia', 'chloe', 'diana', 'electra', 'alma'].includes(item.sender)) {
                   asst = item.sender;
                 } else {
                   asst = 'roxanne';
@@ -12777,7 +12777,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
             });
 
             // Asignar el historial backend por asistente
-            ['roxanne', 'chloe', 'diana', 'electra'].forEach(asst => {
+            ['roxanne', 'mahia', 'chloe', 'diana', 'electra', 'alma'].forEach(asst => {
               if (backendByAsst[asst].length > 0) {
                 assistantChatHistories[asst] = backendByAsst[asst];
               }
@@ -15559,7 +15559,7 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
 
       container.innerHTML = data.pills.slice(0, 4).map(p => {
-        let shortLabel = p.label.replace(/["\]/g, '').trim();
+        let shortLabel = p.label.replace(/["']/g, '').trim();
         if (shortLabel.length > 20) shortLabel = shortLabel.slice(0, 18) + '...';
         return `<button class="float-pill" onclick="sendQuickPromptFromFloat(${JSON.stringify(p.prompt)})">${shortLabel}</button>`;
       }).join('');

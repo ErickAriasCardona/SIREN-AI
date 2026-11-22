@@ -1008,7 +1008,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             for row in cursor.fetchall():
                 asst_val = row[4]
                 if not asst_val or asst_val == "sam":
-                    asst_val = row[1] if row[1] in ["roxanne", "chloe", "diana", "electra"] else "roxanne"
+                    asst_val = row[1] if row[1] in ["roxanne", "mahia", "chloe", "diana", "electra", "alma"] else "roxanne"
                 history.append({
                     "timestamp": row[0],
                     "sender": row[1],
@@ -1798,6 +1798,21 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                         if mahia_res.get("success") and reply:
                             import re
                             reply_clean = re.sub(r'[\U00010000-\U0010ffff]', '', reply).strip()
+
+                            # Persistir en base de datos SQLite
+                            try:
+                                conn = sqlite3.connect(DB_PATH)
+                                cursor = conn.cursor()
+                                now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model, assistant) VALUES (?, ?, ?, ?, ?)",
+                                               (now_str, "sam", message, "StreamMonitor Mahia Live", "mahia"))
+                                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model, assistant) VALUES (?, ?, ?, ?, ?)",
+                                               (now_str, "mahia", reply_clean, "StreamMonitor Mahia Live", "mahia"))
+                                conn.commit()
+                                conn.close()
+                            except Exception as pe:
+                                print("[Mahia Persist Error]:", pe)
+
                             self.send_response(200)
                             self.send_header("Content-Type", "application/json; charset=utf-8")
                             self.end_headers()
