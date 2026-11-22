@@ -6161,9 +6161,6 @@
             <div class="alma-brand-tech-badge" id="sidebar-brand-badge">by ALMA TECH</div>
           </div>
         </div>
-        <button id="btn-sidebar-toggle" class="sidebar-header-toggle-btn" onclick="toggleSidebar()" title="Colapsar / Expandir barra lateral">
-          <i data-lucide="panel-left-close" id="sidebar-toggle-icon"></i>
-        </button>
       </div>
     </div>
 
@@ -12343,15 +12340,6 @@ Cat Lover </div>
             '<i data-lucide="panel-left-close"></i>';
           openBtn.title = isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral';
         }
-      }
-
-      // Sincronizar botón interno en el header del sidebar
-      const sidebarToggleBtn = document.getElementById('btn-sidebar-toggle');
-      if (sidebarToggleBtn) {
-        sidebarToggleBtn.innerHTML = isCollapsed ? 
-          '<i data-lucide="panel-left-open"></i>' : 
-          '<i data-lucide="panel-left-close"></i>';
-        sidebarToggleBtn.title = isCollapsed ? 'Expandir barra lateral' : 'Colapsar barra lateral';
       }
 
       try {
