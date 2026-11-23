@@ -7274,8 +7274,8 @@
           
           <div id="project-switcher-menu" class="project-switcher-menu">
             <div class="project-menu-header">
-              <span>ECOSISTEMA DE PROYECTOS</span>
-              <span class="badge-tech">4 Proyectos</span>
+              <span>ECOSISTEMA ALMA TECH</span>
+              <span class="badge-tech">5 Proyectos</span>
             </div>
             <div class="project-menu-list">
               <!-- SIREN -->
@@ -7293,6 +7293,15 @@
                 <div class="project-item-info">
                   <div class="project-item-title">ALMA TECH <span class="project-item-pill" style="background: rgba(0, 229, 191, 0.2); color: #00E5BF; font-weight: 800;">Matriz Central</span></div>
                   <div class="project-item-desc">Portal Central, Holding Tecnológico, Gestos & Red Multi-Agente</div>
+                </div>
+                <i data-lucide="external-link" class="project-item-check"></i>
+              </div>
+              <!-- TEAM DEV (CIBERSEGURIDAD & DEV) -->
+              <div class="project-menu-item" id="pitem-team_dev" onclick="goToTeamDev()">
+                <div class="project-item-icon" style="background: rgba(0, 229, 191, 0.15); color: #00E5BF; border: 1px solid rgba(0, 229, 191, 0.3); border-radius: 8px; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center;"><i data-lucide="terminal"></i></div>
+                <div class="project-item-info">
+                  <div class="project-item-title">TEAM DEV <span class="project-item-pill" style="background: rgba(0, 229, 191, 0.2); color: #00E5BF; font-weight: 800;">Ciberseguridad & Dev</span></div>
+                  <div class="project-item-desc">Kali (Red Team), Némesis (Blue Team), Atlas, Bruce, Vera, Mufasa & Bóvedas</div>
                 </div>
                 <i data-lucide="external-link" class="project-item-check"></i>
               </div>
@@ -20787,25 +20796,48 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       },
       alma: {
         id: 'alma',
-        name: 'ALMA MULTI-AGENT',
-        tagline: 'AI Studio & Streaming',
-        badge: 'Bóvedas OpenClaw',
-        dotColor: '#3B82F6',
+        name: 'ALMA TECH',
+        tagline: 'Supervisora Central & Consultora',
+        parentTag: 'HOLDING',
+        badge: 'Matriz Central',
+        dotColor: '#00E5BF',
         logoImg: 'assets/alma_avatar_face.png',
         firstTab: 'tab-ecosystem-embed',
-        embedUrl: 'http://localhost:5173',
-        embedTitle: 'ALMA — Autonomous Multi-Agent System & Bóvedas OpenClaw',
-        agents: ['alma', 'mufasa', 'vera', 'nemesis', 'kali', 'bruce', 'atlas'],
+        embedUrl: 'http://localhost:8900',
+        embedTitle: 'ALMA TECH — Supervisora Central & Consultora del Holding',
+        agents: ['alma', 'mahia', 'kali', 'cipote_chef', 'solar_solecito'],
         sections: [
           {
-            title: 'Ecosistema Multi-Agente & Bóvedas',
+            title: 'Gobernanza Holding & Asesoría',
             items: [
-              { id: 'tab-ecosystem-embed', label: 'Interfaz Multi-Agente (5173)', icon: 'bot', badge: 'En Vivo', url: 'http://localhost:5173/#/overview' },
-              { id: 'tab-ecosystem-embed', label: 'Bóvedas OpenClaw', icon: 'book-open', badge: 'Contexto', url: 'http://localhost:5173/#/vaults' },
+              { id: 'tab-ecosystem-embed', label: 'Matriz ALMA TECH (8900)', icon: 'briefcase', badge: 'Holding', url: 'http://localhost:8900' },
+              { id: 'tab-asistentes', label: 'Supervisora ALMA (Chat)', icon: 'bot', badge: 'ALMA Tech', emerald: true }
+            ]
+          }
+        ]
+      },
+      team_dev: {
+        id: 'team_dev',
+        name: 'TEAM DEV',
+        tagline: 'Ciberseguridad, Hacking & Dev',
+        parentTag: 'TEAM DEV',
+        badge: 'Ciberseguridad & Dev',
+        dotColor: '#00E5BF',
+        logoImg: 'assets/avatars/kali.png',
+        firstTab: 'tab-ecosystem-embed',
+        embedUrl: 'http://localhost:5173',
+        embedTitle: 'TEAM DEV — Ciberseguridad, Hacking Ético Kali & Bóvedas OpenClaw',
+        agents: ['kali', 'nemesis', 'atlas', 'bruce', 'vera', 'mufasa', 'alma'],
+        sections: [
+          {
+            title: 'Ciberseguridad & Dev Team',
+            items: [
+              { id: 'tab-ecosystem-embed', label: 'Consola Team Dev (5173)', icon: 'terminal', badge: 'En Vivo', url: 'http://localhost:5173/#/overview' },
+              { id: 'tab-ecosystem-embed', label: 'Bóvedas OpenClaw & Contexto', icon: 'book-open', badge: 'Contexto', url: 'http://localhost:5173/#/vaults' },
               { id: 'tab-ecosystem-embed', label: 'Consola Supabase & Migraciones', icon: 'database', badge: 'DevOps', url: 'http://localhost:5173/#/settings' },
               { id: 'tab-ecosystem-embed', label: 'Patrones de Calidad GAP-X', icon: 'file-text', badge: 'GAP-X', url: 'http://localhost:5173/#/circuit' },
               { id: 'tab-ecosystem-embed', label: 'Holo Fleet 3D & Galería', icon: 'sparkles', badge: 'Fleet', url: 'http://localhost:5173/#/fleet' },
-              { id: 'tab-asistentes', label: 'Asistentes IA (Chat)', icon: 'bot', badge: 'ALMA Core', teal: true }
+              { id: 'tab-asistentes', label: 'Asistentes Dev & Hacking (Chat)', icon: 'bot', badge: 'Team Dev', teal: true }
             ]
           }
         ]
@@ -20928,6 +20960,10 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
     function selectEcosystemProject(projectId) {
       if (projectId === 'alma') {
         goToAlmaTech();
+        return;
+      }
+      if (projectId === 'team_dev') {
+        goToTeamDev();
         return;
       }
       if (!ALMA_ECOSYSTEM_DATA[projectId]) return;
@@ -21353,9 +21389,15 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
-        function goToAlmaTech() {
+    function goToAlmaTech() {
       const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
       const targetUrl = isLocal ? 'http://localhost:8900' : window.location.origin.replace(':8888', ':8900');
+      window.location.href = targetUrl;
+    }
+
+    function goToTeamDev() {
+      const isLocal = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+      const targetUrl = isLocal ? 'http://localhost:5173' : window.location.origin.replace(':8888', ':5173');
       window.location.href = targetUrl;
     }
 

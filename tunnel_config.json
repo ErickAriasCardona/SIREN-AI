@@ -1,4 +1,8 @@
 {
-  "tunnel_url": "https://temp-rna-finding-frontpage.trycloudflare.com",
-  "updated_at": "2026-11-22T17:18:34.590422"
+  "active": true,
+  "service": "ALMA TECH - SIREN",
+  "tunnel_url": "https://occasion-side-ware-boolean.trycloudflare.com",
+  "public_url": "https://occasion-side-ware-boolean.trycloudflare.com",
+  "local_port": 8888,
+  "updated_at": "2026-11-22 19:02:48"
 }
