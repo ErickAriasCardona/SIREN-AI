@@ -1,6 +1,7 @@
 {
-  "central_server_url": "https://rentals-quantitative-article-mere.trycloudflare.com",
+  "central_server_url": "https://fwd-frog-shadows-believes.trycloudflare.com",
   "local_server_fallback": "http://localhost:8888",
   "satellite_name": "Estudio Remoto (USB)",
-  "heartbeat_interval_sec": 2
+  "heartbeat_interval_sec": 2,
+  "github_tunnel_url": "https://erickariascardona.github.io/SIREN-AI/tunnel_config.json"
 }

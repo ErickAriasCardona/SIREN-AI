@@ -471,6 +471,11 @@ def log_interaction_to_db(fan_message: str, reply: str, model_name: str, lang: s
     except Exception as e:
         print(f"[DB Warning]: No se pudo registrar en SQLite: {e}")
 
+# Registro en memoria de Satélites USB de Estudio
+ACTIVE_SATELLITES = {}
+PENDING_SATELLITE_COMMANDS = {}
+COMPLETED_SATELLITE_RESULTS = {}
+
 class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         # Servir archivos desde la raíz de VELVET AI
@@ -527,6 +532,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streamate_messages()
         elif self.path.startswith("/api/streammonitor/status"):
             self.handle_api_streammonitor_status()
+        elif self.path.startswith("/api/satellite/heartbeat"):
+            self.handle_api_satellite_heartbeat()
+        elif self.path.startswith("/api/satellite/complete"):
+            self.handle_api_satellite_complete()
+        elif self.path.startswith("/api/satellite/status"):
+            self.handle_api_satellite_status()
+        elif self.path.startswith("/api/satellite/poll"):
+            self.handle_api_satellite_poll()
         elif self.path.startswith("/api/streammonitor/presets"):
             self.handle_api_streammonitor_presets()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
@@ -609,6 +622,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_refresh_all_platforms()
         elif self.path.startswith("/api/streammonitor/status"):
             self.handle_api_streammonitor_status()
+        elif self.path.startswith("/api/satellite/heartbeat"):
+            self.handle_api_satellite_heartbeat()
+        elif self.path.startswith("/api/satellite/complete"):
+            self.handle_api_satellite_complete()
+        elif self.path.startswith("/api/satellite/status"):
+            self.handle_api_satellite_status()
+        elif self.path.startswith("/api/satellite/poll"):
+            self.handle_api_satellite_poll()
         elif self.path.startswith("/api/streammonitor/presets"):
             self.handle_api_streammonitor_presets()
         elif self.path.startswith("/api/streammonitor/launch"):
@@ -1699,17 +1720,153 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
+    def handle_api_satellite_heartbeat(self):
+        """Registra el pulso de vida de un PC satélite remoto (USB conectada en estudio)."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            sat_id = body.get("satellite_id", "studio_usb")
+            ACTIVE_SATELLITES[sat_id] = {
+                "satellite_id": sat_id,
+                "satellite_name": body.get("satellite_name", "Estudio Remoto (USB)"),
+                "win_user": body.get("win_user", ""),
+                "streammonitor_port": body.get("streammonitor_port"),
+                "profile_id": body.get("profile_id", "1589"),
+                "last_seen": time.time(),
+                "status": "online"
+            }
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "registered": True}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_satellite_poll(self):
+        """El satélite consulta si tiene órdenes pendientes de inyección."""
+        try:
+            from urllib.parse import urlparse, parse_qs
+            qs = parse_qs(urlparse(self.path).query)
+            sat_id = qs.get("satellite_id", ["studio_usb"])[0]
+            
+            # Limpiar satélites viejos (> 20s sin heartbeat)
+            now = time.time()
+            for s_id in list(ACTIVE_SATELLITES.keys()):
+                if now - ACTIVE_SATELLITES[s_id].get("last_seen", 0) > 25:
+                    ACTIVE_SATELLITES[s_id]["status"] = "offline"
+
+            command = PENDING_SATELLITE_COMMANDS.pop(sat_id, None)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "has_command": bool(command), "command": command}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_satellite_complete(self):
+        """El satélite reporta el resultado de la inyección realizada en el PC del estudio."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            cmd_id = body.get("command_id", "latest")
+            COMPLETED_SATELLITE_RESULTS[cmd_id] = {
+                "result": body.get("result", {}),
+                "timestamp": time.time()
+            }
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "acknowledged": True}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_satellite_status(self):
+        """Retorna el estado de los satélites remotos para la UI."""
+        try:
+            now = time.time()
+            online_sats = []
+            for s_id, s_info in ACTIVE_SATELLITES.items():
+                is_active = (now - s_info.get("last_seen", 0)) < 25
+                s_info["status"] = "online" if is_active else "offline"
+                if is_active:
+                    online_sats.append(s_info)
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "success": True,
+                "satellites": list(ACTIVE_SATELLITES.values()),
+                "online_count": len(online_sats),
+                "has_remote_studio": len(online_sats) > 0,
+                "remote_studio": online_sats[0] if online_sats else None
+            }, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
     def handle_api_streammonitor_apply_shift(self):
-        """Inyecta en un solo ciclo toda la estrategia comercial en Streamate y StreamMonitor."""
+        """Inyecta en un solo ciclo toda la estrategia comercial en Streamate y StreamMonitor (Local o Remoto Satélite USB)."""
         try:
             content_length = int(self.headers.get('Content-Length', 0))
             body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
             theme_key = body.get("theme_key") or body.get("theme", "ass_twerk")
             custom_text = body.get("custom_text", None)
             strategy_data = body.get("strategy", None)
-            res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text, strategy_data))
-            if isinstance(res, dict):
-                res["injected_topic"] = res.get("orchestrated_data", {}).get("topic", "")
+            target = body.get("target", "local")  # "local" o "satellite" / "studio_usb"
+            satellite_id = body.get("satellite_id", "studio_usb")
+
+            if target in ["satellite", "studio_usb", "remote"]:
+                # Despachar orden al Satélite USB en el PC del estudio
+                cmd_id = f"cmd_{int(time.time() * 1000)}"
+                PENDING_SATELLITE_COMMANDS[satellite_id] = {
+                    "command_id": cmd_id,
+                    "action": "apply_shift",
+                    "theme_key": theme_key,
+                    "custom_text": custom_text,
+                    "strategy": strategy_data,
+                    "created_at": time.time()
+                }
+
+                # Esperar hasta 12 segundos a que el satélite ejecute y reporte resultado
+                wait_start = time.time()
+                sat_result = None
+                while time.time() - wait_start < 12:
+                    if cmd_id in COMPLETED_SATELLITE_RESULTS:
+                        sat_result = COMPLETED_SATELLITE_RESULTS.pop(cmd_id)["result"]
+                        break
+                    time.sleep(0.5)
+
+                if sat_result:
+                    res = sat_result
+                    res["dispatched_to"] = f"Satélite USB ({satellite_id})"
+                else:
+                    # Si no reportó en tiempo real, informar que la orden quedó en cola
+                    res = {
+                        "success": True,
+                        "dispatched_to": f"Satélite USB ({satellite_id})",
+                        "status": "queued",
+                        "message": "Orden enviada a la USB en el PC del estudio. Se aplicará de inmediato al procesar.",
+                        "theme_applied": theme_key,
+                        "injected_topic": strategy_data.get("topic", "") if strategy_data else ""
+                    }
+            else:
+                res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text, strategy_data))
+                if isinstance(res, dict):
+                    res["injected_topic"] = res.get("orchestrated_data", {}).get("topic", "")
+                    res["dispatched_to"] = "PC Central (Local)"
+
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
