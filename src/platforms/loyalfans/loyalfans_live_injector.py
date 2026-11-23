@@ -178,51 +178,121 @@ async function main() {
   }
 
   // 4. INYECCIÓN DEL OBJETIVO 3 NIVELES ($11, $22, $33)
-  await evalInTarget(ws, `(() => {
-    const editGoalBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('EDITAR OBJETIVO'));
-    if (editGoalBtn) editGoalBtn.click();
+  // Verificar si el modal 'Cuenta atrás del objetivo' ya está abierto en pantalla
+  let isModalOpen = await evalInTarget(ws, `(() => {
+    return Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, div, span, mat-dialog-title')).some(el => {
+      const t = (el.innerText || '').toUpperCase();
+      return t.includes('CUENTA ATRÁS DEL OBJETIVO') || (t.includes('CUENTA ATRAS') && t.includes('OBJETIVO'));
+    });
   })()`);
 
+  if (!isModalOpen) {
+    // Si no está abierto, hacer clic en el botón de objetivos en la barra de transmisión
+    await evalInTarget(ws, `(() => {
+      const editGoalBtn = Array.from(document.querySelectorAll('button, div[role="button"], a, span')).find(b => {
+        const txt = (b.innerText || '').toUpperCase();
+        return txt === 'OBJETIVO' || txt === 'OBJETIVOS' || txt.includes('OBJETIVO') || txt.includes('GOAL') || b.querySelector('i.fa-trophy, [data-icon="trophy"], mat-icon');
+      });
+      if (editGoalBtn) editGoalBtn.click();
+    })()`);
+    await sleep(600);
+  }
+
   // Esperar activamente que monte el modal de objetivos
-  for (let i = 0; i < 10; i++) {
-    const hasGoalInp = await evalInTarget(ws, `!!document.querySelector('input[placeholder*="nivel 1"]')`);
-    if (hasGoalInp) break;
-    await sleep(100);
+  for (let i = 0; i < 12; i++) {
+    const hasModal = await evalInTarget(ws, `(() => {
+      return Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, div, span, mat-dialog-title')).some(el => {
+        const t = (el.innerText || '').toUpperCase();
+        return t.includes('CUENTA ATRÁS DEL OBJETIVO') || (t.includes('CUENTA ATRAS') && t.includes('OBJETIVO')) || t.includes('NIVEL 1');
+      }) || !!document.querySelector('.mat-mdc-dialog-container, [role="dialog"]');
+    })()`);
+    if (hasModal) break;
+    await sleep(150);
   }
 
   const goalRes = await evalInTarget(ws, `(() => {
     const setInp = (inp, val) => {
       if (!inp) return;
-      const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-      s.call(inp, val);
-      inp.dispatchEvent(new Event('input', { bubbles: true }));
-      inp.dispatchEvent(new Event('change', { bubbles: true }));
+      inp.focus();
+      const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+      if (s) s.call(inp, val);
+      else inp.value = val;
+      inp.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      inp.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      try {
+        inp.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true, data: val }));
+      } catch (_) {}
+      inp.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' }));
+      inp.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'Enter' }));
+      inp.blur();
     };
 
-    const inpL1 = document.querySelector('input[placeholder*="nivel 1"]');
-    const inpL2 = document.querySelector('input[placeholder*="nivel 2"]');
-    const inpL3 = document.querySelector('input[placeholder*="nivel 3"]');
+    // Identificar el diálogo / modal contenedor
+    const dialogs = Array.from(document.querySelectorAll('.mat-mdc-dialog-container, [role="dialog"], .modal, div')).filter(el => {
+      const t = el.innerText || '';
+      return t.includes('Cuenta atrás del objetivo') || (t.includes('Nivel 1') && t.includes('Nivel 2'));
+    });
+    const modalEl = dialogs[dialogs.length - 1] || document.querySelector('.mat-mdc-dialog-container') || document.body;
 
-    if (inpL1) setInp(inpL1, goalL1);
-    if (inpL2) setInp(inpL2, goalL2);
-    if (inpL3) setInp(inpL3, goalL3);
+    // Buscar inputs por cada nivel específico
+    let l1Theme = null, l1Price = null;
+    let l2Theme = null, l2Price = null;
+    let l3Theme = null, l3Price = null;
 
-    // Precios: inputs de tipo number en el modal
-    const numInputs = Array.from(document.querySelectorAll('.mat-mdc-dialog-container input[type="number"]'));
-    if (numInputs[0]) setInp(numInputs[0], '11');
-    if (numInputs[1]) setInp(numInputs[1], '22');
-    if (numInputs[2]) setInp(numInputs[2], '33');
+    for (let i = 1; i <= 3; i++) {
+      const lvlContainers = Array.from(modalEl.querySelectorAll('div, section, li, app-goal-level')).filter(c => {
+        const txt = (c.innerText || '').toUpperCase();
+        return (txt.includes('NIVEL ' + i) || txt.includes('LEVEL ' + i)) && c.querySelector('input');
+      });
+      const cont = lvlContainers.sort((a, b) => a.querySelectorAll('*').length - b.querySelectorAll('*').length)[0];
+      if (cont) {
+        const inps = Array.from(cont.querySelectorAll('input'));
+        const theme = inps.find(inp => inp.type !== 'number' && !inp.placeholder?.includes('$') && !inp.value?.includes('$')) || inps[0];
+        const price = inps.find(inp => inp !== theme) || inps[1];
+        if (i === 1) { l1Theme = theme; l1Price = price; }
+        if (i === 2) { l2Theme = theme; l2Price = price; }
+        if (i === 3) { l3Theme = theme; l3Price = price; }
+      }
+    }
 
-    const confirmBtn = Array.from(document.querySelectorAll('.mat-mdc-dialog-container button')).find(b => (b.innerText || '').trim() === 'CONFIRMAR');
+    // Fallback secuencial según la estructura visual de Image 1:
+    // inps[0]=Tema 1, inps[1]=Precio 1, inps[2]=Tema 2, inps[3]=Precio 2, inps[4]=Tema 3, inps[5]=Precio 3
+    const allInps = Array.from(modalEl.querySelectorAll('input')).filter(inp => inp.type !== 'checkbox' && inp.type !== 'radio' && inp.type !== 'hidden');
+    if (!l1Theme && allInps[0]) l1Theme = allInps[0];
+    if (!l1Price && allInps[1]) l1Price = allInps[1];
+    if (!l2Theme && allInps[2]) l2Theme = allInps[2];
+    if (!l2Price && allInps[3]) l2Price = allInps[3];
+    if (!l3Theme && allInps[4]) l3Theme = allInps[4];
+    if (!l3Price && allInps[5]) l3Price = allInps[5];
+
+    // Asignar Temas de los 3 niveles
+    if (l1Theme) setInp(l1Theme, goalL1);
+    if (l2Theme) setInp(l2Theme, goalL2);
+    if (l3Theme) setInp(l3Theme, goalL3);
+
+    // Asignar Precios fijos ($11, $22, $33)
+    if (l1Price) setInp(l1Price, '11');
+    if (l2Price) setInp(l2Price, '22');
+    if (l3Price) setInp(l3Price, '33');
+
+    // Confirmar y guardar haciendo clic en CONFIRMAR (botón verde de Image 1)
+    const confirmBtn = Array.from(modalEl.querySelectorAll('button, div[role="button"]')).find(b => {
+      const txt = (b.innerText || '').trim().toUpperCase();
+      return txt === 'CONFIRMAR' || txt === 'CONFIRM' || txt === 'GUARDAR';
+    }) || Array.from(document.querySelectorAll('.mat-mdc-dialog-container button, button')).find(b => (b.innerText || '').trim().toUpperCase() === 'CONFIRMAR');
+
     if (confirmBtn) {
       confirmBtn.click();
     }
 
     return {
-      updatedL1: !!inpL1,
-      updatedL2: !!inpL2,
-      updatedL3: !!inpL3,
-      confirmed: !!confirmBtn
+      updatedL1: !!l1Theme,
+      updatedL2: !!l2Theme,
+      updatedL3: !!l3Theme,
+      confirmed: !!confirmBtn,
+      l1Val: l1Theme ? l1Theme.value : null,
+      l2Val: l2Theme ? l2Theme.value : null,
+      l3Val: l3Theme ? l3Theme.value : null
     };
   })()`);
 

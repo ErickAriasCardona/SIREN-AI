@@ -500,6 +500,9 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
         elif "macro" in lower or "alt+" in lower or "mensaje rápido" in lower:
             current_section = "quick_messages"
             continue
+        elif "objetivo" in lower or "loyalfans" in lower or "loyal" in lower:
+            current_section = "loyalfans"
+            continue
 
         # Procesar según sección activa
         if current_section == "topic" and not result["topic"]:
@@ -536,6 +539,20 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
             if clean_macro and len(result["quick_messages"]) < 8:
                 result["quick_messages"].append(clean_macro)
 
+        elif current_section == "loyalfans":
+            m1 = re.search(r'(?:nivel\s*1|level\s*1)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m1 and not result.get("loyalfans_goal", {}).get("level1"):
+                t1 = re.sub(r'\(\$?\d+\)', '', m1.group(1)).strip().strip('"\'')
+                result.setdefault("loyalfans_goal", {})["level1"] = {"price": 11, "task": t1[:35]}
+            m2 = re.search(r'(?:nivel\s*2|level\s*2)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m2 and not result.get("loyalfans_goal", {}).get("level2"):
+                t2 = re.sub(r'\(\$?\d+\)', '', m2.group(1)).strip().strip('"\'')
+                result.setdefault("loyalfans_goal", {})["level2"] = {"price": 22, "task": t2[:35]}
+            m3 = re.search(r'(?:nivel\s*3|level\s*3)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m3 and not result.get("loyalfans_goal", {}).get("level3"):
+                t3 = re.sub(r'\(\$?\d+\)', '', m3.group(1)).strip().strip('"\'')
+                result.setdefault("loyalfans_goal", {})["level3"] = {"price": 33, "task": t3[:35]}
+
     # Sanitizar estrictamente contra el catálogo oficial de 109 opciones de Streamate (cero opciones inventadas)
     from src.platforms.streamate.stream_monitor_controller import DEFAULT_STREAMATE_OPTIONS, match_streamate_option
 
@@ -568,6 +585,12 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
         result["auto_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["auto_messages"]
     if len(result["quick_messages"]) < 4:
         result["quick_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["quick_messages"]
+    if "loyalfans_goal" not in result or not result["loyalfans_goal"].get("level1"):
+        result["loyalfans_goal"] = {
+            "level1": {"price": 11, "task": "truth or dare"},
+            "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
+            "level3": {"price": 33, "task": "all or nothing"}
+        }
 
     return result
 

@@ -1,7 +1,7 @@
 // ==============================================================================
 // SIREN AI — Service Worker Oficial (PWA, Cache Shell & Web Push en Tiempo Real)
 // ==============================================================================
-const CACHE_NAME = 'siren-ai-v2.44.0';
+const CACHE_NAME = 'siren-ai-v2.45.0';
 const SHELL_ASSETS = [
   './',
   './index.html',

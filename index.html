@@ -13152,6 +13152,49 @@ Cat Lover </div>
                 </div>
               </div>
 
+              <!-- 5. Objetivos de Sala para LoyalFans (3 Niveles en Vivo: $11, $22, $33) Deducidos de Mahia -->
+              <div class="smo-subcard" style="border: 1.5px solid rgba(0, 229, 191, 0.4); background: rgba(0, 229, 191, 0.05); margin-top: 10px;">
+                <div style="font-size: 11px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="trophy" style="width: 14px; height: 14px; color: #f59e0b;"></i>
+                    <span style="color: #00E5BF;">Objetivo de Sala para LoyalFans (3 Niveles en Vivo):</span>
+                  </span>
+                  <span class="table-badge badge-success" style="font-size: 8.5px; padding: 1px 7px;">Auto-Sync LoyalFans</span>
+                </div>
+                
+                <div style="display: flex; flex-direction: column; gap: 7px;">
+                  <!-- Nivel 1 ($11) -->
+                  <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.35); padding: 7px 10px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                    <div style="width: 22px; height: 22px; border-radius: 50%; background: #3b82f6; color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">1</div>
+                    <div style="flex: 1; display: flex; flex-direction: column;">
+                      <span style="font-size: 8.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Nivel 1 • Tema (Teaser / Reto Inicial)</span>
+                      <input type="text" id="smo-lf-input-1" class="smo-lf-goal-input" placeholder="truth or dare (sweater on)" style="background: transparent; border: none; color: #fff; font-size: 11px; font-weight: 600; outline: none; width: 100%; padding: 2px 0;">
+                    </div>
+                    <span style="background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.5); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">$11</span>
+                  </div>
+
+                  <!-- Nivel 2 ($22) -->
+                  <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.35); padding: 7px 10px; border-radius: 8px; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div style="width: 22px; height: 22px; border-radius: 50%; background: #10b981; color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">2</div>
+                    <div style="flex: 1; display: flex; flex-direction: column;">
+                      <span style="font-size: 8.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Nivel 2 • Tema (Acción Intermedia Intensa)</span>
+                      <input type="text" id="smo-lf-input-2" class="smo-lf-goal-input" placeholder="CHALLENGE FOR 1 MINUTE" style="background: transparent; border: none; color: #fff; font-size: 11px; font-weight: 600; outline: none; width: 100%; padding: 2px 0;">
+                    </div>
+                    <span style="background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.5); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">$22</span>
+                  </div>
+
+                  <!-- Nivel 3 ($33) -->
+                  <div style="display: flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.35); padding: 7px 10px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    <div style="width: 22px; height: 22px; border-radius: 50%; background: #ef4444; color: #fff; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">3</div>
+                    <div style="flex: 1; display: flex; flex-direction: column;">
+                      <span style="font-size: 8.5px; font-weight: 700; color: #94a3b8; text-transform: uppercase;">Nivel 3 • Tema (Meta Cumbre / Clímax)</span>
+                      <input type="text" id="smo-lf-input-3" class="smo-lf-goal-input" placeholder="all or nothing climax" style="background: transparent; border: none; color: #fff; font-size: 11px; font-weight: 600; outline: none; width: 100%; padding: 2px 0;">
+                    </div>
+                    <span style="background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.5); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">$33</span>
+                  </div>
+                </div>
+              </div>
+
             </div>
           </div>
 
@@ -19767,21 +19810,28 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       // 4.2 Objetivo Loyalfans (3 Niveles: $11, $22, $33)
       const lfGoal = strat.loyalfans_goal || {};
+      const inpL1 = document.getElementById('smo-lf-input-1');
+      const inpL2 = document.getElementById('smo-lf-input-2');
+      const inpL3 = document.getElementById('smo-lf-input-3');
+      const t1 = (lfGoal.level1 && lfGoal.level1.task) ? lfGoal.level1.task : 'truth or dare (sweater on)';
+      const t2 = (lfGoal.level2 && lfGoal.level2.task) ? lfGoal.level2.task : 'CHALLENGE FOR 1 MINUTE';
+      const t3 = (lfGoal.level3 && lfGoal.level3.task) ? lfGoal.level3.task : 'all or nothing climax';
+      if (inpL1) inpL1.value = t1;
+      if (inpL2) inpL2.value = t2;
+      if (inpL3) inpL3.value = t3;
+
       const elL1 = document.getElementById('smo-lf-l1');
       const elL2 = document.getElementById('smo-lf-l2');
       const elL3 = document.getElementById('smo-lf-l3');
       if (elL1) {
-        const t1 = (lfGoal.level1 && lfGoal.level1.task) ? lfGoal.level1.task : 'truth or dare';
         elL1.textContent = t1;
         elL1.title = t1;
       }
       if (elL2) {
-        const t2 = (lfGoal.level2 && lfGoal.level2.task) ? lfGoal.level2.task : 'CHALLENGE FOR 1 MINUTE';
         elL2.textContent = t2;
         elL2.title = t2;
       }
       if (elL3) {
-        const t3 = (lfGoal.level3 && lfGoal.level3.task) ? lfGoal.level3.task : 'all or nothing';
         elL3.textContent = t3;
         elL3.title = t3;
       }
@@ -19929,8 +19979,12 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           await new Promise(r => setTimeout(r, 350));
           logStep(` Auto-mensajes y atajos de chat (Alt+1 a Alt+6) preparados para StreamMonitor`, true);
 
+          await new Promise(r => setTimeout(r, 350));
+          const lf = data.strategy.loyalfans_goal || {};
+          logStep(` Loyalfans Objetivos 3 Niveles ($11: "${lf.level1?.task || 'truth or dare'}", $22: "${lf.level2?.task || 'CHALLENGE 1 MIN'}", $33: "${lf.level3?.task || 'all or nothing'}") deducidos y listos`, true);
+
           await new Promise(r => setTimeout(r, 300));
-          logStep(` ¡TODO CONFIGURADO Y ACTIVO EN VIVO! Chat con Mahia completado y Streamate sincronizado.`, true);
+          logStep(` ¡TODO CONFIGURADO Y ACTIVO EN VIVO! Chat con Mahia completado, Loyalfans sincronizado y Streamate listo.`, true);
 
           // Mostrar diálogo con Mahia
           const sirenBox = document.getElementById('smo-siren-to-mahia-preview');
@@ -19999,9 +20053,23 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const topicInput = document.getElementById('smo-topic-input');
       const topic = topicInput ? topicInput.value : '';
 
+      const inpL1 = document.getElementById('smo-lf-input-1');
+      const inpL2 = document.getElementById('smo-lf-input-2');
+      const inpL3 = document.getElementById('smo-lf-input-3');
+      const lf1 = inpL1 && inpL1.value.trim() ? inpL1.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level1?.task || 'truth or dare');
+      const lf2 = inpL2 && inpL2.value.trim() ? inpL2.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level2?.task || 'CHALLENGE FOR 1 MINUTE');
+      const lf3 = inpL3 && inpL3.value.trim() ? inpL3.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level3?.task || 'all or nothing');
+
+      if (!currentSmoStrategy) currentSmoStrategy = {};
+      currentSmoStrategy.loyalfans_goal = {
+        level1: { price: 11, task: lf1 },
+        level2: { price: 22, task: lf2 },
+        level3: { price: 33, task: lf3 }
+      };
+
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i data-lucide="loader" class="spin" style="width:14px; height:14px;"></i> Inyectando a Streamate...';
+        btn.innerHTML = '<i data-lucide="loader" class="spin" style="width:14px; height:14px;"></i> Inyectando a Streamate & Loyalfans...';
       }
 
       try {
