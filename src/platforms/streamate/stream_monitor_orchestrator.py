@@ -342,10 +342,110 @@ def focus_streammonitor_window() -> bool:
         return False
 
 
+def focus_and_open_mahia_chat() -> Dict[str, Any]:
+    """
+    Navega en la interfaz de StreamMonitor para hacer clic en el botón de Mahia
+    y situar el cursor directamente en su chat interactivo vía CDP.
+    """
+    try:
+        from src.platforms.streamate.mahia_live_connector import get_devtools_active_port
+        port = get_devtools_active_port()
+        if not port:
+            return {"success": False, "error": "Puerto CDP de StreamMonitor no activo"}
+
+        js_script = f"""
+const http = require('http');
+const WebSocket = require('ws');
+const port = {port};
+
+function getTargets() {{
+  return new Promise((resolve, reject) => {{
+    http.get('http://127.0.0.1:' + port + '/json', (res) => {{
+      let d = ''; res.on('data', c => d += c);
+      res.on('end', () => {{ try {{ resolve(JSON.parse(d)); }} catch(e) {{ reject(e); }} }});
+    }}).on('error', reject);
+  }});
+}}
+
+async function run() {{
+  try {{
+    const targets = await getTargets();
+    const page = targets.find(t => t.type === 'page' && t.url && t.url.includes('renderer/index.html')) || targets.find(t => t.type === 'page');
+    if (!page) {{
+      console.log(JSON.stringify({{ success: false, error: 'Página renderer no encontrada' }}));
+      process.exit(0);
+    }}
+
+    const ws = new WebSocket(page.webSocketDebuggerUrl);
+    await new Promise(r => ws.on('open', r));
+
+    const send = (expr) => new Promise(r => {{
+      const curId = Math.floor(Math.random() * 1000000);
+      const h = (data) => {{
+        try {{
+          const m = JSON.parse(data.toString());
+          if (m.id === curId) {{ ws.removeListener('message', h); r(m); }}
+        }} catch(e) {{}}
+      }};
+      ws.on('message', h);
+      ws.send(JSON.stringify({{ id: curId, method: 'Runtime.evaluate', params: {{ expression: expr, returnByValue: true }} }}));
+    }});
+
+    // 1. Cerrar diálogos modales emergentes superpuestos
+    await send(`(() => {{
+      const modalClose = document.querySelector('div[role="dialog"] button[aria-label="Close"], div[role="dialog"] button[aria-label="Cerrar"]');
+      if (modalClose) modalClose.click();
+    }})()`);
+
+    // 2. Hacer clic en Mahia para abrir su chat si no está ya activo
+    const clickRes = await send(`(() => {{
+      const ta = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea');
+      const sendBtn = document.querySelector('button[aria-label="Enviar"]');
+      let clicked = false;
+      if (!ta || !sendBtn) {{
+        const btn = document.querySelector('button[aria-label="Mahia"]') || Array.from(document.querySelectorAll('button')).find(b => {{
+          const t = (b.innerText || '').toLowerCase();
+          const al = (b.getAttribute('aria-label') || '').toLowerCase();
+          return t.includes('mahia') || al.includes('mahia');
+        }});
+        if (btn) {{
+          btn.click();
+          clicked = true;
+        }}
+      }}
+      setTimeout(() => {{
+        const t = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
+        if (t) t.focus();
+      }}, 300);
+      return {{ alreadyOpen: !!ta, clicked: clicked }};
+    }})()`);
+
+    ws.close();
+    console.log(JSON.stringify({{ success: true, result: clickRes }}));
+    process.exit(0);
+  }} catch(e) {{
+    console.log(JSON.stringify({{ success: false, error: e.message }}));
+    process.exit(1);
+  }}
+}}
+run();
+"""
+        proc = subprocess.run(["node", "-e", js_script], capture_output=True, text=True, timeout=6)
+        if proc.stdout.strip():
+            try:
+                res = json.loads(proc.stdout.strip())
+                return res
+            except Exception:
+                pass
+        return {"success": True}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
 def launch_streammonitor_desktop() -> Dict[str, Any]:
     """
-    Lanza StreamMonitor explícitamente en el monitor interactivo físico del usuario ('WinSta0\\Default')
-    usando Task Scheduler interactivo (/it) para romper cualquier sandbox de sesión y restaura la ventana visible.
+    Lanza StreamMonitor explícitamente en el monitor interactivo físico del usuario ('WinSta0\\Default'),
+    restaura la ventana visible y abre/enfoca inmediatamente el chat de Mahia.
     """
     import time
     if not STREAMMONITOR_EXE.exists():
@@ -354,14 +454,17 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
             "error": f"No se encontró StreamMonitor en: {STREAMMONITOR_EXE}"
         }
 
-    # 1. Si ya está abierta y visible en WinSta0\Default, traerla al frente
+    # 1. Si ya está abierta y visible en WinSta0\Default, traerla al frente y abrir chat de Mahia
     focused = focus_streammonitor_window()
     if focused:
+        time.sleep(0.4)
+        mahia_res = focus_and_open_mahia_chat()
         return {
             "success": True,
             "already_running": True,
             "focused": True,
-            "message": "StreamMonitor traído al frente en tu pantalla principal."
+            "mahia_chat_ready": mahia_res.get("success", False),
+            "message": "StreamMonitor visible en pantalla y posicionado directamente en el chat de Mahia."
         }
 
     # 2. Si no estaba visible en pantalla, lanzarlo a través del Programador de Tareas interactivo (/it)
@@ -379,11 +482,14 @@ def launch_streammonitor_desktop() -> Dict[str, Any]:
 
         time.sleep(3.0)
         focused = focus_streammonitor_window()
+        time.sleep(0.6)
+        mahia_res = focus_and_open_mahia_chat()
         return {
             "success": True,
             "already_running": False,
             "focused": focused,
-            "message": "StreamMonitor lanzado y visible en tu monitor principal."
+            "mahia_chat_ready": mahia_res.get("success", False),
+            "message": "StreamMonitor lanzado y posicionado directamente en el chat de Mahia."
         }
     except Exception as e:
         return {
@@ -427,7 +533,19 @@ def inspect_streammonitor_status() -> Dict[str, Any]:
 
     return status
 
-def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dict[str, Any]:
+# Lista obligatoria y exhaustiva de hashtags requeridos para LoyalFans
+LOYALFANS_MANDATORY_HASHTAGS = (
+    "#online #live #enjoy #nude #sexy #sensual #atm #findom #femdom #girl #woman #fuck #ass #tits "
+    "#videos #video #store #videostore #goddes #money #mistress #SamB #photo #she #miss #smile "
+    "#money #atm #sub #dom #dominatriz #pics #photos #photography #videos #video #spank #motivation "
+    "#goodafternong #good #diferent #unic #diferent #unic #vino #feet #foot #toes #MyMoments #RealMe "
+    "#buzz #buzzed #lovense #gym #GymBabe #WorkoutVibes #FitAndSeductive #SweatWithMe #StrongAndSexy "
+    "#FitQueen #GymTease #BodyGoals #SexyAndFit #TrainHardLookHot #TemptationUnleashed #IrresistibleEnergy "
+    "#DominantVibes #AllEyesOnMe #PowerAndDesire #FemmeFataleVibes #MagneticCharm #BossEnergy "
+    "#Tomboy #LiveCam #WebcamModel #Streamate #LoyalFans"
+)
+
+def generate_mahia_prompt(shift_theme: str, custom_description: str = "", post_to_social: bool = True) -> Dict[str, Any]:
     """
     Genera el prompt perfecto y conciso para pedirle asistencia a Mahia en StreamMonitor.
     Evita que Mahia se extienda o dé textos desordenados que la modelo deba recortar a mano.
@@ -435,9 +553,19 @@ def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dic
     theme_data = PRESET_SHIFT_THEMES.get(shift_theme)
     target_name = theme_data["title"] if theme_data else (custom_description or shift_theme)
 
+    social_block = ""
+    if post_to_social:
+        social_block = (
+            "\n\n7. PUBLICACIONES PARA REDES SOCIALES (X / Twitter y Feed de LoyalFans):\n"
+            " - Titulo X: Gancho magnético corto en inglés (máx 50 chars).\n"
+            " - Post X: Tweet de invitación en inglés (máx 220 chars con hashtags #LiveCam #Tomboy).\n"
+            " - Titulo LoyalFans: Título sugerente y exclusivo para suscriptores (máx 60 chars).\n"
+            " - Post LoyalFans: Descripción sensual y persuasiva en inglés anunciando el show en vivo e invitando al stream."
+        )
+
     prompt_text = (
         f"Mahia: Nuestro objetivo comercial de sala para este turno es: '{target_name}'.\n"
-        f"REGLA ESTRICTA: NO USES NINGUN EMOJI (cero emojis en todo el texto, topic, menú o mensajes). Solo texto limpio en inglés y hashtags.\nPor favor entrégame el plan táctico directo, sin introducciones ni despedidas, respetando estrictamente estos 4 bloques:\n\n"
+        f"REGLA ESTRICTA: NO USES NINGUN EMOJI (cero emojis en todo el texto, topic, menú o mensajes). Solo texto limpio en inglés y hashtags.\nPor favor entrégame el plan táctico directo, sin introducciones ni despedidas, respetando estrictamente estos bloques:\n\n"
         f"1. TOPIC: 1 línea de máximo 130 caracteres con hashtags de impacto (#Tomboy #Lovense #Gold).\n"
         f"2. MENU GOLD (Todos a 3 Gold): Exactamente 6 opciones breves en formato: Nombre - 3\n"
         f"3. RULETA INTIMA (Costo 5 Gold): Exactamente 10 opciones provocativas en formato: Opción\n"
@@ -445,11 +573,16 @@ def generate_mahia_prompt(shift_theme: str, custom_description: str = "") -> Dic
         f" - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
         f" - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
         f" - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
-        f"5. MACROS DE CHAT (Alt+1 a Alt+8): Exactamente 8 mensajes súper cortos en inglés, afines al saludo de sala:\n"f" - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"f" - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"f" - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n"f" - Alt+7 y Alt+8: Llamados a la acción (menú/ruleta y pase a privado)\n\n"
+        f"5. MACROS DE CHAT (Alt+1 a Alt+8): Exactamente 8 mensajes súper cortos en inglés, afines al saludo de sala:\n"
+        f" - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"
+        f" - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"
+        f" - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n"
+        f" - Alt+7 y Alt+8: Llamados a la acción (menú/ruleta y pase a privado)\n\n"
         f"6. OBJETIVO DE SALA LOYALFANS (3 niveles de meta en inglés con precios fijos):\n"
         f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
         f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
         f" - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars)."
+        f"{social_block}"
     )
 
     return {
@@ -482,27 +615,33 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
     current_section = None
     for line in lines:
         lower = line.lower()
-        if "topic" in lower and ":" in lower:
-            current_section = "topic"
-            topic_val = line.split(":", 1)[1].strip().strip('"').strip("'")
-            if topic_val:
-                result["topic"] = topic_val[:140]
-            continue
-        elif "gold" in lower and ("menú" in lower or "menu" in lower):
-            current_section = "gold"
-            continue
-        elif "ruleta" in lower or "wheel" in lower:
-            current_section = "wheel"
-            continue
-        elif "auto-mensaje" in lower or "automensaje" in lower or "auto mensaje" in lower:
-            current_section = "auto_messages"
-            continue
-        elif "macro" in lower or "alt+" in lower or "mensaje rápido" in lower:
-            current_section = "quick_messages"
-            continue
-        elif "objetivo" in lower or "loyalfans" in lower or "loyal" in lower:
-            current_section = "loyalfans"
-            continue
+        is_subitem = line.startswith("-") or line.startswith("•") or line.startswith("*")
+
+        if not is_subitem:
+            if "topic" in lower and ":" in lower:
+                current_section = "topic"
+                topic_val = line.split(":", 1)[1].strip().strip('"').strip("'")
+                if topic_val:
+                    result["topic"] = topic_val[:140]
+                continue
+            elif "gold" in lower and ("menú" in lower or "menu" in lower):
+                current_section = "gold"
+                continue
+            elif "ruleta" in lower or "wheel" in lower:
+                current_section = "wheel"
+                continue
+            elif "auto-mensaje" in lower or "automensaje" in lower or "auto mensaje" in lower:
+                current_section = "auto_messages"
+                continue
+            elif "macro" in lower or "alt+" in lower or "mensaje rápido" in lower:
+                current_section = "quick_messages"
+                continue
+            elif any(k in lower for k in ["redes", "social", "twitter", "publicaci"]):
+                current_section = "social"
+                continue
+            elif "objetivo" in lower or "loyalfans" in lower or "loyal" in lower:
+                current_section = "loyalfans"
+                continue
 
         # Procesar según sección activa
         if current_section == "topic" and not result["topic"]:
@@ -553,6 +692,20 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
                 t3 = re.sub(r'\(\$?\d+\)', '', m3.group(1)).strip().strip('"\'')
                 result.setdefault("loyalfans_goal", {})["level3"] = {"price": 33, "task": t3[:35]}
 
+        elif current_section == "social":
+            m_xt = re.search(r'(?:t[ií]tulo\s*x|title\s*x)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_xt:
+                result.setdefault("social_posts", {}).setdefault("x_post", {})["title"] = m_xt.group(1).strip().strip('"\'')
+            m_xp = re.search(r'(?:post\s*x|tweet|x\s*post|twitter)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_xp:
+                result.setdefault("social_posts", {}).setdefault("x_post", {})["content"] = m_xp.group(1).strip().strip('"\'')
+            m_lft = re.search(r'(?:t[ií]tulo\s*loyal|title\s*loyal)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_lft:
+                result.setdefault("social_posts", {}).setdefault("loyalfans_post", {})["title"] = m_lft.group(1).strip().strip('"\'')
+            m_lfp = re.search(r'(?:post\s*loyal|descripci[oó]n\s*loyal|feed\s*loyal|loyalfans)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_lfp:
+                result.setdefault("social_posts", {}).setdefault("loyalfans_post", {})["content"] = m_lfp.group(1).strip().strip('"\'')
+
     # Sanitizar estrictamente contra el catálogo oficial de 109 opciones de Streamate (cero opciones inventadas)
     from src.platforms.streamate.stream_monitor_controller import DEFAULT_STREAMATE_OPTIONS, match_streamate_option
 
@@ -591,6 +744,29 @@ def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
             "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
             "level3": {"price": 33, "task": "all or nothing"}
         }
+
+    # Garantizar que social_posts exista y contenga los hashtags requeridos en LoyalFans
+    if "social_posts" not in result or not result["social_posts"].get("x_post", {}).get("content"):
+        topic_preview = result.get("topic", "Live stream now active!")[:100]
+        result["social_posts"] = {
+            "enabled": True,
+            "x_post": {
+                "title": "Live Cam & Special Dynamic",
+                "content": f"Live now! {topic_preview} Come say hi in room #Tomboy #LiveCam #Streamate #Online"
+            },
+            "loyalfans_post": {
+                "title": "Special Shift Tonight • Live Stream Active",
+                "content": f"Hey loves! Going live right now with an exclusive show and interactive toys. Don't miss out on this shift!\n\n{LOYALFANS_MANDATORY_HASHTAGS}",
+                "hashtags": LOYALFANS_MANDATORY_HASHTAGS
+            }
+        }
+    else:
+        lf_p = result["social_posts"].setdefault("loyalfans_post", {})
+        existing_desc = lf_p.get("content", "Live stream is officially open! Step in and enjoy tonight's exclusive private shows.")
+        if LOYALFANS_MANDATORY_HASHTAGS not in existing_desc:
+            lf_p["content"] = f"{existing_desc}\n\n{LOYALFANS_MANDATORY_HASHTAGS}".strip()
+        lf_p["hashtags"] = LOYALFANS_MANDATORY_HASHTAGS
+        result["social_posts"]["enabled"] = True
 
     return result
 
@@ -822,6 +998,53 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "level3": {"price": 33, "task": l3_goal[:35]}
     }
 
+    # 6. Extraer Publicaciones para Redes Sociales (X / Twitter & LoyalFans Feed)
+    x_title = ""
+    x_post = ""
+    lf_title = ""
+    lf_post = ""
+
+    for line in mahia_text.splitlines():
+        line_s = line.strip()
+        m_xt = re.search(r'(?:t[ií]tulo\s*x|title\s*x)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_xt and not x_title:
+            x_title = m_xt.group(1).strip().strip('"\'')
+        m_xp = re.search(r'(?:post\s*x|tweet|x\s*post|twitter)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_xp and not x_post:
+            x_post = m_xp.group(1).strip().strip('"\'')
+        m_lft = re.search(r'(?:t[ií]tulo\s*loyal|title\s*loyal)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_lft and not lf_title:
+            lf_title = m_lft.group(1).strip().strip('"\'')
+        m_lfp = re.search(r'(?:post\s*loyal|descripci[oó]n\s*loyal|feed\s*loyal|loyalfans)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_lfp and not lf_post:
+            lf_post = m_lfp.group(1).strip().strip('"\'')
+
+    if not x_title:
+        x_title = f"Live Now: {short_title}"
+    if not x_post:
+        x_post = f"Live right now on cam! {main_topic[:110]} Come join the room #Tomboy #LiveCam #Lovense #Online"
+    if not lf_title:
+        lf_title = f"Special Shift Tonight • {short_title}"
+    if not lf_post:
+        lf_post = f"Live stream is officially active! Step in, control the toy and enjoy tonight's exclusive private dynamic."
+
+    # Asegurar que el post de LoyalFans siempre incluya todos los hashtags obligatorios
+    if LOYALFANS_MANDATORY_HASHTAGS not in lf_post:
+        lf_post = f"{lf_post}\n\n{LOYALFANS_MANDATORY_HASHTAGS}".strip()
+
+    social_posts = {
+        "enabled": True,
+        "x_post": {
+            "title": x_title,
+            "content": x_post
+        },
+        "loyalfans_post": {
+            "title": lf_title,
+            "content": lf_post,
+            "hashtags": LOYALFANS_MANDATORY_HASHTAGS
+        }
+    }
+
     return {
         "title": short_title,
         "topic": main_topic,
@@ -833,6 +1056,7 @@ def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str
         "quick_messages": quick_messages,
         "quick_messages_by_tier": quick_messages_by_tier,
         "loyalfans_goal": loyalfans_goal,
+        "social_posts": social_posts,
         "mahia_raw_reply": mahia_text
     }
 
@@ -950,6 +1174,14 @@ async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[st
     else:
         reports["loyalfans_warning"] = lf_res.get("error", "Aviso Loyalfans Live")
 
+    social_data = shift_data.get("social_posts") or {}
+    if social_data.get("enabled"):
+        reports["social_posts"] = {
+            "success": True,
+            "x_post": social_data.get("x_post"),
+            "loyalfans_post": social_data.get("loyalfans_post")
+        }
+
     # Guardar configuración persistida para StreamMonitor
     save_streamate_tools_config("active_orchestrated_shift", {
         "theme_key": theme_key,
@@ -1034,6 +1266,20 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
         }
         theme_key = "custom_shift"
 
+    if "social_posts" not in preset:
+        preset["social_posts"] = {
+            "enabled": True,
+            "x_post": {
+                "title": f"Live Now: {preset.get('title', 'Special Show')}",
+                "content": f"Live now with special vibes and exclusive private shows! Come say hi #Tomboy #LiveCam #Lovense #Online"
+            },
+            "loyalfans_post": {
+                "title": f"Special Shift Tonight • {preset.get('title', 'Live Stream Active')}",
+                "content": f"Hey loves! Going live right now with an exclusive show and interactive toys. Don't miss out on this shift!\n\n{LOYALFANS_MANDATORY_HASHTAGS}",
+                "hashtags": LOYALFANS_MANDATORY_HASHTAGS
+            }
+        }
+
     return {
         "theme_key": theme_key,
         "strategy": preset,
@@ -1043,7 +1289,7 @@ def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
     }
 
 
-def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
+def execute_mahia_shift_dialogue(user_idea_spanish: str, post_to_social: bool = True) -> Dict[str, Any]:
     """
     Ejecuta el flujo real solicitado por Sam:
     1. SIREN abre y enfoca StreamMonitor Desktop en la pantalla del usuario (WinSta0\\Default).
@@ -1056,22 +1302,34 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
        - Room Topic oficial en inglés (<= 140 chars)
        - Menú Gold (exactamente 6 opciones oficiales del catálogo de Streamate a 3G)
        - Ruleta Íntima (exactamente 10 opciones oficiales del catálogo de Streamate a 5G)
+       - Objetivo de Sala para LoyalFans (3 Niveles: $11, $22, $33)
+       - Anuncios para Redes Sociales (X y LoyalFans Feed con hashtags obligatorios)
     """
     import time
-    # 1. Asegurar lanzamiento de StreamMonitor Desktop en la pantalla activa
+    # 1. Asegurar lanzamiento de StreamMonitor Desktop en la pantalla activa y situarse en Mahia
     launch_res = launch_streammonitor_desktop()
 
     # Dar breve margen para que StreamMonitor se estabilice en pantalla
-    time.sleep(1.5)
+    time.sleep(1.2)
 
     # 2. Generar orden táctica que SIREN le entrega a Mahia
     res = smart_orchestrate_natural_idea(user_idea_spanish)
     strategy = res["strategy"]
     theme_key = res["theme_key"]
 
+    social_order = ""
+    if post_to_social:
+        social_order = (
+            f"7. Publicaciones para Redes Sociales (X / Twitter y LoyalFans Feed):\n"
+            f" - Titulo X: Gancho magnético corto en inglés (máx 50 chars).\n"
+            f" - Post X: Tweet de invitación en inglés (máx 220 chars con hashtags #LiveCam #Tomboy).\n"
+            f" - Titulo LoyalFans: Título sugerente y exclusivo para suscriptores en inglés (máx 60 chars).\n"
+            f" - Post LoyalFans: Descripción sensual y persuasiva en inglés anunciando el show en vivo e invitando al stream.\n"
+        )
+
     siren_to_mahia_prompt = (
         f"Mahia: Sam ha definido el foco para su turno: '{user_idea_spanish}'.\n"
-        f"Aplica las reglas de Streamate y entrégame el plan en estos 5 puntos claros y bien enumerados:\n"
+        f"Aplica las reglas de Streamate y entrégame el plan en estos puntos claros y bien enumerados:\n"
         f"REGLA OBLIGATORIA: CERO EMOJIS (estrictamente prohibido usar emojis en cualquier parte).\n1. Room Topic (en inglés, máx 140 chars con #hashtags).\n"
         f"2. GOLD Menu a 3G (exactamente 6 acciones oficiales del catálogo de Streamate).\n"
         f"3. Ruleta Íntima a 5G (exactamente 10 acciones oficiales del catálogo de Streamate).\n"
@@ -1087,6 +1345,7 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
         f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
         f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
         f" - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars).\n"
+        f"{social_order}"
         f"Devuélveme el plan estructurado para aplicarlo en vivo."
     )
 
@@ -1116,7 +1375,7 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
         m6 = qm[5] if len(qm) > 5 else "Back again to spoil me? You're the best "
 
         mahia_response_text = (
-            f"Entendido Sam. Aquí tienes el plan táctico completo para tu sala, estructurado en 5 puntos claros:\n\n"
+            f"Entendido Sam. Aquí tienes el plan táctico completo para tu sala, estructurado en puntos claros:\n\n"
             f"1. ROOM TOPIC (en inglés, ≤ 140 chars con #hashtags):\n"
             f"\"{strategy['topic']}\"\n\n"
             f"2. GOLD MENU (6 opciones oficiales del catálogo de Streamate a 3G):\n" +
@@ -1136,7 +1395,16 @@ def execute_mahia_shift_dialogue(user_idea_spanish: str) -> Dict[str, Any]:
             f" - Alt+4: \"{m4}\"\n"
             f"• Han entrado varias veces (Habituales / VIPs):\n"
             f" - Alt+5: \"{m5}\"\n"
-            f" - Alt+6: \"{m6}\""
+            f" - Alt+6: \"{m6}\"\n\n"
+            f"6. OBJETIVO DE SALA PARA LOYALFANS (3 Niveles: $11, $22, $33):\n"
+            f" - Nivel 1 ($11): {strategy.get('loyalfans_goal', {}).get('level1', {}).get('task', 'truth or dare')}\n"
+            f" - Nivel 2 ($22): {strategy.get('loyalfans_goal', {}).get('level2', {}).get('task', 'CHALLENGE FOR 1 MINUTE')}\n"
+            f" - Nivel 3 ($33): {strategy.get('loyalfans_goal', {}).get('level3', {}).get('task', 'all or nothing')}\n\n"
+            f"7. PUBLICACIONES PARA REDES SOCIALES (X y LoyalFans Feed):\n"
+            f" - Titulo X: \"{strategy.get('social_posts', {}).get('x_post', {}).get('title', 'Live Cam Special')}\"\n"
+            f" - Post X: \"{strategy.get('social_posts', {}).get('x_post', {}).get('content', 'Live now! Come say hi #Tomboy #LiveCam')}\"\n"
+            f" - Titulo LoyalFans: \"{strategy.get('social_posts', {}).get('loyalfans_post', {}).get('title', 'Special Shift Tonight')}\"\n"
+            f" - Post LoyalFans: \"{strategy.get('social_posts', {}).get('loyalfans_post', {}).get('content', 'Live stream active!')}\""
         )
         live_chat_done = False
 

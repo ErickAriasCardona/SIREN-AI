@@ -12919,6 +12919,21 @@ Cat Lover </div>
             </button>
           </div>
 
+          <!-- Opción de Postear en Redes Sociales (X / Twitter y LoyalFans Feed) -->
+          <div style="display: flex; justify-content: space-between; align-items: center; background: rgba(0, 229, 191, 0.08); border: 1px solid rgba(0, 229, 191, 0.3); border-radius: 8px; padding: 10px 14px; margin-top: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <i data-lucide="share-2" style="width: 18px; height: 18px; color: #00E5BF; flex-shrink: 0;"></i>
+              <div>
+                <div style="font-size: 12px; font-weight: 800; color: var(--text-main);">¿Postear anuncio en redes sociales (X y LoyalFans Feed)?</div>
+                <div style="font-size: 10px; color: var(--text-dim);">Pide a Mahia título y descripción con tus hashtags oficiales para promocionar el show en X y LoyalFans.</div>
+              </div>
+            </div>
+            <label style="display: inline-flex; align-items: center; gap: 7px; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="smo-post-social-toggle" checked style="accent-color: #00E5BF; width: 17px; height: 17px; cursor: pointer;">
+              <span id="smo-post-social-label" style="font-size: 11.5px; font-weight: 800; color: #00E5BF;">Sí, generar y postear</span>
+            </label>
+          </div>
+
           <!-- Botón de Generación Paso 1 -->
           <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
             <button class="action-btn smo-primary-btn" id="smo-orchestrate-btn" onclick="executeNaturalShiftOrchestration()" style="padding: 10px 22px; font-size: 12px;">
@@ -13191,6 +13206,52 @@ Cat Lover </div>
                       <input type="text" id="smo-lf-input-3" class="smo-lf-goal-input" placeholder="all or nothing climax" style="background: transparent; border: none; color: #fff; font-size: 11px; font-weight: 600; outline: none; width: 100%; padding: 2px 0;">
                     </div>
                     <span style="background: rgba(239, 68, 68, 0.2); color: #f87171; border: 1px solid rgba(239, 68, 68, 0.5); font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 6px;">$33</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6. Publicación en Redes Sociales (X / Twitter & LoyalFans Feed) -->
+              <div id="smo-social-posts-card" class="smo-subcard" style="border: 1.5px solid rgba(59, 130, 246, 0.4); background: rgba(59, 130, 246, 0.05); margin-top: 10px;">
+                <div style="font-size: 11px; font-weight: 800; color: var(--text-main); margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center;">
+                  <span style="display: flex; align-items: center; gap: 6px;">
+                    <i data-lucide="share-2" style="width: 14px; height: 14px; color: #60a5fa;"></i>
+                    <span style="color: #60a5fa;">Anuncios en Redes Sociales (X & LoyalFans Feed):</span>
+                  </span>
+                  <span class="table-badge badge-primary" style="font-size: 8.5px; padding: 1px 7px;">Auto-Promoción</span>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 9px;">
+                  <!-- Post para X (Twitter) -->
+                  <div style="background: rgba(0,0,0,0.35); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(59, 130, 246, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                      <span style="font-size: 9px; font-weight: 800; color: #60a5fa; text-transform: uppercase; display: flex; align-items: center; gap: 4px;">
+                        <i data-lucide="twitter" style="width: 11px; height: 11px;"></i> Post para X (Twitter)
+                      </span>
+                      <div style="display: flex; gap: 5px;">
+                        <button type="button" onclick="copySmoXPost()" class="action-btn" style="padding: 2px 7px; font-size: 9px; height: auto;">
+                          <i data-lucide="copy" style="width: 10px; height: 10px;"></i> Copiar
+                        </button>
+                        <button type="button" onclick="openSmoXTweetIntent()" class="action-btn" style="padding: 2px 7px; font-size: 9px; height: auto; background: rgba(59, 130, 246, 0.25); border-color: #3b82f6; color: #93c5fd;">
+                          <i data-lucide="external-link" style="width: 10px; height: 10px;"></i> Publicar en X
+                        </button>
+                      </div>
+                    </div>
+                    <input type="text" id="smo-x-title" placeholder="Título / Gancho en X" style="background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 11px; font-weight: 700; outline: none; width: 100%; padding: 2px 0 4px 0; margin-bottom: 4px;">
+                    <textarea id="smo-x-content" rows="2" placeholder="Tweet en inglés para invitar a sala con hashtags..." style="background: transparent; border: none; color: #e2e8f0; font-size: 10.5px; outline: none; width: 100%; resize: vertical; line-height: 1.35;"></textarea>
+                  </div>
+
+                  <!-- Post para LoyalFans Feed -->
+                  <div style="background: rgba(0,0,0,0.35); padding: 8px 10px; border-radius: 8px; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                      <span style="font-size: 9px; font-weight: 800; color: #f87171; text-transform: uppercase; display: flex; align-items: center; gap: 4px;">
+                        <i data-lucide="flame" style="width: 11px; height: 11px;"></i> Post para LoyalFans Feed (Con Hashtags Obligatorios)
+                      </span>
+                      <button type="button" onclick="copySmoLoyalFansPost()" class="action-btn" style="padding: 2px 7px; font-size: 9px; height: auto;">
+                        <i data-lucide="copy" style="width: 10px; height: 10px;"></i> Copiar
+                      </button>
+                    </div>
+                    <input type="text" id="smo-lf-post-title" placeholder="Título para la publicación en LoyalFans" style="background: transparent; border: none; border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; font-size: 11px; font-weight: 700; outline: none; width: 100%; padding: 2px 0 4px 0; margin-bottom: 4px;">
+                    <textarea id="smo-lf-post-content" rows="4" placeholder="Descripción sensual y lista completa de hashtags obligatorios..." style="background: transparent; border: none; color: #cbd5e1; font-size: 10px; outline: none; width: 100%; resize: vertical; line-height: 1.35;"></textarea>
                   </div>
                 </div>
               </div>
@@ -19836,6 +19897,21 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         elL3.title = t3;
       }
 
+      // 4.3 Publicaciones en Redes Sociales (X & LoyalFans Feed)
+      const sp = strat.social_posts || {};
+      const xTitleEl = document.getElementById('smo-x-title');
+      const xContentEl = document.getElementById('smo-x-content');
+      const lfTitleEl = document.getElementById('smo-lf-post-title');
+      const lfContentEl = document.getElementById('smo-lf-post-content');
+
+      if (xTitleEl) xTitleEl.value = (sp.x_post && sp.x_post.title) ? sp.x_post.title : `Live Now: ${strat.title || 'Special Show'}`;
+      if (xContentEl) xContentEl.value = (sp.x_post && sp.x_post.content) ? sp.x_post.content : `Live now on cam! ${strat.topic || ''} Come say hi #Tomboy #LiveCam`;
+      if (lfTitleEl) lfTitleEl.value = (sp.loyalfans_post && sp.loyalfans_post.title) ? sp.loyalfans_post.title : `Special Shift Tonight • ${strat.title || 'Live Stream'}`;
+      if (lfContentEl) {
+        const lfDesc = (sp.loyalfans_post && sp.loyalfans_post.content) ? sp.loyalfans_post.content : `Live stream is active! Come join my room.\n\n#online #live #enjoy #nude #sexy #sensual #atm #findom #femdom #girl #woman #fuck #ass #tits #videos #video #store #videostore #goddes #money #mistress #SamB #photo #she #miss #smile #sub #dom #dominatriz #pics #photos #photography #spank #motivation #goodafternong #good #diferent #unic #vino #feet #foot #toes #MyMoments #RealMe #buzz #buzzed #lovense #gym #GymBabe #WorkoutVibes #FitAndSeductive #SweatWithMe #StrongAndSexy #FitQueen #GymTease #BodyGoals #SexyAndFit #TrainHardLookHot #TemptationUnleashed #IrresistibleEnergy #DominantVibes #AllEyesOnMe #PowerAndDesire #FemmeFataleVibes #MagneticCharm #BossEnergy #Tomboy #LiveCam #Streamate #LoyalFans`;
+        lfContentEl.value = lfDesc;
+      }
+
       // 5. SINCRONIZACIÓN INMEDIATA CON LAS OTRAS HERRAMIENTAS DE STREAMATE
       if (strat.topic) {
         localStorage.setItem('siren_sm_topic', strat.topic);
@@ -19896,6 +19972,34 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
+    function copySmoXPost() {
+      const el = document.getElementById('smo-x-content');
+      if (el && el.value) {
+        navigator.clipboard.writeText(el.value).then(() => {
+          showToast(' Post para X (Twitter) copiado al portapapeles');
+        }).catch(() => showToast('Selecciona el texto para copiarlo'));
+      }
+    }
+
+    function openSmoXTweetIntent() {
+      const el = document.getElementById('smo-x-content');
+      const text = el ? el.value.trim() : '';
+      if (text) {
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`, '_blank', 'width=600,height=420');
+      } else {
+        showToast('Escribe o genera el tweet antes de postear');
+      }
+    }
+
+    function copySmoLoyalFansPost() {
+      const el = document.getElementById('smo-lf-post-content');
+      if (el && el.value) {
+        navigator.clipboard.writeText(el.value).then(() => {
+          showToast(' Post para LoyalFans Feed copiado con todos tus hashtags oficiales');
+        }).catch(() => showToast('Selecciona el texto para copiarlo'));
+      }
+    }
+
     async function executeNaturalShiftOrchestration() {
       const input = document.getElementById('smo-natural-idea-input');
       const btn = document.getElementById('smo-orchestrate-btn');
@@ -19934,12 +20038,13 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
 
       try {
         const apiBase = getApiBase();
+        const isSocialChecked = document.getElementById('smo-post-social-toggle')?.checked !== false;
 
         // Lanzar request en background y simular los checkpoints visuales en tiempo real
         const fetchPromise = fetch(`${apiBase}/api/streammonitor/orchestrate_natural_idea`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ idea_text: ideaText, auto_apply: false })
+          body: JSON.stringify({ idea_text: ideaText, auto_apply: false, post_to_social: isSocialChecked })
         });
 
         await new Promise(r => setTimeout(r, 700));
@@ -19982,6 +20087,11 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           await new Promise(r => setTimeout(r, 350));
           const lf = data.strategy.loyalfans_goal || {};
           logStep(` Loyalfans Objetivos 3 Niveles ($11: "${lf.level1?.task || 'truth or dare'}", $22: "${lf.level2?.task || 'CHALLENGE 1 MIN'}", $33: "${lf.level3?.task || 'all or nothing'}") deducidos y listos`, true);
+
+          if (data.strategy.social_posts) {
+            await new Promise(r => setTimeout(r, 350));
+            logStep(` Anuncios para Redes Sociales (X & LoyalFans Feed con tus hashtags oficiales) generados`, true);
+          }
 
           await new Promise(r => setTimeout(r, 300));
           logStep(` ¡TODO CONFIGURADO Y ACTIVO EN VIVO! Chat con Mahia completado, Loyalfans sincronizado y Streamate listo.`, true);
@@ -20060,11 +20170,34 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       const lf2 = inpL2 && inpL2.value.trim() ? inpL2.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level2?.task || 'CHALLENGE FOR 1 MINUTE');
       const lf3 = inpL3 && inpL3.value.trim() ? inpL3.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level3?.task || 'all or nothing');
 
+      const isSocialEnabled = document.getElementById('smo-post-social-toggle')?.checked !== false;
+      const xTitleInp = document.getElementById('smo-x-title');
+      const xContentInp = document.getElementById('smo-x-content');
+      const lfTitleInp = document.getElementById('smo-lf-post-title');
+      const lfContentInp = document.getElementById('smo-lf-post-content');
+
+      const xTitle = xTitleInp ? xTitleInp.value.trim() : '';
+      const xContent = xContentInp ? xContentInp.value.trim() : '';
+      const lfTitle = lfTitleInp ? lfTitleInp.value.trim() : '';
+      const lfContent = lfContentInp ? lfContentInp.value.trim() : '';
+
       if (!currentSmoStrategy) currentSmoStrategy = {};
       currentSmoStrategy.loyalfans_goal = {
         level1: { price: 11, task: lf1 },
         level2: { price: 22, task: lf2 },
         level3: { price: 33, task: lf3 }
+      };
+
+      currentSmoStrategy.social_posts = {
+        enabled: isSocialEnabled,
+        x_post: {
+          title: xTitle || currentSmoStrategy?.social_posts?.x_post?.title || '',
+          content: xContent || currentSmoStrategy?.social_posts?.x_post?.content || ''
+        },
+        loyalfans_post: {
+          title: lfTitle || currentSmoStrategy?.social_posts?.loyalfans_post?.title || '',
+          content: lfContent || currentSmoStrategy?.social_posts?.loyalfans_post?.content || ''
+        }
       };
 
       if (btn) {
@@ -20086,8 +20219,13 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         });
         const data = await res.json();
         if (data.success) {
-          showToast(' ¡Estrategia del turno aplicada con éxito en Streamate y sincronizada!');
-          appendChatMessage('system', ` **[ORQUESTADOR STREAMMONITOR & MAHIA]:** Estrategia de turno iniciada para **${data.theme_applied.toUpperCase()}**.\n- **Topic:** ${data.injected_topic}\n- **Menú Gold:** 3G configurado\n- **Ruleta Íntima:** 5G configurada\n- **Sincronización:** StreamMonitor + Streamate listos.`);
+          showToast(' ¡Estrategia del turno aplicada con éxito en Streamate y Loyalfans!');
+          if (isSocialEnabled && lfContent) {
+            navigator.clipboard.writeText(lfContent).then(() => {
+              showToast(' ¡Post para LoyalFans Feed copiado al portapapeles con todos los hashtags obligatorios!');
+            }).catch(() => {});
+          }
+          appendChatMessage('system', ` **[ORQUESTADOR STREAMMONITOR & MAHIA]:** Estrategia de turno iniciada para **${data.theme_applied.toUpperCase()}**.\n- **Topic:** ${data.injected_topic}\n- **Menú Gold:** 3G configurado\n- **Ruleta Íntima:** 5G configurada\n- **LoyalFans Live:** Metas $11, $22, $33 fijadas\n- **Redes Sociales:** Anuncios listos para X y LoyalFans Feed.`);
         } else {
           showToast('Aviso: ' + (data.message || 'Error al aplicar'));
         }

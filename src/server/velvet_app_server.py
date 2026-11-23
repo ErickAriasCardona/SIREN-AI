@@ -1667,7 +1667,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
             theme = body.get("shift_theme") or body.get("theme", "ass_twerk")
             custom_desc = body.get("custom_description") or body.get("custom_text", "")
-            res = generate_mahia_prompt(theme, custom_desc)
+            post_to_social = body.get("post_to_social", True)
+            res = generate_mahia_prompt(theme, custom_desc, post_to_social=post_to_social)
             resp = dict(res)
             resp["success"] = True
             resp["data"] = res
@@ -1727,9 +1728,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
             idea_text = body.get("idea_text", "")
             auto_apply = body.get("auto_apply", False)
+            post_to_social = body.get("post_to_social", True)
 
             # 1. Ejecutar diálogo estructurado entre SIREN y Mahia (StreamMonitor)
-            mahia_diag = execute_mahia_shift_dialogue(idea_text)
+            mahia_diag = execute_mahia_shift_dialogue(idea_text, post_to_social=post_to_social)
             strategy = mahia_diag["strategy"]
             theme_key = mahia_diag["theme_key"]
 
