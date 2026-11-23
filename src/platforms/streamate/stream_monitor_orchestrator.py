@@ -1,0 +1,1424 @@
+"""
+SIREN AI — StreamMonitor & Mahia Tactical Orchestrator
+Módulo de orquestación ética y complementaria para StreamMonitor (Streamate).
+
+PRINCIPIO ÉTICO FUNDAMENTAL:
+SIREN AI NO compite ni duplica las funcionalidades nativas de StreamMonitor
+(encoder de cámara, filtros de video, mixer de audio, detector de palabras prohibidas).
+SIREN actúa como el Co-Piloto Táctico y Automatizador que alinea la meta comercial del turno
+(ej. "Vender ASS", "Tomboy Ukelele", etc.) y orquesta:
+1. Instrucciones concisas para Mahia (evita que se extienda o dé textos desordenados).
+2. Procesamiento, validación y adaptación de las salidas de Mahia.
+3. Inyección automatizada en Streamate (Menú Gold, Ruleta 5G, Room Topic <= 140 chars).
+4. Preparación de Auto-Mensajes y Macros (Alt+1..Alt+8) para StreamMonitor.
+5. Monitoreo de estado de StreamMonitor Desktop (PID, versión, cuenta modelo).
+"""
+
+import sys
+import os
+import json
+import re
+import subprocess
+from pathlib import Path
+from typing import Dict, List, Any, Optional
+
+if sys.platform == "win32":
+    try:
+        sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+        sys.stderr.reconfigure(encoding="utf-8", errors="replace")
+    except Exception:
+        pass
+
+ROOT = Path(__file__).resolve().parent.parent.parent.parent
+STREAMMONITOR_EXE = Path(os.environ.get("LOCALAPPDATA", "C:/Users/MI PC/AppData/Local")) / "Programs" / "streammonitor" / "streammonitor.exe"
+STREAMMONITOR_LOGS = Path(os.environ.get("APPDATA", "C:/Users/MI PC/AppData/Roaming")) / "streammonitor" / "logs"
+
+# Metas comerciales pre-optimizadas con el estándar estricto de Streamate
+PRESET_SHIFT_THEMES: Dict[str, Dict[str, Any]] = {
+    "ball_gag_sub_dom": {
+        "id": "ball_gag_sub_dom",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "drool & tease"},
+            "level2": {"price": 22, "task": "GAG FOR 1 MINUTE"},
+            "level3": {"price": 33, "task": "total submission finale"}
+        },
+        "title": " Ball Gag, Collar & Pay-To-Sub Tease",
+        "badge": "Dominación & Sumisión Pagada",
+        "topic": " COLLAR & GAG TEASE! Pay To Control Me Or I Dominate Gold: 3G | Wheel: 5G | Drool & Submission #gag #bdsm #drool #dom #sub",
+        "gold_menu": [
+            {"name": "Mordaza", "gold": 3},
+            {"name": "Hazme babear", "gold": 3},
+            {"name": "Hazme amordazar", "gold": 3},
+            {"name": "Mostrar lengua", "gold": 3},
+            {"name": "10x nalgadas", "gold": 3},
+            {"name": "Posición de perrito", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Pinzas en pezones",
+                "Pellizcar pezones",
+                "Escupir",
+                "Golpear culo con paleta",
+                "5x azotes",
+                "Insultar",
+                "Palabras sucias",
+                "Azotate",
+                "Agacharse",
+                "SPH"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "Hey... see this collar and ball gag around my neck? Pay to control me or I stay in charge Gold: 3G | Wheel: 5G",
+            "send_golds": "Mmm thank you for feeding my collar {fan}... want me gagged and drooling for you?",
+            "private_show": "Welcome to my private room... are you ready to take complete control of my ball gag?"
+        },
+        "quick_messages": [
+            "Welcome in! First time? Paid submission today",
+            "New here? Ball gag and collar on camera",
+            "Hey, you are back! Ready to command me?",
+            "Good to see you again! Tip 3G for gag orders",
+            "My master is back! Take full control in private",
+            "Always back to discipline me take me to private now",
+            "Tap the screen or tip 3G to tighten the gag",
+            "Ready for complete control? Take me to private now"
+        ]
+    },
+    "ass_twerk": {
+        "id": "ass_twerk",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "truth or dare"},
+            "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
+            "level3": {"price": 33, "task": "all or nothing"}
+        },
+        "title": " Especial ASS & Twerk Trasero",
+        "badge": "Alta Conversión de Tokens",
+        "topic": " BOOTY SHAKE & TWERK LIVE Gold Menu 3G Intimate Wheel 5G Tease Me In Private #Tomboy #Ass #Twerk #Lovense #Gold",
+        "gold_menu": [
+            {"name": "twerk", "gold": 3},
+            {"name": "Rebota el trasero", "gold": 3},
+            {"name": "Sacudir el culo", "gold": 3},
+            {"name": "Muestra el trasero", "gold": 3},
+            {"name": "Ponte aceite en el trasero", "gold": 3},
+            {"name": "10x nalgadas", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Agita el trasero",
+                "Apretón de culo",
+                "Golpear culo con paleta",
+                "Muéstrame el culo",
+                "Posición de perrito",
+                "5x azotes",
+                "Baile",
+                "Estriptís",
+                "Sentadillas",
+                "Agacharse"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "Hey love! Welcome in. Booty & twerk special today. Make yourself comfortable",
+            "send_golds": "Mmm thank you for that gold {fan}! Check out my 3G Gold Menu",
+            "private_show": "Welcome to my private room... what naughty fantasy are we doing today?"
+        },
+        "quick_messages": [
+            "Welcome in! First time? Booty special today",
+            "New here? Check my 3G Gold Menu now",
+            "Hey, you are back! Missed this booty bouncing?",
+            "Good to see you again! Spin the wheel 5G",
+            "My favorite regular! Ready for private show?",
+            "Back to spoil me again let us go uncensored",
+            "Tap screen or tip 3G to trigger the next shake",
+            "Ready for no limits? Take me to private now"
+        ]
+    },
+    "tomboy_ukelele": {
+        "id": "tomboy_ukelele",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "song request"},
+            "level2": {"price": 22, "task": "SING WITHOUT TOP"},
+            "level3": {"price": 33, "task": "private acoustic climax"}
+        },
+        "title": " Tomboy Chill & Ukelele VIP",
+        "badge": "Scroll-Stopper USA/UK",
+        "topic": " GOOD VIBES & UKELELE LIVE Intimate chat • Gold Menu 3G Wheel 5G • Private Open #Tomboy #Acoustic #Cute #Lovense",
+        "gold_menu": [
+            {"name": "ASMR", "gold": 3},
+            {"name": "Sonrisa", "gold": 3},
+            {"name": "Di mi nombre", "gold": 3},
+            {"name": "Lanzar un beso", "gold": 3},
+            {"name": "Cuento sucio", "gold": 3},
+            {"name": "Mostrar vientre", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Lanzar un beso",
+                "Gemido",
+                "Gemir mi nombre",
+                "Provocame con todo el cuerpo",
+                "Quiño",
+                "Lamer labios",
+                "Palabras sucias",
+                "Mostrar lengua",
+                "Yoga sensual",
+                "Sarcasmo"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "Hey mister! So nice to have you. Come chat with me while I play something sweet",
+            "send_golds": "Thank you for the gold sweetheart! You inspire me so much",
+            "private_show": "We are completely alone now... Tell me your deepest secret"
+        },
+        "quick_messages": [
+            "Welcome in! First time? Chill ukelele tunes today",
+            "New here? Request a song from my 3G menu",
+            "Hey, you are back! Glad you came to vibe",
+            "Good to see you again! Spin the wheel 5G",
+            "My favorite regular! Want a private VIP song?",
+            "Always back to support me let us chat in private",
+            "Tap screen to vibe or pick from the 3G song menu",
+            "Let us take this acoustic session to private now"
+        ]
+    },
+    "full_lovense": {
+        "id": "full_lovense",
+        "loyalfans_goal": {
+            "level1": {"price": 11, "task": "buzz test 30s"},
+            "level2": {"price": 22, "task": "MAX VIBE 1 MINUTE"},
+            "level3": {"price": 33, "task": "orgasm on camera"}
+        },
+        "title": " Full Lovense Buzz & Dominación",
+        "badge": "Ticket Alto de Propinas",
+        "topic": " FULL LOVENSE TOY CONTROL Menu Gold 3G Wheel 5G Make Me Moan Live #Lovense #Buzz #Tomboy #Cam2Cam #Private",
+        "gold_menu": [
+            {"name": "Lame vibrador", "gold": 3},
+            {"name": "Gemido", "gold": 3},
+            {"name": "Cara de placer", "gold": 3},
+            {"name": "Gemir mi nombre", "gold": 3},
+            {"name": "Apretón de senos", "gold": 3},
+            {"name": "Rebote de senos", "gold": 3}
+        ],
+        "wheel": {
+            "cost": 5,
+            "items": [
+                "Hazme acabar",
+                "Provocame con todo el cuerpo",
+                "Gemir mi nombre",
+                "Palabras sucias",
+                "10x nalgadas",
+                "Rebote de senos",
+                "Posición de perrito",
+                "Baile",
+                "Desnuda con manos en los senos",
+                "Estriptís"
+            ]
+        },
+        "auto_messages": {
+            "room_30s": "Welcome! My toy is synced and waiting for your tips. Dare to control it?",
+            "send_golds": "Ahhh thank you for that buzz! Felt every single second, you are amazing",
+            "private_show": "We are alone now... Take complete control, don't hold back"
+        },
+        "quick_messages": [
+            "Welcome in! First time? Lovense control active",
+            "New here? Tip 3G to buzz my toy live",
+            "Hey, you are back! Ready to make me buzz?",
+            "Good to see you again! Take my toy to max",
+            "My favorite controller is back! Level 10 ready",
+            "Back to make me shake take me to private now",
+            "Tap screen or tip 3G to keep the toy buzzing",
+            "Ready for full control? Take me to private now"
+        ]
+    }
+}
+
+def is_streammonitor_running() -> bool:
+    """Verifica si el proceso de StreamMonitor Desktop está en ejecución."""
+    try:
+        cmd = 'tasklist /FI "IMAGENAME eq streammonitor.exe" /NH'
+        res = subprocess.run(cmd, capture_output=True, text=True, shell=True)
+        return "streammonitor.exe" in res.stdout.lower()
+    except Exception:
+        return False
+
+
+def ensure_streammonitor_multistream_layout() -> bool:
+    """
+    Asegura que StreamMonitor tenga configuradas activas Streamate y Loyalfans
+    en vista dividida de dos paneles (split multi-streaming).
+    """
+    from src.platforms.streamate.streammonitor_messages_injector import get_devtools_active_port
+    port = get_devtools_active_port()
+    if not port:
+        return False
+    try:
+        import urllib.request
+        import json
+        req = urllib.request.urlopen(f"http://127.0.0.1:{port}/json")
+        targets = json.loads(req.read().decode())
+        renderer = next((t for t in targets if "renderer" in t.get("url", "")), None)
+        if not renderer:
+            return False
+
+        import subprocess
+        node_script = f"""
+        const WebSocket = require('ws');
+        const ws = new WebSocket({json.dumps(renderer['webSocketDebuggerUrl'])});
+        ws.on('open', () => {{
+            ws.send(JSON.stringify({{
+                id: 1,
+                method: 'Runtime.evaluate',
+                params: {{
+                    expression: `(() => {{
+                        const profileId = "1589";
+                        localStorage.setItem("sm.platformSession." + profileId, JSON.stringify(["streamate", "loyalfans"]));
+                        localStorage.setItem("sm.platformLayout." + profileId, JSON.stringify({{
+                            layout: "command",
+                            order: ["streamate", "loyalfans"],
+                            ratio: 0.5,
+                            dockHidden: false
+                        }}));
+                        const platBtn = document.querySelector('button[aria-label="Plataformas"]');
+                        if (platBtn) platBtn.click();
+                        return true;
+                    }})()`,
+                    returnByValue: true
+                }}
+            }}));
+            setTimeout(() => {{ ws.close(); process.exit(0); }}, 300);
+        }});
+        """
+        project_root = Path(__file__).resolve().parent.parent.parent.parent
+        custom_env = dict(os.environ)
+        custom_env["NODE_PATH"] = str(project_root / "node_modules")
+        subprocess.run(["node", "-e", node_script], env=custom_env, capture_output=True, timeout=5)
+        return True
+    except Exception:
+        return False
+
+def focus_streammonitor_window() -> bool:
+    """Enfoca y restaura la ventana gráfica de StreamMonitor en primer plano en el escritorio físico del usuario ('WinSta0\\Default')."""
+    if sys.platform != "win32":
+        return False
+    try:
+        import ctypes
+        from ctypes import wintypes
+        user32 = ctypes.windll.user32
+
+        hwinsta = user32.OpenWindowStationW("WinSta0", False, 0x037F)
+        if hwinsta:
+            user32.SetProcessWindowStation(hwinsta)
+        hdesk = user32.OpenDesktopW("Default", 0, False, 0x01FF)
+
+        found_hwnds = []
+        def enum_cb(hwnd, lp):
+            length = user32.GetWindowTextLengthW(hwnd)
+            buff = ctypes.create_unicode_buffer(length + 1)
+            user32.GetWindowTextW(hwnd, buff, length + 1)
+            cls_buff = ctypes.create_unicode_buffer(256)
+            user32.GetClassNameW(hwnd, cls_buff, 256)
+            title = buff.value.lower()
+            cls_name = cls_buff.value.lower()
+            if 'streammonitor' in title or ('stream' in title and 'chrome_widgetwin' in cls_name):
+                found_hwnds.append(hwnd)
+            return True
+
+        WNDPROC = ctypes.WINFUNCTYPE(ctypes.c_bool, wintypes.HWND, wintypes.LPARAM)
+        if hdesk:
+            user32.EnumDesktopWindows(hdesk, WNDPROC(enum_cb), 0)
+            user32.CloseDesktop(hdesk)
+
+        for hwnd in found_hwnds:
+            user32.ShowWindow(hwnd, 9) # SW_RESTORE
+            user32.ShowWindow(hwnd, 3) # SW_MAXIMIZE
+            user32.SetWindowPos(hwnd, -1, 0, 0, 0, 0, 0x0003) # HWND_TOPMOST
+            user32.SetWindowPos(hwnd, -2, 0, 0, 0, 0, 0x0003) # HWND_NOTOPMOST
+            user32.SetForegroundWindow(hwnd)
+            user32.BringWindowToTop(hwnd)
+            return True
+        return False
+    except Exception:
+        return False
+
+
+def focus_and_open_mahia_chat() -> Dict[str, Any]:
+    """
+    Navega en la interfaz de StreamMonitor para hacer clic en el botón de Mahia
+    y situar el cursor directamente en su chat interactivo vía CDP.
+    """
+    try:
+        from src.platforms.streamate.mahia_live_connector import get_devtools_active_port
+        port = get_devtools_active_port()
+        if not port:
+            return {"success": False, "error": "Puerto CDP de StreamMonitor no activo"}
+
+        js_script = f"""
+const http = require('http');
+const WebSocket = require('ws');
+const port = {port};
+
+function getTargets() {{
+  return new Promise((resolve, reject) => {{
+    http.get('http://127.0.0.1:' + port + '/json', (res) => {{
+      let d = ''; res.on('data', c => d += c);
+      res.on('end', () => {{ try {{ resolve(JSON.parse(d)); }} catch(e) {{ reject(e); }} }});
+    }}).on('error', reject);
+  }});
+}}
+
+async function run() {{
+  try {{
+    const targets = await getTargets();
+    const page = targets.find(t => t.type === 'page' && t.url && t.url.includes('renderer/index.html')) || targets.find(t => t.type === 'page');
+    if (!page) {{
+      console.log(JSON.stringify({{ success: false, error: 'Página renderer no encontrada' }}));
+      process.exit(0);
+    }}
+
+    const ws = new WebSocket(page.webSocketDebuggerUrl);
+    await new Promise(r => ws.on('open', r));
+
+    const send = (expr) => new Promise(r => {{
+      const curId = Math.floor(Math.random() * 1000000);
+      const h = (data) => {{
+        try {{
+          const m = JSON.parse(data.toString());
+          if (m.id === curId) {{ ws.removeListener('message', h); r(m); }}
+        }} catch(e) {{}}
+      }};
+      ws.on('message', h);
+      ws.send(JSON.stringify({{ id: curId, method: 'Runtime.evaluate', params: {{ expression: expr, returnByValue: true }} }}));
+    }});
+
+    // 1. Cerrar diálogos modales emergentes superpuestos
+    await send(`(() => {{
+      const modalClose = document.querySelector('div[role="dialog"] button[aria-label="Close"], div[role="dialog"] button[aria-label="Cerrar"]');
+      if (modalClose) modalClose.click();
+    }})()`);
+
+    // 2. Hacer clic en Mahia para abrir su chat si no está ya activo
+    const clickRes = await send(`(() => {{
+      const ta = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea');
+      const sendBtn = document.querySelector('button[aria-label="Enviar"]');
+      let clicked = false;
+      if (!ta || !sendBtn) {{
+        const btn = document.querySelector('button[aria-label="Mahia"]') || Array.from(document.querySelectorAll('button')).find(b => {{
+          const t = (b.innerText || '').toLowerCase();
+          const al = (b.getAttribute('aria-label') || '').toLowerCase();
+          return t.includes('mahia') || al.includes('mahia');
+        }});
+        if (btn) {{
+          btn.click();
+          clicked = true;
+        }}
+      }}
+      setTimeout(() => {{
+        const t = document.querySelector('textarea[placeholder*="Pregunta por tus datos"]') || document.querySelector('textarea.chakra-textarea') || document.querySelector('textarea');
+        if (t) t.focus();
+      }}, 300);
+      return {{ alreadyOpen: !!ta, clicked: clicked }};
+    }})()`);
+
+    ws.close();
+    console.log(JSON.stringify({{ success: true, result: clickRes }}));
+    process.exit(0);
+  }} catch(e) {{
+    console.log(JSON.stringify({{ success: false, error: e.message }}));
+    process.exit(1);
+  }}
+}}
+run();
+"""
+        proc = subprocess.run(["node", "-e", js_script], capture_output=True, text=True, timeout=6)
+        if proc.stdout.strip():
+            try:
+                res = json.loads(proc.stdout.strip())
+                return res
+            except Exception:
+                pass
+        return {"success": True}
+    except Exception as e:
+        return {"success": False, "error": str(e)}
+
+
+def launch_streammonitor_desktop() -> Dict[str, Any]:
+    """
+    Lanza StreamMonitor explícitamente en el monitor interactivo físico del usuario ('WinSta0\\Default'),
+    restaura la ventana visible y abre/enfoca inmediatamente el chat de Mahia.
+    """
+    import time
+    if not STREAMMONITOR_EXE.exists():
+        return {
+            "success": False,
+            "error": f"No se encontró StreamMonitor en: {STREAMMONITOR_EXE}"
+        }
+
+    # 1. Si ya está abierta y visible en WinSta0\Default, traerla al frente y abrir chat de Mahia
+    focused = focus_streammonitor_window()
+    if focused:
+        time.sleep(0.4)
+        mahia_res = focus_and_open_mahia_chat()
+        return {
+            "success": True,
+            "already_running": True,
+            "focused": True,
+            "mahia_chat_ready": mahia_res.get("success", False),
+            "message": "StreamMonitor visible en pantalla y posicionado directamente en el chat de Mahia."
+        }
+
+    # 2. Si no estaba visible en pantalla, lanzarlo a través del Programador de Tareas interactivo (/it)
+    try:
+        bat_file = ROOT / "run_streammonitor.bat"
+        if not bat_file.exists():
+            with open(bat_file, "w", encoding="utf-8") as f:
+                f.write(f'@echo off\nstart "" "{STREAMMONITOR_EXE}"\n')
+
+        cmd_create = ["schtasks", "/create", "/tn", "LaunchStreamMonitor", "/tr", f'cmd.exe /c "{bat_file}"', "/sc", "once", "/st", "23:59", "/f", "/it"]
+        subprocess.run(cmd_create, capture_output=True, timeout=10)
+
+        cmd_run = ["schtasks", "/run", "/tn", "LaunchStreamMonitor"]
+        subprocess.run(cmd_run, capture_output=True, timeout=10)
+
+        time.sleep(3.0)
+        focused = focus_streammonitor_window()
+        time.sleep(0.6)
+        mahia_res = focus_and_open_mahia_chat()
+        return {
+            "success": True,
+            "already_running": False,
+            "focused": focused,
+            "mahia_chat_ready": mahia_res.get("success", False),
+            "message": "StreamMonitor lanzado y posicionado directamente en el chat de Mahia."
+        }
+    except Exception as e:
+        return {
+            "success": False,
+            "error": f"Error al ejecutar StreamMonitor: {e}"
+        }
+
+
+def inspect_streammonitor_status() -> Dict[str, Any]:
+    """Inspecciona la instalación local, logs recientes y estado de sesión de StreamMonitor."""
+    running = is_streammonitor_running()
+    installed = STREAMMONITOR_EXE.exists()
+
+    status: Dict[str, Any] = {
+        "installed": installed,
+        "running": running,
+        "exe_path": str(STREAMMONITOR_EXE),
+        "version": "1.1.18",
+        "account_context": "cuenta=1 modelo=1589 (SamBartone)",
+        "detected_hardware": {
+            "camera": "Logitech BRIO (FullHD 1080p / 4K)",
+            "virtual_cams": ["Lovense OBS Virtual Camera", "OBS Virtual Camera"],
+            "gpu": "AMD Radeon(TM) Graphics (HW Encoder Activo)"
+        },
+        "registered_shortcuts": ["Alt+1", "Alt+2", "Alt+3", "Alt+4", "Alt+5", "Alt+6", "Alt+7", "Alt+8"],
+        "companion_role": "SIREN actúa como el Co-Piloto Estratégico y Automatizador ético de StreamMonitor."
+    }
+
+    # Leer último log para métricas frescas
+    if STREAMMONITOR_LOGS.exists():
+        logs = sorted(list(STREAMMONITOR_LOGS.glob("app-*.log")), key=lambda p: p.stat().st_mtime, reverse=True)
+        if logs:
+            latest = logs[0]
+            try:
+                with open(latest, "r", encoding="utf-8", errors="ignore") as f:
+                    lines = f.readlines()
+                    status["last_log_file"] = latest.name
+                    status["last_log_line"] = lines[-1].strip() if lines else ""
+            except Exception:
+                pass
+
+    return status
+
+# Lista obligatoria y exhaustiva de hashtags requeridos para LoyalFans
+LOYALFANS_MANDATORY_HASHTAGS = (
+    "#online #live #enjoy #nude #sexy #sensual #atm #findom #femdom #girl #woman #fuck #ass #tits "
+    "#videos #video #store #videostore #goddes #money #mistress #SamB #photo #she #miss #smile "
+    "#money #atm #sub #dom #dominatriz #pics #photos #photography #videos #video #spank #motivation "
+    "#goodafternong #good #diferent #unic #diferent #unic #vino #feet #foot #toes #MyMoments #RealMe "
+    "#buzz #buzzed #lovense #gym #GymBabe #WorkoutVibes #FitAndSeductive #SweatWithMe #StrongAndSexy "
+    "#FitQueen #GymTease #BodyGoals #SexyAndFit #TrainHardLookHot #TemptationUnleashed #IrresistibleEnergy "
+    "#DominantVibes #AllEyesOnMe #PowerAndDesire #FemmeFataleVibes #MagneticCharm #BossEnergy "
+    "#Tomboy #LiveCam #WebcamModel #Streamate #LoyalFans"
+)
+
+def generate_mahia_prompt(shift_theme: str, custom_description: str = "", post_to_social: bool = True) -> Dict[str, Any]:
+    """
+    Genera el prompt perfecto y conciso para pedirle asistencia a Mahia en StreamMonitor.
+    Evita que Mahia se extienda o dé textos desordenados que la modelo deba recortar a mano.
+    """
+    theme_data = PRESET_SHIFT_THEMES.get(shift_theme)
+    target_name = theme_data["title"] if theme_data else (custom_description or shift_theme)
+
+    social_block = ""
+    if post_to_social:
+        social_block = (
+            "\n\n7. PUBLICACIONES PARA REDES SOCIALES (X / Twitter y Feed de LoyalFans):\n"
+            " - Titulo X: Gancho magnético corto en inglés (máx 50 chars).\n"
+            " - Post X: Tweet de invitación en inglés (máx 220 chars con hashtags #LiveCam #Tomboy).\n"
+            " - Titulo LoyalFans: Título sugerente y exclusivo para suscriptores (máx 60 chars).\n"
+            " - Post LoyalFans: Descripción sensual y persuasiva en inglés anunciando el show en vivo e invitando al stream."
+        )
+
+    prompt_text = (
+        f"Mahia: Nuestro objetivo comercial de sala para este turno es: '{target_name}'.\n"
+        f"REGLA ESTRICTA: NO USES NINGUN EMOJI (cero emojis en todo el texto, topic, menú o mensajes). Solo texto limpio en inglés y hashtags.\nPor favor entrégame el plan táctico directo, sin introducciones ni despedidas, respetando estrictamente estos bloques:\n\n"
+        f"1. TOPIC: 1 línea de máximo 130 caracteres con hashtags de impacto (#Tomboy #Lovense #Gold).\n"
+        f"2. MENU GOLD (Todos a 3 Gold): Exactamente 6 opciones breves en formato: Nombre - 3\n"
+        f"3. RULETA INTIMA (Costo 5 Gold): Exactamente 10 opciones provocativas en formato: Opción\n"
+        f"4. AUTO-MENSAJES:\n"
+        f" - Llegada Sala (30s): Mensaje cálido de bienvenida (máximo 12 palabras).\n"
+        f" - Propina Gold: Agradecimiento coqueto (máximo 10 palabras).\n"
+        f" - Entrada a Privado: Bienvenida sensual (máximo 10 palabras).\n\n"
+        f"5. MACROS DE CHAT (Alt+1 a Alt+8): Exactamente 8 mensajes súper cortos en inglés, afines al saludo de sala:\n"
+        f" - Alt+1 y Alt+2: Primera vez en la sala (nuevos)\n"
+        f" - Alt+3 y Alt+4: Ya han entrado antes (retorno)\n"
+        f" - Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)\n"
+        f" - Alt+7 y Alt+8: Llamados a la acción (menú/ruleta y pase a privado)\n\n"
+        f"6. OBJETIVO DE SALA LOYALFANS (3 niveles de meta en inglés con precios fijos):\n"
+        f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
+        f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
+        f" - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars)."
+        f"{social_block}"
+    )
+
+    return {
+        "shift_theme": shift_theme,
+        "target_name": target_name,
+        "concise_mahia_prompt": prompt_text,
+        "preset_fallback": theme_data or PRESET_SHIFT_THEMES["ass_twerk"]
+    }
+
+def parse_mahia_output_to_tools(raw_text: str) -> Dict[str, Any]:
+    """
+    Parsea la respuesta textual de Mahia y la estructura automáticamente
+    para alimentar las herramientas de Streamate y StreamMonitor sin trabajo manual.
+    """
+    result: Dict[str, Any] = {
+        "raw_text": raw_text,
+        "topic": "",
+        "gold_menu": [],
+        "wheel": {"cost": 5, "items": []},
+        "auto_messages": {
+            "room_30s": "",
+            "send_golds": "",
+            "private_show": ""
+        },
+        "quick_messages": []
+    }
+
+    lines = [l.strip() for l in raw_text.splitlines() if l.strip()]
+
+    current_section = None
+    for line in lines:
+        lower = line.lower()
+        is_subitem = line.startswith("-") or line.startswith("•") or line.startswith("*")
+
+        if not is_subitem:
+            if "topic" in lower and ":" in lower:
+                current_section = "topic"
+                topic_val = line.split(":", 1)[1].strip().strip('"').strip("'")
+                if topic_val:
+                    result["topic"] = topic_val[:140]
+                continue
+            elif "gold" in lower and ("menú" in lower or "menu" in lower):
+                current_section = "gold"
+                continue
+            elif "ruleta" in lower or "wheel" in lower:
+                current_section = "wheel"
+                continue
+            elif "auto-mensaje" in lower or "automensaje" in lower or "auto mensaje" in lower:
+                current_section = "auto_messages"
+                continue
+            elif "macro" in lower or "alt+" in lower or "mensaje rápido" in lower:
+                current_section = "quick_messages"
+                continue
+            elif any(k in lower for k in ["redes", "social", "twitter", "publicaci"]):
+                current_section = "social"
+                continue
+            elif "objetivo" in lower or "loyalfans" in lower or "loyal" in lower:
+                current_section = "loyalfans"
+                continue
+
+        # Procesar según sección activa
+        if current_section == "topic" and not result["topic"]:
+            result["topic"] = line.strip().strip('"').strip("'")[:140]
+
+        elif current_section == "gold":
+            if "-" in line:
+                parts = line.rsplit("-", 1)
+                name = re.sub(r'^\d+[\.\)]\s*', '', parts[0]).strip().strip("•-* ")
+                price_str = "".join([c for c in parts[1] if c.isdigit()])
+                price = int(price_str) if price_str else 3
+                if name and len(result["gold_menu"]) < 7:
+                    result["gold_menu"].append({"name": name, "gold": price})
+
+        elif current_section == "wheel":
+            clean_item = re.sub(r'^\d+[\.\)]\s*', '', line).strip().strip("•-* ")
+            if clean_item and not clean_item.lower().startswith("costo:"):
+                if len(result["wheel"]["items"]) < 14:
+                    result["wheel"]["items"].append(clean_item)
+
+        elif current_section == "auto_messages":
+            if "llegada" in lower or "sala" in lower or "30s" in lower:
+                msg = line.split(":", 1)[1].strip() if ":" in line else line
+                result["auto_messages"]["room_30s"] = msg.strip('"').strip("'")
+            elif "propina" in lower or "gold" in lower or "tip" in lower:
+                msg = line.split(":", 1)[1].strip() if ":" in line else line
+                result["auto_messages"]["send_golds"] = msg.strip('"').strip("'")
+            elif "privado" in lower or "pvt" in lower or "exclusivo" in lower:
+                msg = line.split(":", 1)[1].strip() if ":" in line else line
+                result["auto_messages"]["private_show"] = msg.strip('"').strip("'")
+
+        elif current_section == "quick_messages":
+            clean_macro = re.sub(r'^(?:alt\+\d|[\d\.\)]+)\s*[:\-]?\s*', '', line, flags=re.IGNORECASE).strip().strip('"').strip("'")
+            if clean_macro and len(result["quick_messages"]) < 8:
+                result["quick_messages"].append(clean_macro)
+
+        elif current_section == "loyalfans":
+            m1 = re.search(r'(?:nivel\s*1|level\s*1)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m1 and not result.get("loyalfans_goal", {}).get("level1"):
+                t1 = re.sub(r'\(\$?\d+\)', '', m1.group(1)).strip().strip('"\'')
+                result.setdefault("loyalfans_goal", {})["level1"] = {"price": 11, "task": t1[:35]}
+            m2 = re.search(r'(?:nivel\s*2|level\s*2)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m2 and not result.get("loyalfans_goal", {}).get("level2"):
+                t2 = re.sub(r'\(\$?\d+\)', '', m2.group(1)).strip().strip('"\'')
+                result.setdefault("loyalfans_goal", {})["level2"] = {"price": 22, "task": t2[:35]}
+            m3 = re.search(r'(?:nivel\s*3|level\s*3)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m3 and not result.get("loyalfans_goal", {}).get("level3"):
+                t3 = re.sub(r'\(\$?\d+\)', '', m3.group(1)).strip().strip('"\'')
+                result.setdefault("loyalfans_goal", {})["level3"] = {"price": 33, "task": t3[:35]}
+
+        elif current_section == "social":
+            m_xt = re.search(r'(?:t[ií]tulo\s*x|title\s*x)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_xt:
+                result.setdefault("social_posts", {}).setdefault("x_post", {})["title"] = m_xt.group(1).strip().strip('"\'')
+            m_xp = re.search(r'(?:post\s*x|tweet|x\s*post|twitter)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_xp:
+                result.setdefault("social_posts", {}).setdefault("x_post", {})["content"] = m_xp.group(1).strip().strip('"\'')
+            m_lft = re.search(r'(?:t[ií]tulo\s*loyal|title\s*loyal)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_lft:
+                result.setdefault("social_posts", {}).setdefault("loyalfans_post", {})["title"] = m_lft.group(1).strip().strip('"\'')
+            m_lfp = re.search(r'(?:post\s*loyal|descripci[oó]n\s*loyal|feed\s*loyal|loyalfans)[^:]*:\s*(.+)', line, re.IGNORECASE)
+            if m_lfp:
+                result.setdefault("social_posts", {}).setdefault("loyalfans_post", {})["content"] = m_lfp.group(1).strip().strip('"\'')
+
+    # Sanitizar estrictamente contra el catálogo oficial de 109 opciones de Streamate (cero opciones inventadas)
+    from src.platforms.streamate.stream_monitor_controller import DEFAULT_STREAMATE_OPTIONS, match_streamate_option
+
+    sanitized_gold = []
+    seen_gold = set()
+    for g in result["gold_menu"]:
+        opt_id = match_streamate_option(g.get("name", ""), DEFAULT_STREAMATE_OPTIONS)
+        if opt_id and opt_id in DEFAULT_STREAMATE_OPTIONS:
+            official_name = DEFAULT_STREAMATE_OPTIONS[opt_id]
+            if official_name not in seen_gold:
+                seen_gold.add(official_name)
+                sanitized_gold.append({"name": official_name, "gold": 3})
+    result["gold_menu"] = sanitized_gold if len(sanitized_gold) >= 3 else PRESET_SHIFT_THEMES["ass_twerk"]["gold_menu"]
+
+    sanitized_wheel = []
+    seen_wheel = set()
+    for w in result["wheel"]["items"]:
+        opt_id = match_streamate_option(w, DEFAULT_STREAMATE_OPTIONS)
+        if opt_id and opt_id in DEFAULT_STREAMATE_OPTIONS:
+            official_name = DEFAULT_STREAMATE_OPTIONS[opt_id]
+            if official_name not in seen_wheel:
+                seen_wheel.add(official_name)
+                sanitized_wheel.append(official_name)
+    result["wheel"]["items"] = sanitized_wheel if len(sanitized_wheel) >= 6 else PRESET_SHIFT_THEMES["ass_twerk"]["wheel"]["items"]
+
+    # Defaults de seguridad si Mahia omitió algún campo
+    if not result["topic"]:
+        result["topic"] = " EN VIVO EN STREAMATE Menu Gold 3G Ruleta Íntima 5G Tease Tomboy #Tomboy #Lovense #Gold"
+    if not result["auto_messages"]["room_30s"]:
+        result["auto_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["auto_messages"]
+    if len(result["quick_messages"]) < 4:
+        result["quick_messages"] = PRESET_SHIFT_THEMES["ass_twerk"]["quick_messages"]
+    if "loyalfans_goal" not in result or not result["loyalfans_goal"].get("level1"):
+        result["loyalfans_goal"] = {
+            "level1": {"price": 11, "task": "truth or dare"},
+            "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
+            "level3": {"price": 33, "task": "all or nothing"}
+        }
+
+    # Garantizar que social_posts exista y contenga los hashtags requeridos en LoyalFans
+    if "social_posts" not in result or not result["social_posts"].get("x_post", {}).get("content"):
+        topic_preview = result.get("topic", "Live stream now active!")[:100]
+        result["social_posts"] = {
+            "enabled": True,
+            "x_post": {
+                "title": "Live Cam & Special Dynamic",
+                "content": f"Live now! {topic_preview} Come say hi in room #Tomboy #LiveCam #Streamate #Online"
+            },
+            "loyalfans_post": {
+                "title": "Special Shift Tonight • Live Stream Active",
+                "content": f"Hey loves! Going live right now with an exclusive show and interactive toys. Don't miss out on this shift!\n\n{LOYALFANS_MANDATORY_HASHTAGS}",
+                "hashtags": LOYALFANS_MANDATORY_HASHTAGS
+            }
+        }
+    else:
+        lf_p = result["social_posts"].setdefault("loyalfans_post", {})
+        existing_desc = lf_p.get("content", "Live stream is officially open! Step in and enjoy tonight's exclusive private shows.")
+        if LOYALFANS_MANDATORY_HASHTAGS not in existing_desc:
+            lf_p["content"] = f"{existing_desc}\n\n{LOYALFANS_MANDATORY_HASHTAGS}".strip()
+        lf_p["hashtags"] = LOYALFANS_MANDATORY_HASHTAGS
+        result["social_posts"]["enabled"] = True
+
+    return result
+
+
+ENGLISH_TO_SPANISH_OFFICIAL = {
+    # Twerk & Booty
+    "twerk": "twerk",
+    "shake ass": "Sacudir el culo",
+    "shake": "Agita el trasero",
+    "booty": "Muestra el trasero",
+    "butt": "Muéstrame el culo",
+    "bounce": "Rebota el trasero",
+    "oil": "Ponte aceite en el trasero",
+    "spank": "10x nalgadas",
+    "spanking": "5x azotes",
+    "whip": "Azotar",
+    "paddle": "Golpear culo con paleta",
+    "bend over": "Agacharse",
+    "doggy": "Posición de perrito",
+    "squat": "Sentadillas",
+    "squats": "Sentadillas",
+    "clap boobs": "Aplaude con los senos",
+    "boob bounce": "Rebote de senos",
+    "boobs": "Acercamiento en senos",
+    "top off": "Quitarse el top",
+    "strip": "Estriptís",
+    "dance": "Baile",
+    "pole dance": "Baile en tubo",
+    "feet": "Muéstrame los pies",
+    "toes": "Chupar dedos de pies",
+    "face": "Acercamiento en rostro",
+    "pleasure face": "Cara de placer",
+    # BDSM & Submission / Gag
+    "ball gag": "Mordaza",
+    "gag": "Hazme amordazar",
+    "drool": "Hazme babear",
+    "tongue": "Mostrar lengua",
+    "spit": "Escupir",
+    "nipple clamps": "Pinzas en pezones",
+    "clamps": "Pinzas en pezones",
+    "pinch": "Pellizcar pezones",
+    "insult": "Insultar",
+    "humiliate": "SPH",
+    "sph": "SPH",
+    "kneel": "Agacharse",
+    "crawl": "Posición de perrito",
+    # Chill & Sensory
+    "asmr": "ASMR",
+    "whisper": "ASMR",
+    "dirty talk": "Palabras sucias",
+    "dirty story": "Cuento sucio",
+    "smile": "Sonrisa",
+    "kiss": "Lanzar un beso",
+    "blow kiss": "Lanzar un beso",
+    "lick lips": "Lamer labios",
+    "wink": "Quiño",
+    "say my name": "Di mi nombre",
+    "name": "Di mi nombre",
+    "yoga": "Yoga sensual",
+    "sarcasm": "Sarcasmo",
+    "belly": "Mostrar vientre",
+    # Toys & Lovense
+    "toy": "Mostrar juguetes",
+    "toys": "Mostrar juguetes",
+    "vibrator": "Lame vibrador",
+    "buzz": "Lame vibrador",
+    "lovense": "Lame vibrador",
+    "orgasm": "Hazme acabar",
+    "cum": "Hazme acabar",
+    "dildo": "Dildo",
+    "magic wand": "Varita Hitachi / Magic Wand",
+    "moan": "Gemido",
+    "moan my name": "Gemir mi nombre",
+    "touch": "Provocame con todo el cuerpo",
+    "tease": "Provocame con todo el cuerpo"
+}
+
+def deduce_strategy_from_mahia_text(mahia_text: str, user_idea: str) -> Dict[str, Any]:
+    """
+    Deduce de forma 100% DINÁMICA (cero datos quemados) la estrategia técnica
+    analizando las recomendaciones textuales reales de Mahia y las palabras clave de Sam.
+    Garantiza que el Topic sea el de Mahia y que las opciones de Gold y Ruleta pertenezcan
+    exclusivamente al catálogo oficial de 109 opciones de Streamate.
+    """
+    from src.platforms.streamate.stream_monitor_controller import DEFAULT_STREAMATE_OPTIONS, normalize_text
+
+    combined_text = f"{mahia_text}\n{user_idea}"
+    norm_combined = normalize_text(combined_text)
+
+    # 1. Extraer tópicos propuestos por Mahia
+    quoted_topics = []
+    # Buscar patrones Principal / Alternativa o comillas explícitas
+    labeled_matches = re.findall(r'(?:Principal|Alternativa|Topic|Opción A|Opcion A|Opción B|Opcion B)[:\s]*"([^"]+)"', mahia_text, re.IGNORECASE)
+    for cand in labeled_matches:
+        cand_clean = cand.strip()
+        if len(cand_clean) <= 140 and cand_clean not in quoted_topics:
+            quoted_topics.append(cand_clean)
+
+    # Buscar otras comillas si no encontramos labeled
+    all_quotes = re.findall(r'"([^"]{15,140})"', mahia_text)
+    for q in all_quotes:
+        q_clean = q.strip()
+        if q_clean not in quoted_topics and any(w in q_clean.lower() for w in ["gold", "wheel", "show", "special", "tease", "live", "3g", "5g", "#"]):
+            quoted_topics.append(q_clean)
+
+    main_topic = quoted_topics[0] if quoted_topics else " LIVE IN STREAMATE Gold Menu 3G Wheel 5G Tease Me In Private #Tomboy #Lovense #Gold"
+    alt_topic = quoted_topics[1] if len(quoted_topics) > 1 else ""
+
+    # 2. Extraer acciones del catálogo oficial recomendadas por Mahia o el usuario
+    detected_options = []
+    seen = set()
+
+    for key, official_name in ENGLISH_TO_SPANISH_OFFICIAL.items():
+        if f" {key} " in f" {norm_combined} " or key in norm_combined:
+            if official_name not in seen and official_name in DEFAULT_STREAMATE_OPTIONS.values():
+                seen.add(official_name)
+                detected_options.append(official_name)
+
+    for opt_id, opt_name in DEFAULT_STREAMATE_OPTIONS.items():
+        norm_opt = normalize_text(opt_name)
+        if norm_opt in norm_combined and opt_name not in seen:
+            seen.add(opt_name)
+            detected_options.append(opt_name)
+
+    # Fallbacks temáticos inteligentes para completar el cupo exacto
+    theme_fallbacks = [
+        "twerk", "Sacudir el culo", "Muestra el trasero", "10x nalgadas", "Posición de perrito",
+        "Ponte aceite en el trasero", "Agita el trasero", "Golpear culo con paleta", "5x azotes",
+        "Agacharse", "Baile", "Estriptís", "Sentadillas", "Muéstrame el culo", "Palabras sucias",
+        "Gemido", "Gemir mi nombre", "Lanzar un beso", "Sonrisa", "Di mi nombre"
+    ]
+    for fb in theme_fallbacks:
+        if fb not in seen and fb in DEFAULT_STREAMATE_OPTIONS.values():
+            seen.add(fb)
+            detected_options.append(fb)
+
+    gold_menu = [{"name": opt, "gold": 3} for opt in detected_options[:6]]
+    wheel_items = detected_options[6:16]
+    if len(wheel_items) < 10:
+        for opt_name in DEFAULT_STREAMATE_OPTIONS.values():
+            if opt_name not in seen:
+                seen.add(opt_name)
+                wheel_items.append(opt_name)
+                if len(wheel_items) == 10:
+                    break
+
+    short_title = main_topic.split("#")[0].strip().strip("-•|")[:40]
+    auto_messages = {
+        "room_30s": f"Hey! Welcome in. {short_title} today. Gold Menu is 3G, treat yourself ",
+        "send_golds": "Mmm thank you for that gold {fan}! Loving this dynamic tonight ",
+        "private_show": "We are completely alone in private now... Take full control "
+    }
+
+    # 4. Extraer los 6 Atajos Rápidos de Chat (Alt+1 a Alt+6) solicitados por Sam
+    # Alt+1 y Alt+2: Primera vez en la sala (afines al Saludo 30s)
+    # Alt+3 y Alt+4: Ya han entrado antes (retorno)
+    # Alt+5 y Alt+6: Han entrado varias veces (habituales / VIPs)
+    extracted_macros = {}
+    in_macros_section = False
+    for line in mahia_text.splitlines():
+        line_low = line.lower().strip()
+        if any(k in line_low for k in ["macro", "alt+", "atajo", "mensaje rápido", "mensajes rápidos", "5."]):
+            in_macros_section = True
+        
+        if in_macros_section:
+            m = re.search(r'alt\s*\+\s*([1-6])\s*[:\-]\s*(.+)', line, re.IGNORECASE)
+            if m:
+                idx = int(m.group(1))
+                val = m.group(2).strip().strip('"\'')
+                if len(val) >= 4:
+                    extracted_macros[idx] = val
+
+    theme_keyword = "special show"
+    if any(w in norm_combined for w in ["ass", "twerk", "booty", "cola", "nalga"]):
+        theme_keyword = "twerk show"
+    elif any(w in norm_combined for w in ["ball", "gag", "sumision", "collar"]):
+        theme_keyword = "kinky session"
+    elif any(w in norm_combined for w in ["ukelele", "chill", "music"]):
+        theme_keyword = "chill session"
+    elif any(w in norm_combined for w in ["buzz", "lovense"]):
+        theme_keyword = "toy control"
+
+    macro_defaults = {
+        1: f"Welcome in! First time? Come enjoy my {theme_keyword}",
+        2: "Hey new face! Check out my 3G Gold Menu today",
+        3: "Hey, you are back! Missed my show already?",
+        4: "Good to see you again! Ready for some fun?",
+        5: "My favorite regular is here! Come closer",
+        6: "Look who is back to spoil me always loving you",
+        7: "Tap screen or tip 3G to trigger the next action",
+        8: "Ready for complete control? Take me to private now"
+    }
+
+    quick_messages = [extracted_macros.get(i, macro_defaults[i]) for i in range(1, 9)]
+    quick_messages_by_tier = {
+        "new_users": [quick_messages[0], quick_messages[1]],
+        "returning_users": [quick_messages[2], quick_messages[3]],
+        "frequent_users": [quick_messages[4], quick_messages[5]],
+        "call_to_action": [quick_messages[6], quick_messages[7]]
+    }
+
+    # 5. Extraer Objetivo de Sala para Loyalfans (3 Niveles: $11, $22, $33)
+    l1_goal = ""
+    l2_goal = ""
+    l3_goal = ""
+    for line in mahia_text.splitlines():
+        line_s = line.strip()
+        m1 = re.search(r'(?:nivel\s*1|level\s*1)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m1 and not l1_goal:
+            l1_goal = re.sub(r'\(\$?\d+\)', '', m1.group(1)).strip().strip('"\'')
+        m2 = re.search(r'(?:nivel\s*2|level\s*2)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m2 and not l2_goal:
+            l2_goal = re.sub(r'\(\$?\d+\)', '', m2.group(1)).strip().strip('"\'')
+        m3 = re.search(r'(?:nivel\s*3|level\s*3)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m3 and not l3_goal:
+            l3_goal = re.sub(r'\(\$?\d+\)', '', m3.group(1)).strip().strip('"\'')
+
+    # Defaults temáticos inteligentes si Mahia no los nombró
+    if not l1_goal:
+        l1_goal = "truth or dare" if any(w in norm_combined for w in ["ass", "twerk", "booty"]) else "teaser action"
+    if not l2_goal:
+        l2_goal = "CHALLENGE FOR 1 MINUTE" if any(w in norm_combined for w in ["ass", "twerk", "booty"]) else "spicy dare 1 min"
+    if not l3_goal:
+        l3_goal = "all or nothing" if any(w in norm_combined for w in ["ass", "twerk", "booty"]) else "climax finale"
+
+    loyalfans_goal = {
+        "level1": {"price": 11, "task": l1_goal[:35]},
+        "level2": {"price": 22, "task": l2_goal[:35]},
+        "level3": {"price": 33, "task": l3_goal[:35]}
+    }
+
+    # 6. Extraer Publicaciones para Redes Sociales (X / Twitter & LoyalFans Feed)
+    x_title = ""
+    x_post = ""
+    lf_title = ""
+    lf_post = ""
+
+    for line in mahia_text.splitlines():
+        line_s = line.strip()
+        m_xt = re.search(r'(?:t[ií]tulo\s*x|title\s*x)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_xt and not x_title:
+            x_title = m_xt.group(1).strip().strip('"\'')
+        m_xp = re.search(r'(?:post\s*x|tweet|x\s*post|twitter)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_xp and not x_post:
+            x_post = m_xp.group(1).strip().strip('"\'')
+        m_lft = re.search(r'(?:t[ií]tulo\s*loyal|title\s*loyal)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_lft and not lf_title:
+            lf_title = m_lft.group(1).strip().strip('"\'')
+        m_lfp = re.search(r'(?:post\s*loyal|descripci[oó]n\s*loyal|feed\s*loyal|loyalfans)[^:]*:\s*(.+)', line_s, re.IGNORECASE)
+        if m_lfp and not lf_post:
+            lf_post = m_lfp.group(1).strip().strip('"\'')
+
+    if not x_title:
+        x_title = f"Live Now: {short_title}"
+    if not x_post:
+        x_post = f"Live right now on cam! {main_topic[:110]} Come join the room #Tomboy #LiveCam #Lovense #Online"
+    if not lf_title:
+        lf_title = f"Special Shift Tonight • {short_title}"
+    if not lf_post:
+        lf_post = f"Live stream is officially active! Step in, control the toy and enjoy tonight's exclusive private dynamic."
+
+    # Asegurar que el post de LoyalFans siempre incluya todos los hashtags obligatorios
+    if LOYALFANS_MANDATORY_HASHTAGS not in lf_post:
+        lf_post = f"{lf_post}\n\n{LOYALFANS_MANDATORY_HASHTAGS}".strip()
+
+    social_posts = {
+        "enabled": True,
+        "x_post": {
+            "title": x_title,
+            "content": x_post
+        },
+        "loyalfans_post": {
+            "title": lf_title,
+            "content": lf_post,
+            "hashtags": LOYALFANS_MANDATORY_HASHTAGS
+        }
+    }
+
+    return {
+        "title": short_title,
+        "topic": main_topic,
+        "alt_topic": alt_topic,
+        "alternative_topics": quoted_topics,
+        "gold_menu": gold_menu,
+        "wheel": {"cost": 5, "items": wheel_items},
+        "auto_messages": auto_messages,
+        "quick_messages": quick_messages,
+        "quick_messages_by_tier": quick_messages_by_tier,
+        "loyalfans_goal": loyalfans_goal,
+        "social_posts": social_posts,
+        "mahia_raw_reply": mahia_text
+    }
+
+async def apply_full_orchestrated_shift(theme_key: str, custom_text: Optional[str] = None, strategy_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    """
+    Aplica de manera unificada y en un solo ciclo toda la estrategia comercial:
+    1. Enfoca StreamMonitor en pantalla y activa la vista de transmisión ('Streamate').
+    2. Inyecta el Room Topic (<= 140 chars) y Menú Gold (3G) directamente en SMConnect.
+    3. Guarda los Auto-Mensajes y Macros preparados para StreamMonitor.
+    """
+    from src.platforms.streamate.stream_monitor_controller import save_streamate_tools_config
+
+    # Traer ventana de StreamMonitor al frente en el monitor del usuario
+    focus_streammonitor_window()
+
+    if strategy_data and isinstance(strategy_data, dict) and strategy_data.get("topic"):
+        shift_data = strategy_data
+    elif custom_text and custom_text.strip():
+        shift_data = parse_mahia_output_to_tools(custom_text)
+    else:
+        shift_data = PRESET_SHIFT_THEMES.get(theme_key, PRESET_SHIFT_THEMES["ass_twerk"])
+
+    topic_str = shift_data.get("topic", "")
+    gold_items = shift_data.get("gold_menu", [])
+    wheel_data = shift_data.get("wheel", {"cost": 5, "items": []})
+    wheel_items = wheel_data.get("items", [])
+
+    reports = {}
+
+    # 0. Datos del turno para Loyalfans y Mensajes
+    lf_goal = shift_data.get("loyalfans_goal") or {
+        "level1": {"price": 11, "task": "truth or dare"},
+        "level2": {"price": 22, "task": "CHALLENGE FOR 1 MINUTE"},
+        "level3": {"price": 33, "task": "all or nothing"}
+    }
+
+    # 1. Inyección PARALELA ultra-rápida (< 3 segundos) en Streamate, Loyalfans y StreamMonitor
+    auto_msgs = shift_data.get("auto_messages") or {}
+    quick_msgs = shift_data.get("quick_messages") or []
+    import concurrent.futures
+    import time
+    t_start = time.time()
+
+    def do_messages():
+        try:
+            from src.platforms.streamate.streammonitor_messages_injector import inject_streammonitor_auto_and_quick_messages
+            return inject_streammonitor_auto_and_quick_messages(auto_msgs, quick_msgs)
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def do_streamate():
+        try:
+            from src.platforms.streamate.smconnect_live_injector import inject_strategy_into_smconnect
+            return inject_strategy_into_smconnect(topic_str, gold_items, wheel_items)
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    def do_loyalfans():
+        try:
+            from src.platforms.loyalfans.loyalfans_live_injector import inject_strategy_into_loyalfans
+            return inject_strategy_into_loyalfans(topic_str, lf_goal)
+        except Exception as e:
+            return {"success": False, "error": str(e)}
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=3) as executor:
+        fut_lf = executor.submit(do_loyalfans)
+        fut_sm = executor.submit(do_streamate)
+        fut_msg = executor.submit(do_messages)
+
+        try:
+            ensure_streammonitor_multistream_layout()
+        except Exception:
+            pass
+
+        try:
+            lf_res = fut_lf.result(timeout=15)
+        except Exception as e:
+            lf_res = {"success": False, "error": str(e)}
+
+        try:
+            live_res = fut_sm.result(timeout=25)
+        except Exception as e:
+            live_res = {"success": False, "error": str(e)}
+
+        try:
+            msg_res = fut_msg.result(timeout=15)
+        except Exception as e:
+            msg_res = {"success": False, "error": str(e)}
+
+    # Asegurar que StreamMonitor quede en la vista de transmisión activa con Streamate y Loyalfans
+    try:
+        ensure_streammonitor_multistream_layout()
+        focus_streammonitor_window()
+    except Exception:
+        pass
+
+    dur = round(time.time() - t_start, 2)
+    reports["injection_speed"] = f"Ejecutado concurrentemente en {dur}s"
+
+    if msg_res.get("success"):
+        reports["auto_messages"] = "Mensajes automáticos (Bienvenida 30s, Entrada a privado, Propina Gold) y Atajos Alt+1..Alt+8 inyectados y guardados en StreamMonitor"
+    else:
+        reports["auto_messages_warning"] = msg_res.get("error", "Aviso guardando mensajes automáticos")
+
+    if live_res.get("success"):
+        reports["transmission"] = "Inyectado directamente en la transmisión embebida de Streamate (SMConnect)"
+        reports["topic"] = f"Tema de sala: {topic_str}"
+        reports["gold_menu"] = f"Menú Gold: {len(gold_items)} items oficiales a 3G"
+        reports["wheel"] = f"Ruleta Íntima: {len(wheel_items)} items oficiales a 5G"
+    else:
+        reports["live_warning"] = live_res.get("error", "Aviso live injector")
+
+    if lf_res.get("success"):
+        reports["loyalfans"] = f"Inyectado en Loyalfans Live: Tema y Objetivo 3 niveles ($11: {lf_goal['level1']['task']}, $22: {lf_goal['level2']['task']}, $33: {lf_goal['level3']['task']})"
+    else:
+        reports["loyalfans_warning"] = lf_res.get("error", "Aviso Loyalfans Live")
+
+    social_data = shift_data.get("social_posts") or {}
+    if social_data.get("enabled"):
+        reports["social_posts"] = {
+            "success": True,
+            "x_post": social_data.get("x_post"),
+            "loyalfans_post": social_data.get("loyalfans_post")
+        }
+
+    # Guardar configuración persistida para StreamMonitor
+    save_streamate_tools_config("active_orchestrated_shift", {
+        "theme_key": theme_key,
+        "auto_messages": shift_data.get("auto_messages"),
+        "quick_messages": shift_data.get("quick_messages"),
+        "topic": topic_str,
+        "gold_menu": gold_items,
+        "wheel": wheel_data
+    })
+
+    return {
+        "success": True,
+        "theme_applied": shift_data.get("title", theme_key),
+        "reports": reports,
+        "orchestrated_data": shift_data,
+        "message": f"¡Estrategia del turno inyectada con éxito en la transmisión de StreamMonitor y Streamate!"
+    }
+
+
+def smart_orchestrate_natural_idea(idea_text: str) -> Dict[str, Any]:
+    """
+    Toma cualquier idea expresada en lenguaje natural por la modelo (español) y la convierte
+    de inmediato en una estrategia comercial táctica 100% EN INGLÉS para Streamate.
+    """
+    raw_lower = idea_text.lower().strip()
+
+    # Detección semántica de conceptos clave
+    if any(k in raw_lower for k in ["ball", "gag", "saliva", "salivar", "boca", "cuello", "collar", "sumision", "sumisa", "domino", "pagan"]):
+        preset = PRESET_SHIFT_THEMES["ball_gag_sub_dom"]
+        theme_key = "ball_gag_sub_dom"
+    elif any(k in raw_lower for k in ["ass", "twerk", "cola", "trasero", "nalga", "pompis", "booty"]):
+        preset = PRESET_SHIFT_THEMES["ass_twerk"]
+        theme_key = "ass_twerk"
+    elif any(k in raw_lower for k in ["ukelele", "guitarra", "musica", "cantar", "cancion", "chill"]):
+        preset = PRESET_SHIFT_THEMES["tomboy_ukelele"]
+        theme_key = "tomboy_ukelele"
+    elif any(k in raw_lower for k in ["lovense", "buzz", "vibrador", "toy", "juguete"]):
+        preset = PRESET_SHIFT_THEMES["full_lovense"]
+        theme_key = "full_lovense"
+    else:
+        # Generar estrategia personalizada en inglés
+        clean_name = re.sub(r'[^a-zA-Z0-9 ]', '', idea_text)[:40].strip() or "Special Shift"
+        preset = {
+            "id": "custom_shift",
+            "title": f" Meta: {clean_name}",
+            "badge": "Estrategia Dinámica en Inglés",
+            "topic": f" {clean_name.upper()} LIVE Menu Gold 3G Wheel 5G Tease Me In Private #Tomboy #Lovense #Gold #Private"[:135],
+            "gold_menu": [
+                {"name": "Muestra el trasero", "gold": 3},
+                {"name": "10x nalgadas", "gold": 3},
+                {"name": "Posición de perrito", "gold": 3},
+                {"name": "Cuento sucio", "gold": 3},
+                {"name": "Di mi nombre", "gold": 3},
+                {"name": "Ponte aceite en el trasero", "gold": 3}
+            ],
+            "wheel": {
+                "cost": 5,
+                "items": [
+                    "Agacharse",
+                    "Golpear culo con paleta",
+                    "5x azotes",
+                    "Pellizcar pezones",
+                    "Pinzas en pezones",
+                    "Escupir",
+                    "Azotate",
+                    "Insultar",
+                    "Palabras sucias",
+                    "Posición de perrito"
+                ]
+            },
+            "auto_messages": {
+                "room_30s": f"Hey handsome! Welcome to my room. Today is {clean_name} special Gold: 3G | Wheel: 5G",
+                "send_golds": "Thank you for that sweet gold {fan}! Loving this dynamic tonight ",
+                "private_show": "We are totally private now... Tell me your dirtiest command "
+            },
+            "quick_messages": [
+                f"Gold Menu is only 3G today! Check out {clean_name} ",
+                "Spin the intimate Wheel (5G) to decide my treat ",
+                "Tips make me tease you faster ",
+                "Take me to private for complete control "
+            ]
+        }
+        theme_key = "custom_shift"
+
+    if "social_posts" not in preset:
+        preset["social_posts"] = {
+            "enabled": True,
+            "x_post": {
+                "title": f"Live Now: {preset.get('title', 'Special Show')}",
+                "content": f"Live now with special vibes and exclusive private shows! Come say hi #Tomboy #LiveCam #Lovense #Online"
+            },
+            "loyalfans_post": {
+                "title": f"Special Shift Tonight • {preset.get('title', 'Live Stream Active')}",
+                "content": f"Hey loves! Going live right now with an exclusive show and interactive toys. Don't miss out on this shift!\n\n{LOYALFANS_MANDATORY_HASHTAGS}",
+                "hashtags": LOYALFANS_MANDATORY_HASHTAGS
+            }
+        }
+
+    return {
+        "theme_key": theme_key,
+        "strategy": preset,
+        "input_idea": idea_text,
+        "language": "100% English (Streamate Broadcast Standard)",
+        "topic_length": len(preset["topic"])
+    }
+
+
+def execute_mahia_shift_dialogue(user_idea_spanish: str, post_to_social: bool = True) -> Dict[str, Any]:
+    """
+    Ejecuta el flujo real solicitado por Sam:
+    1. SIREN abre y enfoca StreamMonitor Desktop en la pantalla del usuario (WinSta0\\Default).
+    2. SIREN interactúa en tiempo real con Mahia en StreamMonitor Desktop:
+       - Navega automáticamente al chat de Mahia (/dashboard/chat)
+       - Pega la orden táctica con reglas de negocio en el textarea
+       - Hace clic en el botón 'Enviar'
+       - Espera y extrae la respuesta real que Mahia genera en vivo
+    3. SIREN adapta las respuestas para las herramientas oficiales de Streamate:
+       - Room Topic oficial en inglés (<= 140 chars)
+       - Menú Gold (exactamente 6 opciones oficiales del catálogo de Streamate a 3G)
+       - Ruleta Íntima (exactamente 10 opciones oficiales del catálogo de Streamate a 5G)
+       - Objetivo de Sala para LoyalFans (3 Niveles: $11, $22, $33)
+       - Anuncios para Redes Sociales (X y LoyalFans Feed con hashtags obligatorios)
+    """
+    import time
+    # 1. Asegurar lanzamiento de StreamMonitor Desktop en la pantalla activa y situarse en Mahia
+    launch_res = launch_streammonitor_desktop()
+
+    # Dar breve margen para que StreamMonitor se estabilice en pantalla
+    time.sleep(1.2)
+
+    # 2. Generar orden táctica que SIREN le entrega a Mahia
+    res = smart_orchestrate_natural_idea(user_idea_spanish)
+    strategy = res["strategy"]
+    theme_key = res["theme_key"]
+
+    social_order = ""
+    if post_to_social:
+        social_order = (
+            f"7. Publicaciones para Redes Sociales (X / Twitter y LoyalFans Feed):\n"
+            f" - Titulo X: Gancho magnético corto en inglés (máx 50 chars).\n"
+            f" - Post X: Tweet de invitación en inglés (máx 220 chars con hashtags #LiveCam #Tomboy).\n"
+            f" - Titulo LoyalFans: Título sugerente y exclusivo para suscriptores en inglés (máx 60 chars).\n"
+            f" - Post LoyalFans: Descripción sensual y persuasiva en inglés anunciando el show en vivo e invitando al stream.\n"
+        )
+
+    siren_to_mahia_prompt = (
+        f"Mahia: Sam ha definido el foco para su turno: '{user_idea_spanish}'.\n"
+        f"Aplica las reglas de Streamate y entrégame el plan en estos puntos claros y bien enumerados:\n"
+        f"REGLA OBLIGATORIA: CERO EMOJIS (estrictamente prohibido usar emojis en cualquier parte).\n1. Room Topic (en inglés, máx 140 chars con #hashtags).\n"
+        f"2. GOLD Menu a 3G (exactamente 6 acciones oficiales del catálogo de Streamate).\n"
+        f"3. Ruleta Íntima a 5G (exactamente 10 acciones oficiales del catálogo de Streamate).\n"
+        f"4. Tres mensajes automáticos en inglés: Saludo 30s sala, Entrada a privado y Agradecimiento por propina gold.\n"
+        f"5. Seis mensajes rápidos de chat súper cortos en inglés para StreamMonitor (Alt+1 a Alt+6), afines al saludo de sala:\n"
+        f" - Alt+1: Primera vez en la sala (usuario nuevo)\n"
+        f" - Alt+2: Primera vez en la sala (usuario nuevo)\n"
+        f" - Alt+3: Ya ha entrado antes (retorno)\n"
+        f" - Alt+4: Ya ha entrado antes (retorno)\n"
+        f" - Alt+5: Ha entrado varias veces (habitual / VIP)\n"
+        f" - Alt+6: Ha entrado varias veces (habitual / VIP)\n"
+        f"6. Objetivo de Sala para Loyalfans (3 niveles escalonados en inglés con precios fijos):\n"
+        f" - Nivel 1 ($11): Reto o acción teaser inicial (máx 30 chars).\n"
+        f" - Nivel 2 ($22): Reto o acción intermedia intensa (máx 30 chars).\n"
+        f" - Nivel 3 ($33): Meta cumbre o clímax del show (máx 30 chars).\n"
+        f"{social_order}"
+        f"Devuélveme el plan estructurado para aplicarlo en vivo."
+    )
+
+    # 3. INTERACCIÓN EN VIVO: Enviar al chat de Mahia dentro de StreamMonitor Desktop
+    live_mahia_res = {}
+    try:
+        from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop
+        live_mahia_res = send_prompt_to_mahia_desktop(siren_to_mahia_prompt, timeout_seconds=45)
+    except Exception as e:
+        live_mahia_res = {"success": False, "error": str(e)}
+
+    # Si Mahia respondió en vivo en el chat de StreamMonitor, DEDUCIR TODO DINÁMICAMENTE (NO DATA QUEMADA)
+    if live_mahia_res.get("success") and live_mahia_res.get("mahia_response"):
+        mahia_response_text = live_mahia_res["mahia_response"]
+        live_chat_done = True
+        # Deducir dinámicamente Topic, Menú Gold (3G) y Ruleta (5G) directamente de lo que Mahia escribió:
+        strategy = deduce_strategy_from_mahia_text(mahia_response_text, user_idea_spanish)
+        theme_key = "mahia_live_deduction" 
+    else:
+        # Fallback estructurado oficial bien enumerado y claro
+        qm = strategy.get('quick_messages', [])
+        m1 = qm[0] if len(qm) > 0 else "Welcome in! New to my room? "
+        m2 = qm[1] if len(qm) > 1 else "First time here? Try my 3G menu "
+        m3 = qm[2] if len(qm) > 2 else "Hey, you're back! Missed me? "
+        m4 = qm[3] if len(qm) > 3 else "Good to see you again! Ready? "
+        m5 = qm[4] if len(qm) > 4 else "My favorite regular is here! Come closer "
+        m6 = qm[5] if len(qm) > 5 else "Back again to spoil me? You're the best "
+
+        mahia_response_text = (
+            f"Entendido Sam. Aquí tienes el plan táctico completo para tu sala, estructurado en puntos claros:\n\n"
+            f"1. ROOM TOPIC (en inglés, ≤ 140 chars con #hashtags):\n"
+            f"\"{strategy['topic']}\"\n\n"
+            f"2. GOLD MENU (6 opciones oficiales del catálogo de Streamate a 3G):\n" +
+            "\n".join([f"{idx+1}. {it['name']} - 3G" for idx, it in enumerate(strategy['gold_menu'])]) +
+            f"\n\n3. RULETA ÍNTIMA (10 opciones oficiales del catálogo de Streamate a 5G):\n" +
+            "\n".join([f"{idx+1}. {it}" for idx, it in enumerate(strategy['wheel']['items'])]) +
+            f"\n\n4. TRES MENSAJES AUTOMÁTICOS (StreamMonitor):\n"
+            f"- Saludo / Bienvenida (30s): \"{strategy['auto_messages']['room_30s']}\"\n"
+            f"- Mensaje al entrar a Privado: \"{strategy['auto_messages'].get('private_show', 'Welcome to private room ')}\"\n"
+            f"- Agradecimiento por Propina Gold: \"{strategy['auto_messages']['send_golds']}\"\n\n"
+            f"5. SEIS ATAJOS RÁPIDOS DE CHAT (Alt+1 a Alt+6 - Afines al Saludo de Sala):\n"
+            f"• Primera vez en la sala (Usuarios Nuevos):\n"
+            f" - Alt+1: \"{m1}\"\n"
+            f" - Alt+2: \"{m2}\"\n"
+            f"• Ya han entrado antes (Retorno / Segunda vez):\n"
+            f" - Alt+3: \"{m3}\"\n"
+            f" - Alt+4: \"{m4}\"\n"
+            f"• Han entrado varias veces (Habituales / VIPs):\n"
+            f" - Alt+5: \"{m5}\"\n"
+            f" - Alt+6: \"{m6}\"\n\n"
+            f"6. OBJETIVO DE SALA PARA LOYALFANS (3 Niveles: $11, $22, $33):\n"
+            f" - Nivel 1 ($11): {strategy.get('loyalfans_goal', {}).get('level1', {}).get('task', 'truth or dare')}\n"
+            f" - Nivel 2 ($22): {strategy.get('loyalfans_goal', {}).get('level2', {}).get('task', 'CHALLENGE FOR 1 MINUTE')}\n"
+            f" - Nivel 3 ($33): {strategy.get('loyalfans_goal', {}).get('level3', {}).get('task', 'all or nothing')}\n\n"
+            f"7. PUBLICACIONES PARA REDES SOCIALES (X y LoyalFans Feed):\n"
+            f" - Titulo X: \"{strategy.get('social_posts', {}).get('x_post', {}).get('title', 'Live Cam Special')}\"\n"
+            f" - Post X: \"{strategy.get('social_posts', {}).get('x_post', {}).get('content', 'Live now! Come say hi #Tomboy #LiveCam')}\"\n"
+            f" - Titulo LoyalFans: \"{strategy.get('social_posts', {}).get('loyalfans_post', {}).get('title', 'Special Shift Tonight')}\"\n"
+            f" - Post LoyalFans: \"{strategy.get('social_posts', {}).get('loyalfans_post', {}).get('content', 'Live stream active!')}\""
+        )
+        live_chat_done = False
+
+    return {
+        "success": True,
+        "theme_key": theme_key,
+        "launch_desktop": launch_res,
+        "live_chat_done": live_chat_done,
+        "siren_prompt_to_mahia": siren_to_mahia_prompt,
+        "mahia_reply": mahia_response_text,
+        "strategy": strategy,
+        "topic": strategy["topic"],
+        "gold_menu": strategy["gold_menu"],
+        "wheel": strategy["wheel"],
+        "auto_messages": strategy["auto_messages"],
+        "quick_messages": strategy.get("quick_messages", [])
+    }

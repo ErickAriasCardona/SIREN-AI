@@ -89,7 +89,7 @@ class PushNotificationService:
         if VAPID_PEM_PATH.exists() and VAPID_JSON_PATH.exists():
             try:
                 vapid = Vapid.from_file(str(VAPID_PEM_PATH))
-                logger.info("✓ Claves VAPID existentes cargadas correctamente.")
+                logger.info(" Claves VAPID existentes cargadas correctamente.")
                 return vapid
             except Exception as e:
                 logger.warning(f"Error cargando PEM existente ({e}). Regenerando claves VAPID...")
@@ -110,7 +110,7 @@ class PushNotificationService:
                 "subject": "mailto:admin@siren.ai"
             }, f, indent=2)
 
-        logger.info(f"✓ Nuevas claves VAPID creadas. Clave pública: {pub_b64[:16]}...")
+        logger.info(f" Nuevas claves VAPID creadas. Clave pública: {pub_b64[:16]}...")
         return vapid
 
     def get_public_key(self) -> str:
@@ -146,7 +146,7 @@ class PushNotificationService:
             """, (endpoint, p256dh, auth, user_agent))
             conn.commit()
             conn.close()
-            logger.info(f"✓ Suscripción Push guardada para {endpoint[:45]}...")
+            logger.info(f" Suscripción Push guardada para {endpoint[:45]}...")
             return True
         except Exception as e:
             logger.error(f"Error guardando suscripción push: {e}")
@@ -240,7 +240,7 @@ class PushNotificationService:
             preview_body = clean_text
 
         payload = {
-            "title": f"💬 {asst['title']}",
+            "title": f" {asst['title']}",
             "body": preview_body,
             "assistant": assistant_id.lower(),
             "tag": asst["tag"], # Control de duplicados por asistente

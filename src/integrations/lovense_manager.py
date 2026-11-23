@@ -30,7 +30,7 @@ STREAM_MASTER_DATA = Path(LOCALAPPDATA) / "Lovense" / "Chromium"
 LOVENSE_OBS_EXE = STREAM_MASTER_DIR / "LovenseOBS" / "bin" / "64bit" / "lvs_obs64.exe"
 LOVENSE_CONNECT_EXE = Path(LOCALAPPDATA) / "Lovense" / "Connect" / "Lovense_Connect.exe"
 
-# 💎 MATRIZ DE REACCIÓN Y TIP TIERS — SAM BARTON
+#  MATRIZ DE REACCIÓN Y TIP TIERS — SAM BARTON
 SAM_BARTON_TIP_MATRIX = [
     {
         "tier": "Level 1 — Piquete Eléctrico",
@@ -38,7 +38,7 @@ SAM_BARTON_TIP_MATRIX = [
         "tokens_max": 9,
         "vibration_level": 3,
         "duration_sec": 2,
-        "sam_reaction": "😏 'Hey, sentí eso... apenas calentando motores'",
+        "sam_reaction": " 'Hey, sentí eso... apenas calentando motores'",
         "style": "Discreto / Tomboy traviesa"
     },
     {
@@ -47,7 +47,7 @@ SAM_BARTON_TIP_MATRIX = [
         "tokens_max": 24,
         "vibration_level": 7,
         "duration_sec": 4,
-        "sam_reaction": "🔥 'Mmm... eso ya tiene mejor cadencia. Me gusta el ritmo'",
+        "sam_reaction": " 'Mmm... eso ya tiene mejor cadencia. Me gusta el ritmo'",
         "style": "Pícaro y receptivo"
     },
     {
@@ -56,7 +56,7 @@ SAM_BARTON_TIP_MATRIX = [
         "tokens_max": 49,
         "vibration_level": 12,
         "duration_sec": 6,
-        "sam_reaction": "⚡ 'Uff... vibración profunda. No te detengas ahora'",
+        "sam_reaction": " 'Uff... vibración profunda. No te detengas ahora'",
         "style": "Sensual y retador"
     },
     {
@@ -65,7 +65,7 @@ SAM_BARTON_TIP_MATRIX = [
         "tokens_max": 99,
         "vibration_level": 16,
         "duration_sec": 9,
-        "sam_reaction": "🏍️ '¡Santo cielo! Eso sacude como mi moto a 140km/h... ¡mírame temblar!'",
+        "sam_reaction": " '¡Santo cielo! Eso sacude como mi moto a 140km/h... ¡mírame temblar!'",
         "style": "Intensidad alta / Biker adrenalina"
     },
     {
@@ -74,7 +74,7 @@ SAM_BARTON_TIP_MATRIX = [
         "tokens_max": 249,
         "vibration_level": 20,
         "duration_sec": 15,
-        "sam_reaction": "👑 '¡AH! 20/20 continuo... Me tienes completamente a tu merced'",
+        "sam_reaction": " '¡AH! 20/20 continuo... Me tienes completamente a tu merced'",
         "style": "Máximo control del fan"
     },
     {
@@ -84,7 +84,7 @@ SAM_BARTON_TIP_MATRIX = [
         "vibration_level": 20,
         "duration_sec": 30,
         "special_preset": "pulse_wave_fireworks",
-        "sam_reaction": "🚗 '¡LO HICISTE! Cada token va directo a mi carro de diciembre. Eres oficialmente mi favorito'",
+        "sam_reaction": " '¡LO HICISTE! Cada token va directo a mi carro de diciembre. Eres oficialmente mi favorito'",
         "style": "Agradecimiento apasionado y complicidad total"
     }
 ]

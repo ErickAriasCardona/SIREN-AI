@@ -207,13 +207,13 @@ def generate_markdown_dossier(intel: Dict[str, Any], filepath: Path):
     arts = intel["articulos_oficiales_extraidos"]
 
     lines = [
-        "# 🕵️‍♀️ DOSSIER DE INTELIGENCIA TÉCNICA Y MONETIZACIÓN — LOYALFANS",
+        "#  DOSSIER DE INTELIGENCIA TÉCNICA Y MONETIZACIÓN — LOYALFANS",
         f"**Agente Auditor:** ELECTRA (Radar de Algoritmos & Platform Intelligence)",
         f"**Fecha de Análisis:** {meta['scan_timestamp']}",
         f"**Artículos y Guías Oficiales Analizados:** {meta['total_official_articles_extracted']}",
         "",
         "---",
-        "## 1. 💵 MODELO DE FACTURACIÓN Y CONDICIONES FINANCIERAS",
+        "## 1.  MODELO DE FACTURACIÓN Y CONDICIONES FINANCIERAS",
         f"- **Reparto de Ingresos:** {fin['reparto_de_ingresos']}",
         f"- **Comisión de Plataforma:** {fin['comision_plataforma']}",
         f"- **Frecuencia de Pagos:** {fin['frecuencia_de_pago']}",
@@ -227,11 +227,11 @@ def generate_markdown_dossier(intel: Dict[str, Any], filepath: Path):
     lines.extend([
         "",
         "---",
-        "## 2. 🧰 TODAS LAS HERRAMIENTAS Y FUNCIONALIDADES DE LA CREADORA",
+        "## 2.  TODAS LAS HERRAMIENTAS Y FUNCIONALIDADES DE LA CREADORA",
     ])
 
     for key, item in tools.items():
-        lines.append(f"### 🔹 {item['nombre']}")
+        lines.append(f"###  {item['nombre']}")
         lines.append(f"*{item['descripcion']}*")
         for c in item["caracteristicas"]:
             lines.append(f"- {c}")
@@ -239,12 +239,12 @@ def generate_markdown_dossier(intel: Dict[str, Any], filepath: Path):
 
     lines.extend([
         "---",
-        "## 3. 🧠 EL ALGORITMO DE LOYALFANS Y FORMAS DE VISIBILIZACIÓN",
+        "## 3.  EL ALGORITMO DE LOYALFANS Y FORMAS DE VISIBILIZACIÓN",
         f"- **Diferencia Fundamental con OnlyFans:** {alg['mecanismo_del_algoritmo']['diferencia_clave']}",
         f"- **Feed de Recomendación (Explore):** {alg['mecanismo_del_algoritmo']['explore_feed']}",
         f"- **Velocidad de Engagement:** {alg['mecanismo_del_algoritmo']['velocidad_de_engagement']}",
         "",
-        "### 🎯 Palancas Clave de Posicionamiento:",
+        "###  Palancas Clave de Posicionamiento:",
     ])
 
     for mult in alg["multiplicadores_de_visibilidad"]:
@@ -253,7 +253,7 @@ def generate_markdown_dossier(intel: Dict[str, Any], filepath: Path):
     lines.extend([
         "",
         "---",
-        "## 4. 📚 DOCUMENTACIÓN Y GUÍAS OFICIALES EXTRAÍDAS",
+        "## 4.  DOCUMENTACIÓN Y GUÍAS OFICIALES EXTRAÍDAS",
     ])
     for a in arts[:15]:
         lines.append(f"- **[{a['title']}]({a['url']})**: {a['summary'][:150]}...")

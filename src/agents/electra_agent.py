@@ -60,28 +60,28 @@ def create_electra_agent(api_key: str = None) -> Agent:
 
 def mostrar_menu():
     print("\n" + "=" * 70)
-    print("⚡ ELECTRA — Radar de Algoritmos, Scraping & Platform Intelligence")
+    print(" ELECTRA — Radar de Algoritmos, Scraping & Platform Intelligence")
     print("=" * 70)
     print("Elige una acción o consulta:")
-    print("  [1] 💵 Facturación, Comisiones y Retiros en LoyalFans")
-    print("  [2] 🧰 Catálogo Completo de Herramientas y Features de LoyalFans")
-    print("  [3] 🧠 Desglose del Algoritmo, Explore Feed y Visibilidad")
-    print("  [4] 🔄 Ejecutar Scraping en Vivo a LoyalFans (Actualizar Base)")
-    print("  [5] 🎯 Plan Táctico Unificado: Conectar con DIANA (Auditoría) + Algoritmo")
-    print("  [6] 📊 Escanear Grilla de Streamate (Playwright Radar Top)")
-    print("  [7] 💬 Chat Libre con ELECTRA (Modo Inteligente)")
-    print("  [0] 🚪 Salir")
+    print("  [1]  Facturación, Comisiones y Retiros en LoyalFans")
+    print("  [2]  Catálogo Completo de Herramientas y Features de LoyalFans")
+    print("  [3]  Desglose del Algoritmo, Explore Feed y Visibilidad")
+    print("  [4]  Ejecutar Scraping en Vivo a LoyalFans (Actualizar Base)")
+    print("  [5]  Plan Táctico Unificado: Conectar con DIANA (Auditoría) + Algoritmo")
+    print("  [6]  Escanear Grilla de Streamate (Playwright Radar Top)")
+    print("  [7]  Chat Libre con ELECTRA (Modo Inteligente)")
+    print("  [0]  Salir")
     print("=" * 70)
 
 async def modo_chat_libre():
     key = GEMINI_API_KEY or os.getenv("GEMINI_API_KEY", "")
     if not key:
-        print("\n⚠️ AVISO: No se detectó GEMINI_API_KEY en las variables de entorno.")
+        print("\n AVISO: No se detectó GEMINI_API_KEY en las variables de entorno.")
         print("Para chatear con el LLM en lenguaje natural, configura tu API key en .env.")
         print("Sin embargo, todas las opciones [1] a [6] funcionan al 100% con los datos extraídos.\n")
         return
 
-    print("\n💬 [Modo Chat Libre con ELECTRA activado]. Escribe 'menu' para volver.\n")
+    print("\n [Modo Chat Libre con ELECTRA activado]. Escribe 'menu' para volver.\n")
     agent_instance = create_electra_agent(key)
     async with agent_instance as agent:
         while True:
@@ -122,31 +122,31 @@ async def main():
             print("\n" + consultar_inteligencia_loyalfans("algoritmo"))
 
         elif opcion == "4":
-            print("\n🔄 Iniciando crawler en vivo de LoyalFans...")
+            print("\n Iniciando crawler en vivo de LoyalFans...")
             res = ejecutar_scraping_completo_loyalfans()
             print("\n" + res)
 
         elif opcion == "5":
             print("\n" + "=" * 70)
-            print("🎯 PLAN TÁCTICO UNIFICADO: DIANA (Auditora) x ELECTRA (Radar)")
+            print(" PLAN TÁCTICO UNIFICADO: DIANA (Auditora) x ELECTRA (Radar)")
             print("=" * 70)
             print("¿Cómo deseas generar el plan táctico?")
-            print("  [1] 💎 Usar auditoría de DIANA (Sam Barton / @sambarton23 en LoyalFans)")
-            print("  [2] ✏️ Personalizar datos (Nicho, fetiche, juguetes y transmisiones)")
+            print("  [1]  Usar auditoría de DIANA (Sam Barton / @sambarton23 en LoyalFans)")
+            print("  [2]  Personalizar datos (Nicho, fetiche, juguetes y transmisiones)")
             sub = input("Elige (1 o 2) [Enter para opción 1]: ").strip()
             
             if sub == "2":
                 nicho = input("Introduce el nicho/estilo (ej: lencería exclusiva, cosplay, dominatriz): ").strip()
                 juguete = input("¿Tiene juguete interactivo Lovense? (s/n) [s]: ").strip().lower() != "n"
                 en_vivo = input("¿Está dispuesta a hacer transmisiones en vivo? (s/n) [s]: ").strip().lower() != "n"
-                print("\n⚙️ Generando plan táctico cruzado con DIANA...")
+                print("\n Generando plan táctico cruzado con DIANA...")
                 res = generar_plan_tactico_unificado_diana_electra(
                     nicho_personalizado=nicho or None,
                     tiene_juguete=juguete,
                     hace_en_vivo=en_vivo
                 )
             else:
-                print("\n🔬 Conectando con DIANA: extrayendo histórico de @sambarton23...")
+                print("\n Conectando con DIANA: extrayendo histórico de @sambarton23...")
                 res = generar_plan_tactico_unificado_diana_electra(
                     plataforma="loyalfans",
                     tiene_juguete=True,
@@ -155,14 +155,14 @@ async def main():
             print("\n" + res)
 
         elif opcion == "6":
-            print("\n🌐 Escaneando primeras 2 páginas de la grilla de Streamate con Playwright...")
+            print("\n Escaneando primeras 2 páginas de la grilla de Streamate con Playwright...")
             print(consultar_ranking_streamate(paginas=2))
 
         elif opcion == "7":
             await modo_chat_libre()
 
         else:
-            print("❌ Opción inválida. Por favor ingresa un número del 0 al 7.")
+            print(" Opción inválida. Por favor ingresa un número del 0 al 7.")
 
         input("\n[Presiona Enter para continuar...]")
 

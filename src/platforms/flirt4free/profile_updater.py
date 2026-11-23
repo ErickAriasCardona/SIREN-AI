@@ -27,13 +27,13 @@ PROFILES_DIR = DATA_DIR / "browser_profiles"
 
 DEFAULT_FLIRT4FREE_PROFILE = {
     "display_name": "Sam Barton",
-    "headline": "High-End Tomboy • Intelligent & Sensual VIP ✨",
+    "headline": "High-End Tomboy • Intelligent & Sensual VIP ",
     "bio_text": (
-        "👑 Sam Barton | High-End Tomboy • Intelligent VIP ✨\n\n"
+        " Sam Barton | High-End Tomboy • Intelligent VIP \n\n"
         "Software & AI Architect by trade, sensual athlete and biker by lifestyle.\n"
-        "Soccer player, motorcycle traveler, pack leader of dogs & cats 🐾.\n\n"
+        "Soccer player, motorcycle traveler, pack leader of dogs & cats .\n\n"
         "Exclusive True Private & VIP Party Chat experience. "
-        "Intelligent conversation, dominant charm, and complete dedication for clients who appreciate genuine distinction. 😈🖤"
+        "Intelligent conversation, dominant charm, and complete dedication for clients who appreciate genuine distinction. "
     )
 }
 

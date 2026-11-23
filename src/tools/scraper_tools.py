@@ -25,11 +25,11 @@ def consultar_ranking_streamate(paginas: int = 2) -> str:
 
         top_5 = "\n".join([f"#{m['rank']} (Pág {m['page']}) -> {m['username']}" for m in results[:5]])
         return (
-            f"✅ Escaneo completado con éxito.\n"
+            f" Escaneo completado con éxito.\n"
             f"- Total modelos detectadas: {len(results)}\n"
             f"- Páginas escaneadas: {paginas}\n"
             f"- Registro guardado en: {artifact_path.name}\n\n"
-            f"🏆 Top 5 actual:\n{top_5}"
+            f" Top 5 actual:\n{top_5}"
         )
     except Exception as e:
         return f"Error al consultar el ranking: {str(e)}"
@@ -48,7 +48,7 @@ def buscar_posicion_modelo(username: str, paginas_max: int = 5) -> str:
         for m in results:
             if username_clean in m["username"].lower():
                 return (
-                    f"🎯 ¡Modelo encontrada!\n"
+                    f" ¡Modelo encontrada!\n"
                     f"- Usuario: {m['username']}\n"
                     f"- Posición general: #{m['rank']}\n"
                     f"- Página: {m['page']}\n"
@@ -56,7 +56,7 @@ def buscar_posicion_modelo(username: str, paginas_max: int = 5) -> str:
                 )
 
         return (
-            f"❌ La modelo '{username}' no fue encontrada en las primeras {paginas_max} páginas "
+            f" La modelo '{username}' no fue encontrada en las primeras {paginas_max} páginas "
             f"({len(results)} modelos analizadas). Puede que esté desconectada o en páginas posteriores."
         )
     except Exception as e:

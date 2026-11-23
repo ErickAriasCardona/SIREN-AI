@@ -30,7 +30,7 @@ async def run_cooldown_forensic_audit(samples: int = 10) -> Dict[str, Any]:
        medir cuándo publicaron y cada cuántas horas renuevan el puesto #1.
     """
     print("=" * 70, flush=True)
-    print("⚡ [ELECTRA RADAR] INICIANDO AUDITORÍA FORENSE DE COOLDOWN EN LOYALFANS", flush=True)
+    print(" [ELECTRA RADAR] INICIANDO AUDITORÍA FORENSE DE COOLDOWN EN LOYALFANS", flush=True)
     print("=" * 70, flush=True)
 
     report = {
@@ -50,7 +50,7 @@ async def run_cooldown_forensic_audit(samples: int = 10) -> Dict[str, Any]:
         # -------------------------------------------------------------
         # PASO 1: Capturar los creadores actuales en 'recently-updated'
         # -------------------------------------------------------------
-        print("\n📡 PASO 1: Consultando /api/v2/creators?target=recently-updated...", flush=True)
+        print("\n PASO 1: Consultando /api/v2/creators?target=recently-updated...", flush=True)
         recent_creators_raw = []
 
         async def on_response(res):
@@ -74,12 +74,12 @@ async def run_cooldown_forensic_audit(samples: int = 10) -> Dict[str, Any]:
             await btn.click()
             await page.wait_for_timeout(3000)
 
-        print(f"✓ Capturadas {len(recent_creators_raw)} creadoras en el Top de 'Recently Updated'.", flush=True)
+        print(f" Capturadas {len(recent_creators_raw)} creadoras en el Top de 'Recently Updated'.", flush=True)
 
         # -------------------------------------------------------------
         # PASO 2 (MÉTODO 2): Análisis de atributos internos del backend
         # -------------------------------------------------------------
-        print("\n🔬 PASO 2 (MÉTODO 2): Analizando esquema y atributos de ordenamiento...", flush=True)
+        print("\n PASO 2 (MÉTODO 2): Analizando esquema y atributos de ordenamiento...", flush=True)
         if recent_creators_raw:
             sample_creator = recent_creators_raw[0]
             c_info = sample_creator.get("creator", {})
@@ -97,7 +97,7 @@ async def run_cooldown_forensic_audit(samples: int = 10) -> Dict[str, Any]:
         # -------------------------------------------------------------
         # PASO 3 (MÉTODO 1): Auditoría de Timelines de las Top Modelos
         # -------------------------------------------------------------
-        print("\n🕵️‍♀️ PASO 3 (MÉTODO 1): Inspeccionando publicaciones de las Top 5 creadoras...", flush=True)
+        print("\n PASO 3 (MÉTODO 1): Inspeccionando publicaciones de las Top 5 creadoras...", flush=True)
         analyzed_count = 0
         now_dt = datetime.now(timezone.utc)
 
@@ -163,7 +163,7 @@ async def run_cooldown_forensic_audit(samples: int = 10) -> Dict[str, Any]:
     # PASO 4: Deducción y Síntesis Matemática
     # -------------------------------------------------------------
     print("\n" + "=" * 70, flush=True)
-    print("📊 RESULTADOS MATEMÁTICOS DE LA COHORTE", flush=True)
+    print(" RESULTADOS MATEMÁTICOS DE LA COHORTE", flush=True)
     print("=" * 70, flush=True)
 
     # Guardar en base de datos de radar
@@ -179,7 +179,7 @@ async def run_cooldown_forensic_audit(samples: int = 10) -> Dict[str, Any]:
     with open(RADAR_DB, "w", encoding="utf-8") as f:
         json.dump(history, f, indent=2, ensure_ascii=False)
 
-    print(f"✓ Informe guardado en: {RADAR_DB.name}", flush=True)
+    print(f" Informe guardado en: {RADAR_DB.name}", flush=True)
     return report
 
 if __name__ == "__main__":

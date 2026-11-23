@@ -19,7 +19,7 @@ def ejecutar_scraping_completo_loyalfans() -> str:
         json_file = Path(resultado.get("json_path", "")).name
         
         return (
-            f"✅ Scraping de LoyalFans ejecutado exitosamente.\n"
+            f" Scraping de LoyalFans ejecutado exitosamente.\n"
             f"- Artículos y manuales oficiales de creadoras extraídos: {total_arts}\n"
             f"- Dossier Ejecutivo generado en: artifacts/{md_file}\n"
             f"- Base de Datos Técnica JSON en: artifacts/{json_file}\n"
@@ -52,7 +52,7 @@ def consultar_inteligencia_loyalfans(seccion: str = "todo") -> str:
     if sec in ["facturacion", "pagos", "cobros", "comision"]:
         fin = data["facturacion_y_finanzas"]
         return (
-            f"💰 **ESQUEMA DE FACTURACIÓN Y PAGOS — LOYALFANS**\n"
+            f" **ESQUEMA DE FACTURACIÓN Y PAGOS — LOYALFANS**\n"
             f"- **Reparto de Ingresos:** {fin['reparto_de_ingresos']}\n"
             f"- **Comisión de la plataforma:** {fin['comision_plataforma']}\n"
             f"- **Frecuencia de Pagos:** {fin['frecuencia_de_pago']}\n"
@@ -63,9 +63,9 @@ def consultar_inteligencia_loyalfans(seccion: str = "todo") -> str:
     
     elif sec in ["herramientas", "funcionalidades", "features"]:
         tools = data["herramientas_y_funcionalidades"]
-        res = ["🛠️ **HERRAMIENTAS CLAVE DE CREADORA — LOYALFANS**\n"]
+        res = [" **HERRAMIENTAS CLAVE DE CREADORA — LOYALFANS**\n"]
         for k, v in tools.items():
-            res.append(f"📌 **{v['nombre']}**: {v['descripcion']}")
+            res.append(f" **{v['nombre']}**: {v['descripcion']}")
             for c in v["caracteristicas"]:
                 res.append(f"   • {c}")
             res.append("")
@@ -74,11 +74,11 @@ def consultar_inteligencia_loyalfans(seccion: str = "todo") -> str:
     elif sec in ["algoritmo", "visibilidad", "explore", "posicionamiento"]:
         alg = data["algoritmo_y_estrategia_de_visibilizacion"]
         res = [
-            f"🧠 **ANÁLISIS DEL ALGORITMO Y VISIBILIDAD — LOYALFANS**\n",
-            f"🔍 **Diferencial:** {alg['mecanismo_del_algoritmo']['diferencia_clave']}",
-            f"⚡ **Velocidad de Engagement:** {alg['mecanismo_del_algoritmo']['velocidad_de_engagement']}",
-            f"🏷️ **Estrategia SEO/Tags:** {alg['seo_interno_y_etiquetas']['estrategia_de_tags']}\n",
-            f"🚀 **Multiplicadores de Tráfico Interno:**"
+            f" **ANÁLISIS DEL ALGORITMO Y VISIBILIDAD — LOYALFANS**\n",
+            f" **Diferencial:** {alg['mecanismo_del_algoritmo']['diferencia_clave']}",
+            f" **Velocidad de Engagement:** {alg['mecanismo_del_algoritmo']['velocidad_de_engagement']}",
+            f" **Estrategia SEO/Tags:** {alg['seo_interno_y_etiquetas']['estrategia_de_tags']}\n",
+            f" **Multiplicadores de Tráfico Interno:**"
         ]
         for m in alg["multiplicadores_de_visibilidad"]:
             res.append(f"  • {m['accion']} — Impacto: {m['impacto']}")
@@ -86,7 +86,7 @@ def consultar_inteligencia_loyalfans(seccion: str = "todo") -> str:
 
     elif sec in ["novedades_y_guias", "articulos", "guias"]:
         arts = data.get("articulos_oficiales_extraidos", [])
-        res = [f"📚 **GUÍAS Y MANUALES OFICIALES EXTRAÍDOS ({len(arts)} artículos)**:\n"]
+        res = [f" **GUÍAS Y MANUALES OFICIALES EXTRAÍDOS ({len(arts)} artículos)**:\n"]
         for a in arts[:12]:
             res.append(f"• **{a['title']}**: {a['summary'][:130]}...")
         return "\n".join(res)
@@ -96,10 +96,10 @@ def consultar_inteligencia_loyalfans(seccion: str = "todo") -> str:
         fin = data["facturacion_y_finanzas"]
         alg = data["algoritmo_y_estrategia_de_visibilizacion"]
         return (
-            f"📊 **PANORAMA GENERAL DE INTELIGENCIA — LOYALFANS**\n\n"
-            f"💵 **Facturación:** {fin['reparto_de_ingresos']} | Mínimo: {fin['monto_minimo_retiro']} | Pagos: Quincenales por Paxum / Wire / ACH.\n"
-            f"🧰 **Herramientas Principales:** Tienda de Video, Tienda de Audio, Go Live (Streaming con juguetes Lovense/Kiiroo), One-on-One Cam2Cam, Mass DMs y Shoutouts.\n"
-            f"🔥 **Algoritmo:** A diferencia de OnlyFans, posee buscador interno y Explore Feed. Las modelos que transmiten en vivo o publican teasers con tags de nicho reciben tráfico orgánico sin depender de redes sociales externas.\n\n"
+            f" **PANORAMA GENERAL DE INTELIGENCIA — LOYALFANS**\n\n"
+            f" **Facturación:** {fin['reparto_de_ingresos']} | Mínimo: {fin['monto_minimo_retiro']} | Pagos: Quincenales por Paxum / Wire / ACH.\n"
+            f" **Herramientas Principales:** Tienda de Video, Tienda de Audio, Go Live (Streaming con juguetes Lovense/Kiiroo), One-on-One Cam2Cam, Mass DMs y Shoutouts.\n"
+            f" **Algoritmo:** A diferencia de OnlyFans, posee buscador interno y Explore Feed. Las modelos que transmiten en vivo o publican teasers con tags de nicho reciben tráfico orgánico sin depender de redes sociales externas.\n\n"
             f"*(Usa 'consultar_inteligencia_loyalfans' especificando 'herramientas', 'facturacion' o 'algoritmo' para profundizar)*"
         )
 
@@ -112,7 +112,7 @@ def recomendar_estrategia_algoritmo(nicho: str, tiene_juguete: bool = False, hac
         hace_en_vivo: Si está dispuesta a realizar transmisiones o shows en vivo.
     """
     pasos = [
-        f"🎯 **PLAN DE ACCIÓN TÁCTICO PARA ALGORITMO LOYALFANS (Nicho: {nicho.title()})**\n",
+        f" **PLAN DE ACCIÓN TÁCTICO PARA ALGORITMO LOYALFANS (Nicho: {nicho.title()})**\n",
         "1. **SEO del Perfil:** Llena tu bio y títulos de publicaciones con palabras clave exactas de tu fetiche. Los usuarios de LoyalFans buscan mediante la barra de búsqueda interna más que en cualquier otra plataforma.",
         "2. **Estrategia de Cebo (Teasers Públicos):** Publica 1 foto o preview de vídeo gratuito al día con 4 tags relevantes. Esto alimenta el Explore Feed de usuarios que aún no te siguen.",
         "3. **Tienda de Audio:** Abre tu Tienda de Audio hoy mismo con notas de voz de 1 a 3 minutos ($5 a $10 USD). Hay mucha menos competencia en audios y LoyalFans la destaca en su menú principal."
@@ -124,7 +124,7 @@ def recomendar_estrategia_algoritmo(nicho: str, tiene_juguete: bool = False, hac
     if tiene_juguete:
         pasos.append("5. **Filtro Lovense:** Activa la integración interactiva por Bluetooth. Los usuarios con créditos buscan creadoras con juguete conectado para hacerlas vibrar al instante por propinas.")
 
-    pasos.append("\n💡 **Regla de Oro:** Aprovecha los Mass DMs de pago (PPV) para exprimir a los seguidores que ya te dieron 'Follow' gratuito.")
+    pasos.append("\n **Regla de Oro:** Aprovecha los Mass DMs de pago (PPV) para exprimir a los seguidores que ya te dieron 'Follow' gratuito.")
     return "\n".join(pasos)
 
 def generar_plan_tactico_unificado_diana_electra(
@@ -163,26 +163,26 @@ def generar_plan_tactico_unificado_diana_electra(
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     reporte = [
         "╔════════════════════════════════════════════════════════════════════════╗",
-        "║      💎 PLAN TÁCTICO UNIFICADO: DIANA (Auditora) x ELECTRA (Radar)    ║",
+        "║       PLAN TÁCTICO UNIFICADO: DIANA (Auditora) x ELECTRA (Radar)    ║",
         "╚════════════════════════════════════════════════════════════════════════╝\n",
-        f"👤 CREADORA AUDITADA: {creator} ({handle})",
-        f"🌐 PLATAFORMA OBJETIVO: {plat.upper()}",
-        f"🏷️ NICHO COMERCIAL DETERMINADO: {nicho}",
-        f"👥 AUDIENCIA EN ESPERA DETECTADA: 604 Fans en Base | Contactos VIP: {chat_sample}...\n",
+        f" CREADORA AUDITADA: {creator} ({handle})",
+        f" PLATAFORMA OBJETIVO: {plat.upper()}",
+        f" NICHO COMERCIAL DETERMINADO: {nicho}",
+        f" AUDIENCIA EN ESPERA DETECTADA: 604 Fans en Base | Contactos VIP: {chat_sample}...\n",
         "────────────────────────────────────────────────────────────────────────",
-        "1. 🔬 EL 'ORO COMERCIAL' EXTRAÍDO POR DIANA (Qué vender y a qué precio):",
+        "1.  EL 'ORO COMERCIAL' EXTRAÍDO POR DIANA (Qué vender y a qué precio):",
         f"   • Formato Ganador Histórico: {best_content}",
         "   • Precio Recomendado en LoyalFans: $12 - $18 USD para la Tienda de Video / $9.99 USD en Mass DM.",
         "   • Basura Descartada por DIANA: Conversaciones gratuitas largas con freeloaders y posts sin opción de compra.\n",
         "────────────────────────────────────────────────────────────────────────",
-        "2. ⚡ INYECCIÓN EN EL ALGORITMO DE LOYALFANS POR ELECTRA (Cómo visibilizarlo):",
+        "2.  INYECCIÓN EN EL ALGORITMO DE LOYALFANS POR ELECTRA (Cómo visibilizarlo):",
         "   • Velocidad de 60 Minutos: Lanzar el Mass DM PPV temático a las horas pico. Los primeros desbloqueos",
         "     de @beaubrun, @rudeyx y @joshy123 disparan el ranking interno de la creadora en 'Trending'.",
         "   • Hackeo del Explore Feed: Publicar 1 teaser público diario de 15 segundos con 4 tags de nicho:",
         f"     #ExclusiveLingerie #{nicho.split()[0]} #VIP #Sensual #POV (para atraer nuevos suscriptores orgánicos).",
         "   • Tienda de Audio Nativa: Grabar 2 notas de voz sugerentes ($7 USD) para capturar ventas pasivas.\n",
         "────────────────────────────────────────────────────────────────────────",
-        "3. 🚀 PALANCAS DE VISIBILIDAD EN TIEMPO REAL:"
+        "3.  PALANCAS DE VISIBILIDAD EN TIEMPO REAL:"
     ]
 
     if hace_en_vivo:
@@ -192,7 +192,7 @@ def generar_plan_tactico_unificado_diana_electra(
 
     reporte.extend([
         "\n────────────────────────────────────────────────────────────────────────",
-        "4. 📋 HOJA DE RUTA INMEDIATA EN 3 PASOS:",
+        "4.  HOJA DE RUTA INMEDIATA EN 3 PASOS:",
         "   [Paso 1] Disparar Mass DM PPV con teaser misterioso a $9.99 USD a los 604 fans.",
         f"   [Paso 2] Abrir chat prioritario con {chat_sample} con mensaje de audio de bienvenida.",
         "   [Paso 3] Programar 1 clip estrella en la Video Store a $15 USD con trailer de 20 seg con marca de agua.",
@@ -206,5 +206,5 @@ def generar_plan_tactico_unificado_diana_electra(
     with open(artifact_path, "w", encoding="utf-8") as f:
         f.write(texto_final)
 
-    texto_final += f"✅ Plan táctico guardado en: artifacts/{artifact_path.name}\n"
+    texto_final += f" Plan táctico guardado en: artifacts/{artifact_path.name}\n"
     return texto_final

@@ -44,7 +44,7 @@ def create_velvet_agent(api_key: str = None) -> Agent:
 
 async def main():
     print("=" * 60)
-    print("🌌 VELVET AI — Webcam Intelligence & Operations Super-Agent")
+    print(" VELVET AI — Webcam Intelligence & Operations Super-Agent")
     print("=" * 60)
     print("Iniciando entorno y cargando herramientas...")
 

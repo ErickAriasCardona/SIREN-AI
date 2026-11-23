@@ -5,10 +5,15 @@ import sqlite3
 import datetime
 import time
 import base64
+import threading
 import urllib.request
 import urllib.error
+import mimetypes
 from pathlib import Path
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
+
+mimetypes.add_type('application/wasm', '.wasm')
+mimetypes.add_type('application/octet-stream', '.task')
 
 # Agregar raíz al sys.path
 ROOT = Path(__file__).resolve().parent.parent.parent
@@ -27,7 +32,21 @@ from src.platforms.streamate.stream_monitor_controller import (
     parse_wheel_game_text,
     update_gold_menu_live,
     update_wheel_game_live,
-    update_room_topic_live
+    update_room_topic_live,
+    get_streamate_messenger_data,
+    send_streamate_messenger_reply,
+    run_streamate_autopilot,
+    toggle_streamate_autopilot
+)
+from src.platforms.streamate.stream_monitor_orchestrator import (
+    inspect_streammonitor_status,
+    launch_streammonitor_desktop,
+    generate_mahia_prompt,
+    parse_mahia_output_to_tools,
+    apply_full_orchestrated_shift,
+    smart_orchestrate_natural_idea,
+    execute_mahia_shift_dialogue,
+    PRESET_SHIFT_THEMES
 )
 from src.analytics.streamate_competitor_radar import scan_streamate_tomboy_competitors
 
@@ -44,101 +63,364 @@ from src.agents.chloe_instagram_agent import (
 from src.automation.push_notification_service import push_service
 
 # ==============================================================================
+# CONTROL GLOBAL DE SESIONES ACTIVAS DE CHAT PARA CANCELACIÓN Y PAUSA INMEDIATA
+# ==============================================================================
+ACTIVE_CHAT_SESSIONS = {}
+ACTIVE_CHAT_LOCK = threading.Lock()
+
+# ==============================================================================
 # PROMPTS DEL SISTEMA OPTIMIZADOS PARA CPU (AGILIDAD 7-15s EN OLLAMA)
 # ==============================================================================
-ROXANNE_CPU_SYSTEM_PROMPT = """Eres ROXANNE, Co-Piloto Estratégica y mentora personal de la modelo y creadora Sam Barton (@sambartonn23).
+ROXANNE_CPU_SYSTEM_PROMPT = """Eres ROXANNE, Co-Piloto Estratégica y mentora personal de la modelo y creadora Sam Barton (@sambartone_).
 Sam es modelo tomboy versátil en LoyalFans, Stripchat y Streamate (cuenta estudio, 50% split, rating 4.0).
 Asistes a Sam directamente en español con respuestas a fans, metas de sala, dinámicas Lovense y tácticas de monetización.
-Sé concisa, práctica, directa y estratégica. Responde con calidez y profesionalismo."""
+Sé concisa, práctica, directa y estratégica. Responde con calidez y profesionalismo.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices, comparativas o resúmenes, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con encabezados concisos y datos ordenados fila por fila. Usa subtítulos y listas con viñetas cuando corresponda."""
 
-CHLOE_CPU_SYSTEM_PROMPT = """Eres CHLOE, estratega de Instagram de Sam Barton (@sambartonn23).
+CHLOE_CPU_SYSTEM_PROMPT = """Eres CHLOE, estratega de Instagram de Sam Barton (@sambartone_).
 Creas ideas de historias, ganchos visuales y textos con estilo tomboy para reactivar el algoritmo y dirigir tráfico a LoyalFans y Streamate.
-Sé creativa, concisa, moderna y enfocada en interacción."""
+Sé creativa, concisa, moderna y enfocada en interacción.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, cronogramas, matrices de contenido o comparativas, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con datos ordenados y claros."""
 
-DIANA_CPU_SYSTEM_PROMPT = """Eres DIANA, auditora financiera y especialista de pagos de Sam Barton (@sambartonn23).
+DIANA_CPU_SYSTEM_PROMPT = """Eres DIANA, auditora financiera y especialista de pagos de Sam Barton (@sambartone_).
 Especialista en splits de Streamate (50% neto del 35% del estudio), pagos de LoyalFans (80% creador, retiro mínimo $50) y Stripchat.
-Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad."""
+Responde a Sam en español con números claros, precisión financiera y consejos prácticos de rentabilidad.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de splits, proyecciones o balances, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) con cifras exactas, comisiones y netos desglosados."""
 
-ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartonn23).
+
+MAHIA_CPU_SYSTEM_PROMPT = """Eres MAHIA, co-piloto táctica para transmisiones en vivo de Sam Barton (@sambartone_) en StreamMonitor y Streamate.
+Especialista en preparar Topics de sala optimizados en inglés (máximo 130 caracteres con hashtags estratégicos como #tomboy #petite #versatile), menús Gold de 3G a 10G, juegos de ruleta a 5G y mensajes automáticos de sala (Alt+1 a Alt+6).
+Responde a Sam de forma concisa, rápida y táctica para aplicar directamente en sus transmisiones.
+FORMATO OBLIGATORIO: Cuando Sam te pida temas, metas o configuraciones, preséntalos en listas limpias o formato de tabla Markdown listo para copiar y pegar."""
+
+ALMA_CPU_SYSTEM_PROMPT = """Eres ALMA TECH, la inteligencia central y consultora global de marca de Sam Barton (@sambartone_).
+Coordinas la visión integral de las plataformas (Streamate, LoyalFans, Stripchat e Instagram), supervisando a las especialistas Roxanne, Mahia, Chloe, Diana y Electra.
+Ofreces asesoramiento de alto nivel, visión estratégica de carrera, balance de ingresos pasivos vs streaming en vivo y toma de decisiones tácticas.
+FORMATO OBLIGATORIO: Estructura tus respuestas con claridad profesional, viñetas analíticas y tablas Markdown cuando se comparen datos o metas."""
+
+ELECTRA_CPU_SYSTEM_PROMPT = """Eres ELECTRA, ingeniera de tráfico algorítmico y posicionamiento de Sam Barton (@sambartone_).
 Especialista en SEO de streaming, ciclo de bump cada 3.5h en LoyalFans, retención de los primeros 30 segundos en Streamate y tags clave (#Tomboy, #Versatile).
-Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos."""
+Responde a Sam en español con tácticas directas, accionables y análisis de algoritmos.
+FORMATO OBLIGATORIO: Cuando Sam te pida tablas, matrices de algoritmos, horarios o tags, preséntalos SIEMPRE utilizando formato de tabla Markdown estándar (| Columna 1 | Columna 2 |) estructurados por horario, plataforma y métrica."""
+
+SYSTEM_PROMPTS_BY_AGENT = {
+    # CIPOTE CEVICHERIA
+    "cipote_chef": (
+        "Eres Don Cipote, Chef Ejecutivo y Maestro Cevichero de Cipote Cevicheria en el Caribe colombiano. "
+        "Tu especialidad absoluta son los ceviches costeños auténticos, pescados frescos (corvina, róbalo, camarón), "
+        "la leche de tigre perfecta (limón pajarito recién exprimido, cebolla morada, cilantro, ají dulce y fondo de pescado concentrado), "
+        "y el control estricto de mermas y gramajes por porción (150g de proteína neta por ceviche estándar). "
+        "Hablas con calidez caribeña profesional, sazón y conocimiento culinario de alto nivel. "
+        "Recomiendas platos de la carta: Ceviche Clásico ($18.000), Ceviche Mixto ($24.000), Cóctel de Camarón ($22.000) y Granizado 16oz ($12.000). "
+        "Responde siempre con precisión sobre recetas, tiempos de marinado (máximo 3 a 5 minutos), mariscos y control de mermas. "
+        "NUNCA menciones temas de modelos webcam, transmisiones ni ukelele; tu único dominio es la cocina, cevichería y gastronomía caribeña."
+    ),
+    "cipote_bar": (
+        "Eres el Barman Líder y Coctelero de Cipote Cevicheria. "
+        "Tu especialidad es el maridaje caribeño, cócteles de autor con rones y licores del Caribe, micheladas especiales y granizados frappé de 16oz ($12.000) de corozo, maracuyá y limón. "
+        "Asesoras sobre bebidas que limpian el paladar y complementan la frescura y el picante de los ceviches. "
+        "Responde con tono hospitalario y profesional sobre recetas de bar, licores y servicio de barra."
+    ),
+    "cipote_pos": (
+        "Eres el Cajero Líder y Administrador de Punto de Venta de Cipote Cevicheria. "
+        "Tu responsabilidad es el control riguroso de comandas, turnos de caja, arqueos y el conteo crítico de vasos plásticos (12oz, 16oz y 24oz). "
+        "Cada vaso plástico equivale exactamente a una porción vendida y no debe existir ninguna discrepancia con la facturación del POS. "
+        "Orientas sobre apertura y cierre de turno, cuadre de caja (efectivo, transferencias, Nequi), anulación de comandas y control de inventario de vasos."
+    ),
+    "cipote_delivery": (
+        "Eres el Coordinador de Logística y Despacho Rápido de Cipote Cevicheria. "
+        "Garantizas empaques antiderrame (sellado hermético de leche de tigre por separado para verter al consumir) "
+        "y entregas en menos de 15 a 20 minutos preservando la cadena de frío y frescura del ceviche."
+    ),
+
+    # EL SOLAR GASTRO-BAR
+    "solar_solecito": (
+        "Eres Solecito, el anfitrión virtual de reservas de El Solar Gastro-Bar. "
+        "Gestionas asignación de mesas, reservas para cenas, cumpleaños, eventos corporativos, control de aforo y horarios de atención. "
+        "Respondes con amabilidad, elegancia y rapidez sobre la experiencia gastronómica."
+    ),
+    "solar_reservas": (
+        "Eres el Coordinador de Reservas de El Solar Gastro-Bar. Gestionas mesas, confirmación de asistencia, aforo y eventos especiales."
+    ),
+    "solar_maitre": (
+        "Eres el Capitán de Servicio y Maître de El Solar Gastro-Bar. "
+        "Especialista en atención al comensal, maridajes de la carta, cortes de carne, tapas y servicio de salón."
+    ),
+    "solar_waiter": (
+        "Eres el Capitán de Servicio de El Solar Gastro-Bar. Especialista en menú, atención en mesa y tiempos de servicio."
+    ),
+    "solar_chef": (
+        "Eres el Chef Ejecutivo de El Solar Gastro-Bar. Especialista en parrilla, tapas de autor, cocción lenta, recetas y tiempos de despacho en cocina."
+    ),
+    "solar_kitchen": (
+        "Eres el Jefe de Cocina de El Solar Gastro-Bar. Controlas recetas, mise en place, despacho de comandas y estándares de higiene."
+    ),
+    "solar_admin": (
+        "Eres el Administrador de El Solar Gastro-Bar. Controlas finanzas, compras, proveedores, cuadre de caja y métricas operativas."
+    ),
+
+    # ALMA AUTONOMOUS MULTI-AGENT & BÓVEDAS OPENCLAW
+    "alma": ALMA_CPU_SYSTEM_PROMPT,
+    "mufasa": (
+        "Eres Mufasa, Director de Operaciones del Sistema Autónomo Multi-Agente ALMA y Bóvedas OpenClaw. "
+        "Gestionas la orquestación de flujos de trabajo autónomos, ejecución de pipelines y gobernanza operativa."
+    ),
+    "vera": (
+        "Eres Vera, Auditora de Inteligencia, Seguridad y Cumplimiento del Sistema Autónomo ALMA. "
+        "Auditas la integridad de datos, cumplimiento de estándares GAP-X y consistencia lógica de los agentes."
+    ),
+    "nemesis": (
+        "Eres Nemesis, Agente de Estrategia de Ciberseguridad y Pruebas de Penetración de ALMA TECH. "
+        "Proteges la infraestructura, gestionas hardening de servidores, puertos y seguridad de autenticación."
+    ),
+    "kali": (
+        "Eres Kali, Especialista en Automatización, Pipelines CI/CD y DevOps de ALMA TECH. "
+        "Controlas despliegues continuos, scripts y tareas en segundo plano."
+    ),
+    "bruce": (
+        "Eres Bruce, Arquitecto de Infraestructura, Redes y Conectividad de ALMA TECH. "
+        "Monitoreas puertos (8900, 8888, 5173), túneles Cloudflare/LocalTunnel y rendimiento de servidores."
+    ),
+    "atlas": (
+        "Eres Atlas, Cartógrafo de Datos y Grafos de Conocimiento de ALMA TECH. "
+        "Mapeas relaciones entre entidades, bóvedas Obsidian y bases de conocimiento vectorial."
+    ),
+
+    # SIREN AI (Sam Barton)
+    "roxanne": ROXANNE_CPU_SYSTEM_PROMPT,
+    "mahia": MAHIA_CPU_SYSTEM_PROMPT,
+    "chloe": CHLOE_CPU_SYSTEM_PROMPT,
+    "diana": DIANA_CPU_SYSTEM_PROMPT,
+    "electra": ELECTRA_CPU_SYSTEM_PROMPT,
+}
 
 def generate_contextual_fallback(assistant_id: str, message: str) -> str:
-    """Genera una respuesta contextual inteligente si Ollama no está disponible o está reiniciando."""
+    """Genera una respuesta contextual inteligente con soporte completo de Markdown y Matrices/Tablas por dominio."""
+    asst = (assistant_id or "roxanne").lower().strip()
+    if asst in ["cipote", "don_cipote", "chef"]:
+        asst = "cipote_chef"
+    elif asst in ["barman", "bar"]:
+        asst = "cipote_bar"
+    elif asst in ["pos", "cajero"]:
+        asst = "cipote_pos"
+    elif asst in ["delivery", "despacho"]:
+        asst = "cipote_delivery"
+    elif asst in ["solecito", "solar", "reservas"]:
+        asst = "solar_solecito"
+    elif asst in ["maitre", "mesero", "salon"]:
+        asst = "solar_maitre"
+    elif asst in ["parrilla", "parrillero"]:
+        asst = "solar_chef"
+
     msg_low = message.lower()
-    if assistant_id == "chloe":
-        if any(w in msg_low for w in ["historia", "story", "stories", "publicar", "post", "foto", "idea"]):
+    is_table_query = any(w in msg_low for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
+
+    # 1. CIPOTE CEVICHERIA (DON CIPOTE & EQUIPO)
+    if asst == "cipote_chef" or (asst.startswith("cipote") and "chef" in asst) or (asst.startswith("cipote") and asst not in ["cipote_bar", "cipote_pos", "cipote_delivery"]):
+        if any(w in msg_low for w in ["recomienda", "recomiendas", "probar", "hoy", "plato", "comer", "sugerencia"]):
             return (
-                "✨ **[CHLOE - Estrategia Rápida de Instagram]**\n\n"
+                "¡Ajá! Te recomiendo sin duda empezar con nuestro **Ceviche Mixto ($24.000)** con camarón tierno y pescado blanco del día, bañado en nuestra leche de tigre tradicional con limón pajarito recién exprimido y maíz tostado crocante. Y para acompañar con este calor, un **Granizado 16oz ($12.000)** de corozo bien frío.\n\n"
+                "¿Prefieres ceviche tradicional costeño bien cítrico o te gusta con un toque picante de ají dulce?"
+            )
+        elif is_table_query or any(w in msg_low for w in ["carta", "menu", "menú", "precios", "precio", "gramaje"]):
+            return (
+                "Aquí tienes la matriz oficial de la carta y gramajes estándar de **Cipote Cevicheria**:\n\n"
+                "| Plato / Producto | Precio | Proteína Neta | Base Cítrica | Acompañamiento |\n"
+                "|---|---|---|---|---|\n"
+                "| **Ceviche Clásico** | $18.000 | 150g Pescado Blanco | Leche de tigre tradicional | Maíz tostado + Cebolla morada |\n"
+                "| **Ceviche Mixto** | $24.000 | 100g Pescado + 60g Camarón | Leche de tigre especial | Maíz crocante + Chips de plátano |\n"
+                "| **Cóctel de Camarón** | $22.000 | 120g Camarón cocido | Salsa golf marinera caribeña | Galletas de soda + Limón |\n"
+                "| **Granizado 16oz** | $12.000 | N/A | Pulpa corozo / maracuyá | Vaso escarchado con sal y limón |\n\n"
+                "**Regla de Oro en Cocina:** Cada porción de ceviche lleva exactamente **150g netos** de proteína pesada tras limpieza, manteniendo el costo de merma por debajo del 12%."
+            )
+        elif any(w in msg_low for w in ["leche de tigre", "receta", "marinado", "limon", "limón", "pescado"]):
+            return (
+                "Para la leche de tigre perfecta en Cipote Cevicheria:\n"
+                "1. **Extracción suave:** Exprime el limón pajarito al 70% sin apretar la cáscara para no transferir aceites amargos.\n"
+                "2. **Base concentrada:** Mezcla el jugo con caldo concentrado de pescado bien frío, cebolla morada fina, ají dulce costeño picado, tallos de cilantro y ajo machacado.\n"
+                "3. **Tiempo crítico de marinado:** Máximo de **3 a 5 minutos**. El pescado debe curarse en el plato y llegar a la mesa firme, fresco y jugoso."
+            )
+        elif any(w in msg_low for w in ["merma", "mermas", "porciones", "costo"]):
+            return (
+                "En Cipote controlamos las mermas mediante pesaje en crudo antes y después de eviscerar y filetear. El rendimiento del pescado blanco entero debe ser mínimo del 48-52% en filete limpio. Cada ceviche lleva 150 gramos pesados en balanza digital antes de montar la comanda."
+            )
+        else:
+            return (
+                "¡Saludos! Soy Don Cipote, tu Chef Ejecutivo. Conmigo estandarizas la leche de tigre, controlas gramajes exactos por porción y garantizas la máxima frescura del marisco. ¿Qué receta, gramaje o plato de la carta revisamos hoy?"
+            )
+
+    elif asst == "cipote_bar":
+        return (
+            "¡A la orden! Como Barman de Cipote, te recomiendo acompañar los ceviches con un **Granizado 16oz ($12.000)** de corozo o maracuyá bien frío, o una michelada con sal marina y limón que corta el picante y limpia el paladar a la perfección."
+        )
+
+    elif asst == "cipote_pos":
+        return (
+            "Terminal POS & Turno de Caja listo. Para este turno: base inicial confirmada, cruce estricto 1:1 de vasos plásticos (12oz, 16oz y 24oz) contra comandas facturadas, y arqueo listo para consolidar efectivo, Nequi y transferencias."
+        )
+
+    elif asst == "cipote_delivery":
+        return (
+            "Despacho Rápido activo. Nuestro protocolo exige empacar la leche de tigre en contenedor hermético sellado independiente, garantizando que el cliente la vierta al comer y evitando derrames en ruta de moto en menos de 20 minutos."
+        )
+
+    # 2. EL SOLAR GASTRO-BAR
+    elif asst in ["solar_solecito", "solar_reservas"] or (asst.startswith("solar") and asst not in ["solar_maitre", "solar_chef", "solar_admin"]):
+        return (
+            "¡Hola! Te damos la bienvenida a **El Solar Gastro-Bar**. Estoy listo para gestionar tu reserva de mesa para hoy o el fin de semana. Indícame para cuántas personas es la mesa, la hora preferida y si celebran alguna ocasión especial."
+        )
+    elif asst in ["solar_maitre", "solar_waiter"]:
+        return (
+            "Buenas tardes. Como Capitán de Servicio de El Solar, te sugiero iniciar con nuestras tapas de la casa y maridar los cortes a la parrilla con nuestra selección de vinos y cócteles de autor. ¿En qué puedo asistirte en mesa hoy?"
+        )
+    elif asst in ["solar_chef", "solar_kitchen"]:
+        if any(w in msg_low for w in ["acompañamiento", "acompañamientos", "guarnicion", "guarniciones", "bandeja", "campestre", "papas", "platano", "ensalada"]):
+            return (
+                "Para la **Bandeja Solar Campestre**, los acompañamientos tradicionales recomendados son:\n\n"
+                "1. **Papas Rústicas al Romero y Sal Marina**: Doradas en la parrilla con mantequilla de ajo suave.\n"
+                "2. **Plátano Maduro Asado con Queso Campesino**: Dulzor natural que contrasta con el ahumado de la carne.\n"
+                "3. **Mazorca Dulce Grillada**: Bañada en chimichurri de la casa.\n"
+                "4. **Ensalada Fresca Campestre**: Con mix de hojas verdes, tomate cherry y vinagreta cítrica para limpiar el paladar.\n\n"
+                "¿Deseas agregar alguna porción extra de chorizo artesanal o arepa de choclo?"
+            )
+        elif any(w in msg_low for w in ["corte", "cortes", "carne", "carnes", "recomienda", "recomiendas", "probar", "plato", "pedir"]):
+            return (
+                "Te recomiendo especialmente:\n\n"
+                "- **Bife de Chorizo Madurado (350g)**: En término 3/4 para asegurar máxima jugosidad y textura tierna.\n"
+                "- **Picanha / Punta de Anca a la Leña**: Sellada a fuego vivo con capa crocante de grasa dorada.\n"
+                "- **Costillas BBQ Ahumadas en Madera de Manzano**: Cocción lenta de 6 horas que se deshace al tacto.\n\n"
+                "¿Tienes preferencia por algún término de cocción específico?"
+            )
+        elif any(w in msg_low for w in ["termino", "terminos", "coccion", "puntos"]):
+            return (
+                "En nuestros fogones manejamos 4 términos principales:\n\n"
+                "- **Término Medio (55°C)**: Centro rojo tibio y máxima jugosidad.\n"
+                "- **Término 3/4 (62°C)**: Centro rosado, el punto ideal recomendado para cortes con buen marmoleo.\n"
+                "- **Bien Cocido (70°C)**: Centro totalmente cocido pero sellado a alta temperatura para no perder humedad."
+            )
+        return (
+            "¡Saludos desde los fogones de El Solar! La parrilla de leña de quebracho está lista. "
+            "Preparamos cortes madurados, tapas al carbón y la tradicional Bandeja Solar Campestre. "
+            "¿Deseas recomendaciones sobre cortes de carne, términos de cocción o acompañamientos?"
+        )
+    elif asst in ["solar_admin"]:
+        return (
+            "Panel Administrativo de El Solar Gastro-Bar activo. Inventarios de bebidas, insumos de cocina y costos operativos al día. ¿Qué reporte de turno o compras necesitas?"
+        )
+
+    # 3. ALMA MULTI-AGENT & OPENCLAW VAULTS
+    elif asst == "mufasa":
+        return (
+            "Mufasa en línea. Bóvedas OpenClaw 00_GESTION a 04_HERRAMIENTAS indexadas. Sincronización de tareas y andamiaje de arquitectura de agentes lista para desplegar."
+        )
+    elif asst == "vera":
+        return (
+            "Vera lista. Estructura formal de 24 secciones disponible. Puedo analizar tus requisitos técnicos y separar estrictamente elementos confirmados de inferidos sin ambigüedades."
+        )
+    elif asst == "nemesis":
+        return (
+            "Némesis en guardia. Blindaje de calidad GAP-X y auditoría de regresión activa. Todos los endpoints y flujos verificados contra fallos y desvíos."
+        )
+    elif asst == "kali":
+        return (
+            "Kali conectada. Consola Supabase, migraciones PostgreSQL, Docker y túneles seguros listos. Infraestructura cloud y on-device sincronizada."
+        )
+    elif asst == "bruce":
+        return (
+            "Bruce activo en Ollama local. Inferencia 100% privada y on-device asegurada. Ningún dato sensible sale de la máquina local."
+        )
+    elif asst == "atlas":
+        return (
+            "Atlas preparado. Mesa de ayuda y continuidad operativa al 100%. Soporte técnico de primer nivel para usuarios y agentes."
+        )
+    elif asst == "alma":
+        return (
+            "Ecosistema ALMA TECH conectado y operativo. Monitoreando en paralelo: SIREN (8888), ALMA Autonomous Multi-Agent (5173), Cipote Cevicheria y El Solar Gastro-Bar. ¿Qué aspecto estratégico u operativo deseas coordinar?"
+        )
+
+    # 4. SIREN COPILOTS (SAM BARTON)
+    elif asst == "mahia":
+        return (
+            "¡Sam! StreamMonitor y presets de sala listos. Puedes disparar las acciones tácticas con un clic desde el panel derecho o decirme qué dinámica prefieres activar en cámara."
+        )
+    elif asst == "chloe":
+        if any(w in msg_low for w in ["historia", "historias", "pack", "stories", "dia", "día"]):
+            return (
                 "Para tus historias de hoy con vibra tomboy:\n"
-                "1. **Mañana**: Boomerang casual afinando el ukelele o preparando café con texto: *'Modo enfoque activado... ¿quién anda por acá?'* + sticker de encuesta.\n"
-                "2. **Tarde**: Foto en cabina/set con luz tenue: *'Segunda mitad del día, lista para lo bueno 🖤'*.\n"
-                "3. **Cierre**: Gancho a LoyalFans/Streamate: *'Los detalles exclusivos están en el link de mi bio 🔥'*."
-            )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "✨ **[CHLOE - Asistente de Instagram]**\n\n"
-                "¡Hola Sam! Lista para mover el algoritmo de @sambartonn23 hoy. ¿Quieres que preparemos el pack de historias del día o un copy para un nuevo post?"
+                "1. **Mañana SFW**: Foto casual con café y ukelele al fondo. Copy: 'Unplugged morning. ¿Qué canción aprendo hoy?'\n"
+                "2. **Tarde Tomboy Vibe**: Video corto afinando el instrumento y sonriendo a cámara. Sticker de encuesta interactiva.\n"
+                "3. **Noche Embudo VIP**: Foto con luz tenue antes de entrar a privado. Copy: 'En vivo ahora, enlace en bio para charlar directo'."
             )
         else:
             return (
-                f"✨ **[CHLOE - Estrategia Instagram]**\n\n"
-                f"Sam, respecto a tu consulta: para mantener alta la retención en @sambartonn23, publica historias con stickers interactivos cada 3 horas y usa siempre un gancho claro al inicio."
+                "Chloe activa. Estrategia de Instagram @sambartone_ orientada a conversión SFW hacia LoyalFans y Streamate. ¿Generamos historias o analizamos el engagement del último post?"
             )
-    elif assistant_id == "diana":
-        if any(w in msg_low for w in ["ganancia", "split", "cuanto", "precio", "privado", "exclusivo", "gold", "dolar"]):
+    elif asst == "diana":
+        return (
+            "Diana en finanzas. Split 100% verificado y conciliación de propinas en curso. Tus balances de LoyalFans y Streamate están auditados y listos para cobro."
+        )
+    elif asst == "electra":
+        return (
+            "Electra en tráfico algorítmico. Monitores de visibilidad al 100%. Te sugiero mantener el ciclo de bump en LoyalFans cada 3.5 horas y variar el topic cada 90 minutos en streaming."
+        )
+    elif asst in ["roxanne", "siren"]:
+        if any(w in msg_low for w in ["menu", "menú", "gold", "ruleta", "rueda", "wheel", "topic", "tema", "sala", "buzz"]):
             return (
-                "📊 **[DIANA - Auditoría Financiera]**\n\n"
-                "Sam, recordatorio de tus tasas activas:\n"
-                "• **Streamate**: Privado $2.99/min, Exclusivo $3.99/min. De cada 100 Gold ($100 USD), el estudio recibe $35 USD y tu neto es $17.50 USD (50% de la comisión del estudio).\n"
-                "• **LoyalFans**: DMs $0.50, te quedas con el 80% neto directo. Retiro mínimo de $50 USD.\n"
-                "• **Meta recomendada**: Prioriza sesiones privadas de más de 6 minutos para superar el ticket promedio."
+                "¡Entendido, Sam! Aquí tienes tu configuración completa para hoy enfocada en **Golds & Buzz Lovense**, con precios accesibles (3G y 5G), opciones de ruleta más íntimas (distintas al menú) y el topic con hashtags optimizado a 110 caracteres (límite 140):\n\n"
+                "### 1. Menú GOLD (Todos a 3 Gold)\n"
+                "*(Estructura lista para copiar en la herramienta Menú GOLD)*\n"
+                "```text\n"
+                "Buzz Lovense Nivel 1 (15 seg) - 3\n"
+                "Vibración Lovense Media (25 seg) - 3\n"
+                "Subir Top / Mostrar Bra Deportivo - 3\n"
+                "Nalgadita Sonora en Cámara - 3\n"
+                "Desabotonar Camisa Tomboy - 3\n"
+                "Susurro Erótico al Micrófono - 3\n"
+                "```\n\n"
+                "### 2. Ruleta Íntima (Costo: 5 Gold por giro)\n"
+                "*(Opciones más íntimas y exclusivas, 100% diferentes al menú Gold)*\n"
+                "```text\n"
+                "Costo: 5\n"
+                "Buzz Lovense Nivel Máximo (45 seg)\n"
+                "Twerk Tomboy Lento y Cercano\n"
+                "Topless Rápido Flash (5 seg)\n"
+                "Control Total de mi Lovense x 1 min\n"
+                "Baile Sensual con Gorra Hacia Atrás\n"
+                "Quitarme la Camisa (Quedo en Bra)\n"
+                "Tease Exclusivo en Pantalón Ajustado\n"
+                "Doble Giro de Ruleta Gratis\n"
+                "Audio Erótico Susurrado al Oído\n"
+                "1 Minuto de Pre-Privado Exclusivo\n"
+                "```\n\n"
+                "### 3. Tema de la Sala (110 caracteres / Máx 140)\n"
+                "```text\n"
+                "BUZZ LOVENSE ACTIVO Menu Gold 3G Ruleta Íntima 5G Tease Tomboy en Vivo #Tomboy #Lovense #Gold #Cam2Cam\n"
+                "```"
             )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
+        elif is_table_query:
             return (
-                "📊 **[DIANA - Auditora Financiera]**\n\n"
-                "¡Hola Sam! Aquí revisando tus balances y proyecciones. ¿Qué cifra o split quieres que auditemos para tu turno de hoy?"
+                "Sam, aquí tienes la matriz estructurada con tus tarifas y dinámicas recomendadas para el turno:\n\n"
+                "| Modalidad / Nivel | Tarifa Sugerida | Dinámica en Cámara | Meta de Tensión / Conversión |\n"
+                "|---|---|---|---|\n"
+                "| **Free Chat Público** | Gratis | Charla cercana + ukelele acústico | Enganchar en primeros 30s sin mostrar de más |\n"
+                "| **Privado Cam2Cam** | **$2.99 / min** | Miradas fijas, susurros y complicidad | Mantener al fan mínimo 5 minutos ($2.60 neto) |\n"
+                "| **Exclusivo VIP** | **$3.99 / min** | Rol personalizado alternando el control | Tensión sensual progresiva sin sumisión forzada |\n"
+                "| **Gold Menu: Nivel 1** | **3 Gold (Económico)** | Buzz Lovense o subida de top | Gancho de volumen y microtips rápidos |\n"
+                "| **Ruleta de Turno** | **5 Gold por giro** | Dinámicas íntimas (Twerk, Tease, Control) | Retención y juego continuo en sala |\n"
+                "| **Gold Menu: Clímax** | **50 Gold ($8.75 neto)** | Dinámica Lovense nivel máximo | Conexión directa y salto a exclusivo |\n\n"
+                "**Estrategia Sam**: Combina momentos de charla relajada con tu ukelele y marca límites con elegancia para que siempre quieran ir a privado."
             )
         else:
             return (
-                f"📊 **[DIANA - Auditoría Financiera]**\n\n"
-                f"Sam, analizando tu consulta: recuerda siempre separar los ingresos directos (LoyalFans 80%) de los de cuenta estudio (Streamate 50% split) para calcular con exactitud tu flujo de caja neto."
+                "Sam, respecto a tu consulta: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
             )
-    elif assistant_id == "electra":
-        if any(w in msg_low for w in ["bump", "cooldown", "feed", "posicion", "posicionamiento", "rank", "ranking"]):
-            return (
-                "⚡ **[ELECTRA - Tráfico & Algoritmos]**\n\n"
-                "Sam, checklist del algoritmo:\n"
-                "1. **LoyalFans**: Ejecuta el bump cada 3.5 horas exactas. Esto te devuelve a la parte superior del feed orgánico.\n"
-                "2. **Streamate**: Los primeros 30 segundos de free chat definen tu multiplicador de visibilidad. Mantén la interacción verbal activa de inmediato.\n"
-                "3. **Tags clave**: Asegúrate de tener activos `#Tomboy`, `#Versatile`, `#Ukelele` y `#Cam2Cam`."
-            )
-        elif any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "⚡ **[ELECTRA - Algoritmos & Tráfico]**\n\n"
-                "¡Hola Sam! Monitores de tráfico al 100%. ¿Quieres revisar el cooldown de tu bump o la estrategia de retención para Streamate?"
-            )
-        else:
-            return (
-                f"⚡ **[ELECTRA - Algoritmos de Tráfico]**\n\n"
-                f"Sam, sobre tu consulta: para elevar el score en los rankings de streaming, cambia el tema de sala cada 90 minutos y estimula las propinas rápidas en los primeros minutos de transmisión."
-            )
-    else: # Roxanne
-        if any(w in msg_low for w in ["hola", "buenos dias", "buenas", "que tal", "como estas"]):
-            return (
-                "🐺 **[ROXANNE - Co-Piloto]**\n\n"
-                "¡Hola Sam! Aquí lista a tu lado. ¿Qué tienes planeado para hoy? Dime si necesitas que redactemos una respuesta a un fan, ajustemos el menú de sala o preparemos las dinámicas de cámara."
-            )
-        elif any(w in msg_low for w in ["fan", "mensaje", "responder", "chat", "cliente"]):
-            return (
-                "🐺 **[ROXANNE - Co-Piloto]**\n\n"
-                "Pégame el mensaje que te envió el fan y te preparo 2 opciones de respuesta de inmediato: una coqueta y directa con tu vibra tomboy, y otra para monetizar con fotos o propinas."
-            )
-        else:
-            return (
-                f"🐺 **[ROXANNE - Co-Piloto]**\n\n"
-                f"Sam, respecto a tu mensaje: mantén tu vibra tomboy versátil firme, combina momentos de ukelele y charla cercana con tensión sensual en cámara, y recuerda tomar descansos de 10 minutos cada 2 horas."
-            )
+
+    # 5. DEFAULT GENERAL NEUTRAL (NO CROSS-TALK)
+    else:
+        return (
+            f"Como asistente de SIREN AI, he recibido tu consulta: '{message}'. "
+            "Todos los sistemas y agentes del ecosistema están activos y sincronizados. ¿Deseas coordinar alguna tarea específica?"
+        )
 
 DB_PATH = ROOT / "data" / "velvet_analytics.db"
 PORT = 8888
@@ -213,10 +495,22 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_history()
         elif self.path.startswith("/api/chat_history"):
             self.handle_api_chat_history()
+        elif self.path.startswith("/api/chat/stop") or self.path.startswith("/api/chat_stop"):
+            self.handle_api_chat_stop()
         elif self.path == "/api/platforms_profiles":
             self.handle_api_platforms_profiles()
-        elif self.path == "/api/financials":
+        elif self.path == "/api/financials" or self.path.startswith("/api/loyalfans/financials"):
             self.handle_api_financials()
+        elif self.path.startswith("/api/loyalfans/transactions"):
+            self.handle_api_loyalfans_transactions()
+        elif self.path.startswith("/api/loyalfans/subscribers"):
+            self.handle_api_loyalfans_subscribers()
+        elif self.path.startswith("/api/loyalfans/ranking"):
+            self.handle_api_loyalfans_ranking()
+        elif self.path.startswith("/api/loyalfans/all"):
+            self.handle_api_loyalfans_all()
+        elif self.path.startswith("/api/loyalfans/refresh"):
+            self.handle_api_refresh_financials()
         elif self.path.startswith("/api/positioning"):
             self.handle_api_positioning()
         elif self.path.startswith("/api/streamate/dashboard") or self.path.startswith("/api/streamate/refresh_dashboard"):
@@ -229,6 +523,12 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streamate_update_topic()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
+        elif self.path.startswith("/api/streamate/messages"):
+            self.handle_api_streamate_messages()
+        elif self.path.startswith("/api/streammonitor/status"):
+            self.handle_api_streammonitor_status()
+        elif self.path.startswith("/api/streammonitor/presets"):
+            self.handle_api_streammonitor_presets()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
         elif self.path.startswith("/api/instagram/daily_strategy"):
@@ -263,8 +563,20 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             super().do_GET()
 
     def do_POST(self):
-        if self.path == "/api/chat":
+        if self.path == "/api/auth/login":
+            self.handle_api_auth_login()
+        elif self.path == "/api/auth/verify":
+            self.handle_api_auth_verify()
+        elif self.path == "/api/auth/recovery-request":
+            self.handle_api_auth_recovery_request()
+        elif self.path == "/api/auth/reset-password":
+            self.handle_api_auth_reset_password()
+        elif self.path == "/api/auth/logout":
+            self.handle_api_auth_logout()
+        elif self.path == "/api/chat":
             self.handle_api_chat()
+        elif self.path == "/api/chat/stop" or self.path == "/api/chat_stop":
+            self.handle_api_chat_stop()
         elif self.path == "/api/upload_logo":
             self.handle_api_upload_logo()
         elif self.path == "/api/reset_logo":
@@ -285,11 +597,33 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.handle_api_streamate_update_wheel()
         elif self.path.startswith("/api/streamate/update_topic"):
             self.handle_api_streamate_update_topic()
+        elif self.path.startswith("/api/streamate/messages"):
+            self.handle_api_streamate_messages()
+        elif self.path.startswith("/api/streamate/send_message"):
+            self.handle_api_streamate_send_message()
+        elif self.path.startswith("/api/streamate/autopilot_toggle"):
+            self.handle_api_streamate_autopilot_toggle()
+        elif self.path.startswith("/api/streamate/autopilot_run"):
+            self.handle_api_streamate_autopilot_run()
         elif self.path.startswith("/api/refresh_all_platforms"):
             self.handle_api_refresh_all_platforms()
+        elif self.path.startswith("/api/streammonitor/status"):
+            self.handle_api_streammonitor_status()
+        elif self.path.startswith("/api/streammonitor/presets"):
+            self.handle_api_streammonitor_presets()
+        elif self.path.startswith("/api/streammonitor/launch"):
+            self.handle_api_streammonitor_launch()
+        elif self.path.startswith("/api/streammonitor/generate_mahia_prompt"):
+            self.handle_api_streammonitor_generate_mahia_prompt()
+        elif self.path.startswith("/api/streammonitor/parse_mahia_response"):
+            self.handle_api_streammonitor_parse_mahia_response()
+        elif self.path.startswith("/api/streammonitor/apply_shift"):
+            self.handle_api_streammonitor_apply_shift()
+        elif self.path.startswith("/api/streammonitor/orchestrate_natural_idea"):
+            self.handle_api_streammonitor_orchestrate_natural_idea()
         elif self.path.startswith("/api/streamate/analyze_tomboy_radar"):
             self.handle_api_streamate_analyze_tomboy_radar()
-        elif self.path == "/api/refresh_financials":
+        elif self.path == "/api/refresh_financials" or self.path.startswith("/api/loyalfans/refresh"):
             self.handle_api_refresh_financials()
         elif self.path.startswith("/api/refresh_positioning"):
             self.handle_api_refresh_positioning()
@@ -338,7 +672,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 "status": "launched",
                 "platform": platform,
                 "script": target_script,
-                "message": f"🚀 Despliegue de {platform.upper()} puesto en marcha en ventana visible."
+                "message": f" Despliegue de {platform.upper()} puesto en marcha en ventana visible."
             }
         except Exception as e:
             resp = {"success": False, "error": str(e)}
@@ -408,7 +742,21 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             length = int(self.headers.get("Content-Length", 0))
             body = self.rfile.read(length).decode("utf-8") if length > 0 else "{}"
             data = json.loads(body) if body else {}
-            assistant_id = data.get("assistant", "roxanne").lower()
+            assistant_id = data.get("assistant", "roxanne").lower().strip()
+            if assistant_id in ["cipote", "don_cipote", "chef"]:
+                assistant_id = "cipote_chef"
+            elif assistant_id in ["barman", "bar"]:
+                assistant_id = "cipote_bar"
+            elif assistant_id in ["pos", "cajero"]:
+                assistant_id = "cipote_pos"
+            elif assistant_id in ["delivery", "despacho"]:
+                assistant_id = "cipote_delivery"
+            elif assistant_id in ["solecito", "solar", "reservas"]:
+                assistant_id = "solar_solecito"
+            elif assistant_id in ["maitre", "mesero", "salon"]:
+                assistant_id = "solar_maitre"
+            elif assistant_id in ["parrilla", "parrillero"]:
+                assistant_id = "solar_chef"
             
             sample_messages = {
                 "roxanne": "¡Hola Sam! Notificación en tiempo real de Roxanne verificada con éxito en tu pantalla de bloqueo. Sistema operativo y listo.",
@@ -588,11 +936,67 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             importlib.reload(fls)
             data = fls.fetch_live_financials_now_sync()
         except Exception as e:
-            data = {"error": str(e), "balance": 27.19, "current_month": 20.00}
+            data = {"error": str(e), "balance": 15.59, "current_month": 8.40}
         self.send_response(200)
         self.send_header("Content-Type", "application/json; charset=utf-8")
         self.end_headers()
-        self.wfile.write(json.dumps(data).encode("utf-8"))
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+    def handle_api_loyalfans_transactions(self):
+        """Devuelve el historial forense de transacciones y compras en LoyalFans."""
+        try:
+            import importlib
+            import src.analytics.financial_live_sync as fls
+            importlib.reload(fls)
+            data = fls.get_loyalfans_transactions()
+        except Exception as e:
+            data = {"error": str(e), "transactions": []}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+    def handle_api_loyalfans_subscribers(self):
+        """Devuelve las métricas de audiencia, fans y suscriptores activos en LoyalFans."""
+        try:
+            import importlib
+            import src.analytics.financial_live_sync as fls
+            importlib.reload(fls)
+            data = fls.get_loyalfans_subscribers()
+        except Exception as e:
+            data = {"error": str(e), "total_fans": 604}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+    def handle_api_loyalfans_ranking(self):
+        """Devuelve el posicionamiento algorítmico y estado de bump de LoyalFans."""
+        try:
+            import importlib
+            import src.analytics.financial_live_sync as fls
+            importlib.reload(fls)
+            data = fls.get_loyalfans_ranking()
+        except Exception as e:
+            data = {"error": str(e), "percentile": "Top 23%"}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+
+    def handle_api_loyalfans_all(self):
+        """Devuelve un consolidado 360° en tiempo real de LoyalFans."""
+        try:
+            import importlib
+            import src.analytics.financial_live_sync as fls
+            importlib.reload(fls)
+            data = fls.get_loyalfans_all()
+        except Exception as e:
+            data = {"error": str(e), "platform": "LoyalFans"}
+        self.send_response(200)
+        self.send_header("Content-Type", "application/json; charset=utf-8")
+        self.end_headers()
+        self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
 
     def handle_api_positioning(self):
         """Devuelve el posicionamiento, percentil y estado de ventas en tiempo real."""
@@ -680,7 +1084,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 
             res = {
                 "success": True,
-                "message": "✓ Datos de Streamate, LoyalFans y Stripchat sincronizados en tiempo real",
+                "message": " Datos de Streamate, LoyalFans y Stripchat sincronizados en tiempo real",
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
                 "streamate": sm_data,
                 "financials": lf_fin,
@@ -794,7 +1198,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             for row in cursor.fetchall():
                 asst_val = row[4]
                 if not asst_val or asst_val == "sam":
-                    asst_val = row[1] if row[1] in ["roxanne", "chloe", "diana", "electra"] else "roxanne"
+                    asst_val = row[1] if (row[1] and row[1].lower() != "sam") else (target_asst or "roxanne")
                 history.append({
                     "timestamp": row[0],
                     "sender": row[1],
@@ -863,10 +1267,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "name": "Streamate",
                     "model_handle": "SamBartone",
                     "performer_id": "144675665",
-                    "rating": "4.0 ★ (Verificado)",
+                    "rating": "4.0  (Verificado)",
                     "status": "Verified (Activa)",
-                    "sync_status": "✓ Actualizado & Sincronizado en Vivo",
-                    "payout_status": "✓ Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)",
+                    "sync_status": " Actualizado & Sincronizado en Vivo",
+                    "payout_status": " Administrado por Estudio Satélite (Centenario Studio - 50% Split Neto)",
                     "account_type": "Cuenta Estudio Satélite (Centenario Studio)",
                     "login_url": "https://streamatemodels.com/login",
                     "public_url": "https://sambartone.cammodels.com",
@@ -897,14 +1301,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "login_url": "https://loyalfans.com/login",
                     "public_url": "https://loyalfans.com/samm_bartonn",
                     "avatar_url": "/artifacts/test_public_profile_verified.png",
-                    "username": creds.get("loyalfans", {}).get("username", "sambartonn23@gmail.com"),
+                    "username": creds.get("loyalfans", {}).get("username", "sambartone_@gmail.com"),
                     "password": creds.get("loyalfans", {}).get("password", "Kjc20009*"),
                     "rates": {
                         "message_text": "$0.50 / msg",
                         "message_media": "$0.50 / foto",
                         "fan_club": "$10.00 / mes"
                     },
-                    "headline": "Software & AI Architect ⚡ Versatile Tomboy 🏍️",
+                    "headline": "Software & AI Architect  Versatile Tomboy ",
                     "bio": "Smart by day, driven about my goals, and teasingly wicked by night. Software & AI Architect by trade, but my real sanctuary is motorcycles, speed, and my beloved pack...",
                     "tags": ["Tomboy", "Biker", "Tech"],
                     "geoblock": "Sin bloqueo territorial"
@@ -920,14 +1324,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "login_url": "https://stripchat.com/login",
                     "public_url": "https://stripchat.com/sam_barton",
                     "avatar_url": "/artifacts/stripchat_profile_updated_20261014_211003.png",
-                    "username": creds.get("stripchat", {}).get("username", "sambartonn23@gmail.com"),
+                    "username": creds.get("stripchat", {}).get("username", "sambartone_@gmail.com"),
                     "password": creds.get("stripchat", {}).get("password", "6L!3K3RUnEdPKPt"),
                     "rates": {
                         "token_price": "$0.05 / token",
                         "private_show": "60 tokens / min",
                         "interactive_lovense": "Activo"
                     },
-                    "headline": "Cute Tomboy Gamer • Lovense Interactive 🎮",
+                    "headline": "Cute Tomboy Gamer • Lovense Interactive ",
                     "bio": "Software & AI Architect by day, gaming tomboy & teasing companion by night. Soccer player, motorcycle enthusiast, and devoted mom to my dogs & 2 cats...",
                     "tags": ["tomboy", "gamer", "lovense", "athletic", "sensual", "biker"],
                     "geoblock": "Sin bloqueo territorial"
@@ -943,7 +1347,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     "login_url": "https://streamate.lovense.com",
                     "public_url": "",
                     "avatar_url": "/artifacts/smconnect_tab_juguetes_interactivos.png",
-                    "username": creds.get("lovense", {}).get("username", "sambartonn23@gmail.com"),
+                    "username": creds.get("lovense", {}).get("username", "sambartone_@gmail.com"),
                     "password": creds.get("lovense", {}).get("password", "6L!3K3RUnEdPKPt"),
                     "rates": {
                         "niveles": "5 niveles de vibracion configurados"
@@ -987,6 +1391,11 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             if raw_text and not items:
                 items = parse_gold_menu_text(raw_text)
 
+            # Persistir localmente de inmediato para que nunca se pierda
+            if items:
+                from src.platforms.streamate.stream_monitor_controller import save_streamate_tools_config
+                save_streamate_tools_config("gold_menu", items)
+
             res = asyncio.run(update_gold_menu_live(items))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1001,7 +1410,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def handle_api_streamate_update_wheel(self):
         """Actualiza la Ruleta (Gira La Rueda) en SM Connect / Stream Monitor o devuelve configuración."""
         try:
-            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config, save_streamate_tools_config
             if self.command == "GET":
                 cfg = load_streamate_tools_config()
                 wheel = cfg.get("wheel", {"cost": 20, "items": []})
@@ -1024,6 +1433,9 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 cost = parsed["cost"]
                 items = parsed["items"]
 
+            # Persistir localmente de inmediato
+            save_streamate_tools_config("wheel", {"cost": cost, "items": items})
+
             res = asyncio.run(update_wheel_game_live(cost, items))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1038,7 +1450,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
     def handle_api_streamate_update_topic(self):
         """Actualiza el Tema de Habitación (Room Topic) en SM Connect o devuelve configuración."""
         try:
-            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config
+            from src.platforms.streamate.stream_monitor_controller import load_streamate_tools_config, save_streamate_tools_config
             if self.command == "GET":
                 cfg = load_streamate_tools_config()
                 self.send_response(200)
@@ -1052,6 +1464,10 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             data = json.loads(body) if body else {}
 
             topic = data.get("topic", "").strip()
+            # Persistir localmente de inmediato
+            if topic:
+                save_streamate_tools_config("room_topic", topic)
+
             res = asyncio.run(update_room_topic_live(topic))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1063,10 +1479,132 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}, ensure_ascii=False).encode("utf-8"))
 
-    def handle_api_streamate_analyze_tomboy_radar(self):
-        """Ejecuta escaneo de competidoras tomboy en Streamate y devuelve métricas."""
+    def handle_api_streamate_messages(self):
+        """Devuelve el reporte de mensajes de Streamate Models Messenger."""
         try:
-            res = asyncio.run(scan_streamate_tomboy_competitors(3))
+            data = get_streamate_messenger_data()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(data, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_send_message(self):
+        """Envía una respuesta manual o aprobada a un fan en Streamate Messenger."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+            data = json.loads(body) if body else {}
+
+            user_id = data.get("user_id")
+            message = data.get("message", "")
+            source = data.get("source", "roxanne")
+
+            if not user_id or not message:
+                self.send_response(400)
+                self.send_header("Content-Type", "application/json; charset=utf-8")
+                self.end_headers()
+                self.wfile.write(json.dumps({"success": False, "error": "user_id y message requeridos"}).encode("utf-8"))
+                return
+
+            res = asyncio.run(send_streamate_messenger_reply(user_id, message, source))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_autopilot_toggle(self):
+        """Activa o desactiva el piloto automático de mensajería."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+            data = json.loads(body) if body else {}
+
+            enabled = bool(data.get("enabled", False))
+            mode = data.get("mode", "best_choice")
+            res = toggle_streamate_autopilot(enabled, mode)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_autopilot_run(self):
+        """Ejecuta una pasada inmediata del piloto automático en los mensajes pendientes."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else ""
+            data = json.loads(body) if body else {}
+
+            mode = data.get("mode", "best_choice")
+            res = asyncio.run(run_streamate_autopilot(mode))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streamate_analyze_tomboy_radar(self):
+        """Ejecuta escaneo de competidoras tomboy en Streamate con paginación personalizada y enlaces."""
+        try:
+            from urllib.parse import urlparse, parse_qs
+            qs = parse_qs(urlparse(self.path).query)
+            pages = 3
+            query = "tomboy"
+
+            # Revisar query params (GET)
+            if "pages" in qs:
+                try:
+                    pages = int(qs["pages"][0])
+                except (ValueError, TypeError):
+                    pass
+            elif "max_pages" in qs:
+                try:
+                    pages = int(qs["max_pages"][0])
+                except (ValueError, TypeError):
+                    pass
+            if "query" in qs:
+                query = qs["query"][0]
+            elif "q" in qs:
+                query = qs["q"][0]
+
+            # Revisar POST body si aplica
+            if self.command == "POST":
+                try:
+                    content_length = int(self.headers.get('Content-Length', 0))
+                    if content_length > 0:
+                        post_data = self.rfile.read(content_length)
+                        body = json.loads(post_data.decode('utf-8'))
+                        if "pages" in body:
+                            pages = int(body["pages"])
+                        elif "max_pages" in body:
+                            pages = int(body["max_pages"])
+                        if "query" in body:
+                            query = str(body["query"])
+                        elif "q" in body:
+                            query = str(body["q"])
+                except Exception as parse_e:
+                    print(f"[Radar POST parse error]: {parse_e}")
+
+            pages = max(1, min(pages, 10))
+            res = asyncio.run(scan_streamate_tomboy_competitors(max_pages=pages, search_query=query))
             self.send_response(200)
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
@@ -1077,8 +1615,154 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.end_headers()
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
+
+    def handle_api_streammonitor_status(self):
+        """Devuelve el estado de ejecución, hardware y perfiles de StreamMonitor Desktop."""
+        try:
+            status = inspect_streammonitor_status()
+            resp = dict(status)
+            resp["success"] = True
+            resp["status"] = status
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_presets(self):
+        """Devuelve las metas comerciales pre-optimizadas para el turno."""
+        try:
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "presets": PRESET_SHIFT_THEMES}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_launch(self):
+        """Lanza StreamMonitor Desktop en la máquina local."""
+        try:
+            res = launch_streammonitor_desktop()
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_generate_mahia_prompt(self):
+        """Genera la orden concisa y no redundante para el chat de Mahia en StreamMonitor."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            theme = body.get("shift_theme") or body.get("theme", "ass_twerk")
+            custom_desc = body.get("custom_description") or body.get("custom_text", "")
+            post_to_social = body.get("post_to_social", True)
+            res = generate_mahia_prompt(theme, custom_desc, post_to_social=post_to_social)
+            resp = dict(res)
+            resp["success"] = True
+            resp["data"] = res
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_parse_mahia_response(self):
+        """Parsea y valida la respuesta recibida de Mahia para alimentar las herramientas."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            raw_text = body.get("raw_text", "")
+            res = parse_mahia_output_to_tools(raw_text)
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True, "parsed": res}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_streammonitor_apply_shift(self):
+        """Inyecta en un solo ciclo toda la estrategia comercial en Streamate y StreamMonitor."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            theme_key = body.get("theme_key") or body.get("theme", "ass_twerk")
+            custom_text = body.get("custom_text", None)
+            strategy_data = body.get("strategy", None)
+            res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text, strategy_data))
+            if isinstance(res, dict):
+                res["injected_topic"] = res.get("orchestrated_data", {}).get("topic", "")
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+
+    def handle_api_streammonitor_orchestrate_natural_idea(self):
+        """Toma la idea en lenguaje natural de Sam, lanza StreamMonitor y aplica la estrategia 100% en inglés."""
+        try:
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = json.loads(self.rfile.read(content_length).decode('utf-8')) if content_length > 0 else {}
+            idea_text = body.get("idea_text", "")
+            auto_apply = body.get("auto_apply", False)
+            post_to_social = body.get("post_to_social", True)
+
+            # 1. Ejecutar diálogo estructurado entre SIREN y Mahia (StreamMonitor)
+            mahia_diag = execute_mahia_shift_dialogue(idea_text, post_to_social=post_to_social)
+            strategy = mahia_diag["strategy"]
+            theme_key = mahia_diag["theme_key"]
+
+            # 2. Aplicar en vivo a Streamate y guardar para StreamMonitor
+            apply_res = {}
+            if auto_apply:
+                apply_res = asyncio.run(apply_full_orchestrated_shift(theme_key, custom_text=None))
+
+            resp = {
+                "success": True,
+                "theme_key": theme_key,
+                "strategy": strategy,
+                "siren_prompt_to_mahia": mahia_diag["siren_prompt_to_mahia"],
+                "mahia_reply": mahia_diag["mahia_reply"],
+                "launch_desktop": mahia_diag["launch_desktop"],
+                "live_chat_done": mahia_diag.get("live_chat_done", False),
+                "apply_result": apply_res,
+                "message": f"¡Mahia entregó la estrategia y fue sincronizada en Streamate!"
+            }
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(resp, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
     def handle_api_instagram_daily_strategy(self):
-        """Genera la estrategia diaria estructurada para @sambartonn23."""
+        """Genera la estrategia diaria estructurada para @sambartone_."""
         try:
             strategy = generate_daily_instagram_strategy()
             self.send_response(200)
@@ -1106,7 +1790,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
 
     def handle_api_instagram_sync_live(self):
-        """Devuelve o refresca los datos y capturas en vivo de la cuenta @sambartonn23."""
+        """Devuelve o refresca los datos y capturas en vivo de la cuenta @sambartone_."""
         try:
             from urllib.parse import urlparse, parse_qs
             import subprocess
@@ -1114,7 +1798,7 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             qs = parse_qs(urlparse(self.path).query)
             refresh = qs.get("refresh", ["false"])[0].lower() in ["1", "true", "yes"]
 
-            artifacts_live_json = ROOT / "artifacts" / "instagram" / "sambartonn23_live.json"
+            artifacts_live_json = ROOT / "artifacts" / "instagram" / "sambartone__live.json"
 
             if refresh or not artifacts_live_json.exists():
                 sync_script = ROOT / "src" / "platforms" / "instagram" / "instagram_sync.py"
@@ -1125,14 +1809,14 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 
             # Cargar datos si existen
             live_data = {
-                "username": "sambartonn23",
+                "username": "sambartone_",
                 "fullName": "Sam Bartonn",
                 "followers": "78",
                 "following": "104",
                 "posts": "24",
-                "bio": "Software Architect | AI Engineer 🤓 💻\nCat Lover 🐱",
-                "avatar_url": "/artifacts/instagram/sambartonn23_avatar.png",
-                "feed_screenshot": "/artifacts/instagram/sambartonn23_feed_live.png",
+                "bio": "Software Architect | AI Engineer  \nCat Lover ",
+                "avatar_url": "/artifacts/instagram/sambartone__avatar.png",
+                "feed_screenshot": "/artifacts/instagram/sambartone__feed_live.png",
                 "status": "Sincronizado en Vivo",
                 "verified": True,
                 "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
@@ -1143,8 +1827,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     with open(artifacts_live_json, "r", encoding="utf-8") as f:
                         saved = json.load(f)
                         live_data.update(saved)
-                        live_data["avatar_url"] = "/artifacts/instagram/sambartonn23_avatar.png"
-                        live_data["feed_screenshot"] = "/artifacts/instagram/sambartonn23_feed_live.png"
+                        live_data["avatar_url"] = "/artifacts/instagram/sambartone__avatar.png"
+                        live_data["feed_screenshot"] = "/artifacts/instagram/sambartone__feed_live.png"
                 except Exception:
                     pass
 
@@ -1152,6 +1836,145 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             self.send_header("Content-Type", "application/json; charset=utf-8")
             self.end_headers()
             self.wfile.write(json.dumps({"success": True, "data": live_data}, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_chat_stop(self):
+        """Cancela y detiene inmediatamente el proceso del agente y la inferencia en LLM/Ollama."""
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8") if content_length > 0 else "{}"
+            data = json.loads(body) if body else {}
+            target_asst = data.get("assistant", "").lower()
+
+            stopped_count = 0
+            with ACTIVE_CHAT_LOCK:
+                sessions_to_stop = []
+                if target_asst and target_asst in ACTIVE_CHAT_SESSIONS:
+                    sessions_to_stop.append(ACTIVE_CHAT_SESSIONS[target_asst])
+                else:
+                    sessions_to_stop.extend(list(ACTIVE_CHAT_SESSIONS.values()))
+
+                for s in sessions_to_stop:
+                    s["stopped"] = True
+                    if "cancel_event" in s and s["cancel_event"]:
+                        s["cancel_event"].set()
+                    resp = s.get("response_obj")
+                    if resp:
+                        try:
+                            resp.close()
+                        except Exception:
+                            pass
+                    stopped_count += 1
+
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({
+                "success": True,
+                "stopped": True,
+                "stopped_sessions": stopped_count,
+                "message": "Proceso del agente detenido inmediatamente"
+            }).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    # =========================================================================
+    # SIREN AI — AUTENTICACIÓN & GOBERNANZA
+    # =========================================================================
+    def handle_api_auth_login(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import verify_login
+            res = verify_login(
+                email=data.get("email"),
+                password=data.get("password"),
+                turnstile_verified=data.get("turnstile_verified", True)
+            )
+            self.send_response(200 if res.get("success") else 401)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_verify(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import verify_session
+            res = verify_session(data.get("token"))
+            self.send_response(200 if res.get("valid") else 401)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"valid": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_recovery_request(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import request_recovery
+            res = request_recovery(data.get("email"))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_reset_password(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import reset_password
+            res = reset_password(
+                recovery_token=data.get("recovery_token"),
+                pin=data.get("pin"),
+                new_password=data.get("new_password")
+            )
+            self.send_response(200 if res.get("success") else 400)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps(res, ensure_ascii=False).encode("utf-8"))
+        except Exception as e:
+            self.send_response(500)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": False, "error": str(e)}).encode("utf-8"))
+
+    def handle_api_auth_logout(self):
+        try:
+            content_length = int(self.headers.get("Content-Length", 0))
+            body = self.rfile.read(content_length).decode("utf-8")
+            data = json.loads(body)
+            from src.server.auth_service import logout
+            logout(data.get("token"))
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json; charset=utf-8")
+            self.end_headers()
+            self.wfile.write(json.dumps({"success": True}).encode("utf-8"))
         except Exception as e:
             self.send_response(500)
             self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -1168,7 +1991,21 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             message = data.get("message", "").strip()
             model_name = data.get("model", "qwen2.5:7b-instruct")
             chat_history = data.get("history", [])
-            assistant_id = data.get("assistant", "roxanne").lower()
+            assistant_id = data.get("assistant", "roxanne").lower().strip()
+            if assistant_id in ["cipote", "don_cipote", "chef"]:
+                assistant_id = "cipote_chef"
+            elif assistant_id in ["barman", "bar"]:
+                assistant_id = "cipote_bar"
+            elif assistant_id in ["pos", "cajero"]:
+                assistant_id = "cipote_pos"
+            elif assistant_id in ["delivery", "despacho"]:
+                assistant_id = "cipote_delivery"
+            elif assistant_id in ["solecito", "solar", "reservas"]:
+                assistant_id = "solar_solecito"
+            elif assistant_id in ["maitre", "mesero", "salon"]:
+                assistant_id = "solar_maitre"
+            elif assistant_id in ["parrilla", "parrillero"]:
+                assistant_id = "solar_chef"
 
             if not message:
                 self.send_response(400)
@@ -1184,14 +2021,34 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             if ("analiza" in msg_lower or "radar" in msg_lower or "competencia" in msg_lower or "tendencia" in msg_lower) and \
                ("tomboy" in msg_lower or "streamate" in msg_lower or "streetmate" in msg_lower or "streaming" in msg_lower):
                 try:
-                    radar_data = asyncio.run(scan_streamate_tomboy_competitors(3))
+                    num_pages = 3
+                    page_match = re.search(r'(\d+)\s*p[aá]ginas?', msg_lower)
+                    if page_match:
+                        try:
+                            num_pages = int(page_match.group(1))
+                        except (ValueError, TypeError):
+                            pass
+                    num_pages = max(1, min(num_pages, 10))
+                    radar_data = asyncio.run(scan_streamate_tomboy_competitors(num_pages))
                     radar_summary = json.dumps(radar_data, ensure_ascii=False)
                     chat_history.append({
                         "role": "system",
-                        "content": f"[RADAR TOMBOY STREAMATE EN VIVO]: {radar_summary}. Presenta a Sam un desglose claro de modelos activas, temas de sala que están usando, tarifas promedio ($2.99 / $3.99) y recomendaciones clave para destacar hoy."
+                        "content": f"[RADAR TOMBOY STREAMATE EN VIVO - {num_pages} PÁGINAS]: {radar_summary}. Presenta a Sam un desglose claro de modelos activas con sus enlaces clicables (Streamate / CamModels), temas de sala que están usando, tarifas promedio y recomendaciones clave para destacar hoy."
                     })
                 except Exception as re:
                     print("[Radar Error]:", re)
+
+            # DETECCIÓN DE INTENCIÓN: ORQUESTADOR STREAMMONITOR & MAHIA (EJ. VENDER ASS, FOCO DEL TURNO)
+            elif ("streammonitor" in msg_lower or "mahia" in msg_lower or "vender ass" in msg_lower or "especial ass" in msg_lower or "foco de hoy" in msg_lower or "meta de hoy" in msg_lower or "meta comercial" in msg_lower):
+                try:
+                    theme = "ass_twerk" if ("ass" in msg_lower or "twerk" in msg_lower or "trasero" in msg_lower) else ("tomboy_ukelele" if ("ukelele" in msg_lower or "acústic" in msg_lower) else "full_lovense")
+                    prompt_info = generate_mahia_prompt(theme, message)
+                    chat_history.append({
+                        "role": "system",
+                        "content": f"[ORQUESTADOR STREAMMONITOR & MAHIA]: Sam ha definido la meta comercial '{prompt_info['target_name']}'. Presenta el plan estratégico completo: 1) El Topic optimizado (máx 130 chars con hashtags), 2) Menú Gold alineado a 3G, 3) Ruleta a 5G y 4) La orden concisa generada para Mahia. Recuerda que SIREN es el complemento táctico que ahorra tiempo a la modelo y a los managers sin duplicar funciones de StreamMonitor."
+                    })
+                except Exception as me:
+                    print("[StreamMonitor Chat Intent Error]:", me)
 
             # DETECCIÓN DE INTENCIÓN: ACTUALIZAR MENÚ GOLD
             elif ("menú gold" in msg_lower or "menu gold" in msg_lower) and ("actualiza" in msg_lower or "cambia" in msg_lower or "-" in message):
@@ -1232,14 +2089,62 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                     print("[Topic Update Error]:", te)
 
             # Seleccionar Prompt de Sistema según Asistente (optimizado para CPU)
-            if assistant_id == "chloe":
-                active_system_prompt = CHLOE_CPU_SYSTEM_PROMPT
-            elif assistant_id == "diana":
-                active_system_prompt = DIANA_CPU_SYSTEM_PROMPT
-            elif assistant_id == "electra":
-                active_system_prompt = ELECTRA_CPU_SYSTEM_PROMPT
+            if assistant_id == "mahia":
+                # Conexión directa en tiempo real con Mahia en StreamMonitor Desktop
+                try:
+                    from src.platforms.streamate.mahia_live_connector import send_prompt_to_mahia_desktop, ensure_streammonitor_running
+                    port = ensure_streammonitor_running(max_wait_seconds=15)
+                    if port:
+                        mahia_res = send_prompt_to_mahia_desktop(message, timeout_seconds=45)
+                        reply = mahia_res.get("mahia_response") or mahia_res.get("response") or mahia_res.get("reply")
+                        if mahia_res.get("success") and reply:
+                            import re
+                            reply_clean = re.sub(r'[\U00010000-\U0010ffff]', '', reply).strip()
+
+                            # Persistir en base de datos SQLite
+                            try:
+                                conn = sqlite3.connect(DB_PATH)
+                                cursor = conn.cursor()
+                                now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model, assistant) VALUES (?, ?, ?, ?, ?)",
+                                               (now_str, "sam", message, "StreamMonitor Mahia Live", "mahia"))
+                                cursor.execute("INSERT INTO copilot_assistant_history (timestamp, sender, message, model, assistant) VALUES (?, ?, ?, ?, ?)",
+                                               (now_str, "mahia", reply_clean, "StreamMonitor Mahia Live", "mahia"))
+                                conn.commit()
+                                conn.close()
+                            except Exception as pe:
+                                print("[Mahia Persist Error]:", pe)
+
+                            self.send_response(200)
+                            self.send_header("Content-Type", "application/json; charset=utf-8")
+                            self.end_headers()
+                            self.wfile.write(json.dumps({
+                                "reply": reply_clean,
+                                "response": reply_clean,
+                                "source": "streammonitor_cdp",
+                                "live_chat": True
+                            }).encode("utf-8"))
+                            return
+                        else:
+                            print(f"[Mahia Live Warning]: Connector returned {mahia_res}")
+                except Exception as cdp_err:
+                    print(f"[Mahia CDP Bridge Error]: {cdp_err}")
+                active_system_prompt = MAHIA_CPU_SYSTEM_PROMPT
+            elif assistant_id in SYSTEM_PROMPTS_BY_AGENT:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT[assistant_id]
+            elif assistant_id.startswith("cipote_") or "cipote" in assistant_id:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get("cipote_chef")
+            elif assistant_id.startswith("solar_") or "solar" in assistant_id:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get("solar_solecito")
+            elif assistant_id in ["alma", "mufasa", "vera", "nemesis", "kali", "bruce", "atlas"]:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get(assistant_id, SYSTEM_PROMPTS_BY_AGENT.get("alma"))
+            elif assistant_id in ["roxanne", "chloe", "diana", "electra"]:
+                active_system_prompt = SYSTEM_PROMPTS_BY_AGENT.get(assistant_id, ROXANNE_CPU_SYSTEM_PROMPT)
             else:
-                active_system_prompt = ROXANNE_CPU_SYSTEM_PROMPT
+                active_system_prompt = (
+                    "Eres un asistente virtual profesional y analítico de la suite SIREN AI. "
+                    "Responde con precisión, calidez y enfoque operativo a la consulta del usuario."
+                )
 
             # Preparar mensajes para Ollama (limitar historial a últimos 6 mensajes = 3 turnos para máxima agilidad en CPU)
             recent_history = [h for h in chat_history if "role" in h and "content" in h][-6:]
@@ -1247,16 +2152,21 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             messages.extend(recent_history)
             messages.append({"role": "user", "content": message})
 
+            # Detectar si se pide una tabla o esquema
+            is_table_query = any(w in msg_lower for w in ["tabla", "tablas", "matriz", "matrices", "comparativa", "resumen", "comparar", "cuadro", "cronograma", "esquema"])
+            predict_tokens = 220 if is_table_query else 90
+            ctx_tokens = 1024 if is_table_query else 512
+
             # Inferencia vía Ollama con paralelismo multihilo de CPU
             ollama_payload = {
                 "model": model_name,
                 "messages": messages,
                 "stream": False,
                 "options": {
-                    "num_thread": 10,
-                    "num_ctx": 1024,
-                    "num_predict": 180,
-                    "temperature": 0.7,
+                    "num_thread": 6,
+                    "num_ctx": ctx_tokens,
+                    "num_predict": predict_tokens,
+                    "temperature": 0.6,
                     "top_p": 0.9
                 }
             }
@@ -1267,15 +2177,50 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
                 headers={"Content-Type": "application/json"}
             )
 
+            cancel_event = threading.Event()
+            session_key = assistant_id
+            with ACTIVE_CHAT_LOCK:
+                ACTIVE_CHAT_SESSIONS[session_key] = {
+                    "cancel_event": cancel_event,
+                    "response_obj": None,
+                    "stopped": False,
+                    "time": time.time()
+                }
+
             try:
-                with urllib.request.urlopen(req, timeout=50) as response:
-                    res_json = json.loads(response.read().decode("utf-8"))
-                    reply = res_json.get("message", {}).get("content", "").strip()
-                    if not reply:
-                        reply = generate_contextual_fallback(assistant_id, message)
+                response = urllib.request.urlopen(req, timeout=60)
+                with ACTIVE_CHAT_LOCK:
+                    if session_key in ACTIVE_CHAT_SESSIONS:
+                        ACTIVE_CHAT_SESSIONS[session_key]["response_obj"] = response
+
+                res_json = json.loads(response.read().decode("utf-8"))
+                reply = res_json.get("message", {}).get("content", "").strip()
+                if not reply:
+                    reply = generate_contextual_fallback(assistant_id, message)
             except Exception as e:
+                # Verificar si fue cancelado / pausado explícitamente por el usuario
+                was_stopped = False
+                with ACTIVE_CHAT_LOCK:
+                    sess = ACTIVE_CHAT_SESSIONS.get(session_key)
+                    if sess and (sess.get("stopped") or sess.get("cancel_event", threading.Event()).is_set()):
+                        was_stopped = True
+
+                if was_stopped:
+                    self.send_response(200)
+                    self.send_header("Content-Type", "application/json; charset=utf-8")
+                    self.end_headers()
+                    self.wfile.write(json.dumps({
+                        "reply": "[Respuesta pausada por el usuario]",
+                        "stopped": True,
+                        "assistant": assistant_id
+                    }).encode("utf-8"))
+                    return
+
                 print(f"[Ollama Inference Fallback]: {e}")
                 reply = generate_contextual_fallback(assistant_id, message)
+            finally:
+                with ACTIVE_CHAT_LOCK:
+                    ACTIVE_CHAT_SESSIONS.pop(session_key, None)
 
 
             # Guardar en SQLite (Auditoría general y asistente persistente)
@@ -1308,9 +2253,9 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
             except Exception as dbe:
                 print("[Chat Persist Error]:", dbe)
 
-            # Disparar notificación Web Push en tiempo real para el asistente que respondió
+            # Disparar notificación Web Push en segundo plano (asíncrono y no bloqueante)
             try:
-                push_service.notify_assistant_response(assistant_id, reply)
+                threading.Thread(target=push_service.notify_assistant_response, args=(assistant_id, reply), daemon=True).start()
             except Exception as pe:
                 print("[Push Trigger Warning]:", pe)
 
@@ -1336,8 +2281,8 @@ class VelvetRequestHandler(SimpleHTTPRequestHandler):
 def run_server():
     server_address = ("", PORT)
     httpd = ThreadingHTTPServer(server_address, VelvetRequestHandler)
-    print(f"🚀 SIREN AI Command & Server activo en http://localhost:{PORT}")
-    print(f"📡 API de Chat ROXANNE conectada a Ollama en http://localhost:11434")
+    print(f" SIREN AI Command & Server activo en http://localhost:{PORT}")
+    print(f" API de Chat ROXANNE conectada a Ollama en http://localhost:11434")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:

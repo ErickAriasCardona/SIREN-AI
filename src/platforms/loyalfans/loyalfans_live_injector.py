@@ -1,0 +1,348 @@
+"""
+SIREN AI — Inyector Ultra-Rápido en Vivo para Loyalfans dentro de StreamMonitor.
+Optimizado para ejecución en < 1.5 segundos con selectores directos y paralelismo.
+Inyecta Room Topic y Objetivo 3 Niveles ($11, $22, $33).
+"""
+
+import os
+import json
+import subprocess
+from pathlib import Path
+from typing import Dict, Any, Optional
+
+NODE_PATH = "node"
+
+def get_devtools_active_port() -> Optional[int]:
+    appdata = os.environ.get("APPDATA", "C:/Users/MI PC/AppData/Roaming")
+    port_file = Path(appdata) / "streammonitor" / "DevToolsActivePort"
+    if not port_file.exists():
+        return None
+    try:
+        with open(port_file, "r", encoding="utf-8") as f:
+            lines = f.read().strip().splitlines()
+            if lines and lines[0].strip().isdigit():
+                return int(lines[0].strip())
+    except Exception:
+        pass
+    return None
+
+def inject_strategy_into_loyalfans(topic: str, goal_data: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
+    port = get_devtools_active_port()
+    if not port:
+        return {"success": False, "error": "StreamMonitor no tiene DevToolsActivePort activo."}
+
+    goal = goal_data or {}
+    l1_task = goal.get("level1", {}).get("task") or "truth or dare"
+    l2_task = goal.get("level2", {}).get("task") or "CHALLENGE FOR 1 MINUTE"
+    l3_task = goal.get("level3", {}).get("task") or "all or nothing"
+
+    js_template = """
+const http = require('http');
+const WebSocket = require('ws');
+
+const port = PORT_PLACEHOLDER;
+const targetTopic = TOPIC_PLACEHOLDER;
+const goalL1 = GOAL_L1_PLACEHOLDER;
+const goalL2 = GOAL_L2_PLACEHOLDER;
+const goalL3 = GOAL_L3_PLACEHOLDER;
+
+function getTargets() {
+  return new Promise((resolve, reject) => {
+    http.get('http://127.0.0.1:' + port + '/json', res => {
+      let d = ''; res.on('data', c => d += c);
+      res.on('end', () => { try { resolve(JSON.parse(d)); } catch(e) { reject(e); } });
+    }).on('error', reject);
+  });
+}
+
+async function evalInTarget(ws, expr) {
+  return new Promise(resolve => {
+    const id = Math.floor(Math.random() * 1000000);
+    const handler = (m) => {
+      try {
+        const data = JSON.parse(m.toString());
+        if (data.id === id) {
+          ws.removeListener('message', handler);
+          resolve(data?.result?.result?.value);
+        }
+      } catch(e) {
+        ws.removeListener('message', handler);
+        resolve(null);
+      }
+    };
+    ws.on('message', handler);
+    ws.send(JSON.stringify({
+      id,
+      method: 'Runtime.evaluate',
+      params: { expression: expr, returnByValue: true }
+    }));
+  });
+}
+
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+async function main() {
+  const startTime = Date.now();
+  let targets = await getTargets();
+  let lf = targets.find(t => t.url && t.url.includes('loyalfans.com/broadcast')) || targets.find(t => t.title === 'Broadcast') || targets.find(t => t.url && t.url.includes('loyalfans.com'));
+
+  for (let i = 0; i < 4 && !lf; i++) {
+    await sleep(250);
+    targets = await getTargets();
+    lf = targets.find(t => t.url && t.url.includes('loyalfans.com/broadcast')) || targets.find(t => t.title === 'Broadcast') || targets.find(t => t.url && t.url.includes('loyalfans.com'));
+  }
+
+  if (!lf) {
+    console.log(JSON.stringify({ success: false, error: 'No se encontró la página de Loyalfans en StreamMonitor' }));
+    process.exit(1);
+  }
+
+  const ws = new WebSocket(lf.webSocketDebuggerUrl);
+  await new Promise(r => ws.on('open', r));
+
+  // 1. Limpieza rápida de advertencias de cookies o seguridad si aparecen
+  await evalInTarget(ws, `(() => {
+    const cookieBtn = Array.from(document.querySelectorAll('button')).find(b => (b.innerText || '').includes('ACEPTA TODO'));
+    if (cookieBtn) cookieBtn.click();
+    const secBtn = Array.from(document.querySelectorAll('.mat-mdc-dialog-container button, button')).find(b => (b.innerText || '').includes('NO MOSTRAR DE NUEVO') || (b.innerText || '').trim() === 'CONFIRMAR');
+    if (secBtn && document.querySelector('.mat-mdc-dialog-container')?.innerText.includes('Mantente Seguro')) {
+      secBtn.click();
+    }
+  })()`);
+  await sleep(300);
+
+  // 2. Si no está en /broadcast, navegar directamente
+  const curUrl = await evalInTarget(ws, 'window.location.href');
+  if (!curUrl || !curUrl.includes('/broadcast')) {
+    await evalInTarget(ws, 'window.location.href = "https://www.loyalfans.com/broadcast"');
+    await sleep(1000);
+  }
+
+  // 3. INYECCIÓN DEL TEMA DE SALA (Room Topic)
+  await evalInTarget(ws, `(() => {
+    let inp = document.querySelector('input[placeholder="Tema de chat"]');
+    if (inp) return true;
+    const updBtn = document.querySelector('span.topic-btn, [data-translateevent="updateTopic"]');
+    if (updBtn) { updBtn.click(); return true; }
+    const gear = document.querySelector('i.lf-settings');
+    if (gear) { gear.click(); if (gear.parentElement) gear.parentElement.click(); return true; }
+    return false;
+  })()`);
+
+  // Esperar activamente que aparezca el input del tema (máx 1.2s)
+  for (let i = 0; i < 8; i++) {
+    const hasInp = await evalInTarget(ws, `!!document.querySelector('input[placeholder="Tema de chat"]')`);
+    if (hasInp) break;
+    await sleep(120);
+  }
+
+  // Escribir tema y guardar
+  const topicRes = await evalInTarget(ws, `(() => {
+    const topicInp = document.querySelector('input[placeholder="Tema de chat"]');
+    if (!topicInp) return { updated: false, error: 'Input de tema no encontrado' };
+
+    const setter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    setter.call(topicInp, ${JSON.stringify(targetTopic)});
+    topicInp.dispatchEvent(new Event('input', { bubbles: true }));
+    topicInp.dispatchEvent(new Event('change', { bubbles: true }));
+
+    // Buscar el botón GUARDAR correspondiente a este input
+    let p = topicInp.parentElement;
+    let saveBtn = null;
+    for (let i = 0; i < 5 && p; i++) {
+      saveBtn = Array.from(p.querySelectorAll('button')).find(b => (b.innerText || '').trim() === 'GUARDAR');
+      if (saveBtn) break;
+      p = p.parentElement;
+    }
+    if (!saveBtn) {
+      saveBtn = Array.from(document.querySelectorAll('.mat-mdc-dialog-container button, button')).find(b => (b.innerText || '').trim() === 'GUARDAR');
+    }
+    if (saveBtn) saveBtn.click();
+
+    // Cerrar modal de ajustes tras guardar
+    setTimeout(() => {
+      const closeBtn = document.querySelector('.mat-mdc-dialog-container .lf-close, [mat-dialog-close], .close-button');
+      if (closeBtn) closeBtn.click();
+      const backdrop = document.querySelector('.cdk-overlay-backdrop');
+      if (backdrop) backdrop.click();
+    }, 150);
+
+    return { updated: true, saved: !!saveBtn };
+  })()`);
+
+  // Esperar a que el backdrop anterior se cierre
+  for (let i = 0; i < 8; i++) {
+    const hasBackdrop = await evalInTarget(ws, `!!document.querySelector('.cdk-overlay-backdrop')`);
+    if (!hasBackdrop) break;
+    await sleep(100);
+  }
+
+  // 4. INYECCIÓN DEL OBJETIVO 3 NIVELES ($11, $22, $33)
+  // Verificar si el modal 'Cuenta atrás del objetivo' ya está abierto en pantalla
+  let isModalOpen = await evalInTarget(ws, `(() => {
+    return Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, div, span, mat-dialog-title')).some(el => {
+      const t = (el.innerText || '').toUpperCase();
+      return t.includes('CUENTA ATRÁS DEL OBJETIVO') || (t.includes('CUENTA ATRAS') && t.includes('OBJETIVO'));
+    });
+  })()`);
+
+  if (!isModalOpen) {
+    // Si no está abierto, hacer clic en el botón de objetivos en la barra de transmisión
+    await evalInTarget(ws, `(() => {
+      const editGoalBtn = Array.from(document.querySelectorAll('button, div[role="button"], a, span')).find(b => {
+        const txt = (b.innerText || '').toUpperCase();
+        return txt === 'OBJETIVO' || txt === 'OBJETIVOS' || txt.includes('OBJETIVO') || txt.includes('GOAL') || b.querySelector('i.fa-trophy, [data-icon="trophy"], mat-icon');
+      });
+      if (editGoalBtn) editGoalBtn.click();
+    })()`);
+    await sleep(600);
+  }
+
+  // Esperar activamente que monte el modal de objetivos
+  for (let i = 0; i < 12; i++) {
+    const hasModal = await evalInTarget(ws, `(() => {
+      return Array.from(document.querySelectorAll('h1, h2, h3, h4, h5, div, span, mat-dialog-title')).some(el => {
+        const t = (el.innerText || '').toUpperCase();
+        return t.includes('CUENTA ATRÁS DEL OBJETIVO') || (t.includes('CUENTA ATRAS') && t.includes('OBJETIVO')) || t.includes('NIVEL 1');
+      }) || !!document.querySelector('.mat-mdc-dialog-container, [role="dialog"]');
+    })()`);
+    if (hasModal) break;
+    await sleep(150);
+  }
+
+  const goalRes = await evalInTarget(ws, `(() => {
+    const setInp = (inp, val) => {
+      if (!inp) return;
+      inp.focus();
+      const s = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value')?.set;
+      if (s) s.call(inp, val);
+      else inp.value = val;
+      inp.dispatchEvent(new Event('input', { bubbles: true, composed: true }));
+      inp.dispatchEvent(new Event('change', { bubbles: true, composed: true }));
+      try {
+        inp.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true, data: val }));
+      } catch (_) {}
+      inp.dispatchEvent(new KeyboardEvent('keydown', { bubbles: true, key: 'Enter' }));
+      inp.dispatchEvent(new KeyboardEvent('keyup', { bubbles: true, key: 'Enter' }));
+      inp.blur();
+    };
+
+    // Identificar el diálogo / modal contenedor
+    const dialogs = Array.from(document.querySelectorAll('.mat-mdc-dialog-container, [role="dialog"], .modal, div')).filter(el => {
+      const t = el.innerText || '';
+      return t.includes('Cuenta atrás del objetivo') || (t.includes('Nivel 1') && t.includes('Nivel 2'));
+    });
+    const modalEl = dialogs[dialogs.length - 1] || document.querySelector('.mat-mdc-dialog-container') || document.body;
+
+    // Buscar inputs por cada nivel específico
+    let l1Theme = null, l1Price = null;
+    let l2Theme = null, l2Price = null;
+    let l3Theme = null, l3Price = null;
+
+    for (let i = 1; i <= 3; i++) {
+      const lvlContainers = Array.from(modalEl.querySelectorAll('div, section, li, app-goal-level')).filter(c => {
+        const txt = (c.innerText || '').toUpperCase();
+        return (txt.includes('NIVEL ' + i) || txt.includes('LEVEL ' + i)) && c.querySelector('input');
+      });
+      const cont = lvlContainers.sort((a, b) => a.querySelectorAll('*').length - b.querySelectorAll('*').length)[0];
+      if (cont) {
+        const inps = Array.from(cont.querySelectorAll('input'));
+        const theme = inps.find(inp => inp.type !== 'number' && !inp.placeholder?.includes('$') && !inp.value?.includes('$')) || inps[0];
+        const price = inps.find(inp => inp !== theme) || inps[1];
+        if (i === 1) { l1Theme = theme; l1Price = price; }
+        if (i === 2) { l2Theme = theme; l2Price = price; }
+        if (i === 3) { l3Theme = theme; l3Price = price; }
+      }
+    }
+
+    // Fallback secuencial según la estructura visual de Image 1:
+    // inps[0]=Tema 1, inps[1]=Precio 1, inps[2]=Tema 2, inps[3]=Precio 2, inps[4]=Tema 3, inps[5]=Precio 3
+    const allInps = Array.from(modalEl.querySelectorAll('input')).filter(inp => inp.type !== 'checkbox' && inp.type !== 'radio' && inp.type !== 'hidden');
+    if (!l1Theme && allInps[0]) l1Theme = allInps[0];
+    if (!l1Price && allInps[1]) l1Price = allInps[1];
+    if (!l2Theme && allInps[2]) l2Theme = allInps[2];
+    if (!l2Price && allInps[3]) l2Price = allInps[3];
+    if (!l3Theme && allInps[4]) l3Theme = allInps[4];
+    if (!l3Price && allInps[5]) l3Price = allInps[5];
+
+    // Asignar Temas de los 3 niveles
+    if (l1Theme) setInp(l1Theme, goalL1);
+    if (l2Theme) setInp(l2Theme, goalL2);
+    if (l3Theme) setInp(l3Theme, goalL3);
+
+    // Asignar Precios fijos ($11, $22, $33)
+    if (l1Price) setInp(l1Price, '11');
+    if (l2Price) setInp(l2Price, '22');
+    if (l3Price) setInp(l3Price, '33');
+
+    // Confirmar y guardar haciendo clic en CONFIRMAR (botón verde de Image 1)
+    const confirmBtn = Array.from(modalEl.querySelectorAll('button, div[role="button"]')).find(b => {
+      const txt = (b.innerText || '').trim().toUpperCase();
+      return txt === 'CONFIRMAR' || txt === 'CONFIRM' || txt === 'GUARDAR';
+    }) || Array.from(document.querySelectorAll('.mat-mdc-dialog-container button, button')).find(b => (b.innerText || '').trim().toUpperCase() === 'CONFIRMAR');
+
+    if (confirmBtn) {
+      confirmBtn.click();
+    }
+
+    return {
+      updatedL1: !!l1Theme,
+      updatedL2: !!l2Theme,
+      updatedL3: !!l3Theme,
+      confirmed: !!confirmBtn,
+      l1Val: l1Theme ? l1Theme.value : null,
+      l2Val: l2Theme ? l2Theme.value : null,
+      l3Val: l3Theme ? l3Theme.value : null
+    };
+  })()`);
+
+  // Esperar 500ms para confirmar guardado
+  await sleep(500);
+
+  ws.close();
+  const totalDurationMs = Date.now() - startTime;
+
+  console.log(JSON.stringify({
+    success: true,
+    duration_ms: totalDurationMs,
+    message: 'Estrategia inyectada con éxito en Loyalfans Live (Tema y Objetivo 3 niveles $11/$22/$33)',
+    topic: topicRes,
+    goal: goalRes
+  }));
+  process.exit(0);
+}
+
+main().catch(err => {
+  console.log(JSON.stringify({ success: false, error: err.message }));
+  process.exit(1);
+});
+"""
+
+    js_script = (
+        js_template
+        .replace("PORT_PLACEHOLDER", str(port))
+        .replace("TOPIC_PLACEHOLDER", json.dumps(topic, ensure_ascii=False))
+        .replace("GOAL_L1_PLACEHOLDER", json.dumps(l1_task, ensure_ascii=False))
+        .replace("GOAL_L2_PLACEHOLDER", json.dumps(l2_task, ensure_ascii=False))
+        .replace("GOAL_L3_PLACEHOLDER", json.dumps(l3_task, ensure_ascii=False))
+    )
+
+    temp_script = Path(__file__).resolve().parent.parent.parent.parent / "scratch" / "run_inject_loyalfans.js"
+    temp_script.parent.mkdir(parents=True, exist_ok=True)
+    temp_script.write_text(js_script, encoding="utf-8")
+
+    project_root = Path(__file__).resolve().parent.parent.parent.parent
+    custom_env = dict(os.environ)
+    custom_env["NODE_PATH"] = str(project_root / "node_modules")
+
+    try:
+        r = subprocess.run([NODE_PATH, str(temp_script)], cwd=str(project_root), env=custom_env, capture_output=True, text=True, timeout=12)
+        out = (r.stdout or "").strip()
+        if out:
+            try:
+                return json.loads(out)
+            except Exception:
+                pass
+        return {"success": False, "error": r.stderr or out or "Sin respuesta del inyector de Loyalfans"}
+    except Exception as e:
+        return {"success": False, "error": str(e)}

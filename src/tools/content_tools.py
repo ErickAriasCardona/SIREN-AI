@@ -41,20 +41,20 @@ def generar_estrategia_contenido(
 
     propuestas_titulos = [
         f"Algo secreto que solo tú mereces ver... ({concepto_o_fetiche})",
-        f"¿Puedes soportar verme así de cerca? 💋",
-        f"Tu fantasía favorita hecha realidad hoy 🖤"
+        f"¿Puedes soportar verme así de cerca? ",
+        f"Tu fantasía favorita hecha realidad hoy "
     ]
 
     captions = (
-        f"🔥 **Estrategia de Publicación para {plat.upper()}**\n\n"
-        f"📌 **Formato:** {formato}\n"
-        f"💰 **Precio Sugerido:** {precio_sug}\n"
-        f"🏷️ **Tags recomendados:** {' '.join(tags_populares)}\n\n"
-        f"✨ **Títulos sugeridos:**\n"
+        f" **Estrategia de Publicación para {plat.upper()}**\n\n"
+        f" **Formato:** {formato}\n"
+        f" **Precio Sugerido:** {precio_sug}\n"
+        f" **Tags recomendados:** {' '.join(tags_populares)}\n\n"
+        f" **Títulos sugeridos:**\n"
         + "\n".join([f"- {t}" for t in propuestas_titulos]) + "\n\n"
-        f"📝 **Caption persuasivo (Tono: {tono_modelo}):**\n"
+        f" **Caption persuasivo (Tono: {tono_modelo}):**\n"
         f"\"Sé lo mucho que has estado pensando en mí hoy... No aguanté las ganas y grabé esto para ti. "
-        f"Desbloquéalo y cuéntame en un mensaje al oído qué parte te gustó más... Te estoy esperando 😈\"\n"
+        f"Desbloquéalo y cuéntame en un mensaje al oído qué parte te gustó más... Te estoy esperando \"\n"
     )
 
     return captions
@@ -93,4 +93,4 @@ def guardar_paquete_publicacion(
     with open(file_path, "w", encoding="utf-8") as f:
         json.dump(payload, f, ensure_ascii=False, indent=2)
 
-    return f"✅ Paquete de publicación para {plat.upper()} guardado con éxito en: artifacts/{file_path.name}"
+    return f" Paquete de publicación para {plat.upper()} guardado con éxito en: artifacts/{file_path.name}"

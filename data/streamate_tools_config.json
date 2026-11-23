@@ -1,34 +1,104 @@
 {
   "gold_menu": [
     {
+      "name": "twerk",
+      "gold": 3
+    },
+    {
+      "name": "Rebota el trasero",
+      "gold": 3
+    },
+    {
+      "name": "Sacudir el culo",
+      "gold": 3
+    },
+    {
+      "name": "Muestra el trasero",
+      "gold": 3
+    },
+    {
+      "name": "Ponte aceite en el trasero",
+      "gold": 3
+    },
+    {
       "name": "10x nalgadas",
-      "gold": 15
-    },
-    {
-      "name": "Acercamiento en senos",
-      "gold": 20
-    },
-    {
-      "name": "Baile sensual",
-      "gold": 25
-    },
-    {
-      "name": "Mostrar lencería",
-      "gold": 30
+      "gold": 3
     }
   ],
   "wheel": {
-    "cost": 25,
+    "cost": 5,
     "items": [
-      "10x nalgadas",
-      "ASMR al oído",
-      "Acercamiento en rostro",
-      "Baile",
-      "Di mi nombre",
-      "Gemido",
-      "Quiño pícaro",
-      "Sonrisa y beso"
+      "Agita el trasero",
+      "Aplaude con el culo",
+      "Golpear culo con paleta",
+      "Muéstrame el culo",
+      "Posición de perrito",
+      "5x azotes",
+      "Baile erótico",
+      "Bailar sexy",
+      "Sentadillas",
+      "Agacharse"
     ]
   },
-  "room_topic": "Tomboy gamer vibes & high energy fast PVTs"
+  "room_topic": "🔥 EN VIVO EN STREAMATE 🔥 Menu Gold 3G ⚡ Ruleta Íntima 5G 🖤 Tease Tomboy #Tomboy #Lovense #Gold",
+  "active_orchestrated_shift": {
+    "theme_key": "mahia_live_deduction",
+    "auto_messages": {
+      "room_30s": "Hey! Welcome in. Ukelele, crooked tie and a very close ch today. Gold Menu is 3G, treat yourself ",
+      "send_golds": "Mmm thank you for that gold {fan}! Loving this dynamic tonight ",
+      "private_show": "We are completely alone in private now... Take full control "
+    },
+    "quick_messages": [
+      "First time here? Say hi and I will play something just for you.",
+      "New face, come closer. Ask me anything, I am in the mood to talk.",
+      "You came back. I was hoping you would, I saved you a song.",
+      "Back again? Sit close, tonight I am sweeter than usual.",
+      "My regular, come here. You know how this works, pick the song.",
+      "Look who is back. You get the last word and the closest seat tonight.",
+      "Tap screen or tip 3G to trigger the next action",
+      "Ready for complete control? Take me to private now"
+    ],
+    "topic": "Ukelele, crooked tie and a very close chat. Sweet vibes, dirty mind. Menu 3G, Wheel 5G #ukelele #intimate #sweet #tease #glasses",
+    "gold_menu": [
+      {
+        "name": "twerk",
+        "gold": 3
+      },
+      {
+        "name": "Muéstrame el culo",
+        "gold": 3
+      },
+      {
+        "name": "Acercamiento en rostro",
+        "gold": 3
+      },
+      {
+        "name": "ASMR",
+        "gold": 3
+      },
+      {
+        "name": "Palabras sucias",
+        "gold": 3
+      },
+      {
+        "name": "Di mi nombre",
+        "gold": 3
+      }
+    ],
+    "wheel": {
+      "cost": 5,
+      "items": [
+        "Provocame con todo el cuerpo",
+        "Baile",
+        "Sacudir el culo",
+        "Muestra el trasero",
+        "10x nalgadas",
+        "Posición de perrito",
+        "Ponte aceite en el trasero",
+        "Agita el trasero",
+        "Golpear culo con paleta",
+        "5x azotes"
+      ]
+    }
+  }
 }

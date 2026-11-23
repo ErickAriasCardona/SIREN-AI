@@ -22,11 +22,11 @@ AUTOMATION_RULES = [
         "action": "FOLLOWS",
         "delay": 15,
         "message": (
-            "Hey there! Welcome to my dark neon corner 💀✨.\n\n"
+            "Hey there! Welcome to my dark neon corner .\n\n"
             "Software architect by day, biker & ukulele lover by night. "
             "Glad you made it here.\n\n"
             "Check out my exclusive clips in my store or unlock my timeline to see what I'm working on. "
-            "Tell me, what caught your eye first? 🖤"
+            "Tell me, what caught your eye first? "
         )
     },
     {
@@ -35,9 +35,9 @@ AUTOMATION_RULES = [
         "action": "SUBSCRIBES",
         "delay": 15,
         "message": (
-            "You just joined the inner circle... I like that a lot 🐾.\n\n"
+            "You just joined the inner circle... I like that a lot .\n\n"
             "You now have full VIP access to my daily timeline, discounted DMs, and all my private updates. "
-            "Get comfortable. What made you finally take the leap? The tech brain or the biker attitude? 😈"
+            "Get comfortable. What made you finally take the leap? The tech brain or the biker attitude? "
         )
     },
     {
@@ -46,9 +46,9 @@ AUTOMATION_RULES = [
         "action": "VIDEO_STORE_PURCHASE",
         "delay": 15,
         "message": (
-            "Couldn't resist unlocking that clip, huh? I don't blame you... that one is a personal favorite 🖤.\n\n"
+            "Couldn't resist unlocking that clip, huh? I don't blame you... that one is a personal favorite .\n\n"
             "Hope you enjoyed every second. Did you know you get heavy discounts on all my future videos "
-            "by subscribing to my club? Slide into my DMs if you want something custom 🚗💨"
+            "by subscribing to my club? Slide into my DMs if you want something custom "
         )
     },
     {
@@ -57,9 +57,9 @@ AUTOMATION_RULES = [
         "action": "AUDIO_STORE_PURCHASE",
         "delay": 15,
         "message": (
-            "Loved having my voice whispering right in your ear? 🎧\n\n"
+            "Loved having my voice whispering right in your ear? \n\n"
             "Close your eyes and let my words take you wherever you want to be. "
-            "I post new voice notes and songs regularly. Tell me what fantasy you want next... 😉"
+            "I post new voice notes and songs regularly. Tell me what fantasy you want next... "
         )
     },
     {
@@ -68,8 +68,8 @@ AUTOMATION_RULES = [
         "action": "SUBSCRIBES",
         "delay": 15,
         "message": (
-            "Look at you stepping up from just watching to being part of my crew! 🏍️⚡\n\n"
-            "Welcome to the VIP club. Every subscription gets me closer to my December car goal 🚗. "
+            "Look at you stepping up from just watching to being part of my crew! \n\n"
+            "Welcome to the VIP club. Every subscription gets me closer to my December car goal . "
             "Send me a message whenever you're ready to chat—I always prioritize my subscribers."
         )
     },
@@ -79,9 +79,9 @@ AUTOMATION_RULES = [
         "action": "VIDEO_STORE_PURCHASE",
         "delay": 15,
         "message": (
-            "Thank you for supporting my work and unlocking that video! 🖤\n\n"
+            "Thank you for supporting my work and unlocking that video! \n\n"
             "Did it leave you craving more? If you subscribe, you unlock my full video vault at a discount. "
-            "Tell me your favorite moment from that clip 😏"
+            "Tell me your favorite moment from that clip "
         )
     },
     {
@@ -90,7 +90,7 @@ AUTOMATION_RULES = [
         "action": "AUDIO_STORE_PURCHASE",
         "delay": 15,
         "message": (
-            "My voice in your headphones, my words in your head... 😈\n\n"
+            "My voice in your headphones, my words in your head... \n\n"
             "Hope it hit all the right spots. What kind of audio do you want me to record next? "
             "I'm listening..."
         )
@@ -145,7 +145,7 @@ async def update_all():
                 "message": item["message"],
                 "delay": item["delay"]
             })
-            print(f"     Resultado: HTTP {res.get('status')} - Success: {res.get('success')}")
+            print(f" Resultado: HTTP {res.get('status')} - Success: {res.get('success')}")
             results.append({"name": item["name"], "res": res})
             await asyncio.sleep(0.8)
 
