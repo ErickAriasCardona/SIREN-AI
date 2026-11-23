@@ -13313,6 +13313,73 @@ Cat Lover </div>
     </div>
   </div>
 
+  <!-- MODAL DE SELECCIÓN DE DESTINO DE INYECCIÓN (LOCAL VS REMOTO USB) -->
+  <div id="injectionTargetModal" class="modal-overlay" style="display: none; z-index: 10500;">
+    <div class="modal-card" style="max-width: 480px; width: 92%; padding: 22px;">
+      <div class="modal-header" style="margin-bottom: 12px;">
+        <h3 style="display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--text-main);">
+          <i data-lucide="layers" style="color: var(--primary);"></i>
+          ¿Dónde deseas aplicar la estrategia?
+        </h3>
+        <button class="close-modal" onclick="closeInjectionTargetModal()"></button>
+      </div>
+
+      <p style="font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px;">
+        Selecciona el equipo donde tienes abierta la transmisión y StreamMonitor para aplicar el Tema, Metas de Loyalfans y Menú comercial:
+      </p>
+
+      <div style="display: flex; flex-direction: column; gap: 12px; margin-bottom: 18px;">
+        <!-- OPCION 1: ESTUDIO REMOTO USB -->
+        <label id="target-opt-remote" class="action-btn" style="display: flex; align-items: center; gap: 14px; padding: 14px; text-align: left; cursor: pointer; border: 1.5px solid var(--border-color); background: var(--bg-surface); border-radius: 12px; transition: all 0.2s ease;">
+          <input type="radio" name="injectionTargetChoice" value="satellite" checked style="accent-color: var(--primary); transform: scale(1.2);">
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="usb" style="width: 15px; height: 15px; color: var(--primary);"></i>
+                PC del Estudio (Memoria USB)
+              </span>
+              <span id="remote-satellite-badge" style="font-size: 10px; padding: 2px 8px; border-radius: 10px; background: rgba(0, 168, 143, 0.15); color: var(--primary); font-weight: 700;">
+                Consultando USB...
+              </span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">
+              Aplica los cambios en vivo en el computador donde está conectada la USB con StreamMonitor.
+            </div>
+          </div>
+        </label>
+
+        <!-- OPCION 2: PC LOCAL CENTRAL -->
+        <label id="target-opt-local" class="action-btn" style="display: flex; align-items: center; gap: 14px; padding: 14px; text-align: left; cursor: pointer; border: 1.5px solid var(--border-color); background: var(--bg-surface); border-radius: 12px; transition: all 0.2s ease;">
+          <input type="radio" name="injectionTargetChoice" value="local" style="accent-color: var(--primary); transform: scale(1.2);">
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <span style="font-size: 13px; font-weight: 700; color: var(--text-main); display: flex; align-items: center; gap: 6px;">
+                <i data-lucide="monitor" style="width: 15px; height: 15px; color: var(--secondary);"></i>
+                Este Ordenador (PC Local)
+              </span>
+              <span style="font-size: 10px; padding: 2px 8px; border-radius: 10px; background: rgba(0, 204, 153, 0.15); color: var(--secondary); font-weight: 700;">
+                Servidor Central
+              </span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-dim); margin-top: 4px;">
+              Aplica los cambios en el StreamMonitor que se esté ejecutando en este equipo anfitrión.
+            </div>
+          </div>
+        </label>
+      </div>
+
+      <div style="display: flex; justify-content: flex-end; gap: 10px;">
+        <button class="action-btn" onclick="closeInjectionTargetModal()" style="font-size: 12px; padding: 8px 16px;">
+          Cancelar
+        </button>
+        <button class="action-btn smo-primary-btn" id="confirm-injection-target-btn" onclick="confirmAndExecuteShiftInjection()" style="font-size: 12px; padding: 8px 20px;">
+          <i data-lucide="zap" style="width: 14px; height: 14px;"></i>
+          Confirmar e Inyectar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- MODAL DE CONFIGURACIÓN Y ESTADO DEL TÚNEL SIREN -->
   <div id="serverConfigModal" class="modal-overlay">
     <div class="modal-card" style="max-width: 520px;">
@@ -20158,17 +20225,55 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
     }
 
-    async function applySmoShiftStrategy() {
-      const btn = document.getElementById('smo-apply-btn');
-      const topicInput = document.getElementById('smo-topic-input');
-      const topic = topicInput ? topicInput.value : '';
+    function applySmoShiftStrategy() {
+      // Abre el modal para que el usuario elija si inyecta en el PC Local o en el PC del Estudio (USB)
+      openInjectionTargetModal();
+    }
 
-      const inpL1 = document.getElementById('smo-lf-input-1');
-      const inpL2 = document.getElementById('smo-lf-input-2');
-      const inpL3 = document.getElementById('smo-lf-input-3');
-      const lf1 = inpL1 && inpL1.value.trim() ? inpL1.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level1?.task || 'truth or dare');
-      const lf2 = inpL2 && inpL2.value.trim() ? inpL2.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level2?.task || 'CHALLENGE FOR 1 MINUTE');
-      const lf3 = inpL3 && inpL3.value.trim() ? inpL3.value.trim() : (currentSmoStrategy?.loyalfans_goal?.level3?.task || 'all or nothing');
+    function openInjectionTargetModal() {
+      const modal = document.getElementById('injectionTargetModal');
+      if (modal) {
+        modal.style.display = 'flex';
+        checkSatelliteStatusInModal();
+        if (window.lucide) window.lucide.createIcons();
+      }
+    }
+
+    function closeInjectionTargetModal() {
+      const modal = document.getElementById('injectionTargetModal');
+      if (modal) modal.style.display = 'none';
+    }
+
+    async function checkSatelliteStatusInModal() {
+      const badge = document.getElementById('remote-satellite-badge');
+      if (!badge) return;
+      try {
+        const apiBase = getApiBase();
+        const res = await fetch(`${apiBase}/api/satellite/status`);
+        const data = await res.json();
+        if (data.has_remote_studio) {
+          badge.textContent = 'En Línea (Conectada)';
+          badge.style.background = 'rgba(0, 204, 153, 0.2)';
+          badge.style.color = '#00cc99';
+        } else {
+          badge.textContent = 'USB No detectada';
+          badge.style.background = 'rgba(255, 170, 0, 0.2)';
+          badge.style.color = '#ffaa00';
+        }
+      } catch (e) {
+        badge.textContent = 'Pendiente de inicio';
+      }
+    }
+
+    async function confirmAndExecuteShiftInjection() {
+      closeInjectionTargetModal();
+
+      const targetChoice = document.querySelector('input[name="injectionTargetChoice"]:checked')?.value || 'satellite';
+      const btn = document.getElementById('smo-apply-btn');
+      const topic = document.getElementById('smo-topic-text')?.value?.trim() || '';
+      const lf1 = document.getElementById('smo-lf-goal-1')?.value?.trim() || 'truth or dare';
+      const lf2 = document.getElementById('smo-lf-goal-2')?.value?.trim() || 'CHALLENGE FOR 1 MINUTE';
+      const lf3 = document.getElementById('smo-lf-goal-3')?.value?.trim() || 'all or nothing';
 
       const isSocialEnabled = document.getElementById('smo-post-social-toggle')?.checked !== false;
       const xTitleInp = document.getElementById('smo-x-title');
@@ -20200,13 +20305,14 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
         }
       };
 
+      const targetLabel = targetChoice === 'satellite' ? 'PC del Estudio (USB)' : 'PC Local';
       if (btn) {
         btn.disabled = true;
-        btn.innerHTML = '<i data-lucide="loader" class="spin" style="width:14px; height:14px;"></i> Inyectando a Streamate & Loyalfans...';
+        btn.innerHTML = `<i data-lucide="loader" class="spin" style="width:14px; height:14px;"></i> Inyectando a ${targetLabel}...`;
       }
 
       try {
-        showToast(' Inyectando Topic y Menú a Streamate, y Tema + Objetivo 3 Niveles a Loyalfans...');
+        showToast(`Inyectando estrategia comercial a ${targetLabel}...`);
         const apiBase = getApiBase();
         const res = await fetch(`${apiBase}/api/streammonitor/apply_shift`, {
           method: 'POST',
@@ -20214,18 +20320,20 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
           body: JSON.stringify({
             theme: currentSmoPresetKey,
             custom_text: topic,
-            strategy: currentSmoStrategy
+            strategy: currentSmoStrategy,
+            target: targetChoice,
+            satellite_id: 'studio_usb'
           })
         });
         const data = await res.json();
         if (data.success) {
-          showToast(' ¡Estrategia del turno aplicada con éxito en Streamate y Loyalfans!');
+          showToast(`¡Estrategia aplicada con éxito en ${targetLabel}!`);
           if (isSocialEnabled && lfContent) {
             navigator.clipboard.writeText(lfContent).then(() => {
-              showToast(' ¡Post para LoyalFans Feed copiado al portapapeles con todos los hashtags obligatorios!');
+              showToast('¡Post para LoyalFans Feed copiado al portapapeles con todos los hashtags obligatorios!');
             }).catch(() => {});
           }
-          appendChatMessage('system', ` **[ORQUESTADOR STREAMMONITOR & MAHIA]:** Estrategia de turno iniciada para **${data.theme_applied.toUpperCase()}**.\n- **Topic:** ${data.injected_topic}\n- **Menú Gold:** 3G configurado\n- **Ruleta Íntima:** 5G configurada\n- **LoyalFans Live:** Metas $11, $22, $33 fijadas\n- **Redes Sociales:** Anuncios listos para X y LoyalFans Feed.`);
+          appendChatMessage('system', `**[ORQUESTADOR STREAMMONITOR & MAHIA]:** Estrategia enviada a **${targetLabel.toUpperCase()}** para **${(data.theme_applied || currentSmoPresetKey).toUpperCase()}**.\n- **Topic:** ${data.injected_topic || topic}\n- **Menú Gold:** 3G configurado\n- **Ruleta Íntima:** 5G configurada\n- **LoyalFans Live:** Metas $11, $22, $33 fijadas\n- **Redes Sociales:** Anuncios listos para X y LoyalFans Feed.`);
         } else {
           showToast('Aviso: ' + (data.message || 'Error al aplicar'));
         }
