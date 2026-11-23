@@ -7064,9 +7064,9 @@
   <div id="alma-master-gate-overlay">
     <div class="gate-container">
       <div class="gate-header">
-        <div class="gate-brand-row">
-          <div class="gate-avatar-ring">
-            <img src="artifacts/streamate_audit/sam_barton_avatar.png" alt="SIREN AI" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+        <div class="gate-brand-row" style="display: flex; align-items: center; gap: 16px;">
+          <div class="gate-avatar-ring" style="width: 68px; height: 68px; border-radius: 18px; padding: 2.5px; background: linear-gradient(135deg, #00E5BF 0%, #00A88F 100%); box-shadow: 0 0 24px rgba(0, 229, 191, 0.45); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+            <img src="assets/siren_logo.png" alt="SIREN AI" style="width:100%; height:100%; object-fit:contain; border-radius:15px; background: #ffffff; padding: 2px; display:block;">
           </div>
           <div>
             <div class="gate-title">SIREN AI</div>
@@ -7164,7 +7164,7 @@
       <div class="sidebar-logo-bar">
         <div class="alma-brand-container" id="sidebar-brand-container" onclick="handleBrandClick(event)" title="SIREN AI Suite — Clic para alternar proyecto">
           <div class="alma-avatar-glow-ring" id="sidebar-brand-avatar-ring">
-            <img src="artifacts/streamate_audit/sam_barton_avatar.png" alt="Sam Barton" class="alma-logo-avatar-img" id="sidebar-brand-avatar-img" style="object-fit:cover; border-radius:50%;">
+            <img src="assets/siren_logo.png" alt="SIREN AI" class="alma-logo-avatar-img" id="sidebar-brand-avatar-img" style="object-fit:contain; background:#ffffff; padding:1.5px; border-radius:50%;">
           </div>
           <div class="alma-brand-text-col">
             <div class="alma-brand-title" id="sidebar-brand-title">SIREN</div>
@@ -7358,8 +7358,8 @@
         <div class="siren-home-hero">
           <div class="siren-hero-glass-card">
             <div class="siren-hero-top-badges">
-              <span class="siren-chip emerald-pulse">
-                <i data-lucide="sparkles"></i> SIREN Ecosistema v2.33
+              <span class="siren-chip emerald-pulse" style="display: inline-flex; align-items: center; gap: 6px;">
+                <img src="assets/siren_logo.png" alt="SIREN AI" style="width: 17px; height: 17px; border-radius: 50%; object-fit: contain; background: #ffffff; padding: 1px;"> SIREN Ecosistema v2.44
               </span>
               <span class="siren-chip">
                 <i data-lucide="shield-check"></i> Compliance 2257 Verificado
@@ -13569,12 +13569,12 @@ Cat Lover </div>
         }
         if (desc) desc.textContent = 'Logotipo personalizado cargado por ti. Activo en la barra lateral, favicons y PWA.';
       } else if (display) {
-        display.innerHTML = SIREN_OFFICIAL_LOGO_SVG;
+        display.innerHTML = `<img src="assets/siren_logo.png" alt="SIREN AI" style="max-height: 60px; max-width: 180px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,0.06); padding: 4px;">`;
         if (badge) {
           badge.className = 'table-badge badge-success';
-          badge.textContent = ' Opción 2 Oficial';
+          badge.textContent = ' Logotipo Oficial SIREN AI';
         }
-        if (desc) desc.textContent = 'Blasón hexagonal biselado con resonador sónico de triple frecuencia (Cyber Pulse Aegis). Estética Tomboy Tech de Sam Barton.';
+        if (desc) desc.textContent = 'Logotipo oficial de SIREN AI: Ilustración emblemática con ondas marinas, estrella guía y tipografía oficial.';
       }
 
       if (modal) modal.classList.add('open');
@@ -13650,7 +13650,15 @@ Cat Lover </div>
 
       localStorage.removeItem('siren_custom_logo');
       const wrap = document.getElementById('siren-header-logo-wrap');
-      if (wrap) wrap.innerHTML = SIREN_OFFICIAL_LOGO_SVG;
+      if (wrap) wrap.innerHTML = `<img src="assets/siren_logo.png" alt="SIREN AI" style="max-height: 34px; max-width: 145px; object-fit: contain;">`;
+
+      const avatarImg = document.getElementById('sidebar-brand-avatar-img') || document.querySelector('.alma-logo-avatar-img');
+      if (avatarImg) {
+        avatarImg.src = 'assets/siren_logo.png';
+        avatarImg.style.objectFit = 'contain';
+        avatarImg.style.background = '#ffffff';
+        avatarImg.style.padding = '1.5px';
+      }
 
       // Refrescar favicons
       const favicons = document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]');
@@ -13659,7 +13667,7 @@ Cat Lover </div>
         el.href = `${base}?v=${Date.now()}`;
       });
 
-      showToast(' Logotipo restablecido a la Opción 2 Oficial (Cyber Pulse Aegis)');
+      showToast(' Logotipo restablecido al Oficial de SIREN AI');
       closeLogoSelectorModal();
     }
 
@@ -21047,6 +21055,11 @@ My toys are active and connect directly to every tip! Send tokens to make me buz
       }
       if (avatarImg && data.logoImg) {
         avatarImg.src = data.logoImg;
+        if (data.id === 'siren') {
+          avatarImg.style.objectFit = 'contain';
+          avatarImg.style.background = '#ffffff';
+          avatarImg.style.padding = '1.5px';
+        }
       }
 
       // 3. Renderizar items del Sidebar
